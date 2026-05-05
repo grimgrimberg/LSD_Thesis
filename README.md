@@ -447,3 +447,23 @@ Look first at:
 ## One-Line Summary
 
 This repo is a transparent whole-brain surrogate sandbox: it downloads actual ds003059 resting-state data, extracts coarse macro-module targets, fits a simple 8-module dynamical model, ranks perturbation mechanisms, and exports a training-ready dataset for later cloud experiments.
+
+## Audit Upgrade Entry Points
+
+For the current thesis/research-prototype audit, read these root documents first:
+
+1. `EXECUTIVE_SUMMARY.md`
+2. `THESIS_CONCEPT_AUDIT.md`
+3. `AUDIT.md`
+4. `ARCHITECTURE.md`
+5. `COMMANDS.md`
+6. `METRICS.md`
+7. `NEXT_STEPS.md`
+
+## Research Honesty Statement
+
+This repository supports macro-scale surrogate experiments and mismatch analysis. It does not support claims about receptor-level mechanisms, subjective psychedelic experience, clinical interpretation, or diagnostic use. Metrics such as entropy/diversity, metastability, switching, and effective barrier are proxies unless separately validated.
+
+## Expected Outputs
+
+After a full local run, expect stage summaries under `results/stage_*/`, generated figures under `results/stage_*/figures/`, empirical target YAML files under `results/stage_2/`, dashboard payloads under `results/stage_2/empirical_viewer/`, training summaries under `results/training/`, and publication outputs under `output/doc/`. Raw data and generated binary artifacts are intentionally not part of the lean Git baseline.

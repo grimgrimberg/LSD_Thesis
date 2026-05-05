@@ -63,3 +63,43 @@ Use the BRATING loop on empirical work:
 - Run all stages: `uv run python scripts/run_pipeline.py run-all`
 - Launch dashboard: `uv run python scripts/run_dashboard.py`
 - Export training windows: `uv run python scripts/export_training_dataset.py`
+
+## Docs To Read First
+
+1. `EXECUTIVE_SUMMARY.md`
+2. `GOAL.md`
+3. `THESIS_CONCEPT_AUDIT.md`
+4. `AUDIT.md`
+5. `ARCHITECTURE.md`
+6. `COMMANDS.md`
+7. `METRICS.md`
+8. `NEXT_STEPS.md`
+
+## Safe Editing Rules
+
+- Work only inside this repository unless explicitly approved.
+- Create or confirm a Git checkpoint before meaningful edits.
+- Do not rewrite Git history.
+- Do not delete raw data, generated outputs, notebooks, or large artifacts without confirmation.
+- Do not commit `/data/`, `/output/`, `.venv/`, `tmp/`, `.codex/`, `.superpowers/`, `node_modules/`, NPY/NPZ caches, generated figures, or credential-like files.
+- Keep `src/lsd_thesis/data/` tracked; it is source code, not raw data.
+
+## No-Secret Policy
+
+- Do not expose, print, edit, move, delete, or commit `.env` files, API keys, private tokens, SSH keys, cloud credentials, or machine-local secrets.
+- If a task needs authentication, stop and ask.
+
+## Research Honesty Policy
+
+- Separate implemented facts, hypotheses, analogies, assumptions, and speculation.
+- Use "proxy" for entropy-like, metastability, switching-barrier, and integration metrics unless empirical validation is shown.
+- Report sign conflicts and model failures directly.
+- Do not strengthen thesis claims without explicit user confirmation.
+
+## Preferred Coding Style
+
+- Keep Python typed where practical.
+- Prefer small, explicit functions and config-driven experiments.
+- Add tests before production behavior changes.
+- Keep generated outputs organized under `results/` or `output/`.
+- Avoid magical constants; document research constants in configs or metric docs.

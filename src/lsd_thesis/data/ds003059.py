@@ -1,18 +1,20 @@
 from __future__ import annotations
 
-from collections import defaultdict
 import json
+import math
 import os
+import urllib.request
+from collections import defaultdict
 from pathlib import Path
 from typing import Any, cast
-import urllib.request
 
 import nibabel as nib
 import numpy as np
-from pydantic import BaseModel, ConfigDict
 import yaml
 from nilearn import datasets
 from nilearn.maskers import NiftiLabelsMasker
+from pydantic import BaseModel, ConfigDict
+from scipy.stats import ttest_rel
 
 from lsd_thesis.core import MODULE_NAMES
 from lsd_thesis.metrics import compute_observable_summary
@@ -177,13 +179,10 @@ def _mean_metric_dict(metric_dicts: list[dict[str, float]]) -> dict[str, float]:
 
 
 def _confidence_from_pvalue(placebo_vals: list[float], lsd_vals: list[float]) -> str:
-    from scipy.stats import ttest_rel
-    import math
-    
     if len(placebo_vals) < 2:
         return "weak"
     result = ttest_rel(placebo_vals, lsd_vals)
-    
+
     if result.pvalue is None or math.isnan(result.pvalue):
         return "weak"
     if result.pvalue < 0.01:
@@ -230,10 +229,6 @@ def build_empirical_target_payloads(
         delta_rows.append({name: lsd[name] - placebo[name] for name in placebo})
 
     delta_means = _mean_metric_dict(delta_rows)
-    delta_stds = {
-        name: float(np.std([row[name] for row in delta_rows], ddof=0))
-        for name in delta_rows[0]
-    }
     confidence = {}
     for name in delta_means:
         p_vals = [session_metrics[(sub, "ses-PLCB")][name] for sub in paired_subjects]
