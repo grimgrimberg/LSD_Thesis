@@ -1,0 +1,23 @@
+name: sober_baseline
+simulation:
+  dt: 0.05
+  steps: 1200
+  burn_in: 200
+  seed: 17
+global_parameters:
+  within_group_scale: 1.00
+  cross_group_scale: 0.72
+  constraint_scale: 0.62
+module_defaults:
+  barrier: 1.20
+  rigidity: 0.55
+  adaptation_gain: 0.28
+  adaptation_tau: 3.50
+  tau: 1.00
+  temperature: 0.10
+  baseline_state: 0.0
+module_overrides:
+  salience: {tau: 0.90, rigidity: 0.62}
+  default_mode: {tau: 1.10, barrier: 1.25}
+  executive_frontoparietal: {tau: 1.00, rigidity: 0.60}
+  thalamic_gateway: {tau: 0.85, barrier: 1.30}

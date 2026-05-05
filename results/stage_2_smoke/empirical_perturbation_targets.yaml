@@ -1,0 +1,24 @@
+metadata:
+  source_strategy: actual_ds003059
+  paired_subject_count: 1
+  notes:
+  - Delta targets are paired LSD minus placebo subject averages from ds003059.
+  - Confidence labels are heuristic effect-size buckets, not formal inferential statistics.
+target_deltas:
+  within_network_stability: -0.00013340254325111545
+  cross_network_communication: 0.17502889970701352
+  thalamic_coupling: 0.31104952669814323
+  hierarchical_compression: 0.16732516821356141
+  entropy_diversity: 0.0038138130735501097
+  switching_rate: 0.053240740740740755
+  metastability_proxy: -0.026118063872358155
+  effective_barrier_proxy: -0.656375556916148
+confidence:
+  within_network_stability: strong
+  cross_network_communication: strong
+  thalamic_coupling: strong
+  hierarchical_compression: strong
+  entropy_diversity: strong
+  switching_rate: strong
+  metastability_proxy: strong
+  effective_barrier_proxy: strong

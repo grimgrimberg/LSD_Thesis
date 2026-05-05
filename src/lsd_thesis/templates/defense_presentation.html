@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{ title }}</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f1ece2;
+      --panel: rgba(255, 253, 249, 0.94);
+      --line: rgba(25, 47, 69, 0.14);
+      --text: #152331;
+      --muted: #617180;
+      --accent: #173857;
+      --accent-soft: #c59f5a;
+      --shadow: 0 24px 60px rgba(21, 35, 49, 0.09);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at top, rgba(197, 159, 90, 0.18), transparent 28%),
+        linear-gradient(180deg, #faf6ee 0%, #eee5d8 100%);
+      color: var(--text);
+      font-family: "Aptos", "Helvetica Neue", Arial, sans-serif;
+    }
+    .deck {
+      max-width: 1480px;
+      margin: 0 auto;
+      padding: 28px 24px 52px;
+    }
+    .deck-header {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+    .hero,
+    .nav-card,
+    .slide {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 26px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+    }
+    .hero,
+    .nav-card { padding: 28px; }
+    .eyebrow {
+      margin: 0 0 14px;
+      font-size: 0.82rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    h1 { margin: 0; font-size: clamp(2.2rem, 4vw, 4rem); line-height: 1.05; letter-spacing: -0.04em; color: var(--accent); max-width: 12ch; }
+    .hero p { margin: 18px 0 0; max-width: 72ch; color: var(--muted); line-height: 1.7; }
+    .nav-card ol { margin: 0; padding-left: 20px; display: grid; gap: 9px; }
+    .nav-card a { color: var(--accent); text-decoration: none; }
+    .nav-card a:hover { text-decoration: underline; }
+    .slides { display: grid; gap: 20px; }
+    .slide {
+      padding: 28px;
+      min-height: 78vh;
+      display: grid;
+      grid-template-columns: minmax(0, 0.2fr) minmax(0, 1fr);
+      gap: 22px;
+      align-items: start;
+      scroll-margin-top: 18px;
+    }
+    .slide-index {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 62px;
+      height: 62px;
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      color: var(--accent);
+      font-size: 1.2rem;
+      font-weight: 700;
+      background: rgba(23, 56, 87, 0.04);
+      position: sticky;
+      top: 18px;
+    }
+    .slide-title { margin: 0; font-size: clamp(1.8rem, 2.6vw, 2.7rem); line-height: 1.08; color: var(--accent); letter-spacing: -0.03em; }
+    .takeaway {
+      margin: 16px 0 20px;
+      padding: 16px 18px;
+      border-left: 4px solid var(--accent-soft);
+      background: rgba(197, 159, 90, 0.08);
+      border-radius: 0 18px 18px 0;
+      line-height: 1.7;
+    }
+    .slide h3 { margin: 24px 0 10px; font-size: 1.12rem; color: #2b506f; }
+    .slide p, .slide li { margin: 0 0 14px; line-height: 1.7; max-width: 74ch; }
+    .slide ul { margin: 0 0 10px; padding-left: 22px; }
+    .slide code { padding: 0.12rem 0.38rem; border-radius: 999px; background: rgba(23, 56, 87, 0.08); font-size: 0.94em; }
+    figure { margin: 24px 0; padding: 18px; border-radius: 20px; border: 1px solid var(--line); background: #fff; }
+    figure img { display: block; width: 100%; height: auto; border-radius: 14px; border: 1px solid var(--line); }
+    figcaption { margin-top: 12px; font-size: 0.97rem; }
+    .figure-limitation { margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.93rem; }
+    @media (max-width: 980px) {
+      .deck-header, .slide { grid-template-columns: 1fr; }
+      .slide { min-height: auto; }
+      .slide-index { position: static; }
+    }
+  </style>
+</head>
+<body>
+  <div class="deck">
+    <header class="deck-header">
+      <section class="hero">
+        <p class="eyebrow">{{ title }}</p>
+        <h1>{{ title }}</h1>
+        <p>This slide-style HTML deck is generated from the same long-form thesis markdown as the report, so the defense narrative inherits the full evidence structure instead of a separate short summary.</p>
+      </section>
+      <aside class="nav-card">
+        <p class="eyebrow">Slide Map</p>
+        <ol>
+          {% for slide in slides %}
+          <li><a href="#{{ slide.anchor }}">{{ slide.title }}</a></li>
+          {% endfor %}
+        </ol>
+      </aside>
+    </header>
+
+    <div class="slides">
+      {% for slide in slides %}
+      <section class="slide" id="{{ slide.anchor }}">
+        <div class="slide-index">{{ "%02d"|format(slide.position) }}</div>
+        <div>
+          <h2 class="slide-title">{{ slide.title }}</h2>
+          {% if slide.takeaway %}
+          <div class="takeaway">{{ slide.takeaway }}</div>
+          {% endif %}
+          {% if slide.body_html %}
+          <div class="slide-body">{{ slide.body_html | safe }}</div>
+          {% elif slide.body %}
+          <p>{{ slide.body }}</p>
+          {% endif %}
+          {% if slide.bullets %}
+          <ul>
+            {% for bullet in slide.bullets %}
+            <li>{{ bullet }}</li>
+            {% endfor %}
+          </ul>
+          {% endif %}
+        </div>
+        {% if slide.image_path or slide.citation or slide.note %}
+        <aside>
+          {% if slide.image_path %}
+          <figure>
+            <img src="{{ slide.image_path }}" alt="{{ slide.image_alt | default(slide.title, true) }}" />
+          </figure>
+          {% endif %}
+          {% if slide.image_caption %}
+          <figcaption>{{ slide.image_caption }}</figcaption>
+          {% endif %}
+          {% if slide.note %}
+          <p>{{ slide.note }}</p>
+          {% endif %}
+          {% if slide.citation %}
+          <p class="figure-limitation">{{ slide.citation }}</p>
+          {% endif %}
+        </aside>
+        {% endif %}
+      </section>
+      {% endfor %}
+    </div>
+  </div>
+</body>
+</html>

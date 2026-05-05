@@ -1,0 +1,47 @@
+{
+  "subjects": [
+    "sub-001"
+  ],
+  "runs": [
+    {
+      "subject": "sub-001",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "filename": "sub-001_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "relative_path": "sub-001/ses-LSD/func/sub-001_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "url": "https://s3.amazonaws.com/openneuro.org/ds003059/sub-001/ses-LSD/func/sub-001_ses-LSD_task-rest_run-01_bold.nii.gz?versionId=SG18Elm4VqyRNQeytMpwWJygki4Zjr00&AWSAccessKeyId=AKIARTA7OOV5WQ3DGSOB&Signature=GRdsCjrwSOYVKKo%2FHOfVVhi2l7s%3D&Expires=1776270540",
+      "size": 174211515
+    },
+    {
+      "subject": "sub-001",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "filename": "sub-001_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "relative_path": "sub-001/ses-LSD/func/sub-001_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "url": "https://s3.amazonaws.com/openneuro.org/ds003059/sub-001/ses-LSD/func/sub-001_ses-LSD_task-rest_run-03_bold.nii.gz?versionId=aZF5ZIixDVxqG_YfrfNXVE8TPIYmktSg&AWSAccessKeyId=AKIARTA7OOV5WQ3DGSOB&Signature=AwxYgLVfHRPzH5Ypsx2dEhrX%2F9c%3D&Expires=1776270540",
+      "size": 174446121
+    },
+    {
+      "subject": "sub-001",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "filename": "sub-001_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "relative_path": "sub-001/ses-PLCB/func/sub-001_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "url": "https://s3.amazonaws.com/openneuro.org/ds003059/sub-001/ses-PLCB/func/sub-001_ses-PLCB_task-rest_run-01_bold.nii.gz?versionId=dMNg5yr3jTgiyGi7ZccyeY1Bh5.oYe9g&AWSAccessKeyId=AKIARTA7OOV5WQ3DGSOB&Signature=u6uSeDtH2neXC4ZQV3fpKdgOkWk%3D&Expires=1776270541",
+      "size": 170593706
+    },
+    {
+      "subject": "sub-001",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "filename": "sub-001_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "relative_path": "sub-001/ses-PLCB/func/sub-001_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "url": "https://s3.amazonaws.com/openneuro.org/ds003059/sub-001/ses-PLCB/func/sub-001_ses-PLCB_task-rest_run-03_bold.nii.gz?versionId=P3l7AKQy4um51pq5rNbU2xP3iiOUp2qm&AWSAccessKeyId=AKIARTA7OOV5WQ3DGSOB&Signature=JodpmkOOut%2FkzMg2%2BfSMgiMlTTs%3D&Expires=1776270541",
+      "size": 170516481
+    }
+  ],
+  "sidecars": [
+    "sub-001/ses-LSD/func/sub-001_ses-LSD_task-rest_bold.json",
+    "sub-001/ses-PLCB/func/sub-001_ses-PLCB_task-rest_bold.json"
+  ]
+}

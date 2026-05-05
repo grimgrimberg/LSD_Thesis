@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Whole-Brain Surrogate Dashboard</title>
+  <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; background: #0f172a; color: #e2e8f0; }
+    .layout { display: grid; grid-template-columns: 340px 1fr; min-height: 100vh; }
+    .controls { padding: 20px; background: #111827; border-right: 1px solid #334155; overflow-y: auto; }
+    .controls h1 { font-size: 20px; margin-top: 0; }
+    .controls h2 { font-size: 15px; margin: 18px 0 8px; }
+    .controls label { display: block; margin-top: 12px; font-size: 13px; }
+    .controls input, .controls select, .controls button { width: 100%; margin-top: 6px; padding: 8px; }
+    .controls button { background: #2563eb; color: white; border: none; cursor: pointer; }
+    .controls p { font-size: 13px; line-height: 1.5; color: #cbd5e1; }
+    .control-section { border-top: 1px solid #334155; padding-top: 14px; margin-top: 16px; }
+    .artifact-links { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
+    .artifact-links a { color: #93c5fd; text-decoration: none; font-size: 13px; }
+    .artifact-links a:hover { text-decoration: underline; }
+    .plots { padding: 16px; display: grid; grid-template-columns: repeat(2, minmax(320px, 1fr)); gap: 16px; align-content: start; }
+    .card { background: #111827; border: 1px solid #334155; border-radius: 10px; padding: 10px; min-height: 280px; }
+    .card h2 { font-size: 16px; margin: 6px 0 10px; }
+    .card--span-2 { grid-column: 1 / -1; }
+    #metrics, #audit_status, #provenance_status, #stage_status, #empirical_summary { font-size: 13px; line-height: 1.5; white-space: pre-wrap; }
+    .audit-grid { display: grid; grid-template-columns: repeat(4, minmax(160px, 1fr)); gap: 10px; }
+    .audit-tile { border: 1px solid #334155; border-radius: 8px; padding: 10px; background: #0f172a; min-height: 104px; }
+    .audit-tile h3 { font-size: 12px; margin: 0 0 8px; color: #94a3b8; text-transform: uppercase; letter-spacing: 0; }
+    .audit-tile strong { display: block; font-size: 20px; margin-bottom: 6px; color: #f8fafc; }
+    .audit-tile p { margin: 0; font-size: 13px; line-height: 1.45; color: #cbd5e1; }
+    .audit-warn { border-color: #f59e0b; }
+    .audit-ok { border-color: #22c55e; }
+    .audit-list { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 8px; }
+    .audit-badge { border: 1px solid #475569; border-radius: 999px; padding: 5px 8px; font-size: 12px; color: #cbd5e1; background: #111827; }
+    .plane-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .plane-grid > div { min-height: 180px; }
+    .inline-controls { display: grid; grid-template-columns: 1fr 120px; gap: 8px; align-items: end; }
+    .empty { color: #94a3b8; font-size: 13px; padding: 16px 0; }
+    @media (max-width: 1100px) {
+      .layout { grid-template-columns: 1fr; }
+      .controls { border-right: none; border-bottom: 1px solid #334155; }
+      .plots { grid-template-columns: 1fr; }
+      .audit-grid { grid-template-columns: repeat(2, minmax(160px, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      .audit-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <aside class="controls">
+      <h1>Surrogate Dashboard</h1>
+      <p>Model explorer plus empirical ds003059 viewer. The empirical panels show how downsampled mean-image previews and windowed raw-preview slices feed the module summaries and condition comparisons.</p>
+
+      <section class="control-section">
+        <h2>Audit Status</h2>
+        <div id="audit_status"></div>
+      </section>
+
+      <section class="control-section">
+        <h2>Model Explorer</h2>
+        <label>Regime
+          <select id="regime">
+            <option value="baseline">baseline</option>
+            <option value="perturbed">perturbed</option>
+          </select>
+        </label>
+        <label>Within-group scale <input id="within_group_scale" type="range" min="0.5" max="1.5" step="0.01" /></label>
+        <label>Cross-group scale <input id="cross_group_scale" type="range" min="0.3" max="2.0" step="0.01" /></label>
+        <label>Constraint scale <input id="constraint_scale" type="range" min="0.0" max="1.0" step="0.01" /></label>
+        <label>Rigidity <input id="rigidity" type="range" min="0.1" max="1.0" step="0.01" /></label>
+        <label>Barrier <input id="barrier" type="range" min="0.4" max="1.6" step="0.01" /></label>
+        <label>Temperature <input id="temperature" type="range" min="0.01" max="0.4" step="0.01" /></label>
+        <label>Tau <input id="tau" type="range" min="0.5" max="1.5" step="0.01" /></label>
+        <button id="simulate">Run simulation</button>
+        <div id="metrics"></div>
+      </section>
+
+      <section class="control-section">
+        <h2>Empirical Explorer</h2>
+        <label>Subject
+          <select id="empirical_subject"></select>
+        </label>
+        <label>Run
+          <select id="empirical_run"></select>
+        </label>
+        <label>Focus module
+          <select id="empirical_module_focus"></select>
+        </label>
+        <label>Window
+          <input id="empirical_window_index" type="range" min="0" max="0" step="1" value="0" />
+        </label>
+        <div class="inline-controls">
+          <button id="empirical_playback_toggle" type="button">Play windows</button>
+          <select id="empirical_playback_speed">
+            <option value="1400">Slow</option>
+            <option value="900" selected>Normal</option>
+            <option value="500">Fast</option>
+          </select>
+        </div>
+        <div id="empirical_window_label"></div>
+        <div id="empirical_summary"></div>
+      </section>
+
+      <section class="control-section">
+        <h2>Reports And Galleries</h2>
+        <div id="artifact_links" class="artifact-links"></div>
+      </section>
+
+      <section class="control-section">
+        <h2>Provenance</h2>
+        <div id="provenance_status"></div>
+      </section>
+
+      <section class="control-section">
+        <h2>Status</h2>
+        <div id="stage_status"></div>
+      </section>
+    </aside>
+
+    <main class="plots">
+      <div class="card card--span-2"><h2>Thesis Defense Snapshot</h2><div id="audit_snapshot"></div></div>
+      <div class="card"><h2>Module Graph</h2><div id="graph_plot"></div></div>
+      <div class="card"><h2>Module Activity</h2><div id="time_plot"></div></div>
+      <div class="card"><h2>Live FC Matrix</h2><div id="fc_plot"></div></div>
+      <div class="card"><h2>Reference Altered FC</h2><div id="perturbed_fc_plot"></div></div>
+      <div class="card card--span-2"><h2>Empirical vs Literature vs Model Delta (Sign-Reversal Check)</h2><div id="delta_plot"></div></div>
+      <div class="card card--span-2"><h2>Ablation Summary</h2><div id="ablation_plot"></div></div>
+
+      <div class="card card--span-2"><h2>Empirical Group Module Trace And Uncertainty</h2><div id="empirical_group_traces"></div></div>
+      <div class="card"><h2>Empirical Group Metric Deltas</h2><div id="empirical_group_metric_delta"></div></div>
+      <div class="card"><h2>Empirical Group FC Delta</h2><div id="empirical_group_fc_delta"></div></div>
+      <div class="card"><h2>Empirical Placebo FC</h2><div id="empirical_group_fc_plcb"></div></div>
+      <div class="card"><h2>Empirical LSD FC</h2><div id="empirical_group_fc_lsd"></div></div>
+
+      <div class="card"><h2>Selected Window Raw Preview: Placebo</h2><div id="empirical_raw_plcb"></div></div>
+      <div class="card"><h2>Selected Window Raw Preview: LSD</h2><div id="empirical_raw_lsd"></div></div>
+      <div class="card card--span-2"><h2>Subject Global Signal</h2><div id="empirical_global_signal"></div></div>
+      <div class="card card--span-2"><h2>Subject Module Traces</h2><div id="empirical_subject_traces"></div></div>
+      <div class="card"><h2>Selected Window FC: Placebo</h2><div id="empirical_window_fc_plcb"></div></div>
+      <div class="card"><h2>Selected Window FC: LSD</h2><div id="empirical_window_fc_lsd"></div></div>
+      <div class="card card--span-2"><h2>Selected Window FC Delta</h2><div id="empirical_window_fc_delta"></div></div>
+      <div class="card card--span-2"><h2>Empirical Interpretation</h2><div id="empirical_interpretation"></div></div>
+    </main>
+  </div>
+
+  <script>
+    let dashboardState = null;
+    let subjectDetail = null;
+    let playbackTimer = null;
+
+    async function fetchJson(url, options = {}) {
+      const response = await fetch(url, options);
+      return await response.json();
+    }
+
+    function baseLayout(title = '', extra = {}) {
+      return Object.assign({
+        title,
+        paper_bgcolor: '#111827',
+        plot_bgcolor: '#111827',
+        font: { color: '#e2e8f0' },
+        margin: { l: 40, r: 20, t: 40, b: 40 }
+      }, extra);
+    }
+
+    function heatmapLayout(title = '') {
+      return baseLayout(title, { margin: { l: 70, r: 20, t: 40, b: 70 } });
+    }
+
+    function renderGraph(graph) {
+      const edgeX = [];
+      const edgeY = [];
+      for (const edge of graph.edges) {
+        const source = graph.nodes.find(node => node.name === edge.source);
+        const target = graph.nodes.find(node => node.name === edge.target);
+        edgeX.push(source.x, target.x, null);
+        edgeY.push(source.y, target.y, null);
+      }
+      const edgeTrace = {
+        x: edgeX, y: edgeY, mode: 'lines', type: 'scatter',
+        line: { color: '#94a3b8', width: 1 }, hoverinfo: 'none'
+      };
+      const nodeTrace = {
+        x: graph.nodes.map(node => node.x),
+        y: graph.nodes.map(node => node.y),
+        text: graph.nodes.map(node => node.name),
+        mode: 'markers+text',
+        textposition: 'top center',
+        type: 'scatter',
+        marker: { size: 16, color: '#60a5fa' }
+      };
+      Plotly.newPlot('graph_plot', [edgeTrace, nodeTrace], baseLayout(''));
+    }
+
+    function renderSimulation(payload) {
+      const traces = payload.modules.map((module, index) => ({
+        x: payload.time,
+        y: payload.time_series.map(row => row[index]),
+        mode: 'lines',
+        type: 'scatter',
+        name: module
+      }));
+      Plotly.newPlot('time_plot', traces, baseLayout(''));
+      Plotly.newPlot('fc_plot', [{
+        z: payload.fc_matrix,
+        x: payload.modules,
+        y: payload.modules,
+        type: 'heatmap',
+        zmin: -1,
+        zmax: 1,
+        colorscale: 'RdBu'
+      }], heatmapLayout(''));
+
+      document.getElementById('metrics').textContent =
+        `Within-network stability: ${payload.metrics.within_network_stability.toFixed(3)}\n` +
+        `Cross-network communication: ${payload.metrics.cross_network_communication.toFixed(3)}\n` +
+        `Thalamic coupling: ${payload.metrics.thalamic_coupling.toFixed(3)}\n` +
+        `Entropy / diversity: ${payload.metrics.entropy_diversity.toFixed(3)}\n` +
+        `Switching rate: ${payload.metrics.switching_rate.toFixed(3)}\n` +
+        `Metastability proxy: ${payload.metrics.metastability_proxy.toFixed(3)}\n` +
+        `Barrier proxy: ${payload.metrics.effective_barrier_proxy.toFixed(3)}`;
+    }
+
+    function renderAblation(stageSummaries) {
+      const stage4 = stageSummaries.stage_4;
+      if (!stage4) {
+        document.getElementById('ablation_plot').innerHTML = '<p class="empty">Run Stage 4 to populate ablation results.</p>';
+        return;
+      }
+      Plotly.newPlot('ablation_plot', [{
+        x: stage4.single_mechanisms.map(item => item.label),
+        y: stage4.single_mechanisms.map(item => item.score),
+        type: 'bar',
+        marker: { color: '#f59e0b' }
+      }], baseLayout(''));
+    }
+
+    function renderReferencePerturbed(payload) {
+      Plotly.newPlot('perturbed_fc_plot', [{
+        z: payload.fc_matrix,
+        x: payload.modules,
+        y: payload.modules,
+        type: 'heatmap',
+        zmin: -1,
+        zmax: 1,
+        colorscale: 'RdBu'
+      }], heatmapLayout(''));
+    }
+
+    function renderDeltaComparison(empirical, stageSummaries) {
+      const stage3 = stageSummaries.stage_3;
+      if (!stage3 || !empirical.target_deltas) {
+        document.getElementById('delta_plot').innerHTML = '<p class="empty">Run Stage 3 after Stage 2 to populate empirical-vs-model deltas.</p>';
+        return;
+      }
+      const names = Object.keys(empirical.target_deltas);
+      const data = [
+        {
+          x: names,
+          y: names.map(name => empirical.target_deltas[name]),
+          type: 'bar',
+          name: 'ds003059 empirical',
+          marker: { color: '#22c55e' }
+        }
+      ];
+      if (empirical.literature_deltas) {
+        data.push({
+          x: names,
+          y: names.map(name => empirical.literature_deltas[name]),
+          type: 'bar',
+          name: 'literature curated',
+          marker: { color: '#a855f7' }
+        });
+      }
+      data.push({
+        x: names,
+        y: names.map(name => stage3.best_delta_metrics[name]),
+        type: 'bar',
+        name: 'best model delta',
+        marker: { color: '#f97316' }
+      });
+      Plotly.newPlot('delta_plot', data, baseLayout('', { barmode: 'group' }));
+    }
+
+    function renderHeatmap(divId, matrix, labels, title = '') {
+      Plotly.newPlot(divId, [{
+        z: matrix,
+        x: labels,
+        y: labels,
+        type: 'heatmap',
+        zmin: -1,
+        zmax: 1,
+        colorscale: 'RdBu'
+      }], heatmapLayout(title));
+    }
+
+    function renderRawPreview(containerId, preview) {
+      const container = document.getElementById(containerId);
+      if (!preview) {
+        container.innerHTML = '<p class="empty">No raw preview available.</p>';
+        return;
+      }
+      container.innerHTML =
+        `<div class="plane-grid">
+          <div id="${containerId}_axial"></div>
+          <div id="${containerId}_coronal"></div>
+          <div id="${containerId}_sagittal"></div>
+        </div>`;
+      ['axial', 'coronal', 'sagittal'].forEach(plane => {
+        Plotly.newPlot(`${containerId}_${plane}`, [{
+          z: preview[plane],
+          type: 'heatmap',
+          colorscale: 'Viridis',
+          showscale: false
+        }], baseLayout(plane, {
+          margin: { l: 20, r: 10, t: 30, b: 20 },
+          xaxis: { visible: false },
+          yaxis: { visible: false }
+        }), { displayModeBar: false });
+      });
+    }
+
+    function renderEmpiricalGroupOverview(overview) {
+      if (!overview) {
+        ['empirical_group_traces', 'empirical_group_metric_delta', 'empirical_group_fc_delta', 'empirical_group_fc_plcb', 'empirical_group_fc_lsd']
+          .forEach(id => document.getElementById(id).innerHTML = '<p class="empty">Run Stage 2 with empirical data to populate this section.</p>');
+        return;
+      }
+
+      const modules = overview.module_names;
+      const plc = overview.conditions['ses-PLCB'];
+      const lsd = overview.conditions['ses-LSD'];
+      const metricNames = Object.keys(plc.metrics);
+      const focusedModule = document.getElementById('empirical_module_focus')?.value || modules[0];
+      const focusedIndex = Math.max(0, modules.indexOf(focusedModule));
+      const deltaMetrics = metricNames.map(name => overview.delta_metrics[name]);
+      const deltaMetricStd = metricNames.map(name => overview.delta_metrics_std[name]);
+      const fcDelta = plc.fc_matrix.map((row, rowIndex) => row.map((value, colIndex) => lsd.fc_matrix[rowIndex][colIndex] - value));
+
+      const x = plc.module_time_series.map((_, pointIndex) => pointIndex);
+      const plcMean = plc.module_time_series.map(row => row[focusedIndex]);
+      const plcStd = plc.module_time_series_std.map(row => row[focusedIndex]);
+      const lsdMean = lsd.module_time_series.map(row => row[focusedIndex]);
+      const lsdStd = lsd.module_time_series_std.map(row => row[focusedIndex]);
+      const traceData = [
+        {
+          x,
+          y: plcMean.map((value, index) => value - plcStd[index]),
+          mode: 'lines',
+          type: 'scatter',
+          line: { width: 0 },
+          hoverinfo: 'skip',
+          showlegend: false
+        },
+        {
+          x,
+          y: plcMean.map((value, index) => value + plcStd[index]),
+          mode: 'lines',
+          type: 'scatter',
+          fill: 'tonexty',
+          fillcolor: 'rgba(59,130,246,0.20)',
+          line: { width: 0 },
+          name: 'PLCB ±1 SD'
+        },
+        {
+          x,
+          y: plcMean,
+          mode: 'lines',
+          type: 'scatter',
+          name: `PLCB mean: ${focusedModule}`,
+          line: { width: 2, color: '#60a5fa' }
+        },
+        {
+          x,
+          y: lsdMean.map((value, index) => value - lsdStd[index]),
+          mode: 'lines',
+          type: 'scatter',
+          line: { width: 0 },
+          hoverinfo: 'skip',
+          showlegend: false
+        },
+        {
+          x,
+          y: lsdMean.map((value, index) => value + lsdStd[index]),
+          mode: 'lines',
+          type: 'scatter',
+          fill: 'tonexty',
+          fillcolor: 'rgba(249,115,22,0.20)',
+          line: { width: 0 },
+          name: 'LSD ±1 SD'
+        },
+        {
+          x,
+          y: lsdMean,
+          mode: 'lines',
+          type: 'scatter',
+          name: `LSD mean: ${focusedModule}`,
+          line: { width: 2, color: '#fb923c', dash: 'dot' }
+        }
+      ];
+      Plotly.newPlot(
+        'empirical_group_traces',
+        traceData,
+        baseLayout(`Focus module: ${focusedModule} (${overview.paired_subject_count} paired subjects)`)
+      );
+
+      Plotly.newPlot('empirical_group_metric_delta', [{
+        x: metricNames,
+        y: deltaMetrics,
+        type: 'bar',
+        marker: { color: '#38bdf8' },
+        error_y: {
+          type: 'data',
+          array: deltaMetricStd,
+          visible: true,
+          color: '#e2e8f0',
+          thickness: 1.2,
+          width: 3
+        }
+      }], baseLayout(''));
+
+      renderHeatmap('empirical_group_fc_delta', fcDelta, modules);
+      renderHeatmap('empirical_group_fc_plcb', plc.fc_matrix, modules);
+      renderHeatmap('empirical_group_fc_lsd', lsd.fc_matrix, modules);
+    }
+
+    function renderArtifactLinks(empiricalViewer, artifactLinks) {
+      const container = document.getElementById('artifact_links');
+      container.innerHTML = '';
+      const galleryLinks = empiricalViewer && empiricalViewer.gallery ? empiricalViewer.gallery : [];
+      const reportLinks = empiricalViewer && empiricalViewer.reports ? empiricalViewer.reports : (artifactLinks ? artifactLinks.reports : []);
+      [...reportLinks, ...galleryLinks].forEach(link => {
+        const anchor = document.createElement('a');
+        anchor.href = link.href || '#';
+        anchor.textContent = link.label;
+        anchor.target = '_blank';
+        anchor.rel = 'noopener noreferrer';
+        container.appendChild(anchor);
+      });
+      if (!container.children.length) {
+        container.innerHTML = '<p class="empty">No report or gallery links available yet.</p>';
+      }
+    }
+
+    function renderProvenance(provenance) {
+      const container = document.getElementById('provenance_status');
+      if (!provenance) {
+        container.textContent = 'Canonical provenance not available yet.';
+        return;
+      }
+      const sessions = provenance.sessions && provenance.sessions.length ? provenance.sessions.join(', ') : 'n/a';
+      const git = provenance.git || {};
+      const headStatus = git.head_present ? 'yes' : 'no';
+      const commitLabel = git.head_present && git.commit_hash ? git.commit_hash : 'no commit yet';
+      container.textContent =
+        `Dataset: ${provenance.dataset_anchor || 'not loaded'}\n` +
+        `Empirical subjects: ${provenance.subject_count ?? 'n/a'}\n` +
+        `Empirical runs: ${provenance.run_count ?? 'n/a'}\n` +
+        `Sessions: ${sessions}\n` +
+        `Sober target: ${provenance.target_filenames?.sober || 'n/a'}\n` +
+        `Perturbation target: ${provenance.target_filenames?.perturbation || 'n/a'}\n` +
+        `Git branch: ${git.branch || 'n/a'}\n` +
+        `HEAD present: ${headStatus}\n` +
+        `Commit: ${commitLabel}`;
+    }
+
+    function renderAuditStatus(auditStatus) {
+      const side = document.getElementById('audit_status');
+      const snapshot = document.getElementById('audit_snapshot');
+      if (!auditStatus) {
+        side.textContent = 'Audit status is not available.';
+        snapshot.textContent = 'Audit status is not available.';
+        return;
+      }
+
+      const mismatchMetrics = auditStatus.sign_mismatches.map(row => row.metric).join(', ') || 'none';
+      const overlapLabels = auditStatus.atlas_overlaps
+        .map(row => `${row.atlas}:${row.label} -> ${row.modules.join('/')}`)
+        .join('; ') || 'none';
+      const scoreLabel = typeof auditStatus.stage3_score === 'number'
+        ? `${auditStatus.stage3_score.toFixed(3)}${typeof auditStatus.stage3_score_std === 'number' ? ` +/- ${auditStatus.stage3_score_std.toFixed(3)}` : ''}`
+        : 'n/a';
+      const signAgreementLabel = typeof auditStatus.stage3_sign_agreement_fraction === 'number'
+        ? `${Math.round(auditStatus.stage3_sign_agreement_fraction * 100)}% target-sign agreement`
+        : 'target-sign agreement n/a';
+      side.textContent =
+        `Claim: ${auditStatus.defensible_claim}\n` +
+        `Empirical records: ${auditStatus.empirical_record_count ?? 'n/a'}\n` +
+        `Paired/complete subjects: ${auditStatus.empirical_paired_subject_count ?? 'n/a'} / ${auditStatus.empirical_complete_subject_count ?? 'n/a'}\n` +
+        `Sign conflicts: ${mismatchMetrics}\n` +
+        `Atlas overlaps: ${overlapLabels}\n` +
+        `Atlas assigned voxels: ${auditStatus.atlas_assigned_voxels ?? 'n/a'}\n` +
+        `Stage 3 score: ${scoreLabel}\n` +
+        `Stage 3 sign agreement: ${signAgreementLabel}\n` +
+        `Provenance: ${auditStatus.provenance_warning || 'git HEAD recorded'}`;
+
+      const grid = document.createElement('div');
+      grid.className = 'audit-grid';
+
+      function addTile(title, value, detail, className = '') {
+        const tile = document.createElement('section');
+        tile.className = `audit-tile ${className}`.trim();
+        const heading = document.createElement('h3');
+        heading.textContent = title;
+        const strong = document.createElement('strong');
+        strong.textContent = value;
+        const paragraph = document.createElement('p');
+        paragraph.textContent = detail;
+        tile.append(heading, strong, paragraph);
+        grid.appendChild(tile);
+      }
+
+      addTile('Claim', 'Surrogate', auditStatus.claim_guardrail, 'audit-ok');
+      addTile(
+        'Sign Conflicts',
+        String(auditStatus.sign_mismatches.length),
+        mismatchMetrics === 'none' ? 'No empirical/literature sign conflicts loaded.' : mismatchMetrics,
+        auditStatus.sign_mismatches.length ? 'audit-warn' : 'audit-ok'
+      );
+      addTile(
+        'Data Quality',
+        `${auditStatus.empirical_paired_subject_count ?? 'n/a'} paired`,
+        `${auditStatus.empirical_record_count ?? 'n/a'} records; complete subjects ${auditStatus.empirical_complete_subject_count ?? 'n/a'}; timepoints ${auditStatus.empirical_timepoints?.min ?? 'n/a'}-${auditStatus.empirical_timepoints?.max ?? 'n/a'}`,
+        'audit-ok'
+      );
+      addTile(
+        'Atlas Proxy',
+        `${auditStatus.atlas_overlaps.length} overlaps`,
+        `${overlapLabels}; assigned voxels ${auditStatus.atlas_assigned_voxels ?? 'n/a'}`,
+        auditStatus.atlas_overlaps.length ? 'audit-warn' : 'audit-ok'
+      );
+      addTile(
+        'Best Stage 3',
+        auditStatus.stage3_best_mechanism || 'n/a',
+        `score ${scoreLabel}; ${signAgreementLabel}`,
+        'audit-warn'
+      );
+
+      const badges = document.createElement('div');
+      badges.className = 'audit-list';
+      auditStatus.validation_badges.forEach(item => {
+        const badge = document.createElement('span');
+        badge.className = 'audit-badge';
+        badge.title = item.command;
+        badge.textContent = `${item.label}: ${item.status}`;
+        badges.appendChild(badge);
+      });
+
+      snapshot.replaceChildren(grid, badges);
+    }
+
+    function updateEmpiricalSummary(overview, detail, windowIndex) {
+      const summary = document.getElementById('empirical_summary');
+      if (!overview || !detail) {
+        summary.textContent = 'Empirical viewer not available.';
+        return;
+      }
+      const plc = detail.conditions['ses-PLCB'];
+      const lsd = detail.conditions['ses-LSD'];
+      const windowDelta = detail.window_deltas[windowIndex];
+      const groupDelta = overview.delta_metrics;
+      const groupDeltaStd = overview.delta_metrics_std;
+      summary.textContent =
+        `Dataset: ${(dashboardState.empirical.dataset_anchor || dashboardState.provenance?.dataset_anchor) || 'n/a'}\n` +
+        `Subject: ${detail.subject}\n` +
+        `Run: ${detail.run}\n` +
+        `Selected window: ${windowIndex + 1} / ${detail.window_deltas.length}\n` +
+        `Group cross-network delta: ${groupDelta.cross_network_communication.toFixed(3)} ± ${groupDeltaStd.cross_network_communication.toFixed(3)}\n` +
+        `Group thalamic delta: ${groupDelta.thalamic_coupling.toFixed(3)} ± ${groupDeltaStd.thalamic_coupling.toFixed(3)}\n` +
+        `Whole-run cross-network delta: ${(lsd.metrics.cross_network_communication - plc.metrics.cross_network_communication).toFixed(3)}\n` +
+        `Window cross-network delta: ${windowDelta.metrics.cross_network_communication.toFixed(3)}\n` +
+        `Window switching delta: ${windowDelta.metrics.switching_rate.toFixed(3)}`;
+    }
+
+    function renderEmpiricalInterpretation(detail, windowIndex) {
+      const container = document.getElementById('empirical_interpretation');
+      if (!detail) {
+        container.innerHTML = '<p class="empty">Pick a subject to inspect the empirical interpretation.</p>';
+        return;
+      }
+      const full = detail.delta_metrics;
+      const windowDelta = detail.window_deltas[windowIndex].metrics;
+      const group = dashboardState.empirical_viewer;
+      const supportedIntegration = group.delta_metrics.cross_network_communication > 0 && group.delta_metrics.thalamic_coupling > 0;
+      const supportedDisruption = group.delta_metrics.within_network_stability < 0 || group.delta_metrics.entropy_diversity > 0;
+      const supportedSwitching = group.delta_metrics.switching_rate > 0 || group.delta_metrics.effective_barrier_proxy < 0;
+      let verdict = 'Mixed: the current ds003059 extraction supports more integration and lower barriers more clearly than classic entropy-like disintegration.';
+      if (supportedIntegration && supportedDisruption && supportedSwitching) {
+        verdict = 'Broadly supportive: the extracted macro-deltas move in the expected direction across integration, disruption, and switching proxies.';
+      } else if (!(supportedIntegration || supportedDisruption || supportedSwitching)) {
+        verdict = 'Not supportive: the current extraction does not reproduce the expected altered-state signature cleanly.';
+      }
+      const lines = [
+        `Group cross-network delta: ${group.delta_metrics.cross_network_communication.toFixed(3)} ± ${group.delta_metrics_std.cross_network_communication.toFixed(3)}.`,
+        `Group thalamic delta: ${group.delta_metrics.thalamic_coupling.toFixed(3)} ± ${group.delta_metrics_std.thalamic_coupling.toFixed(3)}.`,
+        `Group within-network delta: ${group.delta_metrics.within_network_stability.toFixed(3)} ± ${group.delta_metrics_std.within_network_stability.toFixed(3)}.`,
+        `Whole-run cross-network communication delta: ${full.cross_network_communication.toFixed(3)}.`,
+        `Whole-run thalamic coupling delta: ${full.thalamic_coupling.toFixed(3)}.`,
+        `Whole-run within-network stability delta: ${full.within_network_stability.toFixed(3)}.`,
+        `Selected-window cross-network delta: ${windowDelta.cross_network_communication.toFixed(3)}.`,
+        `Selected-window switching-rate delta: ${windowDelta.switching_rate.toFixed(3)}.`,
+        `Verdict: ${verdict}`,
+        `Interpretation: positive cross-network and thalamic deltas suggest more integration in the selected LSD run; negative barrier-like or metastability deltas should be read as model-level proxies, not biological ground truth.`
+      ];
+      container.textContent = lines.join('\n');
+    }
+
+    function stopPlayback() {
+      if (playbackTimer !== null) {
+        clearInterval(playbackTimer);
+        playbackTimer = null;
+      }
+      const button = document.getElementById('empirical_playback_toggle');
+      if (button) {
+        button.textContent = 'Play windows';
+      }
+    }
+
+    function applyEmpiricalWindow(windowIndex) {
+      if (!subjectDetail || subjectDetail.error) {
+        return;
+      }
+      document.getElementById('empirical_window_index').value = String(windowIndex);
+      document.getElementById('empirical_window_label').textContent = `Window ${windowIndex + 1} / ${subjectDetail.window_deltas.length}`;
+      renderSubjectSignals(subjectDetail, windowIndex);
+      updateEmpiricalSummary(dashboardState.empirical_viewer, subjectDetail, windowIndex);
+    }
+
+    function restartPlaybackIfNeeded() {
+      if (playbackTimer === null || !subjectDetail || subjectDetail.error) {
+        return;
+      }
+      stopPlayback();
+      togglePlayback();
+    }
+
+    function togglePlayback() {
+      if (!subjectDetail || subjectDetail.error) {
+        return;
+      }
+      if (playbackTimer !== null) {
+        stopPlayback();
+        return;
+      }
+      const button = document.getElementById('empirical_playback_toggle');
+      const slider = document.getElementById('empirical_window_index');
+      const intervalMs = parseInt(document.getElementById('empirical_playback_speed').value, 10);
+      button.textContent = 'Pause playback';
+      playbackTimer = window.setInterval(() => {
+        const nextIndex = (parseInt(slider.value, 10) + 1) % subjectDetail.window_deltas.length;
+        applyEmpiricalWindow(nextIndex);
+      }, intervalMs);
+    }
+
+    function renderSubjectSignals(detail, windowIndex) {
+      const plc = detail.conditions['ses-PLCB'];
+      const lsd = detail.conditions['ses-LSD'];
+      const plcWindow = plc.windows[windowIndex];
+      const lsdWindow = lsd.windows[windowIndex];
+      const modules = dashboardState.empirical_viewer.module_names;
+
+      Plotly.newPlot('empirical_global_signal', [
+        {
+          x: plc.global_signal.map((_, index) => index),
+          y: plc.global_signal,
+          mode: 'lines',
+          type: 'scatter',
+          name: 'PLCB global signal',
+          line: { width: 1.8 }
+        },
+        {
+          x: lsd.global_signal.map((_, index) => index),
+          y: lsd.global_signal,
+          mode: 'lines',
+          type: 'scatter',
+          name: 'LSD global signal',
+          line: { width: 1.8, dash: 'dot' }
+        }
+      ], baseLayout('', {
+        shapes: [
+          { type: 'rect', x0: plcWindow.start_index, x1: plcWindow.end_index, y0: 0, y1: 1, yref: 'paper', fillcolor: 'rgba(59,130,246,0.15)', line: { width: 0 } },
+          { type: 'rect', x0: lsdWindow.start_index, x1: lsdWindow.end_index, y0: 0, y1: 1, yref: 'paper', fillcolor: 'rgba(249,115,22,0.12)', line: { width: 0 } }
+        ]
+      }));
+
+      const traceData = [];
+      modules.forEach((module, index) => {
+        traceData.push({
+          x: plc.module_time_series.map((_, pointIndex) => pointIndex),
+          y: plc.module_time_series.map(row => row[index]),
+          mode: 'lines',
+          type: 'scatter',
+          name: `PLCB:${module}`,
+          line: { width: 1.1 }
+        });
+        traceData.push({
+          x: lsd.module_time_series.map((_, pointIndex) => pointIndex),
+          y: lsd.module_time_series.map(row => row[index]),
+          mode: 'lines',
+          type: 'scatter',
+          name: `LSD:${module}`,
+          line: { width: 1.1, dash: 'dot' }
+        });
+      });
+      Plotly.newPlot('empirical_subject_traces', traceData, baseLayout('', {
+        shapes: [
+          { type: 'rect', x0: plcWindow.start_index, x1: plcWindow.end_index, y0: 0, y1: 1, yref: 'paper', fillcolor: 'rgba(59,130,246,0.15)', line: { width: 0 } },
+          { type: 'rect', x0: lsdWindow.start_index, x1: lsdWindow.end_index, y0: 0, y1: 1, yref: 'paper', fillcolor: 'rgba(249,115,22,0.12)', line: { width: 0 } }
+        ]
+      }));
+
+      renderRawPreview('empirical_raw_plcb', plcWindow.raw_preview);
+      renderRawPreview('empirical_raw_lsd', lsdWindow.raw_preview);
+      renderHeatmap('empirical_window_fc_plcb', plcWindow.fc_matrix, modules);
+      renderHeatmap('empirical_window_fc_lsd', lsdWindow.fc_matrix, modules);
+      renderHeatmap(
+        'empirical_window_fc_delta',
+        lsdWindow.fc_matrix.map((row, rowIndex) => row.map((value, colIndex) => value - plcWindow.fc_matrix[rowIndex][colIndex])),
+        modules
+      );
+      renderEmpiricalInterpretation(detail, windowIndex);
+    }
+
+    function populateEmpiricalSelectors(overview) {
+      const subjectSelect = document.getElementById('empirical_subject');
+      const runSelect = document.getElementById('empirical_run');
+      const moduleSelect = document.getElementById('empirical_module_focus');
+      subjectSelect.innerHTML = '';
+      moduleSelect.innerHTML = '';
+      overview.subjects.forEach(subject => {
+        const option = document.createElement('option');
+        option.value = subject;
+        option.textContent = subject;
+        subjectSelect.appendChild(option);
+      });
+      overview.module_names.forEach(module => {
+        const option = document.createElement('option');
+        option.value = module;
+        option.textContent = module;
+        moduleSelect.appendChild(option);
+      });
+      moduleSelect.value = overview.module_names[0];
+      subjectSelect.value = overview.default_subject;
+
+      function refreshRuns() {
+        const subject = subjectSelect.value;
+        const subjectRuns = overview.subject_index[subject] || overview.runs;
+        runSelect.innerHTML = '';
+        subjectRuns.forEach(run => {
+          const option = document.createElement('option');
+          option.value = run;
+          option.textContent = run;
+          runSelect.appendChild(option);
+        });
+      }
+
+      refreshRuns();
+      subjectSelect.addEventListener('change', async () => {
+        stopPlayback();
+        refreshRuns();
+        await loadSubjectDetail();
+      });
+      runSelect.addEventListener('change', async () => {
+        stopPlayback();
+        await loadSubjectDetail();
+      });
+      moduleSelect.addEventListener('change', () => {
+        renderEmpiricalGroupOverview(dashboardState.empirical_viewer);
+      });
+    }
+
+    async function loadSubjectDetail() {
+      const subject = document.getElementById('empirical_subject').value;
+      const run = document.getElementById('empirical_run').value;
+      if (!subject || !run) {
+        return;
+      }
+      subjectDetail = await fetchJson(`/api/empirical-view?subject=${encodeURIComponent(subject)}&run=${encodeURIComponent(run)}`);
+      const slider = document.getElementById('empirical_window_index');
+      const label = document.getElementById('empirical_window_label');
+      if (!subjectDetail || subjectDetail.error) {
+        stopPlayback();
+        label.textContent = 'No empirical detail found for this selection.';
+        return;
+      }
+      slider.max = String(Math.max(0, subjectDetail.window_deltas.length - 1));
+      slider.value = '0';
+      applyEmpiricalWindow(0);
+    }
+
+    async function main() {
+      dashboardState = await fetchJson('/api/dashboard-data');
+      renderGraph(dashboardState.graph);
+      renderSimulation(dashboardState.baseline);
+      renderReferencePerturbed(dashboardState.perturbed);
+      renderDeltaComparison(dashboardState.empirical, dashboardState.stage_summaries);
+      renderAblation(dashboardState.stage_summaries);
+      renderEmpiricalGroupOverview(dashboardState.empirical_viewer);
+      renderArtifactLinks(dashboardState.empirical_viewer, dashboardState.artifact_links);
+      renderAuditStatus(dashboardState.audit_status);
+
+      const stage2 = dashboardState.stage_summaries.stage_2;
+      const stage3 = dashboardState.stage_summaries.stage_3;
+      renderProvenance(dashboardState.provenance);
+      document.getElementById('stage_status').textContent =
+        `Stage 2 best score: ${stage2 ? stage2.best_score.toFixed(3) : 'n/a'}\n` +
+        `Stage 3 best mechanism: ${stage3 ? stage3.best_mechanism : 'n/a'}\n` +
+        `Stage 3 score: ${stage3 ? stage3.best_score.toFixed(3) : 'n/a'}\n` +
+        `Audit sign conflicts: ${dashboardState.audit_status ? dashboardState.audit_status.sign_mismatches.length : 'n/a'}`;
+
+      const defaults = dashboardState.baseline_parameters;
+      for (const [key, value] of Object.entries(defaults)) {
+        const element = document.getElementById(key);
+        if (element) {
+          element.value = value;
+        }
+      }
+
+      if (dashboardState.empirical_viewer) {
+        populateEmpiricalSelectors(dashboardState.empirical_viewer);
+        await loadSubjectDetail();
+      } else {
+        document.getElementById('empirical_summary').textContent = 'Empirical viewer cache is not present yet. Run Stage 2 against ds003059 to populate it.';
+      }
+
+      document.getElementById('simulate').addEventListener('click', async () => {
+        const payload = {
+          regime: document.getElementById('regime').value,
+          within_group_scale: parseFloat(document.getElementById('within_group_scale').value),
+          cross_group_scale: parseFloat(document.getElementById('cross_group_scale').value),
+          constraint_scale: parseFloat(document.getElementById('constraint_scale').value),
+          rigidity: parseFloat(document.getElementById('rigidity').value),
+          barrier: parseFloat(document.getElementById('barrier').value),
+          temperature: parseFloat(document.getElementById('temperature').value),
+          tau: parseFloat(document.getElementById('tau').value)
+        };
+        const simulation = await fetchJson('/api/simulate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        renderSimulation(simulation);
+      });
+
+      document.getElementById('empirical_window_index').addEventListener('input', event => {
+        if (!subjectDetail || subjectDetail.error) {
+          return;
+        }
+        const windowIndex = parseInt(event.target.value, 10);
+        applyEmpiricalWindow(windowIndex);
+      });
+
+      document.getElementById('empirical_playback_toggle').addEventListener('click', () => {
+        togglePlayback();
+      });
+
+      document.getElementById('empirical_playback_speed').addEventListener('change', () => {
+        restartPlaybackIfNeeded();
+      });
+    }
+
+    main();
+  </script>
+</body>
+</html>

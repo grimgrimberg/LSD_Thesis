@@ -1,0 +1,593 @@
+{
+  "subjects": [
+    "sub-001",
+    "sub-002",
+    "sub-003",
+    "sub-004",
+    "sub-006",
+    "sub-009",
+    "sub-010",
+    "sub-011",
+    "sub-012",
+    "sub-013",
+    "sub-015",
+    "sub-017",
+    "sub-018",
+    "sub-019",
+    "sub-020"
+  ],
+  "runs": [
+    {
+      "subject": "sub-001",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "filename": "sub-001_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "relative_path": "sub-001/ses-LSD/func/sub-001_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "url": "https://s3.amazonaws.com/openneuro.org/ds003059/sub-001/ses-LSD/func/sub-001_ses-LSD_task-rest_run-01_bold.nii.gz?versionId=SG18Elm4VqyRNQeytMpwWJygki4Zjr00&AWSAccessKeyId=AKIARTA7OOV5WQ3DGSOB&Signature=vjcjZ%2FIfY0s7WDKaR4xSNzL3iKY%3D&Expires=1776685382",
+      "size": 174211515
+    },
+    {
+      "subject": "sub-001",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "filename": "sub-001_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "relative_path": "sub-001/ses-LSD/func/sub-001_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "url": "https://s3.amazonaws.com/openneuro.org/ds003059/sub-001/ses-LSD/func/sub-001_ses-LSD_task-rest_run-03_bold.nii.gz?versionId=aZF5ZIixDVxqG_YfrfNXVE8TPIYmktSg&AWSAccessKeyId=AKIARTA7OOV5WQ3DGSOB&Signature=hFuta4m4ssLoDZj2AYhTdB83t3E%3D&Expires=1776685382",
+      "size": 174446121
+    },
+    {
+      "subject": "sub-001",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "filename": "sub-001_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "relative_path": "sub-001/ses-PLCB/func/sub-001_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "url": "https://s3.amazonaws.com/openneuro.org/ds003059/sub-001/ses-PLCB/func/sub-001_ses-PLCB_task-rest_run-01_bold.nii.gz?versionId=dMNg5yr3jTgiyGi7ZccyeY1Bh5.oYe9g&AWSAccessKeyId=AKIARTA7OOV5WQ3DGSOB&Signature=8ca%2FTqLa5KFSU5nIFJXvrABeXIw%3D&Expires=1776685382",
+      "size": 170593706
+    },
+    {
+      "subject": "sub-001",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "filename": "sub-001_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "relative_path": "sub-001/ses-PLCB/func/sub-001_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "url": "https://s3.amazonaws.com/openneuro.org/ds003059/sub-001/ses-PLCB/func/sub-001_ses-PLCB_task-rest_run-03_bold.nii.gz?versionId=P3l7AKQy4um51pq5rNbU2xP3iiOUp2qm&AWSAccessKeyId=AKIARTA7OOV5WQ3DGSOB&Signature=DGCCpA6dTk7ZC16K9t9uNZaIWNI%3D&Expires=1776685382",
+      "size": 170516481
+    },
+    {
+      "subject": "sub-002",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "filename": "sub-002_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "relative_path": "sub-002/ses-LSD/func/sub-002_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "url": "https://s3.amazonaws.com/openneuro.org/ds003059/sub-002/ses-LSD/func/sub-002_ses-LSD_task-rest_run-01_bold.nii.gz?versionId=.Uk90RcwAFtxntJr1FYpuNOgj0zL.aBh&AWSAccessKeyId=AKIARTA7OOV5WQ3DGSOB&Signature=armSAmspJRN%2BCZKlL7P%2FHddpi2o%3D&Expires=1776685383",
+      "size": 165742515
+    },
+    {
+      "subject": "sub-002",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "filename": "sub-002_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "relative_path": "sub-002/ses-LSD/func/sub-002_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "url": "https://s3.amazonaws.com/openneuro.org/ds003059/sub-002/ses-LSD/func/sub-002_ses-LSD_task-rest_run-03_bold.nii.gz?versionId=GYlUyqW0Z1umAYomdup3xJl71rG3aicq&AWSAccessKeyId=AKIARTA7OOV5WQ3DGSOB&Signature=Bt86TN%2FpcFgRclsT2f57FwQYhkM%3D&Expires=1776685383",
+      "size": 165254944
+    },
+    {
+      "subject": "sub-002",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "filename": "sub-002_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "relative_path": "sub-002/ses-PLCB/func/sub-002_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "url": "https://s3.amazonaws.com/openneuro.org/ds003059/sub-002/ses-PLCB/func/sub-002_ses-PLCB_task-rest_run-01_bold.nii.gz?versionId=hUJzRSi8GyCqMVaP7WLLIIh._RR__INW&AWSAccessKeyId=AKIARTA7OOV5WQ3DGSOB&Signature=dZ0MNmVnCpm2MxtXtpGmO57FMb8%3D&Expires=1776685384",
+      "size": 171181631
+    },
+    {
+      "subject": "sub-002",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "filename": "sub-002_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "relative_path": "sub-002/ses-PLCB/func/sub-002_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "url": "https://s3.amazonaws.com/openneuro.org/ds003059/sub-002/ses-PLCB/func/sub-002_ses-PLCB_task-rest_run-03_bold.nii.gz?versionId=cYI2rPn8kHGWBc.bh_FTKiFrR1u4k4Xg&AWSAccessKeyId=AKIARTA7OOV5WQ3DGSOB&Signature=1zonEX8tiXSqibLEUZJrB67C7LA%3D&Expires=1776685384",
+      "size": 171097859
+    },
+    {
+      "subject": "sub-003",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "filename": "sub-003_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "relative_path": "sub-003/ses-LSD/func/sub-003_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "url": "https://s3.amazonaws.com/openneuro.org/ds003059/sub-003/ses-LSD/func/sub-003_ses-LSD_task-rest_run-01_bold.nii.gz?versionId=sckaFgWnWr8eWuTjPERfABE.oCo5cZfX&AWSAccessKeyId=AKIARTA7OOV5WQ3DGSOB&Signature=AefdB4U7xVDarX4gaL50i3MdEbc%3D&Expires=1776685385",
+      "size": 162920029
+    },
+    {
+      "subject": "sub-003",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "filename": "sub-003_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "relative_path": "sub-003/ses-LSD/func/sub-003_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "url": "https://s3.amazonaws.com/openneuro.org/ds003059/sub-003/ses-LSD/func/sub-003_ses-LSD_task-rest_run-03_bold.nii.gz?versionId=fHqK7zyi3rqNbhBs0WNtfkaA_df9NmHT&AWSAccessKeyId=AKIARTA7OOV5WQ3DGSOB&Signature=ZfWwM1ApQC99zqoeY%2B8dG%2BAMuLQ%3D&Expires=1776685385",
+      "size": 162270810
+    },
+    {
+      "subject": "sub-003",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "filename": "sub-003_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "relative_path": "sub-003/ses-PLCB/func/sub-003_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "url": "https://s3.amazonaws.com/openneuro.org/ds003059/sub-003/ses-PLCB/func/sub-003_ses-PLCB_task-rest_run-01_bold.nii.gz?versionId=b5R0RfXPNqSXa1ua6m1vlpKAFF_n_AMB&AWSAccessKeyId=AKIARTA7OOV5WQ3DGSOB&Signature=ZPSozrMzkrO9LUqRE7h6AHbDdrI%3D&Expires=1776685386",
+      "size": 169675132
+    },
+    {
+      "subject": "sub-003",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "filename": "sub-003_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "relative_path": "sub-003/ses-PLCB/func/sub-003_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "url": "https://s3.amazonaws.com/openneuro.org/ds003059/sub-003/ses-PLCB/func/sub-003_ses-PLCB_task-rest_run-03_bold.nii.gz?versionId=egO_o4LxoQ6r.oxziWEPbtDawCKmSttf&AWSAccessKeyId=AKIARTA7OOV5WQ3DGSOB&Signature=9AjSKKJUwQDbK75hWn8y3XXIif0%3D&Expires=1776685386",
+      "size": 169340712
+    },
+    {
+      "subject": "sub-004",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "filename": "sub-004_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "relative_path": "sub-004/ses-LSD/func/sub-004_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "url": "https://s3.amazonaws.com/openneuro.org/ds003059/sub-004/ses-LSD/func/sub-004_ses-LSD_task-rest_run-01_bold.nii.gz?versionId=9osW_U1bCo4YatPsS1hSnBtlMB4BXq2Y&AWSAccessKeyId=AKIARTA7OOV5WQ3DGSOB&Signature=yulFXUKPUGgmT8ueAH6ZIn1bzww%3D&Expires=1776685387",
+      "size": 171893376
+    },
+    {
+      "subject": "sub-004",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "filename": "sub-004_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "relative_path": "sub-004/ses-LSD/func/sub-004_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "url": "https://s3.amazonaws.com/openneuro.org/ds003059/sub-004/ses-LSD/func/sub-004_ses-LSD_task-rest_run-03_bold.nii.gz?versionId=mQJvqfJgJ2HpYypMnZVQY6TGCzeCmb1.&AWSAccessKeyId=AKIARTA7OOV5WQ3DGSOB&Signature=yZCcDJDpqR3RG0B7WF%2B6Gx2aNi0%3D&Expires=1776685387",
+      "size": 172889457
+    },
+    {
+      "subject": "sub-004",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "filename": "sub-004_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "relative_path": "sub-004/ses-PLCB/func/sub-004_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "url": "https://s3.amazonaws.com/openneuro.org/ds003059/sub-004/ses-PLCB/func/sub-004_ses-PLCB_task-rest_run-01_bold.nii.gz?versionId=_cRcgGWJV5xHTaqtO.xVTYtpgA351Dna&AWSAccessKeyId=AKIARTA7OOV5WQ3DGSOB&Signature=xWpZJUNTXD%2FGStWap7yIT3AFzUg%3D&Expires=1776685387",
+      "size": 171678600
+    },
+    {
+      "subject": "sub-004",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "filename": "sub-004_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "relative_path": "sub-004/ses-PLCB/func/sub-004_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "url": "https://s3.amazonaws.com/openneuro.org/ds003059/sub-004/ses-PLCB/func/sub-004_ses-PLCB_task-rest_run-03_bold.nii.gz?versionId=.D282yMVGhoVndPpCbOH_ZXtKjkK.0Y2&AWSAccessKeyId=AKIARTA7OOV5WQ3DGSOB&Signature=wQzepa8OR0ooDUQXXqYw928k3ZI%3D&Expires=1776685387",
+      "size": 171771798
+    },
+    {
+      "subject": "sub-006",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "filename": "sub-006_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "relative_path": "sub-006/ses-LSD/func/sub-006_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "url": "https://s3.amazonaws.com/openneuro.org/ds003059/sub-006/ses-LSD/func/sub-006_ses-LSD_task-rest_run-01_bold.nii.gz?versionId=GOVXquOjuLglZgpeQpKb5D4idFwOXLSJ&AWSAccessKeyId=AKIARTA7OOV5WQ3DGSOB&Signature=IUtnoN7jifG3yqa%2BLsfg1Tv5xRw%3D&Expires=1776685388",
+      "size": 170696513
+    },
+    {
+      "subject": "sub-006",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "filename": "sub-006_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "relative_path": "sub-006/ses-LSD/func/sub-006_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "url": "https://s3.amazonaws.com/openneuro.org/ds003059/sub-006/ses-LSD/func/sub-006_ses-LSD_task-rest_run-03_bold.nii.gz?versionId=FAUGjt5FFF9472khilO7VFrBbM1IGAaV&AWSAccessKeyId=AKIARTA7OOV5WQ3DGSOB&Signature=k5NLnHv1Ee%2FQZ2QQ0EnxhCqy3EE%3D&Expires=1776685388",
+      "size": 171294386
+    },
+    {
+      "subject": "sub-006",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "filename": "sub-006_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "relative_path": "sub-006/ses-PLCB/func/sub-006_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "url": "https://s3.amazonaws.com/openneuro.org/ds003059/sub-006/ses-PLCB/func/sub-006_ses-PLCB_task-rest_run-01_bold.nii.gz?versionId=xcMYJ9OMuWV6a91bpjf2AVucHEJa34KJ&AWSAccessKeyId=AKIARTA7OOV5WQ3DGSOB&Signature=7WFqj0lvywL5I%2B%2FEkWh5C%2BqN930%3D&Expires=1776685389",
+      "size": 170381471
+    },
+    {
+      "subject": "sub-006",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "filename": "sub-006_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "relative_path": "sub-006/ses-PLCB/func/sub-006_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "url": "https://s3.amazonaws.com/openneuro.org/ds003059/sub-006/ses-PLCB/func/sub-006_ses-PLCB_task-rest_run-03_bold.nii.gz?versionId=Qwu3YL0KCV4E2w8heLJ_Q5gTFcZaPAhy&AWSAccessKeyId=AKIARTA7OOV5WQ3DGSOB&Signature=HHk4u3Yucx8EZY1%2FeIEXBjB81Ug%3D&Expires=1776685389",
+      "size": 170863481
+    },
+    {
+      "subject": "sub-009",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "filename": "sub-009_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "relative_path": "sub-009/ses-LSD/func/sub-009_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "url": "https://s3.amazonaws.com/openneuro.org/ds003059/sub-009/ses-LSD/func/sub-009_ses-LSD_task-rest_run-01_bold.nii.gz?versionId=LAJkxUBqVZUNA.0lF1Py5jsmwC3kHQgg&AWSAccessKeyId=AKIARTA7OOV5WQ3DGSOB&Signature=VP%2FzsXJkNhcRZpuzMbe%2BCldWpYY%3D&Expires=1776685390",
+      "size": 170717462
+    },
+    {
+      "subject": "sub-009",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "filename": "sub-009_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "relative_path": "sub-009/ses-LSD/func/sub-009_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "url": "https://s3.amazonaws.com/openneuro.org/ds003059/sub-009/ses-LSD/func/sub-009_ses-LSD_task-rest_run-03_bold.nii.gz?versionId=mJwPzd9eNbCp5DBx18MOqVhmXbkQ6oLo&AWSAccessKeyId=AKIARTA7OOV5WQ3DGSOB&Signature=jnIDHI90ANQFBNbGDXgkkKStVyI%3D&Expires=1776685390",
+      "size": 169870257
+    },
+    {
+      "subject": "sub-009",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "filename": "sub-009_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "relative_path": "sub-009/ses-PLCB/func/sub-009_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "url": "https://s3.amazonaws.com/openneuro.org/ds003059/sub-009/ses-PLCB/func/sub-009_ses-PLCB_task-rest_run-01_bold.nii.gz?versionId=4YzTsnNirdHFUvG1R9x2ln2X3PkdTmQm&AWSAccessKeyId=AKIARTA7OOV5WQ3DGSOB&Signature=pg9dDyPWyySVibR67XUh5SpzIq4%3D&Expires=1776685390",
+      "size": 168298304
+    },
+    {
+      "subject": "sub-009",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "filename": "sub-009_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "relative_path": "sub-009/ses-PLCB/func/sub-009_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "url": "https://s3.amazonaws.com/openneuro.org/ds003059/sub-009/ses-PLCB/func/sub-009_ses-PLCB_task-rest_run-03_bold.nii.gz?versionId=XkDpKHAQ.sh8MXrkxyQtAOYuLmJTTfaz&AWSAccessKeyId=AKIARTA7OOV5WQ3DGSOB&Signature=7myGQDotYTLkepvN7RYUAoRqwwc%3D&Expires=1776685390",
+      "size": 167213059
+    },
+    {
+      "subject": "sub-010",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "filename": "sub-010_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "relative_path": "sub-010/ses-LSD/func/sub-010_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "url": "https://s3.amazonaws.com/openneuro.org/ds003059/sub-010/ses-LSD/func/sub-010_ses-LSD_task-rest_run-01_bold.nii.gz?versionId=eFC6Zyyy9wVm9Tw_zJcb3gA4M2VYBFP0&AWSAccessKeyId=AKIARTA7OOV5WQ3DGSOB&Signature=VJt36t8KOesSfKbiS2t5CdzID3U%3D&Expires=1776685391",
+      "size": 169849326
+    },
+    {
+      "subject": "sub-010",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "filename": "sub-010_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "relative_path": "sub-010/ses-LSD/func/sub-010_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "url": "https://s3.amazonaws.com/openneuro.org/ds003059/sub-010/ses-LSD/func/sub-010_ses-LSD_task-rest_run-03_bold.nii.gz?versionId=dh3qDQYz4dHOltNnkZPwt4jp1wZyGHKd&AWSAccessKeyId=AKIARTA7OOV5WQ3DGSOB&Signature=bBWLr2a2mR2UueKLYtCXxcaq%2FhA%3D&Expires=1776685391",
+      "size": 169744872
+    },
+    {
+      "subject": "sub-010",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "filename": "sub-010_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "relative_path": "sub-010/ses-PLCB/func/sub-010_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "url": "https://s3.amazonaws.com/openneuro.org/ds003059/sub-010/ses-PLCB/func/sub-010_ses-PLCB_task-rest_run-01_bold.nii.gz?versionId=MsCfO3nv52xwUVYPwvd.pWXejnDNyU3Q&AWSAccessKeyId=AKIARTA7OOV5WQ3DGSOB&Signature=yFWogCRTMIiC8fuW0X%2FPWmW94fg%3D&Expires=1776685392",
+      "size": 171722928
+    },
+    {
+      "subject": "sub-010",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "filename": "sub-010_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "relative_path": "sub-010/ses-PLCB/func/sub-010_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "url": "https://s3.amazonaws.com/openneuro.org/ds003059/sub-010/ses-PLCB/func/sub-010_ses-PLCB_task-rest_run-03_bold.nii.gz?versionId=AksMXmpluXnyF1rZZgx6sC2_AS4BEvwV&AWSAccessKeyId=AKIARTA7OOV5WQ3DGSOB&Signature=fa6%2BYvVBNk461gOTTiP%2FEolzA9o%3D&Expires=1776685392",
+      "size": 171434243
+    },
+    {
+      "subject": "sub-011",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "filename": "sub-011_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "relative_path": "sub-011/ses-LSD/func/sub-011_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "url": "https://s3.amazonaws.com/openneuro.org/ds003059/sub-011/ses-LSD/func/sub-011_ses-LSD_task-rest_run-01_bold.nii.gz?versionId=LKJ_.emdWhNpIBJba.8McqFLtk8IKcER&AWSAccessKeyId=AKIARTA7OOV5WQ3DGSOB&Signature=RKx1xbmo8Gdtqgtln%2BJ5AL4bb5k%3D&Expires=1776685393",
+      "size": 166516638
+    },
+    {
+      "subject": "sub-011",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "filename": "sub-011_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "relative_path": "sub-011/ses-LSD/func/sub-011_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "url": "https://s3.amazonaws.com/openneuro.org/ds003059/sub-011/ses-LSD/func/sub-011_ses-LSD_task-rest_run-03_bold.nii.gz?versionId=jZTR7GXBLm7BgDt8prcJyXI7NsF8aJFi&AWSAccessKeyId=AKIARTA7OOV5WQ3DGSOB&Signature=IqPwXpjbU7iK2CQseXqnquinegU%3D&Expires=1776685393",
+      "size": 167435259
+    },
+    {
+      "subject": "sub-011",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "filename": "sub-011_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "relative_path": "sub-011/ses-PLCB/func/sub-011_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "url": "https://s3.amazonaws.com/openneuro.org/ds003059/sub-011/ses-PLCB/func/sub-011_ses-PLCB_task-rest_run-01_bold.nii.gz?versionId=Oob.FfiEtv26wGQczxcZKpD.Tvr9usAc&AWSAccessKeyId=AKIARTA7OOV5WQ3DGSOB&Signature=19Fje0Ex8K1truj2vBbzGi2lYFo%3D&Expires=1776685393",
+      "size": 167906071
+    },
+    {
+      "subject": "sub-011",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "filename": "sub-011_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "relative_path": "sub-011/ses-PLCB/func/sub-011_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "url": "https://s3.amazonaws.com/openneuro.org/ds003059/sub-011/ses-PLCB/func/sub-011_ses-PLCB_task-rest_run-03_bold.nii.gz?versionId=Qgo7jQR2e5IqefD4Ndyj0jHSVELyvPZB&AWSAccessKeyId=AKIARTA7OOV5WQ3DGSOB&Signature=72HVhLrdyVvnqSOA3e3QZEsBbaI%3D&Expires=1776685393",
+      "size": 167186861
+    },
+    {
+      "subject": "sub-012",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "filename": "sub-012_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "relative_path": "sub-012/ses-LSD/func/sub-012_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "url": "https://s3.amazonaws.com/openneuro.org/ds003059/sub-012/ses-LSD/func/sub-012_ses-LSD_task-rest_run-01_bold.nii.gz?versionId=E2iYj1ASbija6dgK7zDClI1dXLE2UJ0K&AWSAccessKeyId=AKIARTA7OOV5WQ3DGSOB&Signature=GGZrRYx%2BEBG%2F9zw3Od%2F1ZVGn6o4%3D&Expires=1776685394",
+      "size": 175741683
+    },
+    {
+      "subject": "sub-012",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "filename": "sub-012_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "relative_path": "sub-012/ses-LSD/func/sub-012_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "url": "https://s3.amazonaws.com/openneuro.org/ds003059/sub-012/ses-LSD/func/sub-012_ses-LSD_task-rest_run-03_bold.nii.gz?versionId=8sUcgJOTu94sq9QEfw9iP4y42JZEHkXi&AWSAccessKeyId=AKIARTA7OOV5WQ3DGSOB&Signature=azHvSnaKC6vSlGkjn6lSqrS2fEE%3D&Expires=1776685394",
+      "size": 175694551
+    },
+    {
+      "subject": "sub-012",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "filename": "sub-012_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "relative_path": "sub-012/ses-PLCB/func/sub-012_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "url": "https://s3.amazonaws.com/openneuro.org/ds003059/sub-012/ses-PLCB/func/sub-012_ses-PLCB_task-rest_run-01_bold.nii.gz?versionId=al0iAbfrTiiKKRCRrSHsrpMHx3LgTgTM&AWSAccessKeyId=AKIARTA7OOV5WQ3DGSOB&Signature=4OW08ad%2FL3HAOiX13gcPq%2FQwKYM%3D&Expires=1776685395",
+      "size": 175541473
+    },
+    {
+      "subject": "sub-012",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "filename": "sub-012_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "relative_path": "sub-012/ses-PLCB/func/sub-012_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "url": "https://s3.amazonaws.com/openneuro.org/ds003059/sub-012/ses-PLCB/func/sub-012_ses-PLCB_task-rest_run-03_bold.nii.gz?versionId=KSa74UmPh2z_wH1p4o3pvR0DdNZa31MK&AWSAccessKeyId=AKIARTA7OOV5WQ3DGSOB&Signature=8rOA1ml3tS%2F%2BM2dkIW7w72%2Ft3YY%3D&Expires=1776685395",
+      "size": 175219661
+    },
+    {
+      "subject": "sub-013",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "filename": "sub-013_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "relative_path": "sub-013/ses-LSD/func/sub-013_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "url": "https://s3.amazonaws.com/openneuro.org/ds003059/sub-013/ses-LSD/func/sub-013_ses-LSD_task-rest_run-01_bold.nii.gz?versionId=RPAWR_3DpwTnHX34G24lb2rare4AoNYa&AWSAccessKeyId=AKIARTA7OOV5WQ3DGSOB&Signature=VSSzbUEvufEfbug%2B0O4msnYlRgA%3D&Expires=1776685396",
+      "size": 164837924
+    },
+    {
+      "subject": "sub-013",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "filename": "sub-013_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "relative_path": "sub-013/ses-LSD/func/sub-013_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "url": "https://s3.amazonaws.com/openneuro.org/ds003059/sub-013/ses-LSD/func/sub-013_ses-LSD_task-rest_run-03_bold.nii.gz?versionId=2Lt3UT86C1rLIeoNg_33.r334BwiCOHc&AWSAccessKeyId=AKIARTA7OOV5WQ3DGSOB&Signature=8bzQo0GB9TV4fIfmujmrkG%2FBULk%3D&Expires=1776685396",
+      "size": 162990962
+    },
+    {
+      "subject": "sub-013",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "filename": "sub-013_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "relative_path": "sub-013/ses-PLCB/func/sub-013_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "url": "https://s3.amazonaws.com/openneuro.org/ds003059/sub-013/ses-PLCB/func/sub-013_ses-PLCB_task-rest_run-01_bold.nii.gz?versionId=CQ0_2kahyvY3lZNLBoyV6dWheMjsnex6&AWSAccessKeyId=AKIARTA7OOV5WQ3DGSOB&Signature=OM4as5j15kkQh4dSvOA1XwI5irE%3D&Expires=1776685397",
+      "size": 172928870
+    },
+    {
+      "subject": "sub-013",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "filename": "sub-013_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "relative_path": "sub-013/ses-PLCB/func/sub-013_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "url": "https://s3.amazonaws.com/openneuro.org/ds003059/sub-013/ses-PLCB/func/sub-013_ses-PLCB_task-rest_run-03_bold.nii.gz?versionId=DFL9Yn9V7oAg4NN7QcIyNYij3q6Kb9hv&AWSAccessKeyId=AKIARTA7OOV5WQ3DGSOB&Signature=jY9khnbfbO6t9xbADrkd2pwDF2U%3D&Expires=1776685397",
+      "size": 172636721
+    },
+    {
+      "subject": "sub-015",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "filename": "sub-015_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "relative_path": "sub-015/ses-LSD/func/sub-015_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "url": "https://s3.amazonaws.com/openneuro.org/ds003059/sub-015/ses-LSD/func/sub-015_ses-LSD_task-rest_run-01_bold.nii.gz?versionId=Cg30vQSDxQhJM90Sm.CZ96uQNJZaNhN1&AWSAccessKeyId=AKIARTA7OOV5WQ3DGSOB&Signature=d8Hk1%2Fxxcx%2FSE%2FBxzR1wGVIkj8k%3D&Expires=1776685398",
+      "size": 170047497
+    },
+    {
+      "subject": "sub-015",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "filename": "sub-015_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "relative_path": "sub-015/ses-LSD/func/sub-015_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "url": "https://s3.amazonaws.com/openneuro.org/ds003059/sub-015/ses-LSD/func/sub-015_ses-LSD_task-rest_run-03_bold.nii.gz?versionId=jLlLDupY355UNG5SLaBEQbD0bhm4AUAA&AWSAccessKeyId=AKIARTA7OOV5WQ3DGSOB&Signature=92Ejxusz81Wu4dL58bYK3mbib6g%3D&Expires=1776685398",
+      "size": 168217035
+    },
+    {
+      "subject": "sub-015",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "filename": "sub-015_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "relative_path": "sub-015/ses-PLCB/func/sub-015_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "url": "https://s3.amazonaws.com/openneuro.org/ds003059/sub-015/ses-PLCB/func/sub-015_ses-PLCB_task-rest_run-01_bold.nii.gz?versionId=qfhzke95qjCQ2YFaWjL8FxRXpkaKIQSv&AWSAccessKeyId=AKIARTA7OOV5WQ3DGSOB&Signature=rrJf%2FIliIsjtVPUGIVz94O4RIJw%3D&Expires=1776685398",
+      "size": 172743725
+    },
+    {
+      "subject": "sub-015",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "filename": "sub-015_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "relative_path": "sub-015/ses-PLCB/func/sub-015_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "url": "https://s3.amazonaws.com/openneuro.org/ds003059/sub-015/ses-PLCB/func/sub-015_ses-PLCB_task-rest_run-03_bold.nii.gz?versionId=Cx42kRmdvO9kJHwu8SyJCe9E.pArixbR&AWSAccessKeyId=AKIARTA7OOV5WQ3DGSOB&Signature=hm4nz48M1TJozjWxne885UxPAKM%3D&Expires=1776685398",
+      "size": 173238288
+    },
+    {
+      "subject": "sub-017",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "filename": "sub-017_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "relative_path": "sub-017/ses-LSD/func/sub-017_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "url": "https://s3.amazonaws.com/openneuro.org/ds003059/sub-017/ses-LSD/func/sub-017_ses-LSD_task-rest_run-01_bold.nii.gz?versionId=VwAmga08kwta9JbOszBl8vtc8qQE739_&AWSAccessKeyId=AKIARTA7OOV5WQ3DGSOB&Signature=teci0Btrotc4GCoBSZ%2FR7nXZmHI%3D&Expires=1776685399",
+      "size": 171864002
+    },
+    {
+      "subject": "sub-017",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "filename": "sub-017_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "relative_path": "sub-017/ses-LSD/func/sub-017_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "url": "https://s3.amazonaws.com/openneuro.org/ds003059/sub-017/ses-LSD/func/sub-017_ses-LSD_task-rest_run-03_bold.nii.gz?versionId=Stumm8OKiBQ8w0yxb1guktgngEm86mXC&AWSAccessKeyId=AKIARTA7OOV5WQ3DGSOB&Signature=0OTD5ZIpeC0iwpHcd1ZuL4OiKKk%3D&Expires=1776685399",
+      "size": 172129001
+    },
+    {
+      "subject": "sub-017",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "filename": "sub-017_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "relative_path": "sub-017/ses-PLCB/func/sub-017_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "url": "https://s3.amazonaws.com/openneuro.org/ds003059/sub-017/ses-PLCB/func/sub-017_ses-PLCB_task-rest_run-01_bold.nii.gz?versionId=vC7t8z.R5JshkUGe1aKjU03jnP0w5WJ0&AWSAccessKeyId=AKIARTA7OOV5WQ3DGSOB&Signature=glV146GReI5UEFMnNwKi%2BIQwD1s%3D&Expires=1776685400",
+      "size": 168212279
+    },
+    {
+      "subject": "sub-017",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "filename": "sub-017_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "relative_path": "sub-017/ses-PLCB/func/sub-017_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "url": "https://s3.amazonaws.com/openneuro.org/ds003059/sub-017/ses-PLCB/func/sub-017_ses-PLCB_task-rest_run-03_bold.nii.gz?versionId=wy.NE8grKUYyYFAKbJkbhBs5MU6pb0J4&AWSAccessKeyId=AKIARTA7OOV5WQ3DGSOB&Signature=j5C%2FMHBgXp5qOIFsSxmkMQi4SfE%3D&Expires=1776685400",
+      "size": 167182148
+    },
+    {
+      "subject": "sub-018",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "filename": "sub-018_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "relative_path": "sub-018/ses-LSD/func/sub-018_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "url": "https://s3.amazonaws.com/openneuro.org/ds003059/sub-018/ses-LSD/func/sub-018_ses-LSD_task-rest_run-01_bold.nii.gz?versionId=r.D1udiCEVxnLhkvkDzQFDusii53po_N&AWSAccessKeyId=AKIARTA7OOV5WQ3DGSOB&Signature=KFbkmb%2Bu13s2LzXAucNBKb1i%2BP4%3D&Expires=1776685401",
+      "size": 174000452
+    },
+    {
+      "subject": "sub-018",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "filename": "sub-018_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "relative_path": "sub-018/ses-LSD/func/sub-018_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "url": "https://s3.amazonaws.com/openneuro.org/ds003059/sub-018/ses-LSD/func/sub-018_ses-LSD_task-rest_run-03_bold.nii.gz?versionId=tJgQu9rRR9NAqNv6Iyk1GJQUU_72g7E4&AWSAccessKeyId=AKIARTA7OOV5WQ3DGSOB&Signature=B2whW5n%2BqkafUWDZZRYfKTuqvnM%3D&Expires=1776685401",
+      "size": 174486680
+    },
+    {
+      "subject": "sub-018",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "filename": "sub-018_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "relative_path": "sub-018/ses-PLCB/func/sub-018_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "url": "https://s3.amazonaws.com/openneuro.org/ds003059/sub-018/ses-PLCB/func/sub-018_ses-PLCB_task-rest_run-01_bold.nii.gz?versionId=wG1TEG1ORui7Ae4x9hNcpG2ns6R8Zze4&AWSAccessKeyId=AKIARTA7OOV5WQ3DGSOB&Signature=KWBWoqYLFw%2BRgfAMeeKGHq53Jec%3D&Expires=1776685402",
+      "size": 173788426
+    },
+    {
+      "subject": "sub-018",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "filename": "sub-018_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "relative_path": "sub-018/ses-PLCB/func/sub-018_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "url": "https://s3.amazonaws.com/openneuro.org/ds003059/sub-018/ses-PLCB/func/sub-018_ses-PLCB_task-rest_run-03_bold.nii.gz?versionId=A31Gi6LcuBQVraoASow97z.t6Hx0zBuq&AWSAccessKeyId=AKIARTA7OOV5WQ3DGSOB&Signature=Go5NrDNim4yuy%2Bw0Cz2BWFuRJlw%3D&Expires=1776685402",
+      "size": 173940045
+    },
+    {
+      "subject": "sub-019",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "filename": "sub-019_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "relative_path": "sub-019/ses-LSD/func/sub-019_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "url": "https://s3.amazonaws.com/openneuro.org/ds003059/sub-019/ses-LSD/func/sub-019_ses-LSD_task-rest_run-01_bold.nii.gz?versionId=dKjH_mwtUdlzJcsRUGCAfAqYut14YbEa&AWSAccessKeyId=AKIARTA7OOV5WQ3DGSOB&Signature=0IowsNOx7fcCXD2Usl7uS2vlde8%3D&Expires=1776685403",
+      "size": 168937563
+    },
+    {
+      "subject": "sub-019",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "filename": "sub-019_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "relative_path": "sub-019/ses-LSD/func/sub-019_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "url": "https://s3.amazonaws.com/openneuro.org/ds003059/sub-019/ses-LSD/func/sub-019_ses-LSD_task-rest_run-03_bold.nii.gz?versionId=ngH_B1u2l62tUmHurNDZ122j3n4FYQix&AWSAccessKeyId=AKIARTA7OOV5WQ3DGSOB&Signature=xhpxGVIJC1hiQV9Iyb4SfIP3kO8%3D&Expires=1776685403",
+      "size": 169090983
+    },
+    {
+      "subject": "sub-019",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "filename": "sub-019_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "relative_path": "sub-019/ses-PLCB/func/sub-019_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "url": "https://s3.amazonaws.com/openneuro.org/ds003059/sub-019/ses-PLCB/func/sub-019_ses-PLCB_task-rest_run-01_bold.nii.gz?versionId=3XlV8AKg3GwfOC6gy2L_VZsmhBtYVq3z&AWSAccessKeyId=AKIARTA7OOV5WQ3DGSOB&Signature=QSa%2BNk9VSaHLn%2FH1KbYcrnqRueY%3D&Expires=1776685403",
+      "size": 169877104
+    },
+    {
+      "subject": "sub-019",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "filename": "sub-019_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "relative_path": "sub-019/ses-PLCB/func/sub-019_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "url": "https://s3.amazonaws.com/openneuro.org/ds003059/sub-019/ses-PLCB/func/sub-019_ses-PLCB_task-rest_run-03_bold.nii.gz?versionId=o_uu_yD7w3JCHRUCMGF_eq2SpSLdoJLO&AWSAccessKeyId=AKIARTA7OOV5WQ3DGSOB&Signature=A7tE38IZ3b8tUQm3kXvrVl%2FMrVw%3D&Expires=1776685403",
+      "size": 170249548
+    },
+    {
+      "subject": "sub-020",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "filename": "sub-020_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "relative_path": "sub-020/ses-LSD/func/sub-020_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "url": "https://s3.amazonaws.com/openneuro.org/ds003059/sub-020/ses-LSD/func/sub-020_ses-LSD_task-rest_run-01_bold.nii.gz?versionId=Bx3GQJq7Q_5XQDrBvld1K0wDabVuE7dO&AWSAccessKeyId=AKIARTA7OOV5WQ3DGSOB&Signature=nAXAm6sdl2H%2FlVhNkVH0KJp9ztg%3D&Expires=1776685404",
+      "size": 169893858
+    },
+    {
+      "subject": "sub-020",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "filename": "sub-020_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "relative_path": "sub-020/ses-LSD/func/sub-020_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "url": "https://s3.amazonaws.com/openneuro.org/ds003059/sub-020/ses-LSD/func/sub-020_ses-LSD_task-rest_run-03_bold.nii.gz?versionId=JJR6e.3XULENT_f.Dt7mcFVuLuLN5rVr&AWSAccessKeyId=AKIARTA7OOV5WQ3DGSOB&Signature=StO1kcG%2BVzgZGZOkjUCzLX1PrJM%3D&Expires=1776685404",
+      "size": 166715003
+    },
+    {
+      "subject": "sub-020",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "filename": "sub-020_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "relative_path": "sub-020/ses-PLCB/func/sub-020_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "url": "https://s3.amazonaws.com/openneuro.org/ds003059/sub-020/ses-PLCB/func/sub-020_ses-PLCB_task-rest_run-01_bold.nii.gz?versionId=zKWkNFI1La5PSQA.MNPUGCzF4dkGbCzW&AWSAccessKeyId=AKIARTA7OOV5WQ3DGSOB&Signature=hu5Aj%2FlMWvx6uQpCabYapHk%2BBaI%3D&Expires=1776685405",
+      "size": 175400574
+    },
+    {
+      "subject": "sub-020",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "filename": "sub-020_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "relative_path": "sub-020/ses-PLCB/func/sub-020_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "url": "https://s3.amazonaws.com/openneuro.org/ds003059/sub-020/ses-PLCB/func/sub-020_ses-PLCB_task-rest_run-03_bold.nii.gz?versionId=E5Hi7ExIsN_X6V7c_x1lTFvR4rJtbSiP&AWSAccessKeyId=AKIARTA7OOV5WQ3DGSOB&Signature=lRleiQVirMazgb2sLGPpaHlpVdE%3D&Expires=1776685405",
+      "size": 175637442
+    }
+  ],
+  "sidecars": [
+    "sub-001/ses-LSD/func/sub-001_ses-LSD_task-rest_bold.json",
+    "sub-001/ses-PLCB/func/sub-001_ses-PLCB_task-rest_bold.json",
+    "sub-002/ses-LSD/func/sub-002_ses-LSD_task-rest_bold.json",
+    "sub-002/ses-PLCB/func/sub-002_ses-PLCB_task-rest_bold.json",
+    "sub-003/ses-LSD/func/sub-003_ses-LSD_task-rest_bold.json",
+    "sub-003/ses-PLCB/func/sub-003_ses-PLCB_task-rest_bold.json",
+    "sub-004/ses-LSD/func/sub-004_ses-LSD_task-rest_bold.json",
+    "sub-004/ses-PLCB/func/sub-004_ses-PLCB_task-rest_bold.json",
+    "sub-006/ses-LSD/func/sub-006_ses-LSD_task-rest_bold.json",
+    "sub-006/ses-PLCB/func/sub-006_ses-PLCB_task-rest_bold.json",
+    "sub-009/ses-LSD/func/sub-009_ses-LSD_task-rest_bold.json",
+    "sub-009/ses-PLCB/func/sub-009_ses-PLCB_task-rest_bold.json",
+    "sub-010/ses-LSD/func/sub-010_ses-LSD_task-rest_bold.json",
+    "sub-010/ses-PLCB/func/sub-010_ses-PLCB_task-rest_bold.json",
+    "sub-011/ses-LSD/func/sub-011_ses-LSD_task-rest_bold.json",
+    "sub-011/ses-PLCB/func/sub-011_ses-PLCB_task-rest_bold.json",
+    "sub-012/ses-LSD/func/sub-012_ses-LSD_task-rest_bold.json",
+    "sub-012/ses-PLCB/func/sub-012_ses-PLCB_task-rest_bold.json",
+    "sub-013/ses-LSD/func/sub-013_ses-LSD_task-rest_bold.json",
+    "sub-013/ses-PLCB/func/sub-013_ses-PLCB_task-rest_bold.json",
+    "sub-015/ses-LSD/func/sub-015_ses-LSD_task-rest_bold.json",
+    "sub-015/ses-PLCB/func/sub-015_ses-PLCB_task-rest_bold.json",
+    "sub-017/ses-LSD/func/sub-017_ses-LSD_task-rest_bold.json",
+    "sub-017/ses-PLCB/func/sub-017_ses-PLCB_task-rest_bold.json",
+    "sub-018/ses-LSD/func/sub-018_ses-LSD_task-rest_bold.json",
+    "sub-018/ses-PLCB/func/sub-018_ses-PLCB_task-rest_bold.json",
+    "sub-019/ses-LSD/func/sub-019_ses-LSD_task-rest_bold.json",
+    "sub-019/ses-PLCB/func/sub-019_ses-PLCB_task-rest_bold.json",
+    "sub-020/ses-LSD/func/sub-020_ses-LSD_task-rest_bold.json",
+    "sub-020/ses-PLCB/func/sub-020_ses-PLCB_task-rest_bold.json"
+  ]
+}

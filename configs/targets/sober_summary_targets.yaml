@@ -1,0 +1,32 @@
+dataset_anchor: "Curated sober resting-state macro targets with ds003059 subset plan"
+module_names:
+  - visual
+  - auditory
+  - salience
+  - default_mode
+  - executive_frontoparietal
+  - limbic_affective
+  - thalamic_gateway
+  - sensorimotor
+metrics:
+  within_network_stability: {target: 0.14, weight: 2.0, confidence: strong, note: "Stronger within-network coherence in sober regime."}
+  cross_network_communication: {target: 0.05, weight: 1.5, confidence: moderate, note: "Moderate but lower cross-network integration than altered state."}
+  thalamic_coupling: {target: 0.12, weight: 1.2, confidence: moderate, note: "Thalamic gateway coupling in sober rest."}
+  hierarchical_compression: {target: 0.20, weight: 1.0, confidence: weak, note: "Sensory-associative correlation proxy."}
+  entropy_diversity: {target: 0.96, weight: 1.0, confidence: moderate, note: "Sober state repertoire should be narrower than altered regime."}
+  switching_rate: {target: 0.11, weight: 1.0, confidence: moderate, note: "Fewer transitions than altered regime."}
+  metastability_proxy: {target: 1.20, weight: 1.0, confidence: moderate, note: "Moderate FC variability in baseline rest."}
+  effective_barrier_proxy: {target: 4.5, weight: 1.0, confidence: weak, note: "Mean dwell time proxy for switching barrier."}
+fc_matrix:
+  - [1.00, 0.18, 0.06, 0.03, 0.03, 0.02, 0.10, 0.16]
+  - [0.18, 1.00, 0.06, 0.03, 0.03, 0.02, 0.10, 0.14]
+  - [0.06, 0.06, 1.00, 0.12, 0.18, 0.14, 0.14, 0.05]
+  - [0.03, 0.03, 0.12, 1.00, 0.10, 0.12, 0.08, 0.03]
+  - [0.03, 0.03, 0.18, 0.10, 1.00, 0.10, 0.10, 0.04]
+  - [0.02, 0.02, 0.14, 0.12, 0.10, 1.00, 0.09, 0.03]
+  - [0.10, 0.10, 0.14, 0.08, 0.10, 0.09, 1.00, 0.10]
+  - [0.16, 0.14, 0.05, 0.03, 0.04, 0.03, 0.10, 1.00]
+notes:
+  - "This target set is a summary-first placeholder, not a direct ds003059-derived estimate."
+  - "The objective is to calibrate a stable sober reference regime before altered-state-inspired perturbations are ranked."
+  - "Metric names use canonical names matching the shared ObservableSummary (within_network_stability etc.)."

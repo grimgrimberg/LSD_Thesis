@@ -1,0 +1,70 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "lsd-thesis-surrogate"
+version = "0.1.0"
+description = "Transparent whole-brain surrogate model for altered-state-inspired macro-dynamics"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+  "fastapi>=0.115.12",
+  "matplotlib>=3.10.3",
+  "jinja2>=3.1.6",
+  "nibabel>=5.3.2",
+  "nilearn>=0.11.1",
+  "networkx>=3.4.2",
+  "numpy>=2.2.4",
+  "openneuro-py>=2025.9.0",
+  "pandas>=2.2.3",
+  "plotly>=6.0.1",
+  "pydantic>=2.11.3",
+  "pyyaml>=6.0.2",
+  "python-docx>=1.2.0",
+  "scikit-learn>=1.6.1",
+  "scipy>=1.15.2",
+  "typer>=0.15.2",
+  "uvicorn>=0.34.1"
+]
+
+[project.optional-dependencies]
+dev = [
+  "mypy>=1.15.0",
+  "pytest>=8.3.5",
+  "ruff>=0.11.5"
+]
+data = []
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/lsd_thesis"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+addopts = "--cov=lsd_thesis --cov-report=term-missing --cov-fail-under=70"
+markers = [
+  "slow: numerical or data-heavy tests that are not part of the fast smoke gate",
+  "integration: endpoint or pipeline tests that exercise multiple subsystems"
+]
+
+[tool.ruff]
+line-length = 160
+target-version = "py313"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "N", "W"]
+
+[tool.mypy]
+python_version = "3.13"
+strict = false
+warn_return_any = true
+warn_unused_ignores = true
+ignore_missing_imports = true
+mypy_path = "src"
+disable_error_code = ["import-untyped"]
+
+[dependency-groups]
+dev = [
+    "pytest-cov>=7.1.0",
+]

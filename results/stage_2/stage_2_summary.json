@@ -1,0 +1,210 @@
+{
+  "dataset_anchor": "OpenNeuro ds003059 placebo resting-state summary (15 session averages)",
+  "initial_score": 5.243912073382831,
+  "best_score": 0.9774448578861021,
+  "best_metrics": {
+    "within_network_stability": 0.29133552940286783,
+    "cross_network_communication": 0.10138708629191759,
+    "thalamic_coupling": 0.09532952591403758,
+    "hierarchical_compression": 0.21142346947824597,
+    "entropy_diversity": 0.819434276817777,
+    "switching_rate": 0.24124124124124124,
+    "metastability_proxy": 1.2188533657560252,
+    "effective_barrier_proxy": 4.132231404958677,
+    "within_group_fc": 0.29133552940286783,
+    "cross_group_fc": 0.10138708629191759,
+    "state_entropy": 0.819434276817777,
+    "dynamic_fc_change": 1.2188533657560252
+  },
+  "best_parameters": {
+    "within_group_scale": 1.5157240996370933,
+    "cross_group_scale": 1.220207551550382,
+    "constraint_scale": 0.6805353934716225,
+    "rigidity": 0.31297308073546615,
+    "barrier": 0.8510506993194457,
+    "temperature": 0.1442856660645801,
+    "tau": 0.6874901639951425
+  },
+  "target_path": "D:\\LSD_Thesis\\results\\stage_2\\empirical_sober_targets.yaml",
+  "atlas_mapping_audit_path": "D:\\LSD_Thesis\\results\\stage_2\\atlas_mapping_audit.json",
+  "best_metrics_mean": {
+    "within_network_stability": 0.09622545907008154,
+    "cross_network_communication": 0.04204893192358171,
+    "thalamic_coupling": 0.03637491198574026,
+    "hierarchical_compression": 0.12696391485951977,
+    "entropy_diversity": 0.9912197657232819,
+    "switching_rate": 0.26226226226226224,
+    "metastability_proxy": 1.0939160449178533,
+    "effective_barrier_proxy": 3.813271725721492
+  },
+  "best_metrics_std": {
+    "within_network_stability": 0.02390953677851308,
+    "cross_network_communication": 0.02563396671958222,
+    "thalamic_coupling": 0.01769484226387013,
+    "hierarchical_compression": 0.09472773955968021,
+    "entropy_diversity": 0.007199784177836329,
+    "switching_rate": 0.015604061329449343,
+    "metastability_proxy": 0.066621950387234,
+    "effective_barrier_proxy": 0.23187004257604618
+  },
+  "version_stamp": {
+    "timestamp": "2026-04-30T12:23:54.966642+00:00",
+    "git": {
+      "repo_present": true,
+      "branch": "codex/whole-brain-surrogate",
+      "head_present": false,
+      "commit_hash": null,
+      "worktree_status": "unborn"
+    }
+  },
+  "empirical_subjects": [
+    "sub-001",
+    "sub-002",
+    "sub-003",
+    "sub-004",
+    "sub-006",
+    "sub-009",
+    "sub-010",
+    "sub-011",
+    "sub-012",
+    "sub-013",
+    "sub-015",
+    "sub-017",
+    "sub-018",
+    "sub-019",
+    "sub-020"
+  ],
+  "empirical_run_count": 60,
+  "perturbation_target_path": "D:\\LSD_Thesis\\results\\stage_2\\empirical_perturbation_targets.yaml",
+  "empirical_provenance": {
+    "dataset_id": "ds003059",
+    "dataset_version": "1.0.0",
+    "dataset_anchor": "OpenNeuro ds003059 placebo resting-state summary (15 session averages)",
+    "subjects": [
+      "sub-001",
+      "sub-002",
+      "sub-003",
+      "sub-004",
+      "sub-006",
+      "sub-009",
+      "sub-010",
+      "sub-011",
+      "sub-012",
+      "sub-013",
+      "sub-015",
+      "sub-017",
+      "sub-018",
+      "sub-019",
+      "sub-020"
+    ],
+    "subject_count": 15,
+    "sessions": [
+      "ses-LSD",
+      "ses-PLCB"
+    ],
+    "runs": [
+      "sub-001/ses-LSD/func/sub-001_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "sub-001/ses-LSD/func/sub-001_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "sub-001/ses-PLCB/func/sub-001_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "sub-001/ses-PLCB/func/sub-001_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "sub-002/ses-LSD/func/sub-002_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "sub-002/ses-LSD/func/sub-002_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "sub-002/ses-PLCB/func/sub-002_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "sub-002/ses-PLCB/func/sub-002_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "sub-003/ses-LSD/func/sub-003_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "sub-003/ses-LSD/func/sub-003_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "sub-003/ses-PLCB/func/sub-003_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "sub-003/ses-PLCB/func/sub-003_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "sub-004/ses-LSD/func/sub-004_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "sub-004/ses-LSD/func/sub-004_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "sub-004/ses-PLCB/func/sub-004_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "sub-004/ses-PLCB/func/sub-004_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "sub-006/ses-LSD/func/sub-006_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "sub-006/ses-LSD/func/sub-006_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "sub-006/ses-PLCB/func/sub-006_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "sub-006/ses-PLCB/func/sub-006_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "sub-009/ses-LSD/func/sub-009_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "sub-009/ses-LSD/func/sub-009_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "sub-009/ses-PLCB/func/sub-009_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "sub-009/ses-PLCB/func/sub-009_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "sub-010/ses-LSD/func/sub-010_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "sub-010/ses-LSD/func/sub-010_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "sub-010/ses-PLCB/func/sub-010_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "sub-010/ses-PLCB/func/sub-010_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "sub-011/ses-LSD/func/sub-011_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "sub-011/ses-LSD/func/sub-011_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "sub-011/ses-PLCB/func/sub-011_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "sub-011/ses-PLCB/func/sub-011_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "sub-012/ses-LSD/func/sub-012_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "sub-012/ses-LSD/func/sub-012_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "sub-012/ses-PLCB/func/sub-012_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "sub-012/ses-PLCB/func/sub-012_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "sub-013/ses-LSD/func/sub-013_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "sub-013/ses-LSD/func/sub-013_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "sub-013/ses-PLCB/func/sub-013_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "sub-013/ses-PLCB/func/sub-013_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "sub-015/ses-LSD/func/sub-015_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "sub-015/ses-LSD/func/sub-015_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "sub-015/ses-PLCB/func/sub-015_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "sub-015/ses-PLCB/func/sub-015_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "sub-017/ses-LSD/func/sub-017_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "sub-017/ses-LSD/func/sub-017_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "sub-017/ses-PLCB/func/sub-017_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "sub-017/ses-PLCB/func/sub-017_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "sub-018/ses-LSD/func/sub-018_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "sub-018/ses-LSD/func/sub-018_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "sub-018/ses-PLCB/func/sub-018_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "sub-018/ses-PLCB/func/sub-018_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "sub-019/ses-LSD/func/sub-019_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "sub-019/ses-LSD/func/sub-019_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "sub-019/ses-PLCB/func/sub-019_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "sub-019/ses-PLCB/func/sub-019_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "sub-020/ses-LSD/func/sub-020_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "sub-020/ses-LSD/func/sub-020_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "sub-020/ses-PLCB/func/sub-020_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "sub-020/ses-PLCB/func/sub-020_ses-PLCB_task-rest_run-03_bold.nii.gz"
+    ],
+    "run_count": 60,
+    "target_paths": {
+      "sober": "D:\\LSD_Thesis\\results\\stage_2\\empirical_sober_targets.yaml",
+      "perturbation": "D:\\LSD_Thesis\\results\\stage_2\\empirical_perturbation_targets.yaml"
+    },
+    "viewer_cache_paths": {
+      "group_overview_path": "D:\\LSD_Thesis\\results\\stage_2\\empirical_viewer\\group_overview.json",
+      "subject_index_path": "D:\\LSD_Thesis\\results\\stage_2\\empirical_viewer\\subject_index.json",
+      "subject_views_dir": "D:\\LSD_Thesis\\results\\stage_2\\empirical_viewer\\subject_views"
+    },
+    "notes": [
+      "Canonical Stage 2 provenance reflects the full empirical cohort used to derive the fitted targets.",
+      "The single-subject MVP subset helper is written separately as a convenience bootstrap artifact and is not the canonical fit provenance."
+    ]
+  },
+  "empirical_data_quality_path": "D:\\LSD_Thesis\\results\\stage_2\\empirical_data_quality.json",
+  "empirical_viewer": {
+    "group_overview_path": "D:\\LSD_Thesis\\results\\stage_2\\empirical_viewer\\group_overview.json",
+    "subject_index_path": "D:\\LSD_Thesis\\results\\stage_2\\empirical_viewer\\subject_index.json",
+    "subject_views_dir": "D:\\LSD_Thesis\\results\\stage_2\\empirical_viewer\\subject_views"
+  },
+  "empirical_gallery": [
+    {
+      "label": "Empirical group traces",
+      "path": "D:\\LSD_Thesis\\results\\stage_2\\figures\\empirical_group_traces.html"
+    },
+    {
+      "label": "Empirical placebo FC",
+      "path": "D:\\LSD_Thesis\\results\\stage_2\\figures\\empirical_placebo_fc.html"
+    },
+    {
+      "label": "Empirical LSD FC",
+      "path": "D:\\LSD_Thesis\\results\\stage_2\\figures\\empirical_lsd_fc.html"
+    },
+    {
+      "label": "Empirical FC delta",
+      "path": "D:\\LSD_Thesis\\results\\stage_2\\figures\\empirical_fc_delta.html"
+    },
+    {
+      "label": "Empirical metric deltas",
+      "path": "D:\\LSD_Thesis\\results\\stage_2\\figures\\empirical_metric_deltas.html"
+    }
+  ]
+}

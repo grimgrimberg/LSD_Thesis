@@ -1,0 +1,27 @@
+modules:
+  - visual
+  - auditory
+  - salience
+  - default_mode
+  - executive_frontoparietal
+  - limbic_affective
+  - thalamic_gateway
+  - sensorimotor
+adjacency:
+  visual: {visual: 0.00, auditory: 0.16, salience: 0.05, default_mode: 0.02, executive_frontoparietal: 0.02, limbic_affective: 0.02, thalamic_gateway: 0.12, sensorimotor: 0.18}
+  auditory: {visual: 0.16, auditory: 0.00, salience: 0.05, default_mode: 0.02, executive_frontoparietal: 0.02, limbic_affective: 0.02, thalamic_gateway: 0.11, sensorimotor: 0.14}
+  salience: {visual: 0.05, auditory: 0.05, salience: 0.00, default_mode: 0.10, executive_frontoparietal: 0.18, limbic_affective: 0.14, thalamic_gateway: 0.16, sensorimotor: 0.05}
+  default_mode: {visual: 0.02, auditory: 0.02, salience: 0.10, default_mode: 0.00, executive_frontoparietal: 0.08, limbic_affective: 0.12, thalamic_gateway: 0.08, sensorimotor: 0.02}
+  executive_frontoparietal: {visual: 0.02, auditory: 0.02, salience: 0.18, default_mode: 0.08, executive_frontoparietal: 0.00, limbic_affective: 0.10, thalamic_gateway: 0.12, sensorimotor: 0.03}
+  limbic_affective: {visual: 0.02, auditory: 0.02, salience: 0.14, default_mode: 0.12, executive_frontoparietal: 0.10, limbic_affective: 0.00, thalamic_gateway: 0.10, sensorimotor: 0.03}
+  thalamic_gateway: {visual: 0.12, auditory: 0.11, salience: 0.16, default_mode: 0.08, executive_frontoparietal: 0.12, limbic_affective: 0.10, thalamic_gateway: 0.00, sensorimotor: 0.10}
+  sensorimotor: {visual: 0.18, auditory: 0.14, salience: 0.05, default_mode: 0.02, executive_frontoparietal: 0.03, limbic_affective: 0.03, thalamic_gateway: 0.10, sensorimotor: 0.00}
+hierarchy_projection:
+  visual: {visual: 0.48, auditory: 0.16, salience: 0.04, default_mode: 0.02, executive_frontoparietal: 0.02, limbic_affective: 0.02, thalamic_gateway: 0.08, sensorimotor: 0.18}
+  auditory: {visual: 0.16, auditory: 0.48, salience: 0.04, default_mode: 0.02, executive_frontoparietal: 0.02, limbic_affective: 0.02, thalamic_gateway: 0.08, sensorimotor: 0.18}
+  salience: {visual: 0.03, auditory: 0.03, salience: 0.44, default_mode: 0.12, executive_frontoparietal: 0.18, limbic_affective: 0.10, thalamic_gateway: 0.08, sensorimotor: 0.02}
+  default_mode: {visual: 0.02, auditory: 0.02, salience: 0.10, default_mode: 0.46, executive_frontoparietal: 0.14, limbic_affective: 0.16, thalamic_gateway: 0.06, sensorimotor: 0.04}
+  executive_frontoparietal: {visual: 0.02, auditory: 0.02, salience: 0.18, default_mode: 0.14, executive_frontoparietal: 0.46, limbic_affective: 0.10, thalamic_gateway: 0.06, sensorimotor: 0.02}
+  limbic_affective: {visual: 0.02, auditory: 0.02, salience: 0.10, default_mode: 0.16, executive_frontoparietal: 0.10, limbic_affective: 0.48, thalamic_gateway: 0.08, sensorimotor: 0.04}
+  thalamic_gateway: {visual: 0.08, auditory: 0.08, salience: 0.10, default_mode: 0.06, executive_frontoparietal: 0.06, limbic_affective: 0.08, thalamic_gateway: 0.46, sensorimotor: 0.08}
+  sensorimotor: {visual: 0.18, auditory: 0.18, salience: 0.02, default_mode: 0.04, executive_frontoparietal: 0.02, limbic_affective: 0.04, thalamic_gateway: 0.08, sensorimotor: 0.44}

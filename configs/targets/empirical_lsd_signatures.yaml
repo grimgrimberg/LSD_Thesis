@@ -1,0 +1,24 @@
+metadata:
+  source_strategy: summary_first
+  notes:
+    - Targets are macro-level empirical anchors derived from public psychedelic rs-fMRI literature and should remain guarded.
+    - Negative values denote expected decreases relative to sober baseline.
+    - Within-network integrity and between-network integration are the strongest current targets.
+target_deltas:
+  within_network_stability: -0.30
+  cross_network_communication: 0.25
+  thalamic_coupling: 0.20
+  hierarchical_compression: 0.20
+  entropy_diversity: 0.25
+  switching_rate: 0.40
+  metastability_proxy: 0.20
+  effective_barrier_proxy: -0.25
+confidence:
+  within_network_stability: strong
+  cross_network_communication: strong
+  thalamic_coupling: moderate_strong
+  hierarchical_compression: moderate
+  entropy_diversity: moderate
+  switching_rate: moderate
+  metastability_proxy: moderate
+  effective_barrier_proxy: weak

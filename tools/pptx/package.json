@@ -1,0 +1,12 @@
+{
+  "name": "lsd-thesis-pptx",
+  "private": true,
+  "type": "module",
+  "description": "Node/PptxGenJS defense deck generator for LSD thesis publication outputs",
+  "scripts": {
+    "build:deck": "node build_defense_deck.mjs"
+  },
+  "dependencies": {
+    "pptxgenjs": "^4.0.1"
+  }
+}

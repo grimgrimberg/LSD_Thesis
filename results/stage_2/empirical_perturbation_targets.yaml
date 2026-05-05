@@ -1,0 +1,25 @@
+metadata:
+  source_strategy: actual_ds003059
+  paired_subject_count: 15
+  notes:
+  - Delta targets are paired LSD minus placebo subject averages from ds003059.
+  - Confidence labels are derived from formal paired t-tests (p < 0.01 strong, p <
+    0.05 moderate).
+target_deltas:
+  within_network_stability: 0.06609328671299261
+  cross_network_communication: 0.07407619939923198
+  thalamic_coupling: 0.11991820431751381
+  hierarchical_compression: 0.054149688768586765
+  entropy_diversity: -0.0022526077494528915
+  switching_rate: 0.012345679012345678
+  metastability_proxy: -0.053960353741377386
+  effective_barrier_proxy: -0.1491923940892797
+confidence:
+  within_network_stability: moderate
+  cross_network_communication: strong
+  thalamic_coupling: strong
+  hierarchical_compression: weak
+  entropy_diversity: weak
+  switching_rate: weak
+  metastability_proxy: moderate
+  effective_barrier_proxy: weak

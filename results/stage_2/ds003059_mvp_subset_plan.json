@@ -1,0 +1,29 @@
+{
+  "subset_spec": {
+    "dataset_id": "ds003059",
+    "version": "1.0.0",
+    "subject": "sub-001",
+    "include_paths": [
+      "dataset_description.json",
+      "README",
+      "CHANGES",
+      "sub-001/ses-LSD/func/sub-001_ses-LSD_task-rest_bold.json",
+      "sub-001/ses-LSD/func/sub-001_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "sub-001/ses-LSD/func/sub-001_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "sub-001/ses-PLCB/func/sub-001_ses-PLCB_task-rest_bold.json",
+      "sub-001/ses-PLCB/func/sub-001_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "sub-001/ses-PLCB/func/sub-001_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "sub-001/anat/sub-001_T1w.nii.gz"
+    ],
+    "notes": [
+      "OpenNeuro ds003059 v1.0.0 is a derivative dataset.",
+      "run-01 and run-03 are resting-state runs; run-02 is music and excluded from the MVP subset.",
+      "The default MVP path is summary-first, but these include paths define the smallest useful download slice."
+    ]
+  },
+  "download_command": "uvx openneuro-py@latest download --dataset=ds003059 --tag=1.0.0 --target-dir data\\ds003059_mvp --include dataset_description.json --include README --include CHANGES --include sub-001/ses-LSD/func/sub-001_ses-LSD_task-rest_bold.json --include sub-001/ses-LSD/func/sub-001_ses-LSD_task-rest_run-01_bold.nii.gz --include sub-001/ses-LSD/func/sub-001_ses-LSD_task-rest_run-03_bold.nii.gz --include sub-001/ses-PLCB/func/sub-001_ses-PLCB_task-rest_bold.json --include sub-001/ses-PLCB/func/sub-001_ses-PLCB_task-rest_run-01_bold.nii.gz --include sub-001/ses-PLCB/func/sub-001_ses-PLCB_task-rest_run-03_bold.nii.gz --include sub-001/anat/sub-001_T1w.nii.gz",
+  "notes": [
+    "This is a convenience bootstrap helper for a minimal ds003059 subset.",
+    "It is not the canonical provenance record for Stage 2 empirical fitting."
+  ]
+}

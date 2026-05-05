@@ -1,0 +1,23 @@
+name: altered_state_inspired
+simulation:
+  dt: 0.05
+  steps: 1200
+  burn_in: 200
+  seed: 23
+global_parameters:
+  within_group_scale: 0.82
+  cross_group_scale: 1.35
+  constraint_scale: 0.30
+module_defaults:
+  barrier: 0.92
+  rigidity: 0.34
+  adaptation_gain: 0.24
+  adaptation_tau: 3.20
+  tau: 0.86
+  temperature: 0.19
+  baseline_state: 0.0
+module_overrides:
+  salience: {temperature: 0.22}
+  default_mode: {rigidity: 0.28}
+  executive_frontoparietal: {constraint_scale: 0.22}
+  thalamic_gateway: {barrier: 0.85, temperature: 0.21}

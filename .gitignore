@@ -1,0 +1,39 @@
+# Local environments and Python caches
+/.venv/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+*.pyc
+*.pyo
+*.pyd
+*.log
+
+# Local agent/tool state
+/.codex/
+/.superpowers/
+/.agents/
+
+# Raw data downloads. Keep root-anchored so src/lsd_thesis/data remains tracked.
+/data/
+
+# Generated artifacts and temporary review outputs
+/output/
+/tmp/
+/tmp_*/
+results/**/*.html
+results/**/*.png
+results/**/*.svg
+results/**/*.npy
+results/**/*.npz
+results/**/*.csv
+results/**/*.md
+results/**/empirical_viewer/
+ruff_output.txt
+
+# Build artifacts and Node dependencies
+dist/
+build/
+*.egg-info/
+node_modules/
+tools/pptx/node_modules/

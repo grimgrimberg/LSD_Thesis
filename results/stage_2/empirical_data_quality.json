@@ -1,0 +1,101 @@
+{
+  "record_count": 60,
+  "subjects": [
+    "sub-001",
+    "sub-002",
+    "sub-003",
+    "sub-004",
+    "sub-006",
+    "sub-009",
+    "sub-010",
+    "sub-011",
+    "sub-012",
+    "sub-013",
+    "sub-015",
+    "sub-017",
+    "sub-018",
+    "sub-019",
+    "sub-020"
+  ],
+  "subject_count": 15,
+  "sessions": [
+    "ses-LSD",
+    "ses-PLCB"
+  ],
+  "runs": [
+    "run-01",
+    "run-03"
+  ],
+  "session_run_counts": {
+    "ses-LSD": {
+      "run-01": 15,
+      "run-03": 15
+    },
+    "ses-PLCB": {
+      "run-01": 15,
+      "run-03": 15
+    }
+  },
+  "paired_subjects": [
+    "sub-001",
+    "sub-002",
+    "sub-003",
+    "sub-004",
+    "sub-006",
+    "sub-009",
+    "sub-010",
+    "sub-011",
+    "sub-012",
+    "sub-013",
+    "sub-015",
+    "sub-017",
+    "sub-018",
+    "sub-019",
+    "sub-020"
+  ],
+  "paired_subject_count": 15,
+  "complete_subjects": [
+    "sub-001",
+    "sub-002",
+    "sub-003",
+    "sub-004",
+    "sub-006",
+    "sub-009",
+    "sub-010",
+    "sub-011",
+    "sub-012",
+    "sub-013",
+    "sub-015",
+    "sub-017",
+    "sub-018",
+    "sub-019",
+    "sub-020"
+  ],
+  "complete_subject_count": 15,
+  "timepoints": {
+    "min": 217,
+    "max": 217,
+    "mean": 217.0
+  },
+  "sign_conflicts": [
+    {
+      "metric": "entropy_diversity",
+      "empirical_delta": -0.0022526077494528915,
+      "literature_delta": 0.25
+    },
+    {
+      "metric": "metastability_proxy",
+      "empirical_delta": -0.053960353741377386,
+      "literature_delta": 0.2
+    },
+    {
+      "metric": "within_network_stability",
+      "empirical_delta": 0.06609328671299261,
+      "literature_delta": -0.3
+    }
+  ],
+  "notes": [
+    "Completeness expects ses-LSD and ses-PLCB, each with run-01 and run-03.",
+    "Sign conflicts compare current ds003059 deltas with the literature-style target file."
+  ]
+}
