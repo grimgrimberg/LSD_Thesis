@@ -109,6 +109,14 @@ uv run python scripts/run_pipeline.py run-all
 
 Generated Plotly HTML figures are written under `results/stage_*/figures/`.
 
+Render the current publication figure bundle from cached stage outputs:
+
+```bash
+uv run python scripts/render_publication_figures.py --all
+```
+
+By default this writes PNGs under `results/publication_figures/`, which is treated as generated output.
+
 ## Reproduce Main Experiment
 
 ```bash
@@ -145,4 +153,7 @@ Ask before deleting raw `/data/` or generated `/results/` artifacts.
 - `cmd.exe /C "uv run ruff check ."`: succeeded after lint fixes revealed by tracking `src/lsd_thesis/data/`.
 - `cmd.exe /C "uv run mypy src"`: succeeded, 26 source files.
 - `cmd.exe /C "uv run pytest"`: succeeded, 99 passed with 84.84% coverage.
+- `cmd.exe /C "uv run python scripts/run_pipeline.py run-everything"`: succeeded on 2026-05-05; stages 1-4, training export, condition benchmark, and multitask benchmark completed.
+- `cmd.exe /C "uv run python scripts/render_publication_figures.py --all"`: succeeded and wrote `stage1_metric_shift.png` and `stage2_fit_robustness.png` under `results/publication_figures/`.
+- `cmd.exe /C "uv run python scripts/build_publication_package.py"`: succeeded and rebuilt markdown, DOCX, HTML, PPTX, and publication figures under `output/doc/`.
 - Linux-shell `uv ...`: failed because `uv` was not on Linux `PATH`; use the Windows command wrapper above.

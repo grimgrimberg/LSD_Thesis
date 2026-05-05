@@ -33,6 +33,7 @@ All metrics are model-level or empirical-summary proxies. None is a direct biolo
 ## Implementation Status
 
 - Implemented: FC, dynamic FC, entropy/diversity, switching, dwell/barrier proxy, thalamic coupling, hierarchy compression, multi-seed mean/std, perturbation score, sign agreement, seed-noise null.
+- Implemented: finite correlation matrix handling for constant or degenerate module channels, using zero off-diagonal correlation and unit diagonal by convention.
 - Present but broken: some intended altered-state directions are not consistently expressed by the current Stage 1 perturbed config.
 - Proposed: make slow/sensitive metrics clearly marked and documented in reports.
 

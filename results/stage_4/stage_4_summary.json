@@ -1169,13 +1169,13 @@
     }
   ],
   "version_stamp": {
-    "timestamp": "2026-04-30T12:28:33.774862+00:00",
+    "timestamp": "2026-05-05T13:03:05.759366+00:00",
     "git": {
       "repo_present": true,
-      "branch": "codex/whole-brain-surrogate",
-      "head_present": false,
-      "commit_hash": null,
-      "worktree_status": "unborn"
+      "branch": "refactor/research-audit-prototype-upgrade",
+      "head_present": true,
+      "commit_hash": "53c3977adc80f8a2c19dc58a150b0ce778c71eef",
+      "worktree_status": "dirty"
     }
   }
 }

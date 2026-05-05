@@ -13,7 +13,7 @@ from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 
 from lsd_thesis.core import MODULE_NAMES
-from lsd_thesis.metrics import compute_observable_summary, compute_summary_metrics
+from lsd_thesis.metrics import compute_observable_summary, compute_summary_metrics, safe_correlation_matrix
 
 SUMMARY_METRIC_NAMES: tuple[str, ...] = (
     "within_network_stability",
@@ -44,10 +44,7 @@ def _safe_lag1_autocorrelation(series: np.ndarray) -> float:
 
 
 def _safe_fc(window: np.ndarray) -> np.ndarray:
-    fc_matrix = np.corrcoef(window.T)
-    fc_matrix = np.nan_to_num(fc_matrix, nan=0.0, posinf=0.0, neginf=0.0)
-    np.fill_diagonal(fc_matrix, 1.0)
-    return np.asarray(fc_matrix, dtype=float)
+    return safe_correlation_matrix(window)
 
 
 def _generic_metric_map(window: np.ndarray, modules: tuple[str, ...]) -> dict[str, float]:

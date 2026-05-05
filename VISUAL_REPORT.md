@@ -52,3 +52,22 @@ Proposed before thesis demo:
 - Run `uv run python scripts/run_dashboard.py`.
 - Open `http://127.0.0.1:8000/`.
 - Check that model explorer, empirical explorer, gallery links, and provenance block load.
+
+## Publication Figure Rendering
+
+Verified command:
+
+```bash
+uv run python scripts/render_publication_figures.py --all
+```
+
+Current verified outputs:
+
+- `results/publication_figures/stage1_metric_shift.png`
+- `results/publication_figures/stage2_fit_robustness.png`
+
+The full publication package was also rebuilt successfully with:
+
+```bash
+uv run python scripts/build_publication_package.py
+```

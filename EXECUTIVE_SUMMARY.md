@@ -19,6 +19,8 @@ The repository implements a transparent 8-module stochastic surrogate model for 
 - Tightened `.gitignore` for lean artifact tracking.
 - Added root-level audit, roadmap, commands, metrics, visual, security, test, and executive docs.
 - Prepared a low-risk hardening path around repo hygiene testing and command documentation.
+- Ran the full local workflow and rebuilt publication outputs.
+- Added finite handling for degenerate metric/FC inputs and a lightweight publication-figure rendering command.
 
 ## What Was Not Changed
 
@@ -28,7 +30,7 @@ The repository implements a transparent 8-module stochastic surrogate model for 
 
 ## Tests Run And Results
 
-During planning, 98 tests collected, focused smoke tests passed, Ruff passed, and mypy passed. After adding the repo hygiene test, final verification passed: focused smoke 9 tests, Ruff, mypy, and full pytest with 99 tests and 84.84% coverage. Numerical warnings remain documented in `TEST_REPORT.md`.
+During planning, 98 tests collected, focused smoke tests passed, Ruff passed, and mypy passed. After adding the repo hygiene test, final verification passed. After running `run-everything`, degenerate metric hardening tests were added. Current final validation: 103 pytest tests passed, Ruff passed, mypy passed, and coverage is 84.88%; details are in `TEST_REPORT.md`.
 
 ## Documents Created/Updated
 

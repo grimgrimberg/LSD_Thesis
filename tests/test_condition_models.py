@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import warnings
+
 import numpy as np
 
 from lsd_thesis.condition_models import (
@@ -46,6 +48,19 @@ def test_build_window_eigenvalue_targets_returns_descending_fc_spectra() -> None
     assert target_names == ["fc_eig_1", "fc_eig_2"]
     np.testing.assert_allclose(eigen_targets[0], np.asarray([2.0, 0.0]), atol=1e-6)
     np.testing.assert_allclose(eigen_targets[1], np.asarray([1.0, 1.0]), atol=1e-6)
+
+
+def test_constant_window_eigenvalue_targets_are_finite_without_runtime_warnings() -> None:
+    windows = np.ones((2, 16, 3), dtype=float)
+
+    with warnings.catch_warnings(record=True) as captured:
+        warnings.simplefilter("always", RuntimeWarning)
+        eigen_targets, target_names = build_window_eigenvalue_targets(windows)
+
+    assert captured == []
+    assert eigen_targets.shape == (2, 3)
+    assert target_names == ["fc_eig_1", "fc_eig_2", "fc_eig_3"]
+    assert np.all(np.isfinite(eigen_targets))
 
 
 def test_evaluate_sklearn_condition_models_uses_subject_held_out_cv() -> None:

@@ -16,13 +16,35 @@ def _upper_triangle(matrix: np.ndarray) -> np.ndarray:
     return matrix[indices]
 
 
+def safe_correlation_matrix(time_series: np.ndarray) -> np.ndarray:
+    """Return a finite module correlation matrix, using zero correlation for constant channels."""
+    if time_series.ndim != 2:
+        raise ValueError("Time series must be shaped as [time, module].")
+    module_count = time_series.shape[1]
+    if len(time_series) < 2:
+        return np.eye(module_count, dtype=float)
+
+    centered = time_series - np.mean(time_series, axis=0, keepdims=True)
+    norms = np.linalg.norm(centered, axis=0)
+    denominator = np.outer(norms, norms)
+    numerator = centered.T @ centered
+    matrix = np.divide(
+        numerator,
+        denominator,
+        out=np.zeros_like(numerator, dtype=float),
+        where=denominator > 1e-12,
+    )
+    np.fill_diagonal(matrix, 1.0)
+    return np.asarray(matrix, dtype=float)
+
+
 def _sliding_window_fc_change(time_series: np.ndarray, window_size: int) -> float:
     if len(time_series) < window_size * 2:
         return 0.0
 
     vectors: list[np.ndarray] = []
     for start in range(0, len(time_series) - window_size + 1, window_size // 2):
-        window_fc = np.corrcoef(time_series[start : start + window_size].T)
+        window_fc = safe_correlation_matrix(time_series[start : start + window_size])
         vectors.append(_upper_triangle(window_fc))
 
     if len(vectors) < 2:
@@ -36,7 +58,10 @@ def _sliding_window_fc_change(time_series: np.ndarray, window_size: int) -> floa
 
 
 def _cluster_state_sequence(time_series: np.ndarray, cluster_count: int = 4) -> np.ndarray:
-    effective_clusters = max(2, min(cluster_count, len(time_series)))
+    unique_state_count = np.unique(time_series, axis=0).shape[0]
+    if unique_state_count <= 1:
+        return np.zeros(len(time_series), dtype=int)
+    effective_clusters = max(2, min(cluster_count, len(time_series), unique_state_count))
     model = KMeans(n_clusters=effective_clusters, random_state=0, n_init=10)
     return np.asarray(model.fit_predict(time_series), dtype=int)
 
@@ -72,7 +97,7 @@ def compute_summary_metrics(time_series: np.ndarray, modules: tuple[str, ...]) -
     if time_series.ndim != 2 or time_series.shape[1] != len(modules):
         raise ValueError("Time series must be shaped as [time, module].")
 
-    fc_matrix = np.corrcoef(time_series.T)
+    fc_matrix = safe_correlation_matrix(time_series)
     window_size = max(40, min(120, len(time_series) // 4))
     dynamic_fc_change = _sliding_window_fc_change(time_series, window_size=window_size)
 
@@ -80,7 +105,8 @@ def compute_summary_metrics(time_series: np.ndarray, modules: tuple[str, ...]) -
     counts = np.bincount(labels)
     probabilities = counts / counts.sum()
     entropy = -np.sum(probabilities * np.log(probabilities + 1e-12))
-    normalized_entropy = float(entropy / np.log(len(probabilities)))
+    entropy_denominator = np.log(len(probabilities))
+    normalized_entropy = 0.0 if entropy_denominator < 1e-12 else float(entropy / entropy_denominator)
     switching_rate = float(np.mean(np.diff(labels) != 0))
 
     return SummaryMetrics(

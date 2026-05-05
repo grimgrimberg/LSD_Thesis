@@ -21,6 +21,16 @@
 - Added `.coverage` to `.gitignore` after full pytest generated the coverage data file.
 - Ran focused smoke tests, Ruff, mypy, and full pytest successfully; details are in `TEST_REPORT.md`.
 
+## 2026-05-05 - Full Workflow And Metric Hardening
+
+- Ran `uv run python scripts/run_pipeline.py run-everything` through the Windows `cmd.exe` wrapper.
+- Stages 1-4 completed, training windows exported, condition benchmark completed, and multitask benchmark completed.
+- Added finite-correlation handling for constant/degenerate time-series inputs.
+- Added tests covering finite degenerate summary metrics and constant-window FC eigenspectrum targets without RuntimeWarnings.
+- Verified and adopted `scripts/render_publication_figures.py` plus its tests as a lightweight publication-figure rendering command.
+- Rebuilt the publication package with `scripts/build_publication_package.py`.
+- Final validation after these changes: focused metric/script tests passed, Ruff passed, mypy passed, and full pytest passed with 103 tests.
+
 ## Rollback
 
 - To inspect the safety baseline: `git show --stat 75218fc`.

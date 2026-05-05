@@ -26,6 +26,18 @@
 - Python resolves to 3.13.13 through `uv`.
 - Linux-shell `uv` is unavailable on `PATH`.
 - Final validation passed with focused smoke tests, Ruff, mypy, and full pytest; see `TEST_REPORT.md`.
+- Full `run-everything` completed on 2026-05-05.
+- Publication figure rendering and publication package rebuild completed on 2026-05-05.
+- Current final validation after follow-up: 103 pytest tests passed, Ruff passed, mypy passed.
+
+## Current Generated Result State
+
+- Stage summaries were regenerated on branch `refactor/research-audit-prototype-upgrade`.
+- The regenerated summaries include commit `53c3977adc80f8a2c19dc58a150b0ce778c71eef` and `worktree_status: dirty`, because local follow-up changes were in progress during the run.
+- Condition benchmark best model: `temporal_cnn`.
+- Multitask benchmark best classification model: `multitask_temporal_cnn`.
+- Multitask benchmark best regression model: `hist_gradient_multitask`.
+- Degenerate FC/entropy warning paths were hardened after this regeneration; rerun stages again if you need generated summaries produced by the exact latest code.
 
 ## Read First
 
