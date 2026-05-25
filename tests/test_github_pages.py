@@ -29,14 +29,14 @@ def test_build_github_pages_site_copies_microsite_and_claim_matrix_artifacts(tmp
     template_dir = tmp_path / "src" / "lsd_thesis" / "templates"
     template_dir.mkdir(parents=True)
     (template_dir / "dashboard.html").write_text(
-        '<script src="/assets/plotly.min.js"></script>'
+        '<html><head><script src="/assets/plotly.min.js"></script></head>'
         "<script>"
         "dashboardState = await fetchJson('/api/dashboard-data');"
         "subjectDetail = await fetchJson(`/api/empirical-view?subject=${encodeURIComponent(subject)}&run=${encodeURIComponent(run)}`);"
         "document.getElementById('simulate').addEventListener('click', async () => {"
         "return `/artifacts/${path}`;"
         "if (!href.startsWith('/artifacts/')) return;"
-        "</script>",
+        "</script></html>",
         encoding="utf-8",
     )
 
@@ -80,6 +80,7 @@ def test_build_github_pages_site_copies_microsite_and_claim_matrix_artifacts(tmp
     assert (tmp_path / "_site" / "dashboard" / "assets" / "plotly.min.js").exists()
     dashboard_html = (tmp_path / "_site" / "dashboard" / "index.html").read_text(encoding="utf-8")
     assert 'src="assets/plotly.min.js"' in dashboard_html
+    assert '<link rel="icon" href="data:,">' in dashboard_html
     assert "fetchJson('dashboard-data.json')" in dashboard_html
     assert "/api/empirical-view" not in dashboard_html
     assert "simulateButton.disabled = true" in dashboard_html

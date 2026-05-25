@@ -23,6 +23,8 @@ from plotly.offline import get_plotlyjs
 from lsd_thesis.thesis_loop import build_thesis_evidence_loop
 from lsd_thesis.web.app import build_dashboard_payload
 
+STATIC_FAVICON_TAG = '<link rel="icon" href="data:,">'
+
 
 def _prepare_site_dir(repo_root: Path, site_dir: Path) -> Path:
     resolved_root = repo_root.resolve()
@@ -52,6 +54,20 @@ def _copy_tree(source: Path, destination: Path) -> Path | None:
     return destination
 
 
+def _with_static_favicon(html: str) -> str:
+    if STATIC_FAVICON_TAG in html:
+        return html
+    if "<head>" in html:
+        return html.replace("<head>", f"<head>\n  {STATIC_FAVICON_TAG}", 1)
+    return html
+
+
+def _inject_static_favicon(path: Path) -> None:
+    if path.suffix.lower() != ".html" or not path.exists():
+        return
+    path.write_text(_with_static_favicon(path.read_text(encoding="utf-8")), encoding="utf-8")
+
+
 def _static_dashboard_html(template_path: Path) -> str:
     html = template_path.read_text(encoding="utf-8")
     replacements = {
@@ -72,7 +88,7 @@ def _static_dashboard_html(template_path: Path) -> str:
     }
     for old, new in replacements.items():
         html = html.replace(old, new)
-    return html
+    return _with_static_favicon(html)
 
 
 def _dashboard_artifact_path_from_href(href: str) -> str | None:
@@ -151,6 +167,7 @@ def build_github_pages_site(repo_root: Path = REPO_ROOT, site_dir: Path | None =
     index = _copy_file(Path(publication_outputs["thesis_microsite_html"]), site / "index.html")
     if index is None:
         raise FileNotFoundError("Publication package did not produce thesis_microsite.html.")
+    _inject_static_favicon(index)
     outputs["index"] = index
 
     optional_files = {
@@ -172,6 +189,7 @@ def build_github_pages_site(repo_root: Path = REPO_ROOT, site_dir: Path | None =
     for name, (source, destination) in optional_files.items():
         copied = _copy_file(source, destination)
         if copied is not None:
+            _inject_static_favicon(copied)
             outputs[name] = copied
 
     figures = _copy_tree(repo_root / "output" / "doc" / "figures", site / "figures")
