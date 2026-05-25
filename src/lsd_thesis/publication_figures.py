@@ -54,7 +54,7 @@ def _save_figure(fig: plt.Figure, path: Path) -> None:
 def _build_stage1_metric_shift_figure(evidence: PublicationEvidence, path: Path) -> PublicationFigure:
     baseline, perturbed = _require_stage1_panel(evidence.stage1)
     metrics = ("state_entropy", "switching_rate")
-    metric_labels = ("State entropy", "Switching rate")
+    metric_labels = ("State entropy\n(bits, proxy)", "Switching rate\n(transitions / step)")
     baseline_values = [_metric_value(baseline, metric) for metric in metrics]
     perturbed_values = [_metric_value(perturbed, metric) for metric in metrics]
 
@@ -66,7 +66,7 @@ def _build_stage1_metric_shift_figure(evidence: PublicationEvidence, path: Path)
     ax.bar(positions + width / 2, perturbed_values, width=width, label="Perturbed", color="#d946ef")
     ax.set_xticks(positions)
     ax.set_xticklabels(metric_labels)
-    ax.set_ylabel("Normalized proxy value")
+    ax.set_ylabel("Proxy metric value (metric-specific units)")
     ax.set_title("Stage 1 metric shift")
     ax.legend(frameon=False)
     ax.grid(axis="y", alpha=0.2)
@@ -77,7 +77,7 @@ def _build_stage1_metric_shift_figure(evidence: PublicationEvidence, path: Path)
         figure_id="stage1_metric_shift",
         path=path,
         caption=(
-            "Stage 1 compares baseline and perturbed proxy values for entropy and switching rate."
+            "Stage 1 compares baseline and perturbed proxy values for entropy and switching rate with units shown on the axis labels."
         ),
         limitations=(
             "These are surrogate macro-dynamics only. They do not claim receptor-level realism, "
@@ -94,7 +94,7 @@ def _build_stage2_fit_robustness_figure(evidence: PublicationEvidence, path: Pat
 
     fig, ax = plt.subplots(figsize=(7.2, 4.4))
     bars = ax.bar(labels, values, color=colors, width=0.55)
-    ax.set_ylabel("Objective score (lower is better)")
+    ax.set_ylabel("Objective score (unitless; lower is better)")
     ax.set_title("Stage 2 objective comparison")
     ax.grid(axis="y", alpha=0.2)
     ax.text(

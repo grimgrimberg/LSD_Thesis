@@ -68,6 +68,7 @@ def test_generate_publication_figures_writes_expected_pngs(tmp_path: Path) -> No
     assert (output_dir / "stage2_fit_robustness.png").exists()
     assert set(figure_bundle) == {"stage1_metric_shift", "stage2_fit_robustness"}
     assert "receptor-level realism" in figure_bundle["stage1_metric_shift"].limitations
+    assert "units shown on the axis labels" in figure_bundle["stage1_metric_shift"].caption
     assert "generalization" in figure_bundle["stage2_fit_robustness"].limitations
     assert "selected score from the optimization step" in figure_bundle["stage2_fit_robustness"].caption
     assert "best observed fit" not in figure_bundle["stage2_fit_robustness"].caption

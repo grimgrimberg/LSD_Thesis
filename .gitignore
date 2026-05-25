@@ -12,8 +12,11 @@ __pycache__/
 
 # Local agent/tool state
 /.codex/
+/.codex-archive/
 /.superpowers/
 /.agents/
+/codex_logs/
+/_codex_skills_disabled_*/
 
 # Raw data downloads. Keep root-anchored so src/lsd_thesis/data remains tracked.
 /data/
@@ -22,6 +25,9 @@ __pycache__/
 /output/
 /tmp/
 /tmp_*/
+/tmp*/
+/manual_temp_probe_root/
+/parcellation_pytest_tmp/
 results/**/*.html
 results/**/*.png
 results/**/*.svg
@@ -35,6 +41,7 @@ ruff_output.txt
 # Build artifacts and Node dependencies
 dist/
 build/
+_site/
 *.egg-info/
 node_modules/
 tools/pptx/node_modules/
