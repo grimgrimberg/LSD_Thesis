@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-05-25T16:48:47.251793+00:00",
+  "dataset_id": "ds006072",
+  "source": "OpenNeuro ds006072, Scientific Data 2025 psilocybin precision imaging dataset",
+  "local_data_root": "data/ds006072",
+  "viewer_root": "results/psilocybin_ds006072/empirical_viewer",
+  "metadata_manifest": "data/ds006072/ds006072_metadata_manifest.json",
+  "metadata_snapshot_tag": "1.0.8",
+  "functional_manifest": "data/ds006072/ds006072_func_manifest.json",
+  "functional_manifest_rest_bold_nifti_count": 3023,
+  "functional_manifest_rest_bold_total_size_bytes": 2644249652000,
+  "functional_manifest_processed_rest_cifti_count": 124,
+  "functional_manifest_processed_cifti_total_size_bytes": 113592893360,
+  "claim_guardrail": "No psilocybin replication claim is allowed unless comparable paired drug/control empirical viewer records exist.",
+  "analysis_status": "metadata_and_file_manifest_ready_missing_empirical_viewer",
+  "pair_count": 0,
+  "subject_count": 0,
+  "blocker": "Expected comparable paired psilocybin/control empirical viewer records under results/psilocybin_ds006072/empirical_viewer.",
+  "schema_template": "results/psilocybin_ds006072/required_empirical_viewer_schema.json",
+  "next_commands": [
+    "Acquire or derive ds006072 paired psilocybin/control module time series under data/ds006072/.",
+    "Run metadata provenance first if missing: .venv\\Scripts\\python.exe scripts\\download_ds006072_metadata.py",
+    "Write subject-level JSON records matching results/stage_2/empirical_viewer/subject_views/*.json.",
+    "Then rerun: .venv\\Scripts\\python.exe scripts\\run_thesis_evidence_loop.py"
+  ]
+}

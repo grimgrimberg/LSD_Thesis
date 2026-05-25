@@ -1,0 +1,208 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-05-25T16:48:48.589307+00:00",
+  "artifact_target": "results/structural_connectome",
+  "expected_graph_files": [
+    "results/structural_connectome/hcp_macro_modules.csv",
+    "data/hcp_structural_connectome/macro_modules.csv"
+  ],
+  "claim_guardrail": "HCP structural-control claims require a documented structural-connectome graph, not the macro-module proxy graph.",
+  "analysis_status": "blocked_missing_hcp_structural_graph",
+  "blocker": "No local HCP/normative structural graph CSV was found.",
+  "required_schema": "CSV edge list with source,target,weight or square matrix with module plus module columns.",
+  "schema_template": "results/structural_connectome/required_hcp_macro_modules_template.csv",
+  "proxy_graph_control_status": "implemented_macro_proxy_graph_controls_not_hcp",
+  "proxy_graph_control_rows": [
+    {
+      "graph_control": "macro_proxy_graph",
+      "rewire_index": null,
+      "support_score": 0.21183035701941078,
+      "graph_source": "macro_proxy_graph; proxy graph control, not HCP structural connectome",
+      "receptor_vs_random_energy_reduction_pct": -14.214731114495072,
+      "receptor_vs_uniform_energy_reduction_pct": -34.3869884708404,
+      "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 4.702198506533535,
+      "state_target_alignment_receptor": 0.13300315069221882
+    },
+    {
+      "graph_control": "uniform_weight_graph",
+      "rewire_index": null,
+      "support_score": 0.31552330412219354,
+      "graph_source": "uniform_weight_graph; proxy graph control, not HCP structural connectome",
+      "receptor_vs_random_energy_reduction_pct": -3.803757951899512,
+      "receptor_vs_uniform_energy_reduction_pct": -22.24847009578297,
+      "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 3.8943761126499026,
+      "state_target_alignment_receptor": 0.13300315069221882
+    },
+    {
+      "graph_control": "degree_expected_graph",
+      "rewire_index": null,
+      "support_score": 0.26147021938726467,
+      "graph_source": "degree_expected_graph; proxy graph control, not HCP structural connectome",
+      "receptor_vs_random_energy_reduction_pct": -9.71664619458491,
+      "receptor_vs_uniform_energy_reduction_pct": -29.29573443489324,
+      "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 4.470415240659168,
+      "state_target_alignment_receptor": 0.13300315069221882
+    },
+    {
+      "graph_control": "edge_weight_rewire_null",
+      "rewire_index": 0,
+      "support_score": 0.44131554549238816,
+      "graph_source": "rewired macro-proxy edge-weight null; not HCP structural connectome",
+      "receptor_vs_random_energy_reduction_pct": 3.872719827893189,
+      "receptor_vs_uniform_energy_reduction_pct": -12.221300137231095,
+      "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 3.4953301013006044,
+      "state_target_alignment_receptor": 0.13300315069221882
+    },
+    {
+      "graph_control": "edge_weight_rewire_null",
+      "rewire_index": 1,
+      "support_score": 0.42589749866565585,
+      "graph_source": "rewired macro-proxy edge-weight null; not HCP structural connectome",
+      "receptor_vs_random_energy_reduction_pct": -0.7328999224900453,
+      "receptor_vs_uniform_energy_reduction_pct": -17.97723417118442,
+      "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 4.926186697188426,
+      "state_target_alignment_receptor": 0.13300315069221882
+    },
+    {
+      "graph_control": "edge_weight_rewire_null",
+      "rewire_index": 2,
+      "support_score": 0.4983398321844616,
+      "graph_source": "rewired macro-proxy edge-weight null; not HCP structural connectome",
+      "receptor_vs_random_energy_reduction_pct": 7.7947726892359315,
+      "receptor_vs_uniform_energy_reduction_pct": -10.193289417449455,
+      "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 3.082625519020206,
+      "state_target_alignment_receptor": 0.13300315069221882
+    },
+    {
+      "graph_control": "edge_weight_rewire_null",
+      "rewire_index": 3,
+      "support_score": 0.15207428819066632,
+      "graph_source": "rewired macro-proxy edge-weight null; not HCP structural connectome",
+      "receptor_vs_random_energy_reduction_pct": -22.78673100971311,
+      "receptor_vs_uniform_energy_reduction_pct": -43.01623602104077,
+      "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 5.104717448180986,
+      "state_target_alignment_receptor": 0.13300315069221882
+    },
+    {
+      "graph_control": "edge_weight_rewire_null",
+      "rewire_index": 4,
+      "support_score": 0.28951678007923065,
+      "graph_source": "rewired macro-proxy edge-weight null; not HCP structural connectome",
+      "receptor_vs_random_energy_reduction_pct": -8.923383183222825,
+      "receptor_vs_uniform_energy_reduction_pct": -27.53279803714942,
+      "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 4.495686968120134,
+      "state_target_alignment_receptor": 0.13300315069221882
+    },
+    {
+      "graph_control": "edge_weight_rewire_null",
+      "rewire_index": 5,
+      "support_score": 0.3530642939818865,
+      "graph_source": "rewired macro-proxy edge-weight null; not HCP structural connectome",
+      "receptor_vs_random_energy_reduction_pct": -0.9532812810829832,
+      "receptor_vs_uniform_energy_reduction_pct": -19.910991163435906,
+      "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 3.350800119672593,
+      "state_target_alignment_receptor": 0.13300315069221882
+    },
+    {
+      "graph_control": "edge_weight_rewire_null",
+      "rewire_index": 6,
+      "support_score": 0.3076519162322807,
+      "graph_source": "rewired macro-proxy edge-weight null; not HCP structural connectome",
+      "receptor_vs_random_energy_reduction_pct": -4.162754862386243,
+      "receptor_vs_uniform_energy_reduction_pct": -22.62151821545653,
+      "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 4.046499086247285,
+      "state_target_alignment_receptor": 0.13300315069221882
+    },
+    {
+      "graph_control": "edge_weight_rewire_null",
+      "rewire_index": 7,
+      "support_score": 0.2754265146030591,
+      "graph_source": "rewired macro-proxy edge-weight null; not HCP structural connectome",
+      "receptor_vs_random_energy_reduction_pct": -8.335725281188644,
+      "receptor_vs_uniform_energy_reduction_pct": -29.89037925952308,
+      "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 4.013860098578283,
+      "state_target_alignment_receptor": 0.13300315069221882
+    },
+    {
+      "graph_control": "edge_weight_rewire_null",
+      "rewire_index": 8,
+      "support_score": 0.33073733344921175,
+      "graph_source": "rewired macro-proxy edge-weight null; not HCP structural connectome",
+      "receptor_vs_random_energy_reduction_pct": -4.654984828636728,
+      "receptor_vs_uniform_energy_reduction_pct": -22.587316306527363,
+      "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 4.8005011010202265,
+      "state_target_alignment_receptor": 0.13300315069221882
+    },
+    {
+      "graph_control": "edge_weight_rewire_null",
+      "rewire_index": 9,
+      "support_score": 0.23198197109099977,
+      "graph_source": "rewired macro-proxy edge-weight null; not HCP structural connectome",
+      "receptor_vs_random_energy_reduction_pct": -13.855651262170744,
+      "receptor_vs_uniform_energy_reduction_pct": -32.861072589957736,
+      "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 4.464124957810071,
+      "state_target_alignment_receptor": 0.13300315069221882
+    },
+    {
+      "graph_control": "edge_weight_rewire_null",
+      "rewire_index": 10,
+      "support_score": 0.34230743372875594,
+      "graph_source": "rewired macro-proxy edge-weight null; not HCP structural connectome",
+      "receptor_vs_random_energy_reduction_pct": -1.639990479219674,
+      "receptor_vs_uniform_energy_reduction_pct": -19.076950180867062,
+      "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 4.29996007221886,
+      "state_target_alignment_receptor": 0.13300315069221882
+    },
+    {
+      "graph_control": "edge_weight_rewire_null",
+      "rewire_index": 11,
+      "support_score": 0.19075149371575462,
+      "graph_source": "rewired macro-proxy edge-weight null; not HCP structural connectome",
+      "receptor_vs_random_energy_reduction_pct": -15.636000165679254,
+      "receptor_vs_uniform_energy_reduction_pct": -34.244904784852,
+      "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 4.4466356917017,
+      "state_target_alignment_receptor": 0.13300315069221882
+    },
+    {
+      "graph_control": "edge_weight_rewire_null",
+      "rewire_index": 12,
+      "support_score": 0.19967631618440163,
+      "graph_source": "rewired macro-proxy edge-weight null; not HCP structural connectome",
+      "receptor_vs_random_energy_reduction_pct": -15.885659635150416,
+      "receptor_vs_uniform_energy_reduction_pct": -33.09941121308414,
+      "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 4.487833965521429,
+      "state_target_alignment_receptor": 0.13300315069221882
+    },
+    {
+      "graph_control": "edge_weight_rewire_null",
+      "rewire_index": 13,
+      "support_score": 0.30270786659692056,
+      "graph_source": "rewired macro-proxy edge-weight null; not HCP structural connectome",
+      "receptor_vs_random_energy_reduction_pct": -6.353141958519869,
+      "receptor_vs_uniform_energy_reduction_pct": -24.966835315844833,
+      "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 3.890688463314012,
+      "state_target_alignment_receptor": 0.13300315069221882
+    },
+    {
+      "graph_control": "edge_weight_rewire_null",
+      "rewire_index": 14,
+      "support_score": 0.19790713924521625,
+      "graph_source": "rewired macro-proxy edge-weight null; not HCP structural connectome",
+      "receptor_vs_random_energy_reduction_pct": -7.191985415964259,
+      "receptor_vs_uniform_energy_reduction_pct": -27.165905550833298,
+      "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 3.3460787238893253,
+      "state_target_alignment_receptor": 0.13300315069221882
+    },
+    {
+      "graph_control": "edge_weight_rewire_null",
+      "rewire_index": 15,
+      "support_score": 0.2994188224961803,
+      "graph_source": "rewired macro-proxy edge-weight null; not HCP structural connectome",
+      "receptor_vs_random_energy_reduction_pct": -6.439744614853897,
+      "receptor_vs_uniform_energy_reduction_pct": -24.950712439624514,
+      "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 4.3178379982059845,
+      "state_target_alignment_receptor": 0.13300315069221882
+    }
+  ],
+  "proxy_graph_control_path": "results/structural_connectome/proxy_graph_control_nulls.csv"
+}
