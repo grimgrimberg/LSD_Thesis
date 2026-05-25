@@ -26,6 +26,19 @@ def test_build_github_pages_site_copies_microsite_and_claim_matrix_artifacts(tmp
     claim_dir.mkdir(parents=True)
     (claim_dir / "claim_evidence_matrix.csv").write_text("claim,status\nC,ready\n", encoding="utf-8")
     (claim_dir / "claim_evidence_matrix.md").write_text("| claim | status |\n| --- | --- |\n", encoding="utf-8")
+    template_dir = tmp_path / "src" / "lsd_thesis" / "templates"
+    template_dir.mkdir(parents=True)
+    (template_dir / "dashboard.html").write_text(
+        '<script src="/assets/plotly.min.js"></script>'
+        "<script>"
+        "dashboardState = await fetchJson('/api/dashboard-data');"
+        "subjectDetail = await fetchJson(`/api/empirical-view?subject=${encodeURIComponent(subject)}&run=${encodeURIComponent(run)}`);"
+        "document.getElementById('simulate').addEventListener('click', async () => {"
+        "return `/artifacts/${path}`;"
+        "if (!href.startsWith('/artifacts/')) return;"
+        "</script>",
+        encoding="utf-8",
+    )
 
     module.build_publication_package = lambda repo_root: {
         "thesis_microsite_html": output_dir / "thesis_microsite.html",
@@ -33,10 +46,22 @@ def test_build_github_pages_site_copies_microsite_and_claim_matrix_artifacts(tmp
         "thesis_report_markdown": output_dir / "thesis_report_revised.md",
     }
     module.build_thesis_evidence_loop = lambda repo_root: {}
+    module.build_dashboard_payload = lambda repo_root: {
+        "artifact_links": {
+            "reports": [
+                {
+                    "label": "Claim matrix",
+                    "href": "/artifacts/results/thesis_evidence_loop/claim_evidence_matrix.csv",
+                }
+            ],
+            "figures": [],
+        }
+    }
     module.export_thesis_loop_tables = lambda repo_root, export_dir: {
         "workbook_path": (export_dir / "thesis_evidence_loop_tables.xlsx").as_posix(),
         "claim_matrix_csv": (export_dir / "claim_evidence_matrix.csv").as_posix(),
     }
+    module.get_plotlyjs = lambda: "window.Plotly={newPlot:function(){}};"
     export_dir = claim_dir / "exports"
     export_dir.mkdir()
     (export_dir / "claim_evidence_matrix.csv").write_text("claim,status\nC,ready\n", encoding="utf-8")
@@ -50,6 +75,16 @@ def test_build_github_pages_site_copies_microsite_and_claim_matrix_artifacts(tmp
     assert (tmp_path / "_site" / "artifacts" / "claim_evidence_matrix.csv").exists()
     assert (tmp_path / "_site" / "artifacts" / "claim_evidence_matrix.md").exists()
     assert (tmp_path / "_site" / "artifacts" / "thesis_evidence_loop_tables.xlsx").exists()
+    assert (tmp_path / "_site" / "dashboard" / "index.html").exists()
+    assert (tmp_path / "_site" / "dashboard" / "dashboard-data.json").exists()
+    assert (tmp_path / "_site" / "dashboard" / "assets" / "plotly.min.js").exists()
+    dashboard_html = (tmp_path / "_site" / "dashboard" / "index.html").read_text(encoding="utf-8")
+    assert 'src="assets/plotly.min.js"' in dashboard_html
+    assert "fetchJson('dashboard-data.json')" in dashboard_html
+    assert "/api/empirical-view" not in dashboard_html
+    assert "simulateButton.disabled = true" in dashboard_html
+    assert "../artifacts/${path}" in dashboard_html
     manifest = json.loads((tmp_path / "_site" / "pages_manifest.json").read_text(encoding="utf-8"))
     assert manifest["claim_guardrail"].startswith("GitHub Pages is a static presentation")
+    assert manifest["entrypoints"]["dashboard"] == "dashboard/index.html"
     assert "artifacts/claim_evidence_matrix.csv" in manifest["artifacts"]

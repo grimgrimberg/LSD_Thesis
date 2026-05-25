@@ -6,6 +6,7 @@ import shutil
 import sys
 from datetime import UTC, datetime
 from pathlib import Path
+from typing import Any
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SRC_ROOT = REPO_ROOT / "src"
@@ -17,8 +18,10 @@ for path in (SRC_ROOT, SCRIPTS_ROOT):
 # ruff: noqa: E402
 from build_publication_package import build_publication_package
 from export_thesis_loop_tables import export_thesis_loop_tables
+from plotly.offline import get_plotlyjs
 
 from lsd_thesis.thesis_loop import build_thesis_evidence_loop
+from lsd_thesis.web.app import build_dashboard_payload
 
 
 def _prepare_site_dir(repo_root: Path, site_dir: Path) -> Path:
@@ -47,6 +50,93 @@ def _copy_tree(source: Path, destination: Path) -> Path | None:
         shutil.rmtree(destination)
     shutil.copytree(source, destination)
     return destination
+
+
+def _static_dashboard_html(template_path: Path) -> str:
+    html = template_path.read_text(encoding="utf-8")
+    replacements = {
+        'src="/assets/plotly.min.js"': 'src="assets/plotly.min.js"',
+        'href="/artifacts/': 'href="../artifacts/',
+        "fetchJson('/api/dashboard-data')": "fetchJson('dashboard-data.json')",
+        "subjectDetail = await fetchJson(`/api/empirical-view?subject=${encodeURIComponent(subject)}&run=${encodeURIComponent(run)}`);": (
+            "subjectDetail = { error: 'Static GitHub Pages build: subject-level fMRI previews require the local FastAPI dashboard.' };"
+        ),
+        "return `/artifacts/${path}`;": "return `../artifacts/${path}`;",
+        "href.startsWith('/artifacts/')": "(href.startsWith('/artifacts/') || href.startsWith('../artifacts/'))",
+        "document.getElementById('simulate').addEventListener('click', async () => {": (
+            "const simulateButton = document.getElementById('simulate');\n"
+            "      simulateButton.disabled = true;\n"
+            "      simulateButton.title = 'Static GitHub Pages build: simulation controls require the local FastAPI dashboard.';\n"
+            "      simulateButton.addEventListener('click', async () => {"
+        ),
+    }
+    for old, new in replacements.items():
+        html = html.replace(old, new)
+    return html
+
+
+def _dashboard_artifact_path_from_href(href: str) -> str | None:
+    for prefix in ("/artifacts/", "../artifacts/"):
+        if href.startswith(prefix):
+            return href.removeprefix(prefix)
+    return None
+
+
+def _copy_dashboard_linked_artifacts(repo_root: Path, site: Path, dashboard_payload: dict[str, Any]) -> list[str]:
+    copied: list[str] = []
+    allowed_prefixes = (
+        "docs/",
+        "output/doc/",
+        "results/dynamic_mechanism_ranking/",
+        "results/literature_benchmark/",
+        "results/parcellation_sensitivity/",
+        "results/psilocybin_ds006072/",
+        "results/receptor_priors/",
+        "results/stage_2/figures/",
+        "results/structural_connectome/",
+        "results/thesis_evidence_loop/",
+    )
+    links: list[dict[str, Any]] = []
+    artifact_links = dashboard_payload.get("artifact_links", {})
+    if isinstance(artifact_links, dict):
+        links.extend(link for link in artifact_links.get("reports", []) if isinstance(link, dict))
+        links.extend(link for link in artifact_links.get("figures", []) if isinstance(link, dict))
+    empirical_viewer = dashboard_payload.get("empirical_viewer", {})
+    if isinstance(empirical_viewer, dict):
+        links.extend(link for link in empirical_viewer.get("gallery", []) if isinstance(link, dict))
+        links.extend(link for link in empirical_viewer.get("reports", []) if isinstance(link, dict))
+
+    for link in links:
+        relative = _dashboard_artifact_path_from_href(str(link.get("href", "")))
+        if relative is None or not relative.startswith(allowed_prefixes):
+            continue
+        source = repo_root / relative
+        if not source.exists() or not source.is_file():
+            continue
+        destination = site / "artifacts" / relative
+        if _copy_file(source, destination) is not None:
+            copied.append(destination.relative_to(site).as_posix())
+    return sorted(set(copied))
+
+
+def _write_static_dashboard(repo_root: Path, site: Path) -> dict[str, Path | list[str]]:
+    dashboard_dir = site / "dashboard"
+    dashboard_dir.mkdir(parents=True, exist_ok=True)
+    payload = build_dashboard_payload(repo_root)
+    dashboard_data = dashboard_dir / "dashboard-data.json"
+    dashboard_data.write_text(json.dumps(payload, indent=2), encoding="utf-8")
+    dashboard_html = dashboard_dir / "index.html"
+    dashboard_html.write_text(_static_dashboard_html(repo_root / "src" / "lsd_thesis" / "templates" / "dashboard.html"), encoding="utf-8")
+    plotly_asset = dashboard_dir / "assets" / "plotly.min.js"
+    plotly_asset.parent.mkdir(parents=True, exist_ok=True)
+    plotly_asset.write_text(get_plotlyjs(), encoding="utf-8")
+    copied_artifacts = _copy_dashboard_linked_artifacts(repo_root, site, payload)
+    return {
+        "dashboard": dashboard_html,
+        "dashboard_data": dashboard_data,
+        "dashboard_plotly": plotly_asset,
+        "dashboard_artifacts": copied_artifacts,
+    }
 
 
 def build_github_pages_site(repo_root: Path = REPO_ROOT, site_dir: Path | None = None) -> dict[str, Path]:
@@ -87,22 +177,27 @@ def build_github_pages_site(repo_root: Path = REPO_ROOT, site_dir: Path | None =
     figures = _copy_tree(repo_root / "output" / "doc" / "figures", site / "figures")
     if figures is not None:
         outputs["figures"] = figures
+    dashboard_outputs = _write_static_dashboard(repo_root, site)
+    outputs.update({key: value for key, value in dashboard_outputs.items() if isinstance(value, Path)})
+    dashboard_artifacts = dashboard_outputs.get("dashboard_artifacts", [])
 
     manifest = {
         "generated_at_utc": datetime.now(UTC).isoformat(),
         "claim_guardrail": (
-            "GitHub Pages is a static presentation artifact. Treat blocked rows in the claim matrix as unresolved thesis work, "
-            "not as completed scientific evidence."
+            "GitHub Pages is a static presentation and dashboard snapshot. Treat blocked rows in the claim matrix as unresolved thesis work, "
+            "not as completed scientific evidence. Interactive FastAPI-only controls are available only in the local dashboard."
         ),
         "entrypoints": {
             "index": "index.html",
             "defense": "defense.html" if "defense" in outputs else None,
+            "dashboard": "dashboard/index.html",
         },
         "artifacts": sorted(
             path.relative_to(site).as_posix()
             for key, path in outputs.items()
-            if key not in {"index", "figures"} and path.is_file()
-        ),
+            if key not in {"index", "figures", "dashboard", "dashboard_data", "dashboard_plotly"} and path.is_file()
+        )
+        + list(dashboard_artifacts if isinstance(dashboard_artifacts, list) else []),
     }
     manifest_path = site / "pages_manifest.json"
     manifest_path.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
