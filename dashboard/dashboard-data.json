@@ -86793,7 +86793,7 @@
     ],
     "loop_status": {
       "schema_version": 1,
-      "generated_at_utc": "2026-05-25T16:49:04.736988+00:00",
+      "generated_at_utc": "2026-05-25T18:24:59.560899+00:00",
       "analysis_status": "implemented_loop_status_artifacts",
       "status_rows": [
         {
@@ -86853,7 +86853,7 @@
         },
         "psilocybin_ds006072": {
           "schema_version": 1,
-          "generated_at_utc": "2026-05-25T16:48:47.251793+00:00",
+          "generated_at_utc": "2026-05-25T18:24:34.614522+00:00",
           "dataset_id": "ds006072",
           "source": "OpenNeuro ds006072, Scientific Data 2025 psilocybin precision imaging dataset",
           "local_data_root": "data/ds006072",
@@ -86881,7 +86881,7 @@
         },
         "structural_connectome": {
           "schema_version": 1,
-          "generated_at_utc": "2026-05-25T16:48:48.589307+00:00",
+          "generated_at_utc": "2026-05-25T18:24:36.646916+00:00",
           "artifact_target": "results/structural_connectome",
           "expected_graph_files": [
             "results/structural_connectome/hcp_macro_modules.csv",
@@ -87090,7 +87090,7 @@
         },
         "receptor_priors": {
           "schema_version": 1,
-          "generated_at_utc": "2026-05-25T16:48:56.695055+00:00",
+          "generated_at_utc": "2026-05-25T18:24:49.655762+00:00",
           "artifact_target": "results/receptor_priors",
           "expected_prior_files": [
             "results/receptor_priors/fs5ht_5ht2a_macro_modules.csv",
@@ -87182,7 +87182,7 @@
         },
         "parcellation_sensitivity": {
           "schema_version": 1,
-          "generated_at_utc": "2026-05-25T16:48:57.222891+00:00",
+          "generated_at_utc": "2026-05-25T18:24:50.377033+00:00",
           "analysis_status": "implemented_status_matrix",
           "rows": [
             {
@@ -87365,7 +87365,7 @@
         },
         "literature_benchmark": {
           "schema_version": 1,
-          "generated_at_utc": "2026-05-25T16:49:04.730052+00:00",
+          "generated_at_utc": "2026-05-25T18:24:59.492199+00:00",
           "analysis_status": "implemented_directional_proxy_benchmark",
           "aligned_count": 4,
           "measurable_count": 6,
