@@ -1,0 +1,234 @@
+{
+  "schema_version": "thesis_upgrade_status.v1",
+  "generated_at_utc": "2026-05-27T14:20:07.454159+00:00",
+  "readiness_summary": {
+    "ready_gates": 4,
+    "total_gates": 6,
+    "readiness_fraction": 0.6666666666666666,
+    "thesis_status": "draft_ready_not_final_defense_ready"
+  },
+  "gates": [
+    {
+      "label": "Motion and confounds",
+      "status": "unavailable_not_found",
+      "ready": false,
+      "evidence": "results/setting_seed/motion/motion_summary.json",
+      "blocker": "No structured subject/session/run confounds with FD/DVARS/censoring coverage are available locally.",
+      "score": 0.0
+    },
+    {
+      "label": "Canonical parcellation",
+      "status": "implemented_mechanism_ranking",
+      "ready": true,
+      "evidence": "results/parcellation_sensitivity/parcellation_sensitivity_status.json",
+      "blocker": "Canonical Schaefer/Yeo extraction and ranking are available.",
+      "score": 1.0
+    },
+    {
+      "label": "ROCKET benchmark",
+      "status": "supporting_internal_signal",
+      "ready": true,
+      "evidence": "results/training/rocket_condition_benchmark/comparison_summary.json",
+      "blocker": "Add permutation-null, calibration, and MiniRocket/MultiRocket gates before treating this as strong ML evidence.",
+      "score": 1.0
+    },
+    {
+      "label": "External validation",
+      "status": "extraction_contract_ready_missing_local_cifti_payloads",
+      "ready": false,
+      "evidence": "results/psilocybin_ds006072/psilocybin_ds006072_status.json; results/external_ingestion/external_ingestion_status.json",
+      "blocker": "Drug-order mapping and unchanged scoring are locked, but local ds006072 CIFTI/module time-series payloads are absent. Download or provide authorized processed rest CIFTIs before claiming validation.",
+      "score": 0.6
+    },
+    {
+      "label": "Receptor + structural control",
+      "status": "fully_integrated",
+      "ready": true,
+      "evidence": "results/structural_connectome/structural_connectome_status.json; results/receptor_priors/receptor_prior_status.json; results/external_ingestion/external_ingestion_status.json",
+      "blocker": "Need both a documented structural-connectome graph and PET-derived receptor prior with null controls.",
+      "score": 1.0
+    },
+    {
+      "label": "Reproducible archive",
+      "status": "manifest_ready",
+      "ready": true,
+      "evidence": "results/reproducible_archive/ARCHIVE_MANIFEST.json",
+      "blocker": "Generate the archive manifest, then publish a GitHub release and Zenodo DOI.",
+      "score": 0.75
+    }
+  ],
+  "components": {
+    "motion_confound": {
+      "gate": {
+        "label": "Motion and confounds",
+        "status": "unavailable_not_found",
+        "ready": false,
+        "evidence": "results/setting_seed/motion/motion_summary.json",
+        "blocker": "No structured subject/session/run confounds with FD/DVARS/censoring coverage are available locally.",
+        "score": 0.0
+      },
+      "required_columns": [
+        "framewise_displacement",
+        "dvars or std_dvars",
+        "motion_outlier_* or censor/scrub indicators"
+      ],
+      "recommended_thresholds": {
+        "fd_spike_threshold_mm": 0.5,
+        "dvars_spike_threshold": 1.5,
+        "reporting_unit": "subject/session/run"
+      },
+      "claim_guardrail": "Motion sensitivity is not complete until structured confounds are present and parsed."
+    },
+    "canonical_parcellation": {
+      "gate": {
+        "label": "Canonical parcellation",
+        "status": "implemented_mechanism_ranking",
+        "ready": true,
+        "evidence": "results/parcellation_sensitivity/parcellation_sensitivity_status.json",
+        "blocker": "Canonical Schaefer/Yeo extraction and ranking are available.",
+        "score": 1.0
+      },
+      "current_baseline": "harvard_oxford_8_module_proxy",
+      "recommended_primary": "schaefer_100_yeo_7",
+      "recommended_sensitivity": [
+        "schaefer_200_yeo_7",
+        "schaefer_100_yeo_17",
+        "schaefer_200_yeo_17"
+      ],
+      "engineering_logic": "Use Schaefer parcels as state nodes and Yeo networks as interpretable macro-supernodes; then test whether mechanism rankings survive the refined state-space.",
+      "claim_guardrail": "The 8-module Harvard-Oxford mapping remains a transparent proxy until Schaefer/Yeo extraction is run."
+    },
+    "rocket_strengthening": {
+      "gate": {
+        "label": "ROCKET benchmark",
+        "status": "supporting_internal_signal",
+        "ready": true,
+        "evidence": "results/training/rocket_condition_benchmark/comparison_summary.json",
+        "blocker": "Add permutation-null, calibration, and MiniRocket/MultiRocket gates before treating this as strong ML evidence.",
+        "score": 1.0
+      },
+      "current_metrics": {
+        "balanced_accuracy_mean": 0.6666666666666667,
+        "balanced_accuracy_std": 0.05270462766947298,
+        "roc_auc_mean": 0.7111111111111111,
+        "roc_auc_std": 0.07777777777777778,
+        "subject_count": 15,
+        "sample_count": 600,
+        "n_kernels": 512,
+        "feature_count": 1024
+      },
+      "strengthening_requirements": [
+        "MiniRocket or MultiRocket transform mode",
+        "first-difference channels",
+        "fold-internal calibration and feature selection only",
+        "label-permutation null distribution",
+        "subject/session/run confidence intervals",
+        "Brier score and calibration curve",
+        "external ds006072 run without score retuning"
+      ],
+      "claim_guardrail": "ROCKET remains supporting internal proxy evidence until null, calibration, and external gates pass."
+    },
+    "external_validation": {
+      "gate": {
+        "label": "External validation",
+        "status": "extraction_contract_ready_missing_local_cifti_payloads",
+        "ready": false,
+        "evidence": "results/psilocybin_ds006072/psilocybin_ds006072_status.json; results/external_ingestion/external_ingestion_status.json",
+        "blocker": "Drug-order mapping and unchanged scoring are locked, but local ds006072 CIFTI/module time-series payloads are absent. Download or provide authorized processed rest CIFTIs before claiming validation.",
+        "score": 0.6
+      },
+      "recommended_external_dataset": "OpenNeuro ds006072 psilocybin precision functional mapping",
+      "ingestion_status": {
+        "ds006072_metadata": "ready",
+        "ds006072_func_manifest": "ready",
+        "structural_connectome": "ready",
+        "receptor_prior": "ready"
+      },
+      "fixed_rule": "Run the same LSD scoring rules on psilocybin/control data without retuning after seeing results.",
+      "claim_guardrail": "Metadata and manifests are not external validation; comparable empirical target extraction is required."
+    },
+    "receptor_structural": {
+      "gate": {
+        "label": "Receptor + structural control",
+        "status": "fully_integrated",
+        "ready": true,
+        "evidence": "results/structural_connectome/structural_connectome_status.json; results/receptor_priors/receptor_prior_status.json; results/external_ingestion/external_ingestion_status.json",
+        "blocker": "Need both a documented structural-connectome graph and PET-derived receptor prior with null controls.",
+        "score": 1.0
+      },
+      "structural_status": "implemented_hcp_structural_graph_sensitivity",
+      "receptor_status": "implemented_pet_receptor_prior_sensitivity",
+      "ingestion_status": {
+        "ds006072_metadata": "ready",
+        "ds006072_func_manifest": "ready",
+        "structural_connectome": "ready",
+        "receptor_prior": "ready"
+      },
+      "required_structural_input": "CSV edge list or square matrix aligned to active parcellation nodes.",
+      "required_receptor_input": "PET-derived 5-HT2A/FS5ht map projected to the active parcellation.",
+      "null_controls": [
+        "uniform",
+        "degree",
+        "random prior",
+        "spatial/autocorrelation-preserving null"
+      ],
+      "claim_guardrail": "E is proxy-only until structural and receptor priors are both implemented with null controls."
+    },
+    "reproducible_archive": {
+      "gate": {
+        "label": "Reproducible archive",
+        "status": "manifest_ready",
+        "ready": true,
+        "evidence": "results/reproducible_archive/ARCHIVE_MANIFEST.json",
+        "blocker": "Generate the archive manifest, then publish a GitHub release and Zenodo DOI.",
+        "score": 0.75
+      },
+      "recommended_publication_stack": [
+        "GitHub repository",
+        "GitHub Pages static snapshot",
+        "GitHub release",
+        "Zenodo DOI"
+      ],
+      "raw_data_policy": "Do not bundle raw OpenNeuro imaging data; cite dataset IDs and archive derived aggregate artifacts only.",
+      "claim_guardrail": "GitHub Pages is a presentation snapshot, not the citable reproducibility archive."
+    }
+  },
+  "visualization_plan": {
+    "dashboard_panels": [
+      "readiness gate bar",
+      "ROCKET strength radar",
+      "motion/QC ribbon",
+      "parcellation proxy-vs-canonical board",
+      "external/receptor/structural/archive evidence matrix",
+      "3D latent and control-landscape panels when source arrays are available"
+    ]
+  },
+  "claim_guardrail": "This status file upgrades evidence visibility. It does not convert proxy analyses into receptor-level, clinical, subjective-experience, or external-validity proof.",
+  "source_basis": [
+    {
+      "topic": "motion confounds",
+      "source": "fMRIPrep outputs: framewise displacement, DVARS, motion outliers",
+      "url": "https://fmriprep.org/en/23.1.2/outputs.html"
+    },
+    {
+      "topic": "canonical parcellation",
+      "source": "Schaefer et al. 2018 local-global parcellation aligned to Yeo networks",
+      "url": "https://doi.org/10.1093/cercor/bhx179"
+    },
+    {
+      "topic": "ROCKET strengthening",
+      "source": "MiniRocket and MultiRocket time-series classification variants",
+      "url": "https://arxiv.org/abs/2012.08791"
+    },
+    {
+      "topic": "brain-map priors",
+      "source": "neuromaps reference maps and spatial nulls",
+      "url": "https://www.nature.com/articles/s41592-022-01625-w"
+    },
+    {
+      "topic": "archive",
+      "source": "GitHub and Zenodo repository DOI workflow",
+      "url": "https://docs.github.com/en/repositories/archiving-a-github-repository/referencing-and-citing-content"
+    }
+  ]
+}

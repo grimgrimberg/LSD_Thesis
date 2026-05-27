@@ -1,0 +1,138 @@
+{
+  "schema_version": "reproducible_archive_manifest.v1",
+  "generated_at_utc": "2026-05-27T14:20:19.801945+00:00",
+  "python_version": "3.13.13",
+  "platform": "Windows-10-10.0.19045-SP0",
+  "artifact_count": 21,
+  "artifacts": [
+    {
+      "path": "README.md",
+      "bytes": 20949,
+      "sha256": "3c9b6538cd068cb7149453f65cf946f618b4b9e21c145b21a468fbc24aeaae64"
+    },
+    {
+      "path": "GOAL.md",
+      "bytes": 19812,
+      "sha256": "f82bbddde25c2035726d94cacad9b743bf433fb4e03547fd2ca8dfc7b87c0b82"
+    },
+    {
+      "path": "THESIS_CONCEPT_AUDIT.md",
+      "bytes": 8434,
+      "sha256": "74cd354bafad4998b912558ac78eb0b7e90ba5fb0c461baab5821e8eafe1ef0c"
+    },
+    {
+      "path": "COMMANDS.md",
+      "bytes": 6428,
+      "sha256": "d63695a3c6e5f6d0c75d8965687598d7789299ffc736a642b17e4800ac80e057"
+    },
+    {
+      "path": "docs/GITHUB_PAGES.md",
+      "bytes": 2284,
+      "sha256": "aaa7054e58f55691e2195ca3913aa9deba3855e5b41e3e8a49caddf7c6afd7fe"
+    },
+    {
+      "path": "docs/THESIS_READINESS_GATES.md",
+      "bytes": 3918,
+      "sha256": "ea929422677d6698c97d545375401b32919d3e2b63d401f194fa7b7cf87fdcb7"
+    },
+    {
+      "path": "docs/METHODS_RESEARCH.md",
+      "bytes": 30112,
+      "sha256": "dac2af9d349121fb88828c8735755850eaf264075780ea01826677d2d1437ece"
+    },
+    {
+      "path": "docs/ARCHIVE_POLICY.md",
+      "bytes": 1373,
+      "sha256": "5f0af392957460dd6a4ef674b1ac2b3e405d318e419ed139f36f0f61c16d76e1"
+    },
+    {
+      "path": "results/stage_2/stage_2_summary.json",
+      "bytes": 47779,
+      "sha256": "d3e355cad67a420e47ae925c84c1b05202750ee841a670addc916d2a9d978e98"
+    },
+    {
+      "path": "results/stage_2/empirical_perturbation_targets.yaml",
+      "bytes": 928,
+      "sha256": "33318ab30113c7eceff38755f16ab015a26174a05ce24ab05e6c517bcd023426"
+    },
+    {
+      "path": "results/dynamic_mechanism_ranking/summary.json",
+      "bytes": 560221,
+      "sha256": "09f3dd676bbfbc8d15812cfad3316958902022d37aa2a11b57a31845f3e86ede"
+    },
+    {
+      "path": "results/dynamic_mechanism_ranking/robustness/robustness_summary.json",
+      "bytes": 180254,
+      "sha256": "da3d28dbcbb4cde6618d1804858e96131c806464ddae202f0c1f0e9b9cd0ad2f"
+    },
+    {
+      "path": "results/training/rocket_condition_benchmark/comparison_summary.json",
+      "bytes": 186363,
+      "sha256": "ac13f6ca78508dcff5be9001da1b7cfdcf1785441a552a15f458f2da2b9da075"
+    },
+    {
+      "path": "results/training/rocket_condition_benchmark/benchmark_report.md",
+      "bytes": 1187,
+      "sha256": "fedc7558a51bc3c9b8e74fb16ba9d78b01a7cbab5bb1ad924916c3f1bd3358c2"
+    },
+    {
+      "path": "results/thesis_evidence_loop/thesis_evidence_loop_status.json",
+      "bytes": 299819,
+      "sha256": "e4370bda1666a9c2874c990f4a91aed3fac1aeefda8d0f6c5142fa699ee7fc43"
+    },
+    {
+      "path": "results/thesis_evidence_loop/claim_evidence_matrix.md",
+      "bytes": 5043,
+      "sha256": "a4b0d2e502f4df54ba8c31545e3e8a61e1acdecce3a7b8d37f469fa26b0769bb"
+    },
+    {
+      "path": "results/thesis_upgrade/thesis_upgrade_status.json",
+      "bytes": 10607,
+      "sha256": "9166f5f4fdb0621ffa7d4d7e3693c129b1478a3c025da3f2dc05d56d14e0ea84"
+    },
+    {
+      "path": "results/thesis_upgrade/thesis_upgrade_status.md",
+      "bytes": 1908,
+      "sha256": "14a14751333313d97c3da6caa5d1da09f24664b383767f1028aa5952c8abcc55"
+    },
+    {
+      "path": "results/external_ingestion/external_ingestion_status.json",
+      "bytes": 2663,
+      "sha256": "ce19668232a99b89cf686a252a303b5e237a0b467408b96451830a27dc3eb25a"
+    },
+    {
+      "path": "output/doc/thesis_report_revised.md",
+      "bytes": 54914,
+      "sha256": "bfde041f64008c8f2b2a0a37c5ccbc93dae69efc9141330d2be217926eb44971"
+    },
+    {
+      "path": "output/doc/thesis_microsite.html",
+      "bytes": 82851,
+      "sha256": "dcfb1ecb90b681c73d0278291d362434c8040c84452d3e9924381a7813b74f05"
+    }
+  ],
+  "source_datasets": [
+    {
+      "id": "OpenNeuro ds003059 v1.0.0",
+      "url": "https://openneuro.org/datasets/ds003059/versions/1.0.0",
+      "role": "primary LSD/placebo fMRI source; raw imaging files are not bundled"
+    },
+    {
+      "id": "OpenNeuro ds006072",
+      "url": "https://openneuro.org/datasets/ds006072",
+      "role": "planned external psilocybin validation source; manifest/status only unless comparable extraction exists"
+    }
+  ],
+  "excluded_policy": {
+    "raw_data": "Excluded. Cite OpenNeuro dataset IDs and versions instead.",
+    "large_arrays": "Excluded by default unless explicitly curated as small derived artifacts.",
+    "secrets": "Excluded. No .env, tokens, credentials, or local machine secrets belong in archive artifacts."
+  },
+  "recommended_publication": {
+    "code": "GitHub public repository release",
+    "doi": "Zenodo DOI minted from GitHub release",
+    "demo": "GitHub Pages static snapshot",
+    "data": "Derived aggregate artifacts plus external source-dataset citations"
+  },
+  "claim_guardrail": "This manifest improves reproducibility for code and derived aggregate artifacts. It is not a redistribution of raw OpenNeuro neuroimaging data."
+}

@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Set / Setting / Seed</title>
+  <style>
+    :root { color-scheme: light; --ink:#132019; --muted:#5b665e; --line:#d9e0da; --accent:#1f7a5a; --warn:#945b00; --bg:#f7faf7; }
+    body { margin:0; font-family: Inter, Segoe UI, Arial, sans-serif; color:var(--ink); background:var(--bg); line-height:1.5; }
+    header { padding:42px min(6vw,72px) 24px; background:#eaf2ec; border-bottom:1px solid var(--line); }
+    main { padding:28px min(6vw,72px) 56px; display:grid; gap:24px; }
+    section { border-top:1px solid var(--line); padding-top:20px; }
+    h1 { margin:0; font-size:clamp(2rem,4vw,4rem); letter-spacing:0; }
+    h2 { margin:0 0 10px; font-size:1.25rem; }
+    p { max-width:84ch; }
+    .badges { display:flex; flex-wrap:wrap; gap:8px; margin-top:16px; }
+    .badge { border:1px solid var(--line); border-radius:999px; padding:6px 10px; background:white; font-size:.9rem; }
+    .warning { color:var(--warn); font-weight:700; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:16px; }
+    .panel { background:white; border:1px solid var(--line); border-radius:8px; padding:16px; }
+    table { width:100%; border-collapse:collapse; background:white; }
+    th, td { padding:8px; border-bottom:1px solid var(--line); text-align:left; font-size:.92rem; vertical-align:top; }
+    th { color:var(--muted); font-weight:700; }
+    code { background:#eef4ef; padding:2px 4px; border-radius:4px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Set / Setting / Seed</h1>
+    <p>Guided Latent Brain Dynamics Under LSD</p>
+    <p>Exploratory macro-dynamics proxy summaries, not subjective-experience simulation or biological proof.</p>
+    <div class="badges"><span class='badge'>Not clinical</span><span class='badge'>Not subjective decoding</span><span class='badge'>Not receptor proof</span><span class='badge'>Diffusion analogy only</span></div>
+  </header>
+  <main>
+    <section>
+      <h2>Overview</h2>
+      <ul><li><strong>Set</strong>: subject baseline geometry and placebo reference <span>rest cache available</span></li><li><strong>Setting</strong>: run context and music/control input <span>music run not analysis-ready</span></li><li><strong>Seed</strong>: initial condition and subject-specific latent state <span>descriptive rest geometry available</span></li><li><strong>Substance</strong>: LSD-minus-placebo perturbation <span>rest deltas available</span></li><li><strong>Guidance</strong>: routing, hierarchy, precision, context sensitivity <span>proxy targets only</span></li></ul>
+      <p class="warning">Run-02 music module time series are not analysis-ready in the current cache. Music-control analysis remains scaffolded until coverage and motion review pass.</p>
+    </section>
+    <section class="grid">
+      <div class="panel"><h2>Data</h2><p>Subjects: 15</p><p>Runs: run-01, run-03</p></div>
+      <div class="panel">
+        <h2>Run-02 extraction support</h2>
+        <p>Support: true</p>
+        <p>Data present: false</p>
+        <p>Analysis ready: false</p>
+        <p><code>uv run python scripts/run_pipeline.py stage2 --include-music --runs run-01 run-02 run-03 --stage2-output-dir results/setting_seed/run02_extraction/stage_2_music</code></p>
+      </div>
+      <div class="panel">
+        <h2>Motion</h2>
+        <p>Support: true</p>
+        <p>Data present: false</p>
+        <p>unavailable_missing_motion_summaries</p>
+        <p><code>uv run python scripts/run_setting_seed_motion_summary.py</code></p>
+      </div>
+      <div class="panel"><h2>Music as Control</h2><p>blocked_missing_run_02</p><p>No music-control empirical claim is made yet; future descriptive music-control comparison is not a mechanism, clinical, or subjective-experience claim.</p></div>
+    </section>
+    <section>
+      <h2>Reliability Gate</h2>
+      <table>
+        <thead><tr><th>Metric</th><th>Tier</th><th>Delta</th><th>CI</th><th>Sign</th><th>Motion</th></tr></thead>
+        <tbody><tr><td>cross_network_communication</td><td>Tier A</td><td>0.0741</td><td>[0.0360, 0.1151]</td><td>0.80</td><td>unavailable_missing_motion_summaries</td></tr><tr><td>effective_barrier_proxy</td><td>Tier C</td><td>-0.1492</td><td>[-0.3360, 0.0186]</td><td>0.53</td><td>unavailable_missing_motion_summaries</td></tr><tr><td>entropy_diversity</td><td>Tier C</td><td>-0.0023</td><td>[-0.0134, 0.0095]</td><td>0.53</td><td>unavailable_missing_motion_summaries</td></tr><tr><td>hierarchical_compression</td><td>Tier B</td><td>0.0541</td><td>[-0.0138, 0.1206]</td><td>0.73</td><td>unavailable_missing_motion_summaries</td></tr><tr><td>metastability_proxy</td><td>Tier D</td><td>-0.0540</td><td>[-0.0922, -0.0170]</td><td>0.73</td><td>unavailable_missing_motion_summaries</td></tr><tr><td>switching_rate</td><td>Tier C</td><td>0.0123</td><td>[-0.0023, 0.0286]</td><td>0.53</td><td>unavailable_missing_motion_summaries</td></tr><tr><td>thalamic_coupling</td><td>Tier A</td><td>0.1199</td><td>[0.0540, 0.1900]</td><td>0.73</td><td>unavailable_missing_motion_summaries</td></tr><tr><td>within_network_stability</td><td>Tier D</td><td>0.0661</td><td>[0.0159, 0.1219]</td><td>0.60</td><td>unavailable_missing_motion_summaries</td></tr></tbody>
+      </table>
+    </section>
+    <section>
+      <h2>Latent State Space</h2>
+      <p>Descriptive PCA outputs are labeled visualization-only. Full-data PCA is not used for ML claims.</p>
+    </section>
+    <section>
+      <h2>Previous proxy-ranking artifacts</h2>
+      <p>Stage 5 non-quick best: <code>thalamic_routing_only</code>. CV5 selected:
+      <code>more_cross_talk @ 0.1</code>. These are proxy-ranking artifacts, not proof.</p>
+    </section>
+  </main>
+</body>
+</html>
