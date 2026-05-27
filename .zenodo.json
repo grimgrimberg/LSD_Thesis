@@ -1,0 +1,32 @@
+{
+  "title": "Transparent Surrogate Modeling of Psychedelic-Like Macro-Dynamics",
+  "upload_type": "software",
+  "creators": [
+    {
+      "name": "Grimberg, Yuval"
+    }
+  ],
+  "description": "Code and derived aggregate artifacts for a transparent macro-dynamics surrogate analysis of psychedelic neuroimaging. This archive is not a receptor-level, clinical, subjective-experience, or pharmacological simulator.",
+  "keywords": [
+    "computational neuroscience",
+    "fMRI",
+    "surrogate modeling",
+    "network control",
+    "psychedelic neuroimaging",
+    "reproducible research"
+  ],
+  "access_right": "open",
+  "related_identifiers": [
+    {
+      "identifier": "https://openneuro.org/datasets/ds003059/versions/1.0.0",
+      "relation": "isDerivedFrom",
+      "scheme": "url"
+    },
+    {
+      "identifier": "https://openneuro.org/datasets/ds006072",
+      "relation": "references",
+      "scheme": "url"
+    }
+  ],
+  "notes": "Do not upload raw OpenNeuro imaging data through this repository archive. Use this metadata with a GitHub release that contains source code, configs, derived aggregate artifacts, manifests, and checksums only."
+}

@@ -51,16 +51,27 @@
 
 ## Results
 
-- Initial score: 5.2439
-- Best score: 0.9774
-- Best within-network stability: 0.2913
-- Best cross-network communication: 0.1014
-- Best entropy / diversity: 0.8194
-- Best switching rate: 0.2412
+- Initial score: 1628.9454
+- Best selection score: 2.0540 ± 0.4983
+- Selected iteration: 42
+- Selection seeds: `[111, 112, 113]`
+- Validation seeds: `[1011, 1012, 1013, 1014, 1015]`
+- Validation score: `2.455030496460485`
+- Best within-network stability: 0.0882
+- Best cross-network communication: 0.0900
+- Best entropy / diversity: 0.9914
+- Best switching rate: 0.2189
+
+## Empirical Validation Boundary
+
+- Held-out empirical validation: `not configured`
+- Stage 2 uses available empirical targets for calibration/selection, not for an independent held-out claim.
+- Stage 2b reliability summaries should be presented as target stability diagnostics, not as held-out model validation.
 
 ## Critical Review
 
 - The fitting loop is intentionally small and transparent, so it should be treated as calibration rather than optimization proof.
+- Multi-seed selection reduces single-realization dependence when configured, but it does not by itself create a held-out empirical test.
 - If actual ds003059 targets were used, the remaining mismatch is now a model limitation rather than a placeholder-data limitation.
 - The full empirical cohort provenance is the canonical reproducibility record for this run.
 - The saved MVP subset helper is a convenience bootstrap artifact and is not the canonical fit provenance.

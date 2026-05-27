@@ -1,0 +1,14 @@
+{
+  "parcellation_id": "harvard_oxford_8",
+  "status": "dry_run_metadata_only",
+  "output_dir": "D:\\LSD_Thesis\\results\\stage_2\\parcellations\\harvard_oxford_8",
+  "next_commands": [
+    "python -c \"from nilearn import datasets; datasets.fetch_atlas_schaefer_2018(n_rois=100, yeo_networks=7, resolution_mm=2)\"",
+    "uv run python scripts/run_pipeline.py generate-empirical-targets --parcellation schaefer_100_yeo_7"
+  ],
+  "notes": [
+    "Dry run writes metadata only and does not overwrite legacy Stage 2 targets.",
+    "Full Schaefer/Yeo extraction should be run only when atlas/data access and runtime are acceptable.",
+    "Subcortical thalamus/caudate/putamen additions remain a documented TODO."
+  ]
+}

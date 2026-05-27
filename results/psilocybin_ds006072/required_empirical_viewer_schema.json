@@ -1,0 +1,14 @@
+{
+  "subject_views_pattern": "subject_views/{subject}_{run}.json",
+  "required_conditions": [
+    "control_or_placebo_session",
+    "psilocybin_session"
+  ],
+  "required_fields": [
+    "subject",
+    "run",
+    "conditions.<control>.module_time_series",
+    "conditions.<psilocybin>.module_time_series"
+  ],
+  "note": "The condition names must be harmonized before running the dynamic mechanism summary."
+}

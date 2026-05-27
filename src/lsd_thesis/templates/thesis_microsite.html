@@ -7,23 +7,28 @@
   <style>
     :root {
       color-scheme: light;
-      --bg: #f6f2ea;
-      --panel: #ffffff;
-      --panel-soft: #fbf7f0;
-      --text: #16202a;
-      --muted: #5a6877;
-      --line: #d8d0c2;
-      --accent: #26415d;
-      --accent-2: #8a5c2e;
+      --bg: #f4f5f0;
+      --panel: #fffffb;
+      --panel-soft: #ecefe8;
+      --text: #181b19;
+      --muted: #626b65;
+      --line: #d2d8cf;
+      --accent: #0b6f6c;
+      --accent-2: #b3422a;
+      --gold: #9b6818;
+      --display-font: "Palatino Linotype", "Book Antiqua", Georgia, serif;
+      --body-font: Aptos, "Segoe UI", "Trebuchet MS", sans-serif;
     }
     * { box-sizing: border-box; }
     body {
       margin: 0;
       background:
-        radial-gradient(circle at top left, rgba(38, 65, 93, 0.08), transparent 35%),
-        linear-gradient(180deg, #fbf8f2 0%, #f3ede2 100%);
+        linear-gradient(90deg, rgba(11, 111, 108, 0.045) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(179, 66, 42, 0.035) 1px, transparent 1px),
+        var(--bg);
+      background-size: 48px 48px;
       color: var(--text);
-      font-family: Georgia, "Times New Roman", serif;
+      font-family: var(--body-font);
       line-height: 1.65;
       scroll-behavior: smooth;
     }
@@ -35,16 +40,20 @@
     .hero {
       display: grid;
       gap: 12px;
-      padding: 0 0 28px;
-      border-bottom: 1px solid var(--line);
+      padding: 28px;
+      border: 1px solid var(--line);
+      border-top: 5px solid var(--accent);
+      border-radius: 8px;
       margin-bottom: 28px;
+      background: var(--panel);
+      box-shadow: 0 18px 42px rgba(24, 27, 25, 0.07);
     }
     .eyebrow {
       margin: 0;
       color: var(--accent-2);
       text-transform: uppercase;
       letter-spacing: 0.14em;
-      font: 600 0.78rem/1.2 "Helvetica Neue", Arial, sans-serif;
+      font: 700 0.78rem/1.2 var(--body-font);
     }
     h1, h2, h3 {
       margin: 0;
@@ -52,8 +61,9 @@
       color: var(--accent);
     }
     h1 {
+      font-family: var(--display-font);
       font-size: clamp(2.2rem, 4.6vw, 4rem);
-      letter-spacing: -0.035em;
+      letter-spacing: 0;
       max-width: 13ch;
     }
     .lede {
@@ -74,7 +84,7 @@
       align-self: start;
       background: rgba(255, 255, 255, 0.78);
       border: 1px solid var(--line);
-      border-radius: 20px;
+      border-radius: 8px;
       padding: 20px;
       backdrop-filter: blur(10px);
       box-shadow: 0 14px 32px rgba(22, 32, 42, 0.05);
@@ -106,9 +116,12 @@
     .section {
       background: var(--panel);
       border: 1px solid var(--line);
-      border-radius: 22px;
+      border-radius: 8px;
       padding: 24px;
       box-shadow: 0 12px 30px rgba(22, 32, 42, 0.05);
+    }
+    .section:hover {
+      border-color: rgba(11, 111, 108, 0.38);
     }
     .section-header {
       display: grid;
@@ -117,7 +130,7 @@
     }
     .section-meta {
       color: var(--muted);
-      font: 600 0.82rem/1.4 "Helvetica Neue", Arial, sans-serif;
+      font: 700 0.82rem/1.4 var(--body-font);
       letter-spacing: 0.08em;
       text-transform: uppercase;
     }
@@ -187,7 +200,7 @@
         padding-inline: 16px;
       }
       .section, .toc {
-        border-radius: 18px;
+        border-radius: 8px;
       }
     }
   </style>
@@ -197,7 +210,7 @@
     <section class="hero">
       <p class="eyebrow">Canonical long-form report</p>
       <h1>{{ title }}</h1>
-      <p class="lede">Rendered from the thesis report markdown so the web report stays synchronized with the DOCX and PDF outputs.</p>
+      <p class="lede">Rendered from the thesis report markdown so the web report stays synchronized with the DOCX and PDF outputs, while preserving the distinction between implemented facts, proxy observations, and hypotheses.</p>
     </section>
 
     <div class="layout">

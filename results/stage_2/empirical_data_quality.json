@@ -94,8 +94,67 @@
       "literature_delta": -0.3
     }
   ],
+  "preprocessing_qc": {
+    "input_run_count": 60,
+    "output_record_count": 60,
+    "excluded_count": 0,
+    "missing_values": 0,
+    "nonfinite_values": 0,
+    "zero_timepoint_record_count": 0,
+    "timepoints": {
+      "min": 217,
+      "max": 217,
+      "mean": 217.0
+    },
+    "transformations_applied": [
+      "Filter to ses-LSD/ses-PLCB, task-rest, selected runs: run-01, run-03.",
+      "Extract Harvard-Oxford-derived macro-module means with NiftiLabelsMasker standardize=zscore_sample when available.",
+      "Use manual ROI averaging plus sample z-scoring as a fallback extraction path."
+    ],
+    "parcellation": {
+      "parcellation_id": "harvard_oxford_8_module_proxy",
+      "atlas_source": "Harvard-Oxford cortical/subcortical atlases via Nilearn/FSL.",
+      "module_count": 8,
+      "module_names": [
+        "visual",
+        "auditory",
+        "salience",
+        "default_mode",
+        "executive_frontoparietal",
+        "limbic_affective",
+        "thalamic_gateway",
+        "sensorimotor"
+      ],
+      "conflict_resolution_policy": "Overlapping atlas labels are assigned in MODULE_NAMES order.",
+      "mapping_fingerprint": "f3b1bb7553b323df5a45dac39077603cb897fe9f180c1883152ae3b0c3129af4"
+    },
+    "exclusion_policy": {
+      "kept_sessions": [
+        "ses-LSD",
+        "ses-PLCB"
+      ],
+      "kept_runs": [
+        "run-01",
+        "run-03"
+      ],
+      "excluded_reasons": [
+        "appledouble_sidecar",
+        "non_rest_task",
+        "run_02_music",
+        "wrong_session",
+        "non_nifti_bold",
+        "missing_func_directory"
+      ]
+    },
+    "warnings": [],
+    "limitations": [
+      "The repository consumes the ds003059 derivative BOLD files; it does not rerun full scanner-level preprocessing.",
+      "No motion, FD/DVARS, confound-regression, or censoring summary is derived in this lightweight QC layer.",
+      "The 8-module mapping is a transparent proxy, not a canonical functional parcellation."
+    ]
+  },
   "notes": [
-    "Completeness expects ses-LSD and ses-PLCB, each with run-01 and run-03.",
+    "Completeness expects ses-LSD and ses-PLCB, each with run-01, run-03.",
     "Sign conflicts compare current ds003059 deltas with the literature-style target file."
   ]
 }

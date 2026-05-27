@@ -26,6 +26,10 @@ def test_build_github_pages_site_copies_microsite_and_claim_matrix_artifacts(tmp
     claim_dir.mkdir(parents=True)
     (claim_dir / "claim_evidence_matrix.csv").write_text("claim,status\nC,ready\n", encoding="utf-8")
     (claim_dir / "claim_evidence_matrix.md").write_text("| claim | status |\n| --- | --- |\n", encoding="utf-8")
+    rocket_dir = tmp_path / "results" / "training" / "rocket_condition_benchmark"
+    rocket_dir.mkdir(parents=True)
+    (rocket_dir / "benchmark_report.md").write_text("# ROCKET Condition Benchmark\n", encoding="utf-8")
+    (rocket_dir / "comparison_summary.json").write_text('{"schema_version":"rocket_condition_benchmark.v1"}\n', encoding="utf-8")
     template_dir = tmp_path / "src" / "lsd_thesis" / "templates"
     template_dir.mkdir(parents=True)
     (template_dir / "dashboard.html").write_text(
@@ -52,6 +56,10 @@ def test_build_github_pages_site_copies_microsite_and_claim_matrix_artifacts(tmp
                 {
                     "label": "Claim matrix",
                     "href": "/artifacts/results/thesis_evidence_loop/claim_evidence_matrix.csv",
+                },
+                {
+                    "label": "ROCKET report",
+                    "href": "/artifacts/results/training/rocket_condition_benchmark/benchmark_report.md",
                 }
             ],
             "figures": [],
@@ -75,6 +83,9 @@ def test_build_github_pages_site_copies_microsite_and_claim_matrix_artifacts(tmp
     assert (tmp_path / "_site" / "artifacts" / "claim_evidence_matrix.csv").exists()
     assert (tmp_path / "_site" / "artifacts" / "claim_evidence_matrix.md").exists()
     assert (tmp_path / "_site" / "artifacts" / "thesis_evidence_loop_tables.xlsx").exists()
+    assert (
+        tmp_path / "_site" / "artifacts" / "results" / "training" / "rocket_condition_benchmark" / "benchmark_report.md"
+    ).exists()
     assert (tmp_path / "_site" / "dashboard" / "index.html").exists()
     assert (tmp_path / "_site" / "dashboard" / "dashboard-data.json").exists()
     assert (tmp_path / "_site" / "dashboard" / "assets" / "plotly.min.js").exists()
@@ -89,3 +100,4 @@ def test_build_github_pages_site_copies_microsite_and_claim_matrix_artifacts(tmp
     assert manifest["claim_guardrail"].startswith("GitHub Pages is a static presentation")
     assert manifest["entrypoints"]["dashboard"] == "dashboard/index.html"
     assert "artifacts/claim_evidence_matrix.csv" in manifest["artifacts"]
+    assert "artifacts/results/training/rocket_condition_benchmark/benchmark_report.md" in manifest["artifacts"]

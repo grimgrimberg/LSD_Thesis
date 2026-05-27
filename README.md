@@ -78,6 +78,66 @@ Current audit warning:
 - the same extraction gives literature-sign conflicts for `within_network_stability`, `entropy_diversity`, and `metastability_proxy`
 - Stage 3's best perturbation score is still high, so the result should be framed as a transparent surrogate with visible failure modes, not as a reproduced psychedelic mechanism
 
+## Set / Setting / Seed Extension
+
+PASS 2A adds a safe rest-only foundation for the working title "Set, Setting, and Seed: Guided Latent Brain Dynamics Under LSD."
+
+Run:
+
+```bash
+uv run python scripts/run_setting_seed_pass2a.py
+```
+
+Outputs:
+
+- `results/setting_seed/data_audit/data_audit.json`
+- `results/setting_seed/reliability/reliability_table.csv`
+- `results/setting_seed/latent/trajectory_metrics.csv`
+- `results/setting_seed/control/control_scaffold.json`
+- `results/setting_seed/dashboard/dashboard_payload.json`
+- `output/doc/set_setting_seed_microsite.html`
+
+Current boundary:
+
+- run-02 music module time series are not currently cached
+- motion summaries are not currently cached
+- music-control analysis is scaffolded only
+- PCA outputs are visualization-only
+- all claims remain macro-dynamics proxy claims, not clinical, subjective-experience, receptor, or Stable-Diffusion-literal claims
+
+PASS 2B-0 adds readiness support only. It does not download data or extract run-02:
+
+```bash
+uv run python scripts/run_setting_seed_pass2b0.py
+```
+
+For a one-command live dashboard run:
+
+```bash
+uv run python scripts/run_everything_live.py
+```
+
+This rebuilds the current setting-seed readiness artifacts, runs the dashboard preflight, then serves:
+
+- `http://127.0.0.1:8020/` by default, or the first available local port after that
+- `http://127.0.0.1:8020/artifacts/output/doc/set_setting_seed_microsite.html` by default, or the matching selected port
+
+To run the existing full legacy pipeline first, use:
+
+```bash
+uv run python scripts/run_everything_live.py --with-legacy-pipeline
+```
+
+This still does not run run-02 extraction, downloads, or actual music-control analysis. Those remain approval-gated.
+
+After explicit user approval, the guarded run-02 extraction command is:
+
+```bash
+uv run python scripts/run_pipeline.py stage2 --include-music --runs run-01 run-02 run-03 --stage2-output-dir results/setting_seed/run02_extraction/stage_2_music
+```
+
+This command is intentionally non-default and writes outside legacy `results/stage_2`.
+
 ## Quick Start
 
 ### 1. Install dependencies
@@ -117,7 +177,16 @@ uv run python scripts/run_pipeline.py run-all
 
 This runs only Stages 1-4.
 
-### 5. Or run the full local workflow
+### 5. Run the experimental literature-aligned path
+
+```bash
+uv run python scripts/run_pipeline.py stage-2b-target-validation --parcellation harvard_oxford_8
+uv run python scripts/run_pipeline.py run-stage-5 --model receptor_gradient_neural_mass --quick
+```
+
+This path preserves the old Stages 1-4 baseline and adds a receptor/gradient neural-mass comparison against literature-aligned macro-dynamic proxy metrics. The quick Stage 5 command is a development smoke run, not a final model fit.
+
+### 6. Or run the full local workflow
 
 ```bash
 uv run python scripts/run_pipeline.py run-everything
@@ -129,7 +198,7 @@ This runs:
 - condition benchmark
 - multitask spectral benchmark
 
-### 6. Launch the dashboard
+### 7. Launch the dashboard
 
 ```bash
 uv run python scripts/run_dashboard.py
@@ -137,7 +206,7 @@ uv run python scripts/run_dashboard.py
 
 Then open `http://127.0.0.1:8000/`.
 
-### 7. One-command build plus dashboard
+### 8. One-command build plus dashboard
 
 ```bash
 uv run python scripts/run_pipeline.py run-all-serve
@@ -147,7 +216,7 @@ This now does two things:
 - runs Stages 1-4
 - starts the local dashboard server at `http://127.0.0.1:8000/`
 
-### 8. Full local workflow plus dashboard
+### 9. Full local workflow plus dashboard
 
 ```bash
 uv run python scripts/run_pipeline.py run-everything-serve
@@ -262,6 +331,35 @@ Main files:
 - `src/lsd_thesis/ablation.py`
 - `docs/stage_reports/stage_4.md`
 
+### Stage 2b
+Computes literature-aligned empirical target reliability checks on cached Stage 2 time series.
+
+Outputs:
+- literature metric deltas
+- bootstrap confidence intervals
+- leave-one-subject-out influence
+- run-split stability
+
+Main files:
+- `src/lsd_thesis/metrics_literature.py`
+- `src/lsd_thesis/target_validation.py`
+- `docs/stage_reports/stage_2b.md`
+
+### Stage 5
+Runs the experimental receptor/gradient neural-mass objective against Stage 2b deltas.
+
+Outputs:
+- literature-weighted fit summary
+- placebo baseline evaluation summary
+- perturbation leaderboard
+- per-seed metric deltas
+- sign-match and overshoot tables
+
+Main files:
+- `src/lsd_thesis/objectives.py`
+- `src/lsd_thesis/fitting_literature.py`
+- `docs/stage_reports/stage_5.md`
+
 ## Repo Map
 
 - `configs/`
@@ -288,6 +386,10 @@ Main files:
 - `results/stage_4/stage_4_summary.json`
 - `results/training/condition_benchmark/comparison_summary.json`
 - `results/training/condition_benchmark/benchmark_report.md`
+- `results/training/rocket_condition_benchmark/comparison_summary.json`
+- `results/training/rocket_condition_benchmark/benchmark_report.md`
+- `results/thesis_upgrade/thesis_upgrade_status.json`
+- `results/reproducible_archive/ARCHIVE_MANIFEST.json`
 - `results/training/multitask_benchmark/comparison_summary.json`
 - `results/training/multitask_benchmark/benchmark_report.md`
 - `docs/stage_reports/stage_1.md`
@@ -361,7 +463,30 @@ This writes:
 - `results/training/condition_benchmark/benchmark_report.md`
 - `results/training/condition_benchmark/fold_predictions.csv`
 
-3. Run the local multitask spectral benchmark:
+3. Run the leak-proof ROCKET-style condition benchmark:
+
+```bash
+uv run python scripts/benchmark_rocket_condition_models.py --cv5-manifest output/validation/cv5_subject_disjoint/approved/subject_split_cv5_manifest_approved.json --n-kernels 128
+```
+
+This writes:
+- `results/training/rocket_condition_benchmark/comparison_summary.json`
+- `results/training/rocket_condition_benchmark/benchmark_report.md`
+- `results/training/rocket_condition_benchmark/subject_session_run_predictions.csv`
+- `results/training/rocket_condition_benchmark/window_predictions_secondary.csv`
+
+What this benchmark does:
+- predicts `LSD vs placebo` using ROCKET-style random convolutional features with logistic regression
+- uses the approved subject-disjoint CV5 manifest when provided
+- fits normalization inside each training fold only
+- reports primary metrics after aggregating window probabilities to `subject/session/run`
+- keeps window-level predictions as secondary diagnostics, not primary evidence
+
+Current takeaway:
+- the ROCKET benchmark is supporting internal proxy evidence for condition signal in the exported windows
+- it is not receptor-level, clinical, subjective-experience, or external-validity evidence
+
+4. Run the local multitask spectral benchmark:
 
 ```bash
 uv run scripts/benchmark_multitask_models.py
@@ -384,7 +509,7 @@ Current takeaway:
 - the HistGradientBoosting multitask baseline is the best per-window eigenvalue regressor
 - the detailed interpretation lives in `docs/multitask_benchmark_conclusions.md`
 
-4. Use the cloud job scaffold:
+5. Use the cloud job scaffold:
 
 - `cloud/hf_jobs/train_sequence_autoencoder.py`
 
@@ -398,6 +523,26 @@ If you want the local end-to-end workflow in one command, use:
 ```bash
 uv run python scripts/run_pipeline.py run-everything
 ```
+
+## Thesis Readiness And Archive Gates
+
+The thesis-readiness layer is explicit about what is ready, proxy-only, or blocked:
+
+```bash
+uv run python scripts/build_thesis_upgrade_status.py
+uv run python scripts/build_external_ingestion_status.py
+uv run python scripts/build_reproducible_archive.py
+```
+
+Read:
+- `docs/THESIS_READINESS_GATES.md`
+- `docs/ARCHIVE_POLICY.md`
+
+Current canonical parcellation target:
+- `schaefer_100_yeo_7` as the first canonical network definition.
+- `schaefer_200_yeo_7`, `schaefer_100_yeo_17`, and `schaefer_200_yeo_17` as sensitivity targets.
+
+The current 8-module Harvard-Oxford extraction remains a transparent proxy baseline. It should not be presented as the canonical whole-brain network definition.
 
 If you want the same workflow plus the dashboard, use:
 

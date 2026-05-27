@@ -475,11 +475,13 @@ def _coarse_receptor_null_rows(repo_root: Path, pairs: list[Any]) -> list[dict[s
 def build_psilocybin_status(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
     output_dir = repo_root / "results" / "psilocybin_ds006072"
     viewer_root = output_dir / "empirical_viewer"
+    readiness_path = output_dir / "external_validation_readiness.json"
     local_data_root = repo_root / "data" / DS006072_DATASET_ID
     metadata_manifest_path = local_data_root / "ds006072_metadata_manifest.json"
     func_manifest_path = local_data_root / "ds006072_func_manifest.json"
     metadata_manifest = _load_json(metadata_manifest_path)
     func_manifest = _load_json(func_manifest_path)
+    readiness = _load_json(readiness_path)
     payload: dict[str, Any] = {
         "schema_version": 1,
         "generated_at_utc": _now(),
@@ -501,6 +503,10 @@ def build_psilocybin_status(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
         ),
         "functional_manifest_processed_cifti_total_size_bytes": (
             func_manifest.get("processed_cifti_total_size_bytes") if isinstance(func_manifest, dict) else None
+        ),
+        "external_validation_readiness": readiness if isinstance(readiness, dict) else None,
+        "external_validation_readiness_path": (
+            readiness_path.relative_to(repo_root).as_posix() if readiness_path.exists() else None
         ),
         "claim_guardrail": "No psilocybin replication claim is allowed unless comparable paired drug/control empirical viewer records exist.",
     }
@@ -531,9 +537,14 @@ def build_psilocybin_status(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
                 "note": "The condition names must be harmonized before running the dynamic mechanism summary.",
             },
         )
+        readiness_status = readiness.get("analysis_status") if isinstance(readiness, dict) else None
+        readiness_blocker = readiness.get("blocker") if isinstance(readiness, dict) else None
         payload.update(
             {
                 "analysis_status": (
+                    readiness_status
+                    if readiness_status
+                    else
                     "metadata_and_file_manifest_ready_missing_empirical_viewer"
                     if func_manifest_path.exists()
                     else "blocked_missing_local_ds006072_empirical_viewer"
@@ -541,11 +552,15 @@ def build_psilocybin_status(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
                 "pair_count": 0,
                 "subject_count": 0,
                 "blocker": (
+                    readiness_blocker
+                    if readiness_blocker
+                    else
                     "Expected comparable paired psilocybin/control empirical viewer records under "
                     f"{viewer_root.relative_to(repo_root).as_posix()}."
                 ),
                 "schema_template": schema_path.relative_to(repo_root).as_posix(),
                 "next_commands": [
+                    "Build extraction readiness: .venv\\Scripts\\python.exe scripts\\build_ds006072_external_validation_readiness.py",
                     "Acquire or derive ds006072 paired psilocybin/control module time series under data/ds006072/.",
                     "Run metadata provenance first if missing: .venv\\Scripts\\python.exe scripts\\download_ds006072_metadata.py",
                     "Write subject-level JSON records matching results/stage_2/empirical_viewer/subject_views/*.json.",

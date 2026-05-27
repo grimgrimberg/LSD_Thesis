@@ -150,7 +150,7 @@ def evaluate_temporal_cnn(
             )
         training_history.extend(fold_history)
 
-        model.eval()
+        model.train(False)
         with torch.no_grad():
             logits = model(test_windows.to(device))
             probabilities = torch.softmax(logits, dim=1)[:, 1].cpu().numpy()

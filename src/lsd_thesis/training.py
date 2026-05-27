@@ -6,6 +6,8 @@ from typing import Any
 
 import numpy as np
 
+from lsd_thesis.utils import resolve_under
+
 
 def slice_windows(time_series: np.ndarray, window_length: int, stride: int) -> np.ndarray:
     if time_series.ndim != 2:
@@ -37,10 +39,7 @@ def build_window_dataset(
     runs: list[str] = []
 
     for record in records:
-        ts_path = Path(record["time_series_path"])
-        # Resolve relative paths against stage_2_dir
-        if not ts_path.is_absolute():
-            ts_path = stage_2_path / ts_path
+        ts_path = resolve_under(stage_2_path, str(record["time_series_path"]))
         time_series = np.load(ts_path)
         run_windows = slice_windows(time_series, window_length=window_length, stride=stride)
         if len(run_windows) == 0:

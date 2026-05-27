@@ -1,0 +1,863 @@
+{
+  "subjects": [
+    "sub-001",
+    "sub-002",
+    "sub-003",
+    "sub-004",
+    "sub-006",
+    "sub-009",
+    "sub-010",
+    "sub-011",
+    "sub-012",
+    "sub-013",
+    "sub-015",
+    "sub-017",
+    "sub-018",
+    "sub-019",
+    "sub-020"
+  ],
+  "runs": [
+    {
+      "subject": "sub-001",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "filename": "sub-001_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "relative_path": "sub-001/ses-LSD/func/sub-001_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "url": "",
+      "size": 174211515
+    },
+    {
+      "subject": "sub-001",
+      "session": "ses-LSD",
+      "run": "run-02",
+      "filename": "sub-001_ses-LSD_task-rest_run-02_bold.nii.gz",
+      "relative_path": "sub-001/ses-LSD/func/sub-001_ses-LSD_task-rest_run-02_bold.nii.gz",
+      "url": "",
+      "size": 174165920
+    },
+    {
+      "subject": "sub-001",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "filename": "sub-001_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "relative_path": "sub-001/ses-LSD/func/sub-001_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "url": "",
+      "size": 174446121
+    },
+    {
+      "subject": "sub-001",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "filename": "sub-001_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "relative_path": "sub-001/ses-PLCB/func/sub-001_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "url": "",
+      "size": 170593706
+    },
+    {
+      "subject": "sub-001",
+      "session": "ses-PLCB",
+      "run": "run-02",
+      "filename": "sub-001_ses-PLCB_task-rest_run-02_bold.nii.gz",
+      "relative_path": "sub-001/ses-PLCB/func/sub-001_ses-PLCB_task-rest_run-02_bold.nii.gz",
+      "url": "",
+      "size": 170441281
+    },
+    {
+      "subject": "sub-001",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "filename": "sub-001_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "relative_path": "sub-001/ses-PLCB/func/sub-001_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "url": "",
+      "size": 170516481
+    },
+    {
+      "subject": "sub-002",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "filename": "sub-002_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "relative_path": "sub-002/ses-LSD/func/sub-002_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "url": "",
+      "size": 165742515
+    },
+    {
+      "subject": "sub-002",
+      "session": "ses-LSD",
+      "run": "run-02",
+      "filename": "sub-002_ses-LSD_task-rest_run-02_bold.nii.gz",
+      "relative_path": "sub-002/ses-LSD/func/sub-002_ses-LSD_task-rest_run-02_bold.nii.gz",
+      "url": "",
+      "size": 166006667
+    },
+    {
+      "subject": "sub-002",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "filename": "sub-002_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "relative_path": "sub-002/ses-LSD/func/sub-002_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "url": "",
+      "size": 165254944
+    },
+    {
+      "subject": "sub-002",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "filename": "sub-002_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "relative_path": "sub-002/ses-PLCB/func/sub-002_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "url": "",
+      "size": 171181631
+    },
+    {
+      "subject": "sub-002",
+      "session": "ses-PLCB",
+      "run": "run-02",
+      "filename": "sub-002_ses-PLCB_task-rest_run-02_bold.nii.gz",
+      "relative_path": "sub-002/ses-PLCB/func/sub-002_ses-PLCB_task-rest_run-02_bold.nii.gz",
+      "url": "",
+      "size": 171152318
+    },
+    {
+      "subject": "sub-002",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "filename": "sub-002_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "relative_path": "sub-002/ses-PLCB/func/sub-002_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "url": "",
+      "size": 171097859
+    },
+    {
+      "subject": "sub-003",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "filename": "sub-003_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "relative_path": "sub-003/ses-LSD/func/sub-003_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "url": "",
+      "size": 162920029
+    },
+    {
+      "subject": "sub-003",
+      "session": "ses-LSD",
+      "run": "run-02",
+      "filename": "sub-003_ses-LSD_task-rest_run-02_bold.nii.gz",
+      "relative_path": "sub-003/ses-LSD/func/sub-003_ses-LSD_task-rest_run-02_bold.nii.gz",
+      "url": "",
+      "size": 162684788
+    },
+    {
+      "subject": "sub-003",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "filename": "sub-003_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "relative_path": "sub-003/ses-LSD/func/sub-003_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "url": "",
+      "size": 162270810
+    },
+    {
+      "subject": "sub-003",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "filename": "sub-003_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "relative_path": "sub-003/ses-PLCB/func/sub-003_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "url": "",
+      "size": 169675132
+    },
+    {
+      "subject": "sub-003",
+      "session": "ses-PLCB",
+      "run": "run-02",
+      "filename": "sub-003_ses-PLCB_task-rest_run-02_bold.nii.gz",
+      "relative_path": "sub-003/ses-PLCB/func/sub-003_ses-PLCB_task-rest_run-02_bold.nii.gz",
+      "url": "",
+      "size": 170291291
+    },
+    {
+      "subject": "sub-003",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "filename": "sub-003_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "relative_path": "sub-003/ses-PLCB/func/sub-003_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "url": "",
+      "size": 169340712
+    },
+    {
+      "subject": "sub-004",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "filename": "sub-004_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "relative_path": "sub-004/ses-LSD/func/sub-004_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "url": "",
+      "size": 171893376
+    },
+    {
+      "subject": "sub-004",
+      "session": "ses-LSD",
+      "run": "run-02",
+      "filename": "sub-004_ses-LSD_task-rest_run-02_bold.nii.gz",
+      "relative_path": "sub-004/ses-LSD/func/sub-004_ses-LSD_task-rest_run-02_bold.nii.gz",
+      "url": "",
+      "size": 172434431
+    },
+    {
+      "subject": "sub-004",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "filename": "sub-004_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "relative_path": "sub-004/ses-LSD/func/sub-004_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "url": "",
+      "size": 172889457
+    },
+    {
+      "subject": "sub-004",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "filename": "sub-004_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "relative_path": "sub-004/ses-PLCB/func/sub-004_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "url": "",
+      "size": 171678600
+    },
+    {
+      "subject": "sub-004",
+      "session": "ses-PLCB",
+      "run": "run-02",
+      "filename": "sub-004_ses-PLCB_task-rest_run-02_bold.nii.gz",
+      "relative_path": "sub-004/ses-PLCB/func/sub-004_ses-PLCB_task-rest_run-02_bold.nii.gz",
+      "url": "",
+      "size": 171794319
+    },
+    {
+      "subject": "sub-004",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "filename": "sub-004_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "relative_path": "sub-004/ses-PLCB/func/sub-004_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "url": "",
+      "size": 171771798
+    },
+    {
+      "subject": "sub-006",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "filename": "sub-006_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "relative_path": "sub-006/ses-LSD/func/sub-006_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "url": "",
+      "size": 170696513
+    },
+    {
+      "subject": "sub-006",
+      "session": "ses-LSD",
+      "run": "run-02",
+      "filename": "sub-006_ses-LSD_task-rest_run-02_bold.nii.gz",
+      "relative_path": "sub-006/ses-LSD/func/sub-006_ses-LSD_task-rest_run-02_bold.nii.gz",
+      "url": "",
+      "size": 171069392
+    },
+    {
+      "subject": "sub-006",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "filename": "sub-006_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "relative_path": "sub-006/ses-LSD/func/sub-006_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "url": "",
+      "size": 171294386
+    },
+    {
+      "subject": "sub-006",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "filename": "sub-006_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "relative_path": "sub-006/ses-PLCB/func/sub-006_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "url": "",
+      "size": 170381471
+    },
+    {
+      "subject": "sub-006",
+      "session": "ses-PLCB",
+      "run": "run-02",
+      "filename": "sub-006_ses-PLCB_task-rest_run-02_bold.nii.gz",
+      "relative_path": "sub-006/ses-PLCB/func/sub-006_ses-PLCB_task-rest_run-02_bold.nii.gz",
+      "url": "",
+      "size": 169744619
+    },
+    {
+      "subject": "sub-006",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "filename": "sub-006_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "relative_path": "sub-006/ses-PLCB/func/sub-006_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "url": "",
+      "size": 170863481
+    },
+    {
+      "subject": "sub-009",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "filename": "sub-009_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "relative_path": "sub-009/ses-LSD/func/sub-009_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "url": "",
+      "size": 170717462
+    },
+    {
+      "subject": "sub-009",
+      "session": "ses-LSD",
+      "run": "run-02",
+      "filename": "sub-009_ses-LSD_task-rest_run-02_bold.nii.gz",
+      "relative_path": "sub-009/ses-LSD/func/sub-009_ses-LSD_task-rest_run-02_bold.nii.gz",
+      "url": "",
+      "size": 169940806
+    },
+    {
+      "subject": "sub-009",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "filename": "sub-009_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "relative_path": "sub-009/ses-LSD/func/sub-009_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "url": "",
+      "size": 169870257
+    },
+    {
+      "subject": "sub-009",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "filename": "sub-009_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "relative_path": "sub-009/ses-PLCB/func/sub-009_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "url": "",
+      "size": 168298304
+    },
+    {
+      "subject": "sub-009",
+      "session": "ses-PLCB",
+      "run": "run-02",
+      "filename": "sub-009_ses-PLCB_task-rest_run-02_bold.nii.gz",
+      "relative_path": "sub-009/ses-PLCB/func/sub-009_ses-PLCB_task-rest_run-02_bold.nii.gz",
+      "url": "",
+      "size": 167550263
+    },
+    {
+      "subject": "sub-009",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "filename": "sub-009_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "relative_path": "sub-009/ses-PLCB/func/sub-009_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "url": "",
+      "size": 167213059
+    },
+    {
+      "subject": "sub-010",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "filename": "sub-010_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "relative_path": "sub-010/ses-LSD/func/sub-010_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "url": "",
+      "size": 169849326
+    },
+    {
+      "subject": "sub-010",
+      "session": "ses-LSD",
+      "run": "run-02",
+      "filename": "sub-010_ses-LSD_task-rest_run-02_bold.nii.gz",
+      "relative_path": "sub-010/ses-LSD/func/sub-010_ses-LSD_task-rest_run-02_bold.nii.gz",
+      "url": "",
+      "size": 169738026
+    },
+    {
+      "subject": "sub-010",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "filename": "sub-010_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "relative_path": "sub-010/ses-LSD/func/sub-010_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "url": "",
+      "size": 169744872
+    },
+    {
+      "subject": "sub-010",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "filename": "sub-010_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "relative_path": "sub-010/ses-PLCB/func/sub-010_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "url": "",
+      "size": 171722928
+    },
+    {
+      "subject": "sub-010",
+      "session": "ses-PLCB",
+      "run": "run-02",
+      "filename": "sub-010_ses-PLCB_task-rest_run-02_bold.nii.gz",
+      "relative_path": "sub-010/ses-PLCB/func/sub-010_ses-PLCB_task-rest_run-02_bold.nii.gz",
+      "url": "",
+      "size": 171782608
+    },
+    {
+      "subject": "sub-010",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "filename": "sub-010_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "relative_path": "sub-010/ses-PLCB/func/sub-010_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "url": "",
+      "size": 171434243
+    },
+    {
+      "subject": "sub-011",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "filename": "sub-011_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "relative_path": "sub-011/ses-LSD/func/sub-011_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "url": "",
+      "size": 166516638
+    },
+    {
+      "subject": "sub-011",
+      "session": "ses-LSD",
+      "run": "run-02",
+      "filename": "sub-011_ses-LSD_task-rest_run-02_bold.nii.gz",
+      "relative_path": "sub-011/ses-LSD/func/sub-011_ses-LSD_task-rest_run-02_bold.nii.gz",
+      "url": "",
+      "size": 166959260
+    },
+    {
+      "subject": "sub-011",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "filename": "sub-011_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "relative_path": "sub-011/ses-LSD/func/sub-011_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "url": "",
+      "size": 167435259
+    },
+    {
+      "subject": "sub-011",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "filename": "sub-011_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "relative_path": "sub-011/ses-PLCB/func/sub-011_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "url": "",
+      "size": 167906071
+    },
+    {
+      "subject": "sub-011",
+      "session": "ses-PLCB",
+      "run": "run-02",
+      "filename": "sub-011_ses-PLCB_task-rest_run-02_bold.nii.gz",
+      "relative_path": "sub-011/ses-PLCB/func/sub-011_ses-PLCB_task-rest_run-02_bold.nii.gz",
+      "url": "",
+      "size": 167533885
+    },
+    {
+      "subject": "sub-011",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "filename": "sub-011_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "relative_path": "sub-011/ses-PLCB/func/sub-011_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "url": "",
+      "size": 167186861
+    },
+    {
+      "subject": "sub-012",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "filename": "sub-012_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "relative_path": "sub-012/ses-LSD/func/sub-012_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "url": "",
+      "size": 175741683
+    },
+    {
+      "subject": "sub-012",
+      "session": "ses-LSD",
+      "run": "run-02",
+      "filename": "sub-012_ses-LSD_task-rest_run-02_bold.nii.gz",
+      "relative_path": "sub-012/ses-LSD/func/sub-012_ses-LSD_task-rest_run-02_bold.nii.gz",
+      "url": "",
+      "size": 175864767
+    },
+    {
+      "subject": "sub-012",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "filename": "sub-012_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "relative_path": "sub-012/ses-LSD/func/sub-012_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "url": "",
+      "size": 175694551
+    },
+    {
+      "subject": "sub-012",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "filename": "sub-012_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "relative_path": "sub-012/ses-PLCB/func/sub-012_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "url": "",
+      "size": 175541473
+    },
+    {
+      "subject": "sub-012",
+      "session": "ses-PLCB",
+      "run": "run-02",
+      "filename": "sub-012_ses-PLCB_task-rest_run-02_bold.nii.gz",
+      "relative_path": "sub-012/ses-PLCB/func/sub-012_ses-PLCB_task-rest_run-02_bold.nii.gz",
+      "url": "",
+      "size": 175829342
+    },
+    {
+      "subject": "sub-012",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "filename": "sub-012_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "relative_path": "sub-012/ses-PLCB/func/sub-012_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "url": "",
+      "size": 175219661
+    },
+    {
+      "subject": "sub-013",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "filename": "sub-013_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "relative_path": "sub-013/ses-LSD/func/sub-013_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "url": "",
+      "size": 164837924
+    },
+    {
+      "subject": "sub-013",
+      "session": "ses-LSD",
+      "run": "run-02",
+      "filename": "sub-013_ses-LSD_task-rest_run-02_bold.nii.gz",
+      "relative_path": "sub-013/ses-LSD/func/sub-013_ses-LSD_task-rest_run-02_bold.nii.gz",
+      "url": "",
+      "size": 162772906
+    },
+    {
+      "subject": "sub-013",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "filename": "sub-013_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "relative_path": "sub-013/ses-LSD/func/sub-013_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "url": "",
+      "size": 162990962
+    },
+    {
+      "subject": "sub-013",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "filename": "sub-013_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "relative_path": "sub-013/ses-PLCB/func/sub-013_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "url": "",
+      "size": 172928870
+    },
+    {
+      "subject": "sub-013",
+      "session": "ses-PLCB",
+      "run": "run-02",
+      "filename": "sub-013_ses-PLCB_task-rest_run-02_bold.nii.gz",
+      "relative_path": "sub-013/ses-PLCB/func/sub-013_ses-PLCB_task-rest_run-02_bold.nii.gz",
+      "url": "",
+      "size": 172653193
+    },
+    {
+      "subject": "sub-013",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "filename": "sub-013_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "relative_path": "sub-013/ses-PLCB/func/sub-013_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "url": "",
+      "size": 172636721
+    },
+    {
+      "subject": "sub-015",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "filename": "sub-015_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "relative_path": "sub-015/ses-LSD/func/sub-015_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "url": "",
+      "size": 170047497
+    },
+    {
+      "subject": "sub-015",
+      "session": "ses-LSD",
+      "run": "run-02",
+      "filename": "sub-015_ses-LSD_task-rest_run-02_bold.nii.gz",
+      "relative_path": "sub-015/ses-LSD/func/sub-015_ses-LSD_task-rest_run-02_bold.nii.gz",
+      "url": "",
+      "size": 169755904
+    },
+    {
+      "subject": "sub-015",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "filename": "sub-015_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "relative_path": "sub-015/ses-LSD/func/sub-015_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "url": "",
+      "size": 168217035
+    },
+    {
+      "subject": "sub-015",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "filename": "sub-015_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "relative_path": "sub-015/ses-PLCB/func/sub-015_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "url": "",
+      "size": 172743725
+    },
+    {
+      "subject": "sub-015",
+      "session": "ses-PLCB",
+      "run": "run-02",
+      "filename": "sub-015_ses-PLCB_task-rest_run-02_bold.nii.gz",
+      "relative_path": "sub-015/ses-PLCB/func/sub-015_ses-PLCB_task-rest_run-02_bold.nii.gz",
+      "url": "",
+      "size": 172975609
+    },
+    {
+      "subject": "sub-015",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "filename": "sub-015_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "relative_path": "sub-015/ses-PLCB/func/sub-015_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "url": "",
+      "size": 173238288
+    },
+    {
+      "subject": "sub-017",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "filename": "sub-017_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "relative_path": "sub-017/ses-LSD/func/sub-017_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "url": "",
+      "size": 171864002
+    },
+    {
+      "subject": "sub-017",
+      "session": "ses-LSD",
+      "run": "run-02",
+      "filename": "sub-017_ses-LSD_task-rest_run-02_bold.nii.gz",
+      "relative_path": "sub-017/ses-LSD/func/sub-017_ses-LSD_task-rest_run-02_bold.nii.gz",
+      "url": "",
+      "size": 171885756
+    },
+    {
+      "subject": "sub-017",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "filename": "sub-017_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "relative_path": "sub-017/ses-LSD/func/sub-017_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "url": "",
+      "size": 172129001
+    },
+    {
+      "subject": "sub-017",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "filename": "sub-017_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "relative_path": "sub-017/ses-PLCB/func/sub-017_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "url": "",
+      "size": 168212279
+    },
+    {
+      "subject": "sub-017",
+      "session": "ses-PLCB",
+      "run": "run-02",
+      "filename": "sub-017_ses-PLCB_task-rest_run-02_bold.nii.gz",
+      "relative_path": "sub-017/ses-PLCB/func/sub-017_ses-PLCB_task-rest_run-02_bold.nii.gz",
+      "url": "",
+      "size": 167306575
+    },
+    {
+      "subject": "sub-017",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "filename": "sub-017_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "relative_path": "sub-017/ses-PLCB/func/sub-017_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "url": "",
+      "size": 167182148
+    },
+    {
+      "subject": "sub-018",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "filename": "sub-018_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "relative_path": "sub-018/ses-LSD/func/sub-018_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "url": "",
+      "size": 174000452
+    },
+    {
+      "subject": "sub-018",
+      "session": "ses-LSD",
+      "run": "run-02",
+      "filename": "sub-018_ses-LSD_task-rest_run-02_bold.nii.gz",
+      "relative_path": "sub-018/ses-LSD/func/sub-018_ses-LSD_task-rest_run-02_bold.nii.gz",
+      "url": "",
+      "size": 174180865
+    },
+    {
+      "subject": "sub-018",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "filename": "sub-018_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "relative_path": "sub-018/ses-LSD/func/sub-018_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "url": "",
+      "size": 174486680
+    },
+    {
+      "subject": "sub-018",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "filename": "sub-018_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "relative_path": "sub-018/ses-PLCB/func/sub-018_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "url": "",
+      "size": 173788426
+    },
+    {
+      "subject": "sub-018",
+      "session": "ses-PLCB",
+      "run": "run-02",
+      "filename": "sub-018_ses-PLCB_task-rest_run-02_bold.nii.gz",
+      "relative_path": "sub-018/ses-PLCB/func/sub-018_ses-PLCB_task-rest_run-02_bold.nii.gz",
+      "url": "",
+      "size": 173863117
+    },
+    {
+      "subject": "sub-018",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "filename": "sub-018_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "relative_path": "sub-018/ses-PLCB/func/sub-018_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "url": "",
+      "size": 173940045
+    },
+    {
+      "subject": "sub-019",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "filename": "sub-019_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "relative_path": "sub-019/ses-LSD/func/sub-019_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "url": "",
+      "size": 168937563
+    },
+    {
+      "subject": "sub-019",
+      "session": "ses-LSD",
+      "run": "run-02",
+      "filename": "sub-019_ses-LSD_task-rest_run-02_bold.nii.gz",
+      "relative_path": "sub-019/ses-LSD/func/sub-019_ses-LSD_task-rest_run-02_bold.nii.gz",
+      "url": "",
+      "size": 169302427
+    },
+    {
+      "subject": "sub-019",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "filename": "sub-019_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "relative_path": "sub-019/ses-LSD/func/sub-019_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "url": "",
+      "size": 169090983
+    },
+    {
+      "subject": "sub-019",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "filename": "sub-019_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "relative_path": "sub-019/ses-PLCB/func/sub-019_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "url": "",
+      "size": 169877104
+    },
+    {
+      "subject": "sub-019",
+      "session": "ses-PLCB",
+      "run": "run-02",
+      "filename": "sub-019_ses-PLCB_task-rest_run-02_bold.nii.gz",
+      "relative_path": "sub-019/ses-PLCB/func/sub-019_ses-PLCB_task-rest_run-02_bold.nii.gz",
+      "url": "",
+      "size": 170057073
+    },
+    {
+      "subject": "sub-019",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "filename": "sub-019_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "relative_path": "sub-019/ses-PLCB/func/sub-019_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "url": "",
+      "size": 170249548
+    },
+    {
+      "subject": "sub-020",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "filename": "sub-020_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "relative_path": "sub-020/ses-LSD/func/sub-020_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "url": "",
+      "size": 169893858
+    },
+    {
+      "subject": "sub-020",
+      "session": "ses-LSD",
+      "run": "run-02",
+      "filename": "sub-020_ses-LSD_task-rest_run-02_bold.nii.gz",
+      "relative_path": "sub-020/ses-LSD/func/sub-020_ses-LSD_task-rest_run-02_bold.nii.gz",
+      "url": "",
+      "size": 170564771
+    },
+    {
+      "subject": "sub-020",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "filename": "sub-020_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "relative_path": "sub-020/ses-LSD/func/sub-020_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "url": "",
+      "size": 166715003
+    },
+    {
+      "subject": "sub-020",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "filename": "sub-020_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "relative_path": "sub-020/ses-PLCB/func/sub-020_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "url": "",
+      "size": 175400574
+    },
+    {
+      "subject": "sub-020",
+      "session": "ses-PLCB",
+      "run": "run-02",
+      "filename": "sub-020_ses-PLCB_task-rest_run-02_bold.nii.gz",
+      "relative_path": "sub-020/ses-PLCB/func/sub-020_ses-PLCB_task-rest_run-02_bold.nii.gz",
+      "url": "",
+      "size": 175459734
+    },
+    {
+      "subject": "sub-020",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "filename": "sub-020_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "relative_path": "sub-020/ses-PLCB/func/sub-020_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "url": "",
+      "size": 175637442
+    }
+  ],
+  "sidecars": [
+    "sub-001/ses-LSD/func/sub-001_ses-LSD_task-rest_bold.json",
+    "sub-001/ses-PLCB/func/sub-001_ses-PLCB_task-rest_bold.json",
+    "sub-002/ses-LSD/func/sub-002_ses-LSD_task-rest_bold.json",
+    "sub-002/ses-PLCB/func/sub-002_ses-PLCB_task-rest_bold.json",
+    "sub-003/ses-LSD/func/sub-003_ses-LSD_task-rest_bold.json",
+    "sub-003/ses-PLCB/func/sub-003_ses-PLCB_task-rest_bold.json",
+    "sub-004/ses-LSD/func/sub-004_ses-LSD_task-rest_bold.json",
+    "sub-004/ses-PLCB/func/sub-004_ses-PLCB_task-rest_bold.json",
+    "sub-006/ses-LSD/func/sub-006_ses-LSD_task-rest_bold.json",
+    "sub-006/ses-PLCB/func/sub-006_ses-PLCB_task-rest_bold.json",
+    "sub-009/ses-LSD/func/sub-009_ses-LSD_task-rest_bold.json",
+    "sub-009/ses-PLCB/func/sub-009_ses-PLCB_task-rest_bold.json",
+    "sub-010/ses-LSD/func/sub-010_ses-LSD_task-rest_bold.json",
+    "sub-010/ses-PLCB/func/sub-010_ses-PLCB_task-rest_bold.json",
+    "sub-011/ses-LSD/func/sub-011_ses-LSD_task-rest_bold.json",
+    "sub-011/ses-PLCB/func/sub-011_ses-PLCB_task-rest_bold.json",
+    "sub-012/ses-LSD/func/sub-012_ses-LSD_task-rest_bold.json",
+    "sub-012/ses-PLCB/func/sub-012_ses-PLCB_task-rest_bold.json",
+    "sub-013/ses-LSD/func/sub-013_ses-LSD_task-rest_bold.json",
+    "sub-013/ses-PLCB/func/sub-013_ses-PLCB_task-rest_bold.json",
+    "sub-015/ses-LSD/func/sub-015_ses-LSD_task-rest_bold.json",
+    "sub-015/ses-PLCB/func/sub-015_ses-PLCB_task-rest_bold.json",
+    "sub-017/ses-LSD/func/sub-017_ses-LSD_task-rest_bold.json",
+    "sub-017/ses-PLCB/func/sub-017_ses-PLCB_task-rest_bold.json",
+    "sub-018/ses-LSD/func/sub-018_ses-LSD_task-rest_bold.json",
+    "sub-018/ses-PLCB/func/sub-018_ses-PLCB_task-rest_bold.json",
+    "sub-019/ses-LSD/func/sub-019_ses-LSD_task-rest_bold.json",
+    "sub-019/ses-PLCB/func/sub-019_ses-PLCB_task-rest_bold.json",
+    "sub-020/ses-LSD/func/sub-020_ses-LSD_task-rest_bold.json",
+    "sub-020/ses-PLCB/func/sub-020_ses-PLCB_task-rest_bold.json"
+  ]
+}

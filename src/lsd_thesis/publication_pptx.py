@@ -110,6 +110,26 @@ def build_defense_pptx_slides(report_markdown: str) -> list[dict[str, Any]]:
         "note": "Defense opening framing slide.",
     }
 
+    cv5_slide = {
+        "title": "CV5 Internal Validation",
+        "anchor": "cv5-internal-validation",
+        "takeaway": (
+            "Approved preliminary five-fold subject-disjoint internal validation is complete; "
+            "this is not external or clinical validation."
+        ),
+        "bullets": [
+            "Five folds cover the 15 complete paired subjects, with 3 held out per fold.",
+            "Fold metrics are descriptive internal-validation summaries, not confidence intervals.",
+            "No subject-level motion, FD/DVARS, confound, or censoring stratification was available.",
+            "The selected perturbation family is a proxy-objective result, not proof of a biological mechanism.",
+        ],
+        "image_path": None,
+        "image_alt": "CV5 internal validation summary",
+        "image_caption": None,
+        "citation": "Internal validation only; not external or clinical validation, and not subjective-state evidence.",
+        "note": "Defense scope slide derived from the CV5 validation section.",
+    }
+
     deck = [
         title_slide,
         _make_slide("Scope and Claim Boundaries", [executive, abstract, objectives, scope]),
@@ -119,7 +139,8 @@ def build_defense_pptx_slides(report_markdown: str) -> list[dict[str, Any]]:
         _make_slide("Shared Observable Space", [observables]),
         _make_slide("Stage 1 Synthetic Shift", [stage1], image_from=stage1),
         _make_slide("Stage 2 Empirical Bridge and Fit", [stage2], image_from=stage2),
-        _make_slide("Stage 3 Mechanism Ranking", [stage3]),
+        cv5_slide,
+        _make_slide("Stage 3 Perturbation-Family Ranking", [stage3]),
         _make_slide("Stage 4 Ablation and Pairwise Tests", [stage4]),
         _make_slide("Dashboard and Artifact Layer", [dashboard]),
         _make_slide("Training Benchmarks", [training]),
@@ -153,7 +174,7 @@ def build_defense_presentation_pptx(
         raise FileNotFoundError(f"PPTX generator script not found: {script_path}")
     if not node_package.exists():
         raise FileNotFoundError(
-            f"PptxGenJS dependency not found: {node_package}. Run `npm install --prefix tools/pptx`."
+            f"PptxGenJS dependency not found: {node_package}. Run `npm ci --prefix tools/pptx`."
         )
 
     write_defense_pptx_spec(slides, spec_path)

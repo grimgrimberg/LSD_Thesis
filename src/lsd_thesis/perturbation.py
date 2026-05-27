@@ -18,6 +18,7 @@ from lsd_thesis.fit import fit_sober_regime
 from lsd_thesis.graph import load_graph_config
 from lsd_thesis.metrics import compute_observable_summary
 from lsd_thesis.simulator import load_regime_config, run_simulation
+from lsd_thesis.subject_split import build_subject_validation_boundary, load_subject_split_file
 from lsd_thesis.utils import confidence_weight, get_version_stamp, save_figure
 
 MechanismName = Literal[
@@ -371,11 +372,15 @@ def generate_stage_3_outputs(
     strengths: tuple[float, ...] = (0.05, 0.1, 0.2, 0.3),
     seed: int = 0,
     seed_panel: tuple[int, ...] | None = None,
+    subject_split_path: str | Path | None = None,
+    heldout_sober_target_path: str | Path | None = None,
+    heldout_perturbation_target_path: str | Path | None = None,
 ) -> dict[str, Any]:
     graph = load_graph_config(graph_path)
     baseline = load_regime_config(baseline_path)
     sober_target = load_sober_target_set(sober_target_path)
     perturbation_target = load_perturbation_target_set(perturbation_target_path)
+    subject_split = load_subject_split_file(subject_split_path) if subject_split_path is not None else None
 
     fit_result = fit_sober_regime(
         graph=graph,
@@ -406,6 +411,49 @@ def generate_stage_3_outputs(
         target_set=perturbation_target,
         seeds=resolved_seed_panel,
     )
+    heldout_validation_completed = False
+    heldout_validation_evaluation: dict[str, Any] | None = None
+    if subject_split is not None and subject_split.is_approved:
+        if heldout_sober_target_path is None or heldout_perturbation_target_path is None:
+            raise ValueError(
+                "Approved subject split Stage 3 runs require held-out sober and perturbation target paths."
+            )
+        resolved_heldout_sober_path = Path(heldout_sober_target_path)
+        resolved_heldout_perturbation_path = Path(heldout_perturbation_target_path)
+        if not resolved_heldout_sober_path.exists() or not resolved_heldout_perturbation_path.exists():
+            raise ValueError(
+                "Approved subject split Stage 3 runs require existing held-out target artifacts from Stage 2."
+            )
+        heldout_sober_target = load_sober_target_set(resolved_heldout_sober_path)
+        heldout_perturbation_target = load_perturbation_target_set(resolved_heldout_perturbation_path)
+        heldout_eval = evaluate_perturbation_seed_panel(
+            graph=graph,
+            sober_regime=fit_result.best_regime,
+            target_set=heldout_perturbation_target,
+            mechanism=robust_best.mechanism,
+            strength=robust_best.strength,
+            seeds=resolved_seed_panel,
+        )
+        heldout_validation_completed = True
+        heldout_validation_evaluation = {
+            "status": "completed",
+            "selection_rule": "Evaluate the Stage 3 robust-best mechanism selected on calibration subjects.",
+            "selected_mechanism": robust_best.mechanism,
+            "selected_strength": robust_best.strength,
+            "heldout_sober_target_path": str(resolved_heldout_sober_path),
+            "heldout_perturbation_target_path": str(resolved_heldout_perturbation_path),
+            "heldout_dataset_anchor": heldout_sober_target.dataset_anchor,
+            "seed_panel": list(resolved_seed_panel),
+            "score_mean": heldout_eval.score_mean,
+            "score_std": heldout_eval.score_std,
+            "sign_agreement_fraction": heldout_eval.sign_agreement_fraction,
+            "delta_metrics_mean": heldout_eval.delta_metrics_mean,
+            "delta_metrics_std": heldout_eval.delta_metrics_std,
+            "claim_guardrail": (
+                "This is a subject-disjoint held-out empirical evaluation only because an approved split "
+                "was configured and separate held-out target artifacts were evaluated."
+            ),
+        }
 
     output_path = Path(output_dir)
     figures_path = output_path / "figures"
@@ -443,6 +491,21 @@ def generate_stage_3_outputs(
         "seed_noise_null": null_summary,
         "version_stamp": get_version_stamp(Path(graph_path).resolve().parents[2]),
     }
+    if subject_split is not None:
+        summary["empirical_validation_boundary"] = build_subject_validation_boundary(
+            subject_split,
+            split_file_path=subject_split_path,
+            held_out_validation_completed=heldout_validation_completed,
+            selection_data_source="Stage 2 calibration subject subset",
+            validation_data_source=(
+                "Stage 3 evaluated held-out validation subject targets."
+                if heldout_validation_completed
+                else "Held-out validation subject subset; a real subject-disjoint Stage 3 empirical evaluation has not yet been run."
+            ),
+            selection_random_seed=seed,
+        )
+    if heldout_validation_evaluation is not None:
+        summary["heldout_validation_evaluation"] = heldout_validation_evaluation
     output_path.mkdir(parents=True, exist_ok=True)
     (output_path / "stage_3_summary.json").write_text(
         json.dumps(summary, indent=2), encoding="utf-8"
@@ -481,6 +544,13 @@ def generate_stage_3_outputs(
         "",
         "## Critical Review",
         "",
+        (
+            "- Stage 3 completed an approved subject-disjoint held-out empirical evaluation."
+            if heldout_validation_completed
+            else "- A subject-disjoint split file is configured, but Stage 3 has not completed a held-out empirical validation run."
+            if subject_split is not None
+            else "- No subject-disjoint split file is configured for this Stage 3 run."
+        ),
         "- The current surrogate still underexpresses the ds003059 delta magnitudes; the best mechanism moves in the right direction but too weakly.",
         "- The coarse anatomical module mapping preserves some cross-network and thalamic shifts, "
         "but not a clean canonical psychedelic signature across all metrics.",

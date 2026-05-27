@@ -1,0 +1,127 @@
+dataset_anchor: OpenNeuro ds003059 placebo resting-state summary (15 session averages)
+module_names:
+- visual
+- auditory
+- salience
+- default_mode
+- executive_frontoparietal
+- limbic_affective
+- thalamic_gateway
+- sensorimotor
+metrics:
+  within_network_stability:
+    target: 0.28225518879741957
+    weight: 1.5
+    confidence: moderate
+    note: Estimated from actual ds003059 placebo resting-state runs (statistical tests
+      used for confidence).
+  cross_network_communication:
+    target: 0.19965611396662622
+    weight: 1.5
+    confidence: strong
+    note: Estimated from actual ds003059 placebo resting-state runs (statistical tests
+      used for confidence).
+  thalamic_coupling:
+    target: 0.20429936992729117
+    weight: 1.2
+    confidence: strong
+    note: Estimated from actual ds003059 placebo resting-state runs (statistical tests
+      used for confidence).
+  hierarchical_compression:
+    target: 0.37818652037876127
+    weight: 1.0
+    confidence: weak
+    note: Estimated from actual ds003059 placebo resting-state runs (statistical tests
+      used for confidence).
+  entropy_diversity:
+    target: 0.9737604542981653
+    weight: 1.0
+    confidence: weak
+    note: Estimated from actual ds003059 placebo resting-state runs (statistical tests
+      used for confidence).
+  switching_rate:
+    target: 0.2833333333333333
+    weight: 1.0
+    confidence: weak
+    note: Estimated from actual ds003059 placebo resting-state runs (statistical tests
+      used for confidence).
+  metastability_proxy:
+    target: 1.202662116141744
+    weight: 1.0
+    confidence: moderate
+    note: Estimated from actual ds003059 placebo resting-state runs (statistical tests
+      used for confidence).
+  effective_barrier_proxy:
+    target: 3.5334169559749213
+    weight: 1.0
+    confidence: weak
+    note: Estimated from actual ds003059 placebo resting-state runs (statistical tests
+      used for confidence).
+fc_matrix:
+- - 1.0
+  - 0.29435837563453693
+  - 0.10314215200447469
+  - 0.23503570182465916
+  - 0.29289933373473553
+  - 0.1590899382007814
+  - 0.1271131902764507
+  - 0.4114192264780418
+- - 0.29435837563453693
+  - 1.0
+  - 0.44512249912263946
+  - 0.00794554845203882
+  - 0.11246305870333541
+  - 0.4261706455672306
+  - 0.1431322788096886
+  - 0.6230033397887521
+- - 0.10314215200447469
+  - 0.44512249912263946
+  - 1.0
+  - 0.2549947324186565
+  - 0.2714736901533263
+  - 0.36990183155120626
+  - 0.34451857725604307
+  - 0.3236978888450466
+- - 0.23503570182465916
+  - 0.00794554845203882
+  - 0.2549947324186565
+  - 1.0
+  - 0.10552687553021518
+  - 0.14584220859427688
+  - 0.28117084867251746
+  - -0.15439106015693266
+- - 0.29289933373473553
+  - 0.11246305870333541
+  - 0.2714736901533263
+  - 0.10552687553021518
+  - 1.0
+  - 0.06377641902776442
+  - 0.2207415293601339
+  - 0.25274174453016857
+- - 0.1590899382007814
+  - 0.4261706455672306
+  - 0.36990183155120626
+  - 0.14584220859427688
+  - 0.06377641902776442
+  - 1.0
+  - 0.16530901836417036
+  - 0.15945312504668227
+- - 0.1271131902764507
+  - 0.1431322788096886
+  - 0.34451857725604307
+  - 0.28117084867251746
+  - 0.2207415293601339
+  - 0.16530901836417036
+  - 1.0
+  - 0.14811014675203404
+- - 0.4114192264780418
+  - 0.6230033397887521
+  - 0.3236978888450466
+  - -0.15439106015693266
+  - 0.25274174453016857
+  - 0.15945312504668227
+  - 0.14811014675203404
+  - 1.0
+notes:
+- Derived from ds003059 resting-state target runs only (run-01, run-03).
+- Placebo summaries are averaged within subject, then averaged across subjects.

@@ -107,11 +107,184 @@ def _best_model_name(models: list[dict[str, Any]], score_keys: tuple[str, ...]) 
     if not models:
         return "not reported"
     for score_key in score_keys:
-        scored_models = [model for model in models if score_key in model]
+        scored_models = [model for model in models if _nested_score(model, score_key) is not None]
         if scored_models:
-            best_model = max(scored_models, key=lambda model: float(model[score_key]))
+            best_model = max(scored_models, key=lambda model: float(_nested_score(model, score_key) or 0.0))
             return str(best_model.get("name", "unnamed_model"))
     return str(models[0].get("name", "unnamed_model"))
+
+
+def _nested_score(model: dict[str, Any], score_key: str) -> float | None:
+    current: Any = model
+    for part in score_key.split("."):
+        if not isinstance(current, dict) or part not in current:
+            return None
+        current = current[part]
+    try:
+        return float(current)
+    except (TypeError, ValueError):
+        return None
+
+
+def _stage4_pairwise_sentence(stage4: Any) -> str:
+    delta = stage4.best_pair_score - stage4.best_single_score
+    if delta < 0:
+        comparison = "outperformed"
+    elif delta > 0:
+        comparison = "did not outperform"
+    else:
+        comparison = "matched"
+    return (
+        f"The best single mechanism is `{stage4.best_single_mechanism}` "
+        f"(score {stage4.best_single_score:.4f}). The best pair is `{stage4.best_pair_name}` "
+        f"(score {stage4.best_pair_score:.4f}), which {comparison} the best single mechanism "
+        "under the current objective; lower scores are better."
+    )
+
+
+def _provenance_statement(stage2_raw: Any) -> str:
+    version_stamp = getattr(stage2_raw, "version_stamp", None)
+    if isinstance(version_stamp, dict):
+        git = version_stamp.get("git", {})
+        if isinstance(git, dict) and git.get("commit_hash"):
+            return (
+                f"Stage 2 provenance records git commit `{git['commit_hash']}` "
+                f"with worktree status `{git.get('worktree_status', 'unknown')}`."
+            )
+    return (
+        "The generated report intentionally avoids claiming a fixed commit state unless "
+        "a machine-readable version stamp is present."
+    )
+
+
+def _metric_summary_text(summary: dict[str, Any], *, precision: int = 4) -> str:
+    if not isinstance(summary, dict) or not isinstance(summary.get("mean"), int | float):
+        return "not recorded"
+    text = f"{float(summary['mean']):.{precision}f}"
+    if isinstance(summary.get("std"), int | float):
+        text += f" (fold SD {float(summary['std']):.{precision}f})"
+    return text
+
+
+def _metric_range_text(values: list[float], *, precision: int = 4) -> str:
+    if not values:
+        return "not recorded"
+    return f"{min(values):.{precision}f} to {max(values):.{precision}f}"
+
+
+def _cv5_metric_table(cv5_validation: dict[str, Any]) -> str:
+    aggregate_metrics = cv5_validation.get("aggregate_metrics", {})
+    score_summary = aggregate_metrics.get("score_mean", {})
+    sign_summary = aggregate_metrics.get("sign_agreement_fraction", {})
+    mechanism_counts = aggregate_metrics.get("selected_mechanism_counts", {})
+    strength_counts = aggregate_metrics.get("selected_strength_counts", {})
+    per_fold_metrics = cv5_validation.get("per_fold_metrics", [])
+    fold_scores = [
+        float(item["score_mean"])
+        for item in per_fold_metrics
+        if isinstance(item, dict) and isinstance(item.get("score_mean"), int | float)
+    ]
+    sign_scores = [
+        float(item["sign_agreement_fraction"])
+        for item in per_fold_metrics
+        if isinstance(item, dict) and isinstance(item.get("sign_agreement_fraction"), int | float)
+    ]
+    selected_mechanism = (
+        ", ".join(f"`{key}`={value}" for key, value in sorted(mechanism_counts.items()))
+        if isinstance(mechanism_counts, dict) and mechanism_counts
+        else "not recorded"
+    )
+    selected_strength = (
+        ", ".join(f"`{key}`={value}" for key, value in sorted(strength_counts.items()))
+        if isinstance(strength_counts, dict) and strength_counts
+        else "not recorded"
+    )
+    source_manifest = cv5_validation.get("source_manifest_path") or cv5_validation.get("approved_manifest_path")
+    run_parameters = cv5_validation.get("run_parameters", {})
+    aggregate_path = cv5_validation.get("aggregate_path") or (
+        run_parameters.get("aggregate_path") if isinstance(run_parameters, dict) else None
+    )
+    run_command = run_parameters.get("run_command") if isinstance(run_parameters, dict) else None
+    rows = [
+        ("Approved manifest", f"`{source_manifest}`" if source_manifest else "not recorded"),
+        ("Aggregate artifact", f"`{aggregate_path}`" if aggregate_path else "not recorded"),
+        ("Fold-averaged delta mismatch score", _metric_summary_text(score_summary)),
+        ("Held-out score range", _metric_range_text(fold_scores)),
+        ("Fold-averaged target-sign agreement", _metric_summary_text(sign_summary)),
+        ("Target-sign agreement range", _metric_range_text(sign_scores)),
+        ("Selected perturbation family counts", selected_mechanism),
+        ("Selected strength counts", selected_strength),
+        ("Reproduction command", f"`{run_command}`" if run_command else "not recorded"),
+    ]
+    table_lines = [
+        "",
+        "",
+        "| CV5 descriptive item | Value |",
+        "| --- | --- |",
+    ]
+    table_lines.extend(f"| {label} | {value} |" for label, value in rows)
+    table_lines.extend(
+        [
+            "",
+            (
+                "These values are descriptive fold summaries. The fold standard deviation is not a "
+                "confidence interval, and the result should not be interpreted as external predictive validity."
+            ),
+        ]
+    )
+    return "\n".join(table_lines)
+
+
+def _validation_boundary_statement(stage2_raw: Any, cv5_validation: dict[str, Any] | None = None) -> str:
+    if cv5_validation:
+        completed_folds = int(cv5_validation.get("completed_folds") or 0)
+        total_folds = int(cv5_validation.get("total_folds") or 0)
+        total_subjects = int(cv5_validation.get("total_subjects") or 0)
+        scope = str(cv5_validation.get("validation_claim_scope") or "internal_subject_disjoint_cv5")
+        if cv5_validation.get("held_out_validation_completed") is True:
+            return (
+                "Approved preliminary five-fold subject-disjoint internal validation completed across "
+                f"{completed_folds}/{total_folds} folds under `{scope}`, covering "
+                f"{total_subjects} complete paired subjects exactly once as held-out targets. "
+                "This is internal validation, not external or clinical validation, and the "
+                "n=3 held-out subjects per fold require cautious interpretation. No subject-level "
+                "motion/FD/DVARS/confound/censoring stratification was available for the split. "
+                "The approved manifest is the split-configuration record; the aggregate artifact is "
+                "the authoritative completion record."
+                f"{_cv5_metric_table(cv5_validation)}"
+            )
+        return (
+            "Approved five-fold subject-disjoint internal validation is configured but not fully completed: "
+            f"{completed_folds}/{total_folds} folds currently have completed held-out results. "
+            "No completed CV5 validation claim should be made until all folds complete."
+        )
+
+    boundary = getattr(stage2_raw, "validation_boundary", None)
+    if boundary is None or not getattr(boundary, "configured", False):
+        return (
+            "Subject-disjoint held-out validation has not yet been configured or performed for Stage 2/3; "
+            "the current evidence remains calibration plus stochastic diagnostics."
+        )
+    selection_count = getattr(boundary, "selection_subject_count", None)
+    validation_count = getattr(boundary, "validation_subject_count", 0)
+    if getattr(boundary, "completed", False):
+        return (
+            "An approved internal subject-disjoint held-out validation completed under "
+            f"`{boundary.split_strategy}` with {selection_count} selection subjects and "
+            f"{validation_count} held-out validation subjects. This is not external validation."
+        )
+    if getattr(boundary, "approval_status", "none") == "candidate":
+        return (
+            "A candidate subject-disjoint split is prepared under "
+            f"`{boundary.split_strategy}` with {selection_count} selection subjects and "
+            f"{validation_count} held-out validation subjects, but it is not approved and "
+            "held-out validation has not yet been completed."
+        )
+    return (
+        "A subject-disjoint split is configured under "
+        f"`{boundary.split_strategy}` with {selection_count} selection subjects and "
+        f"{validation_count} held-out validation subjects, but held-out validation has not yet been completed."
+    )
 
 
 def _sign_mismatch_sentence(sign_mismatches: list[str]) -> str:
@@ -139,6 +312,7 @@ def build_thesis_report_markdown(
         subject_count_words=_small_cardinal(stage2.subject_count),
         run_count_words=_small_cardinal(stage2.run_count),
         stage2_objective_sentence=_stage2_objective_sentence(stage2.initial_score, stage2.best_score),
+        validation_boundary_statement=_validation_boundary_statement(stage2, evidence.cv5_validation),
         stage1_figure_markdown=_figure_markdown(figure_bundle["stage1_metric_shift"]),
         stage2_figure_markdown=_figure_markdown(figure_bundle["stage2_fit_robustness"]),
         stage1_baseline_entropy=f"{float(stage1_baseline['state_entropy']):.3f}",
@@ -147,10 +321,26 @@ def build_thesis_report_markdown(
         stage1_perturbed_switching=f"{float(stage1_perturbed['switching_rate']):.3f}",
         best_mechanism=stage3.best_mechanism,
         best_strength=f"{stage3.best_strength:.2f}",
+        robust_best_mechanism=stage3.robust_best_mechanism,
+        robust_best_strength=(
+            f"{stage3.robust_best_strength:.2f}" if stage3.robust_best_strength is not None else None
+        ),
         best_pair_name=stage4.best_pair_name,
+        best_single_name=stage4.best_single_mechanism,
+        best_single_score=f"{stage4.best_single_score:.4f}",
+        best_pair_score=f"{stage4.best_pair_score:.4f}",
+        stage4_pairwise_sentence=_stage4_pairwise_sentence(stage4),
+        provenance_statement=_provenance_statement(stage2),
         sign_mismatch_sentence=_sign_mismatch_sentence(evidence.sign_mismatches),
-        best_condition_model=_best_model_name(evidence.condition_models, ("balanced_accuracy", "roc_auc")),
-        best_multitask_model=_best_model_name(evidence.multitask_models, ("balanced_accuracy", "eigen_r2")),
+        best_condition_model=_best_model_name(
+            evidence.condition_models,
+            ("aggregate.balanced_accuracy_mean", "balanced_accuracy", "aggregate.roc_auc_mean", "roc_auc"),
+        ),
+        best_multitask_model=_best_model_name(
+            evidence.multitask_models,
+            ("aggregate.balanced_accuracy_mean", "balanced_accuracy", "aggregate.eigen_r2_mean", "eigen_r2"),
+        ),
+        rocket_benchmark=evidence.rocket_benchmark,
     )
 
 

@@ -1,0 +1,203 @@
+{
+  "schema_version": "hansen_macro_priors.v1",
+  "generated_at_utc": "2026-05-27T14:18:28.579945+00:00",
+  "source_repository": "https://github.com/netneurolab/hansen_receptors",
+  "source_license": "CC BY-NC-SA 4.0",
+  "source_files": [
+    {
+      "relative_path": "PET_parcellated/scale100/5HT2a_cimbi_hc29_beliveau.csv",
+      "url": "https://raw.githubusercontent.com/netneurolab/hansen_receptors/main/data/PET_parcellated/scale100/5HT2a_cimbi_hc29_beliveau.csv",
+      "cache_path": "D:/LSD_Thesis/results/external_ingestion/hansen_receptors/source/PET_parcellated/scale100/5HT2a_cimbi_hc29_beliveau.csv",
+      "sha256": "d5d8598605ba2d20abe67f53254c815b08dbde4c77a131b6fb069b84f38e0b66",
+      "size_bytes": 2500
+    },
+    {
+      "relative_path": "PET_parcellated/scale100/5HT2a_alt_hc19_savli.csv",
+      "url": "https://raw.githubusercontent.com/netneurolab/hansen_receptors/main/data/PET_parcellated/scale100/5HT2a_alt_hc19_savli.csv",
+      "cache_path": "D:/LSD_Thesis/results/external_ingestion/hansen_receptors/source/PET_parcellated/scale100/5HT2a_alt_hc19_savli.csv",
+      "sha256": "4fcc06700010cdca3f0fe1cfeb0a587b0617ac8dcbcda58a3ef2db265090aa64",
+      "size_bytes": 2500
+    },
+    {
+      "relative_path": "PET_parcellated/scale100/5HT2a_mdl_hc3_talbot.csv",
+      "url": "https://raw.githubusercontent.com/netneurolab/hansen_receptors/main/data/PET_parcellated/scale100/5HT2a_mdl_hc3_talbot.csv",
+      "cache_path": "D:/LSD_Thesis/results/external_ingestion/hansen_receptors/source/PET_parcellated/scale100/5HT2a_mdl_hc3_talbot.csv",
+      "sha256": "1368a9d394517afe41a180662441300c6526a86c34bbff883f28cc69e5089336",
+      "size_bytes": 2500
+    },
+    {
+      "relative_path": "schaefer/sc_weighted.npy",
+      "url": "https://raw.githubusercontent.com/netneurolab/hansen_receptors/main/data/schaefer/sc_weighted.npy",
+      "cache_path": "D:/LSD_Thesis/results/external_ingestion/hansen_receptors/source/schaefer/sc_weighted.npy",
+      "sha256": "b111ff2fb6e739dfaa9881d1d0213fb6ce03d916b552cec0a30e0c1c3ed9b8a9",
+      "size_bytes": 80128
+    }
+  ],
+  "source_file_policy": "Raw Hansen files are downloaded into a local cache for reproducibility. Public artifacts should cite the URLs and checksums rather than claiming ownership of the source data.",
+  "receptor_projection": {
+    "source_receptor_maps": [
+      {
+        "filename": "PET_parcellated/scale100/5HT2a_cimbi_hc29_beliveau.csv",
+        "healthy_control_n": 29,
+        "raw_mean": 52.754390230609715,
+        "raw_std": 6.0306128876901335,
+        "zscore_before_averaging": true
+      },
+      {
+        "filename": "PET_parcellated/scale100/5HT2a_alt_hc19_savli.csv",
+        "healthy_control_n": 19,
+        "raw_mean": 57.77990304972993,
+        "raw_std": 7.7052225025004955,
+        "zscore_before_averaging": true
+      },
+      {
+        "filename": "PET_parcellated/scale100/5HT2a_mdl_hc3_talbot.csv",
+        "healthy_control_n": 3,
+        "raw_mean": 64.50924413667195,
+        "raw_std": 11.291189436015244,
+        "zscore_before_averaging": true
+      }
+    ],
+    "aggregation": "within-map z-score, then healthy-control-sample-size weighted average across 5-HT2A maps",
+    "module_projection": {
+      "visual": {
+        "projection_status": "direct_schaefer_yeo7_class",
+        "source_classes": [
+          "visual"
+        ],
+        "parcel_count": 15
+      },
+      "sensorimotor": {
+        "projection_status": "direct_schaefer_yeo7_class",
+        "source_classes": [
+          "somatomotor"
+        ],
+        "parcel_count": 15
+      },
+      "salience": {
+        "projection_status": "direct_schaefer_yeo7_class",
+        "source_classes": [
+          "salience_ventral_attention"
+        ],
+        "parcel_count": 14
+      },
+      "default_mode": {
+        "projection_status": "direct_schaefer_yeo7_class",
+        "source_classes": [
+          "default"
+        ],
+        "parcel_count": 14
+      },
+      "executive_frontoparietal": {
+        "projection_status": "direct_schaefer_yeo7_class",
+        "source_classes": [
+          "control"
+        ],
+        "parcel_count": 28
+      },
+      "limbic_affective": {
+        "projection_status": "direct_schaefer_yeo7_class",
+        "source_classes": [
+          "limbic"
+        ],
+        "parcel_count": 14
+      },
+      "auditory": {
+        "projection_status": "imputed_from_cortical_schaefer_yeo7_classes",
+        "source_classes": [
+          "somatomotor"
+        ],
+        "parcel_count": 15
+      },
+      "thalamic_gateway": {
+        "projection_status": "imputed_from_cortical_schaefer_yeo7_classes",
+        "source_classes": [
+          "visual",
+          "somatomotor",
+          "salience_ventral_attention",
+          "default",
+          "control",
+          "limbic"
+        ],
+        "parcel_count": 100
+      }
+    }
+  },
+  "structural_projection": {
+    "aggregation": "mean Schaefer-100 structural weights between projected macro-module parcel sets; max off-diagonal normalized to 1",
+    "module_projection": {
+      "visual": {
+        "projection_status": "direct_schaefer_yeo7_class",
+        "source_classes": [
+          "visual"
+        ],
+        "parcel_count": 15
+      },
+      "sensorimotor": {
+        "projection_status": "direct_schaefer_yeo7_class",
+        "source_classes": [
+          "somatomotor"
+        ],
+        "parcel_count": 15
+      },
+      "salience": {
+        "projection_status": "direct_schaefer_yeo7_class",
+        "source_classes": [
+          "salience_ventral_attention"
+        ],
+        "parcel_count": 14
+      },
+      "default_mode": {
+        "projection_status": "direct_schaefer_yeo7_class",
+        "source_classes": [
+          "default"
+        ],
+        "parcel_count": 14
+      },
+      "executive_frontoparietal": {
+        "projection_status": "direct_schaefer_yeo7_class",
+        "source_classes": [
+          "control"
+        ],
+        "parcel_count": 28
+      },
+      "limbic_affective": {
+        "projection_status": "direct_schaefer_yeo7_class",
+        "source_classes": [
+          "limbic"
+        ],
+        "parcel_count": 14
+      },
+      "auditory": {
+        "projection_status": "imputed_from_cortical_schaefer_yeo7_classes",
+        "source_classes": [
+          "somatomotor"
+        ],
+        "parcel_count": 15
+      },
+      "thalamic_gateway": {
+        "projection_status": "imputed_from_cortical_schaefer_yeo7_classes",
+        "source_classes": [
+          "visual",
+          "somatomotor",
+          "salience_ventral_attention",
+          "default",
+          "control",
+          "limbic"
+        ],
+        "parcel_count": 100
+      }
+    }
+  },
+  "outputs": {
+    "hansen_manifest": "results/external_ingestion/hansen_receptors/hansen_macro_projection_manifest.json",
+    "hansen_summary": "results/external_ingestion/hansen_receptors/hansen_macro_projection_summary.md",
+    "receptor_source_csv": "results/external_ingestion/hansen_receptors/fs5ht_5ht2a_macro_modules_raw.csv",
+    "structural_source_csv": "results/external_ingestion/hansen_receptors/hcp_macro_modules_projected_from_schaefer100.csv",
+    "receptor_prior": "results/receptor_priors/fs5ht_5ht2a_macro_modules.csv",
+    "structural_connectome": "results/structural_connectome/hcp_macro_modules.csv",
+    "receptor_ingestion_manifest": "results/receptor_priors/receptor_prior_ingestion_manifest.json",
+    "structural_ingestion_manifest": "results/structural_connectome/structural_connectome_ingestion_manifest.json"
+  },
+  "claim_guardrail": "This is an authorized public PET/SC projection into the repository macro-module contract. It strengthens receptor/structural sensitivity layers but does not make receptor-level, clinical, subjective-experience, auditory, or thalamic biological claims."
+}

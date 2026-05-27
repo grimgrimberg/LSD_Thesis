@@ -1,0 +1,50 @@
+graph_path: configs/graphs/macro_modules.yaml
+global_coupling: 0.7
+noise_sigma: 0.02
+tau_E: 1.0
+tau_I: 1.5
+w_EE: 1.4
+w_EI: 1.0
+w_IE: 1.0
+w_II: 0.4
+baseline_gain: 1.2
+bias_E: 0.05
+bias_I: 0.0
+initial_state_scale: 0.03
+homeostasis_strength: 0.5
+homeostasis_target: 0.45
+dt: 0.05
+n_steps: 240
+burn_in: 40
+seed: 17
+emit_bold: true
+node_metadata:
+  node_labels:
+    - visual
+    - auditory
+    - salience
+    - default_mode
+    - executive_frontoparietal
+    - limbic_affective
+    - thalamic_gateway
+    - sensorimotor
+  network_labels:
+    - Visual
+    - Auditory
+    - Salience
+    - Default
+    - Frontoparietal
+    - Limbic
+    - Thalamus
+    - Somatomotor
+  hierarchy_values: [0.05, 0.15, 0.55, 0.95, 0.80, 0.70, 0.35, 0.10]
+  receptor_weights: [0.65, 0.45, 0.70, 1.00, 0.85, 0.70, 0.50, 0.35]
+  visual_weights: [1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+  sensory_weights: [1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0]
+  transmodal_weights: [0.0, 0.0, 0.6, 1.0, 0.9, 0.8, 0.0, 0.0]
+  thalamus_weights: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0]
+  striatum_weights: [0.0, 0.0, 0.0, 0.0, 0.0, 0.35, 0.0, 0.0]
+notes:
+  - Metadata arrays are transparent proxy weights for model comparison.
+  - This config does not encode mechanistic receptor pharmacology.
+

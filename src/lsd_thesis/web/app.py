@@ -54,6 +54,7 @@ ALLOWED_ARTIFACT_ROOTS: tuple[tuple[str, ...], ...] = (
     ("results", "dynamic_mechanism_ranking", "figures"),
     ("results", "dynamic_mechanism_ranking", "exports"),
     ("results", "dynamic_mechanism_ranking", "robustness"),
+    ("results", "external_ingestion"),
     ("results", "literature_benchmark"),
     ("results", "parcellation_sensitivity"),
     ("results", "psilocybin_ds006072"),
@@ -61,6 +62,8 @@ ALLOWED_ARTIFACT_ROOTS: tuple[tuple[str, ...], ...] = (
     ("results", "setting_seed", "dashboard"),
     ("results", "structural_connectome"),
     ("results", "thesis_evidence_loop"),
+    ("results", "thesis_upgrade"),
+    ("results", "reproducible_archive"),
 )
 TEMP_ARTIFACT_SUFFIXES = (".bak", ".log", ".old", ".part", ".tmp")
 _plotly_js_cache: str | None = None
@@ -371,6 +374,16 @@ def _artifact_links(repo_root: Path) -> dict[str, list[dict[str, str]]]:
         ("Dynamic Mechanism Results XLSX", repo_root / "results" / "dynamic_mechanism_ranking" / "exports" / "dynamic_mechanism_results.xlsx"),
         ("Dynamic Mechanism Export Manifest", repo_root / "results" / "dynamic_mechanism_ranking" / "exports" / "export_manifest.json"),
         ("Dynamic Robustness Summary", repo_root / "results" / "dynamic_mechanism_ranking" / "robustness" / "robustness_summary.json"),
+        ("ROCKET Condition Benchmark Report", repo_root / "results" / "training" / "rocket_condition_benchmark" / "benchmark_report.md"),
+        (
+            "ROCKET Condition Benchmark Summary",
+            repo_root / "results" / "training" / "rocket_condition_benchmark" / "comparison_summary.json",
+        ),
+        ("Thesis Upgrade Status", repo_root / "results" / "thesis_upgrade" / "thesis_upgrade_status.json"),
+        ("Thesis Upgrade Report", repo_root / "results" / "thesis_upgrade" / "thesis_upgrade_status.md"),
+        ("Reproducible Archive Manifest", repo_root / "results" / "reproducible_archive" / "ARCHIVE_MANIFEST.json"),
+        ("Reproducible Archive Checksums", repo_root / "results" / "reproducible_archive" / "CHECKSUMS.sha256"),
+        ("External Ingestion Status", repo_root / "results" / "external_ingestion" / "external_ingestion_status.json"),
         ("Thesis Evidence Loop Status", repo_root / "results" / "thesis_evidence_loop" / "thesis_evidence_loop_status.json"),
         ("Thesis Evidence Loop Table", repo_root / "results" / "thesis_evidence_loop" / "status_rows.csv"),
         ("Claim Evidence Matrix CSV", repo_root / "results" / "thesis_evidence_loop" / "claim_evidence_matrix.csv"),
@@ -983,6 +996,8 @@ _dashboard_cache: dict[str, Any] | None = None
 
 
 def build_dashboard_payload(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
+    from lsd_thesis.thesis_upgrade import build_thesis_upgrade_status
+
     graph = load_graph_config(repo_root / "configs" / "graphs" / "macro_modules.yaml")
     baseline = load_regime_config(repo_root / "configs" / "regimes" / "baseline.yaml")
     perturbed = load_regime_config(repo_root / "configs" / "regimes" / "perturbed.yaml")
@@ -1070,6 +1085,7 @@ def build_dashboard_payload(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
         "set_setting_seed": _load_set_setting_seed_payload(repo_root),
         "dynamic_mechanism": _load_dynamic_mechanism_payload(repo_root),
         "thesis_expansion": _build_thesis_expansion_payload(repo_root),
+        "thesis_upgrade": build_thesis_upgrade_status(repo_root),
         "artifact_links": artifact_links,
         "baseline_parameters": {
             "within_group_scale": baseline.global_parameters.within_group_scale,

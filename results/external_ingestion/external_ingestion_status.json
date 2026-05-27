@@ -1,0 +1,58 @@
+{
+  "schema_version": "external_ingestion.v1",
+  "generated_at_utc": "2026-05-27T14:19:35.859179+00:00",
+  "ready": {
+    "ds006072_metadata": true,
+    "ds006072_func_manifest": true,
+    "structural_matrix": true,
+    "structural_manifest": true,
+    "receptor_prior": true,
+    "receptor_manifest": true
+  },
+  "paths": {
+    "ds006072_metadata": "data/ds006072/ds006072_metadata_manifest.json",
+    "ds006072_func_manifest": "data/ds006072/ds006072_func_manifest.json",
+    "structural_matrix": "results/structural_connectome/hcp_macro_modules.csv",
+    "structural_manifest": "results/structural_connectome/structural_connectome_ingestion_manifest.json",
+    "receptor_prior": "results/receptor_priors/fs5ht_5ht2a_macro_modules.csv",
+    "receptor_manifest": "results/receptor_priors/receptor_prior_ingestion_manifest.json"
+  },
+  "path_candidates": {
+    "ds006072_metadata": [
+      "data/ds006072/ds006072_metadata_manifest.json"
+    ],
+    "ds006072_func_manifest": [
+      "data/ds006072/ds006072_func_manifest.json"
+    ],
+    "structural_matrix": [
+      "results/structural_connectome/hcp_macro_modules.csv",
+      "data/hcp_structural_connectome/macro_modules.csv"
+    ],
+    "structural_manifest": [
+      "results/structural_connectome/structural_connectome_ingestion_manifest.json",
+      "data/hcp_structural_connectome/structural_connectome_ingestion_manifest.json"
+    ],
+    "receptor_prior": [
+      "results/receptor_priors/fs5ht_5ht2a_macro_modules.csv",
+      "data/receptor_priors/fs5ht_5ht2a_macro_modules.csv"
+    ],
+    "receptor_manifest": [
+      "results/receptor_priors/receptor_prior_ingestion_manifest.json",
+      "data/receptor_priors/receptor_prior_ingestion_manifest.json"
+    ]
+  },
+  "analysis_status": {
+    "ds006072_metadata": "ready",
+    "ds006072_func_manifest": "ready",
+    "structural_connectome": "ready",
+    "receptor_prior": "ready"
+  },
+  "next_commands": {
+    "ds006072_metadata": "uv run python scripts/download_ds006072_metadata.py",
+    "ds006072_functional_manifest": "uv run python scripts/build_ds006072_func_manifest.py",
+    "ingest_structural": "uv run python scripts/ingest_external_priors.py --structural-csv <path-to-structural-csv>",
+    "ingest_receptor": "uv run python scripts/ingest_external_priors.py --receptor-csv <path-to-receptor-csv>",
+    "refresh_thesis_loop": "uv run python scripts/run_thesis_evidence_loop.py"
+  },
+  "claim_guardrail": "External ingestion readiness is provenance and schema readiness. It is not external validation until comparable empirical viewer records and unchanged scoring rules produce results."
+}

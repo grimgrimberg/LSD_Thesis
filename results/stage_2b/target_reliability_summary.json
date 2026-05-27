@@ -1,0 +1,130 @@
+{
+  "status": "complete",
+  "source": "cached_stage_2_harvard_oxford_8",
+  "record_count": 60,
+  "paired_subjects": [
+    "sub-001",
+    "sub-002",
+    "sub-003",
+    "sub-004",
+    "sub-006",
+    "sub-009",
+    "sub-010",
+    "sub-011",
+    "sub-012",
+    "sub-013",
+    "sub-015",
+    "sub-017",
+    "sub-018",
+    "sub-019",
+    "sub-020"
+  ],
+  "paired_subject_count": 15,
+  "metric_count": 13,
+  "metrics": {
+    "dynamic_fc_variance": {
+      "delta_mean": -0.000938062825,
+      "delta_std": 0.008487585544620552,
+      "paired_subject_count": 15,
+      "ci_low": -0.00481311277,
+      "ci_high": 0.003843495319
+    },
+    "global_mean_fc": {
+      "delta_mean": 0.071510263179,
+      "delta_std": 0.08492721012151248,
+      "paired_subject_count": 15,
+      "ci_low": 0.031419896238,
+      "ci_high": 0.116486556014
+    },
+    "gradient_flattening_delta": {
+      "delta_mean": 0.0,
+      "delta_std": 0.0,
+      "paired_subject_count": 15,
+      "ci_low": 0.0,
+      "ci_high": 0.0
+    },
+    "hierarchy_differentiation": {
+      "delta_mean": -0.000136522609,
+      "delta_std": 0.07642585708651409,
+      "paired_subject_count": 15,
+      "ci_low": -0.036294339901,
+      "ci_high": 0.037666153769
+    },
+    "sensory_somatomotor_global_connectivity": {
+      "delta_mean": 0.057473876561,
+      "delta_std": 0.08531963521808471,
+      "paired_subject_count": 15,
+      "ci_low": 0.013126488366,
+      "ci_high": 0.098746003991
+    },
+    "state_occupancy_entropy": {
+      "delta_mean": 0.0,
+      "delta_std": 0.0,
+      "paired_subject_count": 15,
+      "ci_low": 0.0,
+      "ci_high": 0.0
+    },
+    "striatum_to_sensory_fc": {
+      "delta_mean": 0.0,
+      "delta_std": 0.0,
+      "paired_subject_count": 15,
+      "ci_low": 0.0,
+      "ci_high": 0.0
+    },
+    "thalamus_to_sensory_fc": {
+      "delta_mean": 0.098029263352,
+      "delta_std": 0.21132618022166225,
+      "paired_subject_count": 15,
+      "ci_low": -0.008868953366,
+      "ci_high": 0.199468384404
+    },
+    "thalamus_to_transmodal_fc": {
+      "delta_mean": 0.136334910042,
+      "delta_std": 0.1394710350316955,
+      "paired_subject_count": 15,
+      "ci_low": 0.063638803305,
+      "ci_high": 0.202313833763
+    },
+    "transition_entropy": {
+      "delta_mean": 0.009576783163,
+      "delta_std": 0.022040580734538753,
+      "paired_subject_count": 15,
+      "ci_low": -0.001816498816,
+      "ci_high": 0.019912819245
+    },
+    "transition_rate": {
+      "delta_mean": 0.018672839506,
+      "delta_std": 0.0372684842858081,
+      "paired_subject_count": 15,
+      "ci_low": 0.000462962963,
+      "ci_high": 0.036581790123
+    },
+    "unimodal_transmodal_fc": {
+      "delta_mean": 0.047335029864,
+      "delta_std": 0.07747475594268097,
+      "paired_subject_count": 15,
+      "ci_low": 0.006848467036,
+      "ci_high": 0.085069939525
+    },
+    "visual_global_connectivity": {
+      "delta_mean": 0.077778302242,
+      "delta_std": 0.08812415350918537,
+      "paired_subject_count": 15,
+      "ci_low": 0.040570387942,
+      "ci_high": 0.120880050224
+    }
+  },
+  "outputs": {
+    "target_reliability_summary": "D:\\LSD_Thesis\\results\\stage_2b\\target_reliability_summary.json",
+    "literature_metric_deltas": "D:\\LSD_Thesis\\results\\stage_2b\\literature_metric_deltas.csv",
+    "bootstrap_metric_cis": "D:\\LSD_Thesis\\results\\stage_2b\\bootstrap_metric_cis.csv",
+    "leave_one_subject_out": "D:\\LSD_Thesis\\results\\stage_2b\\leave_one_subject_out.csv",
+    "run_split_stability": "D:\\LSD_Thesis\\results\\stage_2b\\run_split_stability.csv",
+    "report": "D:\\LSD_Thesis\\docs\\stage_reports\\stage_2b.md"
+  },
+  "notes": [
+    "Deltas are paired LSD minus placebo session means.",
+    "Only finite scalar literature metrics are included in CSV target validation.",
+    "This is empirical target validation, not a pharmacological mechanism claim."
+  ]
+}

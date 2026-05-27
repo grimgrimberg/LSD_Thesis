@@ -1,0 +1,6077 @@
+{
+  "title": "Set, Setting, and Seed",
+  "subtitle": "Guided Latent Brain Dynamics Under LSD",
+  "status": "partial_rest_only_foundation",
+  "claim_guardrail": "Exploratory macro-dynamics proxy summaries, not subjective-experience simulation or biological proof.",
+  "guardrail_badges": [
+    "Not clinical",
+    "Not subjective decoding",
+    "Not receptor proof",
+    "Diffusion analogy only"
+  ],
+  "concept_map": [
+    {
+      "concept": "Set",
+      "meaning": "subject baseline geometry and placebo reference",
+      "status": "rest cache available"
+    },
+    {
+      "concept": "Setting",
+      "meaning": "run context and music/control input",
+      "status": "music run not analysis-ready"
+    },
+    {
+      "concept": "Seed",
+      "meaning": "initial condition and subject-specific latent state",
+      "status": "descriptive rest geometry available"
+    },
+    {
+      "concept": "Substance",
+      "meaning": "LSD-minus-placebo perturbation",
+      "status": "rest deltas available"
+    },
+    {
+      "concept": "Guidance",
+      "meaning": "routing, hierarchy, precision, context sensitivity",
+      "status": "proxy targets only"
+    }
+  ],
+  "data_audit": {
+    "schema_version": "setting_seed_data_audit.v1",
+    "source": "cached_stage_2_module_time_series",
+    "stage_2_dir": "results\\stage_2",
+    "record_count": 60,
+    "subjects": [
+      "sub-001",
+      "sub-002",
+      "sub-003",
+      "sub-004",
+      "sub-006",
+      "sub-009",
+      "sub-010",
+      "sub-011",
+      "sub-012",
+      "sub-013",
+      "sub-015",
+      "sub-017",
+      "sub-018",
+      "sub-019",
+      "sub-020"
+    ],
+    "subject_count": 15,
+    "complete_rest_subjects": [
+      "sub-001",
+      "sub-002",
+      "sub-003",
+      "sub-004",
+      "sub-006",
+      "sub-009",
+      "sub-010",
+      "sub-011",
+      "sub-012",
+      "sub-013",
+      "sub-015",
+      "sub-017",
+      "sub-018",
+      "sub-019",
+      "sub-020"
+    ],
+    "sessions": [
+      "ses-LSD",
+      "ses-PLCB"
+    ],
+    "runs": [
+      "run-01",
+      "run-03"
+    ],
+    "run_labels": {
+      "run-01": "Rest1",
+      "run-02": "Music",
+      "run-03": "Rest3"
+    },
+    "modules": [
+      "visual",
+      "auditory",
+      "salience",
+      "default_mode",
+      "executive_frontoparietal",
+      "limbic_affective",
+      "thalamic_gateway",
+      "sensorimotor"
+    ],
+    "module_count": 8,
+    "time_series_shapes": {
+      "sub-001_ses-LSD_run-01": [
+        217,
+        8
+      ],
+      "sub-001_ses-LSD_run-03": [
+        217,
+        8
+      ],
+      "sub-001_ses-PLCB_run-01": [
+        217,
+        8
+      ],
+      "sub-001_ses-PLCB_run-03": [
+        217,
+        8
+      ],
+      "sub-002_ses-LSD_run-01": [
+        217,
+        8
+      ],
+      "sub-002_ses-LSD_run-03": [
+        217,
+        8
+      ],
+      "sub-002_ses-PLCB_run-01": [
+        217,
+        8
+      ],
+      "sub-002_ses-PLCB_run-03": [
+        217,
+        8
+      ],
+      "sub-003_ses-LSD_run-01": [
+        217,
+        8
+      ],
+      "sub-003_ses-LSD_run-03": [
+        217,
+        8
+      ],
+      "sub-003_ses-PLCB_run-01": [
+        217,
+        8
+      ],
+      "sub-003_ses-PLCB_run-03": [
+        217,
+        8
+      ],
+      "sub-004_ses-LSD_run-01": [
+        217,
+        8
+      ],
+      "sub-004_ses-LSD_run-03": [
+        217,
+        8
+      ],
+      "sub-004_ses-PLCB_run-01": [
+        217,
+        8
+      ],
+      "sub-004_ses-PLCB_run-03": [
+        217,
+        8
+      ],
+      "sub-006_ses-LSD_run-01": [
+        217,
+        8
+      ],
+      "sub-006_ses-LSD_run-03": [
+        217,
+        8
+      ],
+      "sub-006_ses-PLCB_run-01": [
+        217,
+        8
+      ],
+      "sub-006_ses-PLCB_run-03": [
+        217,
+        8
+      ],
+      "sub-009_ses-LSD_run-01": [
+        217,
+        8
+      ],
+      "sub-009_ses-LSD_run-03": [
+        217,
+        8
+      ],
+      "sub-009_ses-PLCB_run-01": [
+        217,
+        8
+      ],
+      "sub-009_ses-PLCB_run-03": [
+        217,
+        8
+      ],
+      "sub-010_ses-LSD_run-01": [
+        217,
+        8
+      ],
+      "sub-010_ses-LSD_run-03": [
+        217,
+        8
+      ],
+      "sub-010_ses-PLCB_run-01": [
+        217,
+        8
+      ],
+      "sub-010_ses-PLCB_run-03": [
+        217,
+        8
+      ],
+      "sub-011_ses-LSD_run-01": [
+        217,
+        8
+      ],
+      "sub-011_ses-LSD_run-03": [
+        217,
+        8
+      ],
+      "sub-011_ses-PLCB_run-01": [
+        217,
+        8
+      ],
+      "sub-011_ses-PLCB_run-03": [
+        217,
+        8
+      ],
+      "sub-012_ses-LSD_run-01": [
+        217,
+        8
+      ],
+      "sub-012_ses-LSD_run-03": [
+        217,
+        8
+      ],
+      "sub-012_ses-PLCB_run-01": [
+        217,
+        8
+      ],
+      "sub-012_ses-PLCB_run-03": [
+        217,
+        8
+      ],
+      "sub-013_ses-LSD_run-01": [
+        217,
+        8
+      ],
+      "sub-013_ses-LSD_run-03": [
+        217,
+        8
+      ],
+      "sub-013_ses-PLCB_run-01": [
+        217,
+        8
+      ],
+      "sub-013_ses-PLCB_run-03": [
+        217,
+        8
+      ],
+      "sub-015_ses-LSD_run-01": [
+        217,
+        8
+      ],
+      "sub-015_ses-LSD_run-03": [
+        217,
+        8
+      ],
+      "sub-015_ses-PLCB_run-01": [
+        217,
+        8
+      ],
+      "sub-015_ses-PLCB_run-03": [
+        217,
+        8
+      ],
+      "sub-017_ses-LSD_run-01": [
+        217,
+        8
+      ],
+      "sub-017_ses-LSD_run-03": [
+        217,
+        8
+      ],
+      "sub-017_ses-PLCB_run-01": [
+        217,
+        8
+      ],
+      "sub-017_ses-PLCB_run-03": [
+        217,
+        8
+      ],
+      "sub-018_ses-LSD_run-01": [
+        217,
+        8
+      ],
+      "sub-018_ses-LSD_run-03": [
+        217,
+        8
+      ],
+      "sub-018_ses-PLCB_run-01": [
+        217,
+        8
+      ],
+      "sub-018_ses-PLCB_run-03": [
+        217,
+        8
+      ],
+      "sub-019_ses-LSD_run-01": [
+        217,
+        8
+      ],
+      "sub-019_ses-LSD_run-03": [
+        217,
+        8
+      ],
+      "sub-019_ses-PLCB_run-01": [
+        217,
+        8
+      ],
+      "sub-019_ses-PLCB_run-03": [
+        217,
+        8
+      ],
+      "sub-020_ses-LSD_run-01": [
+        217,
+        8
+      ],
+      "sub-020_ses-LSD_run-03": [
+        217,
+        8
+      ],
+      "sub-020_ses-PLCB_run-01": [
+        217,
+        8
+      ],
+      "sub-020_ses-PLCB_run-03": [
+        217,
+        8
+      ]
+    },
+    "missing_time_series_files": [],
+    "invalid_shapes": [],
+    "run_02_available": false,
+    "run_02_extraction_support_available": true,
+    "run_02_default_runs": [
+      "run-01",
+      "run-03"
+    ],
+    "run_02_supported_runs": [
+      "run-01",
+      "run-02",
+      "run-03"
+    ],
+    "run_02_files_present": false,
+    "run_02_analysis_ready": false,
+    "run_02_expected_file_count": 24,
+    "run_02_valid_file_count": 0,
+    "run_02_missing_subject_session": [
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-PLCB"
+      },
+      {
+        "subject": "sub-002",
+        "session": "ses-LSD"
+      },
+      {
+        "subject": "sub-002",
+        "session": "ses-PLCB"
+      },
+      {
+        "subject": "sub-004",
+        "session": "ses-LSD"
+      },
+      {
+        "subject": "sub-004",
+        "session": "ses-PLCB"
+      },
+      {
+        "subject": "sub-006",
+        "session": "ses-LSD"
+      },
+      {
+        "subject": "sub-006",
+        "session": "ses-PLCB"
+      },
+      {
+        "subject": "sub-009",
+        "session": "ses-LSD"
+      },
+      {
+        "subject": "sub-009",
+        "session": "ses-PLCB"
+      },
+      {
+        "subject": "sub-010",
+        "session": "ses-LSD"
+      },
+      {
+        "subject": "sub-010",
+        "session": "ses-PLCB"
+      },
+      {
+        "subject": "sub-011",
+        "session": "ses-LSD"
+      },
+      {
+        "subject": "sub-011",
+        "session": "ses-PLCB"
+      },
+      {
+        "subject": "sub-013",
+        "session": "ses-LSD"
+      },
+      {
+        "subject": "sub-013",
+        "session": "ses-PLCB"
+      },
+      {
+        "subject": "sub-017",
+        "session": "ses-LSD"
+      },
+      {
+        "subject": "sub-017",
+        "session": "ses-PLCB"
+      },
+      {
+        "subject": "sub-018",
+        "session": "ses-LSD"
+      },
+      {
+        "subject": "sub-018",
+        "session": "ses-PLCB"
+      },
+      {
+        "subject": "sub-019",
+        "session": "ses-LSD"
+      },
+      {
+        "subject": "sub-019",
+        "session": "ses-PLCB"
+      },
+      {
+        "subject": "sub-020",
+        "session": "ses-LSD"
+      },
+      {
+        "subject": "sub-020",
+        "session": "ses-PLCB"
+      }
+    ],
+    "run_02_file_count": 0,
+    "motion_summaries_available": false,
+    "motion_summary_support_available": true,
+    "motion_files_present": false,
+    "motion_summary_schema_valid": false,
+    "motion_coverage_by_run": {},
+    "motion_analysis_ready": false,
+    "motion_summary_files": [],
+    "music_excluded_subjects": [
+      "sub-003",
+      "sub-012",
+      "sub-015"
+    ],
+    "music_exclusion_enforced": true,
+    "music_analysis_subject_count": 12,
+    "rest_only_subjects": [
+      "sub-001",
+      "sub-002",
+      "sub-003",
+      "sub-004",
+      "sub-006",
+      "sub-009",
+      "sub-010",
+      "sub-011",
+      "sub-012",
+      "sub-013",
+      "sub-015",
+      "sub-017",
+      "sub-018",
+      "sub-019",
+      "sub-020"
+    ],
+    "music_eligible_subjects": [
+      "sub-001",
+      "sub-002",
+      "sub-004",
+      "sub-006",
+      "sub-009",
+      "sub-010",
+      "sub-011",
+      "sub-013",
+      "sub-017",
+      "sub-018",
+      "sub-019",
+      "sub-020"
+    ],
+    "analysis_availability": {
+      "rest_reliability": "available",
+      "latent_rest_geometry": "available",
+      "music_control": "blocked_missing_run_02",
+      "motion_sensitivity": "unavailable_missing_motion_summaries"
+    },
+    "next_commands": {
+      "run_02_extraction_after_approval": "uv run python scripts/run_pipeline.py stage2 --include-music --runs run-01 run-02 run-03 --stage2-output-dir results/setting_seed/run02_extraction/stage_2_music",
+      "motion_summary": "uv run python scripts/run_setting_seed_motion_summary.py"
+    },
+    "blockers": [
+      "run-02 module time series are missing; music-control empirical analysis is scaffolded only.",
+      "subject-level motion summaries are missing; motion sensitivity is unavailable."
+    ],
+    "claim_guardrail": "Data audit is an implemented cache inventory, not evidence for music-control or motion-controlled effects.",
+    "version_stamp": {
+      "timestamp": "2026-05-14T12:29:46.732520+00:00",
+      "git": {
+        "repo_present": false,
+        "branch": null,
+        "head_present": false,
+        "commit_hash": null,
+        "worktree_status": "not_repo"
+      }
+    }
+  },
+  "reliability": [
+    {
+      "metric": "cross_network_communication",
+      "mean_delta": 0.07407619939923198,
+      "std_delta": 0.08352960021297152,
+      "ci_low": 0.035972250876854794,
+      "ci_high": 0.11510186423523112,
+      "ci_excludes_zero": true,
+      "subject_count": 15,
+      "missingness": 0.0,
+      "sign_consistency": 0.8,
+      "current_confidence": "strong",
+      "expected_sign": 1,
+      "theory_sign_conflict": false,
+      "run_stability": "stable_same_sign",
+      "motion_sensitivity": "unavailable_missing_motion_summaries",
+      "tier": "Tier A",
+      "eligible_for_primary_fit": false,
+      "eligibility_note": "requires motion sensitivity review before primary model fitting"
+    },
+    {
+      "metric": "effective_barrier_proxy",
+      "mean_delta": -0.1491923940892797,
+      "std_delta": 0.36637402473227415,
+      "ci_low": -0.3359553490825965,
+      "ci_high": 0.018594801242800715,
+      "ci_excludes_zero": false,
+      "subject_count": 15,
+      "missingness": 0.0,
+      "sign_consistency": 0.5333333333333333,
+      "current_confidence": "weak",
+      "expected_sign": -1,
+      "theory_sign_conflict": false,
+      "run_stability": "stable_same_sign",
+      "motion_sensitivity": "unavailable_missing_motion_summaries",
+      "tier": "Tier C",
+      "eligible_for_primary_fit": false,
+      "eligibility_note": ""
+    },
+    {
+      "metric": "entropy_diversity",
+      "mean_delta": -0.002252607749452899,
+      "std_delta": 0.023045802493336348,
+      "ci_low": -0.013354317565876373,
+      "ci_high": 0.009525469635732144,
+      "ci_excludes_zero": false,
+      "subject_count": 15,
+      "missingness": 0.0,
+      "sign_consistency": 0.5333333333333333,
+      "current_confidence": "weak",
+      "expected_sign": 1,
+      "theory_sign_conflict": true,
+      "run_stability": "unstable_sign_flip",
+      "motion_sensitivity": "unavailable_missing_motion_summaries",
+      "tier": "Tier C",
+      "eligible_for_primary_fit": false,
+      "eligibility_note": ""
+    },
+    {
+      "metric": "hierarchical_compression",
+      "mean_delta": 0.05414968876858676,
+      "std_delta": 0.13692444159838932,
+      "ci_low": -0.01382089427955444,
+      "ci_high": 0.12059970982734723,
+      "ci_excludes_zero": false,
+      "subject_count": 15,
+      "missingness": 0.0,
+      "sign_consistency": 0.7333333333333333,
+      "current_confidence": "weak",
+      "expected_sign": 1,
+      "theory_sign_conflict": false,
+      "run_stability": "stable_same_sign",
+      "motion_sensitivity": "unavailable_missing_motion_summaries",
+      "tier": "Tier B",
+      "eligible_for_primary_fit": false,
+      "eligibility_note": ""
+    },
+    {
+      "metric": "metastability_proxy",
+      "mean_delta": -0.053960353741377386,
+      "std_delta": 0.07922185698174136,
+      "ci_low": -0.09223476089254279,
+      "ci_high": -0.016957584179105374,
+      "ci_excludes_zero": true,
+      "subject_count": 15,
+      "missingness": 0.0,
+      "sign_consistency": 0.7333333333333333,
+      "current_confidence": "moderate",
+      "expected_sign": 1,
+      "theory_sign_conflict": true,
+      "run_stability": "stable_same_sign",
+      "motion_sensitivity": "unavailable_missing_motion_summaries",
+      "tier": "Tier D",
+      "eligible_for_primary_fit": false,
+      "eligibility_note": ""
+    },
+    {
+      "metric": "switching_rate",
+      "mean_delta": 0.012345679012345678,
+      "std_delta": 0.0323325224498363,
+      "ci_low": -0.0023225308641975292,
+      "ci_high": 0.028553240740740737,
+      "ci_excludes_zero": false,
+      "subject_count": 15,
+      "missingness": 0.0,
+      "sign_consistency": 0.5333333333333333,
+      "current_confidence": "weak",
+      "expected_sign": 1,
+      "theory_sign_conflict": false,
+      "run_stability": "stable_same_sign",
+      "motion_sensitivity": "unavailable_missing_motion_summaries",
+      "tier": "Tier C",
+      "eligible_for_primary_fit": false,
+      "eligibility_note": ""
+    },
+    {
+      "metric": "thalamic_coupling",
+      "mean_delta": 0.11991820431751381,
+      "std_delta": 0.14835689674507946,
+      "ci_low": 0.05399123044335132,
+      "ci_high": 0.18998224604507663,
+      "ci_excludes_zero": true,
+      "subject_count": 15,
+      "missingness": 0.0,
+      "sign_consistency": 0.7333333333333333,
+      "current_confidence": "strong",
+      "expected_sign": 1,
+      "theory_sign_conflict": false,
+      "run_stability": "stable_same_sign",
+      "motion_sensitivity": "unavailable_missing_motion_summaries",
+      "tier": "Tier A",
+      "eligible_for_primary_fit": false,
+      "eligibility_note": "requires motion sensitivity review before primary model fitting"
+    },
+    {
+      "metric": "within_network_stability",
+      "mean_delta": 0.0660932867129926,
+      "std_delta": 0.10813802071707895,
+      "ci_low": 0.015935161321002703,
+      "ci_high": 0.1218934647964191,
+      "ci_excludes_zero": true,
+      "subject_count": 15,
+      "missingness": 0.0,
+      "sign_consistency": 0.6,
+      "current_confidence": "moderate",
+      "expected_sign": -1,
+      "theory_sign_conflict": true,
+      "run_stability": "stable_same_sign",
+      "motion_sensitivity": "unavailable_missing_motion_summaries",
+      "tier": "Tier D",
+      "eligible_for_primary_fit": false,
+      "eligibility_note": ""
+    }
+  ],
+  "latent": {
+    "analysis_label": "visualization-only descriptive PCA; not subject-disjoint ML evidence",
+    "trajectory_metrics": [
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "centroid_pc1": -0.0001513685483861,
+        "centroid_pc2": -4.9622494993581e-05,
+        "trajectory_length": 212.9322640097436,
+        "trajectory_dispersion": 1.7840800006862298,
+        "latent_velocity": 0.9857975185636276
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "centroid_pc1": 0.000105140675319,
+        "centroid_pc2": -3.528422674744058e-05,
+        "trajectory_length": 216.6019702377194,
+        "trajectory_dispersion": 1.696626834073106,
+        "latent_velocity": 1.002786899248701
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-PLCB",
+        "condition": "PLCB",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "centroid_pc1": -0.0001722069042272,
+        "centroid_pc2": -0.0001598948306604,
+        "trajectory_length": 190.73342329179889,
+        "trajectory_dispersion": 1.780151343400245,
+        "latent_velocity": 0.8830251078324021
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-PLCB",
+        "condition": "PLCB",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "centroid_pc1": 2.803026779617201e-05,
+        "centroid_pc2": -0.0001781022201488,
+        "trajectory_length": 202.21237273088323,
+        "trajectory_dispersion": 1.6759531083388934,
+        "latent_velocity": 0.9361683922726076
+      },
+      {
+        "subject": "sub-002",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "centroid_pc1": -3.14407560460249e-05,
+        "centroid_pc2": 0.0001966894816151,
+        "trajectory_length": 230.87622741132228,
+        "trajectory_dispersion": 1.8846440687146715,
+        "latent_velocity": 1.068871423200566
+      },
+      {
+        "subject": "sub-002",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "centroid_pc1": -0.0001469191999793,
+        "centroid_pc2": -0.0001262976210357,
+        "trajectory_length": 231.574586511981,
+        "trajectory_dispersion": 1.8978742215209303,
+        "latent_velocity": 1.0721045671850973
+      },
+      {
+        "subject": "sub-002",
+        "session": "ses-PLCB",
+        "condition": "PLCB",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "centroid_pc1": 0.000110052808587,
+        "centroid_pc2": 6.460434348168126e-05,
+        "trajectory_length": 184.96528347826472,
+        "trajectory_dispersion": 1.4705506513418576,
+        "latent_velocity": 0.8563207568438181
+      },
+      {
+        "subject": "sub-002",
+        "session": "ses-PLCB",
+        "condition": "PLCB",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "centroid_pc1": 0.0001103082678063,
+        "centroid_pc2": 3.104510528750774e-05,
+        "trajectory_length": 197.4503544794492,
+        "trajectory_dispersion": 1.67157877831297,
+        "latent_velocity": 0.9141220114789314
+      },
+      {
+        "subject": "sub-003",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "centroid_pc1": 0.0001129043943456,
+        "centroid_pc2": -5.424107280089069e-05,
+        "trajectory_length": 213.6124118600297,
+        "trajectory_dispersion": 1.8821668071198263,
+        "latent_velocity": 0.9889463512038412
+      },
+      {
+        "subject": "sub-003",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "centroid_pc1": -9.135135783831902e-05,
+        "centroid_pc2": -3.900289516638364e-05,
+        "trajectory_length": 219.87984495013788,
+        "trajectory_dispersion": 1.89904042037872,
+        "latent_velocity": 1.0179622451395272
+      },
+      {
+        "subject": "sub-003",
+        "session": "ses-PLCB",
+        "condition": "PLCB",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "centroid_pc1": -0.0002609491909891,
+        "centroid_pc2": -4.153714099027204e-05,
+        "trajectory_length": 213.5567418761548,
+        "trajectory_dispersion": 1.850254084738747,
+        "latent_velocity": 0.9886886197970128
+      },
+      {
+        "subject": "sub-003",
+        "session": "ses-PLCB",
+        "condition": "PLCB",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "centroid_pc1": -0.0001422535710869,
+        "centroid_pc2": -9.209457424801865e-05,
+        "trajectory_length": 215.5351328510519,
+        "trajectory_dispersion": 1.8993787471706944,
+        "latent_velocity": 0.9978478372733884
+      },
+      {
+        "subject": "sub-004",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "centroid_pc1": -0.0002355537239376,
+        "centroid_pc2": -2.5331739365533386e-05,
+        "trajectory_length": 241.8290846100021,
+        "trajectory_dispersion": 1.858528569447825,
+        "latent_velocity": 1.1195790954166764
+      },
+      {
+        "subject": "sub-004",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "centroid_pc1": 0.0001408258283168,
+        "centroid_pc2": 0.0002756534441865,
+        "trajectory_length": 257.70134617843667,
+        "trajectory_dispersion": 1.9470351004712323,
+        "latent_velocity": 1.1930617878631329
+      },
+      {
+        "subject": "sub-004",
+        "session": "ses-PLCB",
+        "condition": "PLCB",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "centroid_pc1": -9.251994318920117e-05,
+        "centroid_pc2": 0.0001882681042115,
+        "trajectory_length": 212.61813384506888,
+        "trajectory_dispersion": 1.736656638898729,
+        "latent_velocity": 0.9843432122456892
+      },
+      {
+        "subject": "sub-004",
+        "session": "ses-PLCB",
+        "condition": "PLCB",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "centroid_pc1": -0.0002385521322239,
+        "centroid_pc2": -6.146459384557084e-05,
+        "trajectory_length": 221.18072673791332,
+        "trajectory_dispersion": 1.853818560445668,
+        "latent_velocity": 1.023984846008858
+      },
+      {
+        "subject": "sub-006",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "centroid_pc1": -4.3179506653439066e-05,
+        "centroid_pc2": 0.0001680243181585,
+        "trajectory_length": 229.985347230603,
+        "trajectory_dispersion": 1.877428109989557,
+        "latent_velocity": 1.0647469779194585
+      },
+      {
+        "subject": "sub-006",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "centroid_pc1": 0.0001098928064244,
+        "centroid_pc2": 5.158529266679318e-05,
+        "trajectory_length": 229.29924063511044,
+        "trajectory_dispersion": 1.8268546731510136,
+        "latent_velocity": 1.0615705584958817
+      },
+      {
+        "subject": "sub-006",
+        "session": "ses-PLCB",
+        "condition": "PLCB",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "centroid_pc1": -5.436644055201219e-05,
+        "centroid_pc2": 0.0003466556142956,
+        "trajectory_length": 254.0871651590525,
+        "trajectory_dispersion": 1.9798591255382865,
+        "latent_velocity": 1.176329468328947
+      },
+      {
+        "subject": "sub-006",
+        "session": "ses-PLCB",
+        "condition": "PLCB",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "centroid_pc1": 5.208452259824692e-05,
+        "centroid_pc2": -6.936971270521806e-05,
+        "trajectory_length": 241.02260661270645,
+        "trajectory_dispersion": 1.896950812373056,
+        "latent_velocity": 1.115845400984752
+      },
+      {
+        "subject": "sub-009",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "centroid_pc1": -0.0001031657288654,
+        "centroid_pc2": -0.0002117683747622,
+        "trajectory_length": 176.60698789685983,
+        "trajectory_dispersion": 1.481641158366875,
+        "latent_velocity": 0.8176249439669436
+      },
+      {
+        "subject": "sub-009",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "centroid_pc1": -7.43443597088358e-05,
+        "centroid_pc2": -2.207874655665304e-05,
+        "trajectory_length": 209.5907280219113,
+        "trajectory_dispersion": 1.64865727592568,
+        "latent_velocity": 0.9703274445458856
+      },
+      {
+        "subject": "sub-009",
+        "session": "ses-PLCB",
+        "condition": "PLCB",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "centroid_pc1": 0.0003855228461968,
+        "centroid_pc2": 0.0002456578659964,
+        "trajectory_length": 196.61874940875063,
+        "trajectory_dispersion": 1.5462750958885694,
+        "latent_velocity": 0.9102719880034752
+      },
+      {
+        "subject": "sub-009",
+        "session": "ses-PLCB",
+        "condition": "PLCB",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "centroid_pc1": 9.627516952924112e-05,
+        "centroid_pc2": 0.0001131145769676,
+        "trajectory_length": 175.69720471375533,
+        "trajectory_dispersion": 1.5250502318131067,
+        "latent_velocity": 0.8134129847859043
+      },
+      {
+        "subject": "sub-010",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "centroid_pc1": 0.0002253712132962,
+        "centroid_pc2": 6.907040328005943e-05,
+        "trajectory_length": 244.0413793942361,
+        "trajectory_dispersion": 1.7532744426349882,
+        "latent_velocity": 1.129821200899241
+      },
+      {
+        "subject": "sub-010",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "centroid_pc1": 0.0002084724157988,
+        "centroid_pc2": 6.835740142922902e-05,
+        "trajectory_length": 237.50675064183804,
+        "trajectory_dispersion": 1.768531506504062,
+        "latent_velocity": 1.0995682900085095
+      },
+      {
+        "subject": "sub-010",
+        "session": "ses-PLCB",
+        "condition": "PLCB",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "centroid_pc1": -4.172018905934916e-05,
+        "centroid_pc2": 5.213388448623928e-05,
+        "trajectory_length": 209.50115837949988,
+        "trajectory_dispersion": 1.6522385705603098,
+        "latent_velocity": 0.9699127702754624
+      },
+      {
+        "subject": "sub-010",
+        "session": "ses-PLCB",
+        "condition": "PLCB",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "centroid_pc1": -5.1200963744812414e-05,
+        "centroid_pc2": -6.515626459337068e-05,
+        "trajectory_length": 197.98805669200695,
+        "trajectory_dispersion": 1.4966590733269685,
+        "latent_velocity": 0.9166113735741064
+      },
+      {
+        "subject": "sub-011",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "centroid_pc1": -0.0001070185449073,
+        "centroid_pc2": 5.659835702013632e-05,
+        "trajectory_length": 192.45349925280811,
+        "trajectory_dispersion": 1.6308487454732066,
+        "latent_velocity": 0.8909884224667044
+      },
+      {
+        "subject": "sub-011",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "centroid_pc1": -0.000209498186868,
+        "centroid_pc2": -5.663707629637008e-06,
+        "trajectory_length": 185.400839099483,
+        "trajectory_dispersion": 1.632304839092931,
+        "latent_velocity": 0.858337218053162
+      },
+      {
+        "subject": "sub-011",
+        "session": "ses-PLCB",
+        "condition": "PLCB",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "centroid_pc1": 0.0001391045658335,
+        "centroid_pc2": 0.0001455582034181,
+        "trajectory_length": 210.75815638894125,
+        "trajectory_dispersion": 1.7080018853393817,
+        "latent_velocity": 0.9757322055043576
+      },
+      {
+        "subject": "sub-011",
+        "session": "ses-PLCB",
+        "condition": "PLCB",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "centroid_pc1": 4.437274756463451e-05,
+        "centroid_pc2": 7.33370983728961e-05,
+        "trajectory_length": 173.82035653562582,
+        "trajectory_dispersion": 1.661726754175929,
+        "latent_velocity": 0.8047238728501195
+      },
+      {
+        "subject": "sub-012",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "centroid_pc1": 6.495349300491258e-05,
+        "centroid_pc2": -0.0001193551171968,
+        "trajectory_length": 235.44042523249465,
+        "trajectory_dispersion": 1.8694489198911544,
+        "latent_velocity": 1.0900019686689566
+      },
+      {
+        "subject": "sub-012",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "centroid_pc1": 4.841507979461849e-05,
+        "centroid_pc2": -1.731886183539047e-05,
+        "trajectory_length": 215.43643163487,
+        "trajectory_dispersion": 1.8687947745057,
+        "latent_velocity": 0.9973908871984724
+      },
+      {
+        "subject": "sub-012",
+        "session": "ses-PLCB",
+        "condition": "PLCB",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "centroid_pc1": -5.861508375436975e-05,
+        "centroid_pc2": -5.2276805405979335e-05,
+        "trajectory_length": 204.5286094394662,
+        "trajectory_dispersion": 1.830106085443062,
+        "latent_velocity": 0.9468917103678992
+      },
+      {
+        "subject": "sub-012",
+        "session": "ses-PLCB",
+        "condition": "PLCB",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "centroid_pc1": 0.0002003928464781,
+        "centroid_pc2": -0.0001127976608031,
+        "trajectory_length": 208.2055090512331,
+        "trajectory_dispersion": 1.845625909001372,
+        "latent_velocity": 0.9639143937557088
+      },
+      {
+        "subject": "sub-013",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "centroid_pc1": -0.0001770996463612,
+        "centroid_pc2": -0.0002633177105973,
+        "trajectory_length": 192.4144380696448,
+        "trajectory_dispersion": 1.7795957115790042,
+        "latent_velocity": 0.8908075836557628
+      },
+      {
+        "subject": "sub-013",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "centroid_pc1": 0.0002891280862452,
+        "centroid_pc2": 4.465858243960886e-06,
+        "trajectory_length": 194.5674792955482,
+        "trajectory_dispersion": 1.7825516413019038,
+        "latent_velocity": 0.9007753671090194
+      },
+      {
+        "subject": "sub-013",
+        "session": "ses-PLCB",
+        "condition": "PLCB",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "centroid_pc1": 3.18697983408062e-06,
+        "centroid_pc2": -0.0001616416489718,
+        "trajectory_length": 191.3029694128205,
+        "trajectory_dispersion": 1.6126003972262497,
+        "latent_velocity": 0.8856618954297244
+      },
+      {
+        "subject": "sub-013",
+        "session": "ses-PLCB",
+        "condition": "PLCB",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "centroid_pc1": 0.0002053927487364,
+        "centroid_pc2": -0.0001520936328707,
+        "trajectory_length": 197.3906455017271,
+        "trajectory_dispersion": 1.5342075825964046,
+        "latent_velocity": 0.9138455810265144
+      },
+      {
+        "subject": "sub-015",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "centroid_pc1": 3.091588448844104e-05,
+        "centroid_pc2": 0.0001506960776584,
+        "trajectory_length": 245.7099982722281,
+        "trajectory_dispersion": 1.872422974426172,
+        "latent_velocity": 1.1375462882973524
+      },
+      {
+        "subject": "sub-015",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "centroid_pc1": -0.0001867183074851,
+        "centroid_pc2": 0.0001899907556566,
+        "trajectory_length": 250.32928755836144,
+        "trajectory_dispersion": 1.983210517773256,
+        "latent_velocity": 1.158931886844266
+      },
+      {
+        "subject": "sub-015",
+        "session": "ses-PLCB",
+        "condition": "PLCB",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "centroid_pc1": 0.000194101921039,
+        "centroid_pc2": -3.534097889464449e-05,
+        "trajectory_length": 244.2222090166244,
+        "trajectory_dispersion": 1.8417268374337612,
+        "latent_velocity": 1.130658375076965
+      },
+      {
+        "subject": "sub-015",
+        "session": "ses-PLCB",
+        "condition": "PLCB",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "centroid_pc1": 9.180582016735603e-05,
+        "centroid_pc2": 0.0001010961537473,
+        "trajectory_length": 236.3348048029884,
+        "trajectory_dispersion": 1.8655850121039552,
+        "latent_velocity": 1.09414261482865
+      },
+      {
+        "subject": "sub-017",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "centroid_pc1": -1.4410783797967931e-05,
+        "centroid_pc2": 0.0001081281447136,
+        "trajectory_length": 206.9809135526521,
+        "trajectory_dispersion": 2.0324732231704403,
+        "latent_velocity": 0.9582449701511672
+      },
+      {
+        "subject": "sub-017",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "centroid_pc1": -4.185527197678878e-06,
+        "centroid_pc2": 1.1410612661797868e-05,
+        "trajectory_length": 205.1253202204197,
+        "trajectory_dispersion": 2.037312607186754,
+        "latent_velocity": 0.9496542602797208
+      },
+      {
+        "subject": "sub-017",
+        "session": "ses-PLCB",
+        "condition": "PLCB",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "centroid_pc1": 0.000125814743348,
+        "centroid_pc2": -3.691736969374296e-05,
+        "trajectory_length": 184.3476286930014,
+        "trajectory_dispersion": 1.8108872346563056,
+        "latent_velocity": 0.8534612439490806
+      },
+      {
+        "subject": "sub-017",
+        "session": "ses-PLCB",
+        "condition": "PLCB",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "centroid_pc1": -4.5804391718447776e-05,
+        "centroid_pc2": -3.324287786350452e-05,
+        "trajectory_length": 228.8668142626336,
+        "trajectory_dispersion": 1.853802038118144,
+        "latent_velocity": 1.0595685845492298
+      },
+      {
+        "subject": "sub-018",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "centroid_pc1": -1.3183975844082777e-05,
+        "centroid_pc2": -4.264364282811502e-05,
+        "trajectory_length": 194.89216832285464,
+        "trajectory_dispersion": 1.5920840751729726,
+        "latent_velocity": 0.9022785570502528
+      },
+      {
+        "subject": "sub-018",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "centroid_pc1": -0.000288880300549,
+        "centroid_pc2": -7.708138398824733e-05,
+        "trajectory_length": 183.45755942674677,
+        "trajectory_dispersion": 1.606172967642538,
+        "latent_velocity": 0.8493405529016053
+      },
+      {
+        "subject": "sub-018",
+        "session": "ses-PLCB",
+        "condition": "PLCB",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "centroid_pc1": -0.0001567693152642,
+        "centroid_pc2": -0.0001023118022964,
+        "trajectory_length": 213.66554064560324,
+        "trajectory_dispersion": 1.6985885407421697,
+        "latent_velocity": 0.9891923178037187
+      },
+      {
+        "subject": "sub-018",
+        "session": "ses-PLCB",
+        "condition": "PLCB",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "centroid_pc1": 7.10975362912431e-05,
+        "centroid_pc2": -0.0001087534521776,
+        "trajectory_length": 231.09382076116717,
+        "trajectory_dispersion": 1.764003350048479,
+        "latent_velocity": 1.0698787998202182
+      },
+      {
+        "subject": "sub-019",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "centroid_pc1": -8.218162101417215e-06,
+        "centroid_pc2": 1.7019899947968263e-05,
+        "trajectory_length": 259.8455275316052,
+        "trajectory_dispersion": 2.023836809193805,
+        "latent_velocity": 1.202988553387061
+      },
+      {
+        "subject": "sub-019",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "centroid_pc1": 0.0001239920796192,
+        "centroid_pc2": -1.3040366657207671e-05,
+        "trajectory_length": 237.05326683211328,
+        "trajectory_dispersion": 1.9751598580374088,
+        "latent_velocity": 1.0974688279264504
+      },
+      {
+        "subject": "sub-019",
+        "session": "ses-PLCB",
+        "condition": "PLCB",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "centroid_pc1": -0.0001362969547394,
+        "centroid_pc2": -1.5760214107422108e-05,
+        "trajectory_length": 159.87441683925238,
+        "trajectory_dispersion": 1.5820891764752776,
+        "latent_velocity": 0.740159337218761
+      },
+      {
+        "subject": "sub-019",
+        "session": "ses-PLCB",
+        "condition": "PLCB",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "centroid_pc1": 0.0001554817332815,
+        "centroid_pc2": 3.517615391792556e-05,
+        "trajectory_length": 199.5120585505818,
+        "trajectory_dispersion": 1.9385007306792723,
+        "latent_velocity": 0.923666937734175
+      },
+      {
+        "subject": "sub-020",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "centroid_pc1": 0.0001034969026143,
+        "centroid_pc2": -0.000308253315859,
+        "trajectory_length": 229.8428138283568,
+        "trajectory_dispersion": 1.8749950508076003,
+        "latent_velocity": 1.0640871010572075
+      },
+      {
+        "subject": "sub-020",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "centroid_pc1": -8.016108806276625e-05,
+        "centroid_pc2": 2.332397754854066e-06,
+        "trajectory_length": 241.9551670470025,
+        "trajectory_dispersion": 1.9635470298850453,
+        "latent_velocity": 1.1201628104027894
+      },
+      {
+        "subject": "sub-020",
+        "session": "ses-PLCB",
+        "condition": "PLCB",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "centroid_pc1": 5.1399245257784486e-05,
+        "centroid_pc2": 4.237316362575023e-05,
+        "trajectory_length": 215.91106496276788,
+        "trajectory_dispersion": 1.822285323007801,
+        "latent_velocity": 0.999588263716518
+      },
+      {
+        "subject": "sub-020",
+        "session": "ses-PLCB",
+        "condition": "PLCB",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "centroid_pc1": -0.0002099808444743,
+        "centroid_pc2": 8.001434549367385e-05,
+        "trajectory_length": 235.0661069356199,
+        "trajectory_dispersion": 1.8685824144605756,
+        "latent_velocity": 1.0882690135908328
+      }
+    ],
+    "coordinates": [
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 0,
+        "pc1": 1.3222894449540123,
+        "pc2": 0.2353344090188645,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 1,
+        "pc1": 1.3526253126759984,
+        "pc2": 0.2726094157582215,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 2,
+        "pc1": 1.269021720396208,
+        "pc2": 0.0228393008345902,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 3,
+        "pc1": 1.0201281118056114,
+        "pc2": -0.2131497021986818,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 4,
+        "pc1": 0.3466305481753033,
+        "pc2": -0.4570701538116491,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 5,
+        "pc1": -0.3972734828383857,
+        "pc2": -0.6099079796748389,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 6,
+        "pc1": -1.1307658872349218,
+        "pc2": -0.7115381325994384,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 7,
+        "pc1": -1.3967070822741874,
+        "pc2": -0.6848665469869855,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 8,
+        "pc1": -1.302182535046957,
+        "pc2": -0.5938818100272221,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 9,
+        "pc1": -0.7861789817021768,
+        "pc2": -0.4123434095330456,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 10,
+        "pc1": -0.285759499732034,
+        "pc2": -0.2681428681980807,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 11,
+        "pc1": 0.1346400496294837,
+        "pc2": -0.1903878068993474,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 12,
+        "pc1": 0.1903546263461978,
+        "pc2": -0.2928845119675364,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 13,
+        "pc1": 0.0961895306058072,
+        "pc2": -0.509511411060404,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 14,
+        "pc1": -0.1978132744657261,
+        "pc2": -0.814167834656006,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 15,
+        "pc1": -0.4359987181126651,
+        "pc2": -1.0449534717377142,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 16,
+        "pc1": -0.7641687931773266,
+        "pc2": -1.1762608653707811,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 17,
+        "pc1": -1.0654731368345174,
+        "pc2": -1.1386592718204651,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 18,
+        "pc1": -1.4758974509594325,
+        "pc2": -0.998551287956004,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 19,
+        "pc1": -1.7500978339971938,
+        "pc2": -0.7208246517958646,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 20,
+        "pc1": -1.846123600580751,
+        "pc2": -0.3414797557462385,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 21,
+        "pc1": -1.488825345469683,
+        "pc2": 0.1858698510091066,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 22,
+        "pc1": -0.803806859327597,
+        "pc2": 0.7556871210095248,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 23,
+        "pc1": 0.1583638485475557,
+        "pc2": 1.2742552561716287,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 24,
+        "pc1": 1.0086973576010383,
+        "pc2": 1.5494665341115048,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 25,
+        "pc1": 1.623857674833601,
+        "pc2": 1.561384403067028,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 26,
+        "pc1": 1.7967878709992615,
+        "pc2": 1.3598192810260532,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 27,
+        "pc1": 1.683378530125184,
+        "pc2": 1.1738827199468094,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 28,
+        "pc1": 1.328869584688957,
+        "pc2": 1.1246617357648885,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 29,
+        "pc1": 0.9538941504257084,
+        "pc2": 1.2430214502469483,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 30,
+        "pc1": 0.537313710792213,
+        "pc2": 1.322283641266981,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 31,
+        "pc1": 0.1834628480220927,
+        "pc2": 1.1908780934817282,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 32,
+        "pc1": -0.1718859691379462,
+        "pc2": 0.763046241310364,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 33,
+        "pc1": -0.4377691892355649,
+        "pc2": 0.2421206116226679,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 34,
+        "pc1": -0.6626934141129617,
+        "pc2": -0.0989551836496049,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 35,
+        "pc1": -0.7872129454195758,
+        "pc2": -0.0242043053597724,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 36,
+        "pc1": -0.8751706054083173,
+        "pc2": 0.3794020858318631,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 37,
+        "pc1": -0.8582710200111995,
+        "pc2": 0.8225332455728268,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 38,
+        "pc1": -0.7267428428973579,
+        "pc2": 0.923788823295656,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 39,
+        "pc1": -0.4095957057545366,
+        "pc2": 0.557599179010618,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 40,
+        "pc1": 0.0023115832690309,
+        "pc2": -0.1145256938955794,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 41,
+        "pc1": 0.3539073825378453,
+        "pc2": -0.6806317681075927,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 42,
+        "pc1": 0.4039695709840838,
+        "pc2": -0.819670011170542,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 43,
+        "pc1": 0.079261351882308,
+        "pc2": -0.4591854634717742,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 44,
+        "pc1": -0.4468576822151471,
+        "pc2": 0.1320046524290506,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 45,
+        "pc1": -0.7757793878675692,
+        "pc2": 0.573532371635136,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 46,
+        "pc1": -0.5127738730117587,
+        "pc2": 0.5764067939936504,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 47,
+        "pc1": 0.4155522822737326,
+        "pc2": 0.1390623013241465,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 48,
+        "pc1": 1.672717958171832,
+        "pc2": -0.5195034154661357,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 49,
+        "pc1": 2.600772140602147,
+        "pc2": -1.0844440806269686,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 50,
+        "pc1": 2.6977490367574486,
+        "pc2": -1.337238614585012,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 51,
+        "pc1": 1.824535198575608,
+        "pc2": -1.2171296591772356,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 52,
+        "pc1": 0.4382256325803519,
+        "pc2": -0.8065126420052439,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 53,
+        "pc1": -0.8484092020214373,
+        "pc2": -0.2599702169847547,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 54,
+        "pc1": -1.4641167254192469,
+        "pc2": 0.2589533311258395,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 55,
+        "pc1": -1.3729499916181978,
+        "pc2": 0.6056232116062621,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 56,
+        "pc1": -0.8095862451852744,
+        "pc2": 0.6955022483819779,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 57,
+        "pc1": -0.2690708385378295,
+        "pc2": 0.5239540738067253,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 58,
+        "pc1": 0.0671925085253925,
+        "pc2": 0.2011263189070906,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 59,
+        "pc1": 0.1122772568475359,
+        "pc2": -0.1213575456495276,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 60,
+        "pc1": 0.1134264764762081,
+        "pc2": -0.3054463544911983,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 61,
+        "pc1": 0.1039871272515466,
+        "pc2": -0.3525569545556095,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 62,
+        "pc1": 0.2034810600055105,
+        "pc2": -0.360509539921874,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 63,
+        "pc1": 0.2698906395594708,
+        "pc2": -0.4781142966316287,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 64,
+        "pc1": 0.4263201388235093,
+        "pc2": -0.7228904397327952,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 65,
+        "pc1": 0.6169448181872776,
+        "pc2": -0.9901568925620688,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 66,
+        "pc1": 0.971312671564964,
+        "pc2": -1.069497220255897,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 67,
+        "pc1": 1.228219586419478,
+        "pc2": -0.8711234718839398,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 68,
+        "pc1": 1.304723333489928,
+        "pc2": -0.4581792645814381,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 69,
+        "pc1": 0.946504860704389,
+        "pc2": -0.0898042760572554,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 70,
+        "pc1": 0.4601624045979003,
+        "pc2": 0.0409132721956487,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 71,
+        "pc1": 0.0867676352411203,
+        "pc2": -0.1086461171683535,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 72,
+        "pc1": 0.3116044203280934,
+        "pc2": -0.303480662374237,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 73,
+        "pc1": 0.9240263242154246,
+        "pc2": -0.2822726713538783,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 74,
+        "pc1": 1.5819145527415714,
+        "pc2": 0.1175220433347509,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 75,
+        "pc1": 1.4803224063051412,
+        "pc2": 0.7240966643295499,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 76,
+        "pc1": 0.5050551456877612,
+        "pc2": 1.2180931675293765,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 77,
+        "pc1": -1.1483519890852445,
+        "pc2": 1.2557572998183069,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 78,
+        "pc1": -2.447320929238449,
+        "pc2": 0.8168328173650743,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 79,
+        "pc1": -2.811827763100494,
+        "pc2": 0.1319863181277843,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 80,
+        "pc1": -1.9310800444599123,
+        "pc2": -0.3503463506511091,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 81,
+        "pc1": -0.6150032191827307,
+        "pc2": -0.3580106477245648,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 82,
+        "pc1": 0.4002809624089877,
+        "pc2": 0.1497799614652288,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 83,
+        "pc1": 0.3524605367639645,
+        "pc2": 0.8543204733750883,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 84,
+        "pc1": -0.3636480722043754,
+        "pc2": 1.3995187748538378,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 85,
+        "pc1": -1.191150113502054,
+        "pc2": 1.4754846495209666,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 86,
+        "pc1": -1.2230204668006437,
+        "pc2": 1.093471761717726,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 87,
+        "pc1": -0.569520635298253,
+        "pc2": 0.4169407013170347,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 88,
+        "pc1": 0.4126949629098175,
+        "pc2": -0.2278573529298693,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 89,
+        "pc1": 0.7600671577083324,
+        "pc2": -0.6545769401432102,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 90,
+        "pc1": 0.3706156995163321,
+        "pc2": -0.7496040258209117,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 91,
+        "pc1": -0.6105765650549135,
+        "pc2": -0.6183259053615399,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 92,
+        "pc1": -1.2257779964582871,
+        "pc2": -0.3510304530456754,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 93,
+        "pc1": -1.2273905576192352,
+        "pc2": -0.1022953547492907,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 94,
+        "pc1": -0.5852990048574589,
+        "pc2": 0.1268468725199518,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 95,
+        "pc1": -0.2540213672780466,
+        "pc2": 0.3164799269801701,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 96,
+        "pc1": -0.6539820603073393,
+        "pc2": 0.5464607159883422,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 97,
+        "pc1": -1.9954541673575144,
+        "pc2": 0.7701506194086941,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 98,
+        "pc1": -3.2654138149454623,
+        "pc2": 0.9598047659522908,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 99,
+        "pc1": -3.6244363755912743,
+        "pc2": 0.9790828298149216,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 100,
+        "pc1": -2.2317317846946407,
+        "pc2": 0.8314782259197561,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 101,
+        "pc1": 0.3758669012445902,
+        "pc2": 0.5485888702977028,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 102,
+        "pc1": 3.351185998790333,
+        "pc2": 0.3357290406559338,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 103,
+        "pc1": 5.225596015538286,
+        "pc2": 0.2852749297552867,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 104,
+        "pc1": 5.526686003194532,
+        "pc2": 0.4186125522983541,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 105,
+        "pc1": 4.148479249368878,
+        "pc2": 0.4813596933806852,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 106,
+        "pc1": 2.0977998414409917,
+        "pc2": 0.23676715190906,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 107,
+        "pc1": 0.0658658717997672,
+        "pc2": -0.4872700378728509,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 108,
+        "pc1": -1.090211772619934,
+        "pc2": -1.4709420588819364,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 109,
+        "pc1": -1.4453684901413375,
+        "pc2": -2.3130656509326664,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 110,
+        "pc1": -0.9824461375107982,
+        "pc2": -2.516756352520664,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 111,
+        "pc1": -0.2722365486239928,
+        "pc2": -1.9542505977699252,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 112,
+        "pc1": 0.5931488100487039,
+        "pc2": -0.8462837091857781,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 113,
+        "pc1": 1.168643254230146,
+        "pc2": 0.2195011480758811,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 114,
+        "pc1": 1.5616225569170397,
+        "pc2": 0.786055479486833,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 115,
+        "pc1": 1.5246286331162942,
+        "pc2": 0.6683300316382591,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 116,
+        "pc1": 1.3353674816587369,
+        "pc2": 0.1604044502778457,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 117,
+        "pc1": 0.8701479650850105,
+        "pc2": -0.34369693455012,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 118,
+        "pc1": 0.411530321424783,
+        "pc2": -0.5210715435874541,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 119,
+        "pc1": -0.2513326586541328,
+        "pc2": -0.4422435835329314,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 120,
+        "pc1": -0.9255496158306692,
+        "pc2": -0.331346755977299,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 121,
+        "pc1": -1.7486170426309389,
+        "pc2": -0.444305941690196,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 122,
+        "pc1": -2.283895483431276,
+        "pc2": -0.722479052779601,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 123,
+        "pc1": -2.396647349622047,
+        "pc2": -0.9466295374898378,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 124,
+        "pc1": -1.63198947813893,
+        "pc2": -0.8220355713691231,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 125,
+        "pc1": -0.266884052747023,
+        "pc2": -0.3434972114611081,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 126,
+        "pc1": 1.442092034985177,
+        "pc2": 0.299632086418627,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 127,
+        "pc1": 2.634100741395951,
+        "pc2": 0.7739184901727817,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 128,
+        "pc1": 2.969943802144521,
+        "pc2": 0.9694870481448772,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 129,
+        "pc1": 2.166974131776678,
+        "pc2": 0.9743201019659098,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 130,
+        "pc1": 0.7947720939406405,
+        "pc2": 1.0553360504572769,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 131,
+        "pc1": -0.6726073900689247,
+        "pc2": 1.303037309216045,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 132,
+        "pc1": -1.514726497338573,
+        "pc2": 1.598434460598669,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 133,
+        "pc1": -1.7448421930639295,
+        "pc2": 1.604797282766664,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 134,
+        "pc1": -1.4489104306514593,
+        "pc2": 1.1315619834118051,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 135,
+        "pc1": -1.2470254701603811,
+        "pc2": 0.2493519747031742,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 136,
+        "pc1": -1.32574173363053,
+        "pc2": -0.634570058460561,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 137,
+        "pc1": -1.8852680743556405,
+        "pc2": -1.1170072120771637,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 138,
+        "pc1": -2.52008216515461,
+        "pc2": -1.0086661164512172,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 139,
+        "pc1": -2.9921766182270044,
+        "pc2": -0.5248128908367569,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 140,
+        "pc1": -2.864590761983799,
+        "pc2": -0.0622453330410254,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 141,
+        "pc1": -2.1930120456996165,
+        "pc2": 0.0244054704317294,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 142,
+        "pc1": -0.977908735749062,
+        "pc2": -0.2996301617269044,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 143,
+        "pc1": 0.4053839066324297,
+        "pc2": -0.8204775771527306,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 144,
+        "pc1": 1.8283717415093717,
+        "pc2": -1.217514387763484,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 145,
+        "pc1": 2.9952478793076907,
+        "pc2": -1.3249553422256868,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 146,
+        "pc1": 3.8947540461327272,
+        "pc2": -1.1616616118183765,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 147,
+        "pc1": 4.330095592175951,
+        "pc2": -0.8747562411380644,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 148,
+        "pc1": 4.313214538734365,
+        "pc2": -0.558790611554216,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 149,
+        "pc1": 3.696737708926152,
+        "pc2": -0.2148440958901158,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 150,
+        "pc1": 2.59825114644019,
+        "pc2": 0.2130029413123119,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 151,
+        "pc1": 1.0980494143152215,
+        "pc2": 0.7177804494438316,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 152,
+        "pc1": -0.4654735182982443,
+        "pc2": 1.188697420723784,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 153,
+        "pc1": -1.875655613186085,
+        "pc2": 1.469702688904602,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 154,
+        "pc1": -2.853221584479254,
+        "pc2": 1.467847789507882,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 155,
+        "pc1": -3.3474999995320656,
+        "pc2": 1.2280276442350997,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 156,
+        "pc1": -3.298739266805023,
+        "pc2": 0.8787632359218281,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 157,
+        "pc1": -2.801707839135899,
+        "pc2": 0.5572091531392288,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 158,
+        "pc1": -1.9204081945911529,
+        "pc2": 0.3137990606601422,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 159,
+        "pc1": -0.8900196962469468,
+        "pc2": 0.1570319889543298,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 160,
+        "pc1": -0.0037144001442309,
+        "pc2": 0.077624727596574,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 161,
+        "pc1": 0.3406214404441135,
+        "pc2": 0.1211162880328479,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 162,
+        "pc1": -0.0537492961011086,
+        "pc2": 0.2999978229010942,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 163,
+        "pc1": -1.0464439677714472,
+        "pc2": 0.5659613793702457,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 164,
+        "pc1": -2.080634163733808,
+        "pc2": 0.7222879691966748,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 165,
+        "pc1": -2.4463077784186997,
+        "pc2": 0.5737443808167929,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 166,
+        "pc1": -1.7312141570846122,
+        "pc2": 0.0043066875109862,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 167,
+        "pc1": -0.1299830399956472,
+        "pc2": -0.8359903649225782,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 168,
+        "pc1": 1.5527081323481953,
+        "pc2": -1.6480073390474466,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 169,
+        "pc1": 2.4406249425533737,
+        "pc2": -2.0664034187504847,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 170,
+        "pc1": 2.097105870850661,
+        "pc2": -1.9558545416459927,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 171,
+        "pc1": 0.9603304389706124,
+        "pc2": -1.3952343385643944,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 172,
+        "pc1": -0.0859832074869001,
+        "pc2": -0.7129780986599658,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 173,
+        "pc1": -0.2096576324348019,
+        "pc2": -0.1829987496556212,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 174,
+        "pc1": 0.5619976176523632,
+        "pc2": 0.0152611695846377,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 175,
+        "pc1": 1.546086804874228,
+        "pc2": -0.0294431790622064,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 176,
+        "pc1": 1.746562167552226,
+        "pc2": -0.1772787456304389,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 177,
+        "pc1": 0.934616939487908,
+        "pc2": -0.2206236549001799,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 178,
+        "pc1": -0.3288974588723118,
+        "pc2": -0.1169979400291661,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 179,
+        "pc1": -0.8007937734097167,
+        "pc2": 0.1576652752073948,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 180,
+        "pc1": 0.160605627660438,
+        "pc2": 0.4867618397901889,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 181,
+        "pc1": 2.26768579478798,
+        "pc2": 0.8100246777144878,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 182,
+        "pc1": 4.037964696561479,
+        "pc2": 0.9674914578122742,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 183,
+        "pc1": 4.17863495383603,
+        "pc2": 0.8943207937318008,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 184,
+        "pc1": 2.2357442905317004,
+        "pc2": 0.4917691251661512,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 185,
+        "pc1": -0.5824747302989282,
+        "pc2": -0.1263241095845819,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 186,
+        "pc1": -2.607896432029225,
+        "pc2": -0.8045125307258576,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 187,
+        "pc1": -2.5292082884166063,
+        "pc2": -1.221812420856937,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 188,
+        "pc1": -0.8363088079824834,
+        "pc2": -1.228374029861372,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 189,
+        "pc1": 0.9270114193553636,
+        "pc2": -0.7731653483385422,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 190,
+        "pc1": 0.8625058398261981,
+        "pc2": -0.1308030012060904,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 191,
+        "pc1": -1.3173301130825532,
+        "pc2": 0.4271483738172256,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 192,
+        "pc1": -4.419187816492112,
+        "pc2": 0.6056332417466495,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 193,
+        "pc1": -6.03923402452529,
+        "pc2": 0.4433659834779734,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 194,
+        "pc1": -4.814671925331295,
+        "pc2": 0.0777713948449082,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 195,
+        "pc1": -0.944930635445814,
+        "pc2": -0.1682090294381699,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 196,
+        "pc1": 3.285019615997657,
+        "pc2": -0.2024672327140265,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 197,
+        "pc1": 5.578277634012796,
+        "pc2": -0.0219015375340929,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 198,
+        "pc1": 4.602462141267259,
+        "pc2": 0.1070097246281648,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 199,
+        "pc1": 1.4438834328738788,
+        "pc2": 0.0545132489594967,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 200,
+        "pc1": -1.8094132943725565,
+        "pc2": -0.2711457703126004,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 201,
+        "pc1": -2.921754182239939,
+        "pc2": -0.6362584633578258,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 202,
+        "pc1": -1.653203836199138,
+        "pc2": -0.8531794951260837,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 203,
+        "pc1": 0.8206820213633519,
+        "pc2": -0.6973845438727846,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 204,
+        "pc1": 2.183156294348138,
+        "pc2": -0.2928323399828428,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 205,
+        "pc1": 1.2979564570748945,
+        "pc2": 0.1722548792596221,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 206,
+        "pc1": -1.6986616835248032,
+        "pc2": 0.3308562812815193,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 207,
+        "pc1": -4.831770709328596,
+        "pc2": 0.1082953631058735,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 208,
+        "pc1": -6.3335217509667485,
+        "pc2": -0.4427330889193124,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 209,
+        "pc1": -5.031734657275568,
+        "pc2": -0.9141694919357604,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 210,
+        "pc1": -1.7293077916480994,
+        "pc2": -1.0130636396960206,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 211,
+        "pc1": 2.1358684276858018,
+        "pc2": -0.5024363194746169,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 212,
+        "pc1": 4.641707738245675,
+        "pc2": 0.4008414121242812,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 213,
+        "pc1": 5.159434828514359,
+        "pc2": 1.3739531747370588,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 214,
+        "pc1": 3.7239195865272494,
+        "pc2": 1.9145450699472837,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 215,
+        "pc1": 1.5462934203486491,
+        "pc2": 1.8587479445846304,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-01",
+        "run_label": "Rest1",
+        "time": 216,
+        "pc1": -0.5488819177996918,
+        "pc2": 1.2125478964010417,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 0,
+        "pc1": 1.1620756401422163,
+        "pc2": -0.1189804548429561,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 1,
+        "pc1": 1.1770530402503907,
+        "pc2": -0.1383792543650706,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 2,
+        "pc1": 0.7266794433514109,
+        "pc2": -1.1860990073882989,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 3,
+        "pc1": 0.2090141733462692,
+        "pc2": -1.8195524419691036,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 4,
+        "pc1": 0.4804454441926798,
+        "pc2": -1.5511513814306013,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 5,
+        "pc1": 1.9517860401341005,
+        "pc2": -0.4914186069072511,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 6,
+        "pc1": 3.558669290327697,
+        "pc2": 0.7665989387967469,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 7,
+        "pc1": 3.898055156540492,
+        "pc2": 1.5391438023471182,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 8,
+        "pc1": 1.9823746919367875,
+        "pc2": 1.5795349281824766,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 9,
+        "pc1": -1.297103630991224,
+        "pc2": 1.1431927355453726,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 10,
+        "pc1": -3.9921562157072983,
+        "pc2": 0.7414003357512176,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 11,
+        "pc1": -4.04878150210353,
+        "pc2": 0.613591701653424,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 12,
+        "pc1": -1.3484709872779028,
+        "pc2": 0.5828446895157978,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 13,
+        "pc1": 2.451556801423584,
+        "pc2": 0.2166315065241985,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 14,
+        "pc1": 4.616718879739064,
+        "pc2": -0.6521635608162135,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 15,
+        "pc1": 3.723210843053091,
+        "pc2": -1.7171217814826565,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 16,
+        "pc1": 0.2931156562436658,
+        "pc2": -2.3101269420192967,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 17,
+        "pc1": -3.2272945867064764,
+        "pc2": -1.9707866951848227,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 18,
+        "pc1": -4.687912346866202,
+        "pc2": -0.7939309663696053,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 19,
+        "pc1": -3.38872764972764,
+        "pc2": 0.5360836528032904,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 20,
+        "pc1": -0.8164149123316936,
+        "pc2": 1.2865320982999682,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 21,
+        "pc1": 1.031563300755936,
+        "pc2": 1.1530504970569713,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 22,
+        "pc1": 0.8398573656695855,
+        "pc2": 0.5022871511460802,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 23,
+        "pc1": -0.7834650632850568,
+        "pc2": -0.0118565851654316,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 24,
+        "pc1": -2.377295025860869,
+        "pc2": 0.0771286512087293,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 25,
+        "pc1": -2.5871255164318443,
+        "pc2": 0.6627442117116608,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 26,
+        "pc1": -1.5811347097638122,
+        "pc2": 1.270992631822634,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 27,
+        "pc1": -0.4141553746179101,
+        "pc2": 1.4416288804781328,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 28,
+        "pc1": -0.3403259430576115,
+        "pc2": 1.151926788385564,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 29,
+        "pc1": -1.3972484627416286,
+        "pc2": 0.7220219160276199,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 30,
+        "pc1": -2.7469510229978846,
+        "pc2": 0.5270512068042478,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 31,
+        "pc1": -3.1267298899045164,
+        "pc2": 0.5897934521258568,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 32,
+        "pc1": -2.2413052281946344,
+        "pc2": 0.6209407312040394,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 33,
+        "pc1": -0.6175175840885285,
+        "pc2": 0.2735716431546798,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 34,
+        "pc1": 0.6275798617987421,
+        "pc2": -0.442072239644786,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 35,
+        "pc1": 1.0564484179664773,
+        "pc2": -1.1530619765223098,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 36,
+        "pc1": 0.9052577524830712,
+        "pc2": -1.3541331182099587,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 37,
+        "pc1": 0.9715770936824202,
+        "pc2": -0.878656462599028,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 38,
+        "pc1": 1.4822190005733429,
+        "pc2": -0.0036655882780535,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 39,
+        "pc1": 2.065300933164652,
+        "pc2": 0.7027127065162428,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 40,
+        "pc1": 1.8570139967710535,
+        "pc2": 0.863016399589438,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 41,
+        "pc1": 0.6591874366333077,
+        "pc2": 0.5058273855327202,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 42,
+        "pc1": -0.9444589874287608,
+        "pc2": 0.0363115381123775,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 43,
+        "pc1": -1.6835144054410558,
+        "pc2": -0.1714877021421365,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 44,
+        "pc1": -0.8572372206024371,
+        "pc2": -0.0189884338960131,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 45,
+        "pc1": 1.1994724220197197,
+        "pc2": 0.236108818276179,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 46,
+        "pc1": 3.0442016171315647,
+        "pc2": 0.3021304428129737,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 47,
+        "pc1": 3.352003679904008,
+        "pc2": 0.0623188704529987,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 48,
+        "pc1": 1.7223648119856927,
+        "pc2": -0.3095741794188468,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 49,
+        "pc1": -0.8216470595992709,
+        "pc2": -0.6035261065853017,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 50,
+        "pc1": -2.7524088799582933,
+        "pc2": -0.7364111709408053,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 51,
+        "pc1": -2.971086979861452,
+        "pc2": -0.8524870813471469,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 52,
+        "pc1": -1.677662799318996,
+        "pc2": -1.076429497481512,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 53,
+        "pc1": 0.056225897749856,
+        "pc2": -1.3591181954790954,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 54,
+        "pc1": 1.0386851910942003,
+        "pc2": -1.4048323299200802,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 55,
+        "pc1": 0.9630204745581972,
+        "pc2": -0.9664355383114668,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 56,
+        "pc1": 0.3765655388449196,
+        "pc2": -0.0724545013053573,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 57,
+        "pc1": 0.2287875736486125,
+        "pc2": 0.8527716545872457,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 58,
+        "pc1": 0.9293717997650236,
+        "pc2": 1.2908327067410328,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 59,
+        "pc1": 2.131535425593833,
+        "pc2": 0.9607690780319263,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 60,
+        "pc1": 2.934483901276455,
+        "pc2": 0.0781205903396983,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 61,
+        "pc1": 2.6995412534680105,
+        "pc2": -0.8346727953743188,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 62,
+        "pc1": 1.447885070572859,
+        "pc2": -1.2770208673969028,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 63,
+        "pc1": -0.1027503836246023,
+        "pc2": -1.136509484788894,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 64,
+        "pc1": -1.1382253535246187,
+        "pc2": -0.6553931500591214,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 65,
+        "pc1": -1.2178694232979836,
+        "pc2": -0.2062983262441202,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 66,
+        "pc1": -0.5481279140599574,
+        "pc2": 0.0525474431510354,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 67,
+        "pc1": 0.2925671386062086,
+        "pc2": 0.2061459639773853,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 68,
+        "pc1": 0.752447404240092,
+        "pc2": 0.4501337683197215,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 69,
+        "pc1": 0.6181327681504076,
+        "pc2": 0.7944619894864222,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 70,
+        "pc1": 0.0355181989881078,
+        "pc2": 1.049485942833936,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 71,
+        "pc1": -0.6908003565768966,
+        "pc2": 0.960836643713332,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 72,
+        "pc1": -1.3107493054722326,
+        "pc2": 0.5068980781624016,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 73,
+        "pc1": -1.7372331863246129,
+        "pc2": -0.0640540426782638,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 74,
+        "pc1": -1.967490234351904,
+        "pc2": -0.3751430847991077,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 75,
+        "pc1": -2.0335119687918746,
+        "pc2": -0.2641975425851785,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 76,
+        "pc1": -1.9034452966321511,
+        "pc2": 0.1104709182899593,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 77,
+        "pc1": -1.5805676758526317,
+        "pc2": 0.3690258743716965,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 78,
+        "pc1": -1.0948225841360395,
+        "pc2": 0.2674877298294416,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 79,
+        "pc1": -0.5989016022615333,
+        "pc2": -0.1169849441671856,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 80,
+        "pc1": -0.2248314657642189,
+        "pc2": -0.4063178496547358,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 81,
+        "pc1": -0.1032755188226045,
+        "pc2": -0.2636798440417974,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 82,
+        "pc1": -0.1818019848811779,
+        "pc2": 0.3611928548310238,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 83,
+        "pc1": -0.3380162733236567,
+        "pc2": 1.1635954507025827,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 84,
+        "pc1": -0.3509188189218688,
+        "pc2": 1.7500816606261214,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 85,
+        "pc1": -0.1512480447564292,
+        "pc2": 1.9033276957367895,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 86,
+        "pc1": 0.2384056327407886,
+        "pc2": 1.728921171938834,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 87,
+        "pc1": 0.5854043254214952,
+        "pc2": 1.474828758031757,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 88,
+        "pc1": 0.7212563826557574,
+        "pc2": 1.3035191261102153,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 89,
+        "pc1": 0.5302277750020117,
+        "pc2": 1.1267162669099449,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 90,
+        "pc1": 0.1902081989782073,
+        "pc2": 0.7430638792194267,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 91,
+        "pc1": -0.0915890517133382,
+        "pc2": 0.0395723898751722,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 92,
+        "pc1": -0.0735817556789571,
+        "pc2": -0.8311207362470548,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 93,
+        "pc1": 0.1949903973503994,
+        "pc2": -1.5513301053053412,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 94,
+        "pc1": 0.570543021594482,
+        "pc2": -1.840216093488231,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 95,
+        "pc1": 0.7688714245466823,
+        "pc2": -1.6652466772526493,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 96,
+        "pc1": 0.7446649351308345,
+        "pc2": -1.2113541831764132,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 97,
+        "pc1": 0.5252374041446956,
+        "pc2": -0.7376472088889052,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 98,
+        "pc1": 0.3363520582294546,
+        "pc2": -0.3831027326127668,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 99,
+        "pc1": 0.2206860108609591,
+        "pc2": -0.1648896328187314,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 100,
+        "pc1": 0.2035225996285525,
+        "pc2": -0.0671266118710334,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 101,
+        "pc1": 0.1554389240499064,
+        "pc2": -0.1570060454340324,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 102,
+        "pc1": 0.1533108835532676,
+        "pc2": -0.526464503414046,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 103,
+        "pc1": 0.2776208197742068,
+        "pc2": -1.1471606609392726,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 104,
+        "pc1": 0.7203989747607676,
+        "pc2": -1.7404433963572954,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 105,
+        "pc1": 1.324165787126388,
+        "pc2": -1.896630975215685,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 106,
+        "pc1": 1.8073832441547013,
+        "pc2": -1.3367698194258633,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 107,
+        "pc1": 1.689793105689915,
+        "pc2": -0.2017238402545632,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 108,
+        "pc1": 0.9007584910115736,
+        "pc2": 0.96391311612802,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 109,
+        "pc1": -0.3224124563430071,
+        "pc2": 1.5036072264351643,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 110,
+        "pc1": -1.287334628864778,
+        "pc2": 1.1088152783196488,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 111,
+        "pc1": -1.561157064833564,
+        "pc2": 0.0395162087611212,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 112,
+        "pc1": -1.0392157715758985,
+        "pc2": -1.002638595332416,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 113,
+        "pc1": -0.253104965177072,
+        "pc2": -1.342685395781478,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 114,
+        "pc1": 0.240365695721371,
+        "pc2": -0.7676845597233455,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 115,
+        "pc1": 0.0450531405299689,
+        "pc2": 0.3347790035952626,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 116,
+        "pc1": -0.6149767517378323,
+        "pc2": 1.24916078808015,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 117,
+        "pc1": -1.3517909710824243,
+        "pc2": 1.385773962702128,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 118,
+        "pc1": -1.7261367109074084,
+        "pc2": 0.634009717423012,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 119,
+        "pc1": -1.7510342749427612,
+        "pc2": -0.6258768083373174,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 120,
+        "pc1": -1.5240372643041729,
+        "pc2": -1.786461970890022,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 121,
+        "pc1": -1.2133020237967886,
+        "pc2": -2.366915916450337,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 122,
+        "pc1": -0.6154050883366426,
+        "pc2": -2.205558616038646,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 123,
+        "pc1": 0.4026926782989932,
+        "pc2": -1.45035808277727,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 124,
+        "pc1": 1.8603756753500893,
+        "pc2": -0.3911932344907864,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 125,
+        "pc1": 3.2078253271782096,
+        "pc2": 0.679772574516806,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 126,
+        "pc1": 3.8577087556154135,
+        "pc2": 1.5501386507573132,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 127,
+        "pc1": 3.370081042496083,
+        "pc2": 2.0739151872632795,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 128,
+        "pc1": 2.088020802349166,
+        "pc2": 2.190615070060044,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 129,
+        "pc1": 0.6878510122887717,
+        "pc2": 1.9395886619573015,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 130,
+        "pc1": -0.0885904868750749,
+        "pc2": 1.4881423307638035,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 131,
+        "pc1": -0.2166859541574722,
+        "pc2": 1.0721802511190517,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 132,
+        "pc1": -0.1263347729851617,
+        "pc2": 0.8865822719259416,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 133,
+        "pc1": -0.4606984662259649,
+        "pc2": 0.9590371159124244,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 134,
+        "pc1": -1.2301591243129393,
+        "pc2": 1.130615368363394,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 135,
+        "pc1": -1.9542603586402565,
+        "pc2": 1.1479450861829228,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 136,
+        "pc1": -1.8726052402569888,
+        "pc2": 0.8397648052828822,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 137,
+        "pc1": -0.8776837951193855,
+        "pc2": 0.2305216201361051,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 138,
+        "pc1": 0.4748239270027728,
+        "pc2": -0.4675999707904317,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 139,
+        "pc1": 1.1856365494423806,
+        "pc2": -0.9930782058678016,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 140,
+        "pc1": 0.8396541085441075,
+        "pc2": -1.196196123571714,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 141,
+        "pc1": -0.164316146404342,
+        "pc2": -1.1187741038846883,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 142,
+        "pc1": -0.7380562955028902,
+        "pc2": -0.9339945240570776,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 143,
+        "pc1": -0.2005852343671236,
+        "pc2": -0.8022937561600145,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 144,
+        "pc1": 1.2374573008434806,
+        "pc2": -0.7433136014190665,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 145,
+        "pc1": 2.399650292125751,
+        "pc2": -0.6355193988465754,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 146,
+        "pc1": 2.2534176493601143,
+        "pc2": -0.324115126502024,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 147,
+        "pc1": 0.6373285789818433,
+        "pc2": 0.2175685397878983,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 148,
+        "pc1": -1.3800698063702994,
+        "pc2": 0.8259092828033721,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 149,
+        "pc1": -2.487691058712712,
+        "pc2": 1.2090997140716409,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 150,
+        "pc1": -2.0425354187605604,
+        "pc2": 1.142436221278767,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 151,
+        "pc1": -0.7176337770629322,
+        "pc2": 0.6308913233666049,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 152,
+        "pc1": 0.2043431862583021,
+        "pc2": -0.0564854441777426,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 153,
+        "pc1": -0.1946297446910151,
+        "pc2": -0.5465092058789243,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 154,
+        "pc1": -1.5787041153013883,
+        "pc2": -0.5953106772284139,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 155,
+        "pc1": -2.7771374126309096,
+        "pc2": -0.2642957151896842,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 156,
+        "pc1": -2.7240252359653505,
+        "pc2": 0.1201148880242218,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 157,
+        "pc1": -1.475520007659631,
+        "pc2": 0.188698455337849,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 158,
+        "pc1": -0.1017978475352377,
+        "pc2": -0.2044459499412943,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 159,
+        "pc1": 0.2002325850522991,
+        "pc2": -0.874030144453941,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 160,
+        "pc1": -0.7688990915746737,
+        "pc2": -1.4273513921030094,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 161,
+        "pc1": -2.045175221854562,
+        "pc2": -1.5486013955388132,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 162,
+        "pc1": -2.2784813294395496,
+        "pc2": -1.2215475913169151,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 163,
+        "pc1": -0.949745483910158,
+        "pc2": -0.7349460182256011,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 164,
+        "pc1": 1.1578962609569496,
+        "pc2": -0.4493562126311581,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 165,
+        "pc1": 2.5764140423702453,
+        "pc2": -0.5185786467167791,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 166,
+        "pc1": 2.3983353906886067,
+        "pc2": -0.7695344331989947,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 167,
+        "pc1": 1.0697473792784224,
+        "pc2": -0.8481818679467557,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 168,
+        "pc1": 0.0423152247590638,
+        "pc2": -0.5002904354161759,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 169,
+        "pc1": 0.5643432018726295,
+        "pc2": 0.2087207536914365,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 170,
+        "pc1": 2.5932495282919388,
+        "pc2": 0.9390127376105558,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 171,
+        "pc1": 4.778572689467026,
+        "pc2": 1.311115034379111,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 172,
+        "pc1": 5.485878711962603,
+        "pc2": 1.1930419993211427,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 173,
+        "pc1": 4.083755293416842,
+        "pc2": 0.7650323258562732,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 174,
+        "pc1": 1.3510522729815646,
+        "pc2": 0.3739462478395258,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 175,
+        "pc1": -1.1139534035910563,
+        "pc2": 0.2553274984549017,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 176,
+        "pc1": -2.171856936828012,
+        "pc2": 0.3871865041341231,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 177,
+        "pc1": -1.7868667077709444,
+        "pc2": 0.5335351388146521,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 178,
+        "pc1": -0.8654881916438036,
+        "pc2": 0.4727409314466078,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 179,
+        "pc1": -0.2641459992504146,
+        "pc2": 0.1548244586100362,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 180,
+        "pc1": -0.1707163486858192,
+        "pc2": -0.2632093776884939,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 181,
+        "pc1": -0.0466854364947958,
+        "pc2": -0.5810973528630877,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      },
+      {
+        "subject": "sub-001",
+        "session": "ses-LSD",
+        "condition": "LSD",
+        "run": "run-03",
+        "run_label": "Rest3",
+        "time": 182,
+        "pc1": 0.5498269319546307,
+        "pc2": -0.6944601727262257,
+        "analysis_label": "visualization-only descriptive PCA; not a subject-disjoint ML feature"
+      }
+    ],
+    "subject_displacements": [
+      {
+        "subject": "sub-001",
+        "run": "run-01",
+        "lsd_minus_placebo_centroid_distance": 0.0001122239951506,
+        "trajectory_length_delta": 22.198840717944705,
+        "trajectory_dispersion_delta": 0.0039286572859849
+      },
+      {
+        "subject": "sub-001",
+        "run": "run-03",
+        "lsd_minus_placebo_centroid_distance": 0.0001623052500307,
+        "trajectory_length_delta": 14.389597506836168,
+        "trajectory_dispersion_delta": 0.0206737257342126
+      },
+      {
+        "subject": "sub-002",
+        "run": "run-01",
+        "lsd_minus_placebo_centroid_distance": 0.0001935637170244,
+        "trajectory_length_delta": 45.91094393305755,
+        "trajectory_dispersion_delta": 0.4140934173728139
+      },
+      {
+        "subject": "sub-002",
+        "run": "run-03",
+        "lsd_minus_placebo_centroid_distance": 0.0003015339180096,
+        "trajectory_length_delta": 34.12423203253184,
+        "trajectory_dispersion_delta": 0.2262954432079604
+      },
+      {
+        "subject": "sub-003",
+        "run": "run-01",
+        "lsd_minus_placebo_centroid_distance": 0.0003740693694371,
+        "trajectory_length_delta": 0.0556699838749636,
+        "trajectory_dispersion_delta": 0.0319127223810793
+      },
+      {
+        "subject": "sub-003",
+        "run": "run-03",
+        "lsd_minus_placebo_centroid_distance": 7.355108225794174e-05,
+        "trajectory_length_delta": 4.344712099085967,
+        "trajectory_dispersion_delta": -0.0003383267919745
+      },
+      {
+        "subject": "sub-004",
+        "run": "run-01",
+        "lsd_minus_placebo_centroid_distance": 0.0002570672200249,
+        "trajectory_length_delta": 29.210950764933216,
+        "trajectory_dispersion_delta": 0.121871930549096
+      },
+      {
+        "subject": "sub-004",
+        "run": "run-03",
+        "lsd_minus_placebo_centroid_distance": 0.0005075196631764,
+        "trajectory_length_delta": 36.52061944052332,
+        "trajectory_dispersion_delta": 0.0932165400255649
+      },
+      {
+        "subject": "sub-006",
+        "run": "run-01",
+        "lsd_minus_placebo_centroid_distance": 0.0001789812488772,
+        "trajectory_length_delta": -24.10181792844952,
+        "trajectory_dispersion_delta": -0.1024310155487295
+      },
+      {
+        "subject": "sub-006",
+        "run": "run-03",
+        "lsd_minus_placebo_centroid_distance": 0.0001340593562697,
+        "trajectory_length_delta": -11.723365977596018,
+        "trajectory_dispersion_delta": -0.0700961392220425
+      },
+      {
+        "subject": "sub-009",
+        "run": "run-01",
+        "lsd_minus_placebo_centroid_distance": 0.0006693693219224,
+        "trajectory_length_delta": -20.011761511890825,
+        "trajectory_dispersion_delta": -0.0646339375216944
+      },
+      {
+        "subject": "sub-009",
+        "run": "run-03",
+        "lsd_minus_placebo_centroid_distance": 0.0002176884436137,
+        "trajectory_length_delta": 33.89352330815598,
+        "trajectory_dispersion_delta": 0.1236070441125734
+      },
+      {
+        "subject": "sub-010",
+        "run": "run-01",
+        "lsd_minus_placebo_centroid_distance": 0.0002676278439944,
+        "trajectory_length_delta": 34.540221014736176,
+        "trajectory_dispersion_delta": 0.1010358720746784
+      },
+      {
+        "subject": "sub-010",
+        "run": "run-03",
+        "lsd_minus_placebo_centroid_distance": 0.0002919865802711,
+        "trajectory_length_delta": 39.51869394983106,
+        "trajectory_dispersion_delta": 0.2718724331770936
+      },
+      {
+        "subject": "sub-011",
+        "run": "run-01",
+        "lsd_minus_placebo_centroid_distance": 0.0002617067823193,
+        "trajectory_length_delta": -18.304657136133105,
+        "trajectory_dispersion_delta": -0.0771531398661748
+      },
+      {
+        "subject": "sub-011",
+        "run": "run-03",
+        "lsd_minus_placebo_centroid_distance": 0.000265878879753,
+        "trajectory_length_delta": 11.580482563857174,
+        "trajectory_dispersion_delta": -0.0294219150829981
+      },
+      {
+        "subject": "sub-012",
+        "run": "run-01",
+        "lsd_minus_placebo_centroid_distance": 0.0001406011844723,
+        "trajectory_length_delta": 30.91181579302844,
+        "trajectory_dispersion_delta": 0.0393428344480926
+      },
+      {
+        "subject": "sub-012",
+        "run": "run-03",
+        "lsd_minus_placebo_centroid_distance": 0.0001794810369327,
+        "trajectory_length_delta": 7.230922583636925,
+        "trajectory_dispersion_delta": 0.0231688655043285
+      },
+      {
+        "subject": "sub-013",
+        "run": "run-01",
+        "lsd_minus_placebo_centroid_distance": 0.0002069813737816,
+        "trajectory_length_delta": 1.1114686568243144,
+        "trajectory_dispersion_delta": 0.1669953143527547
+      },
+      {
+        "subject": "sub-013",
+        "run": "run-03",
+        "lsd_minus_placebo_centroid_distance": 0.0001775457152561,
+        "trajectory_length_delta": -2.823166206178911,
+        "trajectory_dispersion_delta": 0.2483440587054992
+      },
+      {
+        "subject": "sub-015",
+        "run": "run-01",
+        "lsd_minus_placebo_centroid_distance": 0.0002474660965385,
+        "trajectory_length_delta": 1.4877892556037011,
+        "trajectory_dispersion_delta": 0.0306961369924101
+      },
+      {
+        "subject": "sub-015",
+        "run": "run-03",
+        "lsd_minus_placebo_centroid_distance": 0.0002923661059924,
+        "trajectory_length_delta": 13.994482755373042,
+        "trajectory_dispersion_delta": 0.1176255056693005
+      },
+      {
+        "subject": "sub-017",
+        "run": "run-01",
+        "lsd_minus_placebo_centroid_distance": 0.0002017458790486,
+        "trajectory_length_delta": 22.63328485965073,
+        "trajectory_dispersion_delta": 0.2215859885141347
+      },
+      {
+        "subject": "sub-017",
+        "run": "run-03",
+        "lsd_minus_placebo_centroid_distance": 6.10414949038061e-05,
+        "trajectory_length_delta": -23.74149404221393,
+        "trajectory_dispersion_delta": 0.18351056906861
+      },
+      {
+        "subject": "sub-018",
+        "run": "run-01",
+        "lsd_minus_placebo_centroid_distance": 0.0001554896747399,
+        "trajectory_length_delta": -18.773372322748628,
+        "trajectory_dispersion_delta": -0.1065044655691971
+      },
+      {
+        "subject": "sub-018",
+        "run": "run-03",
+        "lsd_minus_placebo_centroid_distance": 0.0003613684586673,
+        "trajectory_length_delta": -47.6362613344204,
+        "trajectory_dispersion_delta": -0.157830382405941
+      },
+      {
+        "subject": "sub-019",
+        "run": "run-01",
+        "lsd_minus_placebo_centroid_distance": 0.000132207083778,
+        "trajectory_length_delta": 99.9711106923528,
+        "trajectory_dispersion_delta": 0.4417476327185279
+      },
+      {
+        "subject": "sub-019",
+        "run": "run-03",
+        "lsd_minus_placebo_centroid_distance": 5.758846363764304e-05,
+        "trajectory_length_delta": 37.54120828153148,
+        "trajectory_dispersion_delta": 0.0366591273581362
+      },
+      {
+        "subject": "sub-020",
+        "run": "run-01",
+        "lsd_minus_placebo_centroid_distance": 0.0003544758017381,
+        "trajectory_length_delta": 13.93174886558893,
+        "trajectory_dispersion_delta": 0.0527097277997987
+      },
+      {
+        "subject": "sub-020",
+        "run": "run-03",
+        "lsd_minus_placebo_centroid_distance": 0.0001512866621987,
+        "trajectory_length_delta": 6.889060111382605,
+        "trajectory_dispersion_delta": 0.0949646154244701
+      }
+    ]
+  },
+  "music_control": {
+    "schema_version": "setting_seed_control_scaffold.v1",
+    "status": "blocked_missing_run_02",
+    "run_02_files_present": false,
+    "run_02_analysis_ready": false,
+    "motion_analysis_ready": false,
+    "u_music_definition": "u_music(t)=0 during Rest1, 1 during Music, 0 during Rest3.",
+    "context_memory_definition": "dc/dt = -c/tau + u_music(t); implemented as an explicit discrete scaffold.",
+    "music_excluded_subjects": [
+      "sub-003",
+      "sub-012",
+      "sub-015"
+    ],
+    "available_effects": [
+      "rest1_to_rest3_carryover_proxy",
+      "drug_carryover_interaction"
+    ],
+    "unavailable_effects": [
+      "setting_effect",
+      "music_to_rest3_displacement",
+      "drug_setting_interaction"
+    ],
+    "claim_guardrail": "No music-control empirical claim is made yet; future descriptive music-control comparison is not a mechanism, clinical, or subjective-experience claim.",
+    "rest_carryover_rows": 120,
+    "rest_carryover_metric_count": 8
+  },
+  "motion": {
+    "schema_version": "setting_seed_motion_summary.v1",
+    "status": "unavailable_not_found",
+    "motion_files_present": false,
+    "motion_analysis_ready": false,
+    "motion_summary_schema_valid": false,
+    "fd_threshold": 0.5,
+    "motion_summary_files": [],
+    "parsed_summary_count": 0,
+    "unusable_file_count": 0,
+    "coverage_by_run": {},
+    "claim_guardrail": "Motion sensitivity is unavailable until structured subject/session/run confounds are parsed."
+  },
+  "mechanism_context": {
+    "stage_5_non_quick_best": "thalamic_routing_only",
+    "stage_5_loss": 0.762443,
+    "cv5_selected": "more_cross_talk @ 0.1",
+    "label": "Previous proxy-ranking artifacts, not biological proof."
+  },
+  "artifact_paths": {
+    "data_audit": "results/setting_seed/data_audit/data_audit.md",
+    "reliability_report": "results/setting_seed/reliability/reliability_report.md",
+    "latent_report": "results/setting_seed/latent/latent_report.md",
+    "music_control_report": "results/setting_seed/control/music_control_report.md",
+    "microsite": "output/doc/set_setting_seed_microsite.html"
+  }
+}

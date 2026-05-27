@@ -1,0 +1,1717 @@
+{
+  "dataset_anchor": "OpenNeuro ds003059 placebo resting-state summary (15 session averages)",
+  "initial_score": 1628.9453988528956,
+  "best_score": 2.0539573741279997,
+  "selection_score_std": 0.49832884836244534,
+  "selected_iteration": 42,
+  "best_metrics": {
+    "within_network_stability": 0.08820611294672441,
+    "cross_network_communication": 0.09002793871225397,
+    "thalamic_coupling": 0.20592405100766364,
+    "hierarchical_compression": 0.05990987669986708,
+    "entropy_diversity": 0.9913663939161079,
+    "switching_rate": 0.21888555221888553,
+    "metastability_proxy": 1.211207996724262,
+    "effective_barrier_proxy": 4.562239082478963,
+    "within_group_fc": 0.08820611294672441,
+    "cross_group_fc": 0.09002793871225397,
+    "state_entropy": 0.9913663939161079,
+    "dynamic_fc_change": 1.211207996724262
+  },
+  "best_metrics_std": {
+    "within_network_stability": 0.029236946465399892,
+    "cross_network_communication": 0.028512675344312535,
+    "thalamic_coupling": 0.03573886307161008,
+    "hierarchical_compression": 0.07389837159222486,
+    "entropy_diversity": 0.007799310836555581,
+    "switching_rate": 0.008666610939705048,
+    "metastability_proxy": 0.045853267804676905,
+    "effective_barrier_proxy": 0.20252572524270382,
+    "within_group_fc": 0.029236946465399892,
+    "cross_group_fc": 0.028512675344312535,
+    "state_entropy": 0.007799310836555581,
+    "dynamic_fc_change": 0.045853267804676905
+  },
+  "best_parameters": {
+    "within_group_scale": 0.9171782043918613,
+    "cross_group_scale": 1.910926116481452,
+    "constraint_scale": 0.6870027168941524,
+    "rigidity": 0.725599666792631,
+    "barrier": 1.222698497300157,
+    "temperature": 0.23822256410814818,
+    "tau": 0.9681698174538765
+  },
+  "target_path": "results\\setting_seed\\run02_extraction\\stage_2_music\\empirical_sober_targets.yaml",
+  "atlas_mapping_audit_path": "results\\setting_seed\\run02_extraction\\stage_2_music\\atlas_mapping_audit.json",
+  "fit_seed_plan": {
+    "proposal_seed": 11,
+    "selection_seeds": [
+      111,
+      112,
+      113
+    ],
+    "validation_seeds": [
+      1011,
+      1012,
+      1013,
+      1014,
+      1015
+    ],
+    "selection_mode": "multi_seed_mean",
+    "validation_mode": "disjoint_seed_panel"
+  },
+  "model_selection_diagnostics": {
+    "selected_iteration": 42,
+    "selection_score_mean": 2.0539573741279997,
+    "selection_score_std": 0.49832884836244534,
+    "selection_seed_count": 3,
+    "candidate_count": 65,
+    "selection_mode": "multi_seed_mean",
+    "history": [
+      {
+        "iteration": 0,
+        "candidate_seed": 11,
+        "score_mean": 1628.9453988528956,
+        "score_std": 2299.1735135154972,
+        "seed_scores": [
+          {
+            "seed": 111,
+            "score": 3.5295940206568823
+          },
+          {
+            "seed": 112,
+            "score": 4880.4677394598275
+          },
+          {
+            "seed": 113,
+            "score": 2.8388630782022197
+          }
+        ]
+      },
+      {
+        "iteration": 1,
+        "candidate_seed": 12,
+        "score_mean": 2.8141620084715666,
+        "score_std": 0.4399542089808576,
+        "seed_scores": [
+          {
+            "seed": 111,
+            "score": 2.9301678114539844
+          },
+          {
+            "seed": 112,
+            "score": 3.2855422850808353
+          },
+          {
+            "seed": 113,
+            "score": 2.226775928879881
+          }
+        ]
+      },
+      {
+        "iteration": 2,
+        "candidate_seed": 13,
+        "score_mean": 3.439220293593823,
+        "score_std": 0.5514191085417931,
+        "seed_scores": [
+          {
+            "seed": 111,
+            "score": 3.3951224008912755
+          },
+          {
+            "seed": 112,
+            "score": 4.135536310023367
+          },
+          {
+            "seed": 113,
+            "score": 2.787002169866827
+          }
+        ]
+      },
+      {
+        "iteration": 3,
+        "candidate_seed": 14,
+        "score_mean": 2.8344022784927234,
+        "score_std": 0.5207455824544626,
+        "seed_scores": [
+          {
+            "seed": 111,
+            "score": 3.570237116000446
+          },
+          {
+            "seed": 112,
+            "score": 2.4924514036221774
+          },
+          {
+            "seed": 113,
+            "score": 2.440518315855547
+          }
+        ]
+      },
+      {
+        "iteration": 4,
+        "candidate_seed": 15,
+        "score_mean": 2.8877596803714165,
+        "score_std": 0.6196125027830863,
+        "seed_scores": [
+          {
+            "seed": 111,
+            "score": 2.500448782479078
+          },
+          {
+            "seed": 112,
+            "score": 3.762129593456591
+          },
+          {
+            "seed": 113,
+            "score": 2.40070066517858
+          }
+        ]
+      },
+      {
+        "iteration": 5,
+        "candidate_seed": 16,
+        "score_mean": 3.5754492555519994,
+        "score_std": 0.7722570442336966,
+        "seed_scores": [
+          {
+            "seed": 111,
+            "score": 4.34514564238054
+          },
+          {
+            "seed": 112,
+            "score": 3.8616055461988754
+          },
+          {
+            "seed": 113,
+            "score": 2.5195965780765825
+          }
+        ]
+      },
+      {
+        "iteration": 6,
+        "candidate_seed": 17,
+        "score_mean": 3.037348346744912,
+        "score_std": 0.17993291324800315,
+        "seed_scores": [
+          {
+            "seed": 111,
+            "score": 3.2890183765033103
+          },
+          {
+            "seed": 112,
+            "score": 2.9440775299354542
+          },
+          {
+            "seed": 113,
+            "score": 2.8789491337959716
+          }
+        ]
+      },
+      {
+        "iteration": 7,
+        "candidate_seed": 18,
+        "score_mean": 2.9279966758866443,
+        "score_std": 0.5884943127422086,
+        "seed_scores": [
+          {
+            "seed": 111,
+            "score": 2.827456498229466
+          },
+          {
+            "seed": 112,
+            "score": 3.693743590826592
+          },
+          {
+            "seed": 113,
+            "score": 2.262789938603874
+          }
+        ]
+      },
+      {
+        "iteration": 8,
+        "candidate_seed": 19,
+        "score_mean": 3.355379223757694,
+        "score_std": 0.514824046156169,
+        "seed_scores": [
+          {
+            "seed": 111,
+            "score": 3.6296012618975895
+          },
+          {
+            "seed": 112,
+            "score": 3.8023635762664934
+          },
+          {
+            "seed": 113,
+            "score": 2.6341728331089986
+          }
+        ]
+      },
+      {
+        "iteration": 9,
+        "candidate_seed": 20,
+        "score_mean": 3.206903223349832,
+        "score_std": 0.5624002133750218,
+        "seed_scores": [
+          {
+            "seed": 111,
+            "score": 3.0325261089989644
+          },
+          {
+            "seed": 112,
+            "score": 3.9661300729606026
+          },
+          {
+            "seed": 113,
+            "score": 2.6220534880899287
+          }
+        ]
+      },
+      {
+        "iteration": 10,
+        "candidate_seed": 21,
+        "score_mean": 3.781955428503101,
+        "score_std": 0.6223787966917489,
+        "seed_scores": [
+          {
+            "seed": 111,
+            "score": 3.4457960124179037
+          },
+          {
+            "seed": 112,
+            "score": 4.654507055851322
+          },
+          {
+            "seed": 113,
+            "score": 3.245563217240076
+          }
+        ]
+      },
+      {
+        "iteration": 11,
+        "candidate_seed": 22,
+        "score_mean": 3.5155878503142883,
+        "score_std": 0.7674724549703266,
+        "seed_scores": [
+          {
+            "seed": 111,
+            "score": 3.6437796133691487
+          },
+          {
+            "seed": 112,
+            "score": 4.384870834854081
+          },
+          {
+            "seed": 113,
+            "score": 2.5181131027196355
+          }
+        ]
+      },
+      {
+        "iteration": 12,
+        "candidate_seed": 23,
+        "score_mean": 3.049706419315546,
+        "score_std": 0.5955716087415401,
+        "seed_scores": [
+          {
+            "seed": 111,
+            "score": 2.96025296593883
+          },
+          {
+            "seed": 112,
+            "score": 3.819730927241179
+          },
+          {
+            "seed": 113,
+            "score": 2.369135364766629
+          }
+        ]
+      },
+      {
+        "iteration": 13,
+        "candidate_seed": 24,
+        "score_mean": 3.874185314249266,
+        "score_std": 0.8548523677271438,
+        "seed_scores": [
+          {
+            "seed": 111,
+            "score": 4.587601175792585
+          },
+          {
+            "seed": 112,
+            "score": 4.36272126088037
+          },
+          {
+            "seed": 113,
+            "score": 2.6722335060748423
+          }
+        ]
+      },
+      {
+        "iteration": 14,
+        "candidate_seed": 25,
+        "score_mean": 5.923946999753475,
+        "score_std": 5.048943784436656,
+        "seed_scores": [
+          {
+            "seed": 111,
+            "score": 2.6393327108965168
+          },
+          {
+            "seed": 112,
+            "score": 13.05681256183674
+          },
+          {
+            "seed": 113,
+            "score": 2.0756957265271665
+          }
+        ]
+      },
+      {
+        "iteration": 15,
+        "candidate_seed": 26,
+        "score_mean": 3.5035504712176144,
+        "score_std": 0.7613354432391195,
+        "seed_scores": [
+          {
+            "seed": 111,
+            "score": 3.1134202059407725
+          },
+          {
+            "seed": 112,
+            "score": 4.567693429936315
+          },
+          {
+            "seed": 113,
+            "score": 2.8295377777757547
+          }
+        ]
+      },
+      {
+        "iteration": 16,
+        "candidate_seed": 27,
+        "score_mean": 2.4002636721368464,
+        "score_std": 0.30094507341627597,
+        "seed_scores": [
+          {
+            "seed": 111,
+            "score": 2.6441159768730715
+          },
+          {
+            "seed": 112,
+            "score": 2.580420200381865
+          },
+          {
+            "seed": 113,
+            "score": 1.9762548391556027
+          }
+        ]
+      },
+      {
+        "iteration": 17,
+        "candidate_seed": 28,
+        "score_mean": 3.1796103156660123,
+        "score_std": 0.5823061048062619,
+        "seed_scores": [
+          {
+            "seed": 111,
+            "score": 3.926861460038241
+          },
+          {
+            "seed": 112,
+            "score": 3.10570527158526
+          },
+          {
+            "seed": 113,
+            "score": 2.506264215374535
+          }
+        ]
+      },
+      {
+        "iteration": 18,
+        "candidate_seed": 29,
+        "score_mean": 716.8569618367329,
+        "score_std": 1007.5036364724382,
+        "seed_scores": [
+          {
+            "seed": 111,
+            "score": 5.0889723849476205
+          },
+          {
+            "seed": 112,
+            "score": 2141.6820742822138
+          },
+          {
+            "seed": 113,
+            "score": 3.799838843037354
+          }
+        ]
+      },
+      {
+        "iteration": 19,
+        "candidate_seed": 30,
+        "score_mean": 3.001099235915392,
+        "score_std": 0.5206021507498988,
+        "seed_scores": [
+          {
+            "seed": 111,
+            "score": 2.8093966705332942
+          },
+          {
+            "seed": 112,
+            "score": 3.7125619982488955
+          },
+          {
+            "seed": 113,
+            "score": 2.481339038963986
+          }
+        ]
+      },
+      {
+        "iteration": 20,
+        "candidate_seed": 31,
+        "score_mean": 3.299825626914062,
+        "score_std": 0.5560346378954213,
+        "seed_scores": [
+          {
+            "seed": 111,
+            "score": 3.07967933052976
+          },
+          {
+            "seed": 112,
+            "score": 4.063667452812973
+          },
+          {
+            "seed": 113,
+            "score": 2.7561300973994536
+          }
+        ]
+      },
+      {
+        "iteration": 21,
+        "candidate_seed": 32,
+        "score_mean": 2.8491648803088516,
+        "score_std": 0.5241947589891505,
+        "seed_scores": [
+          {
+            "seed": 111,
+            "score": 2.7866331056793205
+          },
+          {
+            "seed": 112,
+            "score": 3.520147541593787
+          },
+          {
+            "seed": 113,
+            "score": 2.240713993653447
+          }
+        ]
+      },
+      {
+        "iteration": 22,
+        "candidate_seed": 33,
+        "score_mean": 2.575165753622938,
+        "score_std": 0.6651295397242614,
+        "seed_scores": [
+          {
+            "seed": 111,
+            "score": 2.364978777419157
+          },
+          {
+            "seed": 112,
+            "score": 3.474275635256124
+          },
+          {
+            "seed": 113,
+            "score": 1.8862428481935332
+          }
+        ]
+      },
+      {
+        "iteration": 23,
+        "candidate_seed": 34,
+        "score_mean": 2.7757212146479677,
+        "score_std": 0.42488458727284667,
+        "seed_scores": [
+          {
+            "seed": 111,
+            "score": 3.104499371890358
+          },
+          {
+            "seed": 112,
+            "score": 3.046899652312422
+          },
+          {
+            "seed": 113,
+            "score": 2.1757646197411233
+          }
+        ]
+      },
+      {
+        "iteration": 24,
+        "candidate_seed": 35,
+        "score_mean": 2.805835645179903,
+        "score_std": 0.5936259582670205,
+        "seed_scores": [
+          {
+            "seed": 111,
+            "score": 2.6727362302448583
+          },
+          {
+            "seed": 112,
+            "score": 3.5902300968648775
+          },
+          {
+            "seed": 113,
+            "score": 2.1545406084299734
+          }
+        ]
+      },
+      {
+        "iteration": 25,
+        "candidate_seed": 36,
+        "score_mean": 3.625138075752561,
+        "score_std": 0.6298998557901552,
+        "seed_scores": [
+          {
+            "seed": 111,
+            "score": 3.3811785706023794
+          },
+          {
+            "seed": 112,
+            "score": 4.489090578751712
+          },
+          {
+            "seed": 113,
+            "score": 3.0051450779035895
+          }
+        ]
+      },
+      {
+        "iteration": 26,
+        "candidate_seed": 37,
+        "score_mean": 3.180818445597618,
+        "score_std": 0.5997073311974809,
+        "seed_scores": [
+          {
+            "seed": 111,
+            "score": 2.8143302290212486
+          },
+          {
+            "seed": 112,
+            "score": 4.026435647369386
+          },
+          {
+            "seed": 113,
+            "score": 2.7016894604022195
+          }
+        ]
+      },
+      {
+        "iteration": 27,
+        "candidate_seed": 38,
+        "score_mean": 208.43010117361158,
+        "score_std": 290.03197113355316,
+        "seed_scores": [
+          {
+            "seed": 111,
+            "score": 3.5533253547428285
+          },
+          {
+            "seed": 112,
+            "score": 618.5971787870936
+          },
+          {
+            "seed": 113,
+            "score": 3.139799378998268
+          }
+        ]
+      },
+      {
+        "iteration": 28,
+        "candidate_seed": 39,
+        "score_mean": 4.253655356015102,
+        "score_std": 1.0150535846041542,
+        "seed_scores": [
+          {
+            "seed": 111,
+            "score": 5.643086237759161
+          },
+          {
+            "seed": 112,
+            "score": 3.8713691680445232
+          },
+          {
+            "seed": 113,
+            "score": 3.2465106622416213
+          }
+        ]
+      },
+      {
+        "iteration": 29,
+        "candidate_seed": 40,
+        "score_mean": 2.953301502734075,
+        "score_std": 0.531607926797928,
+        "seed_scores": [
+          {
+            "seed": 111,
+            "score": 2.7356380032623826
+          },
+          {
+            "seed": 112,
+            "score": 3.6853326046036416
+          },
+          {
+            "seed": 113,
+            "score": 2.4389339003362003
+          }
+        ]
+      },
+      {
+        "iteration": 30,
+        "candidate_seed": 41,
+        "score_mean": 2.4973296216535883,
+        "score_std": 0.47399550412570807,
+        "seed_scores": [
+          {
+            "seed": 111,
+            "score": 2.422730133368275
+          },
+          {
+            "seed": 112,
+            "score": 3.111546859167483
+          },
+          {
+            "seed": 113,
+            "score": 1.9577118724250056
+          }
+        ]
+      },
+      {
+        "iteration": 31,
+        "candidate_seed": 42,
+        "score_mean": 3.0715213163267605,
+        "score_std": 0.5581954125634736,
+        "seed_scores": [
+          {
+            "seed": 111,
+            "score": 2.945307423740488
+          },
+          {
+            "seed": 112,
+            "score": 3.809480630104093
+          },
+          {
+            "seed": 113,
+            "score": 2.4597758951356994
+          }
+        ]
+      },
+      {
+        "iteration": 32,
+        "candidate_seed": 43,
+        "score_mean": 3.4096987415823734,
+        "score_std": 0.5417271317153256,
+        "seed_scores": [
+          {
+            "seed": 111,
+            "score": 3.318772293206142
+          },
+          {
+            "seed": 112,
+            "score": 4.11395003001728
+          },
+          {
+            "seed": 113,
+            "score": 2.7963739015236984
+          }
+        ]
+      },
+      {
+        "iteration": 33,
+        "candidate_seed": 44,
+        "score_mean": 3.974232546141907,
+        "score_std": 0.6574801208907644,
+        "seed_scores": [
+          {
+            "seed": 111,
+            "score": 3.6728393083554836
+          },
+          {
+            "seed": 112,
+            "score": 4.886697995594799
+          },
+          {
+            "seed": 113,
+            "score": 3.363160334475438
+          }
+        ]
+      },
+      {
+        "iteration": 34,
+        "candidate_seed": 45,
+        "score_mean": 3.4886405005989274,
+        "score_std": 0.5683424282981446,
+        "seed_scores": [
+          {
+            "seed": 111,
+            "score": 3.1959311957145005
+          },
+          {
+            "seed": 112,
+            "score": 4.283270265035504
+          },
+          {
+            "seed": 113,
+            "score": 2.986720041046777
+          }
+        ]
+      },
+      {
+        "iteration": 35,
+        "candidate_seed": 46,
+        "score_mean": 3.595495856883737,
+        "score_std": 0.6195975375815255,
+        "seed_scores": [
+          {
+            "seed": 111,
+            "score": 3.6276228230140966
+          },
+          {
+            "seed": 112,
+            "score": 4.337771055675865
+          },
+          {
+            "seed": 113,
+            "score": 2.8210936919612495
+          }
+        ]
+      },
+      {
+        "iteration": 36,
+        "candidate_seed": 47,
+        "score_mean": 2.720784029681797,
+        "score_std": 0.5165955243376327,
+        "seed_scores": [
+          {
+            "seed": 111,
+            "score": 2.5616942382523344
+          },
+          {
+            "seed": 112,
+            "score": 3.4178434858286755
+          },
+          {
+            "seed": 113,
+            "score": 2.182814364964381
+          }
+        ]
+      },
+      {
+        "iteration": 37,
+        "candidate_seed": 48,
+        "score_mean": 3.602959728713761,
+        "score_std": 0.613985756250142,
+        "seed_scores": [
+          {
+            "seed": 111,
+            "score": 3.2979911117046243
+          },
+          {
+            "seed": 112,
+            "score": 4.459513188862355
+          },
+          {
+            "seed": 113,
+            "score": 3.0513748855743024
+          }
+        ]
+      },
+      {
+        "iteration": 38,
+        "candidate_seed": 49,
+        "score_mean": 2.857568070100903,
+        "score_std": 0.624876836406115,
+        "seed_scores": [
+          {
+            "seed": 111,
+            "score": 2.633996583717584
+          },
+          {
+            "seed": 112,
+            "score": 3.7097715561057916
+          },
+          {
+            "seed": 113,
+            "score": 2.2289360704793335
+          }
+        ]
+      },
+      {
+        "iteration": 39,
+        "candidate_seed": 50,
+        "score_mean": 3.442804250131761,
+        "score_std": 0.48609570226904786,
+        "seed_scores": [
+          {
+            "seed": 111,
+            "score": 3.386121461429357
+          },
+          {
+            "seed": 112,
+            "score": 4.064461617422633
+          },
+          {
+            "seed": 113,
+            "score": 2.8778296715432927
+          }
+        ]
+      },
+      {
+        "iteration": 40,
+        "candidate_seed": 51,
+        "score_mean": 4.266671475471167,
+        "score_std": 0.7220932640337722,
+        "seed_scores": [
+          {
+            "seed": 111,
+            "score": 3.8806759389881726
+          },
+          {
+            "seed": 112,
+            "score": 5.27843881282587
+          },
+          {
+            "seed": 113,
+            "score": 3.6408996745994586
+          }
+        ]
+      },
+      {
+        "iteration": 41,
+        "candidate_seed": 52,
+        "score_mean": 3.08681600693485,
+        "score_std": 0.5749781951463491,
+        "seed_scores": [
+          {
+            "seed": 111,
+            "score": 2.885253268466548
+          },
+          {
+            "seed": 112,
+            "score": 3.869821118196863
+          },
+          {
+            "seed": 113,
+            "score": 2.505373634141139
+          }
+        ]
+      },
+      {
+        "iteration": 42,
+        "candidate_seed": 53,
+        "score_mean": 2.0539573741279997,
+        "score_std": 0.49832884836244534,
+        "seed_scores": [
+          {
+            "seed": 111,
+            "score": 2.101704245578501
+          },
+          {
+            "seed": 112,
+            "score": 2.63900728240048
+          },
+          {
+            "seed": 113,
+            "score": 1.421160594405019
+          }
+        ]
+      },
+      {
+        "iteration": 43,
+        "candidate_seed": 54,
+        "score_mean": 4.270134637019273,
+        "score_std": 1.4757764776501883,
+        "seed_scores": [
+          {
+            "seed": 111,
+            "score": 5.18975993290948
+          },
+          {
+            "seed": 112,
+            "score": 5.432848199755383
+          },
+          {
+            "seed": 113,
+            "score": 2.187795778392959
+          }
+        ]
+      },
+      {
+        "iteration": 44,
+        "candidate_seed": 55,
+        "score_mean": 4.104614897779392,
+        "score_std": 0.6517177761338102,
+        "seed_scores": [
+          {
+            "seed": 111,
+            "score": 4.7365816190227985
+          },
+          {
+            "seed": 112,
+            "score": 4.36963724885409
+          },
+          {
+            "seed": 113,
+            "score": 3.2076258254612866
+          }
+        ]
+      },
+      {
+        "iteration": 45,
+        "candidate_seed": 56,
+        "score_mean": 2.7902640201533653,
+        "score_std": 0.6404678982890315,
+        "seed_scores": [
+          {
+            "seed": 111,
+            "score": 2.592836714467683
+          },
+          {
+            "seed": 112,
+            "score": 3.6545268466848877
+          },
+          {
+            "seed": 113,
+            "score": 2.1234284993075248
+          }
+        ]
+      },
+      {
+        "iteration": 46,
+        "candidate_seed": 57,
+        "score_mean": 5.138055729178746,
+        "score_std": 1.7649213261096393,
+        "seed_scores": [
+          {
+            "seed": 111,
+            "score": 4.449858375446128
+          },
+          {
+            "seed": 112,
+            "score": 7.559943912412694
+          },
+          {
+            "seed": 113,
+            "score": 3.404364899677416
+          }
+        ]
+      },
+      {
+        "iteration": 47,
+        "candidate_seed": 58,
+        "score_mean": 2.5082719179809687,
+        "score_std": 0.19399498348883423,
+        "seed_scores": [
+          {
+            "seed": 111,
+            "score": 2.4143253101035484
+          },
+          {
+            "seed": 112,
+            "score": 2.7784751629658886
+          },
+          {
+            "seed": 113,
+            "score": 2.332015280873469
+          }
+        ]
+      },
+      {
+        "iteration": 48,
+        "candidate_seed": 59,
+        "score_mean": 3.399001607167309,
+        "score_std": 0.6346013952278176,
+        "seed_scores": [
+          {
+            "seed": 111,
+            "score": 3.22461116312885
+          },
+          {
+            "seed": 112,
+            "score": 4.24860707046658
+          },
+          {
+            "seed": 113,
+            "score": 2.7237865879064973
+          }
+        ]
+      },
+      {
+        "iteration": 49,
+        "candidate_seed": 60,
+        "score_mean": 2.774540009953082,
+        "score_std": 0.5018421860431667,
+        "seed_scores": [
+          {
+            "seed": 111,
+            "score": 2.6391285553140102
+          },
+          {
+            "seed": 112,
+            "score": 3.445583265529624
+          },
+          {
+            "seed": 113,
+            "score": 2.2389082090156105
+          }
+        ]
+      },
+      {
+        "iteration": 50,
+        "candidate_seed": 61,
+        "score_mean": 4.565589368069185,
+        "score_std": 1.3460536034964619,
+        "seed_scores": [
+          {
+            "seed": 111,
+            "score": 5.432457765228783
+          },
+          {
+            "seed": 112,
+            "score": 5.599872731465523
+          },
+          {
+            "seed": 113,
+            "score": 2.664437607513248
+          }
+        ]
+      },
+      {
+        "iteration": 51,
+        "candidate_seed": 62,
+        "score_mean": 3.3346190293767943,
+        "score_std": 0.6056255281785627,
+        "seed_scores": [
+          {
+            "seed": 111,
+            "score": 3.12666118025456
+          },
+          {
+            "seed": 112,
+            "score": 4.158138481159058
+          },
+          {
+            "seed": 113,
+            "score": 2.719057426716765
+          }
+        ]
+      },
+      {
+        "iteration": 52,
+        "candidate_seed": 63,
+        "score_mean": 3.2878851172844787,
+        "score_std": 0.5248997618277255,
+        "seed_scores": [
+          {
+            "seed": 111,
+            "score": 3.130482441798657
+          },
+          {
+            "seed": 112,
+            "score": 3.9948363561516427
+          },
+          {
+            "seed": 113,
+            "score": 2.7383365539031375
+          }
+        ]
+      },
+      {
+        "iteration": 53,
+        "candidate_seed": 64,
+        "score_mean": 2.994845858387707,
+        "score_std": 0.7758748383595526,
+        "seed_scores": [
+          {
+            "seed": 111,
+            "score": 3.808685016759611
+          },
+          {
+            "seed": 112,
+            "score": 3.225281765115679
+          },
+          {
+            "seed": 113,
+            "score": 1.9505707932878291
+          }
+        ]
+      },
+      {
+        "iteration": 54,
+        "candidate_seed": 65,
+        "score_mean": 2.493596507856414,
+        "score_std": 0.26667409040091095,
+        "seed_scores": [
+          {
+            "seed": 111,
+            "score": 2.742283664068217
+          },
+          {
+            "seed": 112,
+            "score": 2.6147903596633357
+          },
+          {
+            "seed": 113,
+            "score": 2.1237154998376893
+          }
+        ]
+      },
+      {
+        "iteration": 55,
+        "candidate_seed": 66,
+        "score_mean": 3.088954157248027,
+        "score_std": 0.5144411350848357,
+        "seed_scores": [
+          {
+            "seed": 111,
+            "score": 2.850813721866072
+          },
+          {
+            "seed": 112,
+            "score": 3.803374164540152
+          },
+          {
+            "seed": 113,
+            "score": 2.6126745853378566
+          }
+        ]
+      },
+      {
+        "iteration": 56,
+        "candidate_seed": 67,
+        "score_mean": 2.977988055082045,
+        "score_std": 0.6096504017441216,
+        "seed_scores": [
+          {
+            "seed": 111,
+            "score": 3.1555670229604975
+          },
+          {
+            "seed": 112,
+            "score": 3.6198556050140946
+          },
+          {
+            "seed": 113,
+            "score": 2.158541537271543
+          }
+        ]
+      },
+      {
+        "iteration": 57,
+        "candidate_seed": 68,
+        "score_mean": 3.5823958321822382,
+        "score_std": 0.7131073011643997,
+        "seed_scores": [
+          {
+            "seed": 111,
+            "score": 3.4105652268676323
+          },
+          {
+            "seed": 112,
+            "score": 4.528914828050809
+          },
+          {
+            "seed": 113,
+            "score": 2.8077074416282746
+          }
+        ]
+      },
+      {
+        "iteration": 58,
+        "candidate_seed": 69,
+        "score_mean": 2.828440935816287,
+        "score_std": 0.5356590943860935,
+        "seed_scores": [
+          {
+            "seed": 111,
+            "score": 3.158812655109658
+          },
+          {
+            "seed": 112,
+            "score": 3.253625208727264
+          },
+          {
+            "seed": 113,
+            "score": 2.07288494361194
+          }
+        ]
+      },
+      {
+        "iteration": 59,
+        "candidate_seed": 70,
+        "score_mean": 3.1845617849836323,
+        "score_std": 0.23388605173773253,
+        "seed_scores": [
+          {
+            "seed": 111,
+            "score": 3.5023213864702667
+          },
+          {
+            "seed": 112,
+            "score": 2.9461480006641776
+          },
+          {
+            "seed": 113,
+            "score": 3.1052159678164513
+          }
+        ]
+      },
+      {
+        "iteration": 60,
+        "candidate_seed": 71,
+        "score_mean": 2.5875902047727117,
+        "score_std": 0.6126958358283506,
+        "seed_scores": [
+          {
+            "seed": 111,
+            "score": 2.5038758682437576
+          },
+          {
+            "seed": 112,
+            "score": 3.376333049199705
+          },
+          {
+            "seed": 113,
+            "score": 1.882561696874672
+          }
+        ]
+      },
+      {
+        "iteration": 61,
+        "candidate_seed": 72,
+        "score_mean": 3.641293676907639,
+        "score_std": 0.575508908635201,
+        "seed_scores": [
+          {
+            "seed": 111,
+            "score": 3.6144835797324677
+          },
+          {
+            "seed": 112,
+            "score": 4.35916779500418
+          },
+          {
+            "seed": 113,
+            "score": 2.950229655986269
+          }
+        ]
+      },
+      {
+        "iteration": 62,
+        "candidate_seed": 73,
+        "score_mean": 5.510587612553244,
+        "score_std": 2.9938632078488365,
+        "seed_scores": [
+          {
+            "seed": 111,
+            "score": 4.1764439339869615
+          },
+          {
+            "seed": 112,
+            "score": 9.657583422941588
+          },
+          {
+            "seed": 113,
+            "score": 2.6977354807311804
+          }
+        ]
+      },
+      {
+        "iteration": 63,
+        "candidate_seed": 74,
+        "score_mean": 3.441890391688689,
+        "score_std": 0.4981011287628732,
+        "seed_scores": [
+          {
+            "seed": 111,
+            "score": 3.7048121995956276
+          },
+          {
+            "seed": 112,
+            "score": 3.876389904997313
+          },
+          {
+            "seed": 113,
+            "score": 2.7444690704731265
+          }
+        ]
+      },
+      {
+        "iteration": 64,
+        "candidate_seed": 75,
+        "score_mean": 5.23267567776782,
+        "score_std": 2.434929894578268,
+        "seed_scores": [
+          {
+            "seed": 111,
+            "score": 3.882620146037074
+          },
+          {
+            "seed": 112,
+            "score": 8.6511206436228
+          },
+          {
+            "seed": 113,
+            "score": 3.1642862436435886
+          }
+        ]
+      }
+    ]
+  },
+  "empirical_validation_boundary": {
+    "held_out": false,
+    "held_out_validation_configured": false,
+    "held_out_validation_completed": false,
+    "boundary_type": "not_configured",
+    "split_file_path": null,
+    "split_schema_version": null,
+    "split_id": null,
+    "split_strategy": "none_all_available_targets_used_for_selection",
+    "split_seed": null,
+    "approval_status": "none",
+    "approved_by": null,
+    "approved_at": null,
+    "policy_notes": null,
+    "holdout_policy": null,
+    "selection_data_source": "OpenNeuro ds003059 placebo resting-state summary (15 session averages)",
+    "validation_data_source": null,
+    "selection_subjects": [],
+    "validation_subjects": [],
+    "selection_subject_count": 15,
+    "validation_subject_count": 0,
+    "overlap_count": 0,
+    "selection_random_seed": 11,
+    "claim_guardrail": "No subject-disjoint held-out empirical validation is configured for Stage 2/3; current outputs report calibration and stochastic diagnostics, not independent validation.",
+    "warnings": [],
+    "limitations": [
+      "Absence of a split file must not be interpreted as evidence of held-out validation.",
+      "Seed-disjoint stochastic diagnostics are not subject-disjoint empirical validation."
+    ]
+  },
+  "best_metrics_mean": {
+    "within_network_stability": 0.05291871699626395,
+    "cross_network_communication": 0.08660411092958141,
+    "thalamic_coupling": 0.1913800460297651,
+    "hierarchical_compression": 0.07448528015619803,
+    "entropy_diversity": 0.9920664453600073,
+    "switching_rate": 0.207007007007007,
+    "metastability_proxy": 1.1782127657829289,
+    "effective_barrier_proxy": 4.820753064352433,
+    "within_group_fc": 0.05291871699626395,
+    "cross_group_fc": 0.08660411092958141,
+    "state_entropy": 0.9920664453600073,
+    "dynamic_fc_change": 1.1782127657829289
+  },
+  "multi_seed_summary": {
+    "role": "validation_seed_panel",
+    "seeds": [
+      1011,
+      1012,
+      1013,
+      1014,
+      1015
+    ],
+    "seed_count": 5,
+    "mean_metrics": {
+      "within_network_stability": 0.05291871699626395,
+      "cross_network_communication": 0.08660411092958141,
+      "thalamic_coupling": 0.1913800460297651,
+      "hierarchical_compression": 0.07448528015619803,
+      "entropy_diversity": 0.9920664453600073,
+      "switching_rate": 0.207007007007007,
+      "metastability_proxy": 1.1782127657829289,
+      "effective_barrier_proxy": 4.820753064352433,
+      "within_group_fc": 0.05291871699626395,
+      "cross_group_fc": 0.08660411092958141,
+      "state_entropy": 0.9920664453600073,
+      "dynamic_fc_change": 1.1782127657829289
+    },
+    "std_metrics": {
+      "within_network_stability": 0.029236946465399892,
+      "cross_network_communication": 0.028512675344312535,
+      "thalamic_coupling": 0.03573886307161008,
+      "hierarchical_compression": 0.07389837159222486,
+      "entropy_diversity": 0.007799310836555581,
+      "switching_rate": 0.008666610939705048,
+      "metastability_proxy": 0.045853267804676905,
+      "effective_barrier_proxy": 0.20252572524270382,
+      "within_group_fc": 0.029236946465399892,
+      "cross_group_fc": 0.028512675344312535,
+      "state_entropy": 0.007799310836555581,
+      "dynamic_fc_change": 0.045853267804676905
+    },
+    "score_mean": 2.455030496460485,
+    "score_std": 0.6511383112657401,
+    "selection_validation_seed_overlap": false
+  },
+  "version_stamp": {
+    "timestamp": "2026-05-14T15:52:04.963962+00:00",
+    "git": {
+      "repo_present": true,
+      "branch": "codex/audit-cleanup-20260507",
+      "head_present": true,
+      "commit_hash": "cf59ee0f2f4593ab069376992a6db68c19c92995",
+      "worktree_status": "dirty"
+    }
+  },
+  "empirical_subjects": [
+    "sub-001",
+    "sub-002",
+    "sub-003",
+    "sub-004",
+    "sub-006",
+    "sub-009",
+    "sub-010",
+    "sub-011",
+    "sub-012",
+    "sub-013",
+    "sub-015",
+    "sub-017",
+    "sub-018",
+    "sub-019",
+    "sub-020"
+  ],
+  "empirical_run_count": 90,
+  "perturbation_target_path": "results\\setting_seed\\run02_extraction\\stage_2_music\\empirical_perturbation_targets.yaml",
+  "empirical_provenance": {
+    "dataset_id": "ds003059",
+    "dataset_version": "1.0.0",
+    "dataset_anchor": "OpenNeuro ds003059 placebo resting-state summary (15 session averages)",
+    "subjects": [
+      "sub-001",
+      "sub-002",
+      "sub-003",
+      "sub-004",
+      "sub-006",
+      "sub-009",
+      "sub-010",
+      "sub-011",
+      "sub-012",
+      "sub-013",
+      "sub-015",
+      "sub-017",
+      "sub-018",
+      "sub-019",
+      "sub-020"
+    ],
+    "subject_count": 15,
+    "sessions": [
+      "ses-LSD",
+      "ses-PLCB"
+    ],
+    "runs": [
+      "sub-001/ses-LSD/func/sub-001_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "sub-001/ses-LSD/func/sub-001_ses-LSD_task-rest_run-02_bold.nii.gz",
+      "sub-001/ses-LSD/func/sub-001_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "sub-001/ses-PLCB/func/sub-001_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "sub-001/ses-PLCB/func/sub-001_ses-PLCB_task-rest_run-02_bold.nii.gz",
+      "sub-001/ses-PLCB/func/sub-001_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "sub-002/ses-LSD/func/sub-002_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "sub-002/ses-LSD/func/sub-002_ses-LSD_task-rest_run-02_bold.nii.gz",
+      "sub-002/ses-LSD/func/sub-002_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "sub-002/ses-PLCB/func/sub-002_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "sub-002/ses-PLCB/func/sub-002_ses-PLCB_task-rest_run-02_bold.nii.gz",
+      "sub-002/ses-PLCB/func/sub-002_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "sub-003/ses-LSD/func/sub-003_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "sub-003/ses-LSD/func/sub-003_ses-LSD_task-rest_run-02_bold.nii.gz",
+      "sub-003/ses-LSD/func/sub-003_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "sub-003/ses-PLCB/func/sub-003_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "sub-003/ses-PLCB/func/sub-003_ses-PLCB_task-rest_run-02_bold.nii.gz",
+      "sub-003/ses-PLCB/func/sub-003_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "sub-004/ses-LSD/func/sub-004_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "sub-004/ses-LSD/func/sub-004_ses-LSD_task-rest_run-02_bold.nii.gz",
+      "sub-004/ses-LSD/func/sub-004_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "sub-004/ses-PLCB/func/sub-004_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "sub-004/ses-PLCB/func/sub-004_ses-PLCB_task-rest_run-02_bold.nii.gz",
+      "sub-004/ses-PLCB/func/sub-004_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "sub-006/ses-LSD/func/sub-006_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "sub-006/ses-LSD/func/sub-006_ses-LSD_task-rest_run-02_bold.nii.gz",
+      "sub-006/ses-LSD/func/sub-006_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "sub-006/ses-PLCB/func/sub-006_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "sub-006/ses-PLCB/func/sub-006_ses-PLCB_task-rest_run-02_bold.nii.gz",
+      "sub-006/ses-PLCB/func/sub-006_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "sub-009/ses-LSD/func/sub-009_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "sub-009/ses-LSD/func/sub-009_ses-LSD_task-rest_run-02_bold.nii.gz",
+      "sub-009/ses-LSD/func/sub-009_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "sub-009/ses-PLCB/func/sub-009_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "sub-009/ses-PLCB/func/sub-009_ses-PLCB_task-rest_run-02_bold.nii.gz",
+      "sub-009/ses-PLCB/func/sub-009_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "sub-010/ses-LSD/func/sub-010_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "sub-010/ses-LSD/func/sub-010_ses-LSD_task-rest_run-02_bold.nii.gz",
+      "sub-010/ses-LSD/func/sub-010_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "sub-010/ses-PLCB/func/sub-010_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "sub-010/ses-PLCB/func/sub-010_ses-PLCB_task-rest_run-02_bold.nii.gz",
+      "sub-010/ses-PLCB/func/sub-010_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "sub-011/ses-LSD/func/sub-011_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "sub-011/ses-LSD/func/sub-011_ses-LSD_task-rest_run-02_bold.nii.gz",
+      "sub-011/ses-LSD/func/sub-011_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "sub-011/ses-PLCB/func/sub-011_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "sub-011/ses-PLCB/func/sub-011_ses-PLCB_task-rest_run-02_bold.nii.gz",
+      "sub-011/ses-PLCB/func/sub-011_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "sub-012/ses-LSD/func/sub-012_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "sub-012/ses-LSD/func/sub-012_ses-LSD_task-rest_run-02_bold.nii.gz",
+      "sub-012/ses-LSD/func/sub-012_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "sub-012/ses-PLCB/func/sub-012_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "sub-012/ses-PLCB/func/sub-012_ses-PLCB_task-rest_run-02_bold.nii.gz",
+      "sub-012/ses-PLCB/func/sub-012_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "sub-013/ses-LSD/func/sub-013_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "sub-013/ses-LSD/func/sub-013_ses-LSD_task-rest_run-02_bold.nii.gz",
+      "sub-013/ses-LSD/func/sub-013_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "sub-013/ses-PLCB/func/sub-013_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "sub-013/ses-PLCB/func/sub-013_ses-PLCB_task-rest_run-02_bold.nii.gz",
+      "sub-013/ses-PLCB/func/sub-013_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "sub-015/ses-LSD/func/sub-015_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "sub-015/ses-LSD/func/sub-015_ses-LSD_task-rest_run-02_bold.nii.gz",
+      "sub-015/ses-LSD/func/sub-015_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "sub-015/ses-PLCB/func/sub-015_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "sub-015/ses-PLCB/func/sub-015_ses-PLCB_task-rest_run-02_bold.nii.gz",
+      "sub-015/ses-PLCB/func/sub-015_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "sub-017/ses-LSD/func/sub-017_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "sub-017/ses-LSD/func/sub-017_ses-LSD_task-rest_run-02_bold.nii.gz",
+      "sub-017/ses-LSD/func/sub-017_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "sub-017/ses-PLCB/func/sub-017_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "sub-017/ses-PLCB/func/sub-017_ses-PLCB_task-rest_run-02_bold.nii.gz",
+      "sub-017/ses-PLCB/func/sub-017_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "sub-018/ses-LSD/func/sub-018_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "sub-018/ses-LSD/func/sub-018_ses-LSD_task-rest_run-02_bold.nii.gz",
+      "sub-018/ses-LSD/func/sub-018_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "sub-018/ses-PLCB/func/sub-018_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "sub-018/ses-PLCB/func/sub-018_ses-PLCB_task-rest_run-02_bold.nii.gz",
+      "sub-018/ses-PLCB/func/sub-018_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "sub-019/ses-LSD/func/sub-019_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "sub-019/ses-LSD/func/sub-019_ses-LSD_task-rest_run-02_bold.nii.gz",
+      "sub-019/ses-LSD/func/sub-019_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "sub-019/ses-PLCB/func/sub-019_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "sub-019/ses-PLCB/func/sub-019_ses-PLCB_task-rest_run-02_bold.nii.gz",
+      "sub-019/ses-PLCB/func/sub-019_ses-PLCB_task-rest_run-03_bold.nii.gz",
+      "sub-020/ses-LSD/func/sub-020_ses-LSD_task-rest_run-01_bold.nii.gz",
+      "sub-020/ses-LSD/func/sub-020_ses-LSD_task-rest_run-02_bold.nii.gz",
+      "sub-020/ses-LSD/func/sub-020_ses-LSD_task-rest_run-03_bold.nii.gz",
+      "sub-020/ses-PLCB/func/sub-020_ses-PLCB_task-rest_run-01_bold.nii.gz",
+      "sub-020/ses-PLCB/func/sub-020_ses-PLCB_task-rest_run-02_bold.nii.gz",
+      "sub-020/ses-PLCB/func/sub-020_ses-PLCB_task-rest_run-03_bold.nii.gz"
+    ],
+    "run_count": 90,
+    "target_paths": {
+      "sober": "results\\setting_seed\\run02_extraction\\stage_2_music\\empirical_sober_targets.yaml",
+      "perturbation": "results\\setting_seed\\run02_extraction\\stage_2_music\\empirical_perturbation_targets.yaml"
+    },
+    "viewer_cache_paths": {
+      "group_overview_path": "results\\setting_seed\\run02_extraction\\stage_2_music\\empirical_viewer\\group_overview.json",
+      "subject_index_path": "results\\setting_seed\\run02_extraction\\stage_2_music\\empirical_viewer\\subject_index.json",
+      "subject_views_dir": "results\\setting_seed\\run02_extraction\\stage_2_music\\empirical_viewer\\subject_views"
+    },
+    "notes": [
+      "Canonical Stage 2 provenance reflects the full empirical cohort used to derive the fitted targets.",
+      "The single-subject MVP subset helper is written separately as a convenience bootstrap artifact and is not the canonical fit provenance."
+    ],
+    "cache_schema_version": 1,
+    "cache_fingerprint": "dd3b4e755465bcc094eb847065666ac442b51516970461f93caa45d54574ec90",
+    "cache_created_at_utc": "2026-05-14T14:22:35.946670+00:00",
+    "cache_artifact_hashes": {
+      "empirical_sober_targets.yaml": "02f7e345a655339a587f6179c6829bd179771dc197328378c731d44cbf44093a",
+      "empirical_perturbation_targets.yaml": "b1dd1745581bd14961023c9f7494ca71784b1a70c44946df2791a87a34d61381",
+      "ds003059_rest_manifest.json": "f2aac30be144a235140a5e85dfc803469ca133ff669b9a2000f7daa3dcd4b2bb",
+      "empirical_run_summaries.json": "d0b82b1e63266782a11ce295b3f3b361959975605e3590b880c42867d3a6042c"
+    },
+    "preprocessing_qc": {
+      "input_run_count": 90,
+      "output_record_count": 90,
+      "excluded_count": 0,
+      "missing_values": 0,
+      "nonfinite_values": 0,
+      "zero_timepoint_record_count": 0,
+      "timepoints": {
+        "min": 217,
+        "max": 217,
+        "mean": 217.0
+      },
+      "transformations_applied": [
+        "Filter to ses-LSD/ses-PLCB, task-rest, selected runs: run-01, run-02, run-03.",
+        "Extract Harvard-Oxford-derived macro-module means with NiftiLabelsMasker standardize=zscore_sample when available.",
+        "Use manual ROI averaging plus sample z-scoring as a fallback extraction path."
+      ],
+      "parcellation": {
+        "parcellation_id": "harvard_oxford_8_module_proxy",
+        "atlas_source": "Harvard-Oxford cortical/subcortical atlases via Nilearn/FSL.",
+        "module_count": 8,
+        "module_names": [
+          "visual",
+          "auditory",
+          "salience",
+          "default_mode",
+          "executive_frontoparietal",
+          "limbic_affective",
+          "thalamic_gateway",
+          "sensorimotor"
+        ],
+        "conflict_resolution_policy": "Overlapping atlas labels are assigned in MODULE_NAMES order.",
+        "mapping_fingerprint": "f3b1bb7553b323df5a45dac39077603cb897fe9f180c1883152ae3b0c3129af4"
+      },
+      "exclusion_policy": {
+        "kept_sessions": [
+          "ses-LSD",
+          "ses-PLCB"
+        ],
+        "kept_runs": [
+          "run-01",
+          "run-02",
+          "run-03"
+        ],
+        "excluded_reasons": [
+          "appledouble_sidecar",
+          "non_rest_task",
+          "wrong_session",
+          "non_nifti_bold",
+          "missing_func_directory"
+        ]
+      },
+      "warnings": [],
+      "limitations": [
+        "The repository consumes the ds003059 derivative BOLD files; it does not rerun full scanner-level preprocessing.",
+        "No motion, FD/DVARS, confound-regression, or censoring summary is derived in this lightweight QC layer.",
+        "The 8-module mapping is a transparent proxy, not a canonical functional parcellation."
+      ]
+    }
+  },
+  "empirical_data_quality_path": "results\\setting_seed\\run02_extraction\\stage_2_music\\empirical_data_quality.json",
+  "empirical_viewer": {
+    "group_overview_path": "results\\setting_seed\\run02_extraction\\stage_2_music\\empirical_viewer\\group_overview.json",
+    "subject_index_path": "results\\setting_seed\\run02_extraction\\stage_2_music\\empirical_viewer\\subject_index.json",
+    "subject_views_dir": "results\\setting_seed\\run02_extraction\\stage_2_music\\empirical_viewer\\subject_views"
+  },
+  "empirical_gallery": [
+    {
+      "label": "Empirical group traces",
+      "path": "results\\setting_seed\\run02_extraction\\stage_2_music\\figures\\empirical_group_traces.html"
+    },
+    {
+      "label": "Empirical placebo FC",
+      "path": "results\\setting_seed\\run02_extraction\\stage_2_music\\figures\\empirical_placebo_fc.html"
+    },
+    {
+      "label": "Empirical LSD FC",
+      "path": "results\\setting_seed\\run02_extraction\\stage_2_music\\figures\\empirical_lsd_fc.html"
+    },
+    {
+      "label": "Empirical FC delta",
+      "path": "results\\setting_seed\\run02_extraction\\stage_2_music\\figures\\empirical_fc_delta.html"
+    },
+    {
+      "label": "Empirical metric deltas",
+      "path": "results\\setting_seed\\run02_extraction\\stage_2_music\\figures\\empirical_metric_deltas.html"
+    }
+  ]
+}

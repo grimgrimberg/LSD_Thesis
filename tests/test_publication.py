@@ -21,6 +21,8 @@ def _write_publication_fixture(
     repo_root: Path,
     *,
     stage2_provenance: dict[str, object] | None = None,
+    empirical_validation_boundary: dict[str, object] | None = None,
+    stage3_payload: object | None = None,
     stage4_payload: object | None = None,
     condition_models: object | None = None,
     empirical_target_deltas: dict[str, object] | None = None,
@@ -37,8 +39,8 @@ def _write_publication_fixture(
     _write_json(
         repo_root / "results" / "stage_1" / "stage_1_summary.json",
         {
-            "baseline": {"state_entropy": 0.9890194745077442},
-            "perturbed": {"state_entropy": 0.9975767208489842},
+            "baseline": {"state_entropy": 0.9890194745077442, "switching_rate": 0.1471},
+            "perturbed": {"state_entropy": 0.9975767208489842, "switching_rate": 0.2032},
         },
     )
     _write_json(
@@ -64,11 +66,23 @@ def _write_publication_fixture(
                 "subject_count": 15,
                 "run_count": 60,
             },
+            "empirical_validation_boundary": empirical_validation_boundary
+            or {
+                "held_out_validation_configured": False,
+                "held_out_validation_completed": False,
+                "held_out": False,
+                "split_strategy": "none_all_available_targets_used_for_selection",
+                "selection_subject_count": 15,
+                "validation_subject_count": 0,
+                "overlap_count": 0,
+                "claim_guardrail": "No subject-disjoint held-out validation is configured.",
+            },
         },
     )
     _write_json(
         repo_root / "results" / "stage_3" / "stage_3_summary.json",
-        {
+        stage3_payload
+        or {
             "best_mechanism": "less_hierarchical_constraint",
             "best_strength": 0.25,
             "best_score": 3481.5367151083433,
@@ -173,6 +187,45 @@ def test_build_publication_evidence_collects_stage_metrics(tmp_path: Path) -> No
     assert evidence.stage4.best_pair_score > evidence.stage4.best_single_score
     assert evidence.sign_mismatches == ["within_network_stability"]
     assert "metastability_proxy" not in evidence.sign_mismatches
+    assert evidence.stage2.validation_boundary.configured is False
+    assert evidence.stage2.validation_boundary.completed is False
+
+
+def test_build_publication_evidence_collects_optional_rocket_benchmark(tmp_path: Path) -> None:
+    repo_root = tmp_path / "repo"
+    _write_publication_fixture(repo_root)
+    rocket_dir = repo_root / "results" / "training" / "rocket_condition_benchmark"
+    rocket_dir.mkdir(parents=True)
+    _write_json(
+        rocket_dir / "comparison_summary.json",
+        {
+            "schema_version": "rocket_condition_benchmark.v1",
+            "model": "rocket_random_convolution_features_logistic_regression",
+            "cv_strategy": "approved CV5 subject-disjoint manifest",
+            "primary_evaluation_unit": "subject_session_run_aggregated_windows",
+            "primary_metric_source": "subject/session/run mean probability after subject-disjoint fold prediction",
+            "window_random_reporting": False,
+            "dataset": {"sample_count": 600, "subject_count": 15, "fold_count": 5},
+            "rocket": {"n_kernels": 128, "feature_count": 256},
+            "aggregate": {
+                "accuracy_mean": 0.633,
+                "accuracy_std": 0.145,
+                "balanced_accuracy_mean": 0.633,
+                "balanced_accuracy_std": 0.145,
+                "roc_auc_mean": 0.744,
+                "roc_auc_std": 0.147,
+            },
+            "claim_guardrail": "Internal subject-disjoint proxy classification diagnostic only.",
+        },
+    )
+
+    evidence = build_publication_evidence(repo_root)
+
+    assert evidence.rocket_benchmark is not None
+    assert evidence.rocket_benchmark["cv_strategy"] == "approved CV5 subject-disjoint manifest"
+    assert evidence.rocket_benchmark["primary_evaluation_unit"] == "subject_session_run_aggregated_windows"
+    assert evidence.rocket_benchmark["balanced_accuracy_mean"] == 0.633
+    assert evidence.rocket_benchmark["roc_auc_mean"] == 0.744
 
 
 def test_build_publication_evidence_normalizes_dict_models_payload(tmp_path: Path) -> None:
@@ -190,6 +243,42 @@ def test_build_publication_evidence_normalizes_dict_models_payload(tmp_path: Pat
             "balanced_accuracy": 0.595,
         }
     ]
+
+
+def test_publication_content_ranks_nested_aggregate_model_scores(tmp_path: Path) -> None:
+    from lsd_thesis.publication_content import build_defense_outline_markdown, build_thesis_report_markdown
+    from lsd_thesis.publication_figures import PublicationFigure
+
+    repo_root = tmp_path / "repo"
+    _write_publication_fixture(
+        repo_root,
+        condition_models=[
+            {"name": "top_level_model", "balanced_accuracy": 0.51},
+            {"name": "nested_model", "aggregate": {"balanced_accuracy_mean": 0.76}},
+        ],
+    )
+
+    evidence = build_publication_evidence(repo_root)
+    figures = {
+        "stage1_metric_shift": PublicationFigure(
+            figure_id="stage1_metric_shift",
+            path=tmp_path / "stage1.png",
+            caption="Stage 1.",
+            limitations="Proxy only.",
+        ),
+        "stage2_fit_robustness": PublicationFigure(
+            figure_id="stage2_fit_robustness",
+            path=tmp_path / "stage2.png",
+            caption="Stage 2.",
+            limitations="Proxy only.",
+        ),
+    }
+    report = build_thesis_report_markdown(evidence, figures)
+    outline = build_defense_outline_markdown(evidence)
+
+    assert "nested_model" in report
+    assert "top_level_model" not in report
+    assert "talking points" in outline.lower()
 
 
 def test_build_publication_evidence_rejects_non_mapping_yaml_payload(tmp_path: Path) -> None:
@@ -227,6 +316,111 @@ def test_build_publication_evidence_rejects_missing_stage2_provenance_fields(tmp
     )
 
     with pytest.raises(ValueError, match="Stage 2 provenance"):
+        build_publication_evidence(repo_root)
+
+
+def test_build_publication_evidence_rejects_false_completed_holdout_claim(tmp_path: Path) -> None:
+    repo_root = tmp_path / "repo"
+    _write_publication_fixture(
+        repo_root,
+        empirical_validation_boundary={
+            "held_out_validation_configured": False,
+            "held_out_validation_completed": True,
+            "held_out": True,
+            "split_strategy": "none_all_available_targets_used_for_selection",
+            "selection_subject_count": 15,
+            "validation_subject_count": 0,
+            "overlap_count": 0,
+            "claim_guardrail": "invalid fixture",
+        },
+    )
+
+    with pytest.raises(ValueError, match="held-out validation"):
+        build_publication_evidence(repo_root)
+
+
+def test_build_publication_evidence_rejects_candidate_completed_holdout_claim(tmp_path: Path) -> None:
+    repo_root = tmp_path / "repo"
+    _write_publication_fixture(
+        repo_root,
+        empirical_validation_boundary={
+            "held_out_validation_configured": True,
+            "held_out_validation_completed": True,
+            "held_out": True,
+            "split_id": "candidate_fixture",
+            "split_strategy": "subject_disjoint",
+            "approval_status": "candidate",
+            "selection_subject_count": 12,
+            "validation_subject_count": 3,
+            "overlap_count": 0,
+            "claim_guardrail": "invalid fixture",
+        },
+    )
+
+    with pytest.raises(ValueError, match="approved split"):
+        build_publication_evidence(repo_root)
+
+
+def test_build_publication_evidence_prefers_completed_stage3_holdout_boundary(tmp_path: Path) -> None:
+    repo_root = tmp_path / "repo"
+    _write_publication_fixture(
+        repo_root,
+        empirical_validation_boundary={
+            "held_out_validation_configured": True,
+            "held_out_validation_completed": False,
+            "held_out": False,
+            "split_id": "approved_fixture",
+            "split_strategy": "subject_disjoint",
+            "approval_status": "approved",
+            "selection_subject_count": 12,
+            "validation_subject_count": 3,
+            "overlap_count": 0,
+            "claim_guardrail": "Approved split configured, not completed.",
+        },
+        stage3_payload={
+            "best_mechanism": "less_hierarchical_constraint",
+            "best_strength": 0.25,
+            "best_score": 3481.5367151083433,
+            "empirical_validation_boundary": {
+                "held_out_validation_configured": True,
+                "held_out_validation_completed": True,
+                "held_out": True,
+                "split_id": "approved_fixture",
+                "split_strategy": "subject_disjoint",
+                "approval_status": "approved",
+                "selection_subject_count": 12,
+                "validation_subject_count": 3,
+                "overlap_count": 0,
+                "claim_guardrail": "Subject-disjoint held-out validation has been completed and recorded.",
+            },
+        },
+    )
+
+    evidence = build_publication_evidence(repo_root)
+
+    assert evidence.stage2.validation_boundary.completed is True
+    assert evidence.stage2.validation_boundary.approval_status == "approved"
+
+
+def test_build_publication_evidence_rejects_cv5_completed_without_internal_caveats(tmp_path: Path) -> None:
+    repo_root = tmp_path / "repo"
+    _write_publication_fixture(repo_root)
+    cv5_dir = repo_root / "output" / "validation" / "cv5_subject_disjoint" / "results"
+    cv5_dir.mkdir(parents=True)
+    _write_json(
+        cv5_dir / "cv5_aggregate_validation.json",
+        {
+            "approval_status": "approved",
+            "validation_claim_scope": "preliminary_internal_subject_disjoint_cv5",
+            "held_out_validation_completed": True,
+            "all_folds_completed": True,
+            "all_subjects_held_out_once": True,
+            "limitations": ["Internal validation only"],
+            "warnings": [],
+        },
+    )
+
+    with pytest.raises(ValueError, match="missing required caveat"):
         build_publication_evidence(repo_root)
 
 

@@ -1,0 +1,14 @@
+{
+  "schema_version": "setting_seed_motion_summary.v1",
+  "status": "unavailable_not_found",
+  "motion_files_present": false,
+  "motion_analysis_ready": false,
+  "motion_summary_schema_valid": false,
+  "fd_threshold": 0.5,
+  "motion_summary_files": [],
+  "parsed_summary_count": 0,
+  "unusable_file_count": 0,
+  "coverage_by_run": {},
+  "summaries": [],
+  "claim_guardrail": "Motion sensitivity is unavailable until structured subject/session/run confounds are parsed."
+}

@@ -1,0 +1,163 @@
+{
+  "record_count": 90,
+  "subjects": [
+    "sub-001",
+    "sub-002",
+    "sub-003",
+    "sub-004",
+    "sub-006",
+    "sub-009",
+    "sub-010",
+    "sub-011",
+    "sub-012",
+    "sub-013",
+    "sub-015",
+    "sub-017",
+    "sub-018",
+    "sub-019",
+    "sub-020"
+  ],
+  "subject_count": 15,
+  "sessions": [
+    "ses-LSD",
+    "ses-PLCB"
+  ],
+  "runs": [
+    "run-01",
+    "run-02",
+    "run-03"
+  ],
+  "session_run_counts": {
+    "ses-LSD": {
+      "run-01": 15,
+      "run-02": 15,
+      "run-03": 15
+    },
+    "ses-PLCB": {
+      "run-01": 15,
+      "run-02": 15,
+      "run-03": 15
+    }
+  },
+  "paired_subjects": [
+    "sub-001",
+    "sub-002",
+    "sub-003",
+    "sub-004",
+    "sub-006",
+    "sub-009",
+    "sub-010",
+    "sub-011",
+    "sub-012",
+    "sub-013",
+    "sub-015",
+    "sub-017",
+    "sub-018",
+    "sub-019",
+    "sub-020"
+  ],
+  "paired_subject_count": 15,
+  "complete_subjects": [
+    "sub-001",
+    "sub-002",
+    "sub-003",
+    "sub-004",
+    "sub-006",
+    "sub-009",
+    "sub-010",
+    "sub-011",
+    "sub-012",
+    "sub-013",
+    "sub-015",
+    "sub-017",
+    "sub-018",
+    "sub-019",
+    "sub-020"
+  ],
+  "complete_subject_count": 15,
+  "timepoints": {
+    "min": 217,
+    "max": 217,
+    "mean": 217.0
+  },
+  "sign_conflicts": [
+    {
+      "metric": "entropy_diversity",
+      "empirical_delta": -0.0022526077494528915,
+      "literature_delta": 0.25
+    },
+    {
+      "metric": "metastability_proxy",
+      "empirical_delta": -0.05396035374137747,
+      "literature_delta": 0.2
+    },
+    {
+      "metric": "within_network_stability",
+      "empirical_delta": 0.06609328671299262,
+      "literature_delta": -0.3
+    }
+  ],
+  "preprocessing_qc": {
+    "input_run_count": 90,
+    "output_record_count": 90,
+    "excluded_count": 0,
+    "missing_values": 0,
+    "nonfinite_values": 0,
+    "zero_timepoint_record_count": 0,
+    "timepoints": {
+      "min": 217,
+      "max": 217,
+      "mean": 217.0
+    },
+    "transformations_applied": [
+      "Filter to ses-LSD/ses-PLCB, task-rest, selected runs: run-01, run-03.",
+      "Extract Harvard-Oxford-derived macro-module means with NiftiLabelsMasker standardize=zscore_sample when available.",
+      "Use manual ROI averaging plus sample z-scoring as a fallback extraction path."
+    ],
+    "parcellation": {
+      "parcellation_id": "harvard_oxford_8_module_proxy",
+      "atlas_source": "Harvard-Oxford cortical/subcortical atlases via Nilearn/FSL.",
+      "module_count": 8,
+      "module_names": [
+        "visual",
+        "auditory",
+        "salience",
+        "default_mode",
+        "executive_frontoparietal",
+        "limbic_affective",
+        "thalamic_gateway",
+        "sensorimotor"
+      ],
+      "conflict_resolution_policy": "Overlapping atlas labels are assigned in MODULE_NAMES order.",
+      "mapping_fingerprint": "f3b1bb7553b323df5a45dac39077603cb897fe9f180c1883152ae3b0c3129af4"
+    },
+    "exclusion_policy": {
+      "kept_sessions": [
+        "ses-LSD",
+        "ses-PLCB"
+      ],
+      "kept_runs": [
+        "run-01",
+        "run-03"
+      ],
+      "excluded_reasons": [
+        "appledouble_sidecar",
+        "non_rest_task",
+        "run_02_music",
+        "wrong_session",
+        "non_nifti_bold",
+        "missing_func_directory"
+      ]
+    },
+    "warnings": [],
+    "limitations": [
+      "The repository consumes the ds003059 derivative BOLD files; it does not rerun full scanner-level preprocessing.",
+      "No motion, FD/DVARS, confound-regression, or censoring summary is derived in this lightweight QC layer.",
+      "The 8-module mapping is a transparent proxy, not a canonical functional parcellation."
+    ]
+  },
+  "notes": [
+    "Completeness expects ses-LSD and ses-PLCB, each with run-01, run-03.",
+    "Sign conflicts compare current ds003059 deltas with the literature-style target file."
+  ]
+}

@@ -1,11 +1,27 @@
 from __future__ import annotations
 
 import json
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
 import yaml
+
+
+@dataclass(slots=True)
+class SubjectValidationEvidence:
+    configured: bool = False
+    completed: bool = False
+    approval_status: str = "none"
+    split_id: str | None = None
+    split_strategy: str = "none_all_available_targets_used_for_selection"
+    selection_subject_count: int | None = None
+    validation_subject_count: int = 0
+    overlap_count: int = 0
+    split_file_path: str | None = None
+    split_schema_version: int | None = None
+    split_seed: int | None = None
+    claim_guardrail: str = "No subject-disjoint held-out validation is configured."
 
 
 @dataclass(slots=True)
@@ -18,6 +34,7 @@ class Stage2Evidence:
     best_metrics: dict[str, float]
     multi_seed_mean: dict[str, float]
     multi_seed_std: dict[str, float]
+    validation_boundary: SubjectValidationEvidence = field(default_factory=SubjectValidationEvidence)
 
 
 @dataclass(slots=True)
@@ -25,6 +42,10 @@ class Stage3Evidence:
     best_mechanism: str
     best_strength: float
     best_score: float
+    robust_best_mechanism: str | None = None
+    robust_best_strength: float | None = None
+    robust_best_score_mean: float | None = None
+    robust_best_score_std: float | None = None
 
 
 @dataclass(slots=True)
@@ -46,6 +67,8 @@ class PublicationEvidence:
     condition_models: list[dict[str, Any]]
     multitask_models: list[dict[str, Any]]
     sign_mismatches: list[str]
+    rocket_benchmark: dict[str, Any] | None = None
+    cv5_validation: dict[str, Any] | None = None
 
 
 def _read_json(path: Path) -> dict[str, Any]:
@@ -136,6 +159,48 @@ def _extract_models(raw: Any, source: Path) -> list[dict[str, Any]]:
     raise ValueError(f"Expected 'models' in {source} to be a list or object, got {type(models).__name__}.")
 
 
+def _optional_float(raw: dict[str, Any], key: str) -> float | None:
+    value = raw.get(key)
+    return None if value is None else float(value)
+
+
+def _extract_rocket_benchmark(path: Path) -> dict[str, Any] | None:
+    if not path.exists():
+        return None
+    raw = _read_json(path)
+    aggregate = raw.get("aggregate")
+    dataset = raw.get("dataset")
+    rocket = raw.get("rocket")
+    if not isinstance(aggregate, dict):
+        raise ValueError(f"Missing or invalid 'aggregate' in {path}.")
+    if not isinstance(dataset, dict):
+        raise ValueError(f"Missing or invalid 'dataset' in {path}.")
+    if not isinstance(rocket, dict):
+        raise ValueError(f"Missing or invalid 'rocket' in {path}.")
+    return {
+        "schema_version": str(raw.get("schema_version") or ""),
+        "model": str(raw.get("model") or ""),
+        "cv_strategy": str(raw.get("cv_strategy") or ""),
+        "primary_evaluation_unit": str(raw.get("primary_evaluation_unit") or ""),
+        "primary_metric_source": str(raw.get("primary_metric_source") or ""),
+        "window_random_reporting": bool(raw.get("window_random_reporting")),
+        "sample_count": int(dataset.get("sample_count", 0)),
+        "subject_count": int(dataset.get("subject_count", 0)),
+        "fold_count": int(dataset.get("fold_count", 0)),
+        "n_kernels": int(rocket.get("n_kernels", 0)),
+        "feature_count": int(rocket.get("feature_count", 0)),
+        "accuracy_mean": _optional_float(aggregate, "accuracy_mean"),
+        "accuracy_std": _optional_float(aggregate, "accuracy_std"),
+        "balanced_accuracy_mean": _optional_float(aggregate, "balanced_accuracy_mean"),
+        "balanced_accuracy_std": _optional_float(aggregate, "balanced_accuracy_std"),
+        "roc_auc_mean": _optional_float(aggregate, "roc_auc_mean"),
+        "roc_auc_std": _optional_float(aggregate, "roc_auc_std"),
+        "claim_guardrail": str(raw.get("claim_guardrail") or ""),
+        "comparison_summary_path": "results/training/rocket_condition_benchmark/comparison_summary.json",
+        "benchmark_report_path": "results/training/rocket_condition_benchmark/benchmark_report.md",
+    }
+
+
 def _is_publication_sign_mismatch(empirical_value: float, literature_value: float) -> bool:
     if empirical_value == 0.0 or literature_value == 0.0:
         return False
@@ -149,6 +214,117 @@ def _require_target_deltas(raw: dict[str, Any], source: Path) -> dict[str, Any]:
     return target_deltas
 
 
+def _optional_int(value: Any) -> int | None:
+    if value is None:
+        return None
+    return int(value)
+
+
+def _extract_subject_validation_evidence(
+    raw: dict[str, Any],
+    source: Path,
+) -> SubjectValidationEvidence:
+    boundary = raw.get("empirical_validation_boundary")
+    if boundary is None:
+        return SubjectValidationEvidence()
+    if not isinstance(boundary, dict):
+        raise ValueError(f"Expected 'empirical_validation_boundary' in {source} to be an object.")
+
+    legacy_held_out = boundary.get("held_out")
+    configured = bool(boundary.get("held_out_validation_configured", legacy_held_out is True))
+    completed = bool(boundary.get("held_out_validation_completed", legacy_held_out is True))
+    validation_count = int(boundary.get("validation_subject_count") or 0)
+    overlap_count = int(boundary.get("overlap_count") or 0)
+
+    if legacy_held_out is True and not completed:
+        raise ValueError(
+            f"Inconsistent held-out validation metadata in {source}: legacy held_out is true but completion is false."
+        )
+    if completed and not configured:
+        raise ValueError(f"Inconsistent held-out validation metadata in {source}: completed without configured split.")
+    if completed and validation_count <= 0:
+        raise ValueError(f"Inconsistent held-out validation metadata in {source}: held-out validation completed with no validation subjects.")
+    if completed and overlap_count != 0:
+        raise ValueError(f"Inconsistent held-out validation metadata in {source}: held-out validation completed with subject overlap.")
+    approval_status = str(
+        boundary.get("approval_status")
+        or ("approved" if completed else "candidate" if configured else "none")
+    )
+    if completed and approval_status != "approved":
+        raise ValueError(
+            f"Inconsistent held-out validation metadata in {source}: completed validation requires an approved split."
+        )
+
+    return SubjectValidationEvidence(
+        configured=configured,
+        completed=completed,
+        approval_status=approval_status,
+        split_id=(
+            str(boundary["split_id"])
+            if boundary.get("split_id") is not None
+            else None
+        ),
+        split_strategy=str(boundary.get("split_strategy") or "unknown"),
+        selection_subject_count=_optional_int(boundary.get("selection_subject_count")),
+        validation_subject_count=validation_count,
+        overlap_count=overlap_count,
+        split_file_path=(
+            str(boundary["split_file_path"])
+            if boundary.get("split_file_path") is not None
+            else None
+        ),
+        split_schema_version=_optional_int(boundary.get("split_schema_version")),
+        split_seed=_optional_int(boundary.get("split_seed")),
+        claim_guardrail=str(
+            boundary.get("claim_guardrail")
+            or "No subject-disjoint held-out validation is configured."
+        ),
+    )
+
+
+def _validation_boundary_source(
+    stage2_raw: dict[str, Any],
+    stage2_path: Path,
+    stage3_raw: dict[str, Any],
+    stage3_path: Path,
+) -> tuple[dict[str, Any], Path]:
+    stage3_boundary = stage3_raw.get("empirical_validation_boundary")
+    if (
+        isinstance(stage3_boundary, dict)
+        and stage3_boundary.get("held_out_validation_completed") is True
+    ):
+        return stage3_raw, stage3_path
+    return stage2_raw, stage2_path
+
+
+def _extract_cv5_validation(path: Path) -> dict[str, Any] | None:
+    if not path.exists():
+        return None
+    raw = _read_json(path)
+    completed = raw.get("held_out_validation_completed") is True
+    if completed:
+        if raw.get("approval_status") != "approved":
+            raise ValueError(f"Inconsistent CV5 validation metadata in {path}: completed validation requires approval.")
+        if raw.get("all_folds_completed") is not True:
+            raise ValueError(f"Inconsistent CV5 validation metadata in {path}: completed validation requires all folds.")
+        if raw.get("all_subjects_held_out_once") is not True:
+            raise ValueError(
+                f"Inconsistent CV5 validation metadata in {path}: completed validation requires exact-once held-out coverage."
+            )
+        scope = str(raw.get("validation_claim_scope") or "")
+        if "internal" not in scope or "external" in scope:
+            raise ValueError(f"Inconsistent CV5 validation metadata in {path}: scope must remain internal-only.")
+        limitations = " ".join(str(item) for item in raw.get("limitations", []))
+        warnings = " ".join(str(item) for item in raw.get("warnings", []))
+        caveats = f"{limitations} {warnings}".lower()
+        for required in ("not external", "n=3", "motion", "fd/dvars"):
+            if required not in caveats:
+                raise ValueError(
+                    f"Inconsistent CV5 validation metadata in {path}: missing required caveat {required!r}."
+                )
+    return raw
+
+
 def build_publication_evidence(repo_root: Path) -> PublicationEvidence:
     stage1_path = repo_root / "results" / "stage_1" / "stage_1_summary.json"
     stage2_path = repo_root / "results" / "stage_2" / "stage_2_summary.json"
@@ -158,6 +334,15 @@ def build_publication_evidence(repo_root: Path) -> PublicationEvidence:
     literature_path = repo_root / "configs" / "targets" / "empirical_lsd_signatures.yaml"
     condition_path = repo_root / "results" / "training" / "condition_benchmark" / "comparison_summary.json"
     multitask_path = repo_root / "results" / "training" / "multitask_benchmark" / "comparison_summary.json"
+    rocket_path = repo_root / "results" / "training" / "rocket_condition_benchmark" / "comparison_summary.json"
+    cv5_validation_path = (
+        repo_root
+        / "output"
+        / "validation"
+        / "cv5_subject_disjoint"
+        / "results"
+        / "cv5_aggregate_validation.json"
+    )
 
     stage1 = _read_json(stage1_path)
     stage2_raw = _read_json(stage2_path)
@@ -185,6 +370,12 @@ def build_publication_evidence(repo_root: Path) -> PublicationEvidence:
         if metric_name in literature_deltas
         and _is_publication_sign_mismatch(empirical_value, literature_deltas[metric_name])
     ]
+    validation_raw, validation_source = _validation_boundary_source(
+        stage2_raw,
+        stage2_path,
+        stage3_raw,
+        stage3_path,
+    )
 
     return PublicationEvidence(
         stage1=stage1,
@@ -211,16 +402,39 @@ def build_publication_evidence(repo_root: Path) -> PublicationEvidence:
                     or {}
                 ).items()
             },
+            validation_boundary=_extract_subject_validation_evidence(validation_raw, validation_source),
         ),
         stage3=Stage3Evidence(
             best_mechanism=str(stage3_raw["best_mechanism"]),
             best_strength=float(stage3_raw["best_strength"]),
             best_score=_score(stage3_raw["best_score"]),
+            robust_best_mechanism=(
+                str(stage3_raw["robust_best_mechanism"])
+                if stage3_raw.get("robust_best_mechanism") is not None
+                else None
+            ),
+            robust_best_strength=(
+                float(stage3_raw["robust_best_strength"])
+                if stage3_raw.get("robust_best_strength") is not None
+                else None
+            ),
+            robust_best_score_mean=(
+                float(stage3_raw["robust_best_score_mean"])
+                if stage3_raw.get("robust_best_score_mean") is not None
+                else None
+            ),
+            robust_best_score_std=(
+                float(stage3_raw["robust_best_score_std"])
+                if stage3_raw.get("robust_best_score_std") is not None
+                else None
+            ),
         ),
         stage4=_extract_stage4_scores(stage4_raw),
         empirical_deltas=empirical_deltas,
         literature_deltas=literature_deltas,
         condition_models=_extract_models(_read_json(condition_path), condition_path),
         multitask_models=_extract_models(_read_json(multitask_path), multitask_path),
+        rocket_benchmark=_extract_rocket_benchmark(rocket_path),
         sign_mismatches=mismatches,
+        cv5_validation=_extract_cv5_validation(cv5_validation_path),
     )

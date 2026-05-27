@@ -1,0 +1,224 @@
+{
+  "status": "candidate_leaderboard_complete",
+  "best_candidate": {
+    "label": "thalamic_routing_only",
+    "parameters": {
+      "thalamic_routing_kappa": 0.25
+    },
+    "active_parameter_count": 1,
+    "loss": 0.7624433106604079,
+    "objective": {
+      "loss": 0.7624433106604079,
+      "weighted_error": 0.7524384006752054,
+      "sign_mismatch_penalty": 0.0,
+      "overshoot_penalty": 0.0,
+      "seed_variance_penalty": 1.963994081023481e-05,
+      "sparsity_penalty": 1.0,
+      "metric_count": 13,
+      "metrics": [
+        {
+          "metric": "dynamic_fc_variance",
+          "empirical_delta": -0.000938062825,
+          "model_delta": -0.0002312076555310849,
+          "weight": 0.8,
+          "normalized_error": 0.32008752571796684,
+          "weighted_error": 0.08196481929620007,
+          "sign_match": true,
+          "overshoot": 0.0
+        },
+        {
+          "metric": "global_mean_fc",
+          "empirical_delta": 0.071510263179,
+          "model_delta": 9.741442091870667e-07,
+          "weight": 0.4,
+          "normalized_error": -0.999986377560844,
+          "weighted_error": 0.39998910212290356,
+          "sign_match": true,
+          "overshoot": 0.0
+        },
+        {
+          "metric": "gradient_flattening_delta",
+          "empirical_delta": 0.0,
+          "model_delta": 0.0,
+          "weight": 1.8,
+          "normalized_error": 0.0,
+          "weighted_error": 0.0,
+          "sign_match": true,
+          "overshoot": 0.0
+        },
+        {
+          "metric": "hierarchy_differentiation",
+          "empirical_delta": -0.000136522609,
+          "model_delta": -1.0794303125412814e-06,
+          "weight": 1.8,
+          "normalized_error": 0.007178660310513828,
+          "weighted_error": 9.275969493674369e-05,
+          "sign_match": true,
+          "overshoot": 0.0
+        },
+        {
+          "metric": "sensory_somatomotor_global_connectivity",
+          "empirical_delta": 0.057473876561,
+          "model_delta": 1.7811210057949722e-06,
+          "weight": 1.5,
+          "normalized_error": -0.999969009903066,
+          "weighted_error": 1.4999070311497773,
+          "sign_match": true,
+          "overshoot": 0.0
+        },
+        {
+          "metric": "state_occupancy_entropy",
+          "empirical_delta": 0.0,
+          "model_delta": 0.0,
+          "weight": 1.4,
+          "normalized_error": 0.0,
+          "weighted_error": 0.0,
+          "sign_match": true,
+          "overshoot": 0.0
+        },
+        {
+          "metric": "striatum_to_sensory_fc",
+          "empirical_delta": 0.0,
+          "model_delta": 1.813353137462374e-06,
+          "weight": 1.1,
+          "normalized_error": 0.001813353137462374,
+          "weighted_error": 3.617074561259099e-06,
+          "sign_match": true,
+          "overshoot": 0.0
+        },
+        {
+          "metric": "thalamus_to_sensory_fc",
+          "empirical_delta": 0.098029263352,
+          "model_delta": 4.996530694264163e-06,
+          "weight": 1.2,
+          "normalized_error": -0.9999490302127813,
+          "weighted_error": 1.199877675628178,
+          "sign_match": true,
+          "overshoot": 0.0
+        },
+        {
+          "metric": "thalamus_to_transmodal_fc",
+          "empirical_delta": 0.136334910042,
+          "model_delta": 2.8815060748588195e-07,
+          "weight": 0.8,
+          "normalized_error": -0.9999978864503054,
+          "weighted_error": 0.7999966183240623,
+          "sign_match": true,
+          "overshoot": 0.0
+        },
+        {
+          "metric": "transition_entropy",
+          "empirical_delta": 0.009576783163,
+          "model_delta": 0.0,
+          "weight": 1.4,
+          "normalized_error": -1.0,
+          "weighted_error": 1.4,
+          "sign_match": true,
+          "overshoot": 0.0
+        },
+        {
+          "metric": "transition_rate",
+          "empirical_delta": 0.018672839506,
+          "model_delta": 0.0,
+          "weight": 0.8,
+          "normalized_error": -1.0,
+          "weighted_error": 0.8,
+          "sign_match": true,
+          "overshoot": 0.0
+        },
+        {
+          "metric": "unimodal_transmodal_fc",
+          "empirical_delta": 0.047335029864,
+          "model_delta": 9.772685835388966e-07,
+          "weight": 2.0,
+          "normalized_error": -0.9999793542206196,
+          "weighted_error": 1.9999174177349748,
+          "sign_match": true,
+          "overshoot": 0.0
+        },
+        {
+          "metric": "visual_global_connectivity",
+          "empirical_delta": 0.077778302242,
+          "model_delta": 1.211218068582672e-06,
+          "weight": 1.6,
+          "normalized_error": -0.9999844273012696,
+          "weighted_error": 1.5999501677520769,
+          "sign_match": true,
+          "overshoot": 0.0
+        }
+      ]
+    },
+    "delta_summary": {
+      "dynamic_fc_variance": {
+        "mean": -0.0002312076555310849,
+        "std": 0.0002422521885183722,
+        "n": 3
+      },
+      "global_mean_fc": {
+        "mean": 9.741442091870667e-07,
+        "std": 8.526316160214743e-07,
+        "n": 3
+      },
+      "gradient_flattening_delta": {
+        "mean": 0.0,
+        "std": 0.0,
+        "n": 3
+      },
+      "hierarchy_differentiation": {
+        "mean": -1.0794303125412814e-06,
+        "std": 1.2193608986053132e-06,
+        "n": 3
+      },
+      "sensory_somatomotor_global_connectivity": {
+        "mean": 1.7811210057949722e-06,
+        "std": 1.4747168567564491e-06,
+        "n": 3
+      },
+      "state_occupancy_entropy": {
+        "mean": 0.0,
+        "std": 0.0,
+        "n": 3
+      },
+      "striatum_to_sensory_fc": {
+        "mean": 1.813353137462374e-06,
+        "std": 3.963833407652862e-06,
+        "n": 3
+      },
+      "thalamus_to_sensory_fc": {
+        "mean": 4.996530694264163e-06,
+        "std": 2.1169116145271023e-06,
+        "n": 3
+      },
+      "thalamus_to_transmodal_fc": {
+        "mean": 2.8815060748588195e-07,
+        "std": 7.990978908190526e-07,
+        "n": 3
+      },
+      "transition_entropy": {
+        "mean": 0.0,
+        "std": 0.0,
+        "n": 3
+      },
+      "transition_rate": {
+        "mean": 0.0,
+        "std": 0.0,
+        "n": 3
+      },
+      "unimodal_transmodal_fc": {
+        "mean": 9.772685835388966e-07,
+        "std": 1.3231771133857273e-06,
+        "n": 3
+      },
+      "visual_global_connectivity": {
+        "mean": 1.211218068582672e-06,
+        "std": 1.3173126169123698e-06,
+        "n": 3
+      }
+    }
+  },
+  "candidate_count": 12,
+  "notes": [
+    "Candidate perturbations are named macro-dynamic hypotheses.",
+    "Leaderboard ranking is objective-based and does not identify a true LSD mechanism."
+  ]
+}

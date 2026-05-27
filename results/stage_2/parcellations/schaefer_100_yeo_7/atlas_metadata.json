@@ -1,0 +1,11 @@
+{
+  "parcellation_id": "schaefer_100_yeo_7",
+  "atlas": "Schaefer 2018",
+  "n_rois": 100,
+  "yeo_networks": 7,
+  "resolution_mm": 2,
+  "subcortical_status": "not_extracted_yet_thalamus_caudate_putamen_todo",
+  "legacy_extraction": false,
+  "status": "metadata_ready_extraction_not_run",
+  "fetch_function": "nilearn.datasets.fetch_atlas_schaefer_2018"
+}

@@ -1,0 +1,117 @@
+{
+  "schema_version": 1,
+  "dataset_id": "ds003059",
+  "dataset_version": "1.0.0",
+  "requested_subjects": null,
+  "cached_subjects": [
+    "sub-001",
+    "sub-002",
+    "sub-003",
+    "sub-004",
+    "sub-006",
+    "sub-009",
+    "sub-010",
+    "sub-011",
+    "sub-012",
+    "sub-013",
+    "sub-015",
+    "sub-017",
+    "sub-018",
+    "sub-019",
+    "sub-020"
+  ],
+  "module_names": [
+    "visual",
+    "auditory",
+    "salience",
+    "default_mode",
+    "executive_frontoparietal",
+    "limbic_affective",
+    "thalamic_gateway",
+    "sensorimotor"
+  ],
+  "atlas_mapping_fingerprint": "f3b1bb7553b323df5a45dac39077603cb897fe9f180c1883152ae3b0c3129af4",
+  "manifest_core_fingerprint": "61872e17b7a199f56cb9d4a8ae5171246c33ad881b64bd8fa316d802961c884a",
+  "artifact_hashes": {
+    "empirical_sober_targets.yaml": "02f7e345a655339a587f6179c6829bd179771dc197328378c731d44cbf44093a",
+    "empirical_perturbation_targets.yaml": "b1dd1745581bd14961023c9f7494ca71784b1a70c44946df2791a87a34d61381",
+    "ds003059_rest_manifest.json": "f2aac30be144a235140a5e85dfc803469ca133ff669b9a2000f7daa3dcd4b2bb",
+    "empirical_run_summaries.json": "d0b82b1e63266782a11ce295b3f3b361959975605e3590b880c42867d3a6042c"
+  },
+  "selected_runs": [
+    "run-01",
+    "run-02",
+    "run-03"
+  ],
+  "include_music": true,
+  "target_runs": [
+    "run-01",
+    "run-03"
+  ],
+  "cache_fingerprint": "dd3b4e755465bcc094eb847065666ac442b51516970461f93caa45d54574ec90",
+  "created_at_utc": "2026-05-14T14:22:35.946670+00:00",
+  "preprocessing_qc": {
+    "input_run_count": 90,
+    "output_record_count": 90,
+    "excluded_count": 0,
+    "missing_values": 0,
+    "nonfinite_values": 0,
+    "zero_timepoint_record_count": 0,
+    "timepoints": {
+      "min": 217,
+      "max": 217,
+      "mean": 217.0
+    },
+    "transformations_applied": [
+      "Filter to ses-LSD/ses-PLCB, task-rest, selected runs: run-01, run-02, run-03.",
+      "Extract Harvard-Oxford-derived macro-module means with NiftiLabelsMasker standardize=zscore_sample when available.",
+      "Use manual ROI averaging plus sample z-scoring as a fallback extraction path."
+    ],
+    "parcellation": {
+      "parcellation_id": "harvard_oxford_8_module_proxy",
+      "atlas_source": "Harvard-Oxford cortical/subcortical atlases via Nilearn/FSL.",
+      "module_count": 8,
+      "module_names": [
+        "visual",
+        "auditory",
+        "salience",
+        "default_mode",
+        "executive_frontoparietal",
+        "limbic_affective",
+        "thalamic_gateway",
+        "sensorimotor"
+      ],
+      "conflict_resolution_policy": "Overlapping atlas labels are assigned in MODULE_NAMES order.",
+      "mapping_fingerprint": "f3b1bb7553b323df5a45dac39077603cb897fe9f180c1883152ae3b0c3129af4"
+    },
+    "exclusion_policy": {
+      "kept_sessions": [
+        "ses-LSD",
+        "ses-PLCB"
+      ],
+      "kept_runs": [
+        "run-01",
+        "run-02",
+        "run-03"
+      ],
+      "excluded_reasons": [
+        "appledouble_sidecar",
+        "non_rest_task",
+        "wrong_session",
+        "non_nifti_bold",
+        "missing_func_directory"
+      ]
+    },
+    "warnings": [],
+    "limitations": [
+      "The repository consumes the ds003059 derivative BOLD files; it does not rerun full scanner-level preprocessing.",
+      "No motion, FD/DVARS, confound-regression, or censoring summary is derived in this lightweight QC layer.",
+      "The 8-module mapping is a transparent proxy, not a canonical functional parcellation."
+    ]
+  },
+  "warnings": [],
+  "limitations": [
+    "The cache fingerprint covers generated target/cache artifacts and lightweight provenance, not raw NIfTI content hashes.",
+    "Git metadata is recorded by Stage 2 summaries when available; cache validation does not require a Git repository."
+  ]
+}

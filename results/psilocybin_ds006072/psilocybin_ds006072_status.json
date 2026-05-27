@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-05-27T14:20:35.820591+00:00",
+  "dataset_id": "ds006072",
+  "source": "OpenNeuro ds006072, Scientific Data 2025 psilocybin precision imaging dataset",
+  "local_data_root": "data/ds006072",
+  "viewer_root": "results/psilocybin_ds006072/empirical_viewer",
+  "metadata_manifest": "data/ds006072/ds006072_metadata_manifest.json",
+  "metadata_snapshot_tag": "1.0.8",
+  "functional_manifest": "data/ds006072/ds006072_func_manifest.json",
+  "functional_manifest_rest_bold_nifti_count": 3023,
+  "functional_manifest_rest_bold_total_size_bytes": 2644249652000,
+  "functional_manifest_processed_rest_cifti_count": 124,
+  "functional_manifest_processed_cifti_total_size_bytes": 113592893360,
+  "external_validation_readiness": {
+    "schema_version": "ds006072_external_validation.v1",
+    "generated_at_utc": "2026-05-27T14:19:06.584902+00:00",
+    "dataset_id": "ds006072",
+    "analysis_status": "extraction_contract_ready_missing_local_cifti_payloads",
+    "primary_contrast": "psilocybin_vs_active_control_mtp",
+    "drug_order_source": "data/ds006072/PPFM_session_notes jss 20250402.xlsx",
+    "drug_order_subject_count": 11,
+    "session_count": 129,
+    "processed_rest_cifti_manifest_count": 124,
+    "primary_subject_count": 7,
+    "primary_subjects_downloadable": 7,
+    "primary_subjects_local_ready": 0,
+    "session_availability_csv": "results/psilocybin_ds006072/ds006072_session_availability.csv",
+    "condition_pairing_plan_csv": "results/psilocybin_ds006072/condition_pairing_plan.csv",
+    "unchanged_scoring_spec": "results/psilocybin_ds006072/unchanged_scoring_spec.json",
+    "blocker": "Drug-order mapping and unchanged scoring are locked, but local ds006072 CIFTI/module time-series payloads are absent. Download or provide authorized processed rest CIFTIs before claiming validation.",
+    "claim_guardrail": "This is an extraction-and-scoring gate for true external validation. It does not claim psilocybin replication until paired psilocybin/MTP empirical viewer records are generated and scored unchanged.",
+    "source": {
+      "openneuro": "https://openneuro.org/datasets/ds006072",
+      "scientific_data": "https://www.nature.com/articles/s41597-025-05189-0"
+    }
+  },
+  "external_validation_readiness_path": "results/psilocybin_ds006072/external_validation_readiness.json",
+  "claim_guardrail": "No psilocybin replication claim is allowed unless comparable paired drug/control empirical viewer records exist.",
+  "analysis_status": "extraction_contract_ready_missing_local_cifti_payloads",
+  "pair_count": 0,
+  "subject_count": 0,
+  "blocker": "Drug-order mapping and unchanged scoring are locked, but local ds006072 CIFTI/module time-series payloads are absent. Download or provide authorized processed rest CIFTIs before claiming validation.",
+  "schema_template": "results/psilocybin_ds006072/required_empirical_viewer_schema.json",
+  "next_commands": [
+    "Build extraction readiness: .venv\\Scripts\\python.exe scripts\\build_ds006072_external_validation_readiness.py",
+    "Acquire or derive ds006072 paired psilocybin/control module time series under data/ds006072/.",
+    "Run metadata provenance first if missing: .venv\\Scripts\\python.exe scripts\\download_ds006072_metadata.py",
+    "Write subject-level JSON records matching results/stage_2/empirical_viewer/subject_views/*.json.",
+    "Then rerun: .venv\\Scripts\\python.exe scripts\\run_thesis_evidence_loop.py"
+  ]
+}

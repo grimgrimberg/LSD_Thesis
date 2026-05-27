@@ -73,11 +73,19 @@ def _render_inline(text: str) -> str:
     rendered = re.sub(r"`([^`]+)`", lambda match: f"<code>{match.group(1)}</code>", rendered)
     rendered = re.sub(
         r"\[([^\]]+)\]\(([^)]+)\)",
-        lambda match: f'<a href="{escape(match.group(2), quote=True)}">{match.group(1)}</a>',
+        lambda match: f'<a href="{_safe_href(match.group(2))}">{match.group(1)}</a>',
         rendered,
     )
     rendered = re.sub(r"\*([^*]+)\*", lambda match: f"<em>{match.group(1)}</em>", rendered)
     return rendered
+
+
+def _safe_href(raw_href: str) -> str:
+    href = raw_href.strip()
+    lower_href = href.lower()
+    if lower_href.startswith(("javascript:", "data:", "vbscript:")):
+        return "#"
+    return escape(href, quote=True)
 
 
 def _render_paragraph(text: str) -> str:
@@ -86,6 +94,29 @@ def _render_paragraph(text: str) -> str:
 
 def _render_list(items: Sequence[str]) -> str:
     return "<ul>" + "".join(f"<li>{_render_inline(item)}</li>" for item in items) + "</ul>"
+
+
+def _split_table_row(line: str) -> list[str]:
+    return [cell.strip() for cell in line.strip().strip("|").split("|")]
+
+
+def _is_table_separator(line: str) -> bool:
+    cells = _split_table_row(line)
+    return bool(cells) and all(re.fullmatch(r":?-{3,}:?", cell) for cell in cells)
+
+
+def _render_table(lines: Sequence[str]) -> str:
+    rows = [_split_table_row(line) for line in lines if line.strip().startswith("|")]
+    rows = [row for row in rows if row and not _is_table_separator("|" + "|".join(row) + "|")]
+    if not rows:
+        return ""
+    header, *body_rows = rows
+    header_html = "<thead><tr>" + "".join(f"<th>{_render_inline(cell)}</th>" for cell in header) + "</tr></thead>"
+    body_html = "<tbody>" + "".join(
+        "<tr>" + "".join(f"<td>{_render_inline(cell)}</td>" for cell in row) + "</tr>"
+        for row in body_rows
+    ) + "</tbody>"
+    return f"<table>{header_html}{body_html}</table>"
 
 
 def _render_heading(level: int, text: str) -> str:
@@ -214,6 +245,16 @@ def _render_section_fragment(raw_body: str) -> tuple[str, str, tuple[str, ...], 
             figure, index = _parse_figure(lines, index)
             figures.append(figure)
             add_block(figure.html)
+            continue
+
+        if stripped.startswith("|"):
+            flush_paragraph()
+            flush_list()
+            table_lines: list[str] = []
+            while index < len(lines) and lines[index].strip().startswith("|"):
+                table_lines.append(lines[index].strip())
+                index += 1
+            add_block(_render_table(table_lines))
             continue
 
         if stripped.startswith("- "):

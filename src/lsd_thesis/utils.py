@@ -88,6 +88,25 @@ def save_figure(figure: go.Figure, path: Path) -> None:
     figure.write_html(str(path), include_plotlyjs="cdn")
 
 
+def resolve_under(root: str | Path, relative_path: str | Path) -> Path:
+    """Resolve a user/cache-provided path while requiring it to stay under root."""
+    resolved_root = Path(root).resolve()
+    raw_path = str(relative_path)
+    if "\\" in raw_path:
+        raw_path = raw_path.replace("\\", "/")
+    if len(raw_path) >= 2 and raw_path[1] == ":":
+        raise ValueError(f"Path is outside the allowed root {resolved_root}: {relative_path}")
+    candidate = Path(raw_path)
+    if candidate.is_absolute():
+        raise ValueError(f"Path is outside the allowed root {resolved_root}: {candidate}")
+    resolved = (resolved_root / candidate).resolve()
+    try:
+        resolved.relative_to(resolved_root)
+    except ValueError as exc:
+        raise ValueError(f"Path is outside the allowed root {resolved_root}: {candidate}") from exc
+    return resolved
+
+
 def confidence_weight(label: str) -> float:
     """Map a confidence label to a numeric weight for scoring."""
     mapping = {

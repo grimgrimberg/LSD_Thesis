@@ -1,0 +1,284 @@
+{
+  "mapping": [
+    {
+      "module": "visual",
+      "atlas": "cortical",
+      "label": 22
+    },
+    {
+      "module": "visual",
+      "atlas": "cortical",
+      "label": 23
+    },
+    {
+      "module": "visual",
+      "atlas": "cortical",
+      "label": 24
+    },
+    {
+      "module": "visual",
+      "atlas": "cortical",
+      "label": 31
+    },
+    {
+      "module": "visual",
+      "atlas": "cortical",
+      "label": 32
+    },
+    {
+      "module": "visual",
+      "atlas": "cortical",
+      "label": 36
+    },
+    {
+      "module": "visual",
+      "atlas": "cortical",
+      "label": 39
+    },
+    {
+      "module": "visual",
+      "atlas": "cortical",
+      "label": 40
+    },
+    {
+      "module": "visual",
+      "atlas": "cortical",
+      "label": 47
+    },
+    {
+      "module": "visual",
+      "atlas": "cortical",
+      "label": 48
+    },
+    {
+      "module": "auditory",
+      "atlas": "cortical",
+      "label": 9
+    },
+    {
+      "module": "auditory",
+      "atlas": "cortical",
+      "label": 10
+    },
+    {
+      "module": "auditory",
+      "atlas": "cortical",
+      "label": 42
+    },
+    {
+      "module": "auditory",
+      "atlas": "cortical",
+      "label": 44
+    },
+    {
+      "module": "auditory",
+      "atlas": "cortical",
+      "label": 45
+    },
+    {
+      "module": "auditory",
+      "atlas": "cortical",
+      "label": 46
+    },
+    {
+      "module": "salience",
+      "atlas": "cortical",
+      "label": 2
+    },
+    {
+      "module": "salience",
+      "atlas": "cortical",
+      "label": 28
+    },
+    {
+      "module": "salience",
+      "atlas": "cortical",
+      "label": 29
+    },
+    {
+      "module": "salience",
+      "atlas": "cortical",
+      "label": 41
+    },
+    {
+      "module": "default_mode",
+      "atlas": "cortical",
+      "label": 21
+    },
+    {
+      "module": "default_mode",
+      "atlas": "cortical",
+      "label": 25
+    },
+    {
+      "module": "default_mode",
+      "atlas": "cortical",
+      "label": 30
+    },
+    {
+      "module": "default_mode",
+      "atlas": "cortical",
+      "label": 31
+    },
+    {
+      "module": "executive_frontoparietal",
+      "atlas": "cortical",
+      "label": 3
+    },
+    {
+      "module": "executive_frontoparietal",
+      "atlas": "cortical",
+      "label": 4
+    },
+    {
+      "module": "executive_frontoparietal",
+      "atlas": "cortical",
+      "label": 5
+    },
+    {
+      "module": "executive_frontoparietal",
+      "atlas": "cortical",
+      "label": 6
+    },
+    {
+      "module": "executive_frontoparietal",
+      "atlas": "cortical",
+      "label": 18
+    },
+    {
+      "module": "executive_frontoparietal",
+      "atlas": "cortical",
+      "label": 19
+    },
+    {
+      "module": "executive_frontoparietal",
+      "atlas": "cortical",
+      "label": 20
+    },
+    {
+      "module": "limbic_affective",
+      "atlas": "cortical",
+      "label": 8
+    },
+    {
+      "module": "limbic_affective",
+      "atlas": "cortical",
+      "label": 27
+    },
+    {
+      "module": "limbic_affective",
+      "atlas": "cortical",
+      "label": 33
+    },
+    {
+      "module": "limbic_affective",
+      "atlas": "cortical",
+      "label": 34
+    },
+    {
+      "module": "limbic_affective",
+      "atlas": "cortical",
+      "label": 35
+    },
+    {
+      "module": "limbic_affective",
+      "atlas": "subcortical",
+      "label": 9
+    },
+    {
+      "module": "limbic_affective",
+      "atlas": "subcortical",
+      "label": 10
+    },
+    {
+      "module": "limbic_affective",
+      "atlas": "subcortical",
+      "label": 11
+    },
+    {
+      "module": "limbic_affective",
+      "atlas": "subcortical",
+      "label": 19
+    },
+    {
+      "module": "limbic_affective",
+      "atlas": "subcortical",
+      "label": 20
+    },
+    {
+      "module": "limbic_affective",
+      "atlas": "subcortical",
+      "label": 21
+    },
+    {
+      "module": "thalamic_gateway",
+      "atlas": "subcortical",
+      "label": 4
+    },
+    {
+      "module": "thalamic_gateway",
+      "atlas": "subcortical",
+      "label": 15
+    },
+    {
+      "module": "sensorimotor",
+      "atlas": "cortical",
+      "label": 7
+    },
+    {
+      "module": "sensorimotor",
+      "atlas": "cortical",
+      "label": 17
+    },
+    {
+      "module": "sensorimotor",
+      "atlas": "cortical",
+      "label": 26
+    },
+    {
+      "module": "sensorimotor",
+      "atlas": "cortical",
+      "label": 42
+    },
+    {
+      "module": "sensorimotor",
+      "atlas": "cortical",
+      "label": 43
+    }
+  ],
+  "overlaps": [
+    {
+      "atlas": "cortical",
+      "label": 31,
+      "modules": [
+        "visual",
+        "default_mode"
+      ]
+    },
+    {
+      "atlas": "cortical",
+      "label": 42,
+      "modules": [
+        "auditory",
+        "sensorimotor"
+      ]
+    }
+  ],
+  "module_voxel_counts": {
+    "visual": 28689,
+    "auditory": 4656,
+    "salience": 8564,
+    "default_mode": 11420,
+    "executive_frontoparietal": 19792,
+    "limbic_affective": 13132,
+    "thalamic_gateway": 2604,
+    "sensorimotor": 19957
+  },
+  "assigned_voxels": 108814,
+  "unassigned_voxels": 793815,
+  "notes": [
+    "Voxel counts are after overlap resolution in MODULE_NAMES order.",
+    "This Harvard-Oxford-derived 8-module mapping is a transparent proxy, not a canonical network atlas.",
+    "Voxel counts are omitted when include_voxel_counts is false to keep cached Stage 2 reruns non-blocking."
+  ]
+}

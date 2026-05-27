@@ -1,0 +1,493 @@
+{
+  "schema_version": "setting_seed_data_audit.v1",
+  "source": "cached_stage_2_module_time_series",
+  "stage_2_dir": "results\\stage_2",
+  "record_count": 60,
+  "subjects": [
+    "sub-001",
+    "sub-002",
+    "sub-003",
+    "sub-004",
+    "sub-006",
+    "sub-009",
+    "sub-010",
+    "sub-011",
+    "sub-012",
+    "sub-013",
+    "sub-015",
+    "sub-017",
+    "sub-018",
+    "sub-019",
+    "sub-020"
+  ],
+  "subject_count": 15,
+  "complete_rest_subjects": [
+    "sub-001",
+    "sub-002",
+    "sub-003",
+    "sub-004",
+    "sub-006",
+    "sub-009",
+    "sub-010",
+    "sub-011",
+    "sub-012",
+    "sub-013",
+    "sub-015",
+    "sub-017",
+    "sub-018",
+    "sub-019",
+    "sub-020"
+  ],
+  "sessions": [
+    "ses-LSD",
+    "ses-PLCB"
+  ],
+  "runs": [
+    "run-01",
+    "run-03"
+  ],
+  "run_labels": {
+    "run-01": "Rest1",
+    "run-02": "Music",
+    "run-03": "Rest3"
+  },
+  "modules": [
+    "visual",
+    "auditory",
+    "salience",
+    "default_mode",
+    "executive_frontoparietal",
+    "limbic_affective",
+    "thalamic_gateway",
+    "sensorimotor"
+  ],
+  "module_count": 8,
+  "time_series_shapes": {
+    "sub-001_ses-LSD_run-01": [
+      217,
+      8
+    ],
+    "sub-001_ses-LSD_run-03": [
+      217,
+      8
+    ],
+    "sub-001_ses-PLCB_run-01": [
+      217,
+      8
+    ],
+    "sub-001_ses-PLCB_run-03": [
+      217,
+      8
+    ],
+    "sub-002_ses-LSD_run-01": [
+      217,
+      8
+    ],
+    "sub-002_ses-LSD_run-03": [
+      217,
+      8
+    ],
+    "sub-002_ses-PLCB_run-01": [
+      217,
+      8
+    ],
+    "sub-002_ses-PLCB_run-03": [
+      217,
+      8
+    ],
+    "sub-003_ses-LSD_run-01": [
+      217,
+      8
+    ],
+    "sub-003_ses-LSD_run-03": [
+      217,
+      8
+    ],
+    "sub-003_ses-PLCB_run-01": [
+      217,
+      8
+    ],
+    "sub-003_ses-PLCB_run-03": [
+      217,
+      8
+    ],
+    "sub-004_ses-LSD_run-01": [
+      217,
+      8
+    ],
+    "sub-004_ses-LSD_run-03": [
+      217,
+      8
+    ],
+    "sub-004_ses-PLCB_run-01": [
+      217,
+      8
+    ],
+    "sub-004_ses-PLCB_run-03": [
+      217,
+      8
+    ],
+    "sub-006_ses-LSD_run-01": [
+      217,
+      8
+    ],
+    "sub-006_ses-LSD_run-03": [
+      217,
+      8
+    ],
+    "sub-006_ses-PLCB_run-01": [
+      217,
+      8
+    ],
+    "sub-006_ses-PLCB_run-03": [
+      217,
+      8
+    ],
+    "sub-009_ses-LSD_run-01": [
+      217,
+      8
+    ],
+    "sub-009_ses-LSD_run-03": [
+      217,
+      8
+    ],
+    "sub-009_ses-PLCB_run-01": [
+      217,
+      8
+    ],
+    "sub-009_ses-PLCB_run-03": [
+      217,
+      8
+    ],
+    "sub-010_ses-LSD_run-01": [
+      217,
+      8
+    ],
+    "sub-010_ses-LSD_run-03": [
+      217,
+      8
+    ],
+    "sub-010_ses-PLCB_run-01": [
+      217,
+      8
+    ],
+    "sub-010_ses-PLCB_run-03": [
+      217,
+      8
+    ],
+    "sub-011_ses-LSD_run-01": [
+      217,
+      8
+    ],
+    "sub-011_ses-LSD_run-03": [
+      217,
+      8
+    ],
+    "sub-011_ses-PLCB_run-01": [
+      217,
+      8
+    ],
+    "sub-011_ses-PLCB_run-03": [
+      217,
+      8
+    ],
+    "sub-012_ses-LSD_run-01": [
+      217,
+      8
+    ],
+    "sub-012_ses-LSD_run-03": [
+      217,
+      8
+    ],
+    "sub-012_ses-PLCB_run-01": [
+      217,
+      8
+    ],
+    "sub-012_ses-PLCB_run-03": [
+      217,
+      8
+    ],
+    "sub-013_ses-LSD_run-01": [
+      217,
+      8
+    ],
+    "sub-013_ses-LSD_run-03": [
+      217,
+      8
+    ],
+    "sub-013_ses-PLCB_run-01": [
+      217,
+      8
+    ],
+    "sub-013_ses-PLCB_run-03": [
+      217,
+      8
+    ],
+    "sub-015_ses-LSD_run-01": [
+      217,
+      8
+    ],
+    "sub-015_ses-LSD_run-03": [
+      217,
+      8
+    ],
+    "sub-015_ses-PLCB_run-01": [
+      217,
+      8
+    ],
+    "sub-015_ses-PLCB_run-03": [
+      217,
+      8
+    ],
+    "sub-017_ses-LSD_run-01": [
+      217,
+      8
+    ],
+    "sub-017_ses-LSD_run-03": [
+      217,
+      8
+    ],
+    "sub-017_ses-PLCB_run-01": [
+      217,
+      8
+    ],
+    "sub-017_ses-PLCB_run-03": [
+      217,
+      8
+    ],
+    "sub-018_ses-LSD_run-01": [
+      217,
+      8
+    ],
+    "sub-018_ses-LSD_run-03": [
+      217,
+      8
+    ],
+    "sub-018_ses-PLCB_run-01": [
+      217,
+      8
+    ],
+    "sub-018_ses-PLCB_run-03": [
+      217,
+      8
+    ],
+    "sub-019_ses-LSD_run-01": [
+      217,
+      8
+    ],
+    "sub-019_ses-LSD_run-03": [
+      217,
+      8
+    ],
+    "sub-019_ses-PLCB_run-01": [
+      217,
+      8
+    ],
+    "sub-019_ses-PLCB_run-03": [
+      217,
+      8
+    ],
+    "sub-020_ses-LSD_run-01": [
+      217,
+      8
+    ],
+    "sub-020_ses-LSD_run-03": [
+      217,
+      8
+    ],
+    "sub-020_ses-PLCB_run-01": [
+      217,
+      8
+    ],
+    "sub-020_ses-PLCB_run-03": [
+      217,
+      8
+    ]
+  },
+  "missing_time_series_files": [],
+  "invalid_shapes": [],
+  "run_02_available": false,
+  "run_02_extraction_support_available": true,
+  "run_02_default_runs": [
+    "run-01",
+    "run-03"
+  ],
+  "run_02_supported_runs": [
+    "run-01",
+    "run-02",
+    "run-03"
+  ],
+  "run_02_files_present": false,
+  "run_02_analysis_ready": false,
+  "run_02_expected_file_count": 24,
+  "run_02_valid_file_count": 0,
+  "run_02_missing_subject_session": [
+    {
+      "subject": "sub-001",
+      "session": "ses-LSD"
+    },
+    {
+      "subject": "sub-001",
+      "session": "ses-PLCB"
+    },
+    {
+      "subject": "sub-002",
+      "session": "ses-LSD"
+    },
+    {
+      "subject": "sub-002",
+      "session": "ses-PLCB"
+    },
+    {
+      "subject": "sub-004",
+      "session": "ses-LSD"
+    },
+    {
+      "subject": "sub-004",
+      "session": "ses-PLCB"
+    },
+    {
+      "subject": "sub-006",
+      "session": "ses-LSD"
+    },
+    {
+      "subject": "sub-006",
+      "session": "ses-PLCB"
+    },
+    {
+      "subject": "sub-009",
+      "session": "ses-LSD"
+    },
+    {
+      "subject": "sub-009",
+      "session": "ses-PLCB"
+    },
+    {
+      "subject": "sub-010",
+      "session": "ses-LSD"
+    },
+    {
+      "subject": "sub-010",
+      "session": "ses-PLCB"
+    },
+    {
+      "subject": "sub-011",
+      "session": "ses-LSD"
+    },
+    {
+      "subject": "sub-011",
+      "session": "ses-PLCB"
+    },
+    {
+      "subject": "sub-013",
+      "session": "ses-LSD"
+    },
+    {
+      "subject": "sub-013",
+      "session": "ses-PLCB"
+    },
+    {
+      "subject": "sub-017",
+      "session": "ses-LSD"
+    },
+    {
+      "subject": "sub-017",
+      "session": "ses-PLCB"
+    },
+    {
+      "subject": "sub-018",
+      "session": "ses-LSD"
+    },
+    {
+      "subject": "sub-018",
+      "session": "ses-PLCB"
+    },
+    {
+      "subject": "sub-019",
+      "session": "ses-LSD"
+    },
+    {
+      "subject": "sub-019",
+      "session": "ses-PLCB"
+    },
+    {
+      "subject": "sub-020",
+      "session": "ses-LSD"
+    },
+    {
+      "subject": "sub-020",
+      "session": "ses-PLCB"
+    }
+  ],
+  "run_02_file_count": 0,
+  "motion_summaries_available": false,
+  "motion_summary_support_available": true,
+  "motion_files_present": false,
+  "motion_summary_schema_valid": false,
+  "motion_coverage_by_run": {},
+  "motion_analysis_ready": false,
+  "motion_summary_files": [],
+  "music_excluded_subjects": [
+    "sub-003",
+    "sub-012",
+    "sub-015"
+  ],
+  "music_exclusion_enforced": true,
+  "music_analysis_subject_count": 12,
+  "rest_only_subjects": [
+    "sub-001",
+    "sub-002",
+    "sub-003",
+    "sub-004",
+    "sub-006",
+    "sub-009",
+    "sub-010",
+    "sub-011",
+    "sub-012",
+    "sub-013",
+    "sub-015",
+    "sub-017",
+    "sub-018",
+    "sub-019",
+    "sub-020"
+  ],
+  "music_eligible_subjects": [
+    "sub-001",
+    "sub-002",
+    "sub-004",
+    "sub-006",
+    "sub-009",
+    "sub-010",
+    "sub-011",
+    "sub-013",
+    "sub-017",
+    "sub-018",
+    "sub-019",
+    "sub-020"
+  ],
+  "analysis_availability": {
+    "rest_reliability": "available",
+    "latent_rest_geometry": "available",
+    "music_control": "blocked_missing_run_02",
+    "motion_sensitivity": "unavailable_missing_motion_summaries"
+  },
+  "next_commands": {
+    "run_02_extraction_after_approval": "uv run python scripts/run_pipeline.py stage2 --include-music --runs run-01 run-02 run-03 --stage2-output-dir results/setting_seed/run02_extraction/stage_2_music",
+    "motion_summary": "uv run python scripts/run_setting_seed_motion_summary.py"
+  },
+  "blockers": [
+    "run-02 module time series are missing; music-control empirical analysis is scaffolded only.",
+    "subject-level motion summaries are missing; motion sensitivity is unavailable."
+  ],
+  "claim_guardrail": "Data audit is an implemented cache inventory, not evidence for music-control or motion-controlled effects.",
+  "version_stamp": {
+    "timestamp": "2026-05-14T12:29:46.732520+00:00",
+    "git": {
+      "repo_present": false,
+      "branch": null,
+      "head_present": false,
+      "commit_hash": null,
+      "worktree_status": "not_repo"
+    }
+  }
+}

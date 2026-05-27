@@ -102,10 +102,11 @@ def test_build_defense_pptx_slides_groups_long_form_report_into_presentable_deck
 
     slides = build_defense_pptx_slides(report_markdown)
 
-    assert len(slides) == 14
+    assert len(slides) == 15
     assert slides[0]["title"] == "Transparent Surrogate Modeling of Altered-State-Inspired Macro-Dynamics"
     assert slides[1]["title"] == "Scope and Claim Boundaries"
     assert slides[7]["title"] == "Stage 2 Empirical Bridge and Fit"
+    assert slides[8]["title"] == "CV5 Internal Validation"
     assert slides[-1]["title"] == "Defendable Conclusion"
 
 
@@ -118,11 +119,36 @@ def test_build_defense_pptx_slides_preserves_key_figures_and_mechanism_language(
     slides = build_defense_pptx_slides(report_markdown)
     stage1_slide = next(slide for slide in slides if slide["title"] == "Stage 1 Synthetic Shift")
     stage2_slide = next(slide for slide in slides if slide["title"] == "Stage 2 Empirical Bridge and Fit")
-    stage3_slide = next(slide for slide in slides if slide["title"] == "Stage 3 Mechanism Ranking")
+    cv5_slide = next(slide for slide in slides if slide["title"] == "CV5 Internal Validation")
+    stage3_slide = next(slide for slide in slides if slide["title"] == "Stage 3 Perturbation-Family Ranking")
 
     assert stage1_slide["image_path"] == "figures/stage1_metric_shift.png"
     assert stage2_slide["image_path"] == "figures/stage2_fit_robustness.png"
+    assert "not external or clinical validation" in cv5_slide["takeaway"]
     assert any("less_hierarchical_constraint" in bullet for bullet in stage3_slide["bullets"])
+
+
+def test_build_defense_pptx_slides_do_not_propagate_stale_validation_claims(
+    tmp_path: Path,
+) -> None:
+    evidence = _build_sample_publication_evidence()
+    report_markdown = build_thesis_report_markdown(evidence, _build_sample_figure_bundle(tmp_path))
+
+    slides = build_defense_pptx_slides(report_markdown)
+    slide_text = "\n".join(
+        "\n".join(
+            [
+                str(slide.get("title", "")),
+                str(slide.get("takeaway", "")),
+                "\n".join(str(bullet) for bullet in slide.get("bullets", [])),
+            ]
+        )
+        for slide in slides
+    )
+
+    assert "57 tests passed" not in slide_text
+    assert "On 2026-04-15 the local checks passed" not in slide_text
+    assert "best score comes from a single stochastic realization" not in slide_text
 
 
 def test_build_publication_package_emits_pptx_artifact(tmp_path: Path) -> None:
@@ -144,7 +170,12 @@ def test_build_publication_package_emits_pptx_artifact(tmp_path: Path) -> None:
 
     outputs = module.build_publication_package(tmp_path)
 
+    legacy_report = tmp_path / "output" / "doc" / "lsd_thesis_surrogate_report.md"
     assert outputs["defense_presentation_pptx"].name == "defense_presentation.pptx"
     assert outputs["defense_presentation_pptx"].read_bytes() == b"pptx"
+    assert outputs["legacy_thesis_report_markdown"] == legacy_report
+    assert legacy_report.read_text(encoding="utf-8") == outputs["thesis_report_markdown"].read_text(
+        encoding="utf-8"
+    )
     assert isinstance(captured["slides"], list)
-    assert len(captured["slides"]) == 14
+    assert len(captured["slides"]) == 15

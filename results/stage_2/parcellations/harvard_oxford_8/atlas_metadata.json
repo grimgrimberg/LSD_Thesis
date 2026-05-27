@@ -1,0 +1,8 @@
+{
+  "parcellation_id": "harvard_oxford_8",
+  "atlas": "Harvard-Oxford cortical/subcortical proxy",
+  "legacy_extraction": true,
+  "node_count": 8,
+  "status": "implemented_legacy_path",
+  "source_module": "src/lsd_thesis/data/ds003059.py"
+}

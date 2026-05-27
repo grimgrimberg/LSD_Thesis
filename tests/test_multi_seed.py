@@ -2,6 +2,8 @@
 
 from pathlib import Path
 
+import pytest
+
 from lsd_thesis.graph import load_graph_config
 from lsd_thesis.metrics import multi_seed_summary
 from lsd_thesis.simulator import load_regime_config
@@ -32,6 +34,25 @@ def test_multi_seed_summary_std_is_nonzero_for_stochastic_metrics() -> None:
     # At least some metrics should vary across seeds
     nonzero_count = sum(1 for v in std_metrics.values() if v > 1e-10)
     assert nonzero_count > 0, "Expected some variance across seeds"
+
+
+def test_multi_seed_summary_single_seed_reports_zero_uncertainty() -> None:
+    graph = load_graph_config(ROOT / "configs" / "graphs" / "macro_modules.yaml")
+    regime = load_regime_config(ROOT / "configs" / "regimes" / "baseline.yaml")
+
+    mean_metrics, std_metrics = multi_seed_summary(graph, regime, n_seeds=1, base_seed=0)
+
+    assert set(mean_metrics.keys()) == set(std_metrics.keys())
+    assert mean_metrics
+    assert all(value == 0.0 for value in std_metrics.values())
+
+
+def test_multi_seed_summary_rejects_zero_seed_panel() -> None:
+    graph = load_graph_config(ROOT / "configs" / "graphs" / "macro_modules.yaml")
+    regime = load_regime_config(ROOT / "configs" / "regimes" / "baseline.yaml")
+
+    with pytest.raises(ValueError, match="n_seeds"):
+        multi_seed_summary(graph, regime, n_seeds=0, base_seed=0)
 
 
 def test_confidence_weight_returns_expected_values() -> None:

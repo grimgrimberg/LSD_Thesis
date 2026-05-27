@@ -1,0 +1,58 @@
+project:
+  title: "Set, Setting, and Seed"
+  subtitle: "Guided Latent Brain Dynamics Under LSD"
+  seed: 20260512
+
+inputs:
+  stage_2_dir: "results/stage_2"
+
+extraction:
+  include_music: false
+  default_runs:
+    - "run-01"
+    - "run-03"
+  music_runs:
+    - "run-01"
+    - "run-02"
+    - "run-03"
+  require_explicit_music_flag: true
+  recommended_music_output_dir: "results/setting_seed/run02_extraction/stage_2_music"
+  approved_command_template: "uv run python scripts/run_pipeline.py stage2 --include-music --runs run-01 run-02 run-03 --stage2-output-dir results/setting_seed/run02_extraction/stage_2_music"
+
+motion:
+  summary_support_available: true
+  fd_threshold: 0.5
+  summary_command: "uv run python scripts/run_setting_seed_motion_summary.py"
+
+outputs:
+  root: "results/setting_seed"
+  dashboard_microsite: "output/doc/set_setting_seed_microsite.html"
+
+data:
+  sessions:
+    - "ses-LSD"
+    - "ses-PLCB"
+  runs:
+    run-01: "Rest1"
+    run-02: "Music"
+    run-03: "Rest3"
+  music_excluded_subjects:
+    - "sub-003"
+    - "sub-012"
+    - "sub-015"
+  modules:
+    - visual
+    - auditory
+    - salience
+    - default_mode
+    - executive_frontoparietal
+    - limbic_affective
+    - thalamic_gateway
+    - sensorimotor
+
+guardrails:
+  no_clinical_claims: true
+  no_subjective_decoding_claims: true
+  diffusion_is_analogy_only: true
+  require_subject_disjoint_validation_for_ml: true
+  do_not_run_music_extraction_by_default: true

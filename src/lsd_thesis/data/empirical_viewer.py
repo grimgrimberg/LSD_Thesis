@@ -10,7 +10,7 @@ import plotly.graph_objects as go
 
 from lsd_thesis.core import MODULE_NAMES
 from lsd_thesis.metrics import compute_observable_summary
-from lsd_thesis.utils import mean_metric_dict, save_figure
+from lsd_thesis.utils import mean_metric_dict, resolve_under, save_figure
 
 
 def _save_figure(figure: go.Figure, path: Path) -> None:
@@ -365,13 +365,13 @@ def build_empirical_run_views_from_records(
     output_root = Path(output_dir) if output_dir is not None else None
     run_views: list[dict[str, Any]] = []
     for record in run_records:
-        run_path = dataset_root / str(record.relative_path)
+        run_path = resolve_under(dataset_root, str(record.relative_path))
         loaded_image = nib.load(str(run_path))
         if not isinstance(loaded_image, nib.Nifti1Image):
             raise TypeError(f"Expected a NIfTI image for {run_path}.")
         time_series_path = Path(str(record.time_series_path))
-        if not time_series_path.is_absolute() and output_root is not None:
-            time_series_path = output_root / time_series_path
+        if output_root is not None:
+            time_series_path = resolve_under(output_root, time_series_path)
         time_series = np.load(str(time_series_path))
         run_views.append(
             build_run_empirical_view(

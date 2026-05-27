@@ -1,0 +1,18 @@
+{
+  "status": "evaluated_default_baseline",
+  "model": "receptor_gradient_neural_mass",
+  "seeds": [
+    11,
+    17,
+    23
+  ],
+  "config_overrides": {
+    "n_steps": 160,
+    "burn_in": 30,
+    "emit_bold": true
+  },
+  "notes": [
+    "Quick Stage 5 uses the default receptor/gradient neural-mass config as the placebo baseline.",
+    "A broader baseline parameter search is a future compute-budget expansion."
+  ]
+}

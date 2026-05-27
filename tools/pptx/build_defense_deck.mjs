@@ -44,17 +44,195 @@ const PAGE = {
   gap: 0.28,
 };
 
-function readSpec(specPath) {
-  const text = fs.readFileSync(specPath, 'utf8').replace(/^\uFEFF/, '');
+async function readSpec(specPath) {
+  const text = (await fs.promises.readFile(specPath, 'utf8')).replace(/^\uFEFF/, '');
   const parsed = JSON.parse(text);
   if (!Array.isArray(parsed)) {
     throw new Error('Spec must be a JSON array of slide objects');
   }
-  return parsed;
+  return validateSpec(parsed, specPath);
+}
+
+function resolveUnderRoot(inputPath, fieldPath, rootDir = process.cwd()) {
+  const allowedRoot = path.resolve(rootDir);
+  const resolved = path.resolve(inputPath);
+  const relative = path.relative(allowedRoot, resolved);
+  if (relative === '' || (!relative.startsWith('..') && !path.isAbsolute(relative))) {
+    return resolved;
+  }
+  throw new Error(`${fieldPath} must resolve inside ${allowedRoot}: ${resolved}`);
+}
+
+function resolveExistingFileUnderRoot(inputPath, fieldPath, rootDir = process.cwd()) {
+  const resolved = resolveUnderRoot(inputPath, fieldPath, rootDir);
+  const stats = fs.statSync(resolved);
+  if (!stats.isFile()) {
+    throw new Error(`${fieldPath} must be a file: ${resolved}`);
+  }
+  const realRoot = fs.realpathSync(rootDir);
+  const realPath = fs.realpathSync(resolved);
+  const relative = path.relative(realRoot, realPath);
+  if (relative === '' || (!relative.startsWith('..') && !path.isAbsolute(relative))) {
+    return realPath;
+  }
+  throw new Error(`${fieldPath} must resolve inside ${realRoot}: ${realPath}`);
 }
 
 function compact(value) {
   return String(value ?? '').replace(/\s+/g, ' ').trim();
+}
+
+function validateStringField(value, fieldPath, { required = false } = {}) {
+  if (value === undefined || value === null) {
+    if (required) {
+      throw new Error(`${fieldPath} is required`);
+    }
+    return null;
+  }
+  if (typeof value !== 'string') {
+    throw new Error(`${fieldPath} must be a string`);
+  }
+  const clean = compact(value);
+  if (required && !clean) {
+    throw new Error(`${fieldPath} must be a non-empty string`);
+  }
+  return clean || null;
+}
+
+function validateBullets(value, fieldPath) {
+  if (value === undefined || value === null) {
+    return [];
+  }
+  if (!Array.isArray(value)) {
+    throw new Error(`${fieldPath} must be an array of strings`);
+  }
+  return value.map((item, index) => {
+    const clean = validateStringField(item, `${fieldPath}[${index}]`, { required: true });
+    return clean;
+  });
+}
+
+function validateSpeakerNotes(value, fieldPath) {
+  if (value === undefined || value === null) {
+    return [];
+  }
+  if (typeof value === 'string') {
+    const clean = compact(value);
+    return clean ? [clean] : [];
+  }
+  if (!Array.isArray(value)) {
+    throw new Error(`${fieldPath} must be a string or an array of strings`);
+  }
+  return value.map((item, index) => validateStringField(item, `${fieldPath}[${index}]`, { required: true }));
+}
+
+function validateOptionalInteger(value, fieldPath) {
+  if (value === undefined || value === null || value === '') {
+    return null;
+  }
+  const number = Number(value);
+  if (!Number.isInteger(number) || number < 0) {
+    throw new Error(`${fieldPath} must be a non-negative integer`);
+  }
+  return number;
+}
+
+function warnIfPotentiallyStaleClaim(slideData, index) {
+  const text = [
+    slideData.title,
+    slideData.takeaway,
+    ...(Array.isArray(slideData.bullets) ? slideData.bullets : []),
+    slideData.citation,
+    slideData.note,
+  ].map(compact).join(' ');
+  if (/\b57\s+tests passed\b/i.test(text) || /\b2026-04-15\b/.test(text)) {
+    console.warn(
+      `Potential stale validation claim in slides[${index}]; prefer regenerated validation metadata over fixed dated prose.`
+    );
+  }
+  const hasCompletedHoldoutClaim = /\bsubject-disjoint\s+held-out\s+validation\s+has\s+been\s+completed\b/i.test(text);
+  const hasQualifiedInternalClaim =
+    /\bapproved\b/i.test(text) &&
+    /\binternal\b/i.test(text) &&
+    /\bnot\s+external\b/i.test(text) &&
+    !/\bcandidate\b/i.test(text);
+  if (hasCompletedHoldoutClaim && !hasQualifiedInternalClaim) {
+    console.warn(
+      `Potential stale held-out validation claim in slides[${index}]; confirm Stage 2/3 split metadata before presenting this as completed.`
+    );
+  }
+  if (/\bcandidate\b/i.test(text) && /\bheld-out\s+validation\s+has\s+been\s+completed\b/i.test(text)) {
+    throw new Error(
+      `Invalid candidate split validation claim in slides[${index}]; candidate splits cannot be presented as completed held-out validation.`
+    );
+  }
+  const hasExternalValidationClaim =
+    /\bexternal\s+validation\b/i.test(text) &&
+    !/\b(no|not|without)\s+external\s+validation\b/i.test(text) &&
+    !/\bnot\s+external\s+or\s+clinical\s+validation\b/i.test(text);
+  if (hasExternalValidationClaim) {
+    console.warn(
+      `Potential unsupported external validation claim in slides[${index}]; current evidence supports internal CV5 validation only.`
+    );
+  }
+  const hasClinicalValidationClaim =
+    /\bclinical\s+validation\b/i.test(text) &&
+    !/\b(no|not|without)\s+clinical\s+validation\b/i.test(text) &&
+    !/\bnot\s+external\s+or\s+clinical\s+validation\b/i.test(text);
+  if (hasClinicalValidationClaim) {
+    console.warn(
+      `Potential unsupported clinical validation claim in slides[${index}]; current evidence is not clinical validation.`
+    );
+  }
+  if (/\bvalidated\s+model\b/i.test(text)) {
+    console.warn(
+      `Potential overclaim in slides[${index}]; prefer preliminary internal validation of a surrogate over "validated model".`
+    );
+  }
+}
+
+function validateSpec(slides, specPath, allowedRoot = path.dirname(specPath)) {
+  if (slides.length === 0) {
+    throw new Error('Spec contained no slides');
+  }
+  return slides.map((slideData, index) => {
+    if (!slideData || typeof slideData !== 'object' || Array.isArray(slideData)) {
+      throw new Error(`slides[${index}] must be an object`);
+    }
+    const validated = { ...slideData };
+    validated.title = validateStringField(slideData.title, `slides[${index}].title`, { required: true });
+    validated.bullets = validateBullets(slideData.bullets, `slides[${index}].bullets`);
+    validated.speaker_notes = validateSpeakerNotes(slideData.speaker_notes, `slides[${index}].speaker_notes`);
+    for (const fieldName of ['takeaway', 'image_alt', 'image_caption', 'citation', 'note', 'anchor']) {
+      validated[fieldName] = validateStringField(slideData[fieldName], `slides[${index}].${fieldName}`) || '';
+    }
+    validated.position = validateOptionalInteger(slideData.position, `slides[${index}].position`) ?? slideData.position;
+    validated.total = validateOptionalInteger(slideData.total, `slides[${index}].total`) ?? slideData.total;
+    warnIfPotentiallyStaleClaim(validated, index);
+
+    const imagePath = validateStringField(slideData.image_path, `slides[${index}].image_path`);
+    validated.image_path = imagePath;
+    if (imagePath) {
+      const resolvedImagePath = resolveImagePath(specPath, imagePath, allowedRoot);
+      validated.image_path = resolvedImagePath;
+      if (!resolvedImagePath || !fs.existsSync(resolvedImagePath)) {
+        if (slideData.allow_missing_images === true) {
+          console.warn(`Missing image for slide ${index + 1}: ${resolvedImagePath}`);
+        } else {
+          throw new Error(
+            `slides[${index}].image_path does not exist: ${resolvedImagePath}. Set allow_missing_images=true only for an intentional placeholder.`
+          );
+        }
+      } else {
+        validated.image_path = resolveExistingFileUnderRoot(
+          resolvedImagePath,
+          `slides[${index}].image_path`,
+          allowedRoot
+        );
+      }
+    }
+    return validated;
+  });
 }
 
 function toBullets(value) {
@@ -62,10 +240,11 @@ function toBullets(value) {
   return value.map(compact).filter(Boolean);
 }
 
-function resolveImagePath(specPath, imagePath) {
+function resolveImagePath(specPath, imagePath, allowedRoot = path.dirname(specPath)) {
   if (!imagePath) return null;
   const raw = String(imagePath);
-  return path.isAbsolute(raw) ? raw : path.resolve(path.dirname(specPath), raw);
+  const resolved = path.isAbsolute(raw) ? path.resolve(raw) : path.resolve(path.dirname(specPath), raw);
+  return resolveUnderRoot(resolved, 'image_path', allowedRoot);
 }
 
 function estimateTextHeight(text, width, fontSize, lineHeight = 1.08) {
@@ -198,7 +377,6 @@ function addFooter(slide, slideData, y, width) {
 function addImagePanel(slide, slideData, imagePath, box) {
   if (!imagePath) return false;
   if (!fs.existsSync(imagePath)) {
-    console.warn(`Missing image for slide ${slideData.position}: ${imagePath}`);
     return false;
   }
   slide.addShape(pptx.ShapeType.roundRect, {
@@ -241,6 +419,9 @@ function addImagePanel(slide, slideData, imagePath, box) {
 
 function buildSlide(slideData, specPath) {
   const slide = pptx.addSlide();
+  if (Array.isArray(slideData.speaker_notes) && slideData.speaker_notes.length) {
+    slide.addNotes(slideData.speaker_notes.join('\n\n'));
+  }
   addBackground(slide);
   addHeader(slide, slideData);
 
@@ -277,13 +458,13 @@ async function main() {
     throw new Error('Usage: node build_defense_deck.mjs <spec.json> <output.pptx>');
   }
 
-  const specPath = path.resolve(specPathArg);
-  const outputPath = path.resolve(outputPathArg);
-  const slides = readSpec(specPath);
-
-  if (slides.length === 0) {
-    throw new Error('Spec contained no slides');
+  const allowedRoot = path.resolve(process.cwd());
+  const specPath = resolveExistingFileUnderRoot(specPathArg, 'specPath', allowedRoot);
+  const outputPath = resolveUnderRoot(outputPathArg, 'outputPath', allowedRoot);
+  if (path.extname(specPath).toLowerCase() !== '.json') {
+    throw new Error('specPath must be a .json file');
   }
+  const slides = await readSpec(specPath);
 
   for (const slideData of slides) {
     buildSlide(slideData, specPath);

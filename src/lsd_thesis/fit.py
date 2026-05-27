@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+from collections.abc import Sequence
 from pathlib import Path
 from typing import Any
 
@@ -27,6 +28,12 @@ from lsd_thesis.data.targets import SoberTargetSet, load_perturbation_target_set
 from lsd_thesis.graph import load_graph_config
 from lsd_thesis.metrics import compute_observable_summary, multi_seed_summary
 from lsd_thesis.simulator import load_regime_config, run_simulation
+from lsd_thesis.subject_split import (
+    SubjectSplit,
+    build_no_subject_validation_boundary,
+    build_subject_validation_boundary,
+    load_subject_split_file,
+)
 from lsd_thesis.utils import get_version_stamp, save_figure
 
 
@@ -35,10 +42,65 @@ class FitResult(BaseModel):
 
     initial_score: float
     best_score: float
+    selection_score_std: float = 0.0
+    selected_iteration: int = 0
     best_regime: RegimeConfig
     best_metrics: dict[str, float]
+    best_metrics_std: dict[str, float] = {}
     best_fc_matrix: np.ndarray
-    history: list[dict[str, float | int]]
+    history: list[dict[str, Any]]
+    seed_plan: dict[str, Any] = {}
+    selection_diagnostics: list[dict[str, Any]] = []
+    validation_score_mean: float | None = None
+    validation_score_std: float | None = None
+    validation_metrics_mean: dict[str, float] = {}
+    validation_metrics_std: dict[str, float] = {}
+
+
+class FitSeedPlan(BaseModel):
+    proposal_seed: int
+    selection_seeds: tuple[int, ...]
+    validation_seeds: tuple[int, ...]
+    selection_mode: str
+    validation_mode: str
+
+
+def _coerce_seed_tuple(seed_values: Sequence[int] | None, *, field_name: str) -> tuple[int, ...]:
+    if seed_values is None:
+        return ()
+    seeds = tuple(int(seed) for seed in seed_values)
+    if not seeds:
+        raise ValueError(f"{field_name} must contain at least one seed when provided.")
+    return seeds
+
+
+def build_fit_seed_plan(
+    proposal_seed: int,
+    selection_seeds: Sequence[int] | None = None,
+    validation_seeds: Sequence[int] | None = None,
+) -> FitSeedPlan:
+    selection_tuple = _coerce_seed_tuple(selection_seeds, field_name="selection_seeds")
+    validation_tuple = _coerce_seed_tuple(validation_seeds, field_name="validation_seeds")
+    overlap = set(selection_tuple).intersection(validation_tuple)
+    if overlap:
+        raise ValueError(
+            "selection_seeds and validation_seeds must be disjoint; "
+            f"overlap detected: {sorted(overlap)}."
+        )
+    if selection_seeds is None:
+        selection_mode = "single_candidate_seed"
+    elif len(selection_tuple) == 1:
+        selection_mode = "single_explicit_seed"
+    else:
+        selection_mode = "multi_seed_mean"
+    validation_mode = "not_run" if not validation_tuple else "disjoint_seed_panel"
+    return FitSeedPlan(
+        proposal_seed=int(proposal_seed),
+        selection_seeds=selection_tuple,
+        validation_seeds=validation_tuple,
+        selection_mode=selection_mode,
+        validation_mode=validation_mode,
+    )
 
 
 LEGACY_METRIC_ALIASES: dict[str, str] = {
@@ -80,6 +142,60 @@ def _score_against_targets(
     return float(score + fc_error**2)
 
 
+def _metric_panel_mean_std(metric_rows: list[dict[str, float]]) -> tuple[dict[str, float], dict[str, float]]:
+    metric_names = metric_rows[0].keys()
+    mean_metrics = {
+        name: float(np.mean([row[name] for row in metric_rows]))
+        for name in metric_names
+    }
+    std_metrics = {
+        name: float(np.std([row[name] for row in metric_rows]))
+        for name in metric_names
+    }
+    return mean_metrics, std_metrics
+
+
+def _selection_seeds_for_candidate(seed_plan: FitSeedPlan, candidate_seed: int) -> tuple[int, ...]:
+    return seed_plan.selection_seeds or (candidate_seed,)
+
+
+def _evaluate_regime_seed_panel(
+    graph: GraphConfig,
+    regime: RegimeConfig,
+    target_set: SoberTargetSet,
+    seeds: tuple[int, ...],
+) -> tuple[
+    float,
+    float,
+    dict[str, float],
+    dict[str, float],
+    np.ndarray,
+    list[dict[str, float | int]],
+]:
+    metric_rows: list[dict[str, float]] = []
+    fc_matrices: list[np.ndarray] = []
+    seed_scores: list[dict[str, float | int]] = []
+    for panel_seed in seeds:
+        seeded_regime = regime.model_copy(deep=True)
+        seeded_regime.simulation.seed = int(panel_seed)
+        metrics, fc_matrix = summarize_regime(graph, seeded_regime)
+        score = _score_against_targets(metrics, fc_matrix, target_set)
+        metric_rows.append(metrics)
+        fc_matrices.append(fc_matrix)
+        seed_scores.append({"seed": int(panel_seed), "score": score})
+
+    scores = [float(row["score"]) for row in seed_scores]
+    mean_metrics, std_metrics = _metric_panel_mean_std(metric_rows)
+    return (
+        float(np.mean(scores)),
+        float(np.std(scores)),
+        mean_metrics,
+        std_metrics,
+        np.mean(fc_matrices, axis=0),
+        seed_scores,
+    )
+
+
 def _candidate_from_initial(
     initial_regime: RegimeConfig,
     rng: np.random.Generator,
@@ -119,38 +235,120 @@ def fit_sober_regime(
     target_set: SoberTargetSet,
     iterations: int = 24,
     seed: int = 0,
+    selection_seeds: Sequence[int] | None = None,
+    validation_seeds: Sequence[int] | None = None,
 ) -> FitResult:
     rng = np.random.default_rng(seed)
+    seed_plan = build_fit_seed_plan(
+        proposal_seed=seed,
+        selection_seeds=selection_seeds,
+        validation_seeds=validation_seeds,
+    )
     seeded_initial = initial_regime.model_copy(deep=True)
     seeded_initial.simulation.seed = seed
 
-    initial_metrics, initial_fc = summarize_regime(graph, seeded_initial)
-    initial_score = _score_against_targets(initial_metrics, initial_fc, target_set)
+    (
+        initial_score,
+        initial_score_std,
+        initial_metrics,
+        initial_metrics_std,
+        initial_fc,
+        initial_seed_scores,
+    ) = _evaluate_regime_seed_panel(
+        graph,
+        seeded_initial,
+        target_set,
+        _selection_seeds_for_candidate(seed_plan, seed),
+    )
     best_result = FitResult(
         initial_score=initial_score,
         best_score=initial_score,
+        selection_score_std=initial_score_std,
+        selected_iteration=0,
         best_regime=seeded_initial,
         best_metrics=initial_metrics,
+        best_metrics_std=initial_metrics_std,
         best_fc_matrix=initial_fc,
         history=[
             {
                 "iteration": 0,
                 "score": initial_score,
+                "score_std": initial_score_std,
+                "seed_count": len(initial_seed_scores),
                 **initial_metrics,
+            }
+        ],
+        seed_plan=seed_plan.model_dump(),
+        selection_diagnostics=[
+            {
+                "iteration": 0,
+                "candidate_seed": seed,
+                "score_mean": initial_score,
+                "score_std": initial_score_std,
+                "seed_scores": initial_seed_scores,
             }
         ],
     )
 
     for iteration in range(1, iterations + 1):
         candidate = _candidate_from_initial(initial_regime, rng, seed=seed, iteration=iteration)
-        metrics, fc_matrix = summarize_regime(graph, candidate)
-        score = _score_against_targets(metrics, fc_matrix, target_set)
-        best_result.history.append({"iteration": iteration, "score": score, **metrics})
-        if score < best_result.best_score:
+        candidate_seed = int(candidate.simulation.seed)
+        panel_seeds = _selection_seeds_for_candidate(seed_plan, candidate_seed)
+        (
+            score,
+            score_std,
+            metrics,
+            metrics_std,
+            fc_matrix,
+            seed_scores,
+        ) = _evaluate_regime_seed_panel(graph, candidate, target_set, panel_seeds)
+        best_result.history.append(
+            {
+                "iteration": iteration,
+                "score": score,
+                "score_std": score_std,
+                "seed_count": len(seed_scores),
+                **metrics,
+            }
+        )
+        best_result.selection_diagnostics.append(
+            {
+                "iteration": iteration,
+                "candidate_seed": candidate_seed,
+                "score_mean": score,
+                "score_std": score_std,
+                "seed_scores": seed_scores,
+            }
+        )
+        if score < best_result.best_score or (
+            np.isclose(score, best_result.best_score) and score_std < best_result.selection_score_std
+        ):
             best_result.best_score = score
+            best_result.selection_score_std = score_std
+            best_result.selected_iteration = iteration
             best_result.best_regime = candidate
             best_result.best_metrics = metrics
+            best_result.best_metrics_std = metrics_std
             best_result.best_fc_matrix = fc_matrix
+
+    if seed_plan.validation_seeds:
+        (
+            validation_score_mean,
+            validation_score_std,
+            validation_metrics_mean,
+            validation_metrics_std,
+            _validation_fc,
+            _validation_seed_scores,
+        ) = _evaluate_regime_seed_panel(
+            graph,
+            best_result.best_regime,
+            target_set,
+            seed_plan.validation_seeds,
+        )
+        best_result.validation_score_mean = validation_score_mean
+        best_result.validation_score_std = validation_score_std
+        best_result.validation_metrics_mean = validation_metrics_mean
+        best_result.validation_metrics_std = validation_metrics_std
 
     return best_result
 
@@ -222,10 +420,11 @@ def _build_empirical_provenance(
     manifest: Any,
     target_paths: dict[str, str],
     viewer_cache_paths: dict[str, str] | None,
+    cache_metadata: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     runs = [run.relative_path for run in manifest.runs]
     sessions = sorted({run.session for run in manifest.runs})
-    return {
+    provenance = {
         "dataset_id": DS003059_DATASET_ID,
         "dataset_version": DS003059_VERSION,
         "dataset_anchor": dataset_anchor,
@@ -241,6 +440,52 @@ def _build_empirical_provenance(
             "The single-subject MVP subset helper is written separately as a convenience bootstrap artifact and is not the canonical fit provenance.",
         ],
     }
+    if cache_metadata is not None:
+        provenance["cache_schema_version"] = cache_metadata.get("schema_version")
+        provenance["cache_fingerprint"] = cache_metadata.get("cache_fingerprint")
+        provenance["cache_created_at_utc"] = cache_metadata.get("created_at_utc")
+        provenance["cache_artifact_hashes"] = cache_metadata.get("artifact_hashes", {})
+        provenance["preprocessing_qc"] = cache_metadata.get("preprocessing_qc", {})
+    return provenance
+
+
+def _default_stage2_selection_seeds(seed: int) -> tuple[int, ...]:
+    return tuple(seed + 100 + index for index in range(3))
+
+
+def _default_stage2_validation_seeds(seed: int) -> tuple[int, ...]:
+    return tuple(seed + 1000 + index for index in range(5))
+
+
+def _build_empirical_validation_boundary(
+    *,
+    target_set: SoberTargetSet,
+    empirical_outputs: dict[str, Any] | None,
+    seed: int,
+    subject_split: SubjectSplit | None = None,
+    subject_split_path: str | Path | None = None,
+) -> dict[str, Any]:
+    if subject_split is not None:
+        return build_subject_validation_boundary(
+            subject_split,
+            split_file_path=subject_split_path,
+            held_out_validation_completed=False,
+            selection_data_source=f"{target_set.dataset_anchor} (selection/calibration subset)",
+            validation_data_source=(
+                "Held-out validation subject subset; Stage 3 held-out empirical validation has not yet been run."
+            ),
+            selection_random_seed=seed,
+        )
+    subjects = (
+        list(empirical_outputs["manifest"].subjects)
+        if empirical_outputs is not None and "manifest" in empirical_outputs
+        else []
+    )
+    return build_no_subject_validation_boundary(
+        selection_data_source=target_set.dataset_anchor,
+        selection_subject_count=len(subjects) if subjects else None,
+        selection_random_seed=seed,
+    )
 
 
 def generate_stage_2_outputs(
@@ -253,23 +498,60 @@ def generate_stage_2_outputs(
     seed: int = 0,
     dataset_dir: str | Path | None = None,
     subjects: tuple[str, ...] | None = None,
+    selection_seeds: Sequence[int] | None = None,
+    validation_seeds: Sequence[int] | None = None,
+    subject_split_path: str | Path | None = None,
+    build_viewer: bool = True,
+    runs: Sequence[str] | None = None,
+    include_music: bool = False,
 ) -> dict[str, Any]:
     repo_root = _infer_repo_root(graph_path)
     graph = load_graph_config(graph_path)
     regime = load_regime_config(baseline_path)
     empirical_outputs: dict[str, Any] | None = None
+    heldout_empirical_outputs: dict[str, Any] | None = None
     resolved_target_path = Path(target_path)
+    output_path = Path(output_dir)
+    subject_split = load_subject_split_file(subject_split_path) if subject_split_path is not None else None
     if dataset_dir is not None:
         empirical_outputs = generate_empirical_targets(
             dataset_dir=dataset_dir,
             output_dir=output_dir,
-            subjects=subjects,
+            subjects=subject_split.selection_subjects if subject_split is not None else subjects,
+            runs=runs,
+            include_music=include_music,
         )
         resolved_target_path = Path(empirical_outputs["sober_target_path"])
+        if subject_split is not None and subject_split.is_approved:
+            heldout_empirical_outputs = generate_empirical_targets(
+                dataset_dir=dataset_dir,
+                output_dir=output_path / "heldout_validation",
+                subjects=subject_split.validation_subjects,
+                runs=runs,
+                include_music=include_music,
+            )
 
     target_set = load_sober_target_set(resolved_target_path)
     atlas_audit = build_atlas_mapping_audit(include_voxel_counts=True, allow_fetch=False)
-    fit_result = fit_sober_regime(graph, regime, target_set, iterations=iterations, seed=seed)
+    stage_selection_seeds = (
+        tuple(int(item) for item in selection_seeds)
+        if selection_seeds is not None
+        else _default_stage2_selection_seeds(seed)
+    )
+    stage_validation_seeds = (
+        tuple(int(item) for item in validation_seeds)
+        if validation_seeds is not None
+        else _default_stage2_validation_seeds(seed)
+    )
+    fit_result = fit_sober_regime(
+        graph,
+        regime,
+        target_set,
+        iterations=iterations,
+        seed=seed,
+        selection_seeds=stage_selection_seeds,
+        validation_seeds=stage_validation_seeds,
+    )
     subset_spec = ds003059_subset_spec()
     mvp_helper = {
         "subset_spec": subset_spec.model_dump(),
@@ -280,7 +562,6 @@ def generate_stage_2_outputs(
         ],
     }
 
-    output_path = Path(output_dir)
     figures_path = output_path / "figures"
     atlas_audit_path = output_path / "atlas_mapping_audit.json"
     figures_path.mkdir(parents=True, exist_ok=True)
@@ -310,6 +591,8 @@ def generate_stage_2_outputs(
     existing_subject_index = viewer_root / "subject_index.json"
     existing_subject_views = viewer_root / "subject_views"
     if (
+        build_viewer
+        and
         empirical_outputs is not None
         and existing_group_overview.exists()
         and existing_subject_index.exists()
@@ -322,7 +605,7 @@ def generate_stage_2_outputs(
         }
         cached_overview = json.loads(existing_group_overview.read_text(encoding="utf-8"))
         gallery_outputs = list(cached_overview.get("gallery", []))
-    elif empirical_outputs is not None and dataset_dir is not None:
+    elif build_viewer and empirical_outputs is not None and dataset_dir is not None:
         run_views = build_empirical_run_views_from_records(
             empirical_outputs["run_records"],
             dataset_dir=dataset_dir,
@@ -353,11 +636,21 @@ def generate_stage_2_outputs(
             literature_deltas=literature_delta_set.target_deltas if literature_delta_set else None,
         )
 
+    empirical_validation_boundary = _build_empirical_validation_boundary(
+        target_set=target_set,
+        empirical_outputs=empirical_outputs,
+        seed=seed,
+        subject_split=subject_split,
+        subject_split_path=subject_split_path,
+    )
     summary = {
         "dataset_anchor": target_set.dataset_anchor,
         "initial_score": fit_result.initial_score,
         "best_score": fit_result.best_score,
+        "selection_score_std": fit_result.selection_score_std,
+        "selected_iteration": fit_result.selected_iteration,
         "best_metrics": fit_result.best_metrics,
+        "best_metrics_std": fit_result.best_metrics_std,
         "best_parameters": {
             "within_group_scale": fit_result.best_regime.global_parameters.within_group_scale,
             "cross_group_scale": fit_result.best_regime.global_parameters.cross_group_scale,
@@ -369,12 +662,69 @@ def generate_stage_2_outputs(
         },
         "target_path": str(resolved_target_path),
         "atlas_mapping_audit_path": str(atlas_audit_path),
+        "fit_seed_plan": fit_result.seed_plan
+        or build_fit_seed_plan(
+            seed,
+            selection_seeds=stage_selection_seeds,
+            validation_seeds=stage_validation_seeds,
+        ).model_dump(),
+        "model_selection_diagnostics": {
+            "selected_iteration": fit_result.selected_iteration,
+            "selection_score_mean": fit_result.best_score,
+            "selection_score_std": fit_result.selection_score_std,
+            "selection_seed_count": len(stage_selection_seeds),
+            "candidate_count": len(fit_result.history),
+            "selection_mode": (
+                fit_result.seed_plan.get("selection_mode")
+                if fit_result.seed_plan
+                else "multi_seed_mean"
+            ),
+            "history": fit_result.selection_diagnostics,
+        },
+        "empirical_validation_boundary": empirical_validation_boundary,
     }
+    if heldout_empirical_outputs is not None:
+        summary["heldout_validation_target_paths"] = {
+            "status": "prepared_for_stage3_not_completed",
+            "sober": heldout_empirical_outputs["sober_target_path"],
+            "perturbation": heldout_empirical_outputs["perturbation_target_path"],
+            "subject_count": len(heldout_empirical_outputs["manifest"].subjects),
+            "run_count": len(heldout_empirical_outputs["manifest"].runs),
+            "subjects": list(heldout_empirical_outputs["manifest"].subjects),
+            "claim_guardrail": (
+                "Held-out validation target artifacts are prepared for Stage 3, but Stage 2 does not "
+                "by itself complete held-out empirical validation."
+            ),
+        }
+        empirical_validation_boundary["validation_data_source"] = (
+            "Stage 2 held-out validation target cache reserved for Stage 3 empirical evaluation."
+        )
 
-    # Multi-seed uncertainty for the best regime
-    best_mean, best_std = multi_seed_summary(graph, fit_result.best_regime, n_seeds=5, base_seed=seed)
+    # Validation-panel uncertainty for the best regime. The fallback keeps older test doubles usable.
+    if fit_result.validation_metrics_mean:
+        best_mean = fit_result.validation_metrics_mean
+        best_std = fit_result.validation_metrics_std
+    else:
+        best_mean, best_std = multi_seed_summary(
+            graph,
+            fit_result.best_regime,
+            n_seeds=len(stage_validation_seeds),
+            base_seed=stage_validation_seeds[0],
+        )
     summary["best_metrics_mean"] = best_mean
     summary["best_metrics_std"] = best_std
+    summary["multi_seed_summary"] = {
+        "role": "validation_seed_panel",
+        "seeds": list(stage_validation_seeds),
+        "seed_count": len(stage_validation_seeds),
+        "mean_metrics": best_mean,
+        "std_metrics": best_std,
+        "score_mean": fit_result.validation_score_mean,
+        "score_std": fit_result.validation_score_std,
+        "selection_validation_seed_overlap": bool(
+            set(stage_selection_seeds).intersection(stage_validation_seeds)
+        ),
+    }
     summary["version_stamp"] = get_version_stamp(repo_root)
 
     if empirical_outputs is not None:
@@ -389,6 +739,7 @@ def generate_stage_2_outputs(
                 "perturbation": empirical_outputs["perturbation_target_path"],
             },
             viewer_cache_paths=viewer_cache_paths,
+            cache_metadata=empirical_outputs.get("cache_metadata"),
         )
         if empirical_data_quality is not None:
             summary["empirical_data_quality_path"] = str(output_path / "empirical_data_quality.json")
@@ -469,15 +820,34 @@ def generate_stage_2_outputs(
         "## Results",
         "",
         f"- Initial score: {fit_result.initial_score:.4f}",
-        f"- Best score: {fit_result.best_score:.4f}",
+        f"- Best selection score: {fit_result.best_score:.4f} ± {fit_result.selection_score_std:.4f}",
+        f"- Selected iteration: {fit_result.selected_iteration}",
+        f"- Selection seeds: `{list(stage_selection_seeds)}`",
+        f"- Validation seeds: `{list(stage_validation_seeds)}`",
+        f"- Validation score: `{fit_result.validation_score_mean if fit_result.validation_score_mean is not None else 'n/a'}`",
         f"- Best within-network stability: {fit_result.best_metrics['within_network_stability']:.4f}",
         f"- Best cross-network communication: {fit_result.best_metrics['cross_network_communication']:.4f}",
         f"- Best entropy / diversity: {fit_result.best_metrics['entropy_diversity']:.4f}",
         f"- Best switching rate: {fit_result.best_metrics['switching_rate']:.4f}",
         "",
+        "## Empirical Validation Boundary",
+        "",
+        (
+            "- Held-out empirical validation: `split configured, not yet completed`"
+            if subject_split is not None
+            else "- Held-out empirical validation: `not configured`"
+        ),
+        (
+            "- Stage 2 calibration uses only the split selection subjects when a split file is provided."
+            if subject_split is not None
+            else "- Stage 2 uses available empirical targets for calibration/selection, not for an independent held-out claim."
+        ),
+        "- Stage 2b reliability summaries should be presented as target stability diagnostics, not as held-out model validation.",
+        "",
         "## Critical Review",
         "",
         "- The fitting loop is intentionally small and transparent, so it should be treated as calibration rather than optimization proof.",
+        "- Multi-seed selection reduces single-realization dependence when configured, but it does not by itself create a held-out empirical test.",
         "- If actual ds003059 targets were used, the remaining mismatch is now a model limitation rather than a placeholder-data limitation.",
         "- The full empirical cohort provenance is the canonical reproducibility record for this run.",
         "- The saved MVP subset helper is a convenience bootstrap artifact and is not the canonical fit provenance.",

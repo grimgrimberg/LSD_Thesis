@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from lsd_thesis.publication import PublicationEvidence, Stage2Evidence, Stage3Evidence, Stage4Evidence
+from lsd_thesis.publication import PublicationEvidence, Stage2Evidence, Stage3Evidence, Stage4Evidence, SubjectValidationEvidence
 from lsd_thesis.publication_content import build_defense_outline_markdown, build_thesis_report_markdown
 from lsd_thesis.publication_figures import PublicationFigure, generate_publication_figures
 
@@ -79,6 +79,9 @@ def test_build_thesis_report_markdown_builds_long_form_thesis_structure(tmp_path
     assert "The model is a surrogate." in markdown
     assert "It does not show that LSD has been mechanistically simulated." in markdown
     assert "The central conclusion is not that psychedelic whole-brain dynamics have been explained." in markdown
+    assert "currently passes its local verification suite" not in markdown
+    assert "tests pass, static typing is clean, linting passes" not in markdown
+    assert "full empirical cohort" not in markdown
 
 
 def test_build_thesis_report_markdown_uses_figures_contract_for_absolute_paths(tmp_path: Path) -> None:
@@ -116,7 +119,7 @@ def test_build_thesis_report_markdown_threads_current_evidence_into_long_form_se
     markdown = build_thesis_report_markdown(evidence, figure_bundle)
 
     assert "fifteen paired subjects and sixty total resting runs" in markdown
-    assert "best-ranked perturbation mechanism is `less_hierarchical_constraint` at strength `0.25`" in markdown
+    assert "best-scoring perturbation family is `less_hierarchical_constraint` at strength `0.25`" in markdown
     assert "`less_hierarchical_constraint+more_stochasticity`" in markdown
     assert "sign mismatches remain for: `within_network_stability`." in markdown
     assert (
@@ -162,3 +165,130 @@ def test_build_publication_content_handles_reversed_stage2_scores(tmp_path: Path
     assert "leading fit" not in outline_markdown.lower()
     assert "Custom benchmark anchor" in report_markdown
     assert "Custom benchmark anchor" in outline_markdown
+
+
+def test_build_thesis_report_markdown_derives_stage4_scores_from_evidence(tmp_path: Path) -> None:
+    evidence = _build_sample_publication_evidence()
+    evidence.stage4 = Stage4Evidence(
+        best_single_mechanism="single_proxy",
+        best_single_score=7.5,
+        best_pair_name="pair_proxy",
+        best_pair_score=6.25,
+    )
+    figure_bundle = generate_publication_figures(evidence, tmp_path / "figures")
+
+    markdown = build_thesis_report_markdown(evidence, figure_bundle)
+
+    assert "best single mechanism: `single_proxy`" in markdown
+    assert "best single score: `7.5000`" in markdown
+    assert "best pairwise mechanism: `pair_proxy`" in markdown
+    assert "best pairwise score: `6.2500`" in markdown
+    assert "outperformed the best single mechanism" in markdown
+    assert "3481.5367" not in markdown
+    assert "3498.3309" not in markdown
+    assert "57` tests passed" not in markdown
+
+
+def test_build_thesis_report_markdown_avoids_fixed_validation_claims(tmp_path: Path) -> None:
+    evidence = _build_sample_publication_evidence()
+    figure_bundle = generate_publication_figures(evidence, tmp_path / "figures")
+
+    markdown = build_thesis_report_markdown(evidence, figure_bundle)
+
+    assert "57 tests passed" not in markdown
+    assert "On 2026-04-15 the local checks passed" not in markdown
+    assert "best score comes from a single stochastic realization" not in markdown
+    assert "intentionally avoids embedding a fixed test count or dated validation claim" in markdown
+    assert "Subject-disjoint held-out validation has not yet been configured or performed" in markdown
+
+
+def test_build_thesis_report_markdown_discloses_configured_split_without_claiming_completion(
+    tmp_path: Path,
+) -> None:
+    evidence = _build_sample_publication_evidence()
+    evidence.stage2.validation_boundary = SubjectValidationEvidence(
+        configured=True,
+        completed=False,
+        split_strategy="subject_disjoint",
+        selection_subject_count=12,
+        validation_subject_count=3,
+        overlap_count=0,
+        claim_guardrail="Subject-disjoint split is configured, but held-out validation has not yet been completed.",
+    )
+    figure_bundle = generate_publication_figures(evidence, tmp_path / "figures")
+
+    markdown = build_thesis_report_markdown(evidence, figure_bundle)
+
+    assert "subject-disjoint split is configured" in markdown
+    assert "not yet been completed" in markdown
+    assert "subject-disjoint held-out validation has been completed" not in markdown
+
+
+def test_build_thesis_report_markdown_discloses_candidate_split_without_approval(
+    tmp_path: Path,
+) -> None:
+    evidence = _build_sample_publication_evidence()
+    evidence.stage2.validation_boundary = SubjectValidationEvidence(
+        configured=True,
+        completed=False,
+        approval_status="candidate",
+        split_strategy="subject_disjoint",
+        selection_subject_count=12,
+        validation_subject_count=3,
+        overlap_count=0,
+        claim_guardrail="Candidate split is configured, but held-out validation has not yet been completed.",
+    )
+    figure_bundle = generate_publication_figures(evidence, tmp_path / "figures")
+
+    markdown = build_thesis_report_markdown(evidence, figure_bundle)
+
+    assert "candidate subject-disjoint split is prepared" in markdown.lower()
+    assert "not approved" in markdown
+    assert "subject-disjoint held-out validation has been completed" not in markdown
+
+
+def test_build_thesis_report_markdown_discloses_completed_cv5_internal_validation(
+    tmp_path: Path,
+) -> None:
+    evidence = _build_sample_publication_evidence()
+    evidence.cv5_validation = {
+        "held_out_validation_completed": True,
+        "completed_folds": 5,
+        "total_folds": 5,
+        "total_subjects": 15,
+        "validation_claim_scope": "preliminary_internal_subject_disjoint_cv5",
+        "source_manifest_path": "output/validation/cv5_subject_disjoint/approved/subject_split_cv5_manifest_approved.json",
+        "aggregate_path": "output/validation/cv5_subject_disjoint/results/cv5_aggregate_validation.json",
+        "run_parameters": {
+            "run_command": (
+                "uv run python scripts/run_cv5_validation.py --manifest "
+                "output/validation/cv5_subject_disjoint/approved/subject_split_cv5_manifest_approved.json "
+                "--output-dir output/validation/cv5_subject_disjoint/results --fit-iterations 64 --seed 11"
+            ),
+        },
+        "aggregate_metrics": {
+            "score_mean": {"mean": 0.42, "std": 0.03},
+            "sign_agreement_fraction": {"mean": 0.675, "std": 0.19},
+            "selected_mechanism_counts": {"more_cross_talk": 5},
+            "selected_strength_counts": {"0.1": 5},
+        },
+        "per_fold_metrics": [
+            {"fold_id": "fold_01", "score_mean": 0.25, "sign_agreement_fraction": 0.5},
+            {"fold_id": "fold_02", "score_mean": 0.62, "sign_agreement_fraction": 0.875},
+        ],
+    }
+    figure_bundle = generate_publication_figures(evidence, tmp_path / "figures")
+
+    markdown = build_thesis_report_markdown(evidence, figure_bundle)
+
+    assert "Approved preliminary five-fold subject-disjoint internal validation completed across 5/5 folds" in markdown
+    assert "not external or clinical validation" in markdown
+    assert "n=3 held-out subjects per fold" in markdown
+    assert "No subject-level motion/FD/DVARS/confound/censoring stratification was available" in markdown
+    assert "the aggregate artifact is the authoritative completion record" in markdown
+    assert "| Fold-averaged delta mismatch score | 0.4200 (fold SD 0.0300) |" in markdown
+    assert "| Held-out score range | 0.2500 to 0.6200 |" in markdown
+    assert "| Fold-averaged target-sign agreement | 0.6750 (fold SD 0.1900) |" in markdown
+    assert "fold standard deviation is not a confidence interval" in markdown
+    assert "output/validation/cv5_subject_disjoint/results/cv5_aggregate_validation.json" in markdown
+    assert "subject-disjoint held-out validation has been completed" not in markdown

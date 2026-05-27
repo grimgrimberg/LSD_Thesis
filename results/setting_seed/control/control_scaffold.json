@@ -1,0 +1,26 @@
+{
+  "schema_version": "setting_seed_control_scaffold.v1",
+  "status": "blocked_missing_run_02",
+  "run_02_files_present": false,
+  "run_02_analysis_ready": false,
+  "motion_analysis_ready": false,
+  "u_music_definition": "u_music(t)=0 during Rest1, 1 during Music, 0 during Rest3.",
+  "context_memory_definition": "dc/dt = -c/tau + u_music(t); implemented as an explicit discrete scaffold.",
+  "music_excluded_subjects": [
+    "sub-003",
+    "sub-012",
+    "sub-015"
+  ],
+  "available_effects": [
+    "rest1_to_rest3_carryover_proxy",
+    "drug_carryover_interaction"
+  ],
+  "unavailable_effects": [
+    "setting_effect",
+    "music_to_rest3_displacement",
+    "drug_setting_interaction"
+  ],
+  "claim_guardrail": "No music-control empirical claim is made yet; future descriptive music-control comparison is not a mechanism, clinical, or subjective-experience claim.",
+  "rest_carryover_rows": 120,
+  "rest_carryover_metric_count": 8
+}

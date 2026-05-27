@@ -91,6 +91,69 @@ uv run python scripts/run_pipeline.py run-all
 
 Stage 2 may process/download raw ds003059 data and can be slow.
 
+## External Data Roots
+
+All new thesis data and package atlas caches should stay under `D:\LSD_Thesis` by default.
+
+```bash
+uv run python scripts/prepare_external_data.py
+```
+
+This creates and records:
+
+- Nilearn/Schaefer atlas cache: `results/nilearn_data/`
+- OpenNeuro `ds006072` target: `data/ds006072/`
+- HCP structural-connectome target: `data/hcp_structural_connectome/`
+- PET/receptor-prior target: `data/receptor_priors/`
+- Manifest: `results/external_data/external_data_manifest.json`
+
+Do not allow package defaults to write atlas or dataset caches under `C:\Users\...` for this thesis repo.
+
+Download the small `ds006072` metadata/provenance slice into the repo-local data root:
+
+```bash
+uv run python scripts/download_ds006072_metadata.py
+```
+
+This uses the repo's OpenNeuro GraphQL path because the installed `openneuro-py` downloader currently fails against the live schema by querying the removed `DatasetFile.key` field.
+
+Do not use a package-default OpenNeuro download location. Full `ds006072` imaging downloads must target `data/ds006072/` and should use repo-owned or patched download code that records a manifest.
+
+Build the ds006072 functional and processed-CIFTI manifest before any full imaging download:
+
+```bash
+uv run python scripts/build_ds006072_func_manifest.py
+```
+
+Outputs:
+
+- `data/ds006072/ds006072_func_manifest.json`
+- `data/ds006072/ds006072_func_manifest.csv`
+- `data/ds006072/ds006072_cifti_manifest.csv`
+
+Export the current thesis evidence loop to CSV and Excel:
+
+```bash
+uv run python scripts/export_thesis_loop_tables.py
+```
+
+Output workbook:
+
+- `results/thesis_evidence_loop/exports/thesis_evidence_loop_tables.xlsx`
+
+## Parcellation Sensitivity
+
+Run Schaefer/Yeo extraction and mechanism ranking without overwriting the legacy 8-module Stage 2 cache:
+
+```bash
+uv run python scripts/run_parcellation_sensitivity.py --parcellation schaefer_100_yeo_7
+```
+
+Outputs:
+
+- `results/stage_2/parcellations/<parcellation>/empirical_viewer/`
+- `results/parcellation_sensitivity/<parcellation>/summary.json`
+
 ## Demo UI
 
 ```bash
@@ -123,6 +186,7 @@ By default this writes PNGs under `results/publication_figures/`, which is treat
 uv run python scripts/run_pipeline.py run-all
 uv run python scripts/export_training_dataset.py
 uv run scripts/benchmark_condition_models.py
+uv run python scripts/benchmark_rocket_condition_models.py --cv5-manifest output/validation/cv5_subject_disjoint/approved/subject_split_cv5_manifest_approved.json --n-kernels 128
 uv run scripts/benchmark_multitask_models.py
 uv run python scripts/build_publication_package.py
 ```

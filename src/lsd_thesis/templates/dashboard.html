@@ -891,6 +891,20 @@
           <div class="plot-review-item"><strong>Guardrail</strong><span>Plots remain macro-dynamic surrogate summaries, not receptor-level, clinical, or subjective-experience measurements.</span></div>
         </div>
       </section>
+      <section class="card card--span-2" aria-labelledby="thesis_upgrade_title">
+        <h2 id="thesis_upgrade_title">Thesis Readiness Flight Deck</h2>
+        <p class="plot-caption">Evidence gates for motion/confounds, canonical parcellation, ROCKET strength, external validation, receptor/structural control, and reproducible archiving. Scores are readiness gates, not biological truth scores.</p>
+        <div id="thesis_upgrade_status" class="result-status" role="status" aria-live="polite">Loading thesis-upgrade gates...</div>
+        <div id="thesis_upgrade_cards" class="summary-cards" aria-labelledby="thesis_upgrade_title"></div>
+        <div id="thesis_upgrade_gate_plot" aria-labelledby="thesis_upgrade_title"></div>
+        <div id="rocket_strength_radar" aria-label="ROCKET strengthening radar"></div>
+        <div class="result-table-wrap" aria-label="Thesis upgrade readiness gates">
+          <table class="result-table">
+            <thead><tr><th>Gate</th><th>Status</th><th>Ready</th><th>Blocker / next action</th></tr></thead>
+            <tbody id="thesis_upgrade_table"></tbody>
+          </table>
+        </div>
+      </section>
       <section class="card card--span-2" aria-labelledby="method_board_title">
         <h2 id="method_board_title">AI/ML Mechanism Ranking: A+B+C+D+E Results</h2>
         <p class="plot-caption">Dynamic mechanism artifacts from <code>results/dynamic_mechanism_ranking/summary.json</code>. A/B/C/D/E are fitted proxy layers; none should be read as biological mechanism proof.</p>
@@ -900,6 +914,12 @@
           <table class="result-table" aria-label="Dynamic mechanism ranking results">
             <thead><tr><th>Rank</th><th>Layer</th><th>Mechanism</th><th>Status</th><th>Score</th><th>Evidence</th></tr></thead>
             <tbody id="dynamic_mechanism_table"></tbody>
+          </table>
+        </div>
+        <div id="dynamic_mechanism_inference_gating" class="result-table-wrap" aria-label="Dynamic mechanism uncertainty gating">
+          <table class="result-table">
+            <thead><tr><th>Layer</th><th>Family</th><th>Minimum q-value</th><th>FDR-significant metrics</th><th>CI overlaps zero</th><th>Interpretation</th></tr></thead>
+            <tbody id="dynamic_mechanism_inference_table"></tbody>
           </table>
         </div>
         <div id="dynamic_figure_links" class="result-links" aria-label="Generated dynamic mechanism figure links"></div>
@@ -1046,6 +1066,26 @@
 
     function metricText(value, digits = 2) {
       return typeof value === 'number' && Number.isFinite(value) ? value.toFixed(digits) : 'n/a';
+    }
+
+    function finiteNumber(value) {
+      return typeof value === 'number' && Number.isFinite(value);
+    }
+
+    function metricQValue(row) {
+      return finiteNumber(row?.sign_flip_q_value) ? row.sign_flip_q_value : null;
+    }
+
+    function isFdrSignificant(row) {
+      return row?.significant_after_fdr_0_05 === true || row?.['significant_after_fdr_0.05'] === true;
+    }
+
+    function ciOverlapsZero(row) {
+      return finiteNumber(row?.ci_low) && finiteNumber(row?.ci_high) && row.ci_low <= 0 && row.ci_high >= 0;
+    }
+
+    function hasCi(row) {
+      return finiteNumber(row?.ci_low) && finiteNumber(row?.ci_high);
     }
 
     function addMetricCard(container, label, value, note = '') {
@@ -1240,6 +1280,69 @@
         row.appendChild(cell);
       });
       tbody.appendChild(row);
+    }
+
+    function familyInferenceSummary(layer, family, rows) {
+      const metricRows = rows || [];
+      const qRows = metricRows.filter(row => metricQValue(row) !== null);
+      const bestRow = qRows.length
+        ? qRows.reduce((best, row) => metricQValue(row) < metricQValue(best) ? row : best, qRows[0])
+        : null;
+      const fdrCount = metricRows.filter(isFdrSignificant).length;
+      const ciRows = metricRows.filter(hasCi);
+      const overlapCount = ciRows.filter(ciOverlapsZero).length;
+      const minQ = bestRow ? metricText(metricQValue(bestRow), 4) : 'n/a';
+      let interpretation = 'No metric-family inference rows are available.';
+      if (ciRows.length) {
+        if (fdrCount > 0 && overlapCount === 0) {
+          interpretation = 'FDR-supported and CI-separated in this artifact; still exploratory small-n evidence.';
+        } else if (fdrCount > 0) {
+          interpretation = 'FDR signal is present, but at least one CI crosses zero.';
+        } else if (overlapCount === ciRows.length) {
+          interpretation = 'All available CIs cross zero; treat as descriptive only.';
+        } else {
+          interpretation = 'Some CIs avoid zero, but no BH-FDR sign test passes.';
+        }
+      }
+      return {
+        layer,
+        family,
+        minQ,
+        fdrCount,
+        fdrTotal: metricRows.length,
+        overlapCount,
+        ciTotal: ciRows.length,
+        interpretation
+      };
+    }
+
+    function renderDynamicInferenceGating(dynamicMechanism, tableBody) {
+      tableBody.innerHTML = '';
+      const families = [
+        ['A', 'transition-state proxy', dynamicMechanism.transition_proxy?.metric_deltas || []],
+        ['C', 'hierarchy / routing', dynamicMechanism.hierarchy_routing?.metric_deltas || []],
+        ['D', 'dynamic repertoire', dynamicMechanism.dynamic_repertoire?.metric_deltas || []],
+        ['E', 'network-control energy', dynamicMechanism.network_control_energy?.metric_deltas || []]
+      ];
+      families.forEach(([layer, family, rows]) => {
+        const summary = familyInferenceSummary(layer, family, rows);
+        appendTableRow(tableBody, [
+          summary.layer,
+          summary.family,
+          summary.minQ,
+          `${summary.fdrCount}/${summary.fdrTotal}`,
+          `${summary.overlapCount}/${summary.ciTotal}`,
+          summary.interpretation
+        ]);
+      });
+      appendTableRow(tableBody, [
+        'B',
+        'DMDc predictive baseline',
+        'n/a',
+        'n/a',
+        'n/a',
+        'LOSO RMSE baseline; no metric-family sign/FDR gate is emitted for B.'
+      ]);
     }
 
     function rowBy(rows, predicate) {
@@ -1496,10 +1599,86 @@
       addMetricCard(container, 'Scope', 'internal only', 'not external or clinical validation');
     }
 
+    function renderThesisUpgrade(upgrade) {
+      const status = document.getElementById('thesis_upgrade_status');
+      const cards = document.getElementById('thesis_upgrade_cards');
+      const table = document.getElementById('thesis_upgrade_table');
+      if (!status || !cards || !table) return;
+      if (!upgrade || !Array.isArray(upgrade.gates)) {
+        status.textContent = 'Thesis-upgrade gates are not loaded. Run uv run python scripts/build_thesis_upgrade_status.py.';
+        cards.innerHTML = '<p class="empty">Generate <code>results/thesis_upgrade/thesis_upgrade_status.json</code> to populate this panel.</p>';
+        table.innerHTML = '';
+        return;
+      }
+
+      const gates = upgrade.gates;
+      const summary = upgrade.readiness_summary || {};
+      status.textContent =
+        `Thesis status: ${summary.thesis_status || 'unknown'}; ` +
+        `${summary.ready_gates ?? 0}/${summary.total_gates ?? gates.length} gates ready. ` +
+        (upgrade.claim_guardrail || '');
+
+      cards.innerHTML = '';
+      addMetricCard(cards, 'Ready gates', `${summary.ready_gates ?? 0}/${summary.total_gates ?? gates.length}`, 'readiness, not truth');
+      const canonical = upgrade.components?.canonical_parcellation || {};
+      addMetricCard(cards, 'Canonical target', canonical.recommended_primary || 'schaefer_100_yeo_7', canonical.current_baseline || '8-module proxy baseline');
+      const external = upgrade.components?.external_validation || {};
+      addMetricCard(cards, 'External validation', external.gate?.status || 'unknown', external.recommended_external_dataset || 'ds006072 target');
+      const archive = upgrade.components?.reproducible_archive || {};
+      addMetricCard(cards, 'Archive', archive.gate?.status || 'unknown', archive.claim_guardrail || 'GitHub Pages is not the citable archive');
+
+      table.innerHTML = gates.map((gate) => (
+        `<tr><td>${gate.label || 'n/a'}</td><td>${gate.status || 'n/a'}</td><td>${gate.ready ? 'yes' : 'no'}</td><td>${gate.blocker || ''}</td></tr>`
+      )).join('');
+
+      const colors = gates.map((gate) => gate.ready ? '#1f7a4d' : (Number(gate.score || 0) >= 0.5 ? '#b97616' : '#9d2c2c'));
+      Plotly.newPlot('thesis_upgrade_gate_plot', [{
+        type: 'bar',
+        x: gates.map((gate) => gate.label),
+        y: gates.map((gate) => Number(gate.score || 0)),
+        text: gates.map((gate) => gate.status || ''),
+        marker: { color: colors },
+        hovertemplate: '%{x}<br>readiness score %{y:.2f}<br>%{text}<extra></extra>'
+      }], baseLayout('Thesis readiness gates', {
+        yaxis: { title: 'readiness score', range: [0, 1], zeroline: false },
+        xaxis: { tickangle: -30, automargin: true },
+        margin: { t: 44, r: 20, b: 110, l: 56 }
+      }), plotConfig());
+
+      const rocket = upgrade.components?.rocket_strengthening || {};
+      const rocketGate = rocket.gate || {};
+      const rocketMetrics = rocket.current_metrics || {};
+      const radarValues = [
+        rocketGate.ready ? 1 : 0,
+        rocketMetrics.balanced_accuracy_mean ? Math.max(0, Math.min(1, Number(rocketMetrics.balanced_accuracy_mean))) : 0,
+        0,
+        0,
+        0,
+        upgrade.components?.external_validation?.gate?.ready ? 1 : 0
+      ];
+      Plotly.newPlot('rocket_strength_radar', [{
+        type: 'scatterpolar',
+        r: radarValues,
+        theta: ['subject-disjoint', 'BA signal', 'permutation null', 'calibration', 'Mini/MultiRocket', 'external'],
+        fill: 'toself',
+        name: 'current ROCKET evidence',
+        line: { color: '#375a7f' },
+        fillcolor: 'rgba(55, 90, 127, 0.22)'
+      }], {
+        title: { text: 'ROCKET strengthening radar' },
+        polar: { radialaxis: { visible: true, range: [0, 1] } },
+        showlegend: false,
+        margin: { t: 48, r: 28, b: 24, l: 28 },
+        paper_bgcolor: 'rgba(0,0,0,0)',
+        plot_bgcolor: 'rgba(0,0,0,0)'
+      }, plotConfig());
+    }
+
     function renderDynamicMechanism(dynamicMechanism) {
       const cards = document.getElementById('dynamic_mechanism_cards');
       const status = document.getElementById('dynamic_mechanism_status');
       const tableBody = document.getElementById('dynamic_mechanism_table');
+      const inferenceTable = document.getElementById('dynamic_mechanism_inference_table');
       const figureLinks = document.getElementById('dynamic_figure_links');
       const transitionPlot = document.getElementById('dynamic_transition_plot');
       const dmdcPlot = document.getElementById('dynamic_dmdc_plot');
@@ -1509,11 +1688,13 @@
       const controlPlot = document.getElementById('dynamic_control_plot');
       cards.innerHTML = '';
       tableBody.innerHTML = '';
+      inferenceTable.innerHTML = '';
       figureLinks.innerHTML = '';
       if (!dynamicMechanism || dynamicMechanism.analysis_status === 'missing') {
         status.textContent = 'A+B+C+D+E results are not loaded. Generate them with uv run python scripts/run_dynamic_mechanism_ranking.py.';
         cards.innerHTML = '<p class="empty">Run <code>uv run python scripts/run_dynamic_mechanism_ranking.py</code> to populate A+B+C+D+E results.</p>';
         appendTableRow(tableBody, ['n/a', 'A+B+C+D+E', 'pending', 'missing artifact', 'n/a', 'No summary.json loaded.']);
+        appendTableRow(inferenceTable, ['n/a', 'A/C/D/E', 'n/a', 'n/a', 'n/a', 'No metric-family inference artifact is loaded.']);
         renderDynamicRobustness(dynamicMechanism || {});
         transitionPlot.innerHTML = '<p class="empty">No transition-state proxy artifact is loaded.</p>';
         dmdcPlot.innerHTML = '<p class="empty">No DMDc artifact is loaded.</p>';
@@ -1529,6 +1710,7 @@
       const second = ranking.find(row => row.rank === 2) || {};
       const dmdc = dynamicMechanism.dmdc || {};
       const networkControl = dynamicMechanism.network_control_energy || {};
+      const inferenceMetadata = dynamicMechanism.inference_metadata || {};
       status.textContent =
         `Loaded ${dynamicMechanism.pair_count ?? 0} paired subject/run records across ${dynamicMechanism.subject_count ?? 'n/a'} subjects.\n` +
         `Current result: ${top.layer || 'n/a'} ${top.mechanism || 'n/a'} ranks first under the signed first-pass score.\n` +
@@ -1540,6 +1722,12 @@
       addMetricCard(cards, 'DMDc bias RMSE change', `${metricText(dmdc.relative_improvement_pct_mean, 4)}%`, 'positive means condition bias helped');
       addMetricCard(cards, 'DMDc interaction RMSE change', `${metricText(dmdc.condition_interaction_relative_improvement_pct_mean, 4)}%`, 'positive means condition-by-state helped');
       addMetricCard(cards, 'Network-control score', `${metricText(networkControl.support_score, 3)}`, 'proxy graph and receptor-prior nulls');
+      addMetricCard(
+        cards,
+        'Inference gate',
+        inferenceMetadata.multiple_testing ? 'BH-FDR + CI' : 'not recorded',
+        `${inferenceMetadata.metric_bootstrap_iterations ?? 'n/a'} bootstrap draws; exploratory only`
+      );
       addMetricCard(cards, 'Guardrail', 'proxy only', dynamicMechanism.claim_guardrail || 'No mechanism-truth claim.');
 
       ranking.forEach(row => {
@@ -1552,6 +1740,7 @@
           row.evidence || 'n/a'
         ]);
       });
+      renderDynamicInferenceGating(dynamicMechanism, inferenceTable);
 
       const figurePathEntries = Object.entries(dynamicMechanism.figure_paths || {});
       figurePathEntries.forEach(([label, path]) => {
@@ -1587,7 +1776,12 @@
           y: transitionRows.map(row => row.mean_delta),
           type: 'bar',
           marker: { color: '#0f766e' },
-          hovertext: transitionRows.map(row => `${row.expected_direction}<br>effect size: ${metricText(row.effect_size, 3)}`),
+          hovertext: transitionRows.map(row =>
+            `${row.expected_direction}<br>` +
+            `effect size: ${metricText(row.effect_size, 3)}<br>` +
+            `q-value: ${metricText(row.sign_flip_q_value, 4)}<br>` +
+            `CI: ${metricText(row.ci_low, 4)} to ${metricText(row.ci_high, 4)}`
+          ),
           error_y: {
             type: 'data',
             array: transitionRows.map(row => row.std_delta),
@@ -1665,7 +1859,9 @@
           hovertext: rows.map(row =>
             `${row.expected_direction}<br>` +
             `signed effect: ${metricText(row.signed_effect_size, 3)}<br>` +
-            `sign consistency: ${metricText(row.sign_consistency, 3)}`
+            `sign consistency: ${metricText(row.sign_consistency, 3)}<br>` +
+            `q-value: ${metricText(row.sign_flip_q_value, 4)}<br>` +
+            `CI: ${metricText(row.ci_low, 4)} to ${metricText(row.ci_high, 4)}`
           ),
           error_y: {
             type: 'data',
@@ -2702,6 +2898,7 @@
       dashboardState = await fetchJson('/api/dashboard-data');
       renderHeroSnapshot(dashboardState);
       renderThesisExpansion(dashboardState.thesis_expansion);
+      renderThesisUpgrade(dashboardState.thesis_upgrade);
       renderDynamicMechanism(dashboardState.dynamic_mechanism);
       renderCv5Summary(dashboardState.cv5_validation);
       renderGraph(dashboardState.graph);

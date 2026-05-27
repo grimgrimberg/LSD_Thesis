@@ -197,7 +197,7 @@ def evaluate_multitask_temporal_cnn(
                 }
             )
 
-        model.eval()
+        model.train(False)
         with torch.no_grad():
             class_logits, normalized_predictions = model(test_windows.to(device))
             probabilities = torch.softmax(class_logits, dim=1)[:, 1].cpu().numpy()

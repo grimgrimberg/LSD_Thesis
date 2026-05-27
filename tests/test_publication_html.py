@@ -44,6 +44,10 @@ Stage 1 paragraph after the figure.
 ## 10. Stage 2: Empirical Bridge and Sober-Regime Fitting
 
 Stage 2 objective changed from 0.500 to 1.250 (increased); lower scores are better.
+
+| CV5 descriptive item | Value |
+| --- | --- |
+| Fold-averaged score | 0.4200 (fold SD 0.0300) |
 """
 
 
@@ -165,11 +169,29 @@ def test_render_thesis_microsite_includes_toc_escaped_markup_and_image_paths() -
     assert "10. Stage 2: Empirical Bridge and Sober-Regime Fitting" in html
     assert "&lt;markup&gt;" in html
     assert "<code>code</code>" in html
+    assert "<table>" in html
+    assert "<th>CV5 descriptive item</th>" in html
+    assert "<td>Fold-averaged score</td>" in html
     parser = _FirstImageParser()
     parser.feed(html)
     assert parser.first_image_attrs is not None
     assert parser.first_image_attrs["src"] == "figures/stage 1 metric shift.png"
     assert parser.first_image_attrs["alt"] == 'Stage "1" & shift'
+
+
+def test_render_thesis_microsite_sanitizes_unsafe_markdown_links() -> None:
+    report = """# Thesis
+
+## Section
+
+[unsafe](javascript:alert(1)) and [safe](docs/stage_reports/stage_2.md)
+"""
+    sections = build_thesis_microsite_sections(report)
+    html = render_thesis_microsite("Thesis", sections)
+
+    assert 'href="javascript:alert(1)"' not in html
+    assert 'href="#"' in html
+    assert 'href="docs/stage_reports/stage_2.md"' in html
 
 
 def test_build_defense_presentation_slides_are_derived_from_long_form_report() -> None:

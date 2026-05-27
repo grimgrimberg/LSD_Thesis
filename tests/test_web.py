@@ -702,6 +702,8 @@ def test_dashboard_template_contains_scholarly_sections_and_figure_links() -> No
         "claim_evidence_links",
         "dynamic_mechanism_cards",
         "dynamic_mechanism_table",
+        "dynamic_mechanism_inference_gating",
+        "dynamic_mechanism_inference_table",
         "dynamic_figure_links",
         "dynamic_transition_plot",
         "dynamic_dmdc_plot",
@@ -739,6 +741,10 @@ def test_dashboard_template_contains_scholarly_sections_and_figure_links() -> No
     assert "selected perturbation family in proxy-objective space" in html
     assert "Proxy interpretation" in html
     assert "summary.json" in html
+    assert "Minimum q-value" in html
+    assert "FDR-significant metrics" in html
+    assert "CI overlaps zero" in html
+    assert "renderDynamicInferenceGating(dynamicMechanism, inferenceTable);" in html
     assert "This static method board mirrors" not in html
     assert "renderDynamicMechanism(dashboardState.dynamic_mechanism);" in html
     assert "CV5 rerun command" in html

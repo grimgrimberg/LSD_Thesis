@@ -1,0 +1,2852 @@
+{
+  "status": "complete",
+  "target_summary_path": "D:\\LSD_Thesis\\results\\stage_2b\\target_reliability_summary.json",
+  "seeds": [
+    11,
+    17,
+    23
+  ],
+  "candidate_count": 12,
+  "best_candidate": {
+    "label": "thalamic_routing_only",
+    "parameters": {
+      "thalamic_routing_kappa": 0.25
+    },
+    "active_parameter_count": 1,
+    "loss": 0.7624433106604079,
+    "objective": {
+      "loss": 0.7624433106604079,
+      "weighted_error": 0.7524384006752054,
+      "sign_mismatch_penalty": 0.0,
+      "overshoot_penalty": 0.0,
+      "seed_variance_penalty": 1.963994081023481e-05,
+      "sparsity_penalty": 1.0,
+      "metric_count": 13,
+      "metrics": [
+        {
+          "metric": "dynamic_fc_variance",
+          "empirical_delta": -0.000938062825,
+          "model_delta": -0.0002312076555310849,
+          "weight": 0.8,
+          "normalized_error": 0.32008752571796684,
+          "weighted_error": 0.08196481929620007,
+          "sign_match": true,
+          "overshoot": 0.0
+        },
+        {
+          "metric": "global_mean_fc",
+          "empirical_delta": 0.071510263179,
+          "model_delta": 9.741442091870667e-07,
+          "weight": 0.4,
+          "normalized_error": -0.999986377560844,
+          "weighted_error": 0.39998910212290356,
+          "sign_match": true,
+          "overshoot": 0.0
+        },
+        {
+          "metric": "gradient_flattening_delta",
+          "empirical_delta": 0.0,
+          "model_delta": 0.0,
+          "weight": 1.8,
+          "normalized_error": 0.0,
+          "weighted_error": 0.0,
+          "sign_match": true,
+          "overshoot": 0.0
+        },
+        {
+          "metric": "hierarchy_differentiation",
+          "empirical_delta": -0.000136522609,
+          "model_delta": -1.0794303125412814e-06,
+          "weight": 1.8,
+          "normalized_error": 0.007178660310513828,
+          "weighted_error": 9.275969493674369e-05,
+          "sign_match": true,
+          "overshoot": 0.0
+        },
+        {
+          "metric": "sensory_somatomotor_global_connectivity",
+          "empirical_delta": 0.057473876561,
+          "model_delta": 1.7811210057949722e-06,
+          "weight": 1.5,
+          "normalized_error": -0.999969009903066,
+          "weighted_error": 1.4999070311497773,
+          "sign_match": true,
+          "overshoot": 0.0
+        },
+        {
+          "metric": "state_occupancy_entropy",
+          "empirical_delta": 0.0,
+          "model_delta": 0.0,
+          "weight": 1.4,
+          "normalized_error": 0.0,
+          "weighted_error": 0.0,
+          "sign_match": true,
+          "overshoot": 0.0
+        },
+        {
+          "metric": "striatum_to_sensory_fc",
+          "empirical_delta": 0.0,
+          "model_delta": 1.813353137462374e-06,
+          "weight": 1.1,
+          "normalized_error": 0.001813353137462374,
+          "weighted_error": 3.617074561259099e-06,
+          "sign_match": true,
+          "overshoot": 0.0
+        },
+        {
+          "metric": "thalamus_to_sensory_fc",
+          "empirical_delta": 0.098029263352,
+          "model_delta": 4.996530694264163e-06,
+          "weight": 1.2,
+          "normalized_error": -0.9999490302127813,
+          "weighted_error": 1.199877675628178,
+          "sign_match": true,
+          "overshoot": 0.0
+        },
+        {
+          "metric": "thalamus_to_transmodal_fc",
+          "empirical_delta": 0.136334910042,
+          "model_delta": 2.8815060748588195e-07,
+          "weight": 0.8,
+          "normalized_error": -0.9999978864503054,
+          "weighted_error": 0.7999966183240623,
+          "sign_match": true,
+          "overshoot": 0.0
+        },
+        {
+          "metric": "transition_entropy",
+          "empirical_delta": 0.009576783163,
+          "model_delta": 0.0,
+          "weight": 1.4,
+          "normalized_error": -1.0,
+          "weighted_error": 1.4,
+          "sign_match": true,
+          "overshoot": 0.0
+        },
+        {
+          "metric": "transition_rate",
+          "empirical_delta": 0.018672839506,
+          "model_delta": 0.0,
+          "weight": 0.8,
+          "normalized_error": -1.0,
+          "weighted_error": 0.8,
+          "sign_match": true,
+          "overshoot": 0.0
+        },
+        {
+          "metric": "unimodal_transmodal_fc",
+          "empirical_delta": 0.047335029864,
+          "model_delta": 9.772685835388966e-07,
+          "weight": 2.0,
+          "normalized_error": -0.9999793542206196,
+          "weighted_error": 1.9999174177349748,
+          "sign_match": true,
+          "overshoot": 0.0
+        },
+        {
+          "metric": "visual_global_connectivity",
+          "empirical_delta": 0.077778302242,
+          "model_delta": 1.211218068582672e-06,
+          "weight": 1.6,
+          "normalized_error": -0.9999844273012696,
+          "weighted_error": 1.5999501677520769,
+          "sign_match": true,
+          "overshoot": 0.0
+        }
+      ]
+    },
+    "delta_summary": {
+      "dynamic_fc_variance": {
+        "mean": -0.0002312076555310849,
+        "std": 0.0002422521885183722,
+        "n": 3
+      },
+      "global_mean_fc": {
+        "mean": 9.741442091870667e-07,
+        "std": 8.526316160214743e-07,
+        "n": 3
+      },
+      "gradient_flattening_delta": {
+        "mean": 0.0,
+        "std": 0.0,
+        "n": 3
+      },
+      "hierarchy_differentiation": {
+        "mean": -1.0794303125412814e-06,
+        "std": 1.2193608986053132e-06,
+        "n": 3
+      },
+      "sensory_somatomotor_global_connectivity": {
+        "mean": 1.7811210057949722e-06,
+        "std": 1.4747168567564491e-06,
+        "n": 3
+      },
+      "state_occupancy_entropy": {
+        "mean": 0.0,
+        "std": 0.0,
+        "n": 3
+      },
+      "striatum_to_sensory_fc": {
+        "mean": 1.813353137462374e-06,
+        "std": 3.963833407652862e-06,
+        "n": 3
+      },
+      "thalamus_to_sensory_fc": {
+        "mean": 4.996530694264163e-06,
+        "std": 2.1169116145271023e-06,
+        "n": 3
+      },
+      "thalamus_to_transmodal_fc": {
+        "mean": 2.8815060748588195e-07,
+        "std": 7.990978908190526e-07,
+        "n": 3
+      },
+      "transition_entropy": {
+        "mean": 0.0,
+        "std": 0.0,
+        "n": 3
+      },
+      "transition_rate": {
+        "mean": 0.0,
+        "std": 0.0,
+        "n": 3
+      },
+      "unimodal_transmodal_fc": {
+        "mean": 9.772685835388966e-07,
+        "std": 1.3231771133857273e-06,
+        "n": 3
+      },
+      "visual_global_connectivity": {
+        "mean": 1.211218068582672e-06,
+        "std": 1.3173126169123698e-06,
+        "n": 3
+      }
+    }
+  },
+  "leaderboard": [
+    {
+      "label": "thalamic_routing_only",
+      "parameters": {
+        "thalamic_routing_kappa": 0.25
+      },
+      "active_parameter_count": 1,
+      "loss": 0.7624433106604079,
+      "objective": {
+        "loss": 0.7624433106604079,
+        "weighted_error": 0.7524384006752054,
+        "sign_mismatch_penalty": 0.0,
+        "overshoot_penalty": 0.0,
+        "seed_variance_penalty": 1.963994081023481e-05,
+        "sparsity_penalty": 1.0,
+        "metric_count": 13,
+        "metrics": [
+          {
+            "metric": "dynamic_fc_variance",
+            "empirical_delta": -0.000938062825,
+            "model_delta": -0.0002312076555310849,
+            "weight": 0.8,
+            "normalized_error": 0.32008752571796684,
+            "weighted_error": 0.08196481929620007,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "global_mean_fc",
+            "empirical_delta": 0.071510263179,
+            "model_delta": 9.741442091870667e-07,
+            "weight": 0.4,
+            "normalized_error": -0.999986377560844,
+            "weighted_error": 0.39998910212290356,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "gradient_flattening_delta",
+            "empirical_delta": 0.0,
+            "model_delta": 0.0,
+            "weight": 1.8,
+            "normalized_error": 0.0,
+            "weighted_error": 0.0,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "hierarchy_differentiation",
+            "empirical_delta": -0.000136522609,
+            "model_delta": -1.0794303125412814e-06,
+            "weight": 1.8,
+            "normalized_error": 0.007178660310513828,
+            "weighted_error": 9.275969493674369e-05,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "sensory_somatomotor_global_connectivity",
+            "empirical_delta": 0.057473876561,
+            "model_delta": 1.7811210057949722e-06,
+            "weight": 1.5,
+            "normalized_error": -0.999969009903066,
+            "weighted_error": 1.4999070311497773,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "state_occupancy_entropy",
+            "empirical_delta": 0.0,
+            "model_delta": 0.0,
+            "weight": 1.4,
+            "normalized_error": 0.0,
+            "weighted_error": 0.0,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "striatum_to_sensory_fc",
+            "empirical_delta": 0.0,
+            "model_delta": 1.813353137462374e-06,
+            "weight": 1.1,
+            "normalized_error": 0.001813353137462374,
+            "weighted_error": 3.617074561259099e-06,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "thalamus_to_sensory_fc",
+            "empirical_delta": 0.098029263352,
+            "model_delta": 4.996530694264163e-06,
+            "weight": 1.2,
+            "normalized_error": -0.9999490302127813,
+            "weighted_error": 1.199877675628178,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "thalamus_to_transmodal_fc",
+            "empirical_delta": 0.136334910042,
+            "model_delta": 2.8815060748588195e-07,
+            "weight": 0.8,
+            "normalized_error": -0.9999978864503054,
+            "weighted_error": 0.7999966183240623,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "transition_entropy",
+            "empirical_delta": 0.009576783163,
+            "model_delta": 0.0,
+            "weight": 1.4,
+            "normalized_error": -1.0,
+            "weighted_error": 1.4,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "transition_rate",
+            "empirical_delta": 0.018672839506,
+            "model_delta": 0.0,
+            "weight": 0.8,
+            "normalized_error": -1.0,
+            "weighted_error": 0.8,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "unimodal_transmodal_fc",
+            "empirical_delta": 0.047335029864,
+            "model_delta": 9.772685835388966e-07,
+            "weight": 2.0,
+            "normalized_error": -0.9999793542206196,
+            "weighted_error": 1.9999174177349748,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "visual_global_connectivity",
+            "empirical_delta": 0.077778302242,
+            "model_delta": 1.211218068582672e-06,
+            "weight": 1.6,
+            "normalized_error": -0.9999844273012696,
+            "weighted_error": 1.5999501677520769,
+            "sign_match": true,
+            "overshoot": 0.0
+          }
+        ]
+      },
+      "delta_summary": {
+        "dynamic_fc_variance": {
+          "mean": -0.0002312076555310849,
+          "std": 0.0002422521885183722,
+          "n": 3
+        },
+        "global_mean_fc": {
+          "mean": 9.741442091870667e-07,
+          "std": 8.526316160214743e-07,
+          "n": 3
+        },
+        "gradient_flattening_delta": {
+          "mean": 0.0,
+          "std": 0.0,
+          "n": 3
+        },
+        "hierarchy_differentiation": {
+          "mean": -1.0794303125412814e-06,
+          "std": 1.2193608986053132e-06,
+          "n": 3
+        },
+        "sensory_somatomotor_global_connectivity": {
+          "mean": 1.7811210057949722e-06,
+          "std": 1.4747168567564491e-06,
+          "n": 3
+        },
+        "state_occupancy_entropy": {
+          "mean": 0.0,
+          "std": 0.0,
+          "n": 3
+        },
+        "striatum_to_sensory_fc": {
+          "mean": 1.813353137462374e-06,
+          "std": 3.963833407652862e-06,
+          "n": 3
+        },
+        "thalamus_to_sensory_fc": {
+          "mean": 4.996530694264163e-06,
+          "std": 2.1169116145271023e-06,
+          "n": 3
+        },
+        "thalamus_to_transmodal_fc": {
+          "mean": 2.8815060748588195e-07,
+          "std": 7.990978908190526e-07,
+          "n": 3
+        },
+        "transition_entropy": {
+          "mean": 0.0,
+          "std": 0.0,
+          "n": 3
+        },
+        "transition_rate": {
+          "mean": 0.0,
+          "std": 0.0,
+          "n": 3
+        },
+        "unimodal_transmodal_fc": {
+          "mean": 9.772685835388966e-07,
+          "std": 1.3231771133857273e-06,
+          "n": 3
+        },
+        "visual_global_connectivity": {
+          "mean": 1.211218068582672e-06,
+          "std": 1.3173126169123698e-06,
+          "n": 3
+        }
+      }
+    },
+    {
+      "label": "hierarchy_only",
+      "parameters": {
+        "hierarchy_cross_coupling_eta": 0.2
+      },
+      "active_parameter_count": 1,
+      "loss": 0.9189060121943616,
+      "objective": {
+        "loss": 0.9189060121943616,
+        "weighted_error": 0.7550549672630574,
+        "sign_mismatch_penalty": 0.15384615384615385,
+        "overshoot_penalty": 0.0,
+        "seed_variance_penalty": 1.9564340601557606e-05,
+        "sparsity_penalty": 1.0,
+        "metric_count": 13,
+        "metrics": [
+          {
+            "metric": "dynamic_fc_variance",
+            "empirical_delta": -0.000938062825,
+            "model_delta": -9.786569939298125e-05,
+            "weight": 0.8,
+            "normalized_error": 0.38046919746368957,
+            "weighted_error": 0.11580544817493121,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "global_mean_fc",
+            "empirical_delta": 0.071510263179,
+            "model_delta": 4.430206613781351e-07,
+            "weight": 0.4,
+            "normalized_error": -0.9999938047960995,
+            "weighted_error": 0.3999950438522318,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "gradient_flattening_delta",
+            "empirical_delta": 0.0,
+            "model_delta": 0.0,
+            "weight": 1.8,
+            "normalized_error": 0.0,
+            "weighted_error": 0.0,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "hierarchy_differentiation",
+            "empirical_delta": -0.000136522609,
+            "model_delta": -1.4201065240415645e-06,
+            "weight": 1.8,
+            "normalized_error": 0.007160604039080059,
+            "weighted_error": 9.229365036808138e-05,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "sensory_somatomotor_global_connectivity",
+            "empirical_delta": 0.057473876561,
+            "model_delta": 1.0131949121176358e-06,
+            "weight": 1.5,
+            "normalized_error": -0.9999823712097958,
+            "weighted_error": 1.499947114095549,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "state_occupancy_entropy",
+            "empirical_delta": 0.0,
+            "model_delta": 0.0,
+            "weight": 1.4,
+            "normalized_error": 0.0,
+            "weighted_error": 0.0,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "striatum_to_sensory_fc",
+            "empirical_delta": 0.0,
+            "model_delta": 1.1797572819401598e-06,
+            "weight": 1.1,
+            "normalized_error": 0.0011797572819401598,
+            "weighted_error": 1.5310099687199172e-06,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "thalamus_to_sensory_fc",
+            "empirical_delta": 0.098029263352,
+            "model_delta": -1.541669773323188e-07,
+            "weight": 1.2,
+            "normalized_error": -1.0000015726628158,
+            "weighted_error": 1.2000037743937257,
+            "sign_match": false,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "thalamus_to_transmodal_fc",
+            "empirical_delta": 0.136334910042,
+            "model_delta": -3.7757759085987885e-07,
+            "weight": 0.8,
+            "normalized_error": -1.000002769485752,
+            "weighted_error": 0.8000044311833394,
+            "sign_match": false,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "transition_entropy",
+            "empirical_delta": 0.009576783163,
+            "model_delta": 0.0,
+            "weight": 1.4,
+            "normalized_error": -1.0,
+            "weighted_error": 1.4,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "transition_rate",
+            "empirical_delta": 0.018672839506,
+            "model_delta": 0.0,
+            "weight": 0.8,
+            "normalized_error": -1.0,
+            "weighted_error": 0.8,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "unimodal_transmodal_fc",
+            "empirical_delta": 0.047335029864,
+            "model_delta": 1.3050353844246132e-06,
+            "weight": 2.0,
+            "normalized_error": -0.9999724298180824,
+            "weighted_error": 1.9998897207925597,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "visual_global_connectivity",
+            "empirical_delta": 0.077778302242,
+            "model_delta": 6.023644863277037e-07,
+            "weight": 1.6,
+            "normalized_error": -0.9999922553659701,
+            "weighted_error": 1.5999752172670716,
+            "sign_match": true,
+            "overshoot": 0.0
+          }
+        ]
+      },
+      "delta_summary": {
+        "dynamic_fc_variance": {
+          "mean": -9.786569939298125e-05,
+          "std": 0.00024535012501029294,
+          "n": 3
+        },
+        "global_mean_fc": {
+          "mean": 4.430206613781351e-07,
+          "std": 8.696200824365113e-07,
+          "n": 3
+        },
+        "gradient_flattening_delta": {
+          "mean": 0.0,
+          "std": 0.0,
+          "n": 3
+        },
+        "hierarchy_differentiation": {
+          "mean": -1.4201065240415645e-06,
+          "std": 1.6153799287479778e-06,
+          "n": 3
+        },
+        "sensory_somatomotor_global_connectivity": {
+          "mean": 1.0131949121176358e-06,
+          "std": 1.503629043565904e-06,
+          "n": 3
+        },
+        "state_occupancy_entropy": {
+          "mean": 0.0,
+          "std": 0.0,
+          "n": 3
+        },
+        "striatum_to_sensory_fc": {
+          "mean": 1.1797572819401598e-06,
+          "std": 1.032798627816013e-06,
+          "n": 3
+        },
+        "thalamus_to_sensory_fc": {
+          "mean": -1.541669773323188e-07,
+          "std": 8.621860033216764e-07,
+          "n": 3
+        },
+        "thalamus_to_transmodal_fc": {
+          "mean": -3.7757759085987885e-07,
+          "std": 4.212021413175443e-07,
+          "n": 3
+        },
+        "transition_entropy": {
+          "mean": 0.0,
+          "std": 0.0,
+          "n": 3
+        },
+        "transition_rate": {
+          "mean": 0.0,
+          "std": 0.0,
+          "n": 3
+        },
+        "unimodal_transmodal_fc": {
+          "mean": 1.3050353844246132e-06,
+          "std": 1.6834197915225234e-06,
+          "n": 3
+        },
+        "visual_global_connectivity": {
+          "mean": 6.023644863277037e-07,
+          "std": 9.98067191227769e-07,
+          "n": 3
+        }
+      }
+    },
+    {
+      "label": "striatal_routing_only",
+      "parameters": {
+        "striatal_routing_kappa": 0.25
+      },
+      "active_parameter_count": 1,
+      "loss": 0.923715884400673,
+      "objective": {
+        "loss": 0.923715884400673,
+        "weighted_error": 0.759866190270145,
+        "sign_mismatch_penalty": 0.15384615384615385,
+        "overshoot_penalty": 0.0,
+        "seed_variance_penalty": 1.4161137496350462e-05,
+        "sparsity_penalty": 1.0,
+        "metric_count": 13,
+        "metrics": [
+          {
+            "metric": "dynamic_fc_variance",
+            "empirical_delta": -0.000938062825,
+            "model_delta": 0.00010451699669930536,
+            "weight": 0.8,
+            "normalized_error": 0.47211481206531,
+            "weighted_error": 0.1783139166171704,
+            "sign_match": false,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "global_mean_fc",
+            "empirical_delta": 0.071510263179,
+            "model_delta": 4.19700200371409e-07,
+            "weight": 0.4,
+            "normalized_error": -0.9999941309095826,
+            "weighted_error": 0.39999530474144457,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "gradient_flattening_delta",
+            "empirical_delta": 0.0,
+            "model_delta": 0.0,
+            "weight": 1.8,
+            "normalized_error": 0.0,
+            "weighted_error": 0.0,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "hierarchy_differentiation",
+            "empirical_delta": -0.000136522609,
+            "model_delta": -8.438646521187939e-07,
+            "weight": 1.8,
+            "normalized_error": 0.007191145589384143,
+            "weighted_error": 9.308263479789424e-05,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "sensory_somatomotor_global_connectivity",
+            "empirical_delta": 0.057473876561,
+            "model_delta": 7.982223358219779e-07,
+            "weight": 1.5,
+            "normalized_error": -0.9999861115626162,
+            "weighted_error": 1.4999583349771817,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "state_occupancy_entropy",
+            "empirical_delta": 0.0,
+            "model_delta": 0.0,
+            "weight": 1.4,
+            "normalized_error": 0.0,
+            "weighted_error": 0.0,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "striatum_to_sensory_fc",
+            "empirical_delta": 0.0,
+            "model_delta": 2.2169631919514523e-06,
+            "weight": 1.1,
+            "normalized_error": 0.0022169631919514523,
+            "weighted_error": 5.40641837391433e-06,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "thalamus_to_sensory_fc",
+            "empirical_delta": 0.098029263352,
+            "model_delta": 6.339054198593411e-07,
+            "weight": 1.2,
+            "normalized_error": -0.9999935335082791,
+            "weighted_error": 1.1999844804700486,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "thalamus_to_transmodal_fc",
+            "empirical_delta": 0.136334910042,
+            "model_delta": -6.213060828782109e-08,
+            "weight": 0.8,
+            "normalized_error": -1.0000004557204627,
+            "weighted_error": 0.8000007291529064,
+            "sign_match": false,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "transition_entropy",
+            "empirical_delta": 0.009576783163,
+            "model_delta": 0.0,
+            "weight": 1.4,
+            "normalized_error": -1.0,
+            "weighted_error": 1.4,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "transition_rate",
+            "empirical_delta": 0.018672839506,
+            "model_delta": 0.0,
+            "weight": 0.8,
+            "normalized_error": -1.0,
+            "weighted_error": 0.8,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "unimodal_transmodal_fc",
+            "empirical_delta": 0.047335029864,
+            "model_delta": 8.393015647663778e-07,
+            "weight": 2.0,
+            "normalized_error": -0.9999822689123218,
+            "weighted_error": 1.9999290762780702,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "visual_global_connectivity",
+            "empirical_delta": 0.077778302242,
+            "model_delta": 4.826590812208783e-07,
+            "weight": 1.6,
+            "normalized_error": -0.9999937944250864,
+            "weighted_error": 1.5999801422218913,
+            "sign_match": true,
+            "overshoot": 0.0
+          }
+        ]
+      },
+      "delta_summary": {
+        "dynamic_fc_variance": {
+          "mean": 0.00010451699669930536,
+          "std": 0.00017701367680505485,
+          "n": 3
+        },
+        "global_mean_fc": {
+          "mean": 4.19700200371409e-07,
+          "std": 5.382129857054993e-07,
+          "n": 3
+        },
+        "gradient_flattening_delta": {
+          "mean": 0.0,
+          "std": 0.0,
+          "n": 3
+        },
+        "hierarchy_differentiation": {
+          "mean": -8.438646521187939e-07,
+          "std": 7.225826510462193e-07,
+          "n": 3
+        },
+        "sensory_somatomotor_global_connectivity": {
+          "mean": 7.982223358219779e-07,
+          "std": 7.719195602050777e-07,
+          "n": 3
+        },
+        "state_occupancy_entropy": {
+          "mean": 0.0,
+          "std": 0.0,
+          "n": 3
+        },
+        "striatum_to_sensory_fc": {
+          "mean": 2.2169631919514523e-06,
+          "std": 2.57114985879854e-06,
+          "n": 3
+        },
+        "thalamus_to_sensory_fc": {
+          "mean": 6.339054198593411e-07,
+          "std": 8.934164009961298e-07,
+          "n": 3
+        },
+        "thalamus_to_transmodal_fc": {
+          "mean": -6.213060828782109e-08,
+          "std": 2.780149665897351e-07,
+          "n": 3
+        },
+        "transition_entropy": {
+          "mean": 0.0,
+          "std": 0.0,
+          "n": 3
+        },
+        "transition_rate": {
+          "mean": 0.0,
+          "std": 0.0,
+          "n": 3
+        },
+        "unimodal_transmodal_fc": {
+          "mean": 8.393015647663778e-07,
+          "std": 7.494150469045537e-07,
+          "n": 3
+        },
+        "visual_global_connectivity": {
+          "mean": 4.826590812208783e-07,
+          "std": 5.563991772553786e-07,
+          "n": 3
+        }
+      }
+    },
+    {
+      "label": "hierarchy_sensory",
+      "parameters": {
+        "hierarchy_cross_coupling_eta": 0.15,
+        "visual_gain_beta": 0.1,
+        "sensory_gain_gamma": 0.08
+      },
+      "active_parameter_count": 3,
+      "loss": 1.2122768639288986,
+      "objective": {
+        "loss": 1.2122768639288986,
+        "weighted_error": 0.7851974521300238,
+        "sign_mismatch_penalty": 0.07692307692307693,
+        "overshoot_penalty": 0.6401788140233516,
+        "seed_variance_penalty": 0.0002677114564885111,
+        "sparsity_penalty": 3.0,
+        "metric_count": 13,
+        "metrics": [
+          {
+            "metric": "dynamic_fc_variance",
+            "empirical_delta": -0.000938062825,
+            "model_delta": -0.002704964318739613,
+            "weight": 0.8,
+            "normalized_error": -0.8001117509594217,
+            "weighted_error": 0.5121430512186813,
+            "sign_match": true,
+            "overshoot": 0.6401788140233516
+          },
+          {
+            "metric": "global_mean_fc",
+            "empirical_delta": 0.071510263179,
+            "model_delta": 2.1792153359956323e-05,
+            "weight": 0.4,
+            "normalized_error": -0.9996952583812283,
+            "weighted_error": 0.39975624385196434,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "gradient_flattening_delta",
+            "empirical_delta": 0.0,
+            "model_delta": 0.0,
+            "weight": 1.8,
+            "normalized_error": 0.0,
+            "weighted_error": 0.0,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "hierarchy_differentiation",
+            "empirical_delta": -0.000136522609,
+            "model_delta": -3.222968194786328e-05,
+            "weight": 1.8,
+            "normalized_error": 0.00552765745275448,
+            "weighted_error": 5.499899444698586e-05,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "sensory_somatomotor_global_connectivity",
+            "empirical_delta": 0.057473876561,
+            "model_delta": 4.012031842851963e-05,
+            "weight": 1.5,
+            "normalized_error": -0.9993019381877619,
+            "weighted_error": 1.4979065454987261,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "state_occupancy_entropy",
+            "empirical_delta": 0.0,
+            "model_delta": 0.0,
+            "weight": 1.4,
+            "normalized_error": 0.0,
+            "weighted_error": 0.0,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "striatum_to_sensory_fc",
+            "empirical_delta": 0.0,
+            "model_delta": 5.905179142073891e-05,
+            "weight": 1.1,
+            "normalized_error": 0.05905179142073891,
+            "weighted_error": 0.0038358254769982987,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "thalamus_to_sensory_fc",
+            "empirical_delta": 0.098029263352,
+            "model_delta": 5.304477230657264e-05,
+            "weight": 1.2,
+            "normalized_error": -0.9994588883921722,
+            "weighted_error": 1.19870168350334,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "thalamus_to_transmodal_fc",
+            "empirical_delta": 0.136334910042,
+            "model_delta": -4.73089280765097e-06,
+            "weight": 0.8,
+            "normalized_error": -1.0000347005239243,
+            "weighted_error": 0.80005552180158,
+            "sign_match": false,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "transition_entropy",
+            "empirical_delta": 0.009576783163,
+            "model_delta": 0.0,
+            "weight": 1.4,
+            "normalized_error": -1.0,
+            "weighted_error": 1.4,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "transition_rate",
+            "empirical_delta": 0.018672839506,
+            "model_delta": 0.0,
+            "weight": 0.8,
+            "normalized_error": -1.0,
+            "weighted_error": 0.8,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "unimodal_transmodal_fc",
+            "empirical_delta": 0.047335029864,
+            "model_delta": 3.6889204958997133e-05,
+            "weight": 2.0,
+            "normalized_error": -0.9992206785320514,
+            "weighted_error": 1.9968839288121065,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "visual_global_connectivity",
+            "empirical_delta": 0.077778302242,
+            "model_delta": 4.30554373758533e-05,
+            "weight": 1.6,
+            "normalized_error": -0.9994464338236403,
+            "weighted_error": 1.5982290785324675,
+            "sign_match": true,
+            "overshoot": 0.0
+          }
+        ]
+      },
+      "delta_summary": {
+        "dynamic_fc_variance": {
+          "mean": -0.002704964318739613,
+          "std": 0.003240321353874869,
+          "n": 3
+        },
+        "global_mean_fc": {
+          "mean": 2.1792153359956323e-05,
+          "std": 1.6921587605657243e-05,
+          "n": 3
+        },
+        "gradient_flattening_delta": {
+          "mean": 0.0,
+          "std": 0.0,
+          "n": 3
+        },
+        "hierarchy_differentiation": {
+          "mean": -3.222968194786328e-05,
+          "std": 3.6397931638975097e-05,
+          "n": 3
+        },
+        "sensory_somatomotor_global_connectivity": {
+          "mean": 4.012031842851963e-05,
+          "std": 3.046704512506457e-05,
+          "n": 3
+        },
+        "state_occupancy_entropy": {
+          "mean": 0.0,
+          "std": 0.0,
+          "n": 3
+        },
+        "striatum_to_sensory_fc": {
+          "mean": 5.905179142073891e-05,
+          "std": 7.5522110934272e-05,
+          "n": 3
+        },
+        "thalamus_to_sensory_fc": {
+          "mean": 5.304477230657264e-05,
+          "std": 1.7458738374198983e-05,
+          "n": 3
+        },
+        "thalamus_to_transmodal_fc": {
+          "mean": -4.73089280765097e-06,
+          "std": 5.303518520857745e-06,
+          "n": 3
+        },
+        "transition_entropy": {
+          "mean": 0.0,
+          "std": 0.0,
+          "n": 3
+        },
+        "transition_rate": {
+          "mean": 0.0,
+          "std": 0.0,
+          "n": 3
+        },
+        "unimodal_transmodal_fc": {
+          "mean": 3.6889204958997133e-05,
+          "std": 3.6261422013274285e-05,
+          "n": 3
+        },
+        "visual_global_connectivity": {
+          "mean": 4.30554373758533e-05,
+          "std": 2.1595226263475515e-05,
+          "n": 3
+        }
+      }
+    },
+    {
+      "label": "sensory_visual_only",
+      "parameters": {
+        "visual_gain_beta": 0.12,
+        "sensory_gain_gamma": 0.1
+      },
+      "active_parameter_count": 2,
+      "loss": 1.503489055569453,
+      "objective": {
+        "loss": 1.503489055569453,
+        "weighted_error": 0.8182128161789047,
+        "sign_mismatch_penalty": 0.07692307692307693,
+        "overshoot_penalty": 1.1765221318524934,
+        "seed_variance_penalty": 0.0003683861648979082,
+        "sparsity_penalty": 2.0,
+        "metric_count": 13,
+        "metrics": [
+          {
+            "metric": "dynamic_fc_variance",
+            "empirical_delta": -0.000938062825,
+            "model_delta": -0.0033333728918432115,
+            "weight": 0.8,
+            "normalized_error": -1.084676049266551,
+            "weighted_error": 0.9412177054819948,
+            "sign_match": true,
+            "overshoot": 1.1765221318524934
+          },
+          {
+            "metric": "global_mean_fc",
+            "empirical_delta": 0.071510263179,
+            "model_delta": 2.606864404845292e-05,
+            "weight": 0.4,
+            "normalized_error": -0.9996354559067528,
+            "weighted_error": 0.39970841788236067,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "gradient_flattening_delta",
+            "empirical_delta": 0.0,
+            "model_delta": 0.0,
+            "weight": 1.8,
+            "normalized_error": 0.0,
+            "weighted_error": 0.0,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "hierarchy_differentiation",
+            "empirical_delta": -0.000136522609,
+            "model_delta": -3.802556674074401e-05,
+            "weight": 1.8,
+            "normalized_error": 0.005220468205350793,
+            "weighted_error": 4.9055918909541344e-05,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "sensory_somatomotor_global_connectivity",
+            "empirical_delta": 0.057473876561,
+            "model_delta": 4.79966137541347e-05,
+            "weight": 1.5,
+            "normalized_error": -0.99916489687792,
+            "weighted_error": 1.4974957367295967,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "state_occupancy_entropy",
+            "empirical_delta": 0.0,
+            "model_delta": 0.0,
+            "weight": 1.4,
+            "normalized_error": 0.0,
+            "weighted_error": 0.0,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "striatum_to_sensory_fc",
+            "empirical_delta": 0.0,
+            "model_delta": 7.140942795928289e-05,
+            "weight": 1.1,
+            "normalized_error": 0.07140942795928289,
+            "weighted_error": 0.005609237041619214,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "thalamus_to_sensory_fc",
+            "empirical_delta": 0.098029263352,
+            "model_delta": 6.50671614382814e-05,
+            "weight": 1.2,
+            "normalized_error": -0.9993362475732921,
+            "weighted_error": 1.1984075228566418,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "thalamus_to_transmodal_fc",
+            "empirical_delta": 0.136334910042,
+            "model_delta": -5.962643738421924e-06,
+            "weight": 0.8,
+            "normalized_error": -1.0000437352673397,
+            "weighted_error": 0.8000699779579625,
+            "sign_match": false,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "transition_entropy",
+            "empirical_delta": 0.009576783163,
+            "model_delta": 0.0,
+            "weight": 1.4,
+            "normalized_error": -1.0,
+            "weighted_error": 1.4,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "transition_rate",
+            "empirical_delta": 0.018672839506,
+            "model_delta": 0.0,
+            "weight": 0.8,
+            "normalized_error": -1.0,
+            "weighted_error": 0.8,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "unimodal_transmodal_fc",
+            "empirical_delta": 0.047335029864,
+            "model_delta": 4.372897683306102e-05,
+            "weight": 2.0,
+            "normalized_error": -0.9990761814884516,
+            "weighted_error": 1.9963064328350908,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "visual_global_connectivity",
+            "empirical_delta": 0.077778302242,
+            "model_delta": 5.09973912990643e-05,
+            "weight": 1.6,
+            "normalized_error": -0.9993443236760249,
+            "weighted_error": 1.5979025236215865,
+            "sign_match": true,
+            "overshoot": 0.0
+          }
+        ]
+      },
+      "delta_summary": {
+        "dynamic_fc_variance": {
+          "mean": -0.0033333728918432115,
+          "std": 0.004495690186482032,
+          "n": 3
+        },
+        "global_mean_fc": {
+          "mean": 2.606864404845292e-05,
+          "std": 2.056283866849808e-05,
+          "n": 3
+        },
+        "gradient_flattening_delta": {
+          "mean": 0.0,
+          "std": 0.0,
+          "n": 3
+        },
+        "hierarchy_differentiation": {
+          "mean": -3.802556674074401e-05,
+          "std": 4.4296092600684625e-05,
+          "n": 3
+        },
+        "sensory_somatomotor_global_connectivity": {
+          "mean": 4.79966137541347e-05,
+          "std": 3.696166299205408e-05,
+          "n": 3
+        },
+        "state_occupancy_entropy": {
+          "mean": 0.0,
+          "std": 0.0,
+          "n": 3
+        },
+        "striatum_to_sensory_fc": {
+          "mean": 7.140942795928289e-05,
+          "std": 9.366947733962098e-05,
+          "n": 3
+        },
+        "thalamus_to_sensory_fc": {
+          "mean": 6.50671614382814e-05,
+          "std": 2.1232220050005452e-05,
+          "n": 3
+        },
+        "thalamus_to_transmodal_fc": {
+          "mean": -5.962643738421924e-06,
+          "std": 6.734595223266292e-06,
+          "n": 3
+        },
+        "transition_entropy": {
+          "mean": 0.0,
+          "std": 0.0,
+          "n": 3
+        },
+        "transition_rate": {
+          "mean": 0.0,
+          "std": 0.0,
+          "n": 3
+        },
+        "unimodal_transmodal_fc": {
+          "mean": 4.372897683306102e-05,
+          "std": 4.409570957028955e-05,
+          "n": 3
+        },
+        "visual_global_connectivity": {
+          "mean": 5.09973912990643e-05,
+          "std": 2.577736074635504e-05,
+          "n": 3
+        }
+      }
+    },
+    {
+      "label": "full_perturbation_vector",
+      "parameters": {
+        "receptor_gain_alpha": 0.12,
+        "hierarchy_cross_coupling_eta": 0.12,
+        "visual_gain_beta": 0.08,
+        "sensory_gain_gamma": 0.08,
+        "associative_decoherence_lambda": 0.08,
+        "thalamic_routing_kappa": 0.15,
+        "striatal_routing_kappa": 0.1,
+        "noise_delta": 0.005,
+        "homeostasis_delta": 0.05
+      },
+      "active_parameter_count": 9,
+      "loss": 8.23069150552514,
+      "objective": {
+        "loss": 8.23069150552514,
+        "weighted_error": 7.5251045995034405,
+        "sign_mismatch_penalty": 0.6153846153846154,
+        "overshoot_penalty": 0.0,
+        "seed_variance_penalty": 0.0008091625483337719,
+        "sparsity_penalty": 9.0,
+        "metric_count": 13,
+        "metrics": [
+          {
+            "metric": "dynamic_fc_variance",
+            "empirical_delta": -0.000938062825,
+            "model_delta": 0.022231518601583882,
+            "weight": 0.8,
+            "normalized_error": 10.491956925671653,
+            "weighted_error": 88.0649281041195,
+            "sign_match": false,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "global_mean_fc",
+            "empirical_delta": 0.071510263179,
+            "model_delta": -0.00011108589790205976,
+            "weight": 0.4,
+            "normalized_error": -1.0015534259414482,
+            "weighted_error": 0.4012437060060209,
+            "sign_match": false,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "gradient_flattening_delta",
+            "empirical_delta": 0.0,
+            "model_delta": 0.0,
+            "weight": 1.8,
+            "normalized_error": 0.0,
+            "weighted_error": 0.0,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "hierarchy_differentiation",
+            "empirical_delta": -0.000136522609,
+            "model_delta": 8.1002833460427e-06,
+            "weight": 1.8,
+            "normalized_error": 0.007665196780946358,
+            "weighted_error": 0.00010575943504313474,
+            "sign_match": false,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "sensory_somatomotor_global_connectivity",
+            "empirical_delta": 0.057473876561,
+            "model_delta": -0.00010896948776332553,
+            "weight": 1.5,
+            "normalized_error": -1.0018959829105605,
+            "weighted_error": 1.5056933408584772,
+            "sign_match": false,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "state_occupancy_entropy",
+            "empirical_delta": 0.0,
+            "model_delta": 0.0,
+            "weight": 1.4,
+            "normalized_error": 0.0,
+            "weighted_error": 0.0,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "striatum_to_sensory_fc",
+            "empirical_delta": 0.0,
+            "model_delta": -0.00018590716046669917,
+            "weight": 1.1,
+            "normalized_error": -0.18590716046669917,
+            "weighted_error": 0.03801761954407014,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "thalamus_to_sensory_fc",
+            "empirical_delta": 0.098029263352,
+            "model_delta": -0.00012534880015113714,
+            "weight": 1.2,
+            "normalized_error": -1.0012786875659878,
+            "weighted_error": 1.2030708122086404,
+            "sign_match": false,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "thalamus_to_transmodal_fc",
+            "empirical_delta": 0.136334910042,
+            "model_delta": -0.00013254414474476542,
+            "weight": 0.8,
+            "normalized_error": -1.0009721951971358,
+            "weighted_error": 0.8015562684462183,
+            "sign_match": false,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "transition_entropy",
+            "empirical_delta": 0.009576783163,
+            "model_delta": 0.0,
+            "weight": 1.4,
+            "normalized_error": -1.0,
+            "weighted_error": 1.4,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "transition_rate",
+            "empirical_delta": 0.018672839506,
+            "model_delta": 0.0,
+            "weight": 0.8,
+            "normalized_error": -1.0,
+            "weighted_error": 0.8,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "unimodal_transmodal_fc",
+            "empirical_delta": 0.047335029864,
+            "model_delta": -0.00010487465966646514,
+            "weight": 2.0,
+            "normalized_error": -1.0022155824125978,
+            "weighted_error": 2.008872147261245,
+            "sign_match": false,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "visual_global_connectivity",
+            "empirical_delta": 0.077778302242,
+            "model_delta": -6.977559498947776e-05,
+            "weight": 1.6,
+            "normalized_error": -1.0008971087434178,
+            "weighted_error": 1.602872035665493,
+            "sign_match": false,
+            "overshoot": 0.0
+          }
+        ]
+      },
+      "delta_summary": {
+        "dynamic_fc_variance": {
+          "mean": 0.022231518601583882,
+          "std": 0.010017756621872202,
+          "n": 3
+        },
+        "global_mean_fc": {
+          "mean": -0.00011108589790205976,
+          "std": 4.493078578048006e-05,
+          "n": 3
+        },
+        "gradient_flattening_delta": {
+          "mean": 0.0,
+          "std": 0.0,
+          "n": 3
+        },
+        "hierarchy_differentiation": {
+          "mean": 8.1002833460427e-06,
+          "std": 3.1418896618545885e-05,
+          "n": 3
+        },
+        "sensory_somatomotor_global_connectivity": {
+          "mean": -0.00010896948776332553,
+          "std": 5.5042610898919876e-05,
+          "n": 3
+        },
+        "state_occupancy_entropy": {
+          "mean": 0.0,
+          "std": 0.0,
+          "n": 3
+        },
+        "striatum_to_sensory_fc": {
+          "mean": -0.00018590716046669917,
+          "std": 0.00015119910733643962,
+          "n": 3
+        },
+        "thalamus_to_sensory_fc": {
+          "mean": -0.00012534880015113714,
+          "std": 6.48192617376913e-05,
+          "n": 3
+        },
+        "thalamus_to_transmodal_fc": {
+          "mean": -0.00013254414474476542,
+          "std": 6.300615551782918e-05,
+          "n": 3
+        },
+        "transition_entropy": {
+          "mean": 0.0,
+          "std": 0.0,
+          "n": 3
+        },
+        "transition_rate": {
+          "mean": 0.0,
+          "std": 0.0,
+          "n": 3
+        },
+        "unimodal_transmodal_fc": {
+          "mean": -0.00010487465966646514,
+          "std": 6.161268978450774e-05,
+          "n": 3
+        },
+        "visual_global_connectivity": {
+          "mean": -6.977559498947776e-05,
+          "std": 2.932699879241941e-05,
+          "n": 3
+        }
+      }
+    },
+    {
+      "label": "gain_hierarchy",
+      "parameters": {
+        "receptor_gain_alpha": 0.15,
+        "hierarchy_cross_coupling_eta": 0.15
+      },
+      "active_parameter_count": 2,
+      "loss": 10.38138502177645,
+      "objective": {
+        "loss": 10.38138502177645,
+        "weighted_error": 1.774601251708603,
+        "sign_mismatch_penalty": 0.23076923076923078,
+        "overshoot_penalty": 16.711908188568565,
+        "seed_variance_penalty": 0.00024178005734247832,
+        "sparsity_penalty": 2.0,
+        "metric_count": 13,
+        "metrics": [
+          {
+            "metric": "dynamic_fc_variance",
+            "empirical_delta": -0.000938062825,
+            "model_delta": -0.009965712750366248,
+            "weight": 0.8,
+            "normalized_error": -4.08802008172276,
+            "weighted_error": 13.369526550854852,
+            "sign_match": true,
+            "overshoot": 16.711908188568565
+          },
+          {
+            "metric": "global_mean_fc",
+            "empirical_delta": 0.071510263179,
+            "model_delta": 3.688032889933209e-06,
+            "weight": 0.4,
+            "normalized_error": -0.9999484265233272,
+            "weighted_error": 0.39995874228259115,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "gradient_flattening_delta",
+            "empirical_delta": 0.0,
+            "model_delta": 0.0,
+            "weight": 1.8,
+            "normalized_error": 0.0,
+            "weighted_error": 0.0,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "hierarchy_differentiation",
+            "empirical_delta": -0.000136522609,
+            "model_delta": 1.318853216899137e-05,
+            "weight": 1.8,
+            "normalized_error": 0.007934880424148557,
+            "weighted_error": 0.00011333218922196478,
+            "sign_match": false,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "sensory_somatomotor_global_connectivity",
+            "empirical_delta": 0.057473876561,
+            "model_delta": -3.2065683692369027e-06,
+            "weight": 1.5,
+            "normalized_error": -1.000055791753769,
+            "weighted_error": 1.5001673799303865,
+            "sign_match": false,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "state_occupancy_entropy",
+            "empirical_delta": 0.0,
+            "model_delta": 0.0,
+            "weight": 1.4,
+            "normalized_error": 0.0,
+            "weighted_error": 0.0,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "striatum_to_sensory_fc",
+            "empirical_delta": 0.0,
+            "model_delta": 8.47019052304295e-07,
+            "weight": 1.1,
+            "normalized_error": 0.000847019052304295,
+            "weighted_error": 7.891854024631126e-07,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "thalamus_to_sensory_fc",
+            "empirical_delta": 0.098029263352,
+            "model_delta": 3.4205028286808195e-06,
+            "weight": 1.2,
+            "normalized_error": -0.9999651073290594,
+            "weighted_error": 1.1999162590507406,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "thalamus_to_transmodal_fc",
+            "empirical_delta": 0.136334910042,
+            "model_delta": 1.6569416013430722e-05,
+            "weight": 0.8,
+            "normalized_error": -0.9998784653467822,
+            "weighted_error": 0.7998055563713891,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "transition_entropy",
+            "empirical_delta": 0.009576783163,
+            "model_delta": 0.0,
+            "weight": 1.4,
+            "normalized_error": -1.0,
+            "weighted_error": 1.4,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "transition_rate",
+            "empirical_delta": 0.018672839506,
+            "model_delta": 0.0,
+            "weight": 0.8,
+            "normalized_error": -1.0,
+            "weighted_error": 0.8,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "unimodal_transmodal_fc",
+            "empirical_delta": 0.047335029864,
+            "model_delta": -4.863336168781096e-06,
+            "weight": 2.0,
+            "normalized_error": -1.0001027428562475,
+            "weighted_error": 2.0004109925371787,
+            "sign_match": false,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "visual_global_connectivity",
+            "empirical_delta": 0.077778302242,
+            "model_delta": 2.0254265902241997e-06,
+            "weight": 1.6,
+            "normalized_error": -0.9999739589765804,
+            "weighted_error": 1.599916669810073,
+            "sign_match": true,
+            "overshoot": 0.0
+          }
+        ]
+      },
+      "delta_summary": {
+        "dynamic_fc_variance": {
+          "mean": -0.009965712750366248,
+          "std": 0.0030822164041939197,
+          "n": 3
+        },
+        "global_mean_fc": {
+          "mean": 3.688032889933209e-06,
+          "std": 4.736477020103593e-06,
+          "n": 3
+        },
+        "gradient_flattening_delta": {
+          "mean": 0.0,
+          "std": 0.0,
+          "n": 3
+        },
+        "hierarchy_differentiation": {
+          "mean": 1.318853216899137e-05,
+          "std": 1.2493731140063581e-05,
+          "n": 3
+        },
+        "sensory_somatomotor_global_connectivity": {
+          "mean": -3.2065683692369027e-06,
+          "std": 6.335150378893655e-06,
+          "n": 3
+        },
+        "state_occupancy_entropy": {
+          "mean": 0.0,
+          "std": 0.0,
+          "n": 3
+        },
+        "striatum_to_sensory_fc": {
+          "mean": 8.47019052304295e-07,
+          "std": 1.0069820717814444e-05,
+          "n": 3
+        },
+        "thalamus_to_sensory_fc": {
+          "mean": 3.4205028286808195e-06,
+          "std": 5.1057490725418015e-06,
+          "n": 3
+        },
+        "thalamus_to_transmodal_fc": {
+          "mean": 1.6569416013430722e-05,
+          "std": 1.275771994480324e-05,
+          "n": 3
+        },
+        "transition_entropy": {
+          "mean": 0.0,
+          "std": 0.0,
+          "n": 3
+        },
+        "transition_rate": {
+          "mean": 0.0,
+          "std": 0.0,
+          "n": 3
+        },
+        "unimodal_transmodal_fc": {
+          "mean": -4.863336168781096e-06,
+          "std": 8.21906174122596e-06,
+          "n": 3
+        },
+        "visual_global_connectivity": {
+          "mean": 2.0254265902241997e-06,
+          "std": 1.2066312428521243e-06,
+          "n": 3
+        }
+      }
+    },
+    {
+      "label": "gain_hierarchy_sensory",
+      "parameters": {
+        "receptor_gain_alpha": 0.12,
+        "hierarchy_cross_coupling_eta": 0.12,
+        "visual_gain_beta": 0.08,
+        "sensory_gain_gamma": 0.08
+      },
+      "active_parameter_count": 4,
+      "loss": 12.314172712449258,
+      "objective": {
+        "loss": 12.314172712449258,
+        "weighted_error": 2.0091939136408747,
+        "sign_mismatch_penalty": 0.0,
+        "overshoot_penalty": 20.529800669272927,
+        "seed_variance_penalty": 0.0003138566876815155,
+        "sparsity_penalty": 4.0,
+        "metric_count": 13,
+        "metrics": [
+          {
+            "metric": "dynamic_fc_variance",
+            "empirical_delta": -0.000938062825,
+            "model_delta": -0.010943914379256911,
+            "weight": 0.8,
+            "normalized_error": -4.530982307322875,
+            "weighted_error": 16.423840535418343,
+            "sign_match": true,
+            "overshoot": 20.529800669272927
+          },
+          {
+            "metric": "global_mean_fc",
+            "empirical_delta": 0.071510263179,
+            "model_delta": 2.4065110322305887e-05,
+            "weight": 0.4,
+            "normalized_error": -0.9996634733358193,
+            "weighted_error": 0.3997308239687337,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "gradient_flattening_delta",
+            "empirical_delta": 0.0,
+            "model_delta": 0.0,
+            "weight": 1.8,
+            "normalized_error": 0.0,
+            "weighted_error": 0.0,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "hierarchy_differentiation",
+            "empirical_delta": -0.000136522609,
+            "model_delta": -2.1297017991694922e-05,
+            "weight": 1.8,
+            "normalized_error": 0.006107102512969962,
+            "weighted_error": 6.713406198706325e-05,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "sensory_somatomotor_global_connectivity",
+            "empirical_delta": 0.057473876561,
+            "model_delta": 3.623093196891691e-05,
+            "weight": 1.5,
+            "normalized_error": -0.999369610436309,
+            "weighted_error": 1.49810942739543,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "state_occupancy_entropy",
+            "empirical_delta": 0.0,
+            "model_delta": 0.0,
+            "weight": 1.4,
+            "normalized_error": 0.0,
+            "weighted_error": 0.0,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "striatum_to_sensory_fc",
+            "empirical_delta": 0.0,
+            "model_delta": 5.694787568370311e-05,
+            "weight": 1.1,
+            "normalized_error": 0.05694787568370311,
+            "weighted_error": 0.0035673665993751543,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "thalamus_to_sensory_fc",
+            "empirical_delta": 0.098029263352,
+            "model_delta": 5.265367529409352e-05,
+            "weight": 1.2,
+            "normalized_error": -0.9994628779866984,
+            "weighted_error": 1.1987112533681448,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "thalamus_to_transmodal_fc",
+            "empirical_delta": 0.136334910042,
+            "model_delta": 9.34513332702854e-06,
+            "weight": 0.8,
+            "normalized_error": -0.9999314545825119,
+            "weighted_error": 0.7998903310907984,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "transition_entropy",
+            "empirical_delta": 0.009576783163,
+            "model_delta": 0.0,
+            "weight": 1.4,
+            "normalized_error": -1.0,
+            "weighted_error": 1.4,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "transition_rate",
+            "empirical_delta": 0.018672839506,
+            "model_delta": 0.0,
+            "weight": 0.8,
+            "normalized_error": -1.0,
+            "weighted_error": 0.8,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "unimodal_transmodal_fc",
+            "empirical_delta": 0.047335029864,
+            "model_delta": 3.212524613753024e-05,
+            "weight": 2.0,
+            "normalized_error": -0.9993213219421255,
+            "weighted_error": 1.9972862089763146,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "visual_global_connectivity",
+            "empirical_delta": 0.077778302242,
+            "model_delta": 4.0897920102940986e-05,
+            "weight": 1.6,
+            "normalized_error": -0.9994741731443856,
+            "weighted_error": 1.5983177964522453,
+            "sign_match": true,
+            "overshoot": 0.0
+          }
+        ]
+      },
+      "delta_summary": {
+        "dynamic_fc_variance": {
+          "mean": -0.010943914379256911,
+          "std": 0.0038854519223814423,
+          "n": 3
+        },
+        "global_mean_fc": {
+          "mean": 2.4065110322305887e-05,
+          "std": 1.401605862827398e-05,
+          "n": 3
+        },
+        "gradient_flattening_delta": {
+          "mean": 0.0,
+          "std": 0.0,
+          "n": 3
+        },
+        "hierarchy_differentiation": {
+          "mean": -2.1297017991694922e-05,
+          "std": 2.344223521111847e-05,
+          "n": 3
+        },
+        "sensory_somatomotor_global_connectivity": {
+          "mean": 3.623093196891691e-05,
+          "std": 2.3652181662256615e-05,
+          "n": 3
+        },
+        "state_occupancy_entropy": {
+          "mean": 0.0,
+          "std": 0.0,
+          "n": 3
+        },
+        "striatum_to_sensory_fc": {
+          "mean": 5.694787568370311e-05,
+          "std": 6.211753787174277e-05,
+          "n": 3
+        },
+        "thalamus_to_sensory_fc": {
+          "mean": 5.265367529409352e-05,
+          "std": 1.983093598504835e-05,
+          "n": 3
+        },
+        "thalamus_to_transmodal_fc": {
+          "mean": 9.34513332702854e-06,
+          "std": 5.972737523806494e-06,
+          "n": 3
+        },
+        "transition_entropy": {
+          "mean": 0.0,
+          "std": 0.0,
+          "n": 3
+        },
+        "transition_rate": {
+          "mean": 0.0,
+          "std": 0.0,
+          "n": 3
+        },
+        "unimodal_transmodal_fc": {
+          "mean": 3.212524613753024e-05,
+          "std": 2.7067545354365328e-05,
+          "n": 3
+        },
+        "visual_global_connectivity": {
+          "mean": 4.0897920102940986e-05,
+          "std": 1.8585785241647654e-05,
+          "n": 3
+        }
+      }
+    },
+    {
+      "label": "gain_hierarchy_sensory_subcortical",
+      "parameters": {
+        "receptor_gain_alpha": 0.12,
+        "hierarchy_cross_coupling_eta": 0.12,
+        "visual_gain_beta": 0.08,
+        "sensory_gain_gamma": 0.08,
+        "thalamic_routing_kappa": 0.15,
+        "striatal_routing_kappa": 0.1
+      },
+      "active_parameter_count": 6,
+      "loss": 12.59100559642302,
+      "objective": {
+        "loss": 12.59100559642302,
+        "weighted_error": 2.037340121342607,
+        "sign_mismatch_penalty": 0.0,
+        "overshoot_penalty": 20.987165594857775,
+        "seed_variance_penalty": 0.0003307106060973429,
+        "sparsity_penalty": 6.0,
+        "metric_count": 13,
+        "metrics": [
+          {
+            "metric": "dynamic_fc_variance",
+            "empirical_delta": -0.000938062825,
+            "model_delta": -0.011054756118197529,
+            "weight": 0.8,
+            "normalized_error": -4.581175132524162,
+            "weighted_error": 16.789732475886222,
+            "sign_match": true,
+            "overshoot": 20.987165594857775
+          },
+          {
+            "metric": "global_mean_fc",
+            "empirical_delta": 0.071510263179,
+            "model_delta": 2.4393549507932082e-05,
+            "weight": 0.4,
+            "normalized_error": -0.9996588804400443,
+            "weighted_error": 0.39972715089705707,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "gradient_flattening_delta",
+            "empirical_delta": 0.0,
+            "model_delta": 0.0,
+            "weight": 1.8,
+            "normalized_error": 0.0,
+            "weighted_error": 0.0,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "hierarchy_differentiation",
+            "empirical_delta": -0.000136522609,
+            "model_delta": -2.179605774706624e-05,
+            "weight": 1.8,
+            "normalized_error": 0.00608065277279132,
+            "weighted_error": 6.65538086578586e-05,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "sensory_somatomotor_global_connectivity",
+            "empirical_delta": 0.057473876561,
+            "model_delta": 3.691697598144176e-05,
+            "weight": 1.5,
+            "normalized_error": -0.9993576738130365,
+            "weighted_error": 1.4980736403135053,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "state_occupancy_entropy",
+            "empirical_delta": 0.0,
+            "model_delta": 0.0,
+            "weight": 1.4,
+            "normalized_error": 0.0,
+            "weighted_error": 0.0,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "striatum_to_sensory_fc",
+            "empirical_delta": 0.0,
+            "model_delta": 5.8087108018578526e-05,
+            "weight": 1.1,
+            "normalized_error": 0.058087108018578526,
+            "weighted_error": 0.003711523329758211,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "thalamus_to_sensory_fc",
+            "empirical_delta": 0.098029263352,
+            "model_delta": 5.443737375110391e-05,
+            "weight": 1.2,
+            "normalized_error": -0.9994446824153351,
+            "weighted_error": 1.198667607849948,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "thalamus_to_transmodal_fc",
+            "empirical_delta": 0.136334910042,
+            "model_delta": 9.218554780236291e-06,
+            "weight": 0.8,
+            "normalized_error": -0.999932383020773,
+            "weighted_error": 0.7998918164908816,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "transition_entropy",
+            "empirical_delta": 0.009576783163,
+            "model_delta": 0.0,
+            "weight": 1.4,
+            "normalized_error": -1.0,
+            "weighted_error": 1.4,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "transition_rate",
+            "empirical_delta": 0.018672839506,
+            "model_delta": 0.0,
+            "weight": 0.8,
+            "normalized_error": -1.0,
+            "weighted_error": 0.8,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "unimodal_transmodal_fc",
+            "empirical_delta": 0.047335029864,
+            "model_delta": 3.253687653899847e-05,
+            "weight": 2.0,
+            "normalized_error": -0.9993126258368805,
+            "weighted_error": 1.9972514483140023,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "visual_global_connectivity",
+            "empirical_delta": 0.077778302242,
+            "model_delta": 4.1346254672336435e-05,
+            "weight": 1.6,
+            "normalized_error": -0.9994684088816481,
+            "weighted_error": 1.5982993605638613,
+            "sign_match": true,
+            "overshoot": 0.0
+          }
+        ]
+      },
+      "delta_summary": {
+        "dynamic_fc_variance": {
+          "mean": -0.011054756118197529,
+          "std": 0.004098498612249856,
+          "n": 3
+        },
+        "global_mean_fc": {
+          "mean": 2.4393549507932082e-05,
+          "std": 1.4460841233117863e-05,
+          "n": 3
+        },
+        "gradient_flattening_delta": {
+          "mean": 0.0,
+          "std": 0.0,
+          "n": 3
+        },
+        "hierarchy_differentiation": {
+          "mean": -2.179605774706624e-05,
+          "std": 2.3949619600452055e-05,
+          "n": 3
+        },
+        "sensory_somatomotor_global_connectivity": {
+          "mean": 3.691697598144176e-05,
+          "std": 2.4365488627717296e-05,
+          "n": 3
+        },
+        "state_occupancy_entropy": {
+          "mean": 0.0,
+          "std": 0.0,
+          "n": 3
+        },
+        "striatum_to_sensory_fc": {
+          "mean": 5.8087108018578526e-05,
+          "std": 6.433550245339795e-05,
+          "n": 3
+        },
+        "thalamus_to_sensory_fc": {
+          "mean": 5.443737375110391e-05,
+          "std": 2.0549261841366175e-05,
+          "n": 3
+        },
+        "thalamus_to_transmodal_fc": {
+          "mean": 9.218554780236291e-06,
+          "std": 6.2492842948170865e-06,
+          "n": 3
+        },
+        "transition_entropy": {
+          "mean": 0.0,
+          "std": 0.0,
+          "n": 3
+        },
+        "transition_rate": {
+          "mean": 0.0,
+          "std": 0.0,
+          "n": 3
+        },
+        "unimodal_transmodal_fc": {
+          "mean": 3.253687653899847e-05,
+          "std": 2.757733334367422e-05,
+          "n": 3
+        },
+        "visual_global_connectivity": {
+          "mean": 4.1346254672336435e-05,
+          "std": 1.9251935621059438e-05,
+          "n": 3
+        }
+      }
+    },
+    {
+      "label": "gain_sensory",
+      "parameters": {
+        "receptor_gain_alpha": 0.15,
+        "visual_gain_beta": 0.1,
+        "sensory_gain_gamma": 0.08
+      },
+      "active_parameter_count": 3,
+      "loss": 17.642943237738347,
+      "objective": {
+        "loss": 17.642943237738347,
+        "weighted_error": 2.5942627837039334,
+        "sign_mismatch_penalty": 0.0,
+        "overshoot_penalty": 30.037183390183614,
+        "seed_variance_penalty": 0.0003550357704211612,
+        "sparsity_penalty": 3.0,
+        "metric_count": 13,
+        "metrics": [
+          {
+            "metric": "dynamic_fc_variance",
+            "empirical_delta": -0.000938062825,
+            "model_delta": -0.013041014303159829,
+            "weight": 0.8,
+            "normalized_error": -5.480618887514768,
+            "weighted_error": 24.029746712146892,
+            "sign_match": true,
+            "overshoot": 30.037183390183614
+          },
+          {
+            "metric": "global_mean_fc",
+            "empirical_delta": 0.071510263179,
+            "model_delta": 2.58178467067068e-05,
+            "weight": 0.4,
+            "normalized_error": -0.9996389630584623,
+            "weighted_error": 0.39971122258583913,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "gradient_flattening_delta",
+            "empirical_delta": 0.0,
+            "model_delta": 0.0,
+            "weight": 1.8,
+            "normalized_error": 0.0,
+            "weighted_error": 0.0,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "hierarchy_differentiation",
+            "empirical_delta": -0.000136522609,
+            "model_delta": -2.0120467443411155e-05,
+            "weight": 1.8,
+            "normalized_error": 0.006169461184747502,
+            "weighted_error": 6.85120523581909e-05,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "sensory_somatomotor_global_connectivity",
+            "empirical_delta": 0.057473876561,
+            "model_delta": 3.745806275967656e-05,
+            "weight": 1.5,
+            "normalized_error": -0.9993482593310037,
+            "weighted_error": 1.4980454151418605,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "state_occupancy_entropy",
+            "empirical_delta": 0.0,
+            "model_delta": 0.0,
+            "weight": 1.4,
+            "normalized_error": 0.0,
+            "weighted_error": 0.0,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "striatum_to_sensory_fc",
+            "empirical_delta": 0.0,
+            "model_delta": 6.0037741368201836e-05,
+            "weight": 1.1,
+            "normalized_error": 0.060037741368201836,
+            "weighted_error": 0.003964983427454604,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "thalamus_to_sensory_fc",
+            "empirical_delta": 0.098029263352,
+            "model_delta": 5.626051415382379e-05,
+            "weight": 1.2,
+            "normalized_error": -0.9994260844952818,
+            "weighted_error": 1.1986229980434842,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "thalamus_to_transmodal_fc",
+            "empirical_delta": 0.136334910042,
+            "model_delta": 1.2473690790234157e-05,
+            "weight": 0.8,
+            "normalized_error": -0.9999085069936496,
+            "weighted_error": 0.7998536178866157,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "transition_entropy",
+            "empirical_delta": 0.009576783163,
+            "model_delta": 0.0,
+            "weight": 1.4,
+            "normalized_error": -1.0,
+            "weighted_error": 1.4,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "transition_rate",
+            "empirical_delta": 0.018672839506,
+            "model_delta": 0.0,
+            "weight": 0.8,
+            "normalized_error": -1.0,
+            "weighted_error": 0.8,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "unimodal_transmodal_fc",
+            "empirical_delta": 0.047335029864,
+            "model_delta": 3.275744991108424e-05,
+            "weight": 2.0,
+            "normalized_error": -0.9993079660030806,
+            "weighted_error": 1.9972328218344282,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "visual_global_connectivity",
+            "empirical_delta": 0.077778302242,
+            "model_delta": 4.4494501802512985e-05,
+            "weight": 1.6,
+            "normalized_error": -0.9994279316914881,
+            "weighted_error": 1.5981699050322016,
+            "sign_match": true,
+            "overshoot": 0.0
+          }
+        ]
+      },
+      "delta_summary": {
+        "dynamic_fc_variance": {
+          "mean": -0.013041014303159829,
+          "std": 0.004415644564334509,
+          "n": 3
+        },
+        "global_mean_fc": {
+          "mean": 2.58178467067068e-05,
+          "std": 1.4151396873669954e-05,
+          "n": 3
+        },
+        "gradient_flattening_delta": {
+          "mean": 0.0,
+          "std": 0.0,
+          "n": 3
+        },
+        "hierarchy_differentiation": {
+          "mean": -2.0120467443411155e-05,
+          "std": 2.247004049783252e-05,
+          "n": 3
+        },
+        "sensory_somatomotor_global_connectivity": {
+          "mean": 3.745806275967656e-05,
+          "std": 2.3419380570355398e-05,
+          "n": 3
+        },
+        "state_occupancy_entropy": {
+          "mean": 0.0,
+          "std": 0.0,
+          "n": 3
+        },
+        "striatum_to_sensory_fc": {
+          "mean": 6.0037741368201836e-05,
+          "std": 6.405006478193121e-05,
+          "n": 3
+        },
+        "thalamus_to_sensory_fc": {
+          "mean": 5.626051415382379e-05,
+          "std": 2.1340293622459526e-05,
+          "n": 3
+        },
+        "thalamus_to_transmodal_fc": {
+          "mean": 1.2473690790234157e-05,
+          "std": 8.33653299455415e-06,
+          "n": 3
+        },
+        "transition_entropy": {
+          "mean": 0.0,
+          "std": 0.0,
+          "n": 3
+        },
+        "transition_rate": {
+          "mean": 0.0,
+          "std": 0.0,
+          "n": 3
+        },
+        "unimodal_transmodal_fc": {
+          "mean": 3.275744991108424e-05,
+          "std": 2.65418242775856e-05,
+          "n": 3
+        },
+        "visual_global_connectivity": {
+          "mean": 4.4494501802512985e-05,
+          "std": 1.951091752219748e-05,
+          "n": 3
+        }
+      }
+    },
+    {
+      "label": "gain_only",
+      "parameters": {
+        "receptor_gain_alpha": 0.2
+      },
+      "active_parameter_count": 1,
+      "loss": 18.383224120235806,
+      "objective": {
+        "loss": 18.383224120235806,
+        "weighted_error": 2.6526337142635006,
+        "sign_mismatch_penalty": 0.23076923076923078,
+        "overshoot_penalty": 30.979471775873222,
+        "seed_variance_penalty": 0.00034114906584746394,
+        "sparsity_penalty": 1.0,
+        "metric_count": 13,
+        "metrics": [
+          {
+            "metric": "dynamic_fc_variance",
+            "empirical_delta": -0.000938062825,
+            "model_delta": -0.013229387574184496,
+            "weight": 0.8,
+            "normalized_error": -5.565920568591796,
+            "weighted_error": 24.783577420698577,
+            "sign_match": true,
+            "overshoot": 30.979471775873222
+          },
+          {
+            "metric": "global_mean_fc",
+            "empirical_delta": 0.071510263179,
+            "model_delta": 4.104504820653017e-06,
+            "weight": 0.4,
+            "normalized_error": -0.9999426025770543,
+            "weighted_error": 0.39995408337942906,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "gradient_flattening_delta",
+            "empirical_delta": 0.0,
+            "model_delta": 0.0,
+            "weight": 1.8,
+            "normalized_error": 0.0,
+            "weighted_error": 0.0,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "hierarchy_differentiation",
+            "empirical_delta": -0.000136522609,
+            "model_delta": 1.9576691094240022e-05,
+            "weight": 1.8,
+            "normalized_error": 0.008273460952000442,
+            "weighted_error": 0.00012321028102369692,
+            "sign_match": false,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "sensory_somatomotor_global_connectivity",
+            "empirical_delta": 0.057473876561,
+            "model_delta": -5.882283265072156e-06,
+            "weight": 1.5,
+            "normalized_error": -1.0001023470769164,
+            "weighted_error": 1.5003070569431354,
+            "sign_match": false,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "state_occupancy_entropy",
+            "empirical_delta": 0.0,
+            "model_delta": 0.0,
+            "weight": 1.4,
+            "normalized_error": 0.0,
+            "weighted_error": 0.0,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "striatum_to_sensory_fc",
+            "empirical_delta": 0.0,
+            "model_delta": -7.991281226749081e-07,
+            "weight": 1.1,
+            "normalized_error": -0.0007991281226749081,
+            "weighted_error": 7.024663320949153e-07,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "thalamus_to_sensory_fc",
+            "empirical_delta": 0.098029263352,
+            "model_delta": 4.489940981455831e-06,
+            "weight": 1.2,
+            "normalized_error": -0.9999541979524488,
+            "weighted_error": 1.1998900776032702,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "thalamus_to_transmodal_fc",
+            "empirical_delta": 0.136334910042,
+            "model_delta": 2.234228208553013e-05,
+            "weight": 0.8,
+            "normalized_error": -0.9998361220755664,
+            "weighted_error": 0.7997378168056856,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "transition_entropy",
+            "empirical_delta": 0.009576783163,
+            "model_delta": 0.0,
+            "weight": 1.4,
+            "normalized_error": -1.0,
+            "weighted_error": 1.4,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "transition_rate",
+            "empirical_delta": 0.018672839506,
+            "model_delta": 0.0,
+            "weight": 0.8,
+            "normalized_error": -1.0,
+            "weighted_error": 0.8,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "unimodal_transmodal_fc",
+            "empirical_delta": 0.047335029864,
+            "model_delta": -8.475339326648642e-06,
+            "weight": 2.0,
+            "normalized_error": -1.0001790500471004,
+            "weighted_error": 2.00071626430624,
+            "sign_match": false,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "visual_global_connectivity",
+            "empirical_delta": 0.077778302242,
+            "model_delta": 1.6612421625724256e-06,
+            "weight": 1.6,
+            "normalized_error": -0.9999786413162195,
+            "weighted_error": 1.599931652941812,
+            "sign_match": true,
+            "overshoot": 0.0
+          }
+        ]
+      },
+      "delta_summary": {
+        "dynamic_fc_variance": {
+          "mean": -0.013229387574184496,
+          "std": 0.0043447747479225885,
+          "n": 3
+        },
+        "global_mean_fc": {
+          "mean": 4.104504820653017e-06,
+          "std": 7.28804320951693e-06,
+          "n": 3
+        },
+        "gradient_flattening_delta": {
+          "mean": 0.0,
+          "std": 0.0,
+          "n": 3
+        },
+        "hierarchy_differentiation": {
+          "mean": 1.9576691094240022e-05,
+          "std": 1.8244330161133666e-05,
+          "n": 3
+        },
+        "sensory_somatomotor_global_connectivity": {
+          "mean": -5.882283265072156e-06,
+          "std": 1.0224957170742486e-05,
+          "n": 3
+        },
+        "state_occupancy_entropy": {
+          "mean": 0.0,
+          "std": 0.0,
+          "n": 3
+        },
+        "striatum_to_sensory_fc": {
+          "mean": -7.991281226749081e-07,
+          "std": 1.476346865144715e-05,
+          "n": 3
+        },
+        "thalamus_to_sensory_fc": {
+          "mean": 4.489940981455831e-06,
+          "std": 6.3858230953213376e-06,
+          "n": 3
+        },
+        "thalamus_to_transmodal_fc": {
+          "mean": 2.234228208553013e-05,
+          "std": 1.7706839728197726e-05,
+          "n": 3
+        },
+        "transition_entropy": {
+          "mean": 0.0,
+          "std": 0.0,
+          "n": 3
+        },
+        "transition_rate": {
+          "mean": 0.0,
+          "std": 0.0,
+          "n": 3
+        },
+        "unimodal_transmodal_fc": {
+          "mean": -8.475339326648642e-06,
+          "std": 1.2903167816202368e-05,
+          "n": 3
+        },
+        "visual_global_connectivity": {
+          "mean": 1.6612421625724256e-06,
+          "std": 2.6464782618820804e-06,
+          "n": 3
+        }
+      }
+    },
+    {
+      "label": "noise_only",
+      "parameters": {
+        "noise_delta": 0.01
+      },
+      "active_parameter_count": 1,
+      "loss": 28.02469871465323,
+      "objective": {
+        "loss": 28.02469871465323,
+        "weighted_error": 27.399163046431745,
+        "sign_mismatch_penalty": 0.6153846153846154,
+        "overshoot_penalty": 0.0,
+        "seed_variance_penalty": 0.0006042113474712611,
+        "sparsity_penalty": 1.0,
+        "metric_count": 13,
+        "metrics": [
+          {
+            "metric": "dynamic_fc_variance",
+            "empirical_delta": -0.000938062825,
+            "model_delta": 0.04499267473807934,
+            "weight": 0.8,
+            "normalized_error": 20.798965298666996,
+            "weighted_error": 346.07756599612316,
+            "sign_match": false,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "global_mean_fc",
+            "empirical_delta": 0.071510263179,
+            "model_delta": -0.0003102098913959998,
+            "weight": 0.4,
+            "normalized_error": -1.0043379772022305,
+            "weighted_error": 0.40347790898026725,
+            "sign_match": false,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "gradient_flattening_delta",
+            "empirical_delta": 0.0,
+            "model_delta": 0.0,
+            "weight": 1.8,
+            "normalized_error": 0.0,
+            "weighted_error": 0.0,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "hierarchy_differentiation",
+            "empirical_delta": -0.000136522609,
+            "model_delta": 7.083979157910629e-05,
+            "weight": 1.8,
+            "normalized_error": 0.010990470316449643,
+            "weighted_error": 0.00021742278799816929,
+            "sign_match": false,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "sensory_somatomotor_global_connectivity",
+            "empirical_delta": 0.057473876561,
+            "model_delta": -0.00033726460092457317,
+            "weight": 1.5,
+            "normalized_error": -1.005868137336562,
+            "weighted_error": 1.5176560645633876,
+            "sign_match": false,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "state_occupancy_entropy",
+            "empirical_delta": 0.0,
+            "model_delta": 0.0,
+            "weight": 1.4,
+            "normalized_error": 0.0,
+            "weighted_error": 0.0,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "striatum_to_sensory_fc",
+            "empirical_delta": 0.0,
+            "model_delta": -0.0005546585561793475,
+            "weight": 1.1,
+            "normalized_error": -0.5546585561793475,
+            "weighted_error": 0.3384107253372542,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "thalamus_to_sensory_fc",
+            "empirical_delta": 0.098029263352,
+            "model_delta": -0.00042344745622065655,
+            "weight": 1.2,
+            "normalized_error": -1.0043196025527616,
+            "weighted_error": 1.2103894368860846,
+            "sign_match": false,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "thalamus_to_transmodal_fc",
+            "empirical_delta": 0.136334910042,
+            "model_delta": -0.00032135767227607176,
+            "weight": 0.8,
+            "normalized_error": -1.0023571194800882,
+            "weighted_error": 0.8037758359779359,
+            "sign_match": false,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "transition_entropy",
+            "empirical_delta": 0.009576783163,
+            "model_delta": 0.0,
+            "weight": 1.4,
+            "normalized_error": -1.0,
+            "weighted_error": 1.4,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "transition_rate",
+            "empirical_delta": 0.018672839506,
+            "model_delta": 0.0,
+            "weight": 0.8,
+            "normalized_error": -1.0,
+            "weighted_error": 0.8,
+            "sign_match": true,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "unimodal_transmodal_fc",
+            "empirical_delta": 0.047335029864,
+            "model_delta": -0.000315718887100543,
+            "weight": 2.0,
+            "normalized_error": -1.006669878270018,
+            "weighted_error": 2.026768487632346,
+            "sign_match": false,
+            "overshoot": 0.0
+          },
+          {
+            "metric": "visual_global_connectivity",
+            "empirical_delta": 0.077778302242,
+            "model_delta": -0.00026345861861598596,
+            "weight": 1.6,
+            "normalized_error": -1.0033873022555346,
+            "weighted_error": 1.6108577253242236,
+            "sign_match": false,
+            "overshoot": 0.0
+          }
+        ]
+      },
+      "delta_summary": {
+        "dynamic_fc_variance": {
+          "mean": 0.04499267473807934,
+          "std": 0.00624489805340507,
+          "n": 3
+        },
+        "global_mean_fc": {
+          "mean": -0.0003102098913959998,
+          "std": 0.00013766444854472173,
+          "n": 3
+        },
+        "gradient_flattening_delta": {
+          "mean": 0.0,
+          "std": 0.0,
+          "n": 3
+        },
+        "hierarchy_differentiation": {
+          "mean": 7.083979157910629e-05,
+          "std": 0.000108186865575076,
+          "n": 3
+        },
+        "sensory_somatomotor_global_connectivity": {
+          "mean": -0.00033726460092457317,
+          "std": 0.0001880426479332405,
+          "n": 3
+        },
+        "state_occupancy_entropy": {
+          "mean": 0.0,
+          "std": 0.0,
+          "n": 3
+        },
+        "striatum_to_sensory_fc": {
+          "mean": -0.0005546585561793475,
+          "std": 0.0004785785457148602,
+          "n": 3
+        },
+        "thalamus_to_sensory_fc": {
+          "mean": -0.00042344745622065655,
+          "std": 0.00020679106106426373,
+          "n": 3
+        },
+        "thalamus_to_transmodal_fc": {
+          "mean": -0.00032135767227607176,
+          "std": 0.00015947576628394872,
+          "n": 3
+        },
+        "transition_entropy": {
+          "mean": 0.0,
+          "std": 0.0,
+          "n": 3
+        },
+        "transition_rate": {
+          "mean": 0.0,
+          "std": 0.0,
+          "n": 3
+        },
+        "unimodal_transmodal_fc": {
+          "mean": -0.000315718887100543,
+          "std": 0.00020946517310317065,
+          "n": 3
+        },
+        "visual_global_connectivity": {
+          "mean": -0.00026345861861598596,
+          "std": 0.00012164495550204396,
+          "n": 3
+        }
+      }
+    }
+  ],
+  "outputs": {
+    "literature_weighted_fit_summary": "D:\\LSD_Thesis\\results\\stage_5\\literature_weighted_fit_summary.json",
+    "placebo_fit_summary": "D:\\LSD_Thesis\\results\\stage_5\\placebo_fit_summary.json",
+    "lsd_perturbation_fit_summary": "D:\\LSD_Thesis\\results\\stage_5\\lsd_perturbation_fit_summary.json",
+    "per_seed_metrics": "D:\\LSD_Thesis\\results\\stage_5\\per_seed_metrics.csv",
+    "sign_match_table": "D:\\LSD_Thesis\\results\\stage_5\\sign_match_table.csv",
+    "overshoot_table": "D:\\LSD_Thesis\\results\\stage_5\\overshoot_table.csv",
+    "ablation_leaderboard": "D:\\LSD_Thesis\\results\\stage_5\\ablation_leaderboard.csv",
+    "report": "D:\\LSD_Thesis\\docs\\stage_reports\\stage_5.md"
+  }
+}

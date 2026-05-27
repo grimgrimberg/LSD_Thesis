@@ -52,6 +52,10 @@ def build_publication_package(repo_root: Path = REPO_ROOT) -> dict[str, Path]:
     defense_pptx_slides = build_defense_pptx_slides(thesis_markdown)
 
     thesis_markdown_path = _write_text(output_dir / "thesis_report_revised.md", thesis_markdown)
+    legacy_thesis_markdown_path = _write_text(
+        output_dir / "lsd_thesis_surrogate_report.md",
+        thesis_markdown,
+    )
     defense_markdown_path = _write_text(output_dir / "defense_outline.md", defense_markdown)
 
     thesis_docx_path = output_dir / "thesis_report_revised.docx"
@@ -75,6 +79,7 @@ def build_publication_package(repo_root: Path = REPO_ROOT) -> dict[str, Path]:
 
     outputs = {
         "thesis_report_markdown": thesis_markdown_path,
+        "legacy_thesis_report_markdown": legacy_thesis_markdown_path,
         "thesis_report_docx": thesis_docx_path,
         "defense_outline_markdown": defense_markdown_path,
         "defense_outline_docx": defense_docx_path,

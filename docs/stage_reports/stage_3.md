@@ -30,6 +30,7 @@
 
 ## Critical Review
 
+- No subject-disjoint split file is configured for this Stage 3 run.
 - The current surrogate still underexpresses the ds003059 delta magnitudes; the best mechanism moves in the right direction but too weakly.
 - The coarse anatomical module mapping preserves some cross-network and thalamic shifts, but not a clean canonical psychedelic signature across all metrics.
 - The result should be treated as a ranked hypothesis list, not a mechanistic conclusion.

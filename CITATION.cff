@@ -1,0 +1,16 @@
+cff-version: 1.2.0
+message: "If you use this software or derived thesis artifacts, cite the archived release and the original OpenNeuro source datasets."
+title: "Transparent Surrogate Modeling of Psychedelic-Like Macro-Dynamics"
+authors:
+  - family-names: Grimberg
+    given-names: Yuval
+repository-code: "https://github.com/grimgrimberg/LSD_Thesis"
+date-released: "2026-05-27"
+version: "pre-zenodo-thesis-archive"
+keywords:
+  - computational neuroscience
+  - fMRI
+  - surrogate modeling
+  - network control
+  - psychedelic neuroimaging
+  - reproducible research

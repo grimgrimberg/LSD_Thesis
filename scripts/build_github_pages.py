@@ -2,8 +2,10 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import shutil
 import sys
+import stat
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
@@ -26,13 +28,21 @@ from lsd_thesis.web.app import build_dashboard_payload
 STATIC_FAVICON_TAG = '<link rel="icon" href="data:,">'
 
 
+def _remove_tree(path: Path) -> None:
+    def _make_writable_and_retry(function: Any, target: str, _exc_info: Any) -> None:
+        os.chmod(target, stat.S_IWRITE)
+        function(target)
+
+    shutil.rmtree(path, onerror=_make_writable_and_retry)
+
+
 def _prepare_site_dir(repo_root: Path, site_dir: Path) -> Path:
     resolved_root = repo_root.resolve()
     resolved_site = site_dir.resolve()
     if resolved_site == resolved_root or resolved_root not in resolved_site.parents:
         raise ValueError(f"Refusing to build GitHub Pages outside the repository: {resolved_site}")
     if resolved_site.exists():
-        shutil.rmtree(resolved_site)
+        _remove_tree(resolved_site)
     resolved_site.mkdir(parents=True, exist_ok=True)
     return resolved_site
 
@@ -49,7 +59,7 @@ def _copy_tree(source: Path, destination: Path) -> Path | None:
     if not source.exists() or not source.is_dir():
         return None
     if destination.exists():
-        shutil.rmtree(destination)
+        _remove_tree(destination)
     shutil.copytree(source, destination)
     return destination
 
@@ -104,6 +114,7 @@ def _copy_dashboard_linked_artifacts(repo_root: Path, site: Path, dashboard_payl
         "docs/",
         "output/doc/",
         "results/dynamic_mechanism_ranking/",
+        "results/external_ingestion/",
         "results/literature_benchmark/",
         "results/parcellation_sensitivity/",
         "results/psilocybin_ds006072/",
@@ -111,6 +122,9 @@ def _copy_dashboard_linked_artifacts(repo_root: Path, site: Path, dashboard_payl
         "results/stage_2/figures/",
         "results/structural_connectome/",
         "results/thesis_evidence_loop/",
+        "results/thesis_upgrade/",
+        "results/training/rocket_condition_benchmark/",
+        "results/reproducible_archive/",
     )
     links: list[dict[str, Any]] = []
     artifact_links = dashboard_payload.get("artifact_links", {})

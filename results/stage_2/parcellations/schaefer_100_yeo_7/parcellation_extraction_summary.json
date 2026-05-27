@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "analysis_status": "implemented_schaefer_empirical_viewer",
+  "parcellation_id": "schaefer_100_yeo_7",
+  "dataset": "ds003059 LSD/placebo local BOLD files",
+  "dataset_dir": "D:\\LSD_Thesis\\data\\ds003059",
+  "output_dir": "D:\\LSD_Thesis\\results\\stage_2\\parcellations\\schaefer_100_yeo_7",
+  "viewer_root": "D:\\LSD_Thesis\\results\\stage_2\\parcellations\\schaefer_100_yeo_7\\empirical_viewer",
+  "runs": [
+    "run-01",
+    "run-03"
+  ],
+  "include_music": false,
+  "subjects": [
+    "sub-001",
+    "sub-002",
+    "sub-003",
+    "sub-004",
+    "sub-006",
+    "sub-009",
+    "sub-010",
+    "sub-011",
+    "sub-012",
+    "sub-013",
+    "sub-015",
+    "sub-017",
+    "sub-018",
+    "sub-019",
+    "sub-020"
+  ],
+  "subject_count": 15,
+  "record_count": 60,
+  "module_count": 100,
+  "atlas_metadata": {
+    "atlas": "Schaefer 2018",
+    "n_rois": 100,
+    "yeo_networks": 7,
+    "resolution_mm": 2,
+    "labels_count": 100,
+    "maps_path": "D:\\LSD_Thesis\\results\\nilearn_data\\schaefer_2018\\cfad59239d8a614bd2268445dbf1ed76\\Schaefer2018_100Parcels_7Networks_order_FSLMNI152_2mm.nii.gz",
+    "labels_path": "D:\\LSD_Thesis\\results\\nilearn_data\\schaefer_2018\\cfad59239d8a614bd2268445dbf1ed76\\Schaefer2018_100Parcels_7Networks_order.txt",
+    "cache_status": "loaded_from_existing_nilearn_cache_file"
+  },
+  "ranking_summary_path": "D:/LSD_Thesis/results/parcellation_sensitivity/schaefer_100_yeo_7/summary.json",
+  "ranking_pair_count": 30,
+  "ranking_top_layer": "C",
+  "control_null_count": 16,
+  "guardrail": "This is parcellation sensitivity for local ds003059 LSD data. It does not add psilocybin, HCP structural connectivity, or PET receptor maps."
+}

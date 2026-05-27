@@ -7,7 +7,7 @@ This report analyzes the repository as a complete thesis artifact rather than as
 
 The project combines four major components. First, it defines an eight-module stochastic dynamical system with interpretable control terms for local stability, adaptation, graph coupling, top-down constraint, and stochasticity. Second, it connects that simulator to real data from OpenNeuro dataset `ds003059`, retaining only placebo and LSD resting-state runs and excluding music runs. Third, it derives a shared metric space in which simulated and empirical dynamics can be compared using the same observables. Fourth, it exposes all of this through saved reports, figures, machine-readable summaries, and a dashboard for model inspection and empirical review.
 
-The most defensible result of the repository is methodological. The codebase demonstrates an inspectable end-to-end pipeline that moves from public neuroimaging data to macro-module extraction, to sober-regime fitting, to perturbation ranking, ablation, and benchmark export. This pipeline is real, reproducible at the repository level, and currently passes its local verification suite. However, the strongest scientific conclusion is negative or at least strongly qualified: the current eight-module extraction and the current perturbation family do not yet reproduce a robust, canonical psychedelic macro-signature.
+The most defensible result of the repository is methodological. The codebase demonstrates an inspectable end-to-end pipeline that moves from public neuroimaging data to macro-module extraction, to sober-regime fitting, to perturbation ranking, ablation, and benchmark export. The pipeline is reproducible through machine-readable artifacts and explicit verification commands rather than hard-coded pass/fail prose in this report. However, the strongest scientific conclusion is negative or at least strongly qualified: the current eight-module extraction and the current perturbation family do not yet reproduce a robust, canonical psychedelic macro-signature.
 
 The repository therefore succeeds as a transparent hypothesis-ranking and falsification environment. It does not yet succeed as a strong explanatory model of psychedelic whole-brain dynamics. For thesis defense purposes, that distinction is not a weakness to hide. It is one of the central intellectual contributions of the work.
 
@@ -17,9 +17,9 @@ This repository implements a transparent surrogate model for altered-state-inspi
 
 The model comprises eight coarse brain modules linked by a weighted graph and governed by stochastic bistable dynamics with adaptation and an optional low-dimensional hierarchical constraint. The empirical branch of the repository downloads and processes real resting-state functional MRI data from `{{ dataset_anchor }}`, retaining only `run-01` and `run-03` for both `ses-PLCB` and `ses-LSD`. A transparent Harvard-Oxford-based anatomical proxy is then used to compress these data into eight module time series. Shared observables are computed for both simulated and empirical data, including within-network stability, cross-network communication, thalamic coupling, hierarchical compression, entropy/diversity, switching rate, a metastability proxy, and an effective barrier proxy.
 
-The repository demonstrates several concrete achievements. It produces actual empirical target files from `ds003059`, calibrates a sober regime against placebo-derived targets, ranks abstract perturbation mechanisms against empirical LSD-minus-placebo deltas, runs ablation analyses, exports a training-ready windowed dataset, and exposes results through a browser dashboard. The engineering stack is well developed: tests pass, static typing is clean, linting passes, and the results directory contains saved summaries and visual artifacts for every stage.
+The repository demonstrates several concrete achievements. It produces actual empirical target files from `ds003059`, calibrates a sober regime against placebo-derived targets, ranks abstract perturbation families against empirical LSD-minus-placebo deltas, runs ablation analyses, exports a training-ready windowed dataset, and exposes results through a browser dashboard. The engineering stack is well developed and records saved summaries plus visual artifacts for every stage; the current verification status should be taken from the latest command log and machine-readable validation artifacts, not from static thesis prose.
 
-At the same time, the scientific limitations are explicit. The current eight-module mapping is intentionally coarse and not canonical. Several empirical deltas extracted under this mapping differ in sign from literature-based expectations. The best sober fit is substantially better than the initial baseline but is still sensitive to stochastic seed variation. The best-ranked perturbation mechanism remains a weak hypothesis rather than a convincing mechanistic explanation. In short, the repository provides a successful transparent modeling framework and a partially successful empirical bridge, but not yet a robust explanatory account of psychedelic neurodynamics.
+At the same time, the scientific limitations are explicit. The current eight-module mapping is intentionally coarse and not canonical. Several empirical deltas extracted under this mapping differ in sign from literature-based expectations. The best-scoring perturbation family remains a weak proxy-objective hypothesis rather than a convincing mechanistic explanation. In short, the repository provides a transparent modeling framework and a partially successful empirical bridge, but not yet a robust explanatory account of psychedelic neurodynamics.
 
 ## 1. Introduction and Problem Statement
 
@@ -83,7 +83,7 @@ The repository is organized as a staged scientific pipeline. The top-level scrip
 
 At the package level, the architecture is equally explicit.
 
-- `src/lsd_thesis/core.py` defines canonical module names and typed configuration models.
+- `src/lsd_thesis/core.py` defines fixed implementation module names and typed configuration models.
 - `src/lsd_thesis/graph.py` loads graph topology and hierarchy projection matrices.
 - `src/lsd_thesis/simulator.py` runs the surrogate dynamics.
 - `src/lsd_thesis/metrics.py` defines the common observable space.
@@ -111,7 +111,7 @@ The intended interpretation of each term is as follows.
 - The temperature term injects stochastic variability.
 - The timescale term determines how quickly each module responds.
 
-The repository defines eight modules in a fixed canonical order:
+The repository defines eight modules in a fixed implementation order:
 
 - visual
 - auditory
@@ -138,7 +138,7 @@ This choice is scientifically sensible and explicitly documented in code. The St
 - task-rest runs only
 - `run-01` and `run-03`
 
-The Stage 2 summary saved in `results/stage_2/stage_2_summary.json` records a full empirical cohort comprising {{ subject_count_words }} paired subjects and {{ run_count_words }} total resting runs. The subjects used are `sub-001`, `sub-002`, `sub-003`, `sub-004`, `sub-006`, `sub-009`, `sub-010`, `sub-011`, `sub-012`, `sub-013`, `sub-015`, `sub-017`, `sub-018`, `sub-019`, and `sub-020`. This count matches the dataset README discussion that fifteen subjects remained after motion-related exclusions in the original BOLD analysis.
+The Stage 2 summary saved in `results/stage_2/stage_2_summary.json` records a small internal empirical cohort comprising {{ subject_count_words }} paired subjects and {{ run_count_words }} total resting runs. The subjects used are `sub-001`, `sub-002`, `sub-003`, `sub-004`, `sub-006`, `sub-009`, `sub-010`, `sub-011`, `sub-012`, `sub-013`, `sub-015`, `sub-017`, `sub-018`, `sub-019`, and `sub-020`. The dataset README reports fifteen subjects after its own motion-related exclusions; this repository inherits that derivative preprocessing and does not independently re-estimate motion, FD/DVARS, confounds, or censoring.
 
 An important methodological point is that the repository does not preprocess raw scanner data from scratch. It downloads BOLD files from the derivative dataset and inherits the preprocessing history described by the dataset authors. That preprocessing history is substantial and includes despiking, slice-time correction, motion correction, brain extraction, spatial normalization, scrubbing, smoothing, band-pass filtering, detrending, and nuisance regression. This is not a weakness in itself. It simply means that the thesis must acknowledge that the project sits on top of a preprocessed derivative rather than on minimally processed raw acquisitions.
 
@@ -225,7 +225,7 @@ The resulting files are central thesis artifacts.
 - `results/stage_2/ds003059_rest_manifest.json`
 - `results/stage_2/empirical_run_summaries.json`
 
-The empirical sober target file shows group-level placebo metrics such as within-network stability `0.2823`, cross-network communication `0.1997`, thalamic coupling `0.2043`, entropy/diversity `0.9738`, metastability proxy `1.2027`, and effective barrier proxy `3.5334`. Confidence labels are attached using paired t-tests across placebo and LSD subject means. This is a pragmatic and appropriate way to encode metric trustworthiness.
+The empirical sober target file shows group-level placebo metrics such as within-network stability `0.2823`, cross-network communication `0.1997`, thalamic coupling `0.2043`, entropy/diversity `0.9738`, metastability proxy `1.2027`, and effective barrier proxy `3.5334`. Confidence labels are attached using paired t-tests across placebo and LSD subject means. This is an aggregate consistency summary across paired runs, not a substitute for subject-level motion, FD/DVARS, confound, or censoring QC.
 
 ### 10.2 Sober-Regime Calibration
 
@@ -235,7 +235,7 @@ The empirical sober target file shows group-level placebo metrics such as within
 
 The sober fit uses a transparent random search rather than a heavy optimizer. This choice is important both scientifically and rhetorically. The fit should be described as calibration, not as proof of global optimization. The code perturbs a baseline regime across a limited set of global parameters and module overrides, especially for the thalamic gateway, default mode, and executive frontoparietal modules.
 
-The saved Stage 2 summary reports a full empirical cohort comprising {{ subject_count_words }} paired subjects and {{ run_count_words }} total resting runs. This bridge is the key reason the repository can make narrower empirical claims rather than relying only on narrative similarity.
+The saved Stage 2 summary reports a small internal empirical cohort comprising {{ subject_count_words }} paired subjects and {{ run_count_words }} total resting runs. This bridge is the key reason the repository can make narrower empirical claims than narrative similarity alone, while still ruling out external or clinical validation claims.
 
 By the repository's own loss function, this is a substantial reduction relative to the uncalibrated baseline. The best single-seed fitted metrics also move toward the placebo targets. For example, within-network stability reaches `0.2913`, cross-network communication reaches `0.1014`, entropy/diversity `0.8194`, and switching rate `0.2412`.
 
@@ -243,9 +243,11 @@ However, a deeper reading of the same summary exposes an important weakness. The
 
 This is one of the most important scientific findings in the repository. The calibration objective can discover a good-looking run, but the implied parameterization is not yet robust enough to support strong claims of identified sober dynamics. For defense purposes, this should be stated plainly. Stage 2 establishes that empirical anchoring is feasible and that the sober regime can be better aligned with placebo targets, but it does not yet establish a stable calibrated model in the stronger inferential sense.
 
+{{ validation_boundary_statement }}
+
 ## 11. Stage 3: Perturbation Ranking Against Empirical LSD-minus-Placebo Deltas
 
-In the current evidence, the best-ranked perturbation mechanism is `{{ best_mechanism }}` at strength `{{ best_strength }}`. That result is directionally interesting, but it remains a weak macro-level hypothesis rather than a convincing mechanistic explanation.
+In the current evidence, the best-scoring perturbation family is `{{ best_mechanism }}` at strength `{{ best_strength }}`. That result is directionally interesting in proxy-objective space, but it remains a weak macro-level hypothesis rather than a convincing mechanistic explanation.
 
 Stage 3 is where the repository turns from calibration to explanatory testing. Given a fitted sober regime, the code applies four one-at-a-time perturbation families across a small strength grid:
 
@@ -273,7 +275,7 @@ These values already reveal a critical interpretive challenge. When compared wit
 
 This means the mechanism-ranking problem is already constrained by a coarse empirical space that is only partly aligned with the broader literature. The repository acknowledges this in `docs/limitations.md`, and that acknowledgment is essential.
 
-The best Stage 3 mechanism is `{{ best_mechanism }}` at strength `{{ best_strength }}`, with mismatch score `3481.5367`. That result is directionally interesting because reducing top-down constraint is conceptually compatible with the intended altered-state framing. But it is not a strong quantitative success.
+The best one-shot Stage 3 perturbation family is `{{ best_mechanism }}` at strength `{{ best_strength }}`. {% if robust_best_mechanism %}The seed-panel robust best-scoring perturbation family is `{{ robust_best_mechanism }}` at strength `{{ robust_best_strength }}`. {% endif %}These rankings are directionally interesting, but they remain weak macro-level hypotheses rather than convincing mechanistic explanations.
 
 {% if sign_mismatch_sentence %}
 The current comparison also shows that {{ sign_mismatch_sentence }}
@@ -292,20 +294,18 @@ The correct thesis interpretation is therefore that Stage 3 produces a ranked hy
 
 ## 12. Stage 4: Ablation and Pairwise Combination Analysis
 
-The best current pairwise combination is `{{ best_pair_name }}`, and it still fails to outperform the best single mechanism. That negative result is informative because it shows the current model class does not admit an easy rescue through simple perturbation superposition.
+The best current pairwise combination is `{{ best_pair_name }}`. {{ stage4_pairwise_sentence }} This comparison is informative because it shows whether simple perturbation superposition helps under the current objective without turning that objective into a mechanistic claim.
 
 Stage 4 extends Stage 3 by testing single mechanisms at their best available strengths and then testing pairwise combinations. This is the right next step in principle. If one mechanism is insufficient, perhaps a combination of reduced top-down constraint, increased noise, altered coupling, and weaker barriers could close the gap.
 
 The saved Stage 4 summary reports:
 
-- best single mechanism: `{{ best_mechanism }}`
-- best single score: `3481.5367`
+- best single mechanism: `{{ best_single_name }}`
+- best single score: `{{ best_single_score }}`
 - best pairwise mechanism: `{{ best_pair_name }}`
-- best pairwise score: `3498.3309`
+- best pairwise score: `{{ best_pair_score }}`
 
-This produces an important negative finding. The best pairwise combination is not better than the best single mechanism. In fact, it is slightly worse. That means the current combination logic does not rescue the mismatch problem.
-
-There is a documentation inconsistency worth noting. The Stage 4 markdown report says that pairwise combinations help, but the saved JSON summary indicates the opposite. For defense purposes, the JSON summary should be treated as the authoritative numerical result unless the report is corrected. This discrepancy is minor from an engineering standpoint but important from a scientific reporting standpoint because it shows that the narrative layer is not perfectly synchronized with the machine-readable artifact.
+The report generator derives this comparison from `Stage4Evidence` rather than fixed prose. The machine-readable Stage 4 summary should remain the authoritative numerical source whenever narrative artifacts are regenerated.
 
 Substantively, Stage 4 still has value. Even a negative ablation result constrains the plausible explanation space. It suggests that the current simulator and current coarse metric extraction do not admit an easy rescue through simple perturbation superposition. That is useful information.
 
@@ -316,20 +316,20 @@ The repository does more than compute numbers. It exposes the pipeline through a
 The dashboard contains two viewers.
 
 - A model explorer for synthetic simulations, adjustable parameters, and FC or ablation outputs.
-- An empirical explorer for group-level placebo versus LSD summaries, paired subject/run inspection, windowed FC changes, module traces, and downsampled raw scan previews.
+- An empirical explorer for group-level placebo versus LSD summaries, paired subject/run inspection, windowed FC changes, module traces, and downsampled window-averaged preview slices.
 
 The empirical viewer is especially valuable for a thesis defense because it closes the gap between raw downloaded volumes and model-facing metrics. The viewer exposes:
 
 - subject selection
 - run selection
 - aligned placebo versus LSD views
-- per-window previews of downsampled raw fMRI slices
+- per-window previews of downsampled, plane-normalized fMRI-derived slices
 - per-window module traces
 - per-window FC matrices
 - group-level uncertainty bands and error bars
 - direct links to saved Stage 2 empirical figures and stage reports
 
-This makes the repository unusually strong as a communication artifact. A reviewer can inspect group means, then a paired subject, then a specific run, then a specific window, and then compare that with the metric summary files. That is excellent scientific hygiene for a project of this scope.
+This makes the repository useful as a communication artifact. A reviewer can inspect group means, then a paired subject, then a specific run, then a specific window, and then compare that with the metric summary files. The viewer should still be read as an exploratory proxy-data interface, not as a QC-complete neuroimaging browser.
 
 The limitations are explicitly stated in code and docs. The raw views are downsampled previews, not a clinical imaging viewer. The metric blocks are descriptive rather than inferential. The atlas mapping remains a proxy. Those caveats should be retained in any thesis presentation.
 
@@ -337,13 +337,7 @@ The limitations are explicitly stated in code and docs. The raw views are downsa
 
 The repository includes a secondary line of work that exports Stage 2 empirical windows into a training-ready dataset and benchmarks a few simple machine learning models. This branch does not replace the surrogate-model thesis. Instead, it asks whether the extracted windows contain enough structure to support auxiliary prediction tasks.
 
-The exported dataset `results/training/ds003059_windows.npz` contains:
-
-- `600` windows
-- `15` paired subjects
-- window shape `64 x 8`
-- condition labels for placebo versus LSD
-- subject, session, and run identifiers
+The exported dataset `results/training/ds003059_windows.npz` records window arrays, condition labels for placebo versus LSD, subject/session/run identifiers, and enough shape information for downstream scripts to report current sample counts. This template avoids fixed window counts because they can change when window length, stride, subject subset, or extraction settings change.
 
 Evaluation uses leave-one-subject-out cross-validation through `LeaveOneGroupOut(subject)`, which is the right choice for avoiding subject leakage in a dataset this small.
 
@@ -361,19 +355,15 @@ First, the repository has a coherent scientific architecture. It is not a collec
 
 Second, the empirical path is real. The repository does not stop at literature-inspired targets. It queries OpenNeuro, downloads exact files, extracts module time series, constructs paired deltas, and records provenance. This is a meaningful accomplishment.
 
-Third, the codebase is operationally healthy. On 2026-04-15 the local checks passed:
+Third, the codebase is operationally healthy, but this generated report intentionally avoids embedding a fixed test count or dated validation claim. Use the latest machine-readable validation record, CI result, or local verification transcript for the current number of tests, coverage, lint status, and type-check status.
 
-- `uv run pytest`: `57` tests passed
-- `uv run ruff check .`: passed
-- `uv run mypy src`: passed
-
-Coverage exceeds the configured threshold, and the system includes tests for simulator behavior, fit logic, perturbation logic, viewer caches, web integration, and training helpers.
+The system includes tests for simulator behavior, fit logic, perturbation logic, viewer caches, web integration, publication generation, and training helpers.
 
 Fourth, the project saves its outputs systematically. Every stage writes reports, figures, JSON summaries, and, in Stage 2, empirical target files and viewer caches. This makes the project much easier to review and defend.
 
 Fifth, the dashboard substantially strengthens interpretability. It is not merely decorative. It materially helps explain what the model is doing and how empirical targets are formed.
 
-Finally, the benchmark branch supports a useful auxiliary claim: the extracted macro windows contain condition-relevant signal, even if that signal is modest.
+Finally, the benchmark branch supports a useful auxiliary internal claim: the extracted macro windows contain limited condition-relevant signal under the current proxy extraction. It is not evidence of biological mechanism or external predictive validity.
 
 ## 16. What Did Not Work or Remains Scientifically Weak
 
@@ -383,13 +373,13 @@ The first weakness is the hand-designed altered-state-inspired perturbation in S
 
 The second weakness is the empirical extraction itself. Under the current eight-module Harvard-Oxford proxy, several LSD-minus-placebo deltas do not align with literature-level expectations. This may reflect the coarseness of the mapping, the fact that the repository works in a custom observable space, the derivative nature of the dataset, or some combination of the three.
 
-The third weakness is calibration stability. Stage 2's best score comes from a single stochastic realization. The same fitted regime performs much worse on average across multiple seeds. This means the fit is still noise-sensitive and not yet a stable parameter estimate.
+The third weakness is calibration stability. Stage 2 records seed-disjoint selection and validation diagnostics, and the approved CV5 run adds subject-disjoint internal held-out evaluation under the same dataset and proxy extraction. Together, these reduce but do not remove dependence on stochastic seeds, split composition, and the current objective. The fitted regime should therefore be treated as a proxy calibration with preliminary internal validation, not as a stable external estimate.
 
-The fourth weakness is perturbation underexpression. Stage 3 does not find a mechanism that convincingly matches the empirical delta profile. Even the best mechanism overshoots some metrics, flips the sign of others, and fails badly on the effective barrier proxy.
+The fourth weakness is perturbation underexpression. Stage 3 does not find a perturbation family that convincingly matches the empirical delta profile. Even the best-scoring family overshoots some metrics, flips the sign of others, and fails badly on the effective barrier proxy.
 
 The fifth weakness is the lack of robust combination gains in Stage 4. Pairwise combinations do not solve the mismatch problem.
 
-The sixth weakness is reproducibility at the version-control level. The repository currently has no git commit history recorded in its version stamps because no commit exists. This does not invalidate the results, but it weakens provenance and should be corrected for formal thesis archiving.
+The sixth weakness is reproducibility at the version-control level. {{ provenance_statement }} This does not invalidate the results, but formal thesis archiving should still point to a stable exact revision and artifact snapshot.
 
 The seventh weakness is documentation drift. The experiment log contains older numbers, and the Stage 4 markdown report conflicts with the Stage 4 JSON summary. These are fixable issues, but they matter in a defense context because discrepancies between narrative and artifact invite avoidable questions.
 
@@ -423,17 +413,21 @@ For defense purposes, it is helpful to separate claims that the repository clear
 
 ### 18.1 Claims the Repository Supports
 
+{% set rocket = rocket_benchmark %}
 - The project implements a transparent graph-based surrogate model for macro-scale altered-state-inspired dynamics.
 - The project derives placebo and LSD-minus-placebo target summaries from a real public neuroimaging dataset rather than relying only on literature summaries.
 - The project demonstrates that placebo-derived calibration can better align a sober reference regime under the chosen objective.
 - The project demonstrates that the current model class and the current eight-module extraction are insufficient to reproduce the full empirical altered-state signature robustly.
 - The project provides a reproducible hypothesis-ranking and ablation environment for comparing perturbation families.
-- The exported empirical windows contain modest but real condition-relevant signal under subject-held-out evaluation.
+- The exported empirical windows contain limited condition-relevant signal under subject-held-out evaluation in the current proxy space.
+{% if rocket and rocket.balanced_accuracy_mean is not none and rocket.roc_auc_mean is not none %}
+- The ROCKET-style supporting classifier detects condition-relevant signal under leak-proof subject-disjoint evaluation (`{{ rocket.cv_strategy }}`, primary unit `{{ rocket.primary_evaluation_unit }}`; balanced accuracy `{{ "%.3f"|format(rocket.balanced_accuracy_mean) }} +/- {{ "%.3f"|format(rocket.balanced_accuracy_std or 0.0) }}`, ROC AUC `{{ "%.3f"|format(rocket.roc_auc_mean) }} +/- {{ "%.3f"|format(rocket.roc_auc_std or 0.0) }}`). This remains an internal proxy classification diagnostic, not receptor-level, clinical, subjective-experience, or external-validity evidence.
+{% endif %}
 
 ### 18.2 Claims the Repository Does Not Support
 
 - It does not show that LSD has been mechanistically simulated.
-- It does not show that the identified best mechanism is the true biological driver of psychedelic dynamics.
+- It does not show that the selected perturbation family is the true biological driver of psychedelic dynamics.
 - It does not show that subjective experience has been modeled.
 - It does not show that the eight-module mapping is the correct or canonical representation of whole-brain psychedelic organization.
 - It does not show that the best fit regime is a stable or unique parameter solution.
@@ -452,6 +446,9 @@ The repository includes multiple layers of auditability.
 - empirical target YAML files under `results/stage_2/`
 - raw-to-summary viewer caches under `results/stage_2/empirical_viewer/`
 - benchmark summaries under `results/training/`
+{% if rocket %}
+- leak-proof ROCKET diagnostic outputs under `results/training/rocket_condition_benchmark/`, with primary metrics aggregated to `{{ rocket.primary_evaluation_unit }}` and `window_random_reporting={{ rocket.window_random_reporting | lower }}`
+{% endif %}
 
 The main user-facing commands are also stable and documented.
 
@@ -463,11 +460,11 @@ The main user-facing commands are also stable and documented.
 - run all stages plus benchmarks: `uv run python scripts/run_pipeline.py run-everything`
 - launch dashboard: `uv run python scripts/run_dashboard.py`
 
-During the present repository audit, the local validation status was:
+Current validation status should be read from the latest verification run rather than from fixed prose in this template. The intended validation commands are:
 
-- all tests passed
-- lint passed
-- mypy passed
+- `uv run pytest`
+- `uv run ruff check .`
+- `uv run mypy src`
 
 The largest reproducibility weakness is not operational failure. It is the absence of a recorded commit hash. The version-stamp utility correctly reports an unborn git state. Before formal submission, the repository should be committed and archived so that the thesis can refer to a stable exact revision.
 
@@ -513,5 +510,9 @@ If defended carefully, this thesis can be presented as a strong piece of transpa
 - `results/stage_4/stage_4_summary.json`
 - `results/training/condition_benchmark/comparison_summary.json`
 - `results/training/multitask_benchmark/comparison_summary.json`
+{% if rocket_benchmark %}
+- `results/training/rocket_condition_benchmark/comparison_summary.json`
+- `results/training/rocket_condition_benchmark/benchmark_report.md`
+{% endif %}
 - `data/ds003059/dataset_description.json`
 - `data/ds003059/README`

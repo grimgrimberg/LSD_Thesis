@@ -1,0 +1,237 @@
+- generic [active] [ref=e1]:
+  - link "Skip to evidence panels" [ref=e2] [cursor=pointer]:
+    - /url: "#main_content"
+  - banner [ref=e3]:
+    - generic [ref=e4]:
+      - strong [ref=e5]: Macro-Dynamics Surrogate Dashboard
+      - generic [ref=e6]: FastAPI research interface, no /dashboard route
+    - navigation "Dashboard sections" [ref=e7]:
+      - link "Snapshot" [ref=e8] [cursor=pointer]:
+        - /url: "#snapshot"
+      - link "Set/Setting/Seed" [ref=e9] [cursor=pointer]:
+        - /url: "#set_setting_seed"
+      - link "Story" [ref=e10] [cursor=pointer]:
+        - /url: "#scientific_story"
+      - link "Validation" [ref=e11] [cursor=pointer]:
+        - /url: "#validation_summary"
+      - link "Model" [ref=e12] [cursor=pointer]:
+        - /url: "#model_explorer"
+      - link "Empirical/fMRI" [ref=e13] [cursor=pointer]:
+        - /url: "#empirical_explorer"
+      - link "Reproducibility" [ref=e14] [cursor=pointer]:
+        - /url: "#reproducibility"
+      - link "Limitations" [ref=e15] [cursor=pointer]:
+        - /url: "#limitations"
+  - region "Thesis Snapshot" [ref=e16]:
+    - generic [ref=e17]:
+      - generic [ref=e18]:
+        - generic "Claim scope" [ref=e19]
+        - heading "Thesis Snapshot" [level=1] [ref=e24]
+        - paragraph [ref=e25]: "This interface presents a transparent mechanism-ranking workspace: empirical ds003059-derived proxy summaries, transition/barrier diagnostics, controlled-dynamics baselines, and completed preliminary internal CV5 results without claiming receptor-level, clinical, external, or subjective-experience validation."
+        - generic [ref=e26]
+        - generic "Approved dynamic method" [ref=e28]
+      - generic "Key validation metrics" [ref=e272]:
+        - generic [ref=e273]
+        - generic [ref=e277]
+        - generic [ref=e281]
+        - generic [ref=e285]
+        - generic [ref=e289]
+        - generic [ref=e293]
+  - generic [ref=e45]:
+    - complementary "Dashboard controls and scientific context" [ref=e46]:
+      - generic [ref=e47]:
+        - heading "Research Controls and Context" [level=1] [ref=e48]
+        - paragraph [ref=e49]: "Use these panels as a thesis evidence console: inspect the model, empirical summaries, CV5 internal-validation status, provenance, and generated artifacts. The fMRI previews are downsampled exploratory displays, not diagnostic anatomical images."
+      - generic [ref=e50]:
+        - heading "Scientific Story" [level=2] [ref=e51]
+        - paragraph [ref=e52]: This dashboard accompanies a transparent surrogate model of altered-state-inspired macro-dynamics. The working question is whether explicit control-theoretic proxy dynamics can be ranked against cached empirical targets without claiming receptor-level or subjective realism.
+        - list [ref=e53]
+      - generic [ref=e58]:
+        - heading "Dynamic Method Plan" [level=2] [ref=e59]
+        - paragraph [ref=e60]: "Approved research path: fit transition/barrier dynamics and DMDc first, then use hierarchy and repertoire metrics as explanation and robustness layers."
+        - list [ref=e61]
+      - generic [ref=e66]:
+        - heading "Set / Setting / Seed" [level=2] [ref=e67]
+        - paragraph [ref=e68]: This PASS 2A extension adds a rest-only reliability foundation, visualization-only latent geometry, and an honest music-control scaffold. Run-02 music module time series are not currently extracted.
+        - list [ref=e69]
+        - paragraph [ref=e74]
+      - generic [ref=e76]:
+        - heading "How to Read This Dashboard" [level=2] [ref=e77]
+        - paragraph [ref=e78]: Read model, empirical, and literature-style deltas by direction, uncertainty, and missingness. Treat the plots as exploratory inspection panels, not proof surfaces.
+        - paragraph [ref=e79]: Validation badges distinguish seed-sampling robustness from subject-disjoint internal validation. Missing artifacts are reported as pending outputs, not as inferred results.
+        - paragraph [ref=e80]: Current QC exposure is aggregate-only; it does not include subject-level motion, FD/DVARS, confound, or censoring strata.
+      - generic [ref=e81]:
+        - heading "Data and Input Summary" [level=2] [ref=e82]
+        - paragraph [ref=e83]: Empirical panels use cached ds003059-derived summaries when available. Missing sections are shown as pending artifacts rather than filled with inferred results.
+      - generic [ref=e84]:
+        - heading "Methods and Pipeline Overview" [level=2] [ref=e85]
+        - list [ref=e86]
+      - generic [ref=e91]:
+        - heading "Model Assumptions" [level=2] [ref=e92]
+        - paragraph [ref=e93]: The graph modules, switching barriers, entropy-like summaries, and integration metrics are model-level proxies. They should not be read as receptor mechanisms, clinical effects, or subjective-experience measurements.
+      - generic [ref=e94]:
+        - heading "Metrics and Diagnostics" [level=2] [ref=e95]
+        - paragraph [ref=e96]: Metric panels emphasize direction, uncertainty, sign conflicts, and failure modes. Near-zero or weak empirical targets should be interpreted cautiously.
+      - generic [ref=e97]:
+        - heading "Validation Summary" [level=2] [ref=e98]
+        - generic [ref=e297]: "Selection mode: multi_seed_mean Selection seeds: 111, 112, 113 Validation seeds: 1011, 1012, 1013, 1014, 1015 Selected iteration: 42 Selection score: 2.054 +/- 0.498 Validation score: 2.455 +/- 0.651 Uncertainty: available Uncertainty note: Uncertainty here is seed-sampling spread, not an external confidence interval. External validity note: Score uncertainty does not imply external predictive validity. Cache: fingerprinted Meaning: Multi-seed selection/validation reduces single-realization dependence, but does not imply held-out empirical validation."
+      - generic [ref=e99]:
+        - heading "Empirical Validation Boundary" [level=2] [ref=e100]
+        - generic [ref=e298]: "Held-out empirical validation: not configured Configured validation: seed-disjoint selection/validation diagnostics only Completed validation: not yet performed CV5 internal validation: completed CV5 folds completed: 5/5 CV5 subjects held out once: yes CV5 aggregate score: 15.7128 +/- 10.2613 across folds CV5 sign agreement: 0.6750 +/- 0.1896 across folds CV5 uncertainty: fold SD is descriptive across folds, not a confidence interval or external-validity estimate. CV5 claim scope: preliminary_internal_subject_disjoint_cv5 CV5 approved by: Yuval Grimberg CV5 approved at: 2026-05-10T11:11:54Z CV5 run seed: 11 CV5 approved manifest: output/validation/cv5_subject_disjoint/approved/subject_split_cv5_manifest_approved.json CV5 aggregate artifact: output/validation/cv5_subject_disjoint/results/cv5_aggregate_validation.json CV5 rerun command: uv run python scripts/run_cv5_validation.py --manifest output/validation/cv5_subject_disjoint/approved/subject_split_cv5_manifest_approved.json --output-dir output/validation/cv5_subject_disjoint/results --fit-iterations 64 --seed 11 CV5 limitations: Small n=15 subject universe with n=3 held out per fold limits precision and interpretability.; Cached QC does not include subject-level motion, FD/DVARS, confound-regression, or censoring strata.; This is internal subject-disjoint validation, not external cohort validation.; Candidate generation used cached complete paired subjects from empirical_data_quality.json.; n=15 complete paired subjects; n=3 held-out subjects per fold; No subject-level motion/FD/DVARS/confound/censoring stratification available; Internal validation only; not external validation; Interpret cautiously CV5 boundary: internal validation only, not external or clinical validation. Split approval: none Missing validation: single-split Stage 3 metadata may be older; CV5 aggregate is the completion record for the internal CV5 check Split strategy: none_all_available_targets_used_for_selection Split ID: none Split file: none Selection source: OpenNeuro ds003059 placebo resting-state summary (15 session averages) Validation source: none Selection subjects: 15 Validation subjects: 0 Overlap count: 0 What this does not prove: No subject-disjoint held-out empirical validation is configured for Stage 2/3; current outputs report calibration and stochastic diagnostics, not independent validation."
+      - generic [ref=e101]:
+        - heading "CV5 Fold Results" [level=2] [ref=e102]
+        - generic [ref=e103]: Five-fold subject-disjoint internal validation is complete only within ds003059. Fold SD is descriptive dispersion, not a confidence interval or external-validity estimate.
+        - generic "CV5 aggregate summary cards" [ref=e299]
+        - generic "CV5 fold metric plot" [ref=e324]
+        - paragraph [ref=e104]: "Dual-axis descriptive plot: mismatch score uses the left axis and sign agreement uses the right axis. It is an internal fold summary, not a confidence interval."
+        - table "Per-fold held-out summary. Held-out subject identities are intentionally not listed here; counts and leakage checks are enough for the dashboard." [ref=e105]
+      - generic [ref=e115]:
+        - heading "Figures and Captions" [level=2] [ref=e116]
+        - paragraph [ref=e117]: Figure links point to generated artifacts. Active HTML figures are served with sandboxing and should be read as exploratory views, not as independent evidence.
+      - generic [ref=e118]:
+        - heading "Audit Status" [level=2] [ref=e119]
+        - generic [ref=e429]: "Claim: Transparent surrogate and mismatch analysis, not a mechanistic psychedelic simulator. Empirical records: 60 Paired/complete subjects: 15 / 15 Sign conflicts: entropy_diversity, metastability_proxy, within_network_stability Atlas overlaps: cortical:31 -> visual/default_mode; cortical:42 -> auditory/sensorimotor Atlas assigned voxels: 108814 Stage 3 score: 13.093 +/- 6.378 Stage 3 sign agreement: 75% target-sign agreement Provenance: git HEAD recorded"
+      - generic [ref=e120]:
+        - heading "Model Explorer" [level=2] [ref=e121]
+        - paragraph [ref=e122]: Parameter sliders alter the interactive surrogate only. They do not retune thesis results or imply biological mechanism discovery.
+        - generic [ref=e123]
+        - generic [ref=e125]
+        - generic [ref=e127]
+        - generic [ref=e129]
+        - generic [ref=e131]
+        - generic [ref=e133]
+        - generic [ref=e135]
+        - generic [ref=e137]
+        - button "Run simulation" [ref=e139] [cursor=pointer]
+        - generic [ref=e430]: "Within-network stability: 0.109 Cross-network communication: 0.086 Thalamic coupling: 0.099 Entropy / diversity: 0.989 Switching rate: 0.147 Metastability proxy: 1.265 Barrier proxy: 6.757"
+      - generic [ref=e140]:
+        - heading "Empirical/fMRI Explorer" [level=2] [ref=e141]
+        - generic [ref=e142]
+        - generic [ref=e144]
+        - generic [ref=e146]
+        - generic [ref=e148]
+        - generic [ref=e150]
+        - generic [ref=e152]
+        - generic [ref=e431]: Window 1 / 6
+        - generic "Selected empirical view metadata" [ref=e432]
+        - status [ref=e438]: "Dataset: OpenNeuro ds003059 placebo resting-state summary (15 session averages) Subject: sub-001 Run: run-01 Selected window: 1 / 6 Focus module: visual Group cross-network delta: 0.074 ± 0.084 Group thalamic delta: 0.120 ± 0.148 Whole-run cross-network delta: 0.182 Window cross-network delta: -0.197 Window switching delta: 0.029"
+      - generic [ref=e156]:
+        - heading "Artifact Browser" [level=2] [ref=e157]
+        - generic [ref=e439]
+      - generic [ref=e158]:
+        - heading "Reproducibility and Provenance" [level=2] [ref=e159]
+        - generic [ref=e462]: "Dataset: OpenNeuro ds003059 placebo resting-state summary (15 session averages) Empirical subjects: 15 Empirical runs: 60 Sessions: ses-LSD, ses-PLCB Sober target: empirical_sober_targets.yaml Perturbation target: empirical_perturbation_targets.yaml Cache fingerprint: b0e917a4e5fdd0be47c4be1c1f4ab1b262bd75cf18dbfb7bcfab4df48d4345df Aggregate preprocessing QC records: 60 QC caveat: aggregate-only; no subject-level motion, FD/DVARS, confound, or censoring strata are available here. Git branch: codex/audit-cleanup-20260507 HEAD present: yes Commit: cf59ee0f2f4593ab069376992a6db68c19c92995"
+      - generic [ref=e160]:
+        - heading "Reproduce This Dashboard Snapshot" [level=2] [ref=e161]
+        - paragraph [ref=e162]
+        - generic [ref=e463]: "Local URL: http://127.0.0.1:8000/ Preflight command: uv run python scripts/preview_dashboard.py --check-only Pipeline refresh: uv run python scripts/run_pipeline.py run-all Publication refresh: uv run python scripts/build_publication_package.py CV5 rerun command: uv run python scripts/run_cv5_validation.py --manifest output/validation/cv5_subject_disjoint/approved/subject_split_cv5_manifest_approved.json --output-dir output/validation/cv5_subject_disjoint/results --fit-iterations 64 --seed 11 CV5 approved manifest: output/validation/cv5_subject_disjoint/approved/subject_split_cv5_manifest_approved.json CV5 aggregate completion record: output/validation/cv5_subject_disjoint/results/cv5_aggregate_validation.json Interrupted attempt note: output/validation/cv5_subject_disjoint/results_interrupted_viewer_attempt/ is partial, not completed validation. Selection diagnostics: multi_seed_mean; validation diagnostics: disjoint_seed_panel Subject-disjoint held-out validation: not configured CV5 internal validation: CV5 completed 5/5 Cache fingerprint: b0e917a4e5fdd0be47c4be1c1f4ab1b262bd75cf18dbfb7bcfab4df48d4345df Provenance timestamp: 2026-05-14T12:20:43.947857+00:00"
+      - generic [ref=e164]:
+        - heading "Pipeline Status" [level=2] [ref=e165]
+        - generic [ref=e464]: "Stage 2 best score: 2.054 Stage 3 best-scoring perturbation family: less_hierarchical_constraint Stage 3 score: 3481.537 Audit sign conflicts: 3"
+      - generic [ref=e166]:
+        - heading "Limitations and Reviewer Notes" [level=2] [ref=e167]
+        - paragraph [ref=e168]: Plots that align with selected targets remain macro-dynamics surrogate/proxy evidence. They do not establish biological mechanism truth, clinical relevance, external validity, or subjective-state realism.
+        - list [ref=e169]
+      - generic [ref=e174]:
+        - heading "Methods Appendix / Details" [level=2] [ref=e175]
+        - group [ref=e176]
+        - group [ref=e178]
+    - main [ref=e180]:
+      - region "Audit Summary" [ref=e181]:
+        - heading "Audit Summary" [level=2] [ref=e182]
+        - generic "Audit Summary" [ref=e465]
+        - paragraph [ref=e183]: Current status snapshot. Green/warning borders signal evidence state, not claim strength.
+      - 'region "AI/ML Mechanism Ranking: A+B Results, C+D Evidence Layers" [ref=e184]':
+        - 'heading "AI/ML Mechanism Ranking: A+B Results, C+D Evidence Layers" [level=2] [ref=e185]'
+        - paragraph [ref=e186]
+        - 'generic "AI/ML Mechanism Ranking: A+B Results, C+D Evidence Layers" [ref=e504]'
+        - generic "Mechanism ranking layers" [ref=e188]
+      - 'region "A: Transition-State Proxy Results" [ref=e205]':
+        - 'heading "A: Transition-State Proxy Results" [level=2] [ref=e206]'
+        - 'generic "A: Transition-State Proxy Results" [ref=e525]'
+        - paragraph [ref=e207]: Paired LSD-minus-placebo macro-state deltas. Bars show mean across cached subject/run pairs; error bars are descriptive SD.
+      - 'region "B: DMDc Controlled-Dynamics Results" [ref=e208]':
+        - 'heading "B: DMDc Controlled-Dynamics Results" [level=2] [ref=e209]'
+        - 'generic "B: DMDc Controlled-Dynamics Results" [ref=e572]'
+        - paragraph [ref=e210]: Leave-one-subject-out one-step RMSE. If condition input does not improve RMSE, that weakens the simple DMDc mechanism story.
+      - 'region "B: DMDc Condition-Input Vector" [ref=e211]':
+        - 'heading "B: DMDc Condition-Input Vector" [level=2] [ref=e212]'
+        - 'generic "B: DMDc Condition-Input Vector" [ref=e637]'
+        - paragraph [ref=e213]: Mean fitted condition-input coefficient per proxy module. Coefficients are descriptive surrogate parameters, not biological control vectors.
+      - 'region "Model Explorer: 8-Module Proxy Graph" [ref=e214]':
+        - 'heading "Model Explorer: 8-Module Proxy Graph" [level=2] [ref=e215]'
+        - 'generic "Model Explorer: 8-Module Proxy Graph" [ref=e684]'
+        - paragraph [ref=e216]: Model output panel. Nodes are coarse proxy modules, not canonical functional networks.
+      - 'region "Model Explorer: Latent Activity" [ref=e217]':
+        - 'heading "Model Explorer: Latent Activity" [level=2] [ref=e218]'
+        - 'generic "Model Explorer: Latent Activity" [ref=e745]'
+        - paragraph [ref=e219]: Latent module activity in the interactive surrogate; units are model-level proxies.
+      - 'region "Model Explorer: FC Matrix" [ref=e220]':
+        - 'heading "Model Explorer: FC Matrix" [level=2] [ref=e221]'
+        - 'generic "Model Explorer: FC Matrix" [ref=e814]'
+        - paragraph [ref=e222]: Pearson-correlation FC summary from the interactive simulation.
+      - 'region "Model Explorer: Reference Altered FC" [ref=e223]':
+        - 'heading "Model Explorer: Reference Altered FC" [level=2] [ref=e224]'
+        - 'generic "Model Explorer: Reference Altered FC" [ref=e855]'
+        - paragraph [ref=e225]: Reference perturbed-regime FC summary, shown as a model comparison only.
+      - 'region "Scientific Story: Empirical vs Literature vs Model Delta" [ref=e226]':
+        - 'heading "Scientific Story: Empirical vs Literature vs Model Delta" [level=2] [ref=e227]'
+        - 'generic "Scientific Story: Empirical vs Literature vs Model Delta" [ref=e896]'
+        - paragraph [ref=e228]: Point estimates in a shared proxy space. Sign reversals and weak targets are interpreted as limitations, not hidden.
+      - 'region "Scientific Story: Ablation Summary" [ref=e229]':
+        - 'heading "Scientific Story: Ablation Summary" [level=2] [ref=e230]'
+        - 'generic "Scientific Story: Ablation Summary" [ref=e968]'
+        - paragraph [ref=e231]: Mismatch scores for perturbation-family comparisons. Lower scores are better under the project objective.
+      - 'region "Group-Level Empirical Evidence: Module Trace Mean +/- 1 SD" [ref=e232]':
+        - 'heading "Group-Level Empirical Evidence: Module Trace Mean +/- 1 SD" [level=2] [ref=e233]'
+        - 'generic "Group-Level Empirical Evidence: Module Trace Mean +/- 1 SD" [ref=e1015]'
+        - paragraph [ref=e234]: Within-dataset ds003059 summary; uncertainty bands are descriptive across cached paired subjects, not external confidence intervals.
+      - 'region "Group-Level Empirical Evidence: Metric Deltas" [ref=e235]':
+        - 'heading "Group-Level Empirical Evidence: Metric Deltas" [level=2] [ref=e236]'
+        - 'generic "Group-Level Empirical Evidence: Metric Deltas" [ref=e1078]'
+        - paragraph [ref=e237]: LSD-minus-placebo macro-dynamics surrogate/proxy deltas with descriptive spread.
+      - 'region "Group-Level Empirical Evidence: FC Delta" [ref=e238]':
+        - 'heading "Group-Level Empirical Evidence: FC Delta" [level=2] [ref=e239]'
+        - 'generic "Group-Level Empirical Evidence: FC Delta" [ref=e1125]'
+        - paragraph [ref=e240]: Coarse 8-module proxy FC delta. Zero-centered color scale; not mechanistic connectivity proof.
+      - 'region "Group-Level Empirical Evidence: Placebo FC" [ref=e241]':
+        - 'heading "Group-Level Empirical Evidence: Placebo FC" [level=2] [ref=e242]'
+        - 'generic "Group-Level Empirical Evidence: Placebo FC" [ref=e1166]'
+        - paragraph [ref=e243]: Session-paired placebo summary in proxy-module space.
+      - 'region "Group-Level Empirical Evidence: LSD FC" [ref=e244]':
+        - 'heading "Group-Level Empirical Evidence: LSD FC" [level=2] [ref=e245]'
+        - 'generic "Group-Level Empirical Evidence: LSD FC" [ref=e1207]'
+        - paragraph [ref=e246]: Session-paired LSD summary in proxy-module space; in-sample descriptive view only.
+      - 'region "Empirical/fMRI Explorer: Placebo Downsampled Preview" [ref=e247]':
+        - 'heading "Empirical/fMRI Explorer: Placebo Downsampled Preview" [level=2] [ref=e248]'
+        - 'generic "Empirical/fMRI Explorer: Placebo Downsampled Preview" [ref=e1248]'
+        - paragraph [ref=e249]: Downsampled exploratory preview; not a diagnostic anatomical image.
+      - 'region "Empirical/fMRI Explorer: LSD Downsampled Preview" [ref=e250]':
+        - 'heading "Empirical/fMRI Explorer: LSD Downsampled Preview" [level=2] [ref=e251]'
+        - 'generic "Empirical/fMRI Explorer: LSD Downsampled Preview" [ref=e1293]'
+        - paragraph [ref=e252]: Window-averaged, plane-wise normalized preview; not evidence of subjective-state realism.
+      - 'region "Empirical/fMRI Explorer: Subject Global Signal" [ref=e253]':
+        - 'heading "Empirical/fMRI Explorer: Subject Global Signal" [level=2] [ref=e254]'
+        - 'generic "Empirical/fMRI Explorer: Subject Global Signal" [ref=e1338]'
+        - paragraph [ref=e255]: Average signal summary over cached voxels; not a neural-specific readout.
+      - 'region "Empirical/fMRI Explorer: Subject Module Traces" [ref=e256]':
+        - 'heading "Empirical/fMRI Explorer: Subject Module Traces" [level=2] [ref=e257]'
+        - 'generic "Empirical/fMRI Explorer: Subject Module Traces" [ref=e1389]'
+        - paragraph [ref=e258]: Coarse module traces for paired placebo/LSD runs. The selected focus module is emphasized for inspection, not treated as a validated neural mechanism.
+      - 'region "Empirical/fMRI Explorer: Placebo Window FC" [ref=e259]':
+        - 'heading "Empirical/fMRI Explorer: Placebo Window FC" [level=2] [ref=e260]'
+        - 'generic "Empirical/fMRI Explorer: Placebo Window FC" [ref=e1482]'
+        - paragraph [ref=e261]: Selected-window coarse 8-module proxy FC matrix.
+      - 'region "Empirical/fMRI Explorer: LSD Window FC" [ref=e262]':
+        - 'heading "Empirical/fMRI Explorer: LSD Window FC" [level=2] [ref=e263]'
+        - 'generic "Empirical/fMRI Explorer: LSD Window FC" [ref=e1523]'
+        - paragraph [ref=e264]: Selected-window coarse 8-module proxy FC matrix.
+      - 'region "Empirical/fMRI Explorer: Window FC Delta" [ref=e265]':
+        - 'heading "Empirical/fMRI Explorer: Window FC Delta" [level=2] [ref=e266]'
+        - 'generic "Empirical/fMRI Explorer: Window FC Delta" [ref=e1564]'
+        - paragraph [ref=e267]: LSD-minus-placebo window FC delta, zero-centered around no change.
+      - 'region "Empirical/fMRI Explorer: Proxy Interpretation" [ref=e268]':
+        - 'heading "Empirical/fMRI Explorer: Proxy Interpretation" [level=2] [ref=e269]'
+        - 'generic "Empirical/fMRI Explorer: Proxy Interpretation" [ref=e1605]': "Group cross-network delta: 0.074 ± 0.084. Group thalamic delta: 0.120 ± 0.148. Group integration status: positive cross-network and thalamic deltas. Group within-network delta: 0.066 ± 0.108. Whole-run cross-network communication delta: 0.182. Whole-run thalamic coupling delta: 0.307. Whole-run within-network stability delta: 0.014. Selected-window cross-network delta: -0.197. Selected-window switching-rate delta: 0.029. Proxy interpretation: Selected run has integration-like and switching/barrier-like movement under these proxy metrics. Interpretation boundary: group-level and selected-run summaries are descriptive within-dataset views. Negative barrier-like or metastability deltas should be read as model-level proxies, not biological ground truth or subjective-state evidence."
+        - paragraph [ref=e270]: Interpretation separates group, run, and window proxy summaries. It does not classify clinical or subjective state.
+  - img [ref=e1606]

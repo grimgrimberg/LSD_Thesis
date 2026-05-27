@@ -155,6 +155,9 @@ def multi_seed_summary(
     """
     from lsd_thesis.simulator import run_simulation
 
+    if n_seeds < 1:
+        raise ValueError("n_seeds must be at least 1.")
+
     metric_rows: list[dict[str, float]] = []
     for offset in range(n_seeds):
         variant = regime.model_copy(deep=True)
@@ -169,7 +172,11 @@ def multi_seed_summary(
         for name in metric_names
     }
     std_metrics = {
-        name: float(np.std([row[name] for row in metric_rows], ddof=1))
+        name: (
+            float(np.std([row[name] for row in metric_rows], ddof=1))
+            if len(metric_rows) > 1
+            else 0.0
+        )
         for name in metric_names
     }
     return mean_metrics, std_metrics
