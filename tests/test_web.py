@@ -463,6 +463,7 @@ def test_dashboard_payload_includes_provenance_block(tmp_path: Path, monkeypatch
     assert payload["dynamic_mechanism"]["analysis_status"] == "missing"
     assert payload["dynamic_mechanism"]["source_path"] == "results/dynamic_mechanism_ranking/summary.json"
     assert payload["structural_dti"]["analysis_status"] == "missing_structural_connectome_matrix"
+    assert payload["external_cortical_maps"]["analysis_status"] == "missing_external_cortical_map_alignment"
 
 
 def test_dashboard_payload_includes_publication_outputs_in_report_links(

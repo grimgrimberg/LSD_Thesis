@@ -22,6 +22,7 @@ from build_publication_package import build_publication_package
 from export_thesis_loop_tables import export_thesis_loop_tables
 from plotly.offline import get_plotlyjs
 
+from lsd_thesis.cortical_maps import write_cortical_map_alignment_status
 from lsd_thesis.thesis_loop import build_thesis_evidence_loop
 from lsd_thesis.web.app import build_dashboard_payload
 
@@ -113,6 +114,7 @@ def _copy_dashboard_linked_artifacts(repo_root: Path, site: Path, dashboard_payl
     allowed_prefixes = (
         "docs/",
         "output/doc/",
+        "results/cortical_maps/",
         "results/dynamic_mechanism_ranking/",
         "results/external_ingestion/",
         "results/literature_benchmark/",
@@ -175,6 +177,7 @@ def build_github_pages_site(repo_root: Path = REPO_ROOT, site_dir: Path | None =
 
     build_thesis_evidence_loop(repo_root)
     export_thesis_loop_tables(repo_root, repo_root / "results" / "thesis_evidence_loop" / "exports")
+    write_cortical_map_alignment_status(repo_root)
     publication_outputs = build_publication_package(repo_root)
 
     outputs: dict[str, Path] = {}

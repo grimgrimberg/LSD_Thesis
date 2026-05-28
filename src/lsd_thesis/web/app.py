@@ -395,6 +395,8 @@ def _artifact_links(repo_root: Path) -> dict[str, list[dict[str, str]]]:
         ),
         ("Psilocybin ds006072 Status", repo_root / "results" / "psilocybin_ds006072" / "psilocybin_ds006072_status.json"),
         ("Structural Connectome Status", repo_root / "results" / "structural_connectome" / "structural_connectome_status.json"),
+        ("External Cortical Map Alignment", repo_root / "results" / "cortical_maps" / "cortical_map_alignment_status.json"),
+        ("External Cortical Map Alignment Summary", repo_root / "results" / "cortical_maps" / "cortical_map_alignment.md"),
         ("Receptor Prior Status", repo_root / "results" / "receptor_priors" / "receptor_prior_status.json"),
         ("Parcellation Sensitivity Status", repo_root / "results" / "parcellation_sensitivity" / "parcellation_sensitivity_status.json"),
         ("Literature Benchmark Status", repo_root / "results" / "literature_benchmark" / "literature_benchmark_status.json"),
@@ -928,6 +930,29 @@ def _load_structural_dti_payload(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
     }
 
 
+def _load_external_cortical_maps_payload(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
+    status_path = repo_root / "results" / "cortical_maps" / "cortical_map_alignment_status.json"
+    markdown_path = repo_root / "results" / "cortical_maps" / "cortical_map_alignment.md"
+    if not status_path.exists():
+        return {
+            "analysis_status": "missing_external_cortical_map_alignment",
+            "source_path": status_path.relative_to(repo_root).as_posix(),
+            "markdown_path": markdown_path.relative_to(repo_root).as_posix(),
+            "maps": [],
+            "dynamic_targets": [],
+            "alignment_rows": [],
+            "claim_guardrail": (
+                "External receptor, myelin, functional-gradient, and transcriptomic map alignment has not been generated yet. "
+                "Run scripts/build_external_cortical_maps.py after dynamic-mechanism outputs exist."
+            ),
+        }
+    payload = cast(dict[str, Any], json.loads(status_path.read_text(encoding="utf-8")))
+    payload.setdefault("source_path", status_path.relative_to(repo_root).as_posix())
+    if markdown_path.exists():
+        payload.setdefault("markdown_path", markdown_path.relative_to(repo_root).as_posix())
+    return payload
+
+
 def _build_thesis_expansion_payload(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
     loop_status = _load_thesis_loop_status(repo_root)
     loop_status_by_label = {
@@ -1189,6 +1214,7 @@ def build_dashboard_payload(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
         "set_setting_seed": _load_set_setting_seed_payload(repo_root),
         "dynamic_mechanism": _load_dynamic_mechanism_payload(repo_root),
         "structural_dti": _load_structural_dti_payload(repo_root),
+        "external_cortical_maps": _load_external_cortical_maps_payload(repo_root),
         "thesis_expansion": _build_thesis_expansion_payload(repo_root),
         "thesis_upgrade": build_thesis_upgrade_status(repo_root),
         "artifact_links": artifact_links,

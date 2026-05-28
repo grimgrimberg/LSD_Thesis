@@ -429,6 +429,13 @@
       align-items: start;
       margin-top: 12px;
     }
+    .map-board {
+      display: grid;
+      grid-template-columns: minmax(320px, 1fr) minmax(320px, 1fr);
+      gap: 14px;
+      align-items: start;
+      margin-top: 12px;
+    }
     .loop-steps {
       display: grid;
       gap: 8px;
@@ -539,6 +546,7 @@
       .audit-grid { grid-template-columns: repeat(2, minmax(160px, 1fr)); }
       .loop-board { grid-template-columns: 1fr; }
       .dti-board { grid-template-columns: 1fr; }
+      .map-board { grid-template-columns: 1fr; }
     }
     @media (max-width: 720px) {
       .topbar { align-items: flex-start; flex-direction: column; }
@@ -900,6 +908,30 @@
         </div>
         <p class="plot-unit-note">Units: normalized tractography/connectome edge weight, aggregated to the 8 macro-module contract. Stronger edges imply lower anatomical coupling cost, not direct functional causation.</p>
       </section>
+      <section class="card card--span-2" data-plot-role="core" aria-labelledby="external_maps_title">
+        <h2 id="external_maps_title">External Brain-Map Alignment: Receptor, Myelin, Gradient</h2>
+        <p class="plot-caption">Module-level overlay that asks whether external receptor, T1w/T2w myelin, principal-gradient, and AHBA transcriptomic priors align with empirical LSD-placebo dynamic changes.</p>
+        <div id="external_maps_status" class="result-status" role="status" aria-live="polite"></div>
+        <div id="external_maps_cards" class="summary-cards" aria-label="External cortical-map alignment summary cards"></div>
+        <div id="external_maps_claim_readiness" class="result-status" role="status" aria-live="polite"></div>
+        <div class="map-board">
+          <div id="external_maps_heatmap" aria-labelledby="external_maps_title"></div>
+          <div id="external_maps_alignment" aria-labelledby="external_maps_title"></div>
+        </div>
+        <div class="table-wrap" style="margin-top: 12px;">
+          <table>
+            <thead><tr><th>Map</th><th>Target</th><th>r</th><th>p</th><th>q</th><th>CI crosses 0</th><th>Status</th></tr></thead>
+            <tbody id="external_maps_table"></tbody>
+          </table>
+        </div>
+        <div class="table-wrap" style="margin-top: 12px;">
+          <table>
+            <thead><tr><th>Recent human psilocybin benchmark</th><th>Dashboard proxy</th><th>Use</th><th>Boundary</th></tr></thead>
+            <tbody id="external_maps_benchmark_table"></tbody>
+          </table>
+        </div>
+        <p class="plot-unit-note">Guardrail: these are module-level prior alignments with exact label-permutation p-values. Full neuromaps surface-level spatial-autocorrelation nulls remain the next upgrade.</p>
+      </section>
       <section class="card card--span-2" aria-labelledby="plot_review_title">
         <h2 id="plot_review_title">Plot Review: Core Evidence vs Appendix</h2>
         <p class="plot-caption">The visible plot order now follows the thesis evidence loop: mechanism ranking, robustness, empirical deltas, and claim checks first. Duplicated single-condition matrices, raw slice previews, and synthetic model sanity checks stay available in collapsed appendix sections.</p>
@@ -1184,6 +1216,7 @@
       renderClaimEvidenceMatrix(expansion.loop_status || {});
       renderEvidenceMatrix(expansion.loop_status?.components || {});
       renderStructuralDti(dashboardState?.structural_dti || {});
+      renderExternalCorticalMaps(dashboardState?.external_cortical_maps || {});
     }
 
     function renderClaimEvidenceMatrix(loopStatus) {
@@ -1356,6 +1389,112 @@
         colorbar: { title: 'weight' },
         hovertemplate: '%{y} -> %{x}<br>weight %{z:.3f}<extra></extra>'
       }], heatmapLayout('Macro-module structural-connectome matrix'), plotConfig());
+    }
+
+    function renderExternalCorticalMaps(payload) {
+      const status = document.getElementById('external_maps_status');
+      const cards = document.getElementById('external_maps_cards');
+      const table = document.getElementById('external_maps_table');
+      const benchmarkTable = document.getElementById('external_maps_benchmark_table');
+      const readiness = document.getElementById('external_maps_claim_readiness');
+      const heatmapId = 'external_maps_heatmap';
+      const alignmentId = 'external_maps_alignment';
+      cards.innerHTML = '';
+      table.innerHTML = '';
+      benchmarkTable.innerHTML = '';
+      readiness.textContent = '';
+      const maps = Array.isArray(payload.maps) ? payload.maps : [];
+      const rows = Array.isArray(payload.alignment_rows) ? payload.alignment_rows : [];
+      if (!maps.length || !rows.length) {
+        status.textContent = payload?.claim_guardrail || 'External cortical-map alignment has not been generated yet.';
+        Plotly.purge(heatmapId);
+        Plotly.purge(alignmentId);
+        return;
+      }
+      const best = payload.best_alignment || rows[0] || {};
+      const fdrCount = Number(payload.fdr_supported_count || 0);
+      const claimReadiness = payload.claim_readiness || {};
+      const parcellationUpgrade = payload.parcellation_upgrade || {};
+      const psilocybinBenchmark = payload.recent_psilocybin_benchmark || {};
+      status.textContent =
+        `Status: ${payload.analysis_status || 'loaded'}\n` +
+        `Best absolute alignment: ${best.map_label || 'n/a'} vs ${best.target_label || 'n/a'} (r=${metricText(Number(best.pearson_r), 3)}, q=${metricText(Number(best.q_value), 3)})\n` +
+        `Guardrail: ${payload.claim_guardrail || 'External maps are priors, not mechanistic proof.'}\n` +
+        `Neuromaps boundary: ${payload.neuromaps_status?.analysis_status || 'module-level only'}`;
+      readiness.textContent =
+        `Claim readiness: ${claimReadiness.strong_receptor_myelin_gradient_claim || 'not_supported_yet'}\n` +
+        `${claimReadiness.current_best_result || 'Current alignments remain exploratory.'}\n` +
+        `Parcellation plan: ${parcellationUpgrade.recommended_next_contract || 'add a high-resolution Schaefer/Yeo or Glasser inference layer'}\n` +
+        `Recent benchmark: ${psilocybinBenchmark.study || 'Human brain changes after first psilocybin use'} (${psilocybinBenchmark.published || '2026-05-05'}, ${psilocybinBenchmark.journal || 'Nature Communications'})`;
+      addMetricCard(cards, 'External maps', `${maps.length}`, 'receptor + myelin + gradient + AHBA');
+      addMetricCard(cards, 'Dynamic targets', `${(payload.dynamic_targets || []).length}`, 'DMDC module vectors');
+      addMetricCard(cards, 'FDR-supported tests', `${fdrCount}`, 'q <= 0.05 and CI gate shown');
+      addMetricCard(cards, 'Claim status', claimReadiness.strong_receptor_myelin_gradient_claim || 'not_supported_yet', 'do not overstate');
+      addMetricCard(cards, 'Null model', 'exact module permutation', 'not full spatial neuromaps');
+
+      const modules = payload.module_contract || Object.keys(maps[0]?.values || {});
+      Plotly.newPlot(heatmapId, [{
+        z: maps.map(map => modules.map(module => Number(map.values?.[module] ?? 0))),
+        x: modules,
+        y: maps.map(map => map.label || map.map_id),
+        type: 'heatmap',
+        colorscale: 'Viridis',
+        colorbar: { title: 'prior' },
+        hovertemplate: '%{y}<br>%{x}: %{z:.3f}<extra></extra>'
+      }], heatmapLayout('Module-level external brain-map priors'), plotConfig());
+
+      const families = [...new Set(rows.map(row => row.map_family || 'map'))];
+      const traces = families.map(family => {
+        const familyRows = rows.filter(row => (row.map_family || 'map') === family);
+        return {
+          x: familyRows.map(row => Number(row.pearson_r || 0)),
+          y: familyRows.map(row => -Math.log10(Math.max(Number(row.q_value || row.permutation_p || 1), 1e-12))),
+          mode: 'markers',
+          type: 'scatter',
+          name: family,
+          marker: {
+            size: familyRows.map(row => row.fdr_significant_0_05 ? 17 : 11),
+            line: { color: '#10233f', width: 1 }
+          },
+          text: familyRows.map(row => `${row.map_label}<br>${row.target_label}<br>p=${metricText(Number(row.permutation_p), 4)} q=${metricText(Number(row.q_value), 4)}<br>${row.alignment_status}`),
+          hovertemplate: '%{text}<br>r=%{x:.3f}<br>-log10(q)=%{y:.2f}<extra></extra>'
+        };
+      });
+      Plotly.newPlot(alignmentId, traces, baseLayout('External-map alignment with empirical dynamics', {
+        xaxis: { title: 'Pearson r' },
+        yaxis: { title: '-log10(q)' },
+        shapes: [{ type: 'line', x0: -1, x1: 1, y0: -Math.log10(0.05), y1: -Math.log10(0.05), line: { color: '#b54708', dash: 'dot' } }],
+        legend: { orientation: 'h', y: -0.24 },
+        margin: { l: 54, r: 20, t: 44, b: 78 }
+      }), plotConfig());
+
+      rows
+        .slice()
+        .sort((a, b) => Number(b.abs_pearson_r || 0) - Number(a.abs_pearson_r || 0))
+        .slice(0, 12)
+        .forEach(row => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td>${row.map_label || row.map_id}</td>
+            <td>${row.target_label || row.target_id}</td>
+            <td>${metricText(Number(row.pearson_r), 3)}</td>
+            <td>${metricText(Number(row.permutation_p), 4)}</td>
+            <td>${metricText(Number(row.q_value), 4)}</td>
+            <td>${row.ci_overlaps_zero ? 'yes' : 'no'}</td>
+            <td>${row.alignment_status || 'n/a'}</td>
+          `;
+          table.appendChild(tr);
+        });
+      (psilocybinBenchmark.metric_mapping || []).forEach(row => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${row.article_measure || 'n/a'}</td>
+          <td>${row.dashboard_proxy || 'n/a'}</td>
+          <td>${row.use || 'context only'}</td>
+          <td>${row.claim_boundary || 'not validation'}</td>
+        `;
+        benchmarkTable.appendChild(tr);
+      });
     }
 
     function artifactHref(relativePath) {
