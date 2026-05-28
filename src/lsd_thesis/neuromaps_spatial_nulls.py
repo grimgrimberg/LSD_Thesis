@@ -44,18 +44,67 @@ def _candidate_inputs(repo_root: Path) -> dict[str, str | bool]:
     }
 
 
+def _neuromaps_runtime() -> dict[str, Any]:
+    if importlib.util.find_spec("neuromaps") is None:
+        return {
+            "dependency_available": False,
+            "null_api_importable": False,
+            "version": None,
+            "available_null_families": [],
+            "runtime_error": "neuromaps is not installed",
+        }
+    try:
+        import neuromaps
+        from neuromaps import nulls
+    except Exception as exc:
+        return {
+            "dependency_available": True,
+            "null_api_importable": False,
+            "version": None,
+            "available_null_families": [],
+            "runtime_error": f"{type(exc).__name__}: {exc}",
+        }
+    families = [
+        name
+        for name in (
+            "alexander_bloch",
+            "baum",
+            "burt2018",
+            "burt2020",
+            "cornblath",
+            "hungarian",
+            "moran",
+            "vasa",
+            "vazquez_rodriguez",
+        )
+        if callable(getattr(nulls, name, None))
+    ]
+    return {
+        "dependency_available": True,
+        "null_api_importable": True,
+        "version": getattr(neuromaps, "__version__", None),
+        "available_null_families": families,
+        "runtime_error": None,
+    }
+
+
 def build_neuromaps_spatial_null_status(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
     repo_root = repo_root.resolve()
     cortical_path = repo_root / "results" / "cortical_maps" / "cortical_map_alignment_status.json"
     cortical_payload = _read_json(cortical_path) or {}
     inputs = _candidate_inputs(repo_root)
-    dependency_available = importlib.util.find_spec("neuromaps") is not None
+    runtime = _neuromaps_runtime()
+    dependency_available = bool(runtime["dependency_available"])
+    null_api_importable = bool(runtime["null_api_importable"])
     has_surface_manifest = bool(inputs["surface_manifest_exists"])
     has_high_resolution_summary = bool(inputs["schaefer_100_yeo_7_summary_exists"])
 
     if not dependency_available:
         status = "blocked_missing_neuromaps_dependency"
         blocker = "The optional neuromaps package is not installed in the current environment."
+    elif not null_api_importable:
+        status = "blocked_neuromaps_null_api_not_importable"
+        blocker = f"neuromaps is installed, but its null-model API cannot import: {runtime['runtime_error']}"
     elif not has_surface_manifest and not has_high_resolution_summary:
         status = "blocked_missing_surface_or_high_resolution_map_inputs"
         blocker = "No surface/parcellated map manifest or completed Schaefer/Yeo empirical layer exists for spatial nulls."
@@ -72,6 +121,8 @@ def build_neuromaps_spatial_null_status(repo_root: Path = REPO_ROOT) -> dict[str
         "analysis_status": status,
         "spatial_autocorrelation_nulls_complete": False,
         "dependency_available": dependency_available,
+        "null_api_importable": null_api_importable,
+        "neuromaps_runtime": runtime,
         "candidate_inputs": inputs,
         "module_level_alignment_status": cortical_payload.get("analysis_status", "missing_module_level_alignment"),
         "current_module_statistic": (
@@ -84,6 +135,7 @@ def build_neuromaps_spatial_null_status(repo_root: Path = REPO_ROOT) -> dict[str
             "null_family": "neuromaps spatial-autocorrelation preserving nulls appropriate to the map space",
             "correction": "FDR across receptor, myelin, gradient, and transcriptomic map families",
             "reported_gates": ["r", "p", "q", "FDR pass", "CI overlap with zero", "claim status"],
+            "available_null_families": runtime["available_null_families"],
         },
         "blocker": blocker,
         "claim_status": "not_implemented_full_neuromaps_spatial_nulls",
@@ -101,6 +153,8 @@ def _markdown(status: dict[str, Any]) -> str:
             "",
             f"- Status: `{status['analysis_status']}`",
             f"- neuromaps dependency available: `{str(status['dependency_available']).lower()}`",
+            f"- neuromaps null API importable: `{str(status['null_api_importable']).lower()}`",
+            f"- neuromaps version: `{status['neuromaps_runtime']['version']}`",
             f"- Spatial nulls complete: `{str(status['spatial_autocorrelation_nulls_complete']).lower()}`",
             f"- Current module statistic: `{status['current_module_statistic']}`",
             f"- Blocker: {status['blocker']}",

@@ -1,9 +1,27 @@
 {
   "schema_version": "neuromaps_spatial_null_status.v1",
-  "generated_at_utc": "2026-05-28T11:43:20.230504+00:00",
-  "analysis_status": "blocked_missing_neuromaps_dependency",
+  "generated_at_utc": "2026-05-28T12:13:26.460974+00:00",
+  "analysis_status": "blocked_missing_neuromaps_surface_input_manifest",
   "spatial_autocorrelation_nulls_complete": false,
-  "dependency_available": false,
+  "dependency_available": true,
+  "null_api_importable": true,
+  "neuromaps_runtime": {
+    "dependency_available": true,
+    "null_api_importable": true,
+    "version": "0.0.5",
+    "available_null_families": [
+      "alexander_bloch",
+      "baum",
+      "burt2018",
+      "burt2020",
+      "cornblath",
+      "hungarian",
+      "moran",
+      "vasa",
+      "vazquez_rodriguez"
+    ],
+    "runtime_error": null
+  },
   "candidate_inputs": {
     "surface_manifest": "results/cortical_maps/neuromaps_surface_inputs.json",
     "surface_manifest_exists": false,
@@ -25,9 +43,20 @@
       "FDR pass",
       "CI overlap with zero",
       "claim status"
+    ],
+    "available_null_families": [
+      "alexander_bloch",
+      "baum",
+      "burt2018",
+      "burt2020",
+      "cornblath",
+      "hungarian",
+      "moran",
+      "vasa",
+      "vazquez_rodriguez"
     ]
   },
-  "blocker": "The optional neuromaps package is not installed in the current environment.",
+  "blocker": "High-resolution outputs exist, but there is no neuromaps surface/input manifest describing map space and null family.",
   "claim_status": "not_implemented_full_neuromaps_spatial_nulls",
   "claim_guardrail": "The current exact 8-module permutation test is not a substitute for neuromaps spatial-autocorrelation null testing."
 }
