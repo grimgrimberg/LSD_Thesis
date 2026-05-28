@@ -422,6 +422,13 @@
       gap: 14px;
       align-items: start;
     }
+    .dti-board {
+      display: grid;
+      grid-template-columns: minmax(320px, 1fr) minmax(320px, 1fr);
+      gap: 14px;
+      align-items: start;
+      margin-top: 12px;
+    }
     .loop-steps {
       display: grid;
       gap: 8px;
@@ -531,6 +538,7 @@
       .appendix-grid { grid-template-columns: 1fr; }
       .audit-grid { grid-template-columns: repeat(2, minmax(160px, 1fr)); }
       .loop-board { grid-template-columns: 1fr; }
+      .dti-board { grid-template-columns: 1fr; }
     }
     @media (max-width: 720px) {
       .topbar { align-items: flex-start; flex-direction: column; }
@@ -881,6 +889,17 @@
           </table>
         </div>
       </section>
+      <section class="card card--span-2" data-plot-role="core" aria-labelledby="dti_structural_title">
+        <h2 id="dti_structural_title">DTI / Structural Connectome Dynamics Prior</h2>
+        <p class="plot-caption">This is the thesis-safe way to add “DTI” to the dashboard: use a tractography-derived structural-connectome matrix as an anatomical prior for dynamics and network-control questions.</p>
+        <div id="dti_structural_status" class="result-status" role="status" aria-live="polite"></div>
+        <div id="dti_structural_cards" class="summary-cards" aria-label="DTI structural-connectome summary cards"></div>
+        <div class="dti-board">
+          <div id="dti_structural_network" aria-labelledby="dti_structural_title"></div>
+          <div id="dti_structural_matrix" aria-labelledby="dti_structural_title"></div>
+        </div>
+        <p class="plot-unit-note">Units: normalized tractography/connectome edge weight, aggregated to the 8 macro-module contract. Stronger edges imply lower anatomical coupling cost, not direct functional causation.</p>
+      </section>
       <section class="card card--span-2" aria-labelledby="plot_review_title">
         <h2 id="plot_review_title">Plot Review: Core Evidence vs Appendix</h2>
         <p class="plot-caption">The visible plot order now follows the thesis evidence loop: mechanism ranking, robustness, empirical deltas, and claim checks first. Duplicated single-condition matrices, raw slice previews, and synthetic model sanity checks stay available in collapsed appendix sections.</p>
@@ -1164,6 +1183,7 @@
       });
       renderClaimEvidenceMatrix(expansion.loop_status || {});
       renderEvidenceMatrix(expansion.loop_status?.components || {});
+      renderStructuralDti(dashboardState?.structural_dti || {});
     }
 
     function renderClaimEvidenceMatrix(loopStatus) {
@@ -1259,6 +1279,83 @@
           row.claim_status || ''
         ]);
       });
+    }
+
+    function renderStructuralDti(dti) {
+      const status = document.getElementById('dti_structural_status');
+      const cards = document.getElementById('dti_structural_cards');
+      const networkId = 'dti_structural_network';
+      const matrixId = 'dti_structural_matrix';
+      cards.innerHTML = '';
+      if (!dti || !Array.isArray(dti.modules) || !dti.modules.length) {
+        status.textContent = dti?.claim_guardrail || 'No structural-connectome matrix is loaded for DTI-style dynamics context.';
+        Plotly.purge(networkId);
+        Plotly.purge(matrixId);
+        return;
+      }
+      const strongest = dti.strongest_edge || {};
+      status.textContent =
+        `Status: ${dti.analysis_status || 'loaded'}\n` +
+        `Matrix: ${dti.matrix_path || 'not recorded'}\n` +
+        `Interpretation: ${dti.dynamic_interpretation || 'Structural connectivity constrains candidate dynamics.'}\n` +
+        `Guardrail: ${dti.claim_guardrail || 'DTI prior is anatomical context, not drug-effect proof.'}`;
+      addMetricCard(cards, 'Modules', `${dti.module_count ?? dti.modules.length}`, 'macro-module structural prior');
+      addMetricCard(cards, 'Edges', `${dti.edge_count ?? 0}`, `density ${metricText(Number(dti.density), 2)}`);
+      addMetricCard(cards, 'Strongest tract proxy', strongest.source && strongest.target ? `${strongest.source} -> ${strongest.target}` : 'n/a', strongest.weight !== undefined ? `weight ${metricText(Number(strongest.weight), 3)}` : '');
+      addMetricCard(cards, 'Use in dynamics', 'constraint prior', 'low-cost vs high-cost transition routes');
+
+      const nodes = dti.nodes || [];
+      const nodeByName = Object.fromEntries(nodes.map(node => [node.name, node]));
+      const edgeTraces = (dti.edges || []).slice(0, 20).map(edge => {
+        const source = nodeByName[edge.source];
+        const target = nodeByName[edge.target];
+        if (!source || !target) return null;
+        const width = 1 + 7 * Number(edge.normalized_weight || 0);
+        return {
+          x: [source.x, target.x],
+          y: [source.y, target.y],
+          mode: 'lines',
+          type: 'scatter',
+          line: { color: 'rgba(47, 90, 168, 0.28)', width },
+          hoverinfo: 'text',
+          text: `${edge.source} -> ${edge.target}<br>weight ${metricText(Number(edge.weight), 3)}`,
+          showlegend: false
+        };
+      }).filter(Boolean);
+      const nodeTrace = {
+        x: nodes.map(node => node.x),
+        y: nodes.map(node => node.y),
+        mode: 'markers+text',
+        type: 'scatter',
+        text: nodes.map(node => node.name.replaceAll('_', '<br>')),
+        textposition: 'middle center',
+        marker: {
+          size: nodes.map(node => 24 + 30 * Number(node.normalized_strength || 0)),
+          color: nodes.map(node => Number(node.strength || 0)),
+          colorscale: 'Tealgrn',
+          showscale: true,
+          colorbar: { title: 'node strength' },
+          line: { color: '#ffffff', width: 2 }
+        },
+        hovertemplate: '%{text}<br>strength %{marker.color:.3f}<extra></extra>',
+        showlegend: false
+      };
+      Plotly.newPlot(networkId, [...edgeTraces, nodeTrace], baseLayout('DTI-derived structural coupling graph', {
+        xaxis: { visible: false },
+        yaxis: { visible: false, scaleanchor: 'x', scaleratio: 1 },
+        margin: { l: 10, r: 10, t: 44, b: 10 },
+        showlegend: false
+      }), plotConfig());
+
+      Plotly.newPlot(matrixId, [{
+        z: dti.matrix,
+        x: dti.modules,
+        y: dti.modules,
+        type: 'heatmap',
+        colorscale: 'YlGnBu',
+        colorbar: { title: 'weight' },
+        hovertemplate: '%{y} -> %{x}<br>weight %{z:.3f}<extra></extra>'
+      }], heatmapLayout('Macro-module structural-connectome matrix'), plotConfig());
     }
 
     function artifactHref(relativePath) {

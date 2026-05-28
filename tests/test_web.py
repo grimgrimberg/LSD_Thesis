@@ -462,6 +462,7 @@ def test_dashboard_payload_includes_provenance_block(tmp_path: Path, monkeypatch
     assert payload["provenance"]["preprocessing_qc"]["output_record_count"] == 4
     assert payload["dynamic_mechanism"]["analysis_status"] == "missing"
     assert payload["dynamic_mechanism"]["source_path"] == "results/dynamic_mechanism_ranking/summary.json"
+    assert payload["structural_dti"]["analysis_status"] == "missing_structural_connectome_matrix"
 
 
 def test_dashboard_payload_includes_publication_outputs_in_report_links(
