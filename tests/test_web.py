@@ -754,6 +754,8 @@ def test_dashboard_template_contains_scholarly_sections_and_figure_links() -> No
     assert "CI overlaps zero" in html
     assert "Strict Completion Audit" in html
     assert "thesis_completion_table" in html
+    assert "Partial Receptor Spatial Nulls" in html
+    assert "receptor_moran_table" in html
     assert "renderDynamicInferenceGating(dynamicMechanism, inferenceTable);" in html
     assert "This static method board mirrors" not in html
     assert "renderDynamicMechanism(dashboardState.dynamic_mechanism);" in html

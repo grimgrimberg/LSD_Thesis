@@ -256,38 +256,66 @@ def _neuromaps_spatial_null_gate(repo_root: Path) -> dict[str, Any]:
         )
     )
     ready = _status_is_implemented(status) and bool(payload.get("spatial_autocorrelation_nulls_complete"))
+    receptor_ready = bool(payload.get("receptor_spatial_nulls_complete"))
+    partial_ready = bool(payload.get("partial_spatial_autocorrelation_nulls_complete"))
+    receptor_nulls = payload.get("receptor_moran_nulls", {}) if isinstance(payload.get("receptor_moran_nulls"), dict) else {}
+    receptor_best = receptor_nulls.get("best_result", {}) if isinstance(receptor_nulls.get("best_result"), dict) else {}
+    receptor_results = receptor_nulls.get("results", []) if isinstance(receptor_nulls.get("results"), list) else []
     rows = cortical_payload.get("alignment_rows", []) if isinstance(cortical_payload.get("alignment_rows"), list) else []
     first_row = rows[0] if rows and isinstance(rows[0], dict) else {}
     current_method = str(first_row.get("method") or "not_run")
+    missing = (
+        "None: full neuromaps spatial-autocorrelation null family coverage is complete."
+        if ready
+        else "Receptor-only Schaefer100 Moran spatial nulls are executed, but full myelin, gradient, gene-expression, and surface-level family coverage is missing."
+        if receptor_ready
+        else "neuromaps is installed and its null API imports, but the surface/high-resolution map input manifest and executed null results are missing."
+        if null_api_importable
+        else "Current map statistics use exact 8-module label permutation, not neuromaps spatial-autocorrelation nulls."
+    )
+    next_action = (
+        "Use the completed spatial-null family as the primary map-prior evidence layer."
+        if ready
+        else "Add myelin, functional-gradient, and gene-expression maps in the active high-resolution/surface space, then rerun the same Moran/spatial-null plus FDR gate family."
+        if receptor_ready
+        else "Create results/cortical_maps/neuromaps_surface_inputs.json, project receptor/myelin/gradient maps to Schaefer/Yeo or surface space, run neuromaps nulls, and FDR-correct the family."
+        if null_api_importable
+        else "Install/use neuromaps, project maps to the active Schaefer/Yeo or surface space, run spatial nulls, and FDR-correct the resulting family."
+    )
     return {
         "gate": _gate(
             "Neuromaps spatial nulls",
             status,
             ready,
             f"{_rel(path, repo_root)}; {_rel(cortical_path, repo_root)}",
-            "Full surface/parcellation spatial-autocorrelation null testing has not been run.",
-            1.0 if ready else 0.55 if null_api_importable else 0.35 if dependency_available else 0.15,
+            "Full surface/parcellation spatial-autocorrelation null testing has not been run."
+            if not receptor_ready
+            else "Partial receptor-only Schaefer100 Moran spatial nulls are run; full family coverage is still missing.",
+            1.0 if ready else 0.7 if receptor_ready else 0.6 if partial_ready else 0.55 if null_api_importable else 0.35 if dependency_available else 0.15,
         ),
         "strict_requirement": _requirement(
             "neuromaps_spatial_autocorrelation_nulls",
             "Full neuromaps spatial-autocorrelation nulls",
             status,
             ready,
-            f"{_rel(path, repo_root)}; current map method: {current_method}",
-            (
-                "neuromaps is installed and its null API imports, but the surface/high-resolution map input manifest and executed null results are missing."
-                if null_api_importable
-                else "Current map statistics use exact 8-module label permutation, not neuromaps spatial-autocorrelation nulls."
-            ),
-            (
-                "Create results/cortical_maps/neuromaps_surface_inputs.json, project receptor/myelin/gradient maps to Schaefer/Yeo or surface space, run neuromaps nulls, and FDR-correct the family."
-                if null_api_importable
-                else "Install/use neuromaps, project maps to the active Schaefer/Yeo or surface space, run spatial nulls, and FDR-correct the resulting family."
-            ),
+            f"{_rel(path, repo_root)}; current map method: {current_method}; best receptor Moran result: {receptor_best or 'none'}",
+            missing,
+            next_action,
             "Receptor/myelin/gradient alignment cannot be promoted beyond exploratory until this passes.",
         ),
         "dependency_available": dependency_available,
         "null_api_importable": null_api_importable,
+        "receptor_spatial_nulls_complete": receptor_ready,
+        "partial_spatial_autocorrelation_nulls_complete": partial_ready,
+        "best_receptor_moran_result": receptor_best,
+        "receptor_moran_summary": {
+            "method": receptor_nulls.get("method"),
+            "n_perm": receptor_nulls.get("n_perm"),
+            "test_count": receptor_nulls.get("test_count"),
+            "fdr_supported_count": receptor_nulls.get("fdr_supported_count"),
+            "family_coverage": receptor_nulls.get("family_coverage"),
+        },
+        "receptor_moran_results": receptor_results,
         "neuromaps_runtime": runtime,
         "current_map_statistic": current_method,
         "required_nulls": [

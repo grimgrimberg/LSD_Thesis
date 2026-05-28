@@ -50,6 +50,23 @@ wheels = [
 ]
 
 [[package]]
+name = "brainspace"
+version = "0.2.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "matplotlib" },
+    { name = "nibabel" },
+    { name = "numpy" },
+    { name = "scikit-learn" },
+    { name = "scipy" },
+    { name = "vtk" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/7c/c3/276150e47eeefe3c1edb2fa3e3dc9c0d6423207dd8380836e8676f940f7c/brainspace-0.2.1.tar.gz", hash = "sha256:2c51a7b1969b20baf4e4de9633cbaa5980f331243fb3528b0d0688def6aa540d", size = 60443242, upload-time = "2026-05-05T19:25:29.297Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/d4/4e/229b628b0dd57a240b9a2d0154bbf871cd9018281f2b38756f27e55c6c99/brainspace-0.2.1-py3-none-any.whl", hash = "sha256:da887894b69d5a425d4eae641080995d946833f2a2b7e9209bce831fa1449d94", size = 60703894, upload-time = "2026-05-05T19:25:24.891Z" },
+]
+
+[[package]]
 name = "certifi"
 version = "2026.2.25"
 source = { registry = "https://pypi.org/simple" }
@@ -522,6 +539,7 @@ name = "lsd-thesis-surrogate"
 version = "0.1.0"
 source = { editable = "." }
 dependencies = [
+    { name = "brainspace" },
     { name = "fastapi" },
     { name = "jinja2" },
     { name = "matplotlib" },
@@ -558,6 +576,7 @@ dev = [
 
 [package.metadata]
 requires-dist = [
+    { name = "brainspace", specifier = ">=0.2.1" },
     { name = "fastapi", specifier = ">=0.115.12" },
     { name = "jinja2", specifier = ">=3.1.6" },
     { name = "matplotlib", specifier = ">=3.10.3" },
@@ -1567,4 +1586,26 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/5e/da/6eee1ff8b6cbeed47eeb5229749168e81eb4b7b999a1a15a7176e51410c9/uvicorn-0.44.0.tar.gz", hash = "sha256:6c942071b68f07e178264b9152f1f16dfac5da85880c4ce06366a96d70d4f31e", size = 86947, upload-time = "2026-04-06T09:23:22.826Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/b7/23/a5bbd9600dd607411fa644c06ff4951bec3a4d82c4b852374024359c19c0/uvicorn-0.44.0-py3-none-any.whl", hash = "sha256:ce937c99a2cc70279556967274414c087888e8cec9f9c94644dfca11bd3ced89", size = 69425, upload-time = "2026-04-06T09:23:21.524Z" },
+]
+
+[[package]]
+name = "vtk"
+version = "9.6.2"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "matplotlib" },
+]
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/89/b8/2eb42db93ac200180ca1a6ffe6f95d010181528e9490464621c31628e35f/vtk-9.6.2-cp313-cp313-macosx_10_10_x86_64.whl", hash = "sha256:155a09485a9efcbb0afb0214159bb920cf437fe4d897a6f945f6d66a533d863c", size = 114899285, upload-time = "2026-05-19T04:47:37.237Z" },
+    { url = "https://files.pythonhosted.org/packages/00/51/5abfa4dc321b864e57bde87be8a328ee97b3aa33cc5e8f736c162fac63cb/vtk-9.6.2-cp313-cp313-macosx_11_0_arm64.whl", hash = "sha256:f7055447d36914ed8b39c5738defe467566ef2d7a75ca92a3023aefc269e1f06", size = 106962262, upload-time = "2026-05-19T04:47:41.886Z" },
+    { url = "https://files.pythonhosted.org/packages/bd/75/4a1fe360256b99779d534b2387d0efa70952167d53d716f60ff39d62994d/vtk-9.6.2-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:fb85c7fbad59209a08e428479defbdf96f974a9f39d4212960fb1a24a919613c", size = 146027814, upload-time = "2026-05-19T04:47:47.238Z" },
+    { url = "https://files.pythonhosted.org/packages/e8/30/90ea11e053d7e0571d70a7f301cebe04cc83874b533ddeaedb5258b0f9e6/vtk-9.6.2-cp313-cp313-manylinux_2_28_aarch64.whl", hash = "sha256:35e1e9ffb6457f16c37d0e025f7db8619961dffc3e9a85a8e5d358d5099c277c", size = 135792045, upload-time = "2026-05-19T04:47:53.848Z" },
+    { url = "https://files.pythonhosted.org/packages/da/5b/e03640322971339899f982691396038d793ecfde8adbc208a97d501d6b8e/vtk-9.6.2-cp313-cp313-win_amd64.whl", hash = "sha256:4e9ad047a2b658550d5099dc808b26e331a9c94c3226c28453873035b8b48b41", size = 81307827, upload-time = "2026-05-19T04:47:58.76Z" },
+    { url = "https://files.pythonhosted.org/packages/ed/a4/615178228ec84e3793332fbdd62f85965e246366727ef31b20670ce4877d/vtk-9.6.2-cp314-cp314-macosx_10_10_x86_64.whl", hash = "sha256:8a3edd56b63d1ab4ff022e70dac50dd54a66019462c37734e288c9e222809624", size = 114534790, upload-time = "2026-05-19T04:48:04.011Z" },
+    { url = "https://files.pythonhosted.org/packages/8e/63/19f6f3f4520595e28b425fe7cae220fa8f4fb963ba9d0c0c4001f54ba8ae/vtk-9.6.2-cp314-cp314-macosx_11_0_arm64.whl", hash = "sha256:da01ec70cdfef3fddf659fd35a0258e820065d5331b3c43d5f7e3548351118ea", size = 106971615, upload-time = "2026-05-19T04:48:09.23Z" },
+    { url = "https://files.pythonhosted.org/packages/bb/84/80465e452292a219e4b72bded477cee155f9ec44b856e3a877e0f95eba54/vtk-9.6.2-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:5f64288a71b313251300bc798458848aabbfd241230546ce75af90b8e099f14b", size = 146043416, upload-time = "2026-05-19T04:48:15.224Z" },
+    { url = "https://files.pythonhosted.org/packages/c2/00/16e9faacb40cdcf487f8f5cb39d4304e71ebfafe38eb38a2c8f74527ca83/vtk-9.6.2-cp314-cp314-manylinux_2_28_aarch64.whl", hash = "sha256:1c3c050668eacb73db20fd07f844321a05dc3d7c60221db7137bd0b8f93a4d82", size = 135816286, upload-time = "2026-05-19T04:48:21.241Z" },
+    { url = "https://files.pythonhosted.org/packages/72/6f/11594ed6bb95393f5656c96945ae22e297dfc3ccc5d7cd816973aaf9fc0d/vtk-9.6.2-cp314-cp314-win_amd64.whl", hash = "sha256:7b99aad09f712442345bb1c2a5529ad46da3a26fdc12cce54408ff800ccfbb19", size = 83246191, upload-time = "2026-05-19T04:48:26.1Z" },
+    { url = "https://files.pythonhosted.org/packages/73/f2/a71b05850acbfb99e0de63c940ae874b665a393adb186a0e9c64cf6c9d64/vtk-9.6.2-cp314-cp314t-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:691e3a9ae1b62784cf2e9b7d87696bdeac14e1b9905bf020f4c86fab5b756626", size = 145665062, upload-time = "2026-05-19T04:48:31.223Z" },
+    { url = "https://files.pythonhosted.org/packages/4a/57/6410098435a3976cc749c151c4e09bff4bcf4af0ebeb13b3e47fbd5871e5/vtk-9.6.2-cp314-cp314t-manylinux_2_28_aarch64.whl", hash = "sha256:b06725993112097f43daefca0f3637a73a63c67b61a9c124455d881bc05cc9a4", size = 135630292, upload-time = "2026-05-19T04:48:37.053Z" },
 ]
