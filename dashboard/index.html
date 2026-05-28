@@ -1000,6 +1000,13 @@
             <tbody id="thesis_upgrade_table"></tbody>
           </table>
         </div>
+        <div class="result-table-wrap" aria-label="Strict thesis completion audit" style="margin-top: 12px;">
+          <h3>Strict Completion Audit</h3>
+          <table class="result-table">
+            <thead><tr><th>Requirement</th><th>Status</th><th>Complete</th><th>Missing</th><th>Next action</th></tr></thead>
+            <tbody id="thesis_completion_table"></tbody>
+          </table>
+        </div>
       </section>
       <section class="card card--span-2" aria-labelledby="method_board_title">
         <h2 id="method_board_title">AI/ML Mechanism Ranking: A+B+C+D+E Results</h2>
@@ -1980,23 +1987,28 @@
       const status = document.getElementById('thesis_upgrade_status');
       const cards = document.getElementById('thesis_upgrade_cards');
       const table = document.getElementById('thesis_upgrade_table');
-      if (!status || !cards || !table) return;
+      const completionTable = document.getElementById('thesis_completion_table');
+      if (!status || !cards || !table || !completionTable) return;
       if (!upgrade || !Array.isArray(upgrade.gates)) {
         status.textContent = 'Thesis-upgrade gates are not loaded. Run uv run python scripts/build_thesis_upgrade_status.py.';
         cards.innerHTML = '<p class="empty">Generate <code>results/thesis_upgrade/thesis_upgrade_status.json</code> to populate this panel.</p>';
         table.innerHTML = '';
+        completionTable.innerHTML = '';
         return;
       }
 
       const gates = upgrade.gates;
       const summary = upgrade.readiness_summary || {};
+      const requirements = Array.isArray(upgrade.strict_completion_requirements) ? upgrade.strict_completion_requirements : [];
       status.textContent =
         `Thesis status: ${summary.thesis_status || 'unknown'}; ` +
-        `${summary.ready_gates ?? 0}/${summary.total_gates ?? gates.length} gates ready. ` +
+        `${summary.ready_gates ?? 0}/${summary.total_gates ?? gates.length} readiness gates ready; ` +
+        `${summary.strict_complete_gates ?? 0}/${summary.strict_total_gates ?? requirements.length} strict completion requirements complete. ` +
         (upgrade.claim_guardrail || '');
 
       cards.innerHTML = '';
       addMetricCard(cards, 'Ready gates', `${summary.ready_gates ?? 0}/${summary.total_gates ?? gates.length}`, 'readiness, not truth');
+      addMetricCard(cards, 'Strict completion', `${summary.strict_complete_gates ?? 0}/${summary.strict_total_gates ?? requirements.length}`, summary.completion_status || 'not completed thesis');
       const canonical = upgrade.components?.canonical_parcellation || {};
       addMetricCard(cards, 'Canonical target', canonical.recommended_primary || 'schaefer_100_yeo_7', canonical.current_baseline || '8-module proxy baseline');
       const external = upgrade.components?.external_validation || {};
@@ -2006,6 +2018,9 @@
 
       table.innerHTML = gates.map((gate) => (
         `<tr><td>${gate.label || 'n/a'}</td><td>${gate.status || 'n/a'}</td><td>${gate.ready ? 'yes' : 'no'}</td><td>${gate.blocker || ''}</td></tr>`
+      )).join('');
+      completionTable.innerHTML = requirements.map((requirement) => (
+        `<tr><td>${requirement.label || 'n/a'}</td><td>${requirement.status || 'n/a'}</td><td>${requirement.complete ? 'yes' : 'no'}</td><td>${requirement.missing || ''}</td><td>${requirement.next_action || ''}</td></tr>`
       )).join('');
 
       const colors = gates.map((gate) => gate.ready ? '#1f7a4d' : (Number(gate.score || 0) >= 0.5 ? '#b97616' : '#9d2c2c'));

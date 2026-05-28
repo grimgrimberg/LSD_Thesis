@@ -1,18 +1,22 @@
 {
   "schema_version": "thesis_upgrade_status.v1",
-  "generated_at_utc": "2026-05-27T14:20:07.454159+00:00",
+  "generated_at_utc": "2026-05-28T11:01:37.093153+00:00",
   "readiness_summary": {
     "ready_gates": 4,
-    "total_gates": 6,
-    "readiness_fraction": 0.6666666666666666,
-    "thesis_status": "draft_ready_not_final_defense_ready"
+    "total_gates": 8,
+    "readiness_fraction": 0.5,
+    "strict_complete_gates": 1,
+    "strict_total_gates": 6,
+    "strict_completion_fraction": 0.16666666666666666,
+    "completion_status": "pi_pitch_ready_research_proposal_not_completed_thesis",
+    "thesis_status": "pi_pitch_ready_research_proposal_not_completed_thesis"
   },
   "gates": [
     {
       "label": "Motion and confounds",
       "status": "unavailable_not_found",
       "ready": false,
-      "evidence": "results/setting_seed/motion/motion_summary.json",
+      "evidence": "results/setting_seed/motion/motion_summary.json; results/confound_controls/motion_confound_control_status.json",
       "blocker": "No structured subject/session/run confounds with FD/DVARS/censoring coverage are available locally.",
       "score": 0.0
     },
@@ -23,6 +27,14 @@
       "evidence": "results/parcellation_sensitivity/parcellation_sensitivity_status.json",
       "blocker": "Canonical Schaefer/Yeo extraction and ranking are available.",
       "score": 1.0
+    },
+    {
+      "label": "Neuromaps spatial nulls",
+      "status": "blocked_missing_neuromaps_dependency_and_surface_spatial_nulls",
+      "ready": false,
+      "evidence": "results/cortical_maps/neuromaps_spatial_null_status.json; results/cortical_maps/cortical_map_alignment_status.json",
+      "blocker": "Full surface/parcellation spatial-autocorrelation null testing has not been run.",
+      "score": 0.15
     },
     {
       "label": "ROCKET benchmark",
@@ -36,7 +48,7 @@
       "label": "External validation",
       "status": "extraction_contract_ready_missing_local_cifti_payloads",
       "ready": false,
-      "evidence": "results/psilocybin_ds006072/psilocybin_ds006072_status.json; results/external_ingestion/external_ingestion_status.json",
+      "evidence": "results/psilocybin_ds006072/psilocybin_ds006072_status.json; results/psilocybin_ds006072/external_validation_readiness.json; results/psilocybin_ds006072/comparable_empirical_validation_summary.json; results/external_ingestion/external_ingestion_status.json",
       "blocker": "Drug-order mapping and unchanged scoring are locked, but local ds006072 CIFTI/module time-series payloads are absent. Download or provide authorized processed rest CIFTIs before claiming validation.",
       "score": 0.6
     },
@@ -49,6 +61,14 @@
       "score": 1.0
     },
     {
+      "label": "Receptor/myelin/gradient claim",
+      "status": "not_supported_yet",
+      "ready": false,
+      "evidence": "results/cortical_maps/cortical_map_alignment_status.json",
+      "blocker": "Current receptor/myelin/gradient alignments are exploratory priors; q-values do not pass FDR and CIs overlap zero.",
+      "score": 0.45
+    },
+    {
       "label": "Reproducible archive",
       "status": "manifest_ready",
       "ready": true,
@@ -57,20 +77,102 @@
       "score": 0.75
     }
   ],
+  "strict_completion_requirements": [
+    {
+      "requirement_id": "schaefer_yeo_high_resolution",
+      "label": "Schaefer/Yeo high-resolution parcellation layer",
+      "status": "implemented_mechanism_ranking",
+      "complete": true,
+      "evidence": "results/parcellation_sensitivity/parcellation_sensitivity_status.json; observed outputs: results/stage_2/parcellations/schaefer_100_yeo_7/parcellation_extraction_summary.json",
+      "missing": "The 8-module layer is still the active explanatory layer; no completed Schaefer/Yeo empirical inference output is visible.",
+      "next_action": "Run the ds003059 extraction/ranking contract for Schaefer 100/Yeo 7, then repeat sensitivity for Schaefer 200 and Yeo 17.",
+      "claim_effect": "Anatomical claims remain explanatory/proxy-level until the Schaefer/Yeo layer is complete."
+    },
+    {
+      "requirement_id": "neuromaps_spatial_autocorrelation_nulls",
+      "label": "Full neuromaps spatial-autocorrelation nulls",
+      "status": "blocked_missing_neuromaps_dependency_and_surface_spatial_nulls",
+      "complete": false,
+      "evidence": "results/cortical_maps/neuromaps_spatial_null_status.json; current map method: exact_module_label_permutation_null_not_surface_spatial_null",
+      "missing": "Current map statistics use exact 8-module label permutation, not neuromaps spatial-autocorrelation nulls.",
+      "next_action": "Install/use neuromaps, project maps to the active Schaefer/Yeo or surface space, run spatial nulls, and FDR-correct the resulting family.",
+      "claim_effect": "Receptor/myelin/gradient alignment cannot be promoted beyond exploratory until this passes."
+    },
+    {
+      "requirement_id": "ds006072_external_validation",
+      "label": "ds006072 psilocybin external validation",
+      "status": "extraction_contract_ready_missing_local_cifti_payloads",
+      "complete": false,
+      "evidence": "results/psilocybin_ds006072/psilocybin_ds006072_status.json; results/psilocybin_ds006072/external_validation_readiness.json; results/psilocybin_ds006072/comparable_empirical_validation_summary.json",
+      "missing": "The repo has readiness/provenance, but not comparable psilocybin/control dynamic extraction scored unchanged.",
+      "next_action": "Supply or derive authorized ds006072 processed rest payloads, build paired empirical viewer records, then apply the locked LSD scoring spec without retuning.",
+      "claim_effect": "External validation remains absent until comparable ds006072 scoring exists."
+    },
+    {
+      "requirement_id": "motion_confound_control_result",
+      "label": "Motion/confound control result",
+      "status": "unavailable_not_found",
+      "complete": false,
+      "evidence": "results/setting_seed/motion/motion_summary.json; results/confound_controls/motion_confound_control_status.json",
+      "missing": "A dedicated confound-control result layer with motion/outlier sensitivity outcomes is missing.",
+      "next_action": "Parse confounds for every subject/session/run, then report whether dynamic effects survive FD, DVARS, censoring, and run/order controls.",
+      "claim_effect": "Until this passes, motion/confound handling is a framed limitation rather than a proven control."
+    },
+    {
+      "requirement_id": "receptor_myelin_gradient_claim",
+      "label": "Receptor/myelin/gradient claim support",
+      "status": "not_supported_yet",
+      "complete": false,
+      "evidence": "results/cortical_maps/cortical_map_alignment_status.json",
+      "missing": "The strongest current map alignment remains exploratory: no FDR pass and CI overlap with zero.",
+      "next_action": "Promote the claim only after high-resolution parcellation, neuromaps spatial nulls, FDR pass, and uncertainty intervals that do not cross zero.",
+      "claim_effect": "The dashboard must keep this as not_supported_yet until those gates pass."
+    },
+    {
+      "requirement_id": "project_phase",
+      "label": "Project phase",
+      "status": "pi_pitch_ready_research_proposal_not_completed_thesis",
+      "complete": false,
+      "evidence": "strict_completion_requirements",
+      "missing": "One or more required scientific gates is still missing or fail-closed.",
+      "next_action": "Keep pitching this as an AI/engineering research proposal until every strict evidence gate passes.",
+      "claim_effect": "This remains a strong PI pitch, not a completed neuroscience thesis, until all strict gates are true."
+    }
+  ],
   "components": {
     "motion_confound": {
       "gate": {
         "label": "Motion and confounds",
         "status": "unavailable_not_found",
         "ready": false,
-        "evidence": "results/setting_seed/motion/motion_summary.json",
+        "evidence": "results/setting_seed/motion/motion_summary.json; results/confound_controls/motion_confound_control_status.json",
         "blocker": "No structured subject/session/run confounds with FD/DVARS/censoring coverage are available locally.",
         "score": 0.0
       },
+      "strict_requirement": {
+        "requirement_id": "motion_confound_control_result",
+        "label": "Motion/confound control result",
+        "status": "unavailable_not_found",
+        "complete": false,
+        "evidence": "results/setting_seed/motion/motion_summary.json; results/confound_controls/motion_confound_control_status.json",
+        "missing": "A dedicated confound-control result layer with motion/outlier sensitivity outcomes is missing.",
+        "next_action": "Parse confounds for every subject/session/run, then report whether dynamic effects survive FD, DVARS, censoring, and run/order controls.",
+        "claim_effect": "Until this passes, motion/confound handling is a framed limitation rather than a proven control."
+      },
+      "motion_summary_ready": false,
+      "control_layer_ready": false,
+      "control_layer_path": "results/confound_controls/motion_confound_control_status.json",
       "required_columns": [
         "framewise_displacement",
         "dvars or std_dvars",
         "motion_outlier_* or censor/scrub indicators"
+      ],
+      "required_controls": [
+        "FD mean/max/spike burden association with each dynamic metric",
+        "DVARS mean/max/spike burden association with each dynamic metric",
+        "leave-high-motion-subjects-out sensitivity",
+        "session/run/order covariate sensitivity",
+        "negative-control table showing which claims are downgraded"
       ],
       "recommended_thresholds": {
         "fd_spike_threshold_mm": 0.5,
@@ -88,6 +190,16 @@
         "blocker": "Canonical Schaefer/Yeo extraction and ranking are available.",
         "score": 1.0
       },
+      "strict_requirement": {
+        "requirement_id": "schaefer_yeo_high_resolution",
+        "label": "Schaefer/Yeo high-resolution parcellation layer",
+        "status": "implemented_mechanism_ranking",
+        "complete": true,
+        "evidence": "results/parcellation_sensitivity/parcellation_sensitivity_status.json; observed outputs: results/stage_2/parcellations/schaefer_100_yeo_7/parcellation_extraction_summary.json",
+        "missing": "The 8-module layer is still the active explanatory layer; no completed Schaefer/Yeo empirical inference output is visible.",
+        "next_action": "Run the ds003059 extraction/ranking contract for Schaefer 100/Yeo 7, then repeat sensitivity for Schaefer 200 and Yeo 17.",
+        "claim_effect": "Anatomical claims remain explanatory/proxy-level until the Schaefer/Yeo layer is complete."
+      },
       "current_baseline": "harvard_oxford_8_module_proxy",
       "recommended_primary": "schaefer_100_yeo_7",
       "recommended_sensitivity": [
@@ -95,8 +207,40 @@
         "schaefer_100_yeo_17",
         "schaefer_200_yeo_17"
       ],
+      "observed_high_resolution_outputs": [
+        "results/stage_2/parcellations/schaefer_100_yeo_7/parcellation_extraction_summary.json"
+      ],
       "engineering_logic": "Use Schaefer parcels as state nodes and Yeo networks as interpretable macro-supernodes; then test whether mechanism rankings survive the refined state-space.",
       "claim_guardrail": "The 8-module Harvard-Oxford mapping remains a transparent proxy until Schaefer/Yeo extraction is run."
+    },
+    "neuromaps_spatial_nulls": {
+      "gate": {
+        "label": "Neuromaps spatial nulls",
+        "status": "blocked_missing_neuromaps_dependency_and_surface_spatial_nulls",
+        "ready": false,
+        "evidence": "results/cortical_maps/neuromaps_spatial_null_status.json; results/cortical_maps/cortical_map_alignment_status.json",
+        "blocker": "Full surface/parcellation spatial-autocorrelation null testing has not been run.",
+        "score": 0.15
+      },
+      "strict_requirement": {
+        "requirement_id": "neuromaps_spatial_autocorrelation_nulls",
+        "label": "Full neuromaps spatial-autocorrelation nulls",
+        "status": "blocked_missing_neuromaps_dependency_and_surface_spatial_nulls",
+        "complete": false,
+        "evidence": "results/cortical_maps/neuromaps_spatial_null_status.json; current map method: exact_module_label_permutation_null_not_surface_spatial_null",
+        "missing": "Current map statistics use exact 8-module label permutation, not neuromaps spatial-autocorrelation nulls.",
+        "next_action": "Install/use neuromaps, project maps to the active Schaefer/Yeo or surface space, run spatial nulls, and FDR-correct the resulting family.",
+        "claim_effect": "Receptor/myelin/gradient alignment cannot be promoted beyond exploratory until this passes."
+      },
+      "dependency_available": false,
+      "current_map_statistic": "exact_module_label_permutation_null_not_surface_spatial_null",
+      "required_nulls": [
+        "surface spin/null model where applicable",
+        "Moran or variogram-preserving null for parcellated maps",
+        "same null family applied before FDR correction",
+        "report q-value, FDR pass, and CI overlap with zero"
+      ],
+      "claim_guardrail": "Exact 8-module permutation is transparent, but it is not a full spatial-autocorrelation null model."
     },
     "rocket_strengthening": {
       "gate": {
@@ -133,9 +277,19 @@
         "label": "External validation",
         "status": "extraction_contract_ready_missing_local_cifti_payloads",
         "ready": false,
-        "evidence": "results/psilocybin_ds006072/psilocybin_ds006072_status.json; results/external_ingestion/external_ingestion_status.json",
+        "evidence": "results/psilocybin_ds006072/psilocybin_ds006072_status.json; results/psilocybin_ds006072/external_validation_readiness.json; results/psilocybin_ds006072/comparable_empirical_validation_summary.json; results/external_ingestion/external_ingestion_status.json",
         "blocker": "Drug-order mapping and unchanged scoring are locked, but local ds006072 CIFTI/module time-series payloads are absent. Download or provide authorized processed rest CIFTIs before claiming validation.",
         "score": 0.6
+      },
+      "strict_requirement": {
+        "requirement_id": "ds006072_external_validation",
+        "label": "ds006072 psilocybin external validation",
+        "status": "extraction_contract_ready_missing_local_cifti_payloads",
+        "complete": false,
+        "evidence": "results/psilocybin_ds006072/psilocybin_ds006072_status.json; results/psilocybin_ds006072/external_validation_readiness.json; results/psilocybin_ds006072/comparable_empirical_validation_summary.json",
+        "missing": "The repo has readiness/provenance, but not comparable psilocybin/control dynamic extraction scored unchanged.",
+        "next_action": "Supply or derive authorized ds006072 processed rest payloads, build paired empirical viewer records, then apply the locked LSD scoring spec without retuning.",
+        "claim_effect": "External validation remains absent until comparable ds006072 scoring exists."
       },
       "recommended_external_dataset": "OpenNeuro ds006072 psilocybin precision functional mapping",
       "ingestion_status": {
@@ -144,6 +298,9 @@
         "structural_connectome": "ready",
         "receptor_prior": "ready"
       },
+      "primary_subjects_local_ready": 0,
+      "primary_subject_count": 7,
+      "comparable_result_path": "results/psilocybin_ds006072/comparable_empirical_validation_summary.json",
       "fixed_rule": "Run the same LSD scoring rules on psilocybin/control data without retuning after seeing results.",
       "claim_guardrail": "Metadata and manifests are not external validation; comparable empirical target extraction is required."
     },
@@ -174,6 +331,62 @@
       ],
       "claim_guardrail": "E is proxy-only until structural and receptor priors are both implemented with null controls."
     },
+    "receptor_myelin_gradient_claim": {
+      "gate": {
+        "label": "Receptor/myelin/gradient claim",
+        "status": "not_supported_yet",
+        "ready": false,
+        "evidence": "results/cortical_maps/cortical_map_alignment_status.json",
+        "blocker": "Current receptor/myelin/gradient alignments are exploratory priors; q-values do not pass FDR and CIs overlap zero.",
+        "score": 0.45
+      },
+      "strict_requirement": {
+        "requirement_id": "receptor_myelin_gradient_claim",
+        "label": "Receptor/myelin/gradient claim support",
+        "status": "not_supported_yet",
+        "complete": false,
+        "evidence": "results/cortical_maps/cortical_map_alignment_status.json",
+        "missing": "The strongest current map alignment remains exploratory: no FDR pass and CI overlap with zero.",
+        "next_action": "Promote the claim only after high-resolution parcellation, neuromaps spatial nulls, FDR pass, and uncertainty intervals that do not cross zero.",
+        "claim_effect": "The dashboard must keep this as not_supported_yet until those gates pass."
+      },
+      "claim_readiness": {
+        "strong_receptor_myelin_gradient_claim": "not_supported_yet",
+        "current_best_result": "The strongest current module-level alignment is still exploratory because FDR significance and CI-zero gates are not both passed.",
+        "required_for_stronger_claim": [
+          "Re-extract empirical LSD-placebo dynamic features at a higher-resolution cortical parcellation rather than only the 8-module presentation layer.",
+          "Project receptor, myelin, functional-gradient, and AHBA maps into the same parcellation.",
+          "Run spatial-autocorrelation-aware nulls with neuromaps or equivalent surface/parcellation nulls.",
+          "Retain q-value, FDR-significance, CI-overlap, and external-dataset replication gates before strengthening claims."
+        ],
+        "claim_boundary": "The dashboard may say these maps are plausible anatomical/molecular priors. It should not say they prove receptor, myelin, or gradient mechanisms."
+      },
+      "neuromaps_status": {
+        "analysis_status": "not_run_module_level_only",
+        "recommended_next_step": "Project source maps and empirical LSD-placebo effects to a common cortical surface/parcellation and run neuromaps spatial nulls.",
+        "claim_guardrail": "This pass compares maps after aggregation to the 8-module thesis contract with exact label-permutation p-values. It is not a full neuromaps surface-level spatial-autocorrelation null analysis."
+      },
+      "fdr_supported_count": 0,
+      "best_alignment": {
+        "map_id": "pet_5ht2a_receptor_prior",
+        "map_label": "PET 5-HT2A receptor prior",
+        "map_family": "receptor",
+        "target_id": "dmdc_condition_input",
+        "target_label": "DMDC condition-input coefficient",
+        "pearson_r": 0.6650660754253197,
+        "abs_pearson_r": 0.6650660754253197,
+        "permutation_p": 0.07189801840232136,
+        "ci_low": -0.07455663169332054,
+        "ci_high": 0.9326512765308818,
+        "ci_overlaps_zero": true,
+        "n_modules": 8,
+        "method": "exact_module_label_permutation_null_not_surface_spatial_null",
+        "q_value": 0.8627762208278564,
+        "fdr_significant_0_05": false,
+        "alignment_status": "exploratory_no_fdr_support"
+      },
+      "claim_guardrail": "External map priors are useful hypotheses, not proof of receptor/myelin/gradient mechanism."
+    },
     "reproducible_archive": {
       "gate": {
         "label": "Reproducible archive",
@@ -196,6 +409,7 @@
   "visualization_plan": {
     "dashboard_panels": [
       "readiness gate bar",
+      "strict completion audit",
       "ROCKET strength radar",
       "motion/QC ribbon",
       "parcellation proxy-vs-canonical board",
@@ -203,7 +417,7 @@
       "3D latent and control-landscape panels when source arrays are available"
     ]
   },
-  "claim_guardrail": "This status file upgrades evidence visibility. It does not convert proxy analyses into receptor-level, clinical, subjective-experience, or external-validity proof.",
+  "claim_guardrail": "This status file upgrades evidence visibility and fails closed on missing science. It does not convert proxy analyses into receptor-level, clinical, subjective-experience, or external-validity proof.",
   "source_basis": [
     {
       "topic": "motion confounds",
