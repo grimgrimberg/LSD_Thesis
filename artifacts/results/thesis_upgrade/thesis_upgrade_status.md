@@ -7,7 +7,7 @@ This status file upgrades evidence visibility and fails closed on missing scienc
 | Gate | Status | Ready | Score | Blocker / next action |
 | --- | --- | ---: | ---: | --- |
 | Motion and confounds | unavailable_not_found | false | 0.00 | No structured subject/session/run confounds with FD/DVARS/censoring coverage are available locally. |
-| Canonical parcellation | implemented_mechanism_ranking | true | 1.00 | Canonical Schaefer/Yeo extraction and ranking are available. |
+| Canonical parcellation | implemented_mechanism_ranking | true | 1.00 | Canonical Schaefer/Yeo extraction, empirical viewer, and mechanism ranking are available. |
 | Neuromaps spatial nulls | blocked_missing_neuromaps_dependency | false | 0.15 | Full surface/parcellation spatial-autocorrelation null testing has not been run. |
 | ROCKET benchmark | supporting_internal_signal | true | 1.00 | Add permutation-null, calibration, and MiniRocket/MultiRocket gates before treating this as strong ML evidence. |
 | External validation | extraction_contract_ready_missing_local_cifti_payloads | false | 0.60 | Drug-order mapping and unchanged scoring are locked, but local ds006072 CIFTI/module time-series payloads are absent. Download or provide authorized processed rest CIFTIs before claiming validation. |
@@ -19,7 +19,7 @@ This status file upgrades evidence visibility and fails closed on missing scienc
 
 | Requirement | Status | Complete | Missing | Next action |
 | --- | --- | ---: | --- | --- |
-| Schaefer/Yeo high-resolution parcellation layer | implemented_mechanism_ranking | true | The 8-module layer is still the active explanatory layer; no completed Schaefer/Yeo empirical inference output is visible. | Run the ds003059 extraction/ranking contract for Schaefer 100/Yeo 7, then repeat sensitivity for Schaefer 200 and Yeo 17. |
+| Schaefer/Yeo high-resolution parcellation layer | implemented_mechanism_ranking | true | None: Schaefer 100/Yeo 7 extraction, empirical viewer, and ranking summary are present. | Use this as the primary high-resolution inference layer and keep Schaefer 200/Yeo 7 plus Yeo 17 variants as sensitivity checks. |
 | Full neuromaps spatial-autocorrelation nulls | blocked_missing_neuromaps_dependency | false | Current map statistics use exact 8-module label permutation, not neuromaps spatial-autocorrelation nulls. | Install/use neuromaps, project maps to the active Schaefer/Yeo or surface space, run spatial nulls, and FDR-correct the resulting family. |
 | ds006072 psilocybin external validation | extraction_contract_ready_missing_local_cifti_payloads | false | The repo has readiness/provenance, but not comparable psilocybin/control dynamic extraction scored unchanged. | Supply or derive authorized ds006072 processed rest payloads, build paired empirical viewer records, then apply the locked LSD scoring spec without retuning. |
 | Motion/confound control result | unavailable_not_found | false | A dedicated confound-control result layer with motion/outlier sensitivity outcomes is missing. | Parse confounds for every subject/session/run, then report whether dynamic effects survive FD, DVARS, censoring, and run/order controls. |

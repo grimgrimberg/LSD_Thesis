@@ -1,6 +1,6 @@
 {
   "schema_version": "neuromaps_spatial_null_status.v1",
-  "generated_at_utc": "2026-05-28T11:29:17.622494+00:00",
+  "generated_at_utc": "2026-05-28T11:43:20.230504+00:00",
   "analysis_status": "blocked_missing_neuromaps_dependency",
   "spatial_autocorrelation_nulls_complete": false,
   "dependency_available": false,
