@@ -933,6 +933,50 @@
         </div>
         <p class="plot-unit-note">Guardrail: these are module-level prior alignments with exact label-permutation p-values. Full neuromaps surface-level spatial-autocorrelation nulls remain the next upgrade.</p>
       </section>
+      <section class="card card--span-2" data-plot-role="core" aria-labelledby="claim_status_title">
+        <h2 id="claim_status_title">PI Pitch Claim Status</h2>
+        <p class="plot-caption">This panel reframes the project for a Master's PI: AI and engineering infrastructure for perception and psychedelic-state dynamics, with neuroscience claims gated rather than overstated.</p>
+        <div id="claim_status_summary" class="result-status" role="status" aria-live="polite"></div>
+        <div id="claim_status_cards" class="summary-cards" aria-label="PI pitch claim summary cards"></div>
+        <div class="table-wrap" style="margin-top: 12px;">
+          <table>
+            <thead><tr><th>Tier</th><th>Claim</th><th>Status</th><th>PI-facing framing</th></tr></thead>
+            <tbody id="claim_status_table"></tbody>
+          </table>
+        </div>
+        <div id="claim_pipeline" class="result-status" role="status" aria-live="polite" style="margin-top: 12px;"></div>
+        <div class="table-wrap" style="margin-top: 12px;">
+          <table>
+            <thead><tr><th>External source</th><th>Role</th><th>Status</th><th>Claim boundary</th></tr></thead>
+            <tbody id="claim_external_validation_table"></tbody>
+          </table>
+        </div>
+        <div class="table-wrap" style="margin-top: 12px;">
+          <table>
+            <thead><tr><th>Null / control</th><th>Purpose</th><th>Status</th></tr></thead>
+            <tbody id="claim_null_controls_table"></tbody>
+          </table>
+        </div>
+        <div class="table-wrap" style="margin-top: 12px;">
+          <table>
+            <thead><tr><th>Effect</th><th>CI</th><th>p</th><th>q</th><th>FDR pass</th><th>CI crosses 0</th><th>Claim status</th></tr></thead>
+            <tbody id="claim_uncertainty_table"></tbody>
+          </table>
+        </div>
+        <div class="table-wrap" style="margin-top: 12px;">
+          <table>
+            <thead><tr><th>Methods / limitation</th><th>What it means</th><th>Slide takeaway</th></tr></thead>
+            <tbody id="claim_limitations_table"></tbody>
+          </table>
+        </div>
+        <div class="table-wrap" style="margin-top: 12px;">
+          <table>
+            <thead><tr><th>What would change my mind?</th></tr></thead>
+            <tbody id="claim_falsification_table"></tbody>
+          </table>
+        </div>
+        <p class="plot-unit-note">This is not a claim-strengthening shortcut. It is the presentation control layer: supported claims are separated from exploratory priors, blocked validation, and the next 90-day work plan.</p>
+      </section>
       <section class="card card--span-2" aria-labelledby="plot_review_title">
         <h2 id="plot_review_title">Plot Review: Core Evidence vs Appendix</h2>
         <p class="plot-caption">The visible plot order now follows the thesis evidence loop: mechanism ranking, robustness, empirical deltas, and claim checks first. Duplicated single-condition matrices, raw slice previews, and synthetic model sanity checks stay available in collapsed appendix sections.</p>
@@ -1218,6 +1262,7 @@
       renderEvidenceMatrix(expansion.loop_status?.components || {});
       renderStructuralDti(dashboardState?.structural_dti || {});
       renderExternalCorticalMaps(dashboardState?.external_cortical_maps || {});
+      renderClaimStatus(dashboardState?.claim_status || {});
     }
 
     function renderClaimEvidenceMatrix(loopStatus) {
@@ -1495,6 +1540,101 @@
           <td>${row.claim_boundary || 'not validation'}</td>
         `;
         benchmarkTable.appendChild(tr);
+      });
+    }
+
+    function renderClaimStatus(payload) {
+      const summary = document.getElementById('claim_status_summary');
+      const cards = document.getElementById('claim_status_cards');
+      const table = document.getElementById('claim_status_table');
+      const pipeline = document.getElementById('claim_pipeline');
+      const externalValidation = document.getElementById('claim_external_validation_table');
+      const nullControls = document.getElementById('claim_null_controls_table');
+      const uncertainty = document.getElementById('claim_uncertainty_table');
+      const limitations = document.getElementById('claim_limitations_table');
+      const falsification = document.getElementById('claim_falsification_table');
+      cards.innerHTML = '';
+      table.innerHTML = '';
+      pipeline.textContent = '';
+      externalValidation.innerHTML = '';
+      nullControls.innerHTML = '';
+      uncertainty.innerHTML = '';
+      limitations.innerHTML = '';
+      falsification.innerHTML = '';
+      const tiers = Array.isArray(payload.claim_tiers) ? payload.claim_tiers : [];
+      const methodRows = Array.isArray(payload.methods_limitations) ? payload.methods_limitations : [];
+      if (!tiers.length) {
+        summary.textContent = payload?.claim_guardrail || 'PI-facing claim ladder is not loaded.';
+        return;
+      }
+      const supported = tiers.filter(row => String(row.status || '').includes('supported')).length;
+      const exploratory = tiers.filter(row => String(row.status || '').includes('exploratory')).length;
+      const blocked = tiers.filter(row => String(row.status || '').includes('blocked') || String(row.status || '').includes('not_supported')).length;
+      summary.textContent =
+        `Falsifiable claim: ${payload.falsifiable_thesis_claim || payload.one_sentence_pitch || 'AI/engineering pitch for perception and psychedelic-state dynamics.'}\n` +
+        `Pitch: ${payload.one_sentence_pitch || 'AI/engineering pitch for perception and psychedelic-state dynamics.'}\n` +
+        `Fit: ${payload.fit_statement || 'Engineering rigor applied to high-signal human neuroimaging data.'}\n` +
+        `Guardrail: ${payload.claim_guardrail || 'Sell the research program without overstating neuroscience claims.'}`;
+      pipeline.textContent = `Methods pipeline: ${(payload.methods_pipeline || []).join(' -> ')}`;
+      addMetricCard(cards, 'Audience', payload.audience || 'Master’s PI', 'admissions/research fit');
+      addMetricCard(cards, 'Supported tiers', `${supported}`, 'safe to lead with');
+      addMetricCard(cards, 'Exploratory tiers', `${exploratory}`, 'show as opportunities');
+      addMetricCard(cards, 'Blocked / future', `${blocked}`, 'turn into work plan');
+      tiers.forEach(row => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${row.tier || ''}</td>
+          <td>${row.claim || ''}<br><span class="muted">${row.evidence || ''}</span></td>
+          <td>${row.status || ''}</td>
+          <td>${row.pi_framing || ''}</td>
+        `;
+          table.appendChild(tr);
+      });
+      (payload.external_validation_status || []).forEach(row => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${row.source || ''}</td>
+          <td>${row.role || ''}</td>
+          <td>${row.status || ''}</td>
+          <td>${row.claim_boundary || ''}</td>
+        `;
+        externalValidation.appendChild(tr);
+      });
+      (payload.null_controls || []).forEach(row => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${row.control || ''}</td>
+          <td>${row.purpose || ''}</td>
+          <td>${row.status || ''}</td>
+        `;
+        nullControls.appendChild(tr);
+      });
+      (payload.uncertainty_gate_rows || []).forEach(row => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${row.effect || ''}</td>
+          <td>${row.ci || ''}</td>
+          <td>${row.p || ''}</td>
+          <td>${row.q || ''}</td>
+          <td>${row.fdr_pass || ''}</td>
+          <td>${row.ci_crosses_zero || ''}</td>
+          <td>${row.claim_status || ''}</td>
+        `;
+        uncertainty.appendChild(tr);
+      });
+      methodRows.forEach(row => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${row.topic || ''}</td>
+          <td>${row.message || ''}</td>
+          <td>${row.slide_takeaway || ''}</td>
+        `;
+        limitations.appendChild(tr);
+      });
+      (payload.falsification_checks || []).forEach(check => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td>${check}</td>`;
+        falsification.appendChild(tr);
       });
     }
 
