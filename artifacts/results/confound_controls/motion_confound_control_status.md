@@ -10,3 +10,10 @@ Motion/confound handling remains a limitation until this artifact contains imple
 ## Blocker
 
 No parsed subject/session/run motion summaries are available.
+
+## Required local input contract
+
+- Motion summary: `results/setting_seed/motion/motion_summary.json`
+- Dynamic subject views: `results/stage_2/empirical_viewer/subject_views/*.json`
+- Minimum overlap: `4` subject/run rows
+- Next action: Place authorized fMRIPrep confounds TSV/CSV files under one configured search root, then rerun scripts/run_setting_seed_motion_summary.py.

@@ -1,12 +1,61 @@
 {
   "schema_version": "motion_confound_control.v1",
-  "generated_at_utc": "2026-05-28T12:46:08.971372+00:00",
+  "generated_at_utc": "2026-05-28T15:16:47.158451+00:00",
   "analysis_status": "unavailable_not_found",
   "motion_confound_control_ready": false,
   "source_paths": {
     "motion_summary": "results/setting_seed/motion/motion_summary.json",
     "subject_dynamic_views": "results/stage_2/empirical_viewer/subject_views"
   },
+  "motion_summary_status": "unavailable_not_found",
+  "motion_files_present": false,
+  "parsed_summary_count": 0,
+  "motion_summary_files": [],
+  "input_contract": {
+    "motion_summary_path": "results/setting_seed/motion/motion_summary.json",
+    "dynamic_subject_views": "results/stage_2/empirical_viewer/subject_views/*.json",
+    "minimum_overlap": 4,
+    "required_motion_features": [
+      "FD mean/max/spike fraction",
+      "DVARS mean/max",
+      "motion outlier, scrub, or censor fraction where available"
+    ],
+    "required_pairing": "subject + run, with LSD and placebo/PLCB sessions paired before association testing",
+    "motion_input_contract": {
+      "search_roots": [
+        "data/ds003059",
+        "data",
+        "results/stage_2",
+        "results/external_data",
+        "results/psilocybin_ds006072"
+      ],
+      "expected_file_patterns": [
+        "*desc-confounds_timeseries.tsv",
+        "*confounds*.tsv",
+        "*confounds*.csv",
+        "*motion*.tsv",
+        "*motion*.csv",
+        "*fd*.tsv",
+        "*dvars*.tsv",
+        "*censor*.tsv",
+        "*scrub*.tsv"
+      ],
+      "required_columns": [
+        "framewise_displacement or fd",
+        "std_dvars or dvars",
+        "motion_outlier*, scrub*, censor*, or non_steady_state* columns when available"
+      ],
+      "minimum_pairing_contract": [
+        "subject id",
+        "session/condition label containing LSD and placebo/PLCB",
+        "run id",
+        "one confound table per subject/session/run or an equivalent long-form table"
+      ],
+      "example_fmriprep_path": "data/ds003059/derivatives/fmriprep/sub-*/ses-*/func/*desc-confounds_timeseries.tsv",
+      "claim_guardrail": "The motion gate can only pass when structured confounds are present locally and join to subject/run dynamic deltas."
+    }
+  },
+  "next_action": "Place authorized fMRIPrep confounds TSV/CSV files under one configured search root, then rerun scripts/run_setting_seed_motion_summary.py.",
   "blocker": "No parsed subject/session/run motion summaries are available.",
   "merged_subject_run_count": 0,
   "association_rows": [],
