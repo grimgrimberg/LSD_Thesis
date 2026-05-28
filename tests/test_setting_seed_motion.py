@@ -35,6 +35,9 @@ def test_motion_summary_reports_unavailable_without_confounds(tmp_path: Path) ->
     assert summary["status"] == "unavailable_not_found"
     assert summary["motion_files_present"] is False
     assert summary["motion_analysis_ready"] is False
+    assert summary["input_contract"]["expected_file_patterns"]
+    assert "framewise_displacement or fd" in summary["input_contract"]["required_columns"]
+    assert "subject id" in summary["input_contract"]["minimum_pairing_contract"]
 
 
 def test_write_motion_outputs_writes_explicit_unavailable_status(tmp_path: Path) -> None:
@@ -45,3 +48,4 @@ def test_write_motion_outputs_writes_explicit_unavailable_status(tmp_path: Path)
     assert summary["status"] == "unavailable_not_found"
     assert json.loads((output_dir / "motion_summary.json").read_text(encoding="utf-8"))["status"] == "unavailable_not_found"
     assert "No structured motion/confounds files were found" in (output_dir / "motion_report.md").read_text(encoding="utf-8")
+    assert "Required local input contract" in (output_dir / "motion_report.md").read_text(encoding="utf-8")

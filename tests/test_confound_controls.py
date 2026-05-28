@@ -7,9 +7,11 @@ from lsd_thesis.confound_controls import build_motion_confound_control_status, w
 def test_motion_confound_control_fails_closed_without_motion_summary(tmp_path: Path) -> None:
     status = build_motion_confound_control_status(tmp_path)
 
-    assert status["analysis_status"] == "blocked_missing_motion_summaries"
+    assert status["analysis_status"] == "unavailable_not_found"
     assert status["motion_confound_control_ready"] is False
     assert status["claim_status"] == "not_proven_motion_confound_control_missing"
+    assert status["input_contract"]["minimum_overlap"] == 4
+    assert status["next_action"]
 
 
 def test_motion_confound_control_computes_subject_run_associations(tmp_path: Path) -> None:
@@ -71,6 +73,7 @@ def test_motion_confound_control_computes_subject_run_associations(tmp_path: Pat
     assert status["analysis_status"] == "implemented_dedicated_motion_confound_control_result"
     assert status["motion_confound_control_ready"] is True
     assert status["merged_subject_run_count"] == 6
+    assert status["input_contract"]["required_motion_features"]
     assert status["association_rows"]
     assert any(row["motion_feature"] == "fd_mean_delta_lsd_minus_placebo" for row in status["association_rows"])
 

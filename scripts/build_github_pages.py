@@ -25,6 +25,7 @@ from plotly.offline import get_plotlyjs
 from lsd_thesis.confound_controls import write_motion_confound_control_status
 from lsd_thesis.cortical_maps import write_cortical_map_alignment_status
 from lsd_thesis.neuromaps_spatial_nulls import write_neuromaps_spatial_null_status
+from lsd_thesis.setting_seed.motion import write_motion_outputs
 from lsd_thesis.thesis_upgrade import write_thesis_upgrade_status
 from lsd_thesis.thesis_loop import build_thesis_evidence_loop
 from lsd_thesis.web.app import build_dashboard_payload
@@ -183,10 +184,11 @@ def build_github_pages_site(repo_root: Path = REPO_ROOT, site_dir: Path | None =
     build_thesis_evidence_loop(repo_root)
     export_thesis_loop_tables(repo_root, repo_root / "results" / "thesis_evidence_loop" / "exports")
     write_cortical_map_alignment_status(repo_root)
+    write_motion_outputs(repo_root=repo_root)
     write_motion_confound_control_status(repo_root)
+    publication_outputs = build_publication_package(repo_root)
     write_neuromaps_spatial_null_status(repo_root)
     write_thesis_upgrade_status(repo_root)
-    publication_outputs = build_publication_package(repo_root)
 
     outputs: dict[str, Path] = {}
     index = _copy_file(Path(publication_outputs["thesis_microsite_html"]), site / "index.html")

@@ -12,6 +12,28 @@ import pandas as pd
 FD_COLUMNS = ("framewise_displacement", "fd", "FD", "FramewiseDisplacement")
 DVARS_COLUMNS = ("std_dvars", "dvars", "DVARS", "stdDVARS", "standardized_dvars")
 MOTION_FILE_PATTERN = re.compile(r"(confound|motion|fd|dvars|censor|scrub|desc-confounds|regress)", re.IGNORECASE)
+MOTION_FILE_GLOBS = (
+    "*desc-confounds_timeseries.tsv",
+    "*confounds*.tsv",
+    "*confounds*.csv",
+    "*motion*.tsv",
+    "*motion*.csv",
+    "*fd*.tsv",
+    "*dvars*.tsv",
+    "*censor*.tsv",
+    "*scrub*.tsv",
+)
+REQUIRED_CONFOUND_COLUMNS = (
+    "framewise_displacement or fd",
+    "std_dvars or dvars",
+    "motion_outlier*, scrub*, censor*, or non_steady_state* columns when available",
+)
+MINIMUM_PAIRING_CONTRACT = (
+    "subject id",
+    "session/condition label containing LSD and placebo/PLCB",
+    "run id",
+    "one confound table per subject/session/run or an equivalent long-form table",
+)
 DEFAULT_FD_THRESHOLD = 0.5
 
 
@@ -36,6 +58,33 @@ def _first_existing_column(frame: pd.DataFrame, candidates: Sequence[str]) -> st
     return None
 
 
+def _default_search_roots(root: Path, stage_2_dir: str | Path | None) -> tuple[Path, ...]:
+    candidates = (
+        root / "data" / "ds003059",
+        root / "data",
+        Path(stage_2_dir) if stage_2_dir is not None else root / "results" / "stage_2",
+        root / "results" / "external_data",
+        root / "results" / "psilocybin_ds006072",
+    )
+    deduped: list[Path] = []
+    for candidate in candidates:
+        path = candidate.resolve() if candidate.exists() else candidate
+        if path not in deduped:
+            deduped.append(path)
+    return tuple(deduped)
+
+
+def _motion_input_contract(root: Path, search_roots: Sequence[Path]) -> dict[str, Any]:
+    return {
+        "search_roots": [_relative_path(path, root) for path in search_roots],
+        "expected_file_patterns": list(MOTION_FILE_GLOBS),
+        "required_columns": list(REQUIRED_CONFOUND_COLUMNS),
+        "minimum_pairing_contract": list(MINIMUM_PAIRING_CONTRACT),
+        "example_fmriprep_path": "data/ds003059/derivatives/fmriprep/sub-*/ses-*/func/*desc-confounds_timeseries.tsv",
+        "claim_guardrail": "The motion gate can only pass when structured confounds are present locally and join to subject/run dynamic deltas.",
+    }
+
+
 def _parse_subject_session_run(path: Path) -> dict[str, str | None]:
     text = path.as_posix()
     subject = re.search(r"sub-\d+", text)
@@ -54,21 +103,17 @@ def discover_motion_files(
     roots: Sequence[str | Path] | None = None,
 ) -> tuple[Path, ...]:
     root = _default_repo_root() if repo_root is None else Path(repo_root)
-    search_roots = (
-        tuple(Path(item) for item in roots)
-        if roots is not None
-        else (
-            root / "data" / "ds003059",
-            Path(stage_2_dir) if stage_2_dir is not None else root / "results" / "stage_2",
-        )
-    )
+    search_roots = tuple(Path(item) for item in roots) if roots is not None else _default_search_roots(root, stage_2_dir)
     found: list[Path] = []
     for search_root in search_roots:
         if not search_root.exists():
             continue
-        for path in search_root.rglob("*"):
-            if path.is_file() and MOTION_FILE_PATTERN.search(path.name) and path.suffix.lower() in {".tsv", ".csv", ".txt"}:
-                found.append(path)
+        try:
+            for path in search_root.rglob("*"):
+                if path.is_file() and MOTION_FILE_PATTERN.search(path.name) and path.suffix.lower() in {".tsv", ".csv", ".txt"}:
+                    found.append(path)
+        except OSError:
+            continue
     return tuple(sorted(found, key=lambda item: item.as_posix()))
 
 
@@ -135,7 +180,9 @@ def build_motion_summary(
     fd_threshold: float = DEFAULT_FD_THRESHOLD,
 ) -> dict[str, Any]:
     root = _default_repo_root() if repo_root is None else Path(repo_root)
+    search_roots = tuple(Path(item) for item in roots) if roots is not None else _default_search_roots(root, stage_2_dir)
     files = discover_motion_files(repo_root=root, stage_2_dir=stage_2_dir, roots=roots)
+    input_contract = _motion_input_contract(root, search_roots)
     if not files:
         return {
             "schema_version": "setting_seed_motion_summary.v1",
@@ -148,6 +195,8 @@ def build_motion_summary(
             "parsed_summary_count": 0,
             "unusable_file_count": 0,
             "coverage_by_run": {},
+            "input_contract": input_contract,
+            "next_action": "Place authorized fMRIPrep confounds TSV/CSV files under one configured search root, then rerun scripts/run_setting_seed_motion_summary.py.",
             "summaries": [],
             "claim_guardrail": "Motion sensitivity is unavailable until structured subject/session/run confounds are parsed.",
         }
@@ -174,6 +223,12 @@ def build_motion_summary(
         "parsed_summary_count": len(parsed),
         "unusable_file_count": len(summaries) - len(parsed),
         "coverage_by_run": coverage_by_run,
+        "input_contract": input_contract,
+        "next_action": (
+            "Run scripts/build_motion_confound_controls.py to join these motion summaries with subject/run dynamic deltas."
+            if parsed
+            else "Fix file format or add FD/DVARS/outlier columns, then rerun scripts/run_setting_seed_motion_summary.py."
+        ),
         "summaries": summaries,
         "claim_guardrail": "Motion summaries are aggregate QC features only; raw traces and confound matrices are not embedded.",
     }
@@ -188,6 +243,19 @@ def motion_report_markdown(summary: dict[str, Any]) -> str:
     ]
     if not summary.get("motion_files_present"):
         lines.append("No structured motion/confounds files were found in the configured local search roots.")
+        contract = summary.get("input_contract", {}) if isinstance(summary.get("input_contract"), dict) else {}
+        if contract:
+            lines.extend(
+                [
+                    "",
+                    "## Required local input contract",
+                    "",
+                    f"- Search roots: `{', '.join(contract.get('search_roots', []))}`",
+                    f"- Expected patterns: `{', '.join(contract.get('expected_file_patterns', []))}`",
+                    f"- Required columns: `{', '.join(contract.get('required_columns', []))}`",
+                    f"- Example path: `{contract.get('example_fmriprep_path')}`",
+                ]
+            )
     else:
         lines.extend(
             [

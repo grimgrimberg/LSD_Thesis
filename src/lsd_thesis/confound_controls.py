@@ -11,9 +11,22 @@ from typing import Any
 import numpy as np
 from scipy import stats
 
+from lsd_thesis.setting_seed.motion import build_motion_summary
+
 REPO_ROOT = Path(__file__).resolve().parents[2]
 SCHEMA_VERSION = "motion_confound_control.v1"
 MIN_OVERLAP = 4
+CONFOUND_CONTROL_INPUT_CONTRACT = {
+    "motion_summary_path": "results/setting_seed/motion/motion_summary.json",
+    "dynamic_subject_views": "results/stage_2/empirical_viewer/subject_views/*.json",
+    "minimum_overlap": MIN_OVERLAP,
+    "required_motion_features": [
+        "FD mean/max/spike fraction",
+        "DVARS mean/max",
+        "motion outlier, scrub, or censor fraction where available",
+    ],
+    "required_pairing": "subject + run, with LSD and placebo/PLCB sessions paired before association testing",
+}
 
 MOTION_FEATURE_ALIASES: dict[str, tuple[str, ...]] = {
     "fd_mean": ("fd_mean", "mean_fd", "framewise_displacement_mean", "mean_framewise_displacement"),
@@ -191,7 +204,15 @@ def _association_rows(merged: list[dict[str, Any]]) -> list[dict[str, Any]]:
     return rows
 
 
-def _blocked_status(repo_root: Path, status: str, blocker: str, motion_path: Path, view_root: Path) -> dict[str, Any]:
+def _blocked_status(
+    repo_root: Path,
+    status: str,
+    blocker: str,
+    motion_path: Path,
+    view_root: Path,
+    motion_payload: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    payload = motion_payload or {}
     return {
         "schema_version": SCHEMA_VERSION,
         "generated_at_utc": datetime.now(UTC).isoformat(),
@@ -201,6 +222,18 @@ def _blocked_status(repo_root: Path, status: str, blocker: str, motion_path: Pat
             "motion_summary": _rel(motion_path, repo_root),
             "subject_dynamic_views": _rel(view_root, repo_root),
         },
+        "motion_summary_status": payload.get("status", "missing"),
+        "motion_files_present": bool(payload.get("motion_files_present")),
+        "parsed_summary_count": int(payload.get("parsed_summary_count") or 0),
+        "motion_summary_files": payload.get("motion_summary_files", []),
+        "input_contract": {
+            **CONFOUND_CONTROL_INPUT_CONTRACT,
+            "motion_input_contract": payload.get("input_contract"),
+        },
+        "next_action": payload.get(
+            "next_action",
+            "Generate a motion summary from authorized fMRIPrep confounds, then rerun scripts/build_motion_confound_controls.py.",
+        ),
         "blocker": blocker,
         "merged_subject_run_count": 0,
         "association_rows": [],
@@ -216,12 +249,20 @@ def build_motion_confound_control_status(repo_root: Path = REPO_ROOT) -> dict[st
     view_root = repo_root / "results" / "stage_2" / "empirical_viewer" / "subject_views"
     motion_payload = _read_json(motion_path) or {}
     if not motion_payload.get("motion_analysis_ready"):
+        discovered_payload = build_motion_summary(repo_root=repo_root)
+        if discovered_payload.get("motion_analysis_ready"):
+            motion_payload = discovered_payload
+        elif not motion_payload.get("motion_files_present") and discovered_payload:
+            motion_payload = discovered_payload
+
+    if not motion_payload.get("motion_analysis_ready"):
         return _blocked_status(
             repo_root,
             str(motion_payload.get("status") or "blocked_missing_motion_summaries"),
             "No parsed subject/session/run motion summaries are available.",
             motion_path,
             view_root,
+            motion_payload,
         )
 
     motion_rows = _load_motion_features(motion_payload)
@@ -232,6 +273,7 @@ def build_motion_confound_control_status(repo_root: Path = REPO_ROOT) -> dict[st
             "Motion summary is marked ready but no FD/DVARS/outlier features could be joined by subject/run.",
             motion_path,
             view_root,
+            motion_payload,
         )
     dynamic_rows = _load_subject_dynamic_deltas(view_root)
     if not dynamic_rows:
@@ -241,6 +283,7 @@ def build_motion_confound_control_status(repo_root: Path = REPO_ROOT) -> dict[st
             "Subject/run empirical dynamic delta views are missing.",
             motion_path,
             view_root,
+            motion_payload,
         )
     merged = _merge_rows(dynamic_rows, motion_rows)
     if len(merged) < MIN_OVERLAP:
@@ -250,6 +293,7 @@ def build_motion_confound_control_status(repo_root: Path = REPO_ROOT) -> dict[st
             f"Only {len(merged)} subject/run rows overlap between motion and dynamic evidence; need at least {MIN_OVERLAP}.",
             motion_path,
             view_root,
+            motion_payload,
         )
 
     rows = _association_rows(merged)
@@ -260,6 +304,7 @@ def build_motion_confound_control_status(repo_root: Path = REPO_ROOT) -> dict[st
             "Joined rows do not contain enough nonconstant motion and dynamic features for correlation tests.",
             motion_path,
             view_root,
+            motion_payload,
         )
     high_risk_count = sum(1 for row in rows if row["motion_sensitivity_flag"])
     return {
@@ -270,6 +315,13 @@ def build_motion_confound_control_status(repo_root: Path = REPO_ROOT) -> dict[st
         "source_paths": {
             "motion_summary": _rel(motion_path, repo_root),
             "subject_dynamic_views": _rel(view_root, repo_root),
+        },
+        "motion_summary_status": motion_payload.get("status", "available_parsed"),
+        "motion_files_present": bool(motion_payload.get("motion_files_present")),
+        "parsed_summary_count": int(motion_payload.get("parsed_summary_count") or len(motion_payload.get("summaries", []))),
+        "input_contract": {
+            **CONFOUND_CONTROL_INPUT_CONTRACT,
+            "motion_input_contract": motion_payload.get("input_contract"),
         },
         "merged_subject_run_count": len(merged),
         "motion_feature_count": len([key for key in merged[0] if key.endswith(("_delta_lsd_minus_placebo", "_mean_abs", "_observed"))]),
@@ -338,7 +390,21 @@ def _markdown(status: dict[str, Any]) -> str:
                 )
             )
     else:
-        lines.extend(["## Blocker", "", str(status.get("blocker") or "No implemented confound-control result is available.")])
+        contract = status.get("input_contract", {}) if isinstance(status.get("input_contract"), dict) else {}
+        lines.extend(
+            [
+                "## Blocker",
+                "",
+                str(status.get("blocker") or "No implemented confound-control result is available."),
+                "",
+                "## Required local input contract",
+                "",
+                f"- Motion summary: `{contract.get('motion_summary_path', 'results/setting_seed/motion/motion_summary.json')}`",
+                f"- Dynamic subject views: `{contract.get('dynamic_subject_views', 'results/stage_2/empirical_viewer/subject_views/*.json')}`",
+                f"- Minimum overlap: `{contract.get('minimum_overlap', MIN_OVERLAP)}` subject/run rows",
+                f"- Next action: {status.get('next_action', 'Generate motion summaries, then rerun this control layer.')}",
+            ]
+        )
     return "\n".join(lines) + "\n"
 
 

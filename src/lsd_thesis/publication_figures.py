@@ -47,8 +47,10 @@ def _stage2_change_label(initial_score: float, best_score: float) -> str:
 
 def _save_figure(fig: plt.Figure, path: Path) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    fig.savefig(path, dpi=200, bbox_inches="tight")
-    plt.close(fig)
+    try:
+        fig.savefig(path, dpi=200, bbox_inches="tight")
+    finally:
+        plt.close(fig)
 
 
 def _build_stage1_metric_shift_figure(evidence: PublicationEvidence, path: Path) -> PublicationFigure:
