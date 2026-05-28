@@ -203,6 +203,14 @@ def build_github_pages_site(repo_root: Path = REPO_ROOT, site_dir: Path | None =
             repo_root / "results" / "thesis_evidence_loop" / "exports" / "thesis_evidence_loop_tables.xlsx",
             site / "artifacts" / "thesis_evidence_loop_tables.xlsx",
         ),
+        "claim_ladder": (
+            repo_root / "CLAIM_LADDER.md",
+            site / "artifacts" / "CLAIM_LADDER.md",
+        ),
+        "pi_pitch": (
+            repo_root / "PI_PITCH.md",
+            site / "artifacts" / "PI_PITCH.md",
+        ),
     }
     for name, (source, destination) in optional_files.items():
         copied = _copy_file(source, destination)

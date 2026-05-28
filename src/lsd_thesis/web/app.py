@@ -359,6 +359,8 @@ def _is_safe_empirical_selector(value: str) -> bool:
 
 def _artifact_links(repo_root: Path) -> dict[str, list[dict[str, str]]]:
     report_specs = [
+        ("PI Pitch", repo_root / "PI_PITCH.md"),
+        ("PI Claim Ladder", repo_root / "CLAIM_LADDER.md"),
         ("Stage 2", repo_root / "docs" / "stage_reports" / "stage_2.md"),
         ("Dynamic Mechanism Ranking", repo_root / "docs" / "stage_reports" / "dynamic_mechanism_ranking.md"),
         ("Stage 3", repo_root / "docs" / "stage_reports" / "stage_3.md"),
@@ -953,6 +955,210 @@ def _load_external_cortical_maps_payload(repo_root: Path = REPO_ROOT) -> dict[st
     return payload
 
 
+def _load_claim_status_payload(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
+    claim_ladder_path = repo_root / "CLAIM_LADDER.md"
+    pi_pitch_path = repo_root / "PI_PITCH.md"
+    return {
+        "analysis_status": "pi_pitch_claim_ladder_ready" if claim_ladder_path.exists() and pi_pitch_path.exists() else "missing_pitch_or_claim_ladder",
+        "source_path": claim_ladder_path.relative_to(repo_root).as_posix(),
+        "pi_pitch_path": pi_pitch_path.relative_to(repo_root).as_posix(),
+        "audience": "prospective Master's PI",
+        "one_sentence_pitch": (
+            "This project uses AI, control theory, and interactive visualization to study how psychedelic-state datasets can be "
+            "turned into testable macro-dynamic models of perception, while keeping biological claims conservative and falsifiable."
+        ),
+        "falsifiable_thesis_claim": (
+            "This project tests whether empirical LSD-placebo macro-dynamics are better explained by altered transition/control "
+            "dynamics than by generic noise, motion, run effects, or static connectivity changes."
+        ),
+        "fit_statement": (
+            "The thesis value is not prior neuroscience specialization; it is engineering rigor applied to perception, AI, and "
+            "psychedelic neuroimaging as a high-signal perturbation domain."
+        ),
+        "methods_pipeline": [
+            "raw fMRI / empirical cache",
+            "preprocessing and quality metadata",
+            "8-module summary plus future Schaefer/Yeo parcels",
+            "dynamic features and DMDC/control metrics",
+            "AI/ML benchmarks with subject-disjoint validation",
+            "uncertainty gates: CI, p, q, FDR, nulls",
+            "public dashboard and PI pitch artifacts",
+        ],
+        "external_validation_status": [
+            {
+                "source": "ds003059 LSD-placebo",
+                "role": "current empirical anchor",
+                "status": "implemented",
+                "claim_boundary": "Supports macro-dynamic proxy claims only; not subjective or receptor-level validation.",
+            },
+            {
+                "source": "ds006072 psilocybin",
+                "role": "future external validation candidate",
+                "status": "readiness_provenance_layer",
+                "claim_boundary": "Not validation until comparable data are ingested and scored unchanged.",
+            },
+            {
+                "source": "Lyons et al. 2026 Nature Communications",
+                "role": "recent human psilocybin context",
+                "status": "external_plausibility_anchor",
+                "claim_boundary": "Not LSD replication and not direct model validation.",
+            },
+            {
+                "source": "PsiConnect 2026 Scientific Data",
+                "role": "future multimodal dataset context",
+                "status": "candidate_future_dataset",
+                "claim_boundary": "Not evidence until authorized access and unchanged scoring exist.",
+            },
+        ],
+        "null_controls": [
+            {
+                "control": "placebo baseline",
+                "purpose": "separate condition effect from generic dynamics",
+                "status": "implemented_empirical_anchor",
+            },
+            {
+                "control": "subject-disjoint CV",
+                "purpose": "prevent window-level leakage in AI benchmarks",
+                "status": "required_reporting_standard",
+            },
+            {
+                "control": "random receptor priors",
+                "purpose": "test whether receptor-prior control beats random receptor assignments",
+                "status": "implemented_proxy_control",
+            },
+            {
+                "control": "degree/control priors",
+                "purpose": "separate receptor claims from graph topology or generic controllability",
+                "status": "implemented_proxy_control",
+            },
+            {
+                "control": "motion, run/music, preprocessing, and signal-quality gates",
+                "purpose": "block confounded empirical claims",
+                "status": "must_remain_first_class_limitation",
+            },
+            {
+                "control": "future Schaefer/Yeo spatial nulls",
+                "purpose": "replace weak 8-label permutation with spatial-autocorrelation-aware inference",
+                "status": "next_required_upgrade",
+            },
+        ],
+        "uncertainty_gate_rows": [
+            {
+                "effect": "PET 5-HT2A prior vs DMDC condition input",
+                "ci": "overlaps zero",
+                "p": "0.0719",
+                "q": "0.8628",
+                "fdr_pass": "no",
+                "ci_crosses_zero": "yes",
+                "claim_status": "exploratory_not_supported_yet",
+            },
+            {
+                "effect": "Receptor/myelin/gradient family claim",
+                "ci": "not consistently away from zero",
+                "p": "mixed",
+                "q": "not significant",
+                "fdr_pass": "no",
+                "ci_crosses_zero": "yes",
+                "claim_status": "do_not_strengthen_mechanism_claim",
+            },
+            {
+                "effect": "High-resolution spatial-map claim",
+                "ci": "not run",
+                "p": "not run",
+                "q": "not run",
+                "fdr_pass": "no",
+                "ci_crosses_zero": "unknown",
+                "claim_status": "blocked_until_schaefer_yeo_neuromaps",
+            },
+        ],
+        "claim_tiers": [
+            {
+                "tier": "A",
+                "claim": "Reproducible empirical LSD-placebo macro-dynamics dashboard",
+                "status": "supported",
+                "evidence": "Implemented code, generated artifacts, provenance, and static dashboard snapshot.",
+                "pi_framing": "Shows research-engineering maturity and reproducibility.",
+            },
+            {
+                "tier": "B",
+                "claim": "Macro-dynamic transition, integration, and control-like effects are measurable",
+                "status": "supported_proxy",
+                "evidence": "Empirical dynamic summaries and mechanism-ranking outputs.",
+                "pi_framing": "A defensible computational-perception question, not a subjective-experience claim.",
+            },
+            {
+                "tier": "C",
+                "claim": "AI/ML benchmarks can test condition information without leakage",
+                "status": "internal_validation",
+                "evidence": "Subject-disjoint CV and no window-random reporting are the required standard.",
+                "pi_framing": "Connects AI methodology with human neuroimaging rigor.",
+            },
+            {
+                "tier": "D",
+                "claim": "Receptor, DTI, myelin, gradient, and AHBA maps are useful priors",
+                "status": "exploratory",
+                "evidence": "Module-level p/q/CI-gated alignments are displayed, but not significant enough for strong mechanism claims.",
+                "pi_framing": "Shows honesty: the system reports weak evidence instead of hiding it.",
+            },
+            {
+                "tier": "E",
+                "claim": "Strong receptor/myelin/gradient mechanism",
+                "status": "not_supported_yet",
+                "evidence": "Needs Schaefer/Yeo or Glasser parcel-level inference plus spatial nulls.",
+                "pi_framing": "Clear Master's work package rather than overclaiming.",
+            },
+            {
+                "tier": "F",
+                "claim": "External psilocybin validation",
+                "status": "blocked_future_work",
+                "evidence": "Lyons 2026 and PsiConnect 2026 are context/planning anchors until comparable data are ingested and scored unchanged.",
+                "pi_framing": "A concrete future collaboration/data-access target.",
+            },
+        ],
+        "methods_limitations": [
+            {
+                "topic": "Motion and run/music confounds",
+                "message": "Must be shown as a first-class limitation and control target before strengthening empirical claims; include preprocessing, signal quality, and fixed-order/session risks.",
+                "slide_takeaway": "The project treats confounds as engineering tests, not footnotes.",
+            },
+            {
+                "topic": "Parcellation",
+                "message": "The 8-module layer is an interpretable public summary, not a canonical network definition.",
+                "slide_takeaway": "Next inference layer should be Schaefer-100/200 with Yeo labels and optional Glasser sensitivity.",
+            },
+            {
+                "topic": "External validation",
+                "message": "Current psilocybin papers are external context, not validation of this score until data are ingested and scored unchanged.",
+                "slide_takeaway": "The dashboard separates plausibility anchors from replication.",
+            },
+            {
+                "topic": "Negative results",
+                "message": "Weak receptor/myelin/gradient alignment is a useful result because it blocks overclaiming.",
+                "slide_takeaway": "A PI should see this as scientific maturity, not failure.",
+            },
+        ],
+        "next_90_days": [
+            "Freeze the 8-module layer as an interpretable macro-summary.",
+            "Add Schaefer-100/200 plus Yeo-7/Yeo-17 as the primary inference layer.",
+            "Project receptor, DTI/SC, myelin, gradient, and AHBA maps into the same parcel contract.",
+            "Run neuromaps-style spatial nulls and report q-values plus CI-zero gates.",
+            "Turn leak-proof ML benchmarks into a compact AI contribution slide.",
+            "Prepare authorized psilocybin external-scoring contracts without claiming validation early.",
+        ],
+        "falsification_checks": [
+            "Downgrade the mechanism claim if subject-disjoint CV collapses.",
+            "Downgrade the mechanism claim if motion, run/music, preprocessing, or signal-quality controls remove the effect.",
+            "Downgrade receptor/myelin/gradient claims if Schaefer/Yeo spatial nulls fail.",
+            "Downgrade external-validity claims if psilocybin data fail under unchanged scoring.",
+            "Downgrade map-prior claims if random, degree, or uniform controls explain the result as well.",
+        ],
+        "claim_guardrail": (
+            "This is a PI pitch for an AI/engineering Master's project in perception and psychedelic-state dynamics. "
+            "It should sell research potential, reproducibility, and rigorous uncertainty gates without pretending to be a completed neuroscience mechanism thesis."
+        ),
+    }
+
+
 def _build_thesis_expansion_payload(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
     loop_status = _load_thesis_loop_status(repo_root)
     loop_status_by_label = {
@@ -1215,6 +1421,7 @@ def build_dashboard_payload(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
         "dynamic_mechanism": _load_dynamic_mechanism_payload(repo_root),
         "structural_dti": _load_structural_dti_payload(repo_root),
         "external_cortical_maps": _load_external_cortical_maps_payload(repo_root),
+        "claim_status": _load_claim_status_payload(repo_root),
         "thesis_expansion": _build_thesis_expansion_payload(repo_root),
         "thesis_upgrade": build_thesis_upgrade_status(repo_root),
         "artifact_links": artifact_links,

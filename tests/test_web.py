@@ -464,6 +464,9 @@ def test_dashboard_payload_includes_provenance_block(tmp_path: Path, monkeypatch
     assert payload["dynamic_mechanism"]["source_path"] == "results/dynamic_mechanism_ranking/summary.json"
     assert payload["structural_dti"]["analysis_status"] == "missing_structural_connectome_matrix"
     assert payload["external_cortical_maps"]["analysis_status"] == "missing_external_cortical_map_alignment"
+    assert payload["claim_status"]["audience"] == "prospective Master's PI"
+    assert "altered transition/control dynamics" in payload["claim_status"]["falsifiable_thesis_claim"]
+    assert any(row["source"] == "ds003059 LSD-placebo" for row in payload["claim_status"]["external_validation_status"])
 
 
 def test_dashboard_payload_includes_publication_outputs_in_report_links(
