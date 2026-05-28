@@ -160,18 +160,43 @@ def _parcellation_gate(repo_root: Path) -> dict[str, Any]:
         repo_root
         / "results"
         / "stage_2"
+        / "parcellations"
+        / canonical
+        / "empirical_viewer"
+        / "group_overview.json",
+        repo_root
+        / "results"
+        / "stage_2"
         / "empirical_viewer"
         / "parcellations"
         / canonical
         / "overview.json",
-        repo_root / "results" / "parcellation_sensitivity" / f"{canonical}_dynamic_mechanism_summary.json",
+        repo_root / "results" / "parcellation_sensitivity" / canonical / "summary.json",
     ]
     observed_outputs = [_rel(candidate, repo_root) for candidate in candidate_outputs if candidate.exists()]
-    ready = _status_is_implemented(canonical_status) and bool(observed_outputs)
+    has_extraction = (repo_root / "results" / "stage_2" / "parcellations" / canonical / "parcellation_extraction_summary.json").exists()
+    has_viewer = (repo_root / "results" / "stage_2" / "parcellations" / canonical / "empirical_viewer" / "group_overview.json").exists()
+    has_ranking = (repo_root / "results" / "parcellation_sensitivity" / canonical / "summary.json").exists()
+    ready = _status_is_implemented(canonical_status) and has_extraction and has_viewer and has_ranking
     blocker = (
-        "Canonical Schaefer/Yeo extraction and ranking are available."
+        "Canonical Schaefer/Yeo extraction, empirical viewer, and mechanism ranking are available."
         if ready
         else "Canonical Schaefer/Yeo extraction is not yet a completed empirical result with dashboard-visible outputs."
+    )
+    missing = (
+        "None: Schaefer 100/Yeo 7 extraction, empirical viewer, and ranking summary are present."
+        if ready
+        else "The high-resolution layer is not fully dashboard-visible until extraction, viewer, and ranking outputs all exist."
+    )
+    next_action = (
+        "Use this as the primary high-resolution inference layer and keep Schaefer 200/Yeo 7 plus Yeo 17 variants as sensitivity checks."
+        if ready
+        else "Run the ds003059 extraction/ranking contract for Schaefer 100/Yeo 7, then repeat sensitivity for Schaefer 200 and Yeo 17."
+    )
+    claim_effect = (
+        "The Schaefer/Yeo parcellation gate is implemented for ds003059; remaining anatomical upgrades now depend on spatial nulls and external validation."
+        if ready
+        else "Anatomical claims remain explanatory/proxy-level until the Schaefer/Yeo layer is complete."
     )
     return {
         "gate": _gate(
@@ -188,19 +213,29 @@ def _parcellation_gate(repo_root: Path) -> dict[str, Any]:
             canonical_status or str(payload.get("analysis_status") or "planned_schaefer_yeo"),
             ready,
             f"{_rel(path, repo_root)}; observed outputs: {', '.join(observed_outputs) if observed_outputs else 'none'}",
-            "The 8-module layer is still the active explanatory layer; no completed Schaefer/Yeo empirical inference output is visible.",
-            "Run the ds003059 extraction/ranking contract for Schaefer 100/Yeo 7, then repeat sensitivity for Schaefer 200 and Yeo 17.",
-            "Anatomical claims remain explanatory/proxy-level until the Schaefer/Yeo layer is complete.",
+            missing,
+            next_action,
+            claim_effect,
         ),
         "current_baseline": "harvard_oxford_8_module_proxy",
         "recommended_primary": canonical,
         "recommended_sensitivity": ["schaefer_200_yeo_7", "schaefer_100_yeo_17", "schaefer_200_yeo_17"],
         "observed_high_resolution_outputs": observed_outputs,
+        "completion_checks": {
+            "has_extraction_summary": has_extraction,
+            "has_empirical_viewer": has_viewer,
+            "has_mechanism_ranking": has_ranking,
+        },
         "engineering_logic": (
             "Use Schaefer parcels as state nodes and Yeo networks as interpretable macro-supernodes; "
             "then test whether mechanism rankings survive the refined state-space."
         ),
-        "claim_guardrail": "The 8-module Harvard-Oxford mapping remains a transparent proxy until Schaefer/Yeo extraction is run.",
+        "claim_guardrail": (
+            "Schaefer/Yeo is implemented for ds003059 high-resolution sensitivity. This resolves the coarse-parcellation gate, "
+            "but does not by itself establish receptor, myelin, gradient, psilocybin, or spatial-null claims."
+            if ready
+            else "The 8-module Harvard-Oxford mapping remains a transparent proxy until Schaefer/Yeo extraction is run."
+        ),
     }
 
 

@@ -1,6 +1,6 @@
 {
   "schema_version": "thesis_upgrade_status.v1",
-  "generated_at_utc": "2026-05-28T11:29:17.896379+00:00",
+  "generated_at_utc": "2026-05-28T11:43:21.085172+00:00",
   "readiness_summary": {
     "ready_gates": 4,
     "total_gates": 8,
@@ -25,7 +25,7 @@
       "status": "implemented_mechanism_ranking",
       "ready": true,
       "evidence": "results/parcellation_sensitivity/parcellation_sensitivity_status.json",
-      "blocker": "Canonical Schaefer/Yeo extraction and ranking are available.",
+      "blocker": "Canonical Schaefer/Yeo extraction, empirical viewer, and mechanism ranking are available.",
       "score": 1.0
     },
     {
@@ -83,10 +83,10 @@
       "label": "Schaefer/Yeo high-resolution parcellation layer",
       "status": "implemented_mechanism_ranking",
       "complete": true,
-      "evidence": "results/parcellation_sensitivity/parcellation_sensitivity_status.json; observed outputs: results/stage_2/parcellations/schaefer_100_yeo_7/parcellation_extraction_summary.json",
-      "missing": "The 8-module layer is still the active explanatory layer; no completed Schaefer/Yeo empirical inference output is visible.",
-      "next_action": "Run the ds003059 extraction/ranking contract for Schaefer 100/Yeo 7, then repeat sensitivity for Schaefer 200 and Yeo 17.",
-      "claim_effect": "Anatomical claims remain explanatory/proxy-level until the Schaefer/Yeo layer is complete."
+      "evidence": "results/parcellation_sensitivity/parcellation_sensitivity_status.json; observed outputs: results/stage_2/parcellations/schaefer_100_yeo_7/parcellation_extraction_summary.json, results/stage_2/parcellations/schaefer_100_yeo_7/empirical_viewer/group_overview.json, results/parcellation_sensitivity/schaefer_100_yeo_7/summary.json",
+      "missing": "None: Schaefer 100/Yeo 7 extraction, empirical viewer, and ranking summary are present.",
+      "next_action": "Use this as the primary high-resolution inference layer and keep Schaefer 200/Yeo 7 plus Yeo 17 variants as sensitivity checks.",
+      "claim_effect": "The Schaefer/Yeo parcellation gate is implemented for ds003059; remaining anatomical upgrades now depend on spatial nulls and external validation."
     },
     {
       "requirement_id": "neuromaps_spatial_autocorrelation_nulls",
@@ -187,7 +187,7 @@
         "status": "implemented_mechanism_ranking",
         "ready": true,
         "evidence": "results/parcellation_sensitivity/parcellation_sensitivity_status.json",
-        "blocker": "Canonical Schaefer/Yeo extraction and ranking are available.",
+        "blocker": "Canonical Schaefer/Yeo extraction, empirical viewer, and mechanism ranking are available.",
         "score": 1.0
       },
       "strict_requirement": {
@@ -195,10 +195,10 @@
         "label": "Schaefer/Yeo high-resolution parcellation layer",
         "status": "implemented_mechanism_ranking",
         "complete": true,
-        "evidence": "results/parcellation_sensitivity/parcellation_sensitivity_status.json; observed outputs: results/stage_2/parcellations/schaefer_100_yeo_7/parcellation_extraction_summary.json",
-        "missing": "The 8-module layer is still the active explanatory layer; no completed Schaefer/Yeo empirical inference output is visible.",
-        "next_action": "Run the ds003059 extraction/ranking contract for Schaefer 100/Yeo 7, then repeat sensitivity for Schaefer 200 and Yeo 17.",
-        "claim_effect": "Anatomical claims remain explanatory/proxy-level until the Schaefer/Yeo layer is complete."
+        "evidence": "results/parcellation_sensitivity/parcellation_sensitivity_status.json; observed outputs: results/stage_2/parcellations/schaefer_100_yeo_7/parcellation_extraction_summary.json, results/stage_2/parcellations/schaefer_100_yeo_7/empirical_viewer/group_overview.json, results/parcellation_sensitivity/schaefer_100_yeo_7/summary.json",
+        "missing": "None: Schaefer 100/Yeo 7 extraction, empirical viewer, and ranking summary are present.",
+        "next_action": "Use this as the primary high-resolution inference layer and keep Schaefer 200/Yeo 7 plus Yeo 17 variants as sensitivity checks.",
+        "claim_effect": "The Schaefer/Yeo parcellation gate is implemented for ds003059; remaining anatomical upgrades now depend on spatial nulls and external validation."
       },
       "current_baseline": "harvard_oxford_8_module_proxy",
       "recommended_primary": "schaefer_100_yeo_7",
@@ -208,10 +208,17 @@
         "schaefer_200_yeo_17"
       ],
       "observed_high_resolution_outputs": [
-        "results/stage_2/parcellations/schaefer_100_yeo_7/parcellation_extraction_summary.json"
+        "results/stage_2/parcellations/schaefer_100_yeo_7/parcellation_extraction_summary.json",
+        "results/stage_2/parcellations/schaefer_100_yeo_7/empirical_viewer/group_overview.json",
+        "results/parcellation_sensitivity/schaefer_100_yeo_7/summary.json"
       ],
+      "completion_checks": {
+        "has_extraction_summary": true,
+        "has_empirical_viewer": true,
+        "has_mechanism_ranking": true
+      },
       "engineering_logic": "Use Schaefer parcels as state nodes and Yeo networks as interpretable macro-supernodes; then test whether mechanism rankings survive the refined state-space.",
-      "claim_guardrail": "The 8-module Harvard-Oxford mapping remains a transparent proxy until Schaefer/Yeo extraction is run."
+      "claim_guardrail": "Schaefer/Yeo is implemented for ds003059 high-resolution sensitivity. This resolves the coarse-parcellation gate, but does not by itself establish receptor, myelin, gradient, psilocybin, or spatial-null claims."
     },
     "neuromaps_spatial_nulls": {
       "gate": {

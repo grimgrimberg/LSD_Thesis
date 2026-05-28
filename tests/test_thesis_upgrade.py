@@ -28,6 +28,47 @@ def test_thesis_upgrade_strict_requirements_fail_closed(tmp_path: Path) -> None:
     assert "not a full spatial-autocorrelation null model" in status["components"]["neuromaps_spatial_nulls"]["claim_guardrail"]
 
 
+def test_thesis_upgrade_marks_schaefer_yeo_complete_when_outputs_exist(tmp_path: Path) -> None:
+    sensitivity_dir = tmp_path / "results" / "parcellation_sensitivity"
+    canonical_dir = tmp_path / "results" / "stage_2" / "parcellations" / "schaefer_100_yeo_7"
+    ranking_dir = sensitivity_dir / "schaefer_100_yeo_7"
+    viewer_dir = canonical_dir / "empirical_viewer"
+    ranking_dir.mkdir(parents=True)
+    viewer_dir.mkdir(parents=True)
+    canonical_dir.mkdir(parents=True, exist_ok=True)
+    (canonical_dir / "parcellation_extraction_summary.json").write_text("{}", encoding="utf-8")
+    (viewer_dir / "group_overview.json").write_text("{}", encoding="utf-8")
+    (ranking_dir / "summary.json").write_text("{}", encoding="utf-8")
+    (sensitivity_dir / "parcellation_sensitivity_status.json").write_text(
+        json.dumps(
+            {
+                "analysis_status": "implemented_status_matrix",
+                "rows": [
+                    {
+                        "parcellation_id": "schaefer_100_yeo_7",
+                        "status": "implemented_mechanism_ranking",
+                        "pair_count": 30,
+                        "subject_count": 15,
+                    }
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    status = build_thesis_upgrade_status(tmp_path)
+    parcellation = status["components"]["canonical_parcellation"]
+
+    assert parcellation["gate"]["ready"] is True
+    assert parcellation["strict_requirement"]["complete"] is True
+    assert parcellation["strict_requirement"]["missing"].startswith("None:")
+    assert parcellation["completion_checks"] == {
+        "has_extraction_summary": True,
+        "has_empirical_viewer": True,
+        "has_mechanism_ranking": True,
+    }
+
+
 def test_thesis_upgrade_external_validation_requires_comparable_scoring(tmp_path: Path) -> None:
     result_dir = tmp_path / "results" / "psilocybin_ds006072"
     result_dir.mkdir(parents=True)
