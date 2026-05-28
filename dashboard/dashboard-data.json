@@ -63999,6 +63999,14 @@
         "href": "/artifacts/results/dynamic_mechanism_ranking/robustness/robustness_summary.json"
       },
       {
+        "label": "Motion Confound Control Status",
+        "href": "/artifacts/results/confound_controls/motion_confound_control_status.json"
+      },
+      {
+        "label": "Motion Confound Control Report",
+        "href": "/artifacts/results/confound_controls/motion_confound_control_status.md"
+      },
+      {
         "label": "Thesis Upgrade Status",
         "href": "/artifacts/results/thesis_upgrade/thesis_upgrade_status.json"
       },
@@ -87086,7 +87094,7 @@
   },
   "external_cortical_maps": {
     "schema_version": "external_cortical_maps.v1",
-    "generated_at_utc": "2026-05-28T11:01:36.675460+00:00",
+    "generated_at_utc": "2026-05-28T11:29:16.993359+00:00",
     "analysis_status": "implemented_module_level_external_map_alignment",
     "module_contract": [
       "visual",
@@ -87920,7 +87928,7 @@
     ],
     "loop_status": {
       "schema_version": 1,
-      "generated_at_utc": "2026-05-28T11:01:06.679365+00:00",
+      "generated_at_utc": "2026-05-28T11:28:35.900580+00:00",
       "analysis_status": "implemented_loop_status_artifacts",
       "status_rows": [
         {
@@ -87980,7 +87988,7 @@
         },
         "psilocybin_ds006072": {
           "schema_version": 1,
-          "generated_at_utc": "2026-05-28T11:00:35.490783+00:00",
+          "generated_at_utc": "2026-05-28T11:27:35.597413+00:00",
           "dataset_id": "ds006072",
           "source": "OpenNeuro ds006072, Scientific Data 2025 psilocybin precision imaging dataset",
           "local_data_root": "data/ds006072",
@@ -88033,7 +88041,7 @@
         },
         "structural_connectome": {
           "schema_version": 1,
-          "generated_at_utc": "2026-05-28T11:00:37.589403+00:00",
+          "generated_at_utc": "2026-05-28T11:27:38.998642+00:00",
           "artifact_target": "results/structural_connectome",
           "expected_graph_files": [
             "results/structural_connectome/hcp_macro_modules.csv",
@@ -91467,7 +91475,7 @@
         },
         "receptor_priors": {
           "schema_version": 1,
-          "generated_at_utc": "2026-05-28T11:00:40.342778+00:00",
+          "generated_at_utc": "2026-05-28T11:27:45.310096+00:00",
           "artifact_target": "results/receptor_priors",
           "expected_prior_files": [
             "results/receptor_priors/fs5ht_5ht2a_macro_modules.csv",
@@ -94901,7 +94909,7 @@
         },
         "parcellation_sensitivity": {
           "schema_version": 1,
-          "generated_at_utc": "2026-05-28T11:00:42.819753+00:00",
+          "generated_at_utc": "2026-05-28T11:27:48.085722+00:00",
           "analysis_status": "implemented_status_matrix",
           "rows": [
             {
@@ -95084,7 +95092,7 @@
         },
         "literature_benchmark": {
           "schema_version": 1,
-          "generated_at_utc": "2026-05-28T11:01:06.489630+00:00",
+          "generated_at_utc": "2026-05-28T11:28:35.727480+00:00",
           "analysis_status": "implemented_directional_proxy_benchmark",
           "aligned_count": 4,
           "measurable_count": 6,
@@ -95293,7 +95301,7 @@
   },
   "thesis_upgrade": {
     "schema_version": "thesis_upgrade_status.v1",
-    "generated_at_utc": "2026-05-28T11:01:46.190211+00:00",
+    "generated_at_utc": "2026-05-28T11:29:29.959634+00:00",
     "readiness_summary": {
       "ready_gates": 4,
       "total_gates": 8,
@@ -95323,7 +95331,7 @@
       },
       {
         "label": "Neuromaps spatial nulls",
-        "status": "blocked_missing_neuromaps_dependency_and_surface_spatial_nulls",
+        "status": "blocked_missing_neuromaps_dependency",
         "ready": false,
         "evidence": "results/cortical_maps/neuromaps_spatial_null_status.json; results/cortical_maps/cortical_map_alignment_status.json",
         "blocker": "Full surface/parcellation spatial-autocorrelation null testing has not been run.",
@@ -95384,7 +95392,7 @@
       {
         "requirement_id": "neuromaps_spatial_autocorrelation_nulls",
         "label": "Full neuromaps spatial-autocorrelation nulls",
-        "status": "blocked_missing_neuromaps_dependency_and_surface_spatial_nulls",
+        "status": "blocked_missing_neuromaps_dependency",
         "complete": false,
         "evidence": "results/cortical_maps/neuromaps_spatial_null_status.json; current map method: exact_module_label_permutation_null_not_surface_spatial_null",
         "missing": "Current map statistics use exact 8-module label permutation, not neuromaps spatial-autocorrelation nulls.",
@@ -95509,7 +95517,7 @@
       "neuromaps_spatial_nulls": {
         "gate": {
           "label": "Neuromaps spatial nulls",
-          "status": "blocked_missing_neuromaps_dependency_and_surface_spatial_nulls",
+          "status": "blocked_missing_neuromaps_dependency",
           "ready": false,
           "evidence": "results/cortical_maps/neuromaps_spatial_null_status.json; results/cortical_maps/cortical_map_alignment_status.json",
           "blocker": "Full surface/parcellation spatial-autocorrelation null testing has not been run.",
@@ -95518,7 +95526,7 @@
         "strict_requirement": {
           "requirement_id": "neuromaps_spatial_autocorrelation_nulls",
           "label": "Full neuromaps spatial-autocorrelation nulls",
-          "status": "blocked_missing_neuromaps_dependency_and_surface_spatial_nulls",
+          "status": "blocked_missing_neuromaps_dependency",
           "complete": false,
           "evidence": "results/cortical_maps/neuromaps_spatial_null_status.json; current map method: exact_module_label_permutation_null_not_surface_spatial_null",
           "missing": "Current map statistics use exact 8-module label permutation, not neuromaps spatial-autocorrelation nulls.",
@@ -95804,6 +95812,14 @@
       {
         "label": "Dynamic Robustness Summary",
         "href": "/artifacts/results/dynamic_mechanism_ranking/robustness/robustness_summary.json"
+      },
+      {
+        "label": "Motion Confound Control Status",
+        "href": "/artifacts/results/confound_controls/motion_confound_control_status.json"
+      },
+      {
+        "label": "Motion Confound Control Report",
+        "href": "/artifacts/results/confound_controls/motion_confound_control_status.md"
       },
       {
         "label": "Thesis Upgrade Status",

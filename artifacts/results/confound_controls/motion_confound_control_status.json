@@ -1,0 +1,16 @@
+{
+  "schema_version": "motion_confound_control.v1",
+  "generated_at_utc": "2026-05-28T11:29:17.466011+00:00",
+  "analysis_status": "unavailable_not_found",
+  "motion_confound_control_ready": false,
+  "source_paths": {
+    "motion_summary": "results/setting_seed/motion/motion_summary.json",
+    "subject_dynamic_views": "results/stage_2/empirical_viewer/subject_views"
+  },
+  "blocker": "No parsed subject/session/run motion summaries are available.",
+  "merged_subject_run_count": 0,
+  "association_rows": [],
+  "high_risk_motion_association_count": 0,
+  "claim_status": "not_proven_motion_confound_control_missing",
+  "claim_guardrail": "Motion/confound handling remains a limitation until this artifact contains implemented sensitivity results."
+}

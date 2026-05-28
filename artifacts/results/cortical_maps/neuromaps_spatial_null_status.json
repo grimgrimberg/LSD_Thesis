@@ -1,0 +1,33 @@
+{
+  "schema_version": "neuromaps_spatial_null_status.v1",
+  "generated_at_utc": "2026-05-28T11:29:17.622494+00:00",
+  "analysis_status": "blocked_missing_neuromaps_dependency",
+  "spatial_autocorrelation_nulls_complete": false,
+  "dependency_available": false,
+  "candidate_inputs": {
+    "surface_manifest": "results/cortical_maps/neuromaps_surface_inputs.json",
+    "surface_manifest_exists": false,
+    "schaefer_100_yeo_7_summary": "results/stage_2/parcellations/schaefer_100_yeo_7/parcellation_extraction_summary.json",
+    "schaefer_100_yeo_7_summary_exists": true,
+    "module_level_alignment_status": "results/cortical_maps/cortical_map_alignment_status.json",
+    "module_level_alignment_status_exists": true
+  },
+  "module_level_alignment_status": "implemented_module_level_external_map_alignment",
+  "current_module_statistic": "exact_module_label_permutation_null_not_surface_spatial_null",
+  "required_execution_contract": {
+    "map_space": "surface or high-resolution Schaefer/Yeo parcellation, not only 8 macro modules",
+    "null_family": "neuromaps spatial-autocorrelation preserving nulls appropriate to the map space",
+    "correction": "FDR across receptor, myelin, gradient, and transcriptomic map families",
+    "reported_gates": [
+      "r",
+      "p",
+      "q",
+      "FDR pass",
+      "CI overlap with zero",
+      "claim status"
+    ]
+  },
+  "blocker": "The optional neuromaps package is not installed in the current environment.",
+  "claim_status": "not_implemented_full_neuromaps_spatial_nulls",
+  "claim_guardrail": "The current exact 8-module permutation test is not a substitute for neuromaps spatial-autocorrelation null testing."
+}
