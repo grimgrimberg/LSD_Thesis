@@ -22,7 +22,9 @@ from build_publication_package import build_publication_package
 from export_thesis_loop_tables import export_thesis_loop_tables
 from plotly.offline import get_plotlyjs
 
+from lsd_thesis.confound_controls import write_motion_confound_control_status
 from lsd_thesis.cortical_maps import write_cortical_map_alignment_status
+from lsd_thesis.neuromaps_spatial_nulls import write_neuromaps_spatial_null_status
 from lsd_thesis.thesis_upgrade import write_thesis_upgrade_status
 from lsd_thesis.thesis_loop import build_thesis_evidence_loop
 from lsd_thesis.web.app import build_dashboard_payload
@@ -115,6 +117,7 @@ def _copy_dashboard_linked_artifacts(repo_root: Path, site: Path, dashboard_payl
     allowed_prefixes = (
         "docs/",
         "output/doc/",
+        "results/confound_controls/",
         "results/cortical_maps/",
         "results/dynamic_mechanism_ranking/",
         "results/external_ingestion/",
@@ -180,6 +183,8 @@ def build_github_pages_site(repo_root: Path = REPO_ROOT, site_dir: Path | None =
     build_thesis_evidence_loop(repo_root)
     export_thesis_loop_tables(repo_root, repo_root / "results" / "thesis_evidence_loop" / "exports")
     write_cortical_map_alignment_status(repo_root)
+    write_motion_confound_control_status(repo_root)
+    write_neuromaps_spatial_null_status(repo_root)
     write_thesis_upgrade_status(repo_root)
     publication_outputs = build_publication_package(repo_root)
 
@@ -226,6 +231,11 @@ def build_github_pages_site(repo_root: Path = REPO_ROOT, site_dir: Path | None =
     cortical_maps = _copy_tree(repo_root / "results" / "cortical_maps", site / "artifacts" / "results" / "cortical_maps")
     if cortical_maps is not None:
         outputs["cortical_maps"] = cortical_maps
+    confound_controls = _copy_tree(
+        repo_root / "results" / "confound_controls", site / "artifacts" / "results" / "confound_controls"
+    )
+    if confound_controls is not None:
+        outputs["confound_controls"] = confound_controls
     thesis_upgrade = _copy_tree(
         repo_root / "results" / "thesis_upgrade", site / "artifacts" / "results" / "thesis_upgrade"
     )

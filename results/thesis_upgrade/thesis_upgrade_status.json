@@ -1,6 +1,6 @@
 {
   "schema_version": "thesis_upgrade_status.v1",
-  "generated_at_utc": "2026-05-28T11:01:37.093153+00:00",
+  "generated_at_utc": "2026-05-28T11:29:17.896379+00:00",
   "readiness_summary": {
     "ready_gates": 4,
     "total_gates": 8,
@@ -30,7 +30,7 @@
     },
     {
       "label": "Neuromaps spatial nulls",
-      "status": "blocked_missing_neuromaps_dependency_and_surface_spatial_nulls",
+      "status": "blocked_missing_neuromaps_dependency",
       "ready": false,
       "evidence": "results/cortical_maps/neuromaps_spatial_null_status.json; results/cortical_maps/cortical_map_alignment_status.json",
       "blocker": "Full surface/parcellation spatial-autocorrelation null testing has not been run.",
@@ -91,7 +91,7 @@
     {
       "requirement_id": "neuromaps_spatial_autocorrelation_nulls",
       "label": "Full neuromaps spatial-autocorrelation nulls",
-      "status": "blocked_missing_neuromaps_dependency_and_surface_spatial_nulls",
+      "status": "blocked_missing_neuromaps_dependency",
       "complete": false,
       "evidence": "results/cortical_maps/neuromaps_spatial_null_status.json; current map method: exact_module_label_permutation_null_not_surface_spatial_null",
       "missing": "Current map statistics use exact 8-module label permutation, not neuromaps spatial-autocorrelation nulls.",
@@ -216,7 +216,7 @@
     "neuromaps_spatial_nulls": {
       "gate": {
         "label": "Neuromaps spatial nulls",
-        "status": "blocked_missing_neuromaps_dependency_and_surface_spatial_nulls",
+        "status": "blocked_missing_neuromaps_dependency",
         "ready": false,
         "evidence": "results/cortical_maps/neuromaps_spatial_null_status.json; results/cortical_maps/cortical_map_alignment_status.json",
         "blocker": "Full surface/parcellation spatial-autocorrelation null testing has not been run.",
@@ -225,7 +225,7 @@
       "strict_requirement": {
         "requirement_id": "neuromaps_spatial_autocorrelation_nulls",
         "label": "Full neuromaps spatial-autocorrelation nulls",
-        "status": "blocked_missing_neuromaps_dependency_and_surface_spatial_nulls",
+        "status": "blocked_missing_neuromaps_dependency",
         "complete": false,
         "evidence": "results/cortical_maps/neuromaps_spatial_null_status.json; current map method: exact_module_label_permutation_null_not_surface_spatial_null",
         "missing": "Current map statistics use exact 8-module label permutation, not neuromaps spatial-autocorrelation nulls.",
