@@ -131,8 +131,9 @@ def _copy_dashboard_linked_artifacts(repo_root: Path, site: Path, dashboard_payl
     links: list[dict[str, Any]] = []
     artifact_links = dashboard_payload.get("artifact_links", {})
     if isinstance(artifact_links, dict):
-        links.extend(link for link in artifact_links.get("reports", []) if isinstance(link, dict))
-        links.extend(link for link in artifact_links.get("figures", []) if isinstance(link, dict))
+        for bucket in artifact_links.values():
+            if isinstance(bucket, list):
+                links.extend(link for link in bucket if isinstance(link, dict))
     empirical_viewer = dashboard_payload.get("empirical_viewer", {})
     if isinstance(empirical_viewer, dict):
         links.extend(link for link in empirical_viewer.get("gallery", []) if isinstance(link, dict))
@@ -212,6 +213,9 @@ def build_github_pages_site(repo_root: Path = REPO_ROOT, site_dir: Path | None =
     figures = _copy_tree(repo_root / "output" / "doc" / "figures", site / "figures")
     if figures is not None:
         outputs["figures"] = figures
+    cortical_maps = _copy_tree(repo_root / "results" / "cortical_maps", site / "artifacts" / "results" / "cortical_maps")
+    if cortical_maps is not None:
+        outputs["cortical_maps"] = cortical_maps
     dashboard_outputs = _write_static_dashboard(repo_root, site)
     outputs.update({key: value for key, value in dashboard_outputs.items() if isinstance(value, Path)})
     dashboard_artifacts = dashboard_outputs.get("dashboard_artifacts", [])
