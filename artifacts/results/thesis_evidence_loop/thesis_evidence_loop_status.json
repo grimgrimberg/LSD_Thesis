@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at_utc": "2026-05-28T08:05:10.905937+00:00",
+  "generated_at_utc": "2026-05-28T08:49:47.648657+00:00",
   "analysis_status": "implemented_loop_status_artifacts",
   "status_rows": [
     {
@@ -60,7 +60,7 @@
     },
     "psilocybin_ds006072": {
       "schema_version": 1,
-      "generated_at_utc": "2026-05-28T08:04:45.124612+00:00",
+      "generated_at_utc": "2026-05-28T08:49:21.930466+00:00",
       "dataset_id": "ds006072",
       "source": "OpenNeuro ds006072, Scientific Data 2025 psilocybin precision imaging dataset",
       "local_data_root": "data/ds006072",
@@ -113,7 +113,7 @@
     },
     "structural_connectome": {
       "schema_version": 1,
-      "generated_at_utc": "2026-05-28T08:04:46.919953+00:00",
+      "generated_at_utc": "2026-05-28T08:49:23.541951+00:00",
       "artifact_target": "results/structural_connectome",
       "expected_graph_files": [
         "results/structural_connectome/hcp_macro_modules.csv",
@@ -3547,7 +3547,7 @@
     },
     "receptor_priors": {
       "schema_version": 1,
-      "generated_at_utc": "2026-05-28T08:04:48.990411+00:00",
+      "generated_at_utc": "2026-05-28T08:49:25.886773+00:00",
       "artifact_target": "results/receptor_priors",
       "expected_prior_files": [
         "results/receptor_priors/fs5ht_5ht2a_macro_modules.csv",
@@ -6981,7 +6981,7 @@
     },
     "parcellation_sensitivity": {
       "schema_version": 1,
-      "generated_at_utc": "2026-05-28T08:04:50.978413+00:00",
+      "generated_at_utc": "2026-05-28T08:49:27.861029+00:00",
       "analysis_status": "implemented_status_matrix",
       "rows": [
         {
@@ -7164,7 +7164,7 @@
     },
     "literature_benchmark": {
       "schema_version": 1,
-      "generated_at_utc": "2026-05-28T08:05:10.302574+00:00",
+      "generated_at_utc": "2026-05-28T08:49:47.036646+00:00",
       "analysis_status": "implemented_directional_proxy_benchmark",
       "aligned_count": 4,
       "measurable_count": 6,

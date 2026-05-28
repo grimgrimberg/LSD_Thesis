@@ -1,0 +1,522 @@
+{
+  "schema_version": "external_cortical_maps.v1",
+  "generated_at_utc": "2026-05-28T08:50:16.525402+00:00",
+  "analysis_status": "implemented_module_level_external_map_alignment",
+  "module_contract": [
+    "visual",
+    "auditory",
+    "salience",
+    "default_mode",
+    "executive_frontoparietal",
+    "limbic_affective",
+    "thalamic_gateway",
+    "sensorimotor"
+  ],
+  "maps": [
+    {
+      "map_id": "pet_5ht2a_receptor_prior",
+      "family": "receptor",
+      "label": "PET 5-HT2A receptor prior",
+      "source_status": "local_hansen_pet_projection_loaded",
+      "source_path": "results/receptor_priors/fs5ht_5ht2a_macro_modules.csv",
+      "values": {
+        "visual": 0.19130639388956344,
+        "auditory": 0.5759937746212638,
+        "salience": 0.7127303151407192,
+        "default_mode": 1.0,
+        "executive_frontoparietal": 0.9812139643206432,
+        "limbic_affective": 0.0,
+        "thalamic_gateway": 0.629617179406105,
+        "sensorimotor": 0.5759937746212638
+      },
+      "interpretation": "Higher values approximate stronger projected 5-HT2A PET prior at the macro-module level.",
+      "source_reference_ids": [
+        "neuromaps"
+      ]
+    },
+    {
+      "map_id": "hcp_t1w_t2w_myelin_hierarchy_proxy",
+      "family": "myelin",
+      "label": "HCP T1w/T2w myelin hierarchy proxy",
+      "source_status": "canonical_direction_proxy_not_subject_hcp_extraction",
+      "values": {
+        "visual": 1.0,
+        "auditory": 0.7380952380952381,
+        "salience": 0.33333333333333337,
+        "default_mode": 0.04761904761904763,
+        "executive_frontoparietal": 0.16666666666666666,
+        "limbic_affective": 0.0,
+        "thalamic_gateway": 0.5476190476190476,
+        "sensorimotor": 0.9404761904761905
+      },
+      "interpretation": "Higher values approximate more myelinated sensory/unimodal cortex; lower values approximate transmodal cortex.",
+      "source_reference_ids": [
+        "glasser_hcp_myelin"
+      ]
+    },
+    {
+      "map_id": "principal_functional_gradient_proxy",
+      "family": "functional_gradient",
+      "label": "Principal functional gradient proxy",
+      "source_status": "canonical_direction_proxy_not_surface_gradient_projection",
+      "values": {
+        "visual": 0.0,
+        "auditory": 0.16,
+        "salience": 0.56,
+        "default_mode": 1.0,
+        "executive_frontoparietal": 0.84,
+        "limbic_affective": 0.7,
+        "thalamic_gateway": 0.34,
+        "sensorimotor": 0.04
+      },
+      "interpretation": "Higher values approximate transmodal/default-mode end of the principal cortical gradient.",
+      "source_reference_ids": [
+        "margulies_gradient",
+        "neuromaps"
+      ]
+    },
+    {
+      "map_id": "ahba_htr2a_expression_proxy",
+      "family": "gene_expression",
+      "label": "AHBA HTR2A expression-direction proxy",
+      "source_status": "canonical_direction_proxy_not_ahba_reprojection",
+      "values": {
+        "visual": 0.0,
+        "auditory": 0.43835616438356173,
+        "salience": 0.684931506849315,
+        "default_mode": 1.0,
+        "executive_frontoparietal": 0.8767123287671234,
+        "limbic_affective": 0.08219178082191785,
+        "thalamic_gateway": 0.3835616438356165,
+        "sensorimotor": 0.35616438356164387
+      },
+      "interpretation": "Coarse directional HTR2A transcriptomic prior; PET receptor maps should outrank this for receptor claims.",
+      "source_reference_ids": [
+        "ahba_transcriptome"
+      ]
+    }
+  ],
+  "dynamic_targets": [
+    {
+      "target_id": "dmdc_lsd_specific_state_update",
+      "label": "DMDC LSD-specific state-update coefficient",
+      "values": {
+        "visual": 0.0030244309910255314,
+        "auditory": 0.02069633741003179,
+        "salience": -0.005647643770196423,
+        "default_mode": -0.008680532375126672,
+        "executive_frontoparietal": 0.005789976740547954,
+        "limbic_affective": 0.01031273856677942,
+        "thalamic_gateway": 0.0006155496977548163,
+        "sensorimotor": -0.017637214882322658
+      },
+      "interpretation": "Signed module coefficient for condition-by-state dynamics under LSD."
+    },
+    {
+      "target_id": "dmdc_lsd_specific_update_magnitude",
+      "label": "DMDC LSD-specific update magnitude",
+      "values": {
+        "visual": 0.0030244309910255314,
+        "auditory": 0.02069633741003179,
+        "salience": 0.005647643770196423,
+        "default_mode": 0.008680532375126672,
+        "executive_frontoparietal": 0.005789976740547954,
+        "limbic_affective": 0.01031273856677942,
+        "thalamic_gateway": 0.0006155496977548163,
+        "sensorimotor": 0.017637214882322658
+      },
+      "interpretation": "Unsigned module magnitude of LSD-specific state-update change."
+    },
+    {
+      "target_id": "dmdc_condition_input",
+      "label": "DMDC condition-input coefficient",
+      "values": {
+        "visual": 0.0007540617321389434,
+        "auditory": 1.610988011691322e-05,
+        "salience": 0.0004630352055672103,
+        "default_mode": 0.0007253488731372581,
+        "executive_frontoparietal": 0.0010257827163599657,
+        "limbic_affective": -0.003741915334334745,
+        "thalamic_gateway": -0.0015020398140579135,
+        "sensorimotor": -0.0006570962320699181
+      },
+      "interpretation": "Signed module coefficient for the direct LSD-vs-placebo condition input."
+    }
+  ],
+  "dynamic_target_status": {
+    "analysis_status": "module_level_dmdc_targets_loaded",
+    "source_path": "results/dynamic_mechanism_ranking/summary.json",
+    "modules_in_summary": [
+      "visual",
+      "auditory",
+      "salience",
+      "default_mode",
+      "executive_frontoparietal",
+      "limbic_affective",
+      "thalamic_gateway",
+      "sensorimotor"
+    ],
+    "claim_guardrail": "These vectors are module-level empirical-dynamics summaries, not voxelwise brain-map data."
+  },
+  "alignment_rows": [
+    {
+      "map_id": "pet_5ht2a_receptor_prior",
+      "map_label": "PET 5-HT2A receptor prior",
+      "map_family": "receptor",
+      "target_id": "dmdc_lsd_specific_state_update",
+      "target_label": "DMDC LSD-specific state-update coefficient",
+      "pearson_r": -0.3199459958639028,
+      "abs_pearson_r": 0.3199459958639028,
+      "permutation_p": 0.44163091193174775,
+      "ci_low": -0.8361163452167311,
+      "ci_high": 0.496727063293384,
+      "ci_overlaps_zero": true,
+      "n_modules": 8,
+      "method": "exact_module_label_permutation_null_not_surface_spatial_null",
+      "q_value": 0.9922124947297934,
+      "fdr_significant_0_05": false,
+      "alignment_status": "exploratory_no_fdr_support"
+    },
+    {
+      "map_id": "pet_5ht2a_receptor_prior",
+      "map_label": "PET 5-HT2A receptor prior",
+      "map_family": "receptor",
+      "target_id": "dmdc_lsd_specific_update_magnitude",
+      "target_label": "DMDC LSD-specific update magnitude",
+      "pearson_r": -0.04741951806581318,
+      "abs_pearson_r": 0.04741951806581318,
+      "permutation_p": 0.9190000248009722,
+      "ci_low": -0.7277812812801573,
+      "ci_high": 0.6799836029156938,
+      "ci_overlaps_zero": true,
+      "n_modules": 8,
+      "method": "exact_module_label_permutation_null_not_surface_spatial_null",
+      "q_value": 0.9922124947297934,
+      "fdr_significant_0_05": false,
+      "alignment_status": "exploratory_no_fdr_support"
+    },
+    {
+      "map_id": "pet_5ht2a_receptor_prior",
+      "map_label": "PET 5-HT2A receptor prior",
+      "map_family": "receptor",
+      "target_id": "dmdc_condition_input",
+      "target_label": "DMDC condition-input coefficient",
+      "pearson_r": 0.6650660754253197,
+      "abs_pearson_r": 0.6650660754253197,
+      "permutation_p": 0.07189801840232136,
+      "ci_low": -0.07455663169332054,
+      "ci_high": 0.9326512765308818,
+      "ci_overlaps_zero": true,
+      "n_modules": 8,
+      "method": "exact_module_label_permutation_null_not_surface_spatial_null",
+      "q_value": 0.8627762208278564,
+      "fdr_significant_0_05": false,
+      "alignment_status": "exploratory_no_fdr_support"
+    },
+    {
+      "map_id": "hcp_t1w_t2w_myelin_hierarchy_proxy",
+      "map_label": "HCP T1w/T2w myelin hierarchy proxy",
+      "map_family": "myelin",
+      "target_id": "dmdc_lsd_specific_state_update",
+      "target_label": "DMDC LSD-specific state-update coefficient",
+      "pearson_r": -0.0999341918301085,
+      "abs_pearson_r": 0.0999341918301085,
+      "permutation_p": 0.810669378239627,
+      "ci_low": -0.7516805818880349,
+      "ci_high": 0.6505604365223638,
+      "ci_overlaps_zero": true,
+      "n_modules": 8,
+      "method": "exact_module_label_permutation_null_not_surface_spatial_null",
+      "q_value": 0.9922124947297934,
+      "fdr_significant_0_05": false,
+      "alignment_status": "exploratory_no_fdr_support"
+    },
+    {
+      "map_id": "hcp_t1w_t2w_myelin_hierarchy_proxy",
+      "map_label": "HCP T1w/T2w myelin hierarchy proxy",
+      "map_family": "myelin",
+      "target_id": "dmdc_lsd_specific_update_magnitude",
+      "target_label": "DMDC LSD-specific update magnitude",
+      "pearson_r": 0.2246920735337773,
+      "abs_pearson_r": 0.2246920735337773,
+      "permutation_p": 0.5755561618015426,
+      "ci_low": -0.5702858887297518,
+      "ci_high": 0.802334482611023,
+      "ci_overlaps_zero": true,
+      "n_modules": 8,
+      "method": "exact_module_label_permutation_null_not_surface_spatial_null",
+      "q_value": 0.9922124947297934,
+      "fdr_significant_0_05": false,
+      "alignment_status": "exploratory_no_fdr_support"
+    },
+    {
+      "map_id": "hcp_t1w_t2w_myelin_hierarchy_proxy",
+      "map_label": "HCP T1w/T2w myelin hierarchy proxy",
+      "map_family": "myelin",
+      "target_id": "dmdc_condition_input",
+      "target_label": "DMDC condition-input coefficient",
+      "pearson_r": 0.23963648711735258,
+      "abs_pearson_r": 0.23963648711735258,
+      "permutation_p": 0.6074254110761141,
+      "ci_low": -0.5595310391381487,
+      "ci_high": 0.8078911383740792,
+      "ci_overlaps_zero": true,
+      "n_modules": 8,
+      "method": "exact_module_label_permutation_null_not_surface_spatial_null",
+      "q_value": 0.9922124947297934,
+      "fdr_significant_0_05": false,
+      "alignment_status": "exploratory_no_fdr_support"
+    },
+    {
+      "map_id": "principal_functional_gradient_proxy",
+      "map_label": "Principal functional gradient proxy",
+      "map_family": "functional_gradient",
+      "target_id": "dmdc_lsd_specific_state_update",
+      "target_label": "DMDC LSD-specific state-update coefficient",
+      "pearson_r": -0.02554906185652729,
+      "abs_pearson_r": 0.02554906185652729,
+      "permutation_p": 0.9516629051858833,
+      "ci_low": -0.7173155923871393,
+      "ci_high": 0.6915831971052787,
+      "ci_overlaps_zero": true,
+      "n_modules": 8,
+      "method": "exact_module_label_permutation_null_not_surface_spatial_null",
+      "q_value": 0.9922124947297934,
+      "fdr_significant_0_05": false,
+      "alignment_status": "exploratory_no_fdr_support"
+    },
+    {
+      "map_id": "principal_functional_gradient_proxy",
+      "map_label": "Principal functional gradient proxy",
+      "map_family": "functional_gradient",
+      "target_id": "dmdc_lsd_specific_update_magnitude",
+      "target_label": "DMDC LSD-specific update magnitude",
+      "pearson_r": -0.26014586525234223,
+      "abs_pearson_r": 0.26014586525234223,
+      "permutation_p": 0.518687532551276,
+      "ci_low": -0.8153559628374503,
+      "ci_high": 0.5443198002822531,
+      "ci_overlaps_zero": true,
+      "n_modules": 8,
+      "method": "exact_module_label_permutation_null_not_surface_spatial_null",
+      "q_value": 0.9922124947297934,
+      "fdr_significant_0_05": false,
+      "alignment_status": "exploratory_no_fdr_support"
+    },
+    {
+      "map_id": "principal_functional_gradient_proxy",
+      "map_label": "Principal functional gradient proxy",
+      "map_family": "functional_gradient",
+      "target_id": "dmdc_condition_input",
+      "target_label": "DMDC condition-input coefficient",
+      "pearson_r": 0.004647556508267632,
+      "abs_pearson_r": 0.004647556508267632,
+      "permutation_p": 0.9922124947297934,
+      "ci_low": -0.7023336547626363,
+      "ci_high": 0.7070130938418571,
+      "ci_overlaps_zero": true,
+      "n_modules": 8,
+      "method": "exact_module_label_permutation_null_not_surface_spatial_null",
+      "q_value": 0.9922124947297934,
+      "fdr_significant_0_05": false,
+      "alignment_status": "exploratory_no_fdr_support"
+    },
+    {
+      "map_id": "ahba_htr2a_expression_proxy",
+      "map_label": "AHBA HTR2A expression-direction proxy",
+      "map_family": "gene_expression",
+      "target_id": "dmdc_lsd_specific_state_update",
+      "target_label": "DMDC LSD-specific state-update coefficient",
+      "pearson_r": -0.2587454712151006,
+      "abs_pearson_r": 0.2587454712151006,
+      "permutation_p": 0.5390243297537264,
+      "ci_low": -0.814852064710845,
+      "ci_high": 0.5453755385550263,
+      "ci_overlaps_zero": true,
+      "n_modules": 8,
+      "method": "exact_module_label_permutation_null_not_surface_spatial_null",
+      "q_value": 0.9922124947297934,
+      "fdr_significant_0_05": false,
+      "alignment_status": "exploratory_no_fdr_support"
+    },
+    {
+      "map_id": "ahba_htr2a_expression_proxy",
+      "map_label": "AHBA HTR2A expression-direction proxy",
+      "map_family": "gene_expression",
+      "target_id": "dmdc_lsd_specific_update_magnitude",
+      "target_label": "DMDC LSD-specific update magnitude",
+      "pearson_r": -0.030391745428210624,
+      "abs_pearson_r": 0.030391745428210624,
+      "permutation_p": 0.9445202251928275,
+      "ci_low": -0.7196601895504022,
+      "ci_high": 0.6890462412103922,
+      "ci_overlaps_zero": true,
+      "n_modules": 8,
+      "method": "exact_module_label_permutation_null_not_surface_spatial_null",
+      "q_value": 0.9922124947297934,
+      "fdr_significant_0_05": false,
+      "alignment_status": "exploratory_no_fdr_support"
+    },
+    {
+      "map_id": "ahba_htr2a_expression_proxy",
+      "map_label": "AHBA HTR2A expression-direction proxy",
+      "map_family": "gene_expression",
+      "target_id": "dmdc_condition_input",
+      "target_label": "DMDC condition-input coefficient",
+      "pearson_r": 0.557629398520098,
+      "abs_pearson_r": 0.557629398520098,
+      "permutation_p": 0.15096351776989658,
+      "ci_low": -0.24224009138400454,
+      "ci_high": 0.9062131832614609,
+      "ci_overlaps_zero": true,
+      "n_modules": 8,
+      "method": "exact_module_label_permutation_null_not_surface_spatial_null",
+      "q_value": 0.9057811066193795,
+      "fdr_significant_0_05": false,
+      "alignment_status": "exploratory_no_fdr_support"
+    }
+  ],
+  "best_alignment": {
+    "map_id": "pet_5ht2a_receptor_prior",
+    "map_label": "PET 5-HT2A receptor prior",
+    "map_family": "receptor",
+    "target_id": "dmdc_condition_input",
+    "target_label": "DMDC condition-input coefficient",
+    "pearson_r": 0.6650660754253197,
+    "abs_pearson_r": 0.6650660754253197,
+    "permutation_p": 0.07189801840232136,
+    "ci_low": -0.07455663169332054,
+    "ci_high": 0.9326512765308818,
+    "ci_overlaps_zero": true,
+    "n_modules": 8,
+    "method": "exact_module_label_permutation_null_not_surface_spatial_null",
+    "q_value": 0.8627762208278564,
+    "fdr_significant_0_05": false,
+    "alignment_status": "exploratory_no_fdr_support"
+  },
+  "fdr_supported_count": 0,
+  "claim_readiness": {
+    "strong_receptor_myelin_gradient_claim": "not_supported_yet",
+    "current_best_result": "The strongest current module-level alignment is still exploratory because FDR significance and CI-zero gates are not both passed.",
+    "required_for_stronger_claim": [
+      "Re-extract empirical LSD-placebo dynamic features at a higher-resolution cortical parcellation rather than only the 8-module presentation layer.",
+      "Project receptor, myelin, functional-gradient, and AHBA maps into the same parcellation.",
+      "Run spatial-autocorrelation-aware nulls with neuromaps or equivalent surface/parcellation nulls.",
+      "Retain q-value, FDR-significance, CI-overlap, and external-dataset replication gates before strengthening claims."
+    ],
+    "claim_boundary": "The dashboard may say these maps are plausible anatomical/molecular priors. It should not say they prove receptor, myelin, or gradient mechanisms."
+  },
+  "parcellation_upgrade": {
+    "current_contract": "8_macro_modules_for_readable_dashboard_and_legacy_pipeline_compatibility",
+    "recommendation": "Do not simply rename the 8 modules. Keep them as a public-facing bridge layer and add a separate high-resolution inference layer.",
+    "recommended_next_contract": "Schaefer-100 or Schaefer-200 parcels with Yeo-7/Yeo-17 network labels, plus optional Glasser/HCP-MMP1.0 sensitivity.",
+    "why": "Schaefer/Yeo is easier to align with neuromaps and resting-state network literature; Glasser is anatomically rich for myelin/HCP claims but harder to match to every external map and subcortical target. The thesis should report high-resolution inference first and aggregate to 8 modules only for explanation.",
+    "minimum_next_artifacts": [
+      "results/cortical_maps/schaefer_yield_manifest.json",
+      "results/cortical_maps/surface_spatial_null_status.json",
+      "results/cortical_maps/high_resolution_map_alignment_status.json"
+    ]
+  },
+  "recent_psilocybin_benchmark": {
+    "source_reference_id": "lyons_first_psilocybin",
+    "study": "Human brain changes after first psilocybin use",
+    "journal": "Nature Communications",
+    "published": "2026-05-05",
+    "doi": "10.1038/s41467-026-71962-3",
+    "dose_and_design": "Exploratory within-subject study in psychedelic-naive healthy participants; 1 mg control dose and later 25 mg psilocybin.",
+    "dashboard_relevance": [
+      "Adds a recent human benchmark where acute entropy increase is a central mechanistic readout.",
+      "Supports showing DTI/structural findings as long-timescale anatomical context, not acute drug-state proof.",
+      "Highlights modularity and network organization as useful longitudinal outcomes.",
+      "Reinforces caution: DTI axial-diffusivity interpretation is biologically non-specific and must be confound-guarded."
+    ],
+    "metric_mapping": [
+      {
+        "article_measure": "EEG Lempel-Ziv complexity / entropy at 1-2 hours",
+        "dashboard_proxy": "entropy-like and transition-diversity macro-dynamics",
+        "use": "external mechanistic plausibility anchor",
+        "claim_boundary": "not direct replication because modality, drug, timing, and dataset differ"
+      },
+      {
+        "article_measure": "fMRI network modularity change over one month",
+        "dashboard_proxy": "integration, segregation, modularity, and dynamic-repertoire summaries",
+        "use": "motivates modularity/integration as longitudinal outcomes",
+        "claim_boundary": "not an LSD validation and not a same-time-scale comparison"
+      },
+      {
+        "article_measure": "DTI axial diffusivity in prefrontal-subcortical tracts",
+        "dashboard_proxy": "structural-connectome/DTI prior and network-control route constraints",
+        "use": "supports showing white-matter structure as context",
+        "claim_boundary": "DTI interpretation is non-specific; do not infer neuroplastic mechanism from this thesis panel"
+      },
+      {
+        "article_measure": "one-month well-being and next-day insight associations",
+        "dashboard_proxy": "none yet",
+        "use": "future outcome-alignment target if behavioral scales are authorized and ingested",
+        "claim_boundary": "no subjective or clinical outcome claim in the current thesis pipeline"
+      }
+    ],
+    "caveats": [
+      "healthy psychedelic-naive sample",
+      "exploratory fixed-order design",
+      "psilocybin rather than LSD",
+      "weak or absent enduring fMRI effects except selected network associations",
+      "DTI axial-diffusivity biology is non-specific"
+    ]
+  },
+  "future_external_dataset_context": {
+    "source_reference_id": "psiconnect_dataset",
+    "study": "PsiConnect: Multimodal Neuroimaging of Context-Dependent Brain and Behaviour Dynamics under Psilocybin",
+    "journal": "Scientific Data",
+    "published": "2026-05-21",
+    "doi": "10.1038/s41597-026-07312-1",
+    "status": "candidate_future_authorized_external_dataset_not_ingested",
+    "claim_boundary": "Useful for planning future external validation only; it is not evidence for the current scores until data are obtained and scored unchanged."
+  },
+  "source_references": [
+    {
+      "id": "neuromaps",
+      "label": "Markello et al. 2022 neuromaps",
+      "url": "https://www.nature.com/articles/s41592-022-01625-w",
+      "role": "Canonical framework for brain-map comparison and spatial-autocorrelation-aware nulls."
+    },
+    {
+      "id": "margulies_gradient",
+      "label": "Margulies et al. 2016 principal functional gradient",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/27791099/",
+      "role": "Canonical sensory-to-default-mode cortical hierarchy reference."
+    },
+    {
+      "id": "glasser_hcp_myelin",
+      "label": "Glasser et al. 2016 HCP multimodal parcellation/myelin mapping",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/27437579/",
+      "role": "Canonical HCP multimodal cortical parcellation and T1w/T2w myelin context."
+    },
+    {
+      "id": "ahba_transcriptome",
+      "label": "French and Paus 2015 AHBA cortical transcriptome",
+      "url": "https://www.frontiersin.org/journals/neuroscience/articles/10.3389/fnins.2015.00323/full",
+      "role": "Canonical Allen Human Brain Atlas transcriptomic-map workflow reference."
+    },
+    {
+      "id": "lyons_first_psilocybin",
+      "label": "Lyons et al. 2026 human brain changes after first psilocybin use",
+      "url": "https://www.nature.com/articles/s41467-026-71962-3",
+      "role": "Recent multimodal psilocybin benchmark for acute entropy, DTI, modularity, and well-being-linked outcomes."
+    },
+    {
+      "id": "psiconnect_dataset",
+      "label": "Novelli et al. 2026 PsiConnect psilocybin multimodal neuroimaging dataset",
+      "url": "https://www.nature.com/articles/s41597-026-07312-1",
+      "role": "Recent Nature Portfolio dataset descriptor that can guide future authorized external validation, not used as validation here."
+    }
+  ],
+  "neuromaps_status": {
+    "analysis_status": "not_run_module_level_only",
+    "recommended_next_step": "Project source maps and empirical LSD-placebo effects to a common cortical surface/parcellation and run neuromaps spatial nulls.",
+    "claim_guardrail": "This pass compares maps after aggregation to the 8-module thesis contract with exact label-permutation p-values. It is not a full neuromaps surface-level spatial-autocorrelation null analysis."
+  },
+  "claim_guardrail": "External receptor, myelin, functional-gradient, and transcriptomic maps are treated as anatomical or molecular priors. Agreement with LSD-placebo dynamics is exploratory module-level proxy evidence, not receptor pharmacology, clinical validation, or subjective-experience evidence.",
+  "source_path": "results/cortical_maps/cortical_map_alignment_status.json",
+  "markdown_path": "results/cortical_maps/cortical_map_alignment.md"
+}
