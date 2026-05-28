@@ -2,11 +2,13 @@
 
 The current exact 8-module permutation test is not a substitute for neuromaps spatial-autocorrelation null testing.
 
-- Status: `blocked_missing_neuromaps_dependency`
-- neuromaps dependency available: `false`
+- Status: `blocked_missing_neuromaps_surface_input_manifest`
+- neuromaps dependency available: `true`
+- neuromaps null API importable: `true`
+- neuromaps version: `0.0.5`
 - Spatial nulls complete: `false`
 - Current module statistic: `exact_module_label_permutation_null_not_surface_spatial_null`
-- Blocker: The optional neuromaps package is not installed in the current environment.
+- Blocker: High-resolution outputs exist, but there is no neuromaps surface/input manifest describing map space and null family.
 
 ## Candidate inputs
 

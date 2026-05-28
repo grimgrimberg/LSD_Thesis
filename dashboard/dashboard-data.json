@@ -87094,7 +87094,7 @@
   },
   "external_cortical_maps": {
     "schema_version": "external_cortical_maps.v1",
-    "generated_at_utc": "2026-05-28T11:43:19.514667+00:00",
+    "generated_at_utc": "2026-05-28T12:13:25.762129+00:00",
     "analysis_status": "implemented_module_level_external_map_alignment",
     "module_contract": [
       "visual",
@@ -87928,7 +87928,7 @@
     ],
     "loop_status": {
       "schema_version": 1,
-      "generated_at_utc": "2026-05-28T11:42:31.174028+00:00",
+      "generated_at_utc": "2026-05-28T12:12:49.828848+00:00",
       "analysis_status": "implemented_loop_status_artifacts",
       "status_rows": [
         {
@@ -87988,7 +87988,7 @@
         },
         "psilocybin_ds006072": {
           "schema_version": 1,
-          "generated_at_utc": "2026-05-28T11:41:36.331807+00:00",
+          "generated_at_utc": "2026-05-28T12:12:20.665912+00:00",
           "dataset_id": "ds006072",
           "source": "OpenNeuro ds006072, Scientific Data 2025 psilocybin precision imaging dataset",
           "local_data_root": "data/ds006072",
@@ -88041,7 +88041,7 @@
         },
         "structural_connectome": {
           "schema_version": 1,
-          "generated_at_utc": "2026-05-28T11:41:38.864783+00:00",
+          "generated_at_utc": "2026-05-28T12:12:22.646996+00:00",
           "artifact_target": "results/structural_connectome",
           "expected_graph_files": [
             "results/structural_connectome/hcp_macro_modules.csv",
@@ -91475,7 +91475,7 @@
         },
         "receptor_priors": {
           "schema_version": 1,
-          "generated_at_utc": "2026-05-28T11:41:42.882202+00:00",
+          "generated_at_utc": "2026-05-28T12:12:26.484736+00:00",
           "artifact_target": "results/receptor_priors",
           "expected_prior_files": [
             "results/receptor_priors/fs5ht_5ht2a_macro_modules.csv",
@@ -94909,7 +94909,7 @@
         },
         "parcellation_sensitivity": {
           "schema_version": 1,
-          "generated_at_utc": "2026-05-28T11:41:44.906812+00:00",
+          "generated_at_utc": "2026-05-28T12:12:28.112451+00:00",
           "analysis_status": "implemented_status_matrix",
           "rows": [
             {
@@ -95092,7 +95092,7 @@
         },
         "literature_benchmark": {
           "schema_version": 1,
-          "generated_at_utc": "2026-05-28T11:42:30.989223+00:00",
+          "generated_at_utc": "2026-05-28T12:12:49.385820+00:00",
           "analysis_status": "implemented_directional_proxy_benchmark",
           "aligned_count": 4,
           "measurable_count": 6,
@@ -95301,7 +95301,7 @@
   },
   "thesis_upgrade": {
     "schema_version": "thesis_upgrade_status.v1",
-    "generated_at_utc": "2026-05-28T11:43:39.501736+00:00",
+    "generated_at_utc": "2026-05-28T12:13:41.651760+00:00",
     "readiness_summary": {
       "ready_gates": 4,
       "total_gates": 8,
@@ -95331,11 +95331,11 @@
       },
       {
         "label": "Neuromaps spatial nulls",
-        "status": "blocked_missing_neuromaps_dependency",
+        "status": "blocked_missing_neuromaps_surface_input_manifest",
         "ready": false,
         "evidence": "results/cortical_maps/neuromaps_spatial_null_status.json; results/cortical_maps/cortical_map_alignment_status.json",
         "blocker": "Full surface/parcellation spatial-autocorrelation null testing has not been run.",
-        "score": 0.15
+        "score": 0.55
       },
       {
         "label": "ROCKET benchmark",
@@ -95392,11 +95392,11 @@
       {
         "requirement_id": "neuromaps_spatial_autocorrelation_nulls",
         "label": "Full neuromaps spatial-autocorrelation nulls",
-        "status": "blocked_missing_neuromaps_dependency",
+        "status": "blocked_missing_neuromaps_surface_input_manifest",
         "complete": false,
         "evidence": "results/cortical_maps/neuromaps_spatial_null_status.json; current map method: exact_module_label_permutation_null_not_surface_spatial_null",
-        "missing": "Current map statistics use exact 8-module label permutation, not neuromaps spatial-autocorrelation nulls.",
-        "next_action": "Install/use neuromaps, project maps to the active Schaefer/Yeo or surface space, run spatial nulls, and FDR-correct the resulting family.",
+        "missing": "neuromaps is installed and its null API imports, but the surface/high-resolution map input manifest and executed null results are missing.",
+        "next_action": "Create results/cortical_maps/neuromaps_surface_inputs.json, project receptor/myelin/gradient maps to Schaefer/Yeo or surface space, run neuromaps nulls, and FDR-correct the family.",
         "claim_effect": "Receptor/myelin/gradient alignment cannot be promoted beyond exploratory until this passes."
       },
       {
@@ -95524,23 +95524,41 @@
       "neuromaps_spatial_nulls": {
         "gate": {
           "label": "Neuromaps spatial nulls",
-          "status": "blocked_missing_neuromaps_dependency",
+          "status": "blocked_missing_neuromaps_surface_input_manifest",
           "ready": false,
           "evidence": "results/cortical_maps/neuromaps_spatial_null_status.json; results/cortical_maps/cortical_map_alignment_status.json",
           "blocker": "Full surface/parcellation spatial-autocorrelation null testing has not been run.",
-          "score": 0.15
+          "score": 0.55
         },
         "strict_requirement": {
           "requirement_id": "neuromaps_spatial_autocorrelation_nulls",
           "label": "Full neuromaps spatial-autocorrelation nulls",
-          "status": "blocked_missing_neuromaps_dependency",
+          "status": "blocked_missing_neuromaps_surface_input_manifest",
           "complete": false,
           "evidence": "results/cortical_maps/neuromaps_spatial_null_status.json; current map method: exact_module_label_permutation_null_not_surface_spatial_null",
-          "missing": "Current map statistics use exact 8-module label permutation, not neuromaps spatial-autocorrelation nulls.",
-          "next_action": "Install/use neuromaps, project maps to the active Schaefer/Yeo or surface space, run spatial nulls, and FDR-correct the resulting family.",
+          "missing": "neuromaps is installed and its null API imports, but the surface/high-resolution map input manifest and executed null results are missing.",
+          "next_action": "Create results/cortical_maps/neuromaps_surface_inputs.json, project receptor/myelin/gradient maps to Schaefer/Yeo or surface space, run neuromaps nulls, and FDR-correct the family.",
           "claim_effect": "Receptor/myelin/gradient alignment cannot be promoted beyond exploratory until this passes."
         },
-        "dependency_available": false,
+        "dependency_available": true,
+        "null_api_importable": true,
+        "neuromaps_runtime": {
+          "dependency_available": true,
+          "null_api_importable": true,
+          "version": "0.0.5",
+          "available_null_families": [
+            "alexander_bloch",
+            "baum",
+            "burt2018",
+            "burt2020",
+            "cornblath",
+            "hungarian",
+            "moran",
+            "vasa",
+            "vazquez_rodriguez"
+          ],
+          "runtime_error": null
+        },
         "current_map_statistic": "exact_module_label_permutation_null_not_surface_spatial_null",
         "required_nulls": [
           "surface spin/null model where applicable",
