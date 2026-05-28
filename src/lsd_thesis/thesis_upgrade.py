@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import importlib.util
 import json
 from datetime import UTC, datetime
 from pathlib import Path
@@ -7,6 +8,14 @@ from typing import Any
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 SCHEMA_VERSION = "thesis_upgrade_status.v1"
+STRICT_REQUIREMENT_IDS = (
+    "schaefer_yeo_high_resolution",
+    "neuromaps_spatial_autocorrelation_nulls",
+    "ds006072_external_validation",
+    "motion_confound_control_result",
+    "receptor_myelin_gradient_claim",
+    "project_phase",
+)
 
 
 def _read_json(path: Path) -> dict[str, Any] | None:
@@ -33,30 +42,91 @@ def _gate(label: str, status: str, ready: bool, evidence: str, blocker: str, sco
     }
 
 
+def _requirement(
+    requirement_id: str,
+    label: str,
+    status: str,
+    complete: bool,
+    evidence: str,
+    missing: str,
+    next_action: str,
+    claim_effect: str,
+) -> dict[str, Any]:
+    if requirement_id not in STRICT_REQUIREMENT_IDS:
+        raise ValueError(f"Unknown strict requirement id: {requirement_id}")
+    return {
+        "requirement_id": requirement_id,
+        "label": label,
+        "status": status,
+        "complete": bool(complete),
+        "evidence": evidence,
+        "missing": missing,
+        "next_action": next_action,
+        "claim_effect": claim_effect,
+    }
+
+
+def _status_is_implemented(status: str) -> bool:
+    return status.startswith(("implemented", "validated", "passed", "complete"))
+
+
 def _motion_gate(repo_root: Path) -> dict[str, Any]:
     path = repo_root / "results" / "setting_seed" / "motion" / "motion_summary.json"
+    control_path = repo_root / "results" / "confound_controls" / "motion_confound_control_status.json"
     payload = _read_json(path) or {}
-    ready = bool(payload.get("motion_analysis_ready"))
+    control_payload = _read_json(control_path) or {}
+    motion_ready = bool(payload.get("motion_analysis_ready"))
+    control_status = str(control_payload.get("analysis_status") or "")
+    control_ready = motion_ready and _status_is_implemented(control_status)
     files_present = bool(payload.get("motion_files_present"))
-    status = str(payload.get("status") or ("ready" if ready else "blocked_missing_motion_summaries"))
+    motion_status = str(payload.get("status") or ("ready" if motion_ready else "blocked_missing_motion_summaries"))
+    status = (
+        control_status
+        if control_ready
+        else "blocked_missing_dedicated_motion_confound_control_result"
+        if motion_ready
+        else motion_status
+    )
     blocker = (
-        "Subject/session/run motion summaries are parsed and ready."
-        if ready
+        "Subject/session/run motion summaries and a confound-control sensitivity result are available."
+        if control_ready
+        else "No dedicated result proves that LSD-placebo dynamic effects survive FD/DVARS/censoring sensitivity controls."
+        if motion_ready
         else "No structured subject/session/run confounds with FD/DVARS/censoring coverage are available locally."
     )
     return {
         "gate": _gate(
             "Motion and confounds",
             status,
-            ready,
-            _rel(path, repo_root),
+            control_ready,
+            f"{_rel(path, repo_root)}; {_rel(control_path, repo_root)}",
             blocker,
-            1.0 if ready else 0.25 if files_present else 0.0,
+            1.0 if control_ready else 0.45 if motion_ready else 0.25 if files_present else 0.0,
         ),
+        "strict_requirement": _requirement(
+            "motion_confound_control_result",
+            "Motion/confound control result",
+            status,
+            control_ready,
+            f"{_rel(path, repo_root)}; {_rel(control_path, repo_root)}",
+            "A dedicated confound-control result layer with motion/outlier sensitivity outcomes is missing.",
+            "Parse confounds for every subject/session/run, then report whether dynamic effects survive FD, DVARS, censoring, and run/order controls.",
+            "Until this passes, motion/confound handling is a framed limitation rather than a proven control.",
+        ),
+        "motion_summary_ready": motion_ready,
+        "control_layer_ready": control_ready,
+        "control_layer_path": _rel(control_path, repo_root),
         "required_columns": [
             "framewise_displacement",
             "dvars or std_dvars",
             "motion_outlier_* or censor/scrub indicators",
+        ],
+        "required_controls": [
+            "FD mean/max/spike burden association with each dynamic metric",
+            "DVARS mean/max/spike burden association with each dynamic metric",
+            "leave-high-motion-subjects-out sensitivity",
+            "session/run/order covariate sensitivity",
+            "negative-control table showing which claims are downgraded",
         ],
         "recommended_thresholds": {
             "fd_spike_threshold_mm": 0.5,
@@ -80,11 +150,28 @@ def _parcellation_gate(repo_root: Path) -> dict[str, Any]:
     }
     canonical = "schaefer_100_yeo_7"
     canonical_status = implemented.get(canonical, "")
-    ready = canonical_status.startswith("implemented")
+    candidate_outputs = [
+        repo_root
+        / "results"
+        / "stage_2"
+        / "parcellations"
+        / canonical
+        / "parcellation_extraction_summary.json",
+        repo_root
+        / "results"
+        / "stage_2"
+        / "empirical_viewer"
+        / "parcellations"
+        / canonical
+        / "overview.json",
+        repo_root / "results" / "parcellation_sensitivity" / f"{canonical}_dynamic_mechanism_summary.json",
+    ]
+    observed_outputs = [_rel(candidate, repo_root) for candidate in candidate_outputs if candidate.exists()]
+    ready = _status_is_implemented(canonical_status) and bool(observed_outputs)
     blocker = (
         "Canonical Schaefer/Yeo extraction and ranking are available."
         if ready
-        else "Canonical Schaefer/Yeo extraction is not yet a completed empirical result."
+        else "Canonical Schaefer/Yeo extraction is not yet a completed empirical result with dashboard-visible outputs."
     )
     return {
         "gate": _gate(
@@ -93,16 +180,76 @@ def _parcellation_gate(repo_root: Path) -> dict[str, Any]:
             ready,
             _rel(path, repo_root),
             blocker,
-            1.0 if ready else 0.35 if implemented else 0.15,
+            1.0 if ready else 0.45 if canonical_status else 0.35 if implemented else 0.15,
+        ),
+        "strict_requirement": _requirement(
+            "schaefer_yeo_high_resolution",
+            "Schaefer/Yeo high-resolution parcellation layer",
+            canonical_status or str(payload.get("analysis_status") or "planned_schaefer_yeo"),
+            ready,
+            f"{_rel(path, repo_root)}; observed outputs: {', '.join(observed_outputs) if observed_outputs else 'none'}",
+            "The 8-module layer is still the active explanatory layer; no completed Schaefer/Yeo empirical inference output is visible.",
+            "Run the ds003059 extraction/ranking contract for Schaefer 100/Yeo 7, then repeat sensitivity for Schaefer 200 and Yeo 17.",
+            "Anatomical claims remain explanatory/proxy-level until the Schaefer/Yeo layer is complete.",
         ),
         "current_baseline": "harvard_oxford_8_module_proxy",
         "recommended_primary": canonical,
         "recommended_sensitivity": ["schaefer_200_yeo_7", "schaefer_100_yeo_17", "schaefer_200_yeo_17"],
+        "observed_high_resolution_outputs": observed_outputs,
         "engineering_logic": (
             "Use Schaefer parcels as state nodes and Yeo networks as interpretable macro-supernodes; "
             "then test whether mechanism rankings survive the refined state-space."
         ),
         "claim_guardrail": "The 8-module Harvard-Oxford mapping remains a transparent proxy until Schaefer/Yeo extraction is run.",
+    }
+
+
+def _neuromaps_spatial_null_gate(repo_root: Path) -> dict[str, Any]:
+    path = repo_root / "results" / "cortical_maps" / "neuromaps_spatial_null_status.json"
+    cortical_path = repo_root / "results" / "cortical_maps" / "cortical_map_alignment_status.json"
+    payload = _read_json(path) or {}
+    cortical_payload = _read_json(cortical_path) or {}
+    dependency_available = importlib.util.find_spec("neuromaps") is not None
+    status = str(
+        payload.get("analysis_status")
+        or (
+            "dependency_available_missing_surface_spatial_null_run"
+            if dependency_available
+            else "blocked_missing_neuromaps_dependency_and_surface_spatial_nulls"
+        )
+    )
+    ready = _status_is_implemented(status) and bool(payload.get("spatial_autocorrelation_nulls_complete"))
+    rows = cortical_payload.get("alignment_rows", []) if isinstance(cortical_payload.get("alignment_rows"), list) else []
+    first_row = rows[0] if rows and isinstance(rows[0], dict) else {}
+    current_method = str(first_row.get("method") or "not_run")
+    return {
+        "gate": _gate(
+            "Neuromaps spatial nulls",
+            status,
+            ready,
+            f"{_rel(path, repo_root)}; {_rel(cortical_path, repo_root)}",
+            "Full surface/parcellation spatial-autocorrelation null testing has not been run.",
+            1.0 if ready else 0.35 if dependency_available else 0.15,
+        ),
+        "strict_requirement": _requirement(
+            "neuromaps_spatial_autocorrelation_nulls",
+            "Full neuromaps spatial-autocorrelation nulls",
+            status,
+            ready,
+            f"{_rel(path, repo_root)}; current map method: {current_method}",
+            "Current map statistics use exact 8-module label permutation, not neuromaps spatial-autocorrelation nulls.",
+            "Install/use neuromaps, project maps to the active Schaefer/Yeo or surface space, run spatial nulls, and FDR-correct the resulting family.",
+            "Receptor/myelin/gradient alignment cannot be promoted beyond exploratory until this passes.",
+        ),
+        "dependency_available": dependency_available,
+        "current_map_statistic": current_method,
+        "required_nulls": [
+            "surface spin/null model where applicable",
+            "Moran or variogram-preserving null for parcellated maps",
+            "same null family applied before FDR correction",
+            "report q-value, FDR pass, and CI overlap with zero",
+        ],
+        "claim_guardrail": "Exact 8-module permutation is transparent, but it is not a full spatial-autocorrelation null model.",
     }
 
 
@@ -164,12 +311,21 @@ def _rocket_gate(repo_root: Path) -> dict[str, Any]:
 
 def _external_gate(repo_root: Path) -> dict[str, Any]:
     path = repo_root / "results" / "psilocybin_ds006072" / "psilocybin_ds006072_status.json"
+    readiness_path = repo_root / "results" / "psilocybin_ds006072" / "external_validation_readiness.json"
+    comparable_result_path = repo_root / "results" / "psilocybin_ds006072" / "comparable_empirical_validation_summary.json"
     ingestion_path = repo_root / "results" / "external_ingestion" / "external_ingestion_status.json"
     payload = _read_json(path) or {}
+    readiness_payload = _read_json(readiness_path) or {}
+    comparable_payload = _read_json(comparable_result_path) or {}
     ingestion = _read_json(ingestion_path) or {}
     ingestion_status = ingestion.get("analysis_status", {}) if isinstance(ingestion.get("analysis_status"), dict) else {}
-    status = str(payload.get("analysis_status") or "blocked_missing_local_ds006072_empirical_viewer")
-    ready = status.startswith("implemented")
+    status = str(
+        comparable_payload.get("analysis_status")
+        or payload.get("analysis_status")
+        or readiness_payload.get("analysis_status")
+        or "blocked_missing_local_ds006072_empirical_viewer"
+    )
+    ready = _status_is_implemented(status) and bool(comparable_payload.get("unchanged_scoring_applied"))
     manifest_ready = ingestion_status.get("ds006072_metadata") == "ready" and ingestion_status.get("ds006072_func_manifest") == "ready"
     extraction_contract_ready = status.startswith("extraction_contract_ready")
     return {
@@ -177,12 +333,30 @@ def _external_gate(repo_root: Path) -> dict[str, Any]:
             "External validation",
             status,
             ready,
-            f"{_rel(path, repo_root)}; {_rel(ingestion_path, repo_root)}",
-            str(payload.get("blocker") or "Comparable ds006072 psilocybin/control empirical viewer is not complete."),
+            f"{_rel(path, repo_root)}; {_rel(readiness_path, repo_root)}; {_rel(comparable_result_path, repo_root)}; {_rel(ingestion_path, repo_root)}",
+            str(
+                comparable_payload.get("blocker")
+                or payload.get("blocker")
+                or readiness_payload.get("blocker")
+                or "Comparable ds006072 psilocybin/control empirical viewer is not complete."
+            ),
             1.0 if ready else 0.6 if extraction_contract_ready else 0.45 if manifest_ready else 0.35 if payload else 0.1,
+        ),
+        "strict_requirement": _requirement(
+            "ds006072_external_validation",
+            "ds006072 psilocybin external validation",
+            status,
+            ready,
+            f"{_rel(path, repo_root)}; {_rel(readiness_path, repo_root)}; {_rel(comparable_result_path, repo_root)}",
+            "The repo has readiness/provenance, but not comparable psilocybin/control dynamic extraction scored unchanged.",
+            "Supply or derive authorized ds006072 processed rest payloads, build paired empirical viewer records, then apply the locked LSD scoring spec without retuning.",
+            "External validation remains absent until comparable ds006072 scoring exists.",
         ),
         "recommended_external_dataset": "OpenNeuro ds006072 psilocybin precision functional mapping",
         "ingestion_status": ingestion_status,
+        "primary_subjects_local_ready": readiness_payload.get("primary_subjects_local_ready"),
+        "primary_subject_count": readiness_payload.get("primary_subject_count"),
+        "comparable_result_path": _rel(comparable_result_path, repo_root),
         "fixed_rule": "Run the same LSD scoring rules on psilocybin/control data without retuning after seeing results.",
         "claim_guardrail": "Metadata and manifests are not external validation; comparable empirical target extraction is required.",
     }
@@ -225,6 +399,48 @@ def _receptor_structural_gate(repo_root: Path) -> dict[str, Any]:
     }
 
 
+def _receptor_myelin_gradient_claim_gate(repo_root: Path) -> dict[str, Any]:
+    path = repo_root / "results" / "cortical_maps" / "cortical_map_alignment_status.json"
+    payload = _read_json(path) or {}
+    claim_readiness = payload.get("claim_readiness", {}) if isinstance(payload.get("claim_readiness"), dict) else {}
+    neuromaps_status = payload.get("neuromaps_status", {}) if isinstance(payload.get("neuromaps_status"), dict) else {}
+    strong_claim_status = str(claim_readiness.get("strong_receptor_myelin_gradient_claim") or "not_supported_yet")
+    fdr_supported_count = int(payload.get("fdr_supported_count") or 0)
+    best = payload.get("best_alignment", {}) if isinstance(payload.get("best_alignment"), dict) else {}
+    ready = strong_claim_status not in {"not_supported_yet", "exploratory_not_supported_yet"} and fdr_supported_count > 0
+    status = "supported" if ready else strong_claim_status
+    blocker = (
+        "At least one receptor/myelin/gradient alignment passes the configured uncertainty gates."
+        if ready
+        else "Current receptor/myelin/gradient alignments are exploratory priors; q-values do not pass FDR and CIs overlap zero."
+    )
+    return {
+        "gate": _gate(
+            "Receptor/myelin/gradient claim",
+            status,
+            ready,
+            _rel(path, repo_root),
+            blocker,
+            1.0 if ready else 0.45 if payload else 0.1,
+        ),
+        "strict_requirement": _requirement(
+            "receptor_myelin_gradient_claim",
+            "Receptor/myelin/gradient claim support",
+            status,
+            ready,
+            _rel(path, repo_root),
+            "The strongest current map alignment remains exploratory: no FDR pass and CI overlap with zero.",
+            "Promote the claim only after high-resolution parcellation, neuromaps spatial nulls, FDR pass, and uncertainty intervals that do not cross zero.",
+            "The dashboard must keep this as not_supported_yet until those gates pass.",
+        ),
+        "claim_readiness": claim_readiness,
+        "neuromaps_status": neuromaps_status,
+        "fdr_supported_count": fdr_supported_count,
+        "best_alignment": best,
+        "claim_guardrail": "External map priors are useful hypotheses, not proof of receptor/myelin/gradient mechanism.",
+    }
+
+
 def _archive_gate(repo_root: Path) -> dict[str, Any]:
     path = repo_root / "results" / "reproducible_archive" / "ARCHIVE_MANIFEST.json"
     payload = _read_json(path) or {}
@@ -249,13 +465,43 @@ def build_thesis_upgrade_status(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
     components = {
         "motion_confound": _motion_gate(repo_root),
         "canonical_parcellation": _parcellation_gate(repo_root),
+        "neuromaps_spatial_nulls": _neuromaps_spatial_null_gate(repo_root),
         "rocket_strengthening": _rocket_gate(repo_root),
         "external_validation": _external_gate(repo_root),
         "receptor_structural": _receptor_structural_gate(repo_root),
+        "receptor_myelin_gradient_claim": _receptor_myelin_gradient_claim_gate(repo_root),
         "reproducible_archive": _archive_gate(repo_root),
     }
     gates = [component["gate"] for component in components.values()]
+    strict_requirements = [
+        components["canonical_parcellation"]["strict_requirement"],
+        components["neuromaps_spatial_nulls"]["strict_requirement"],
+        components["external_validation"]["strict_requirement"],
+        components["motion_confound"]["strict_requirement"],
+        components["receptor_myelin_gradient_claim"]["strict_requirement"],
+    ]
+    evidence_requirements_complete = all(requirement["complete"] for requirement in strict_requirements)
+    strict_requirements.append(
+        _requirement(
+            "project_phase",
+            "Project phase",
+            "completed_neuroscience_thesis"
+            if evidence_requirements_complete
+            else "pi_pitch_ready_research_proposal_not_completed_thesis",
+            evidence_requirements_complete,
+            "strict_completion_requirements",
+            "One or more required scientific gates is still missing or fail-closed.",
+            "Keep pitching this as an AI/engineering research proposal until every strict evidence gate passes.",
+            "This remains a strong PI pitch, not a completed neuroscience thesis, until all strict gates are true.",
+        )
+    )
     ready_count = sum(1 for gate in gates if gate["ready"])
+    strict_ready_count = sum(1 for requirement in strict_requirements if requirement["complete"])
+    completion_status = (
+        "completed_neuroscience_thesis"
+        if strict_ready_count == len(strict_requirements)
+        else "pi_pitch_ready_research_proposal_not_completed_thesis"
+    )
     return {
         "schema_version": SCHEMA_VERSION,
         "generated_at_utc": datetime.now(UTC).isoformat(),
@@ -263,13 +509,19 @@ def build_thesis_upgrade_status(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
             "ready_gates": ready_count,
             "total_gates": len(gates),
             "readiness_fraction": ready_count / len(gates) if gates else 0.0,
-            "thesis_status": "draft_ready_not_final_defense_ready" if ready_count < len(gates) else "final_claim_gates_ready",
+            "strict_complete_gates": strict_ready_count,
+            "strict_total_gates": len(strict_requirements),
+            "strict_completion_fraction": strict_ready_count / len(strict_requirements) if strict_requirements else 0.0,
+            "completion_status": completion_status,
+            "thesis_status": completion_status,
         },
         "gates": gates,
+        "strict_completion_requirements": strict_requirements,
         "components": components,
         "visualization_plan": {
             "dashboard_panels": [
                 "readiness gate bar",
+                "strict completion audit",
                 "ROCKET strength radar",
                 "motion/QC ribbon",
                 "parcellation proxy-vs-canonical board",
@@ -278,8 +530,8 @@ def build_thesis_upgrade_status(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
             ]
         },
         "claim_guardrail": (
-            "This status file upgrades evidence visibility. It does not convert proxy analyses into receptor-level, "
-            "clinical, subjective-experience, or external-validity proof."
+            "This status file upgrades evidence visibility and fails closed on missing science. It does not convert "
+            "proxy analyses into receptor-level, clinical, subjective-experience, or external-validity proof."
         ),
         "source_basis": [
             {
@@ -330,6 +582,25 @@ def _markdown(status: dict[str, Any]) -> str:
                 ready=str(gate["ready"]).lower(),
                 score=float(gate["score"]),
                 blocker=str(gate["blocker"]).replace("|", "/"),
+            )
+        )
+    lines.extend(
+        [
+            "",
+            "## Strict Completion Audit",
+            "",
+            "| Requirement | Status | Complete | Missing | Next action |",
+            "| --- | --- | ---: | --- | --- |",
+        ]
+    )
+    for requirement in status["strict_completion_requirements"]:
+        lines.append(
+            "| {label} | {status} | {complete} | {missing} | {next_action} |".format(
+                label=requirement["label"],
+                status=requirement["status"],
+                complete=str(requirement["complete"]).lower(),
+                missing=str(requirement["missing"]).replace("|", "/"),
+                next_action=str(requirement["next_action"]).replace("|", "/"),
             )
         )
     lines.extend(

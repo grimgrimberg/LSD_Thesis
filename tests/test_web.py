@@ -467,6 +467,9 @@ def test_dashboard_payload_includes_provenance_block(tmp_path: Path, monkeypatch
     assert payload["claim_status"]["audience"] == "prospective Master's PI"
     assert "altered transition/control dynamics" in payload["claim_status"]["falsifiable_thesis_claim"]
     assert any(row["source"] == "ds003059 LSD-placebo" for row in payload["claim_status"]["external_validation_status"])
+    strict_requirements = {row["requirement_id"]: row for row in payload["thesis_upgrade"]["strict_completion_requirements"]}
+    assert strict_requirements["neuromaps_spatial_autocorrelation_nulls"]["complete"] is False
+    assert strict_requirements["project_phase"]["status"] == "pi_pitch_ready_research_proposal_not_completed_thesis"
 
 
 def test_dashboard_payload_includes_publication_outputs_in_report_links(
@@ -749,6 +752,8 @@ def test_dashboard_template_contains_scholarly_sections_and_figure_links() -> No
     assert "Minimum q-value" in html
     assert "FDR-significant metrics" in html
     assert "CI overlaps zero" in html
+    assert "Strict Completion Audit" in html
+    assert "thesis_completion_table" in html
     assert "renderDynamicInferenceGating(dynamicMechanism, inferenceTable);" in html
     assert "This static method board mirrors" not in html
     assert "renderDynamicMechanism(dashboardState.dynamic_mechanism);" in html

@@ -23,6 +23,7 @@ from export_thesis_loop_tables import export_thesis_loop_tables
 from plotly.offline import get_plotlyjs
 
 from lsd_thesis.cortical_maps import write_cortical_map_alignment_status
+from lsd_thesis.thesis_upgrade import write_thesis_upgrade_status
 from lsd_thesis.thesis_loop import build_thesis_evidence_loop
 from lsd_thesis.web.app import build_dashboard_payload
 
@@ -179,6 +180,7 @@ def build_github_pages_site(repo_root: Path = REPO_ROOT, site_dir: Path | None =
     build_thesis_evidence_loop(repo_root)
     export_thesis_loop_tables(repo_root, repo_root / "results" / "thesis_evidence_loop" / "exports")
     write_cortical_map_alignment_status(repo_root)
+    write_thesis_upgrade_status(repo_root)
     publication_outputs = build_publication_package(repo_root)
 
     outputs: dict[str, Path] = {}
@@ -224,6 +226,11 @@ def build_github_pages_site(repo_root: Path = REPO_ROOT, site_dir: Path | None =
     cortical_maps = _copy_tree(repo_root / "results" / "cortical_maps", site / "artifacts" / "results" / "cortical_maps")
     if cortical_maps is not None:
         outputs["cortical_maps"] = cortical_maps
+    thesis_upgrade = _copy_tree(
+        repo_root / "results" / "thesis_upgrade", site / "artifacts" / "results" / "thesis_upgrade"
+    )
+    if thesis_upgrade is not None:
+        outputs["thesis_upgrade"] = thesis_upgrade
     dashboard_outputs = _write_static_dashboard(repo_root, site)
     outputs.update({key: value for key, value in dashboard_outputs.items() if isinstance(value, Path)})
     dashboard_artifacts = dashboard_outputs.get("dashboard_artifacts", [])

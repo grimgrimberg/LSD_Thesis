@@ -1,25 +1,16 @@
 from __future__ import annotations
 
-import argparse
-import json
-import sys
 from pathlib import Path
 
-REPO_ROOT = Path(__file__).resolve().parents[1]
-SRC_ROOT = REPO_ROOT / "src"
-if str(SRC_ROOT) not in sys.path:
-    sys.path.insert(0, str(SRC_ROOT))
-
-from lsd_thesis.thesis_upgrade import write_thesis_upgrade_status  # noqa: E402
+from lsd_thesis.thesis_upgrade import REPO_ROOT, write_thesis_upgrade_status
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Build thesis upgrade readiness-gate artifacts.")
-    parser.add_argument("--repo-root", type=Path, default=REPO_ROOT)
-    parser.add_argument("--output-dir", type=Path, default=REPO_ROOT / "results" / "thesis_upgrade")
-    args = parser.parse_args()
-    status = write_thesis_upgrade_status(args.repo_root, args.output_dir)
-    print(json.dumps({"source_path": status["source_path"], "report_path": status["report_path"]}, indent=2), flush=True)
+    status = write_thesis_upgrade_status(REPO_ROOT)
+    source_path = status.get("source_path", "results/thesis_upgrade/thesis_upgrade_status.json")
+    report_path = status.get("report_path", "results/thesis_upgrade/thesis_upgrade_status.md")
+    print(f"Wrote {Path(source_path).as_posix()}")
+    print(f"Wrote {Path(report_path).as_posix()}")
 
 
 if __name__ == "__main__":
