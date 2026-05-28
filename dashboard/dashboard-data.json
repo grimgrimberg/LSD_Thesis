@@ -86686,6 +86686,404 @@
       "literature_benchmark": "results/dynamic_mechanism_ranking/figures/literature_benchmark_alignment.html"
     }
   },
+  "structural_dti": {
+    "analysis_status": "implemented_hcp_structural_graph_sensitivity",
+    "source_path": "results/structural_connectome/structural_connectome_status.json",
+    "matrix_path": "results/structural_connectome/hcp_macro_modules.csv",
+    "modules": [
+      "visual",
+      "auditory",
+      "salience",
+      "default_mode",
+      "executive_frontoparietal",
+      "limbic_affective",
+      "thalamic_gateway",
+      "sensorimotor"
+    ],
+    "matrix": [
+      [
+        0.0,
+        0.7608235165290825,
+        0.4893091612215479,
+        0.053177727513291216,
+        0.4328974647705906,
+        0.2593718447353677,
+        0.5293523929340989,
+        0.7608235165290825
+      ],
+      [
+        0.7608235165290825,
+        0.0,
+        0.49653295989948293,
+        0.2782761370012207,
+        0.6229144707522369,
+        0.3981751023585347,
+        0.602757367186282,
+        1.0
+      ],
+      [
+        0.4893091612215479,
+        0.49653295989948293,
+        0.0,
+        0.7085533542898008,
+        0.569266924465528,
+        0.2509796751465441,
+        0.6157723084877362,
+        0.49653295989948293
+      ],
+      [
+        0.053177727513291216,
+        0.2782761370012207,
+        0.7085533542898008,
+        0.0,
+        0.7685434394776961,
+        0.4425551524613146,
+        0.594226847434329,
+        0.2782761370012207
+      ],
+      [
+        0.4328974647705906,
+        0.6229144707522369,
+        0.569266924465528,
+        0.7685434394776961,
+        0.0,
+        0.5134287352527267,
+        0.6299159728354399,
+        0.6229144707522369
+      ],
+      [
+        0.2593718447353677,
+        0.3981751023585347,
+        0.2509796751465441,
+        0.4425551524613146,
+        0.5134287352527267,
+        0.0,
+        0.5480534740600105,
+        0.3981751023585347
+      ],
+      [
+        0.5293523929340989,
+        0.602757367186282,
+        0.6157723084877362,
+        0.594226847434329,
+        0.6299159728354399,
+        0.5480534740600105,
+        0.0,
+        0.602757367186282
+      ],
+      [
+        0.7608235165290825,
+        1.0,
+        0.49653295989948293,
+        0.2782761370012207,
+        0.6229144707522369,
+        0.3981751023585347,
+        0.602757367186282,
+        0.0
+      ]
+    ],
+    "nodes": [
+      {
+        "name": "visual",
+        "x": 1.0,
+        "y": 0.0,
+        "strength": 3.2857556242330612,
+        "normalized_strength": 0.7898676059325462
+      },
+      {
+        "name": "auditory",
+        "x": 0.7071067811865476,
+        "y": 0.7071067811865476,
+        "strength": 4.15947955372684,
+        "normalized_strength": 0.9999033807617569
+      },
+      {
+        "name": "salience",
+        "x": 6.123233995736766e-17,
+        "y": 1.0,
+        "strength": 3.626947343410123,
+        "normalized_strength": 0.8718871829220247
+      },
+      {
+        "name": "default_mode",
+        "x": -0.7071067811865475,
+        "y": 0.7071067811865476,
+        "strength": 3.123608795178873,
+        "normalized_strength": 0.7508888922601076
+      },
+      {
+        "name": "executive_frontoparietal",
+        "x": -1.0,
+        "y": 1.2246467991473532e-16,
+        "strength": 4.159881478306455,
+        "normalized_strength": 1.0
+      },
+      {
+        "name": "limbic_affective",
+        "x": -0.7071067811865477,
+        "y": -0.7071067811865475,
+        "strength": 2.810739086373033,
+        "normalized_strength": 0.6756776848164731
+      },
+      {
+        "name": "thalamic_gateway",
+        "x": -1.8369701987210297e-16,
+        "y": -1.0,
+        "strength": 4.122835730124178,
+        "normalized_strength": 0.9910945183473451
+      },
+      {
+        "name": "sensorimotor",
+        "x": 0.7071067811865474,
+        "y": -0.7071067811865477,
+        "strength": 4.15947955372684,
+        "normalized_strength": 0.9999033807617569
+      }
+    ],
+    "edges": [
+      {
+        "source": "auditory",
+        "target": "sensorimotor",
+        "weight": 1.0,
+        "normalized_weight": 1.0
+      },
+      {
+        "source": "default_mode",
+        "target": "executive_frontoparietal",
+        "weight": 0.7685434394776961,
+        "normalized_weight": 0.7685434394776961
+      },
+      {
+        "source": "visual",
+        "target": "auditory",
+        "weight": 0.7608235165290825,
+        "normalized_weight": 0.7608235165290825
+      },
+      {
+        "source": "visual",
+        "target": "sensorimotor",
+        "weight": 0.7608235165290825,
+        "normalized_weight": 0.7608235165290825
+      },
+      {
+        "source": "salience",
+        "target": "default_mode",
+        "weight": 0.7085533542898008,
+        "normalized_weight": 0.7085533542898008
+      },
+      {
+        "source": "executive_frontoparietal",
+        "target": "thalamic_gateway",
+        "weight": 0.6299159728354399,
+        "normalized_weight": 0.6299159728354399
+      },
+      {
+        "source": "auditory",
+        "target": "executive_frontoparietal",
+        "weight": 0.6229144707522369,
+        "normalized_weight": 0.6229144707522369
+      },
+      {
+        "source": "executive_frontoparietal",
+        "target": "sensorimotor",
+        "weight": 0.6229144707522369,
+        "normalized_weight": 0.6229144707522369
+      },
+      {
+        "source": "salience",
+        "target": "thalamic_gateway",
+        "weight": 0.6157723084877362,
+        "normalized_weight": 0.6157723084877362
+      },
+      {
+        "source": "auditory",
+        "target": "thalamic_gateway",
+        "weight": 0.602757367186282,
+        "normalized_weight": 0.602757367186282
+      },
+      {
+        "source": "thalamic_gateway",
+        "target": "sensorimotor",
+        "weight": 0.602757367186282,
+        "normalized_weight": 0.602757367186282
+      },
+      {
+        "source": "default_mode",
+        "target": "thalamic_gateway",
+        "weight": 0.594226847434329,
+        "normalized_weight": 0.594226847434329
+      },
+      {
+        "source": "salience",
+        "target": "executive_frontoparietal",
+        "weight": 0.569266924465528,
+        "normalized_weight": 0.569266924465528
+      },
+      {
+        "source": "limbic_affective",
+        "target": "thalamic_gateway",
+        "weight": 0.5480534740600105,
+        "normalized_weight": 0.5480534740600105
+      },
+      {
+        "source": "visual",
+        "target": "thalamic_gateway",
+        "weight": 0.5293523929340989,
+        "normalized_weight": 0.5293523929340989
+      },
+      {
+        "source": "executive_frontoparietal",
+        "target": "limbic_affective",
+        "weight": 0.5134287352527267,
+        "normalized_weight": 0.5134287352527267
+      },
+      {
+        "source": "auditory",
+        "target": "salience",
+        "weight": 0.49653295989948293,
+        "normalized_weight": 0.49653295989948293
+      },
+      {
+        "source": "salience",
+        "target": "sensorimotor",
+        "weight": 0.49653295989948293,
+        "normalized_weight": 0.49653295989948293
+      },
+      {
+        "source": "visual",
+        "target": "salience",
+        "weight": 0.4893091612215479,
+        "normalized_weight": 0.4893091612215479
+      },
+      {
+        "source": "default_mode",
+        "target": "limbic_affective",
+        "weight": 0.4425551524613146,
+        "normalized_weight": 0.4425551524613146
+      },
+      {
+        "source": "visual",
+        "target": "executive_frontoparietal",
+        "weight": 0.4328974647705906,
+        "normalized_weight": 0.4328974647705906
+      },
+      {
+        "source": "auditory",
+        "target": "limbic_affective",
+        "weight": 0.3981751023585347,
+        "normalized_weight": 0.3981751023585347
+      },
+      {
+        "source": "limbic_affective",
+        "target": "sensorimotor",
+        "weight": 0.3981751023585347,
+        "normalized_weight": 0.3981751023585347
+      },
+      {
+        "source": "auditory",
+        "target": "default_mode",
+        "weight": 0.2782761370012207,
+        "normalized_weight": 0.2782761370012207
+      },
+      {
+        "source": "default_mode",
+        "target": "sensorimotor",
+        "weight": 0.2782761370012207,
+        "normalized_weight": 0.2782761370012207
+      },
+      {
+        "source": "visual",
+        "target": "limbic_affective",
+        "weight": 0.2593718447353677,
+        "normalized_weight": 0.2593718447353677
+      },
+      {
+        "source": "salience",
+        "target": "limbic_affective",
+        "weight": 0.2509796751465441,
+        "normalized_weight": 0.2509796751465441
+      },
+      {
+        "source": "visual",
+        "target": "default_mode",
+        "weight": 0.053177727513291216,
+        "normalized_weight": 0.053177727513291216
+      }
+    ],
+    "top_edges": [
+      {
+        "source": "auditory",
+        "target": "sensorimotor",
+        "weight": 1.0,
+        "normalized_weight": 1.0
+      },
+      {
+        "source": "default_mode",
+        "target": "executive_frontoparietal",
+        "weight": 0.7685434394776961,
+        "normalized_weight": 0.7685434394776961
+      },
+      {
+        "source": "visual",
+        "target": "auditory",
+        "weight": 0.7608235165290825,
+        "normalized_weight": 0.7608235165290825
+      },
+      {
+        "source": "visual",
+        "target": "sensorimotor",
+        "weight": 0.7608235165290825,
+        "normalized_weight": 0.7608235165290825
+      },
+      {
+        "source": "salience",
+        "target": "default_mode",
+        "weight": 0.7085533542898008,
+        "normalized_weight": 0.7085533542898008
+      },
+      {
+        "source": "executive_frontoparietal",
+        "target": "thalamic_gateway",
+        "weight": 0.6299159728354399,
+        "normalized_weight": 0.6299159728354399
+      },
+      {
+        "source": "auditory",
+        "target": "executive_frontoparietal",
+        "weight": 0.6229144707522369,
+        "normalized_weight": 0.6229144707522369
+      },
+      {
+        "source": "executive_frontoparietal",
+        "target": "sensorimotor",
+        "weight": 0.6229144707522369,
+        "normalized_weight": 0.6229144707522369
+      },
+      {
+        "source": "salience",
+        "target": "thalamic_gateway",
+        "weight": 0.6157723084877362,
+        "normalized_weight": 0.6157723084877362
+      },
+      {
+        "source": "auditory",
+        "target": "thalamic_gateway",
+        "weight": 0.602757367186282,
+        "normalized_weight": 0.602757367186282
+      }
+    ],
+    "module_count": 8,
+    "edge_count": 28,
+    "density": 1.0,
+    "strongest_edge": {
+      "source": "auditory",
+      "target": "sensorimotor",
+      "weight": 1.0,
+      "normalized_weight": 1.0
+    },
+    "claim_guardrail": "DTI/tractography-derived structural connectivity is used here as a dynamics prior: it constrains which macro-module transitions are anatomically plausible. It is not a raw DTI scan, not a receptor model, and not evidence by itself that LSD or psilocybin caused the observed dynamics.",
+    "dynamic_interpretation": "Read this panel as the structural substrate for network-control and transition-energy questions. Strong edges are candidate low-cost anatomical routes; weak edges are candidate high-cost routes."
+  },
   "thesis_expansion": {
     "thesis_goal": "Build a reproducible explainable AI framework that ranks transparent control-theoretic and graph-dynamic surrogate mechanisms across LSD and psilocybin fMRI, then tests whether the strongest claims survive structural-connectome, receptor-map, atlas, and literature-benchmark checks.",
     "research_question": "Which interpretable macro-dynamic mechanisms best explain psychedelic drug-vs-control fMRI changes, and which claims fail under robustness, cross-dataset, and biological-prior tests?",
@@ -86813,7 +87211,7 @@
     ],
     "loop_status": {
       "schema_version": 1,
-      "generated_at_utc": "2026-05-27T14:38:32.345136+00:00",
+      "generated_at_utc": "2026-05-28T08:05:10.905937+00:00",
       "analysis_status": "implemented_loop_status_artifacts",
       "status_rows": [
         {
@@ -86873,7 +87271,7 @@
         },
         "psilocybin_ds006072": {
           "schema_version": 1,
-          "generated_at_utc": "2026-05-27T14:37:55.821052+00:00",
+          "generated_at_utc": "2026-05-28T08:04:45.124612+00:00",
           "dataset_id": "ds006072",
           "source": "OpenNeuro ds006072, Scientific Data 2025 psilocybin precision imaging dataset",
           "local_data_root": "data/ds006072",
@@ -86926,7 +87324,7 @@
         },
         "structural_connectome": {
           "schema_version": 1,
-          "generated_at_utc": "2026-05-27T14:37:57.739445+00:00",
+          "generated_at_utc": "2026-05-28T08:04:46.919953+00:00",
           "artifact_target": "results/structural_connectome",
           "expected_graph_files": [
             "results/structural_connectome/hcp_macro_modules.csv",
@@ -90360,7 +90758,7 @@
         },
         "receptor_priors": {
           "schema_version": 1,
-          "generated_at_utc": "2026-05-27T14:38:01.952700+00:00",
+          "generated_at_utc": "2026-05-28T08:04:48.990411+00:00",
           "artifact_target": "results/receptor_priors",
           "expected_prior_files": [
             "results/receptor_priors/fs5ht_5ht2a_macro_modules.csv",
@@ -93794,7 +94192,7 @@
         },
         "parcellation_sensitivity": {
           "schema_version": 1,
-          "generated_at_utc": "2026-05-27T14:38:04.383029+00:00",
+          "generated_at_utc": "2026-05-28T08:04:50.978413+00:00",
           "analysis_status": "implemented_status_matrix",
           "rows": [
             {
@@ -93977,7 +94375,7 @@
         },
         "literature_benchmark": {
           "schema_version": 1,
-          "generated_at_utc": "2026-05-27T14:38:32.338876+00:00",
+          "generated_at_utc": "2026-05-28T08:05:10.302574+00:00",
           "analysis_status": "implemented_directional_proxy_benchmark",
           "aligned_count": 4,
           "measurable_count": 6,
@@ -94186,7 +94584,7 @@
   },
   "thesis_upgrade": {
     "schema_version": "thesis_upgrade_status.v1",
-    "generated_at_utc": "2026-05-27T14:38:42.388958+00:00",
+    "generated_at_utc": "2026-05-28T08:05:21.604393+00:00",
     "readiness_summary": {
       "ready_gates": 4,
       "total_gates": 6,
