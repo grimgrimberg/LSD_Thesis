@@ -1,0 +1,59 @@
+{
+  "schema_version": "ds006072_external_validation.v1",
+  "generated_at_utc": "2026-05-29T12:32:04.728748+00:00",
+  "dataset_id": "ds006072",
+  "primary_contrast": "psilocybin_vs_active_control_mtp",
+  "viewer_root": "results/psilocybin_ds006072/empirical_viewer",
+  "subject_views_dir": "results/psilocybin_ds006072/empirical_viewer/subject_views",
+  "subject_view_count": 0,
+  "minimum_comparable_subjects": 3,
+  "readiness_status": "extraction_contract_ready_missing_local_cifti_payloads",
+  "readiness_path": "results/psilocybin_ds006072/external_validation_readiness.json",
+  "unchanged_scoring_spec": "results/psilocybin_ds006072/unchanged_scoring_spec.json",
+  "scoring_lock_verified": true,
+  "scoring_lock": {
+    "scoring_lock_verified": true,
+    "missing_or_mismatched": [],
+    "checked_files": {
+      "target_files.lsd_sober_targets": {
+        "path": "results/stage_2/empirical_sober_targets.yaml",
+        "exists": true,
+        "expected_sha256": "e57c8d25fe04924bbe00b35ef19ba62177090dfae7f9aeb601c28da4b3c290a9",
+        "current_sha256": "e57c8d25fe04924bbe00b35ef19ba62177090dfae7f9aeb601c28da4b3c290a9",
+        "verified": true
+      },
+      "target_files.lsd_perturbation_targets": {
+        "path": "results/stage_2/empirical_perturbation_targets.yaml",
+        "exists": true,
+        "expected_sha256": "33318ab30113c7eceff38755f16ab015a26174a05ce24ab05e6c517bcd023426",
+        "current_sha256": "33318ab30113c7eceff38755f16ab015a26174a05ce24ab05e6c517bcd023426",
+        "verified": true
+      },
+      "target_files.literature_targets": {
+        "path": "configs/targets/empirical_lsd_signatures.yaml",
+        "exists": true,
+        "expected_sha256": "d59c44c1c154be47c2d84d3ad8a273088bc5e6c5499a87c9262077612d4edcd0",
+        "current_sha256": "d59c44c1c154be47c2d84d3ad8a273088bc5e6c5499a87c9262077612d4edcd0",
+        "verified": true
+      },
+      "scoring_code_files.dynamic_mechanism": {
+        "path": "src/lsd_thesis/dynamic_mechanism.py",
+        "exists": true,
+        "expected_sha256": "360dfd734f24df36b7dc8528cf97b0754f8a38cfba4d2a5c2e811cd819d2710b",
+        "current_sha256": "360dfd734f24df36b7dc8528cf97b0754f8a38cfba4d2a5c2e811cd819d2710b",
+        "verified": true
+      }
+    }
+  },
+  "unchanged_scoring_applied": false,
+  "pair_count": 0,
+  "subject_count": 0,
+  "subject_pair_counts": [],
+  "mechanism_ranking": [],
+  "lsd_reference_top_layer": "C",
+  "ds006072_top_layer": null,
+  "replication_status": "not_scored",
+  "claim_guardrail": "This artifact is the ds006072 external-validation gate. It only passes when paired local psilocybin/control empirical-viewer records exist and are scored with the locked ds003059 rule.",
+  "analysis_status": "blocked_missing_local_ds006072_empirical_viewer",
+  "blocker": "No paired ds006072 empirical-viewer subject views exist. Provide harmonized records under results/psilocybin_ds006072/empirical_viewer/subject_views with ses-PLCB control and ses-LSD psilocybin aliases."
+}

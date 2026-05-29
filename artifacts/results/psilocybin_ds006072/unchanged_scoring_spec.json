@@ -1,0 +1,35 @@
+{
+  "schema_version": "ds006072_external_validation.v1",
+  "generated_at_utc": "2026-05-29T12:32:04.682735+00:00",
+  "source_dataset_id": "ds003059",
+  "external_dataset_id": "ds006072",
+  "fixed_rule": "Run lsd_thesis.dynamic_mechanism.build_dynamic_mechanism_summary on ds006072 empirical viewer records without changing mechanism weights, metric direction rules, target files, or ranking code after seeing psilocybin results.",
+  "primary_contrast": "psilocybin_vs_active_control_mtp",
+  "aggregation": "session/run summaries are paired within subject and interpreted at subject level before group claims",
+  "target_files": {
+    "lsd_sober_targets": {
+      "path": "results/stage_2/empirical_sober_targets.yaml",
+      "exists": true,
+      "sha256": "e57c8d25fe04924bbe00b35ef19ba62177090dfae7f9aeb601c28da4b3c290a9"
+    },
+    "lsd_perturbation_targets": {
+      "path": "results/stage_2/empirical_perturbation_targets.yaml",
+      "exists": true,
+      "sha256": "33318ab30113c7eceff38755f16ab015a26174a05ce24ab05e6c517bcd023426"
+    },
+    "literature_targets": {
+      "path": "configs/targets/empirical_lsd_signatures.yaml",
+      "exists": true,
+      "sha256": "d59c44c1c154be47c2d84d3ad8a273088bc5e6c5499a87c9262077612d4edcd0"
+    }
+  },
+  "scoring_code_files": {
+    "dynamic_mechanism": {
+      "path": "src/lsd_thesis/dynamic_mechanism.py",
+      "exists": true,
+      "sha256": "360dfd734f24df36b7dc8528cf97b0754f8a38cfba4d2a5c2e811cd819d2710b",
+      "entrypoint": "lsd_thesis.dynamic_mechanism.build_dynamic_mechanism_summary"
+    }
+  },
+  "claim_guardrail": "This locks the scoring rule. It is not an external validation result until paired ds006072 viewer records exist."
+}
