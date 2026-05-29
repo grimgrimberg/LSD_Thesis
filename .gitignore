@@ -17,6 +17,7 @@ __pycache__/
 /.agents/
 /codex_logs/
 /_codex_skills_disabled_*/
+/.neuromaps-data/
 
 # Raw data downloads. Keep root-anchored so src/lsd_thesis/data remains tracked.
 /data/

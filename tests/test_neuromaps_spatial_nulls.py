@@ -25,6 +25,7 @@ def test_neuromaps_spatial_null_status_fails_closed_without_inputs(tmp_path: Pat
         "blocked_missing_surface_or_high_resolution_map_inputs",
         "blocked_missing_neuromaps_surface_input_manifest",
         "blocked_receptor_moran_null_execution_failed",
+        "blocked_map_family_moran_null_execution_failed",
     }
     assert "not a substitute" in status["claim_guardrail"]
 

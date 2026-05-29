@@ -3,6 +3,8 @@ from __future__ import annotations
 import importlib.util
 import json
 import math
+import os
+import shutil
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
@@ -33,6 +35,26 @@ PET_RECEPTOR_MAPS = (
         "family": "receptor",
         "label": "5-HT2A MDL/Talbot PET, Schaefer100",
         "path": Path("results/external_ingestion/hansen_receptors/source/PET_parcellated/scale100/5HT2a_mdl_hc3_talbot.csv"),
+    },
+)
+PUBLIC_FSLR_ANNOTATION_MAPS = (
+    {
+        "map_id": "hcp1200_myelinmap",
+        "family": "myelin",
+        "label": "HCP S1200 myelin map, Schaefer100 via fsLR32k",
+        "source": "hcps1200",
+        "desc": "myelinmap",
+        "space": "fsLR",
+        "den": "32k",
+    },
+    {
+        "map_id": "margulies2016_fcgradient01",
+        "family": "functional_gradient",
+        "label": "Margulies 2016 principal functional gradient, Schaefer100 via fsLR32k",
+        "source": "margulies2016",
+        "desc": "fcgradient01",
+        "space": "fsLR",
+        "den": "32k",
     },
 )
 TARGET_VECTOR_KEYS = (
@@ -68,6 +90,7 @@ def _candidate_inputs(repo_root: Path) -> dict[str, str | bool]:
     cortical_alignment = repo_root / "results" / "cortical_maps" / "cortical_map_alignment_status.json"
     parcellation_summary = repo_root / "results" / "parcellation_sensitivity" / SCHAEFER_ID / "summary.json"
     pet_paths = [repo_root / item["path"] for item in PET_RECEPTOR_MAPS]
+    annotation_dir = repo_root / "results" / "cortical_maps" / "neuromaps_annotations"
     return {
         "surface_manifest": _rel(surface_manifest, repo_root),
         "surface_manifest_exists": surface_manifest.exists(),
@@ -78,6 +101,10 @@ def _candidate_inputs(repo_root: Path) -> dict[str, str | bool]:
         "schaefer_100_yeo_7_mechanism_summary": _rel(parcellation_summary, repo_root),
         "schaefer_100_yeo_7_mechanism_summary_exists": parcellation_summary.exists(),
         "hansen_5ht2a_pet_scale100_csvs_present": all(path.exists() for path in pet_paths),
+        "public_fslr_annotation_cache": _rel(repo_root / ".neuromaps-data", repo_root),
+        "public_fslr_annotation_cache_exists": (repo_root / ".neuromaps-data").exists(),
+        "derived_neuromaps_annotation_dir": _rel(annotation_dir, repo_root),
+        "derived_neuromaps_annotation_dir_exists": annotation_dir.exists(),
     }
 
 
@@ -226,6 +253,132 @@ def _load_receptor_maps(repo_root: Path, expected_size: int = 100) -> dict[str, 
     return maps
 
 
+def _neuromaps_data_dir(repo_root: Path) -> Path:
+    raw = os.environ.get("NEUROMAPS_DATA")
+    path = Path(raw) if raw else repo_root / ".neuromaps-data"
+    path.mkdir(parents=True, exist_ok=True)
+    os.environ["NEUROMAPS_DATA"] = str(path.resolve())
+    return path
+
+
+def _public_annotation_record(source: str, desc: str, hemi: str) -> dict[str, Any]:
+    from neuromaps.datasets.annotations import get_dataset_info
+
+    matches = [
+        item
+        for item in get_dataset_info("annotations", return_restricted=False)
+        if item.get("source") == source
+        and item.get("desc") == desc
+        and item.get("space") == "fsLR"
+        and item.get("den") == "32k"
+        and item.get("hemi") == hemi
+    ]
+    if len(matches) != 1:
+        raise FileNotFoundError(f"Expected one public fsLR32k annotation for {source}/{desc}/{hemi}, found {len(matches)}.")
+    return matches[0]
+
+
+def _fetch_public_fslr_annotation_pair(repo_root: Path, source: str, desc: str) -> tuple[tuple[Path, Path], list[dict[str, Any]]]:
+    from neuromaps.datasets.annotations import _fetch_file
+
+    data_dir = _neuromaps_data_dir(repo_root)
+    paths: list[Path] = []
+    provenance: list[dict[str, Any]] = []
+    for hemi in ("L", "R"):
+        record = _public_annotation_record(source, desc, hemi)
+        path = data_dir / "annotations" / str(record["rel_path"]) / str(record["fname"])
+        path.parent.mkdir(parents=True, exist_ok=True)
+        if not path.exists():
+            downloaded = _fetch_file(record["url"], path.parent, verbose=0, md5sum=record["checksum"])
+            shutil.move(str(downloaded), path)
+        paths.append(path)
+        provenance.append(
+            {
+                "source": source,
+                "desc": desc,
+                "hemi": hemi,
+                "space": record.get("space"),
+                "den": record.get("den"),
+                "format": record.get("format"),
+                "tags": record.get("tags", []),
+                "checksum": record.get("checksum"),
+                "url": record.get("url"),
+                "cache_path": _rel(path, repo_root) if path.is_relative_to(repo_root) else str(path),
+            }
+        )
+    return (paths[0], paths[1]), provenance
+
+
+def _schaefer_fslr_parcellation_paths(repo_root: Path, atlas_path: Path) -> tuple[Path, Path]:
+    from neuromaps import transforms
+
+    output_dir = repo_root / "results" / "cortical_maps" / "neuromaps_annotations"
+    output_dir.mkdir(parents=True, exist_ok=True)
+    paths = (
+        output_dir / "schaefer100_from_mni_space-fsLR_den-32k_hemi-L_label.gii",
+        output_dir / "schaefer100_from_mni_space-fsLR_den-32k_hemi-R_label.gii",
+    )
+    if all(path.exists() for path in paths):
+        return paths
+    _neuromaps_data_dir(repo_root)
+    projected = transforms.mni152_to_fslr(str(atlas_path), "32k", method="nearest")
+    for path, image in zip(paths, projected, strict=True):
+        nib.save(image, path)
+    return paths
+
+
+def _write_parcellated_vector_csv(path: Path, values: np.ndarray) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(",".join(f"{float(value):.10g}" for value in values.tolist()) + "\n", encoding="utf-8")
+
+
+def _load_public_annotation_maps(repo_root: Path, atlas_path: Path, expected_size: int = 100) -> dict[str, dict[str, Any]]:
+    from neuromaps.images import load_data
+    from neuromaps.parcellate import vertices_to_parcels
+
+    parcellation_paths = _schaefer_fslr_parcellation_paths(repo_root, atlas_path)
+    output_dir = repo_root / "results" / "cortical_maps" / "neuromaps_annotations"
+    maps: dict[str, dict[str, Any]] = {}
+    for item in PUBLIC_FSLR_ANNOTATION_MAPS:
+        annotation_paths, provenance = _fetch_public_fslr_annotation_pair(repo_root, str(item["source"]), str(item["desc"]))
+        vertex_data = load_data(tuple(str(path) for path in annotation_paths))
+        vector = np.asarray(vertices_to_parcels(vertex_data, tuple(str(path) for path in parcellation_paths), background=0), dtype=float).squeeze()
+        if vector.shape != (expected_size,):
+            raise ValueError(f"Expected {expected_size} values for {item['map_id']}, found {vector.shape}.")
+        if int(np.isfinite(vector).sum()) != expected_size:
+            raise ValueError(f"Public annotation {item['map_id']} has missing Schaefer100 parcel values.")
+        vector_path = output_dir / f"{item['map_id']}_schaefer100.csv"
+        _write_parcellated_vector_csv(vector_path, vector)
+        maps[str(item["map_id"])] = {
+            "map_id": item["map_id"],
+            "family": item["family"],
+            "label": item["label"],
+            "source_path": _rel(vector_path, repo_root),
+            "values": vector,
+            "source_provenance": provenance,
+            "parcellation_surface_paths": [_rel(path, repo_root) for path in parcellation_paths],
+        }
+    manifest = {
+        "schema_version": "neuromaps_public_annotations.v1",
+        "generated_at_utc": datetime.now(UTC).isoformat(),
+        "parcellation_id": SCHAEFER_ID,
+        "map_space": "fsLR32k annotations parcellated through Schaefer100 labels projected from MNI152 to fsLR32k",
+        "maps": [
+            {
+                "map_id": payload["map_id"],
+                "family": payload["family"],
+                "label": payload["label"],
+                "source_path": payload["source_path"],
+                "source_provenance": payload["source_provenance"],
+            }
+            for payload in maps.values()
+        ],
+        "claim_guardrail": "These are public atlas priors parcellated to Schaefer100. They are spatial priors, not drug-effect measurements.",
+    }
+    (output_dir / "public_annotation_manifest.json").write_text(json.dumps(manifest, indent=2), encoding="utf-8")
+    return maps
+
+
 def _pearson_r(x: np.ndarray, y: np.ndarray) -> float:
     mask = np.isfinite(x) & np.isfinite(y)
     if int(mask.sum()) < 3:
@@ -273,18 +426,20 @@ def _benjamini_hochberg(p_values: list[float]) -> list[float]:
     return q_values
 
 
-def _run_receptor_moran_nulls(repo_root: Path) -> dict[str, Any]:
+def _run_map_family_moran_nulls(repo_root: Path) -> dict[str, Any]:
     from neuromaps import nulls
 
     expected_size = 100
     atlas_path = _load_schaefer_atlas_path(repo_root)
     centroids = _schaefer_centroids(atlas_path, expected_size=expected_size)
     dist_lh, dist_rh = _hemisphere_distance_matrices(centroids)
-    receptor_maps = _load_receptor_maps(repo_root, expected_size=expected_size)
+    brain_maps: dict[str, dict[str, Any]] = {}
+    brain_maps.update(_load_receptor_maps(repo_root, expected_size=expected_size))
+    brain_maps.update(_load_public_annotation_maps(repo_root, atlas_path, expected_size=expected_size))
     dynamic_targets = _load_dynamic_targets(repo_root, expected_size=expected_size)
 
     rows: list[dict[str, Any]] = []
-    for map_id, map_payload in receptor_maps.items():
+    for map_id, map_payload in brain_maps.items():
         prior = np.asarray(map_payload["values"], dtype=float)
         surrogates = np.asarray(
             nulls.moran(prior, distmat=(dist_lh.copy(), dist_rh.copy()), n_perm=DEFAULT_N_PERM, seed=DEFAULT_SEED),
@@ -329,29 +484,43 @@ def _run_receptor_moran_nulls(repo_root: Path) -> dict[str, Any]:
             else "not_supported_yet"
         )
     best = min(rows, key=lambda row: float(row["q"]) if math.isfinite(float(row["q"])) else float("inf")) if rows else None
+    family_coverage = {
+        "receptor": any(row["map_family"] == "receptor" for row in rows),
+        "myelin": any(row["map_family"] == "myelin" for row in rows),
+        "functional_gradient": any(row["map_family"] == "functional_gradient" for row in rows),
+        "gene_expression": any(row["map_family"] == "gene_expression" for row in rows),
+    }
+    complete_family_coverage = bool(family_coverage["receptor"] and family_coverage["myelin"] and family_coverage["functional_gradient"])
     return {
-        "method": "receptor_only_schaefer100_neuromaps_moran",
+        "method": "schaefer100_neuromaps_moran_public_map_families",
         "parcellation_id": SCHAEFER_ID,
         "atlas_path": _rel(atlas_path, repo_root) if atlas_path.is_relative_to(repo_root) else str(atlas_path),
+        "map_inputs": [
+            {
+                "map_id": payload["map_id"],
+                "family": payload["family"],
+                "label": payload["label"],
+                "source_path": payload["source_path"],
+                "source_provenance": payload.get("source_provenance", []),
+                "parcellation_surface_paths": payload.get("parcellation_surface_paths", []),
+            }
+            for payload in brain_maps.values()
+        ],
         "n_nodes": expected_size,
         "n_perm": DEFAULT_N_PERM,
         "seed": DEFAULT_SEED,
-        "map_count": len(receptor_maps),
+        "map_count": len(brain_maps),
         "target_count": len(dynamic_targets),
         "test_count": len(rows),
         "results": rows,
         "best_result": best,
         "fdr_supported_count": sum(1 for row in rows if row["fdr_pass"] and row["ci_crosses_zero"] is False),
-        "family_coverage": {
-            "receptor": True,
-            "myelin": False,
-            "functional_gradient": False,
-            "gene_expression": False,
-        },
+        "family_coverage": family_coverage,
+        "complete_receptor_myelin_gradient_coverage": complete_family_coverage,
         "limitations": [
             "This is a Schaefer100 parcellated Moran null, not a surface-level spin/permutation null.",
-            "Only Hansen 5-HT2A PET receptor priors are tested here; myelin, gradient, and gene-expression maps remain missing.",
-            "The receptor/myelin/gradient mechanism claim is not promoted unless the broader family coverage and FDR gates pass.",
+            "Public myelin and functional-gradient priors are parcellated through Schaefer100 labels projected from MNI152 to fsLR32k.",
+            "Gene-expression maps remain missing, and the receptor/myelin/gradient mechanism claim is not promoted unless FDR and CI gates pass.",
         ],
     }
 
@@ -368,7 +537,7 @@ def build_neuromaps_spatial_null_status(repo_root: Path = REPO_ROOT) -> dict[str
     has_high_resolution_summary = bool(inputs["schaefer_100_yeo_7_summary_exists"])
     has_mechanism_summary = bool(inputs["schaefer_100_yeo_7_mechanism_summary_exists"])
     has_hansen_pet = bool(inputs["hansen_5ht2a_pet_scale100_csvs_present"])
-    receptor_nulls: dict[str, Any] | None = None
+    map_family_nulls: dict[str, Any] | None = None
     execution_error: str | None = None
 
     if not dependency_available:
@@ -382,16 +551,16 @@ def build_neuromaps_spatial_null_status(repo_root: Path = REPO_ROOT) -> dict[str
         blocker = "No surface/parcellated map manifest or completed Schaefer/Yeo empirical layer exists for spatial nulls."
     elif has_high_resolution_summary and has_mechanism_summary and has_hansen_pet:
         try:
-            receptor_nulls = _run_receptor_moran_nulls(repo_root)
-            status = "implemented_partial_receptor_schaefer100_moran_spatial_nulls"
+            map_family_nulls = _run_map_family_moran_nulls(repo_root)
+            status = "implemented_schaefer100_receptor_myelin_gradient_moran_spatial_nulls"
             blocker = (
-                "Receptor-only Schaefer100 Moran spatial nulls are executed. Full completion still needs myelin, "
-                "functional-gradient, gene-expression, and preferably surface-level null coverage."
+                "Schaefer100 Moran spatial nulls now cover receptor, myelin, and functional-gradient priors. "
+                "Full completion still needs gene-expression and preferably surface-level null coverage."
             )
         except Exception as exc:
-            status = "blocked_receptor_moran_null_execution_failed"
+            status = "blocked_map_family_moran_null_execution_failed"
             execution_error = f"{type(exc).__name__}: {exc}"
-            blocker = f"Receptor-only Moran spatial null execution failed: {execution_error}"
+            blocker = f"Map-family Moran spatial null execution failed: {execution_error}"
     elif not has_surface_manifest:
         status = "blocked_missing_neuromaps_surface_input_manifest"
         blocker = "High-resolution outputs exist, but there is no neuromaps surface/input manifest describing map space and null family."
@@ -404,14 +573,18 @@ def build_neuromaps_spatial_null_status(repo_root: Path = REPO_ROOT) -> dict[str
         "generated_at_utc": datetime.now(UTC).isoformat(),
         "analysis_status": status,
         "spatial_autocorrelation_nulls_complete": False,
-        "partial_spatial_autocorrelation_nulls_complete": receptor_nulls is not None,
-        "receptor_spatial_nulls_complete": receptor_nulls is not None,
+        "partial_spatial_autocorrelation_nulls_complete": map_family_nulls is not None,
+        "receptor_spatial_nulls_complete": bool(map_family_nulls and map_family_nulls["family_coverage"].get("receptor")),
+        "myelin_spatial_nulls_complete": bool(map_family_nulls and map_family_nulls["family_coverage"].get("myelin")),
+        "functional_gradient_spatial_nulls_complete": bool(map_family_nulls and map_family_nulls["family_coverage"].get("functional_gradient")),
+        "gene_expression_spatial_nulls_complete": bool(map_family_nulls and map_family_nulls["family_coverage"].get("gene_expression")),
         "dependency_available": dependency_available,
         "null_api_importable": null_api_importable,
         "neuromaps_runtime": runtime,
         "execution_error": execution_error,
         "candidate_inputs": inputs,
-        "receptor_moran_nulls": receptor_nulls,
+        "receptor_moran_nulls": map_family_nulls,
+        "map_family_moran_nulls": map_family_nulls,
         "module_level_alignment_status": cortical_payload.get("analysis_status", "missing_module_level_alignment"),
         "current_module_statistic": (
             cortical_payload.get("alignment_rows", [{}])[0].get("method", "not_run")
@@ -427,8 +600,8 @@ def build_neuromaps_spatial_null_status(repo_root: Path = REPO_ROOT) -> dict[str
         },
         "blocker": blocker,
         "claim_status": (
-            "partial_receptor_spatial_nulls_executed_claim_not_promoted"
-            if receptor_nulls is not None
+            "receptor_myelin_gradient_spatial_nulls_executed_claim_not_promoted"
+            if map_family_nulls is not None
             else "not_implemented_full_neuromaps_spatial_nulls"
         ),
         "claim_guardrail": "The current exact 8-module permutation test is not a substitute for neuromaps spatial-autocorrelation null testing.",
@@ -454,6 +627,9 @@ def _markdown(status: dict[str, Any]) -> str:
             "## Partial receptor Moran nulls",
             "",
             f"- Receptor spatial nulls complete: `{str(status['receptor_spatial_nulls_complete']).lower()}`",
+            f"- Myelin spatial nulls complete: `{str(status['myelin_spatial_nulls_complete']).lower()}`",
+            f"- Functional-gradient spatial nulls complete: `{str(status['functional_gradient_spatial_nulls_complete']).lower()}`",
+            f"- Gene-expression spatial nulls complete: `{str(status['gene_expression_spatial_nulls_complete']).lower()}`",
             f"- Partial spatial nulls complete: `{str(status['partial_spatial_autocorrelation_nulls_complete']).lower()}`",
             f"- Execution error: `{status['execution_error']}`",
             "",

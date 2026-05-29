@@ -267,7 +267,7 @@ def _neuromaps_spatial_null_gate(repo_root: Path) -> dict[str, Any]:
     missing = (
         "None: full neuromaps spatial-autocorrelation null family coverage is complete."
         if ready
-        else "Receptor-only Schaefer100 Moran spatial nulls are executed, but full myelin, gradient, gene-expression, and surface-level family coverage is missing."
+        else "Schaefer100 receptor, myelin, and functional-gradient Moran spatial nulls are executed, but gene-expression and surface-level family coverage is still missing."
         if receptor_ready
         else "neuromaps is installed and its null API imports, but the surface/high-resolution map input manifest and executed null results are missing."
         if null_api_importable
@@ -276,7 +276,7 @@ def _neuromaps_spatial_null_gate(repo_root: Path) -> dict[str, Any]:
     next_action = (
         "Use the completed spatial-null family as the primary map-prior evidence layer."
         if ready
-        else "Add myelin, functional-gradient, and gene-expression maps in the active high-resolution/surface space, then rerun the same Moran/spatial-null plus FDR gate family."
+        else "Add gene-expression maps and surface-level null coverage in the active high-resolution/surface space, then rerun the same Moran/spatial-null plus FDR gate family."
         if receptor_ready
         else "Create results/cortical_maps/neuromaps_surface_inputs.json, project receptor/myelin/gradient maps to Schaefer/Yeo or surface space, run neuromaps nulls, and FDR-correct the family."
         if null_api_importable
@@ -290,7 +290,7 @@ def _neuromaps_spatial_null_gate(repo_root: Path) -> dict[str, Any]:
             f"{_rel(path, repo_root)}; {_rel(cortical_path, repo_root)}",
             "Full surface/parcellation spatial-autocorrelation null testing has not been run."
             if not receptor_ready
-            else "Partial receptor-only Schaefer100 Moran spatial nulls are run; full family coverage is still missing.",
+            else "Partial receptor/myelin/gradient Schaefer100 Moran spatial nulls are run; full family coverage is still missing.",
             1.0 if ready else 0.7 if receptor_ready else 0.6 if partial_ready else 0.55 if null_api_importable else 0.35 if dependency_available else 0.15,
         ),
         "strict_requirement": _requirement(
