@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at_utc": "2026-05-29T20:29:57.388009+00:00",
+  "generated_at_utc": "2026-05-29T20:52:28.760167+00:00",
   "dataset_id": "ds006072",
   "source": "OpenNeuro ds006072, Scientific Data 2025 psilocybin precision imaging dataset",
   "local_data_root": "data/ds006072",
@@ -14,7 +14,7 @@
   "functional_manifest_processed_cifti_total_size_bytes": 113592893360,
   "external_validation_readiness": {
     "schema_version": "ds006072_external_validation.v1",
-    "generated_at_utc": "2026-05-29T20:28:39.815698+00:00",
+    "generated_at_utc": "2026-05-29T20:29:58.276631+00:00",
     "dataset_id": "ds006072",
     "analysis_status": "local_cifti_payloads_ready_for_comparable_extraction",
     "primary_contrast": "psilocybin_vs_active_control_mtp",
@@ -85,7 +85,7 @@
   "summary": {
     "schema_version": 3,
     "analysis_status": "implemented_first_pass",
-    "generated_at_utc": "2026-05-29T20:29:58.927425+00:00",
+    "generated_at_utc": "2026-05-29T20:52:30.710302+00:00",
     "inference_metadata": {
       "metric_ci_alpha": 0.05,
       "metric_bootstrap_iterations": 1024,
@@ -2465,7 +2465,7 @@
   },
   "comparable_empirical_validation": {
     "schema_version": "ds006072_external_validation.v1",
-    "generated_at_utc": "2026-05-29T20:29:58.296330+00:00",
+    "generated_at_utc": "2026-05-29T20:52:29.731455+00:00",
     "dataset_id": "ds006072",
     "primary_contrast": "psilocybin_vs_active_control_mtp",
     "viewer_root": "results/psilocybin_ds006072/empirical_viewer",
@@ -2581,7 +2581,7 @@
     "summary": {
       "schema_version": 3,
       "analysis_status": "implemented_first_pass",
-      "generated_at_utc": "2026-05-29T20:29:58.927425+00:00",
+      "generated_at_utc": "2026-05-29T20:52:30.710302+00:00",
       "inference_metadata": {
         "metric_ci_alpha": 0.05,
         "metric_bootstrap_iterations": 1024,

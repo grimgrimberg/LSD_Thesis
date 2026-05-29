@@ -1,0 +1,42 @@
+{
+  "schema_version": "ds003059_motion_source_availability.v1",
+  "generated_at_utc": "2026-05-29T20:49:08.241739+00:00",
+  "analysis_status": "no_authorized_subject_level_motion_confounds_found",
+  "motion_source_availability_ready": true,
+  "dataset": {
+    "id": "ds003059",
+    "version": "1.0.0"
+  },
+  "local_search": {
+    "motion_file_count": 0,
+    "motion_files": []
+  },
+  "openneuro_raw_snapshot": {
+    "checked": true,
+    "file_count": 250,
+    "confound_like_file_count": 0,
+    "confound_like_files": [],
+    "error": null,
+    "query": "snapshot.files(recursive=true)"
+  },
+  "public_derivative_repositories": {
+    "checked": true,
+    "statuses": [
+      {
+        "url": "https://github.com/OpenNeuroDerivatives/ds003059-fmriprep",
+        "status_code": 404,
+        "available": false
+      },
+      {
+        "url": "https://github.com/OpenNeuroDerivatives/ds003059-mriqc",
+        "status_code": 404,
+        "available": false
+      }
+    ],
+    "available_count": 0
+  },
+  "source_confounds_available": false,
+  "conclusion": "Local repo search, OpenNeuro raw snapshot metadata, and public OpenNeuroDerivatives repo checks did not expose subject-level FD/DVARS/censoring confounds.",
+  "next_action": "Supply authorized fMRIPrep desc-confounds_timeseries.tsv files or run fMRIPrep/MRIQC from ds003059 raw BOLD before claiming full subject-level motion control.",
+  "claim_guardrail": "This artifact proves source availability, not motion safety. The motion-control gate can only pass after real subject/run FD, DVARS, and censoring values join to dynamic deltas."
+}

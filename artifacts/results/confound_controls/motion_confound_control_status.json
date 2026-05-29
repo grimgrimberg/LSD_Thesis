@@ -1,7 +1,7 @@
 {
   "schema_version": "motion_confound_control.v1",
-  "generated_at_utc": "2026-05-29T20:30:39.327189+00:00",
-  "analysis_status": "unavailable_not_found",
+  "generated_at_utc": "2026-05-29T20:53:12.211767+00:00",
+  "analysis_status": "blocked_absent_authorized_subject_level_motion_confounds",
   "motion_confound_control_ready": false,
   "source_paths": {
     "motion_summary": "results/setting_seed/motion/motion_summary.json",
@@ -56,10 +56,20 @@
     }
   },
   "next_action": "Place authorized fMRIPrep confounds TSV/CSV files under one configured search root, then rerun scripts/run_setting_seed_motion_summary.py.",
-  "blocker": "No parsed subject/session/run motion summaries are available.",
+  "blocker": "Local repo search, OpenNeuro raw snapshot metadata, and public OpenNeuroDerivatives repo checks did not expose subject-level FD/DVARS/censoring confounds.",
+  "source_availability": {
+    "path": "results/confound_controls/ds003059_motion_source_availability.json",
+    "analysis_status": "no_authorized_subject_level_motion_confounds_found",
+    "source_confounds_available": false,
+    "local_motion_file_count": 0,
+    "openneuro_confound_like_file_count": 0,
+    "public_derivative_available_count": 0,
+    "conclusion": "Local repo search, OpenNeuro raw snapshot metadata, and public OpenNeuroDerivatives repo checks did not expose subject-level FD/DVARS/censoring confounds.",
+    "next_action": "Supply authorized fMRIPrep desc-confounds_timeseries.tsv files or run fMRIPrep/MRIQC from ds003059 raw BOLD before claiming full subject-level motion control."
+  },
   "merged_subject_run_count": 0,
   "association_rows": [],
   "high_risk_motion_association_count": 0,
   "claim_status": "not_proven_motion_confound_control_missing",
-  "claim_guardrail": "Motion/confound handling remains a limitation until this artifact contains implemented sensitivity results."
+  "claim_guardrail": "Motion/confound handling remains a limitation until this artifact contains implemented FD/DVARS/censoring sensitivity results. If source availability is false, the correct academic action is to downgrade motion-sensitive claims rather than infer safety from proxies."
 }

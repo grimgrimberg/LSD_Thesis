@@ -87094,7 +87094,7 @@
   },
   "external_cortical_maps": {
     "schema_version": "external_cortical_maps.v1",
-    "generated_at_utc": "2026-05-29T20:30:39.119672+00:00",
+    "generated_at_utc": "2026-05-29T20:53:12.010528+00:00",
     "analysis_status": "implemented_module_level_external_map_alignment",
     "module_contract": [
       "visual",
@@ -87928,7 +87928,7 @@
     ],
     "loop_status": {
       "schema_version": 1,
-      "generated_at_utc": "2026-05-29T20:30:18.117408+00:00",
+      "generated_at_utc": "2026-05-29T20:52:49.178709+00:00",
       "analysis_status": "implemented_loop_status_artifacts",
       "status_rows": [
         {
@@ -87988,7 +87988,7 @@
         },
         "psilocybin_ds006072": {
           "schema_version": 1,
-          "generated_at_utc": "2026-05-29T20:29:57.388009+00:00",
+          "generated_at_utc": "2026-05-29T20:52:28.760167+00:00",
           "dataset_id": "ds006072",
           "source": "OpenNeuro ds006072, Scientific Data 2025 psilocybin precision imaging dataset",
           "local_data_root": "data/ds006072",
@@ -88002,7 +88002,7 @@
           "functional_manifest_processed_cifti_total_size_bytes": 113592893360,
           "external_validation_readiness": {
             "schema_version": "ds006072_external_validation.v1",
-            "generated_at_utc": "2026-05-29T20:28:39.815698+00:00",
+            "generated_at_utc": "2026-05-29T20:29:58.276631+00:00",
             "dataset_id": "ds006072",
             "analysis_status": "local_cifti_payloads_ready_for_comparable_extraction",
             "primary_contrast": "psilocybin_vs_active_control_mtp",
@@ -88073,7 +88073,7 @@
           "summary": {
             "schema_version": 3,
             "analysis_status": "implemented_first_pass",
-            "generated_at_utc": "2026-05-29T20:29:58.927425+00:00",
+            "generated_at_utc": "2026-05-29T20:52:30.710302+00:00",
             "inference_metadata": {
               "metric_ci_alpha": 0.05,
               "metric_bootstrap_iterations": 1024,
@@ -90453,7 +90453,7 @@
           },
           "comparable_empirical_validation": {
             "schema_version": "ds006072_external_validation.v1",
-            "generated_at_utc": "2026-05-29T20:29:58.296330+00:00",
+            "generated_at_utc": "2026-05-29T20:52:29.731455+00:00",
             "dataset_id": "ds006072",
             "primary_contrast": "psilocybin_vs_active_control_mtp",
             "viewer_root": "results/psilocybin_ds006072/empirical_viewer",
@@ -90569,7 +90569,7 @@
             "summary": {
               "schema_version": 3,
               "analysis_status": "implemented_first_pass",
-              "generated_at_utc": "2026-05-29T20:29:58.927425+00:00",
+              "generated_at_utc": "2026-05-29T20:52:30.710302+00:00",
               "inference_metadata": {
                 "metric_ci_alpha": 0.05,
                 "metric_bootstrap_iterations": 1024,
@@ -92959,7 +92959,7 @@
         },
         "structural_connectome": {
           "schema_version": 1,
-          "generated_at_utc": "2026-05-29T20:29:59.726607+00:00",
+          "generated_at_utc": "2026-05-29T20:52:32.144863+00:00",
           "artifact_target": "results/structural_connectome",
           "expected_graph_files": [
             "results/structural_connectome/hcp_macro_modules.csv",
@@ -96393,7 +96393,7 @@
         },
         "receptor_priors": {
           "schema_version": 1,
-          "generated_at_utc": "2026-05-29T20:30:01.529865+00:00",
+          "generated_at_utc": "2026-05-29T20:52:33.761313+00:00",
           "artifact_target": "results/receptor_priors",
           "expected_prior_files": [
             "results/receptor_priors/fs5ht_5ht2a_macro_modules.csv",
@@ -99827,7 +99827,7 @@
         },
         "parcellation_sensitivity": {
           "schema_version": 1,
-          "generated_at_utc": "2026-05-29T20:30:03.595688+00:00",
+          "generated_at_utc": "2026-05-29T20:52:34.947419+00:00",
           "analysis_status": "implemented_status_matrix",
           "rows": [
             {
@@ -100010,7 +100010,7 @@
         },
         "literature_benchmark": {
           "schema_version": 1,
-          "generated_at_utc": "2026-05-29T20:30:18.106029+00:00",
+          "generated_at_utc": "2026-05-29T20:52:49.171637+00:00",
           "analysis_status": "implemented_directional_proxy_benchmark",
           "aligned_count": 4,
           "measurable_count": 6,
@@ -100219,7 +100219,7 @@
   },
   "thesis_upgrade": {
     "schema_version": "thesis_upgrade_status.v1",
-    "generated_at_utc": "2026-05-29T20:30:56.679676+00:00",
+    "generated_at_utc": "2026-05-29T20:53:43.305589+00:00",
     "readiness_summary": {
       "ready_gates": 6,
       "total_gates": 8,
@@ -100235,7 +100235,7 @@
         "label": "Motion and confounds",
         "status": "implemented_published_fd_context_and_proxy_controls_missing_subject_level_fd",
         "ready": false,
-        "evidence": "results/setting_seed/motion/motion_summary.json; results/confound_controls/motion_confound_control_status.json; results/confound_controls/design_confound_control_status.json; results/confound_controls/module_dvars_control_status.json; results/confound_controls/published_motion_qc_status.json",
+        "evidence": "results/setting_seed/motion/motion_summary.json; results/confound_controls/motion_confound_control_status.json; results/confound_controls/design_confound_control_status.json; results/confound_controls/module_dvars_control_status.json; results/confound_controls/published_motion_qc_status.json; results/confound_controls/ds003059_motion_source_availability.json",
         "blocker": "Published ds003059 FD/scrubbing QC context plus local run/design and module-DVARS proxy controls are implemented, but subject-level FD/DVARS confounds are unavailable.",
         "score": 0.65
       },
@@ -100332,9 +100332,9 @@
         "label": "Motion/confound control result",
         "status": "implemented_published_fd_context_and_proxy_controls_missing_subject_level_fd",
         "complete": false,
-        "evidence": "results/setting_seed/motion/motion_summary.json; results/confound_controls/motion_confound_control_status.json; results/confound_controls/design_confound_control_status.json; results/confound_controls/module_dvars_control_status.json; results/confound_controls/published_motion_qc_status.json",
-        "missing": "Published aggregate FD/scrubbing context, run/session controls, and module-DVARS proxy controls exist, but a subject-level FD/DVARS/censoring motion-control result is still missing.",
-        "next_action": "Parse confounds for every subject/session/run, then report whether dynamic effects survive FD, DVARS, censoring, and run/order controls.",
+        "evidence": "results/setting_seed/motion/motion_summary.json; results/confound_controls/motion_confound_control_status.json; results/confound_controls/design_confound_control_status.json; results/confound_controls/module_dvars_control_status.json; results/confound_controls/published_motion_qc_status.json; results/confound_controls/ds003059_motion_source_availability.json",
+        "missing": "A source-availability check found no local/OpenNeuro raw/public derivative subject-level FD/DVARS/censoring confounds; full motion proof requires authorized fMRIPrep outputs or a local preprocessing run.",
+        "next_action": "Supply authorized fMRIPrep outputs or run preprocessing to create desc-confounds_timeseries.tsv files, then report whether dynamic effects survive FD, DVARS, censoring, and run/order controls.",
         "claim_effect": "Until this passes, motion/confound handling is a framed limitation rather than a proven control."
       },
       {
@@ -100364,7 +100364,7 @@
           "label": "Motion and confounds",
           "status": "implemented_published_fd_context_and_proxy_controls_missing_subject_level_fd",
           "ready": false,
-          "evidence": "results/setting_seed/motion/motion_summary.json; results/confound_controls/motion_confound_control_status.json; results/confound_controls/design_confound_control_status.json; results/confound_controls/module_dvars_control_status.json; results/confound_controls/published_motion_qc_status.json",
+          "evidence": "results/setting_seed/motion/motion_summary.json; results/confound_controls/motion_confound_control_status.json; results/confound_controls/design_confound_control_status.json; results/confound_controls/module_dvars_control_status.json; results/confound_controls/published_motion_qc_status.json; results/confound_controls/ds003059_motion_source_availability.json",
           "blocker": "Published ds003059 FD/scrubbing QC context plus local run/design and module-DVARS proxy controls are implemented, but subject-level FD/DVARS confounds are unavailable.",
           "score": 0.65
         },
@@ -100373,9 +100373,9 @@
           "label": "Motion/confound control result",
           "status": "implemented_published_fd_context_and_proxy_controls_missing_subject_level_fd",
           "complete": false,
-          "evidence": "results/setting_seed/motion/motion_summary.json; results/confound_controls/motion_confound_control_status.json; results/confound_controls/design_confound_control_status.json; results/confound_controls/module_dvars_control_status.json; results/confound_controls/published_motion_qc_status.json",
-          "missing": "Published aggregate FD/scrubbing context, run/session controls, and module-DVARS proxy controls exist, but a subject-level FD/DVARS/censoring motion-control result is still missing.",
-          "next_action": "Parse confounds for every subject/session/run, then report whether dynamic effects survive FD, DVARS, censoring, and run/order controls.",
+          "evidence": "results/setting_seed/motion/motion_summary.json; results/confound_controls/motion_confound_control_status.json; results/confound_controls/design_confound_control_status.json; results/confound_controls/module_dvars_control_status.json; results/confound_controls/published_motion_qc_status.json; results/confound_controls/ds003059_motion_source_availability.json",
+          "missing": "A source-availability check found no local/OpenNeuro raw/public derivative subject-level FD/DVARS/censoring confounds; full motion proof requires authorized fMRIPrep outputs or a local preprocessing run.",
+          "next_action": "Supply authorized fMRIPrep outputs or run preprocessing to create desc-confounds_timeseries.tsv files, then report whether dynamic effects survive FD, DVARS, censoring, and run/order controls.",
           "claim_effect": "Until this passes, motion/confound handling is a framed limitation rather than a proven control."
         },
         "motion_summary_ready": false,
@@ -100396,6 +100396,9 @@
           "original_analysis_excluded_high_motion_subjects": true,
           "strict_subject_level_fd_gate_complete": false
         },
+        "motion_source_availability_path": "results/confound_controls/ds003059_motion_source_availability.json",
+        "motion_source_availability_status": "no_authorized_subject_level_motion_confounds_found",
+        "motion_source_confounds_available": false,
         "required_columns": [
           "framewise_displacement",
           "dvars or std_dvars",
@@ -100413,7 +100416,7 @@
           "dvars_spike_threshold": 1.5,
           "reporting_unit": "subject/session/run"
         },
-        "claim_guardrail": "Motion sensitivity is not complete until structured confounds are present and parsed."
+        "claim_guardrail": "Motion sensitivity is not complete until structured confounds are present and parsed. A negative source-availability check strengthens provenance, but it does not prove motion safety."
       },
       "canonical_parcellation": {
         "gate": {
