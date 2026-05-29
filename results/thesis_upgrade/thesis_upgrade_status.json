@@ -1,6 +1,6 @@
 {
   "schema_version": "thesis_upgrade_status.v1",
-  "generated_at_utc": "2026-05-29T12:22:57.708722+00:00",
+  "generated_at_utc": "2026-05-29T12:32:55.574445+00:00",
   "readiness_summary": {
     "ready_gates": 5,
     "total_gates": 8,

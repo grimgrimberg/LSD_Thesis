@@ -157,6 +157,19 @@ def _copy_dashboard_linked_artifacts(repo_root: Path, site: Path, dashboard_payl
     return sorted(set(copied))
 
 
+def _published_artifact_paths(outputs: dict[str, Path], site: Path) -> list[str]:
+    excluded = {"index", "dashboard", "dashboard_data", "dashboard_plotly"}
+    paths: list[str] = []
+    for key, path in outputs.items():
+        if key in excluded:
+            continue
+        if path.is_file():
+            paths.append(path.relative_to(site).as_posix())
+        elif path.is_dir():
+            paths.extend(child.relative_to(site).as_posix() for child in path.rglob("*") if child.is_file())
+    return sorted(set(paths))
+
+
 def _write_static_dashboard(repo_root: Path, site: Path) -> dict[str, Path | list[str]]:
     dashboard_dir = site / "dashboard"
     dashboard_dir.mkdir(parents=True, exist_ok=True)
@@ -243,6 +256,11 @@ def build_github_pages_site(repo_root: Path = REPO_ROOT, site_dir: Path | None =
     )
     if thesis_upgrade is not None:
         outputs["thesis_upgrade"] = thesis_upgrade
+    psilocybin_ds006072 = _copy_tree(
+        repo_root / "results" / "psilocybin_ds006072", site / "artifacts" / "results" / "psilocybin_ds006072"
+    )
+    if psilocybin_ds006072 is not None:
+        outputs["psilocybin_ds006072"] = psilocybin_ds006072
     dashboard_outputs = _write_static_dashboard(repo_root, site)
     outputs.update({key: value for key, value in dashboard_outputs.items() if isinstance(value, Path)})
     dashboard_artifacts = dashboard_outputs.get("dashboard_artifacts", [])
@@ -259,11 +277,9 @@ def build_github_pages_site(repo_root: Path = REPO_ROOT, site_dir: Path | None =
             "dashboard": "dashboard/index.html",
         },
         "artifacts": sorted(
-            path.relative_to(site).as_posix()
-            for key, path in outputs.items()
-            if key not in {"index", "figures", "dashboard", "dashboard_data", "dashboard_plotly"} and path.is_file()
-        )
-        + list(dashboard_artifacts if isinstance(dashboard_artifacts, list) else []),
+            set(_published_artifact_paths(outputs, site))
+            | set(dashboard_artifacts if isinstance(dashboard_artifacts, list) else [])
+        ),
     }
     manifest_path = site / "pages_manifest.json"
     manifest_path.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
