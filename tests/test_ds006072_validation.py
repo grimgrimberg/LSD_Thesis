@@ -4,6 +4,8 @@ import csv
 from pathlib import Path
 
 from lsd_thesis.ds006072_validation import (
+    MIN_COMPARABLE_SUBJECTS,
+    build_ds006072_comparable_validation_status,
     build_ds006072_external_validation_readiness,
     build_session_availability_rows,
     build_subject_pairing_rows,
@@ -112,3 +114,116 @@ def test_build_ds006072_readiness_locks_scoring_and_writes_fail_closed_status(tm
     assert payload["primary_subject_count"] == 1
     assert payload["primary_subjects_local_ready"] == 0
     assert (tmp_path / "results" / "psilocybin_ds006072" / "unchanged_scoring_spec.json").exists()
+
+
+def _write_scoring_targets(root: Path) -> None:
+    (root / "results" / "stage_2").mkdir(parents=True, exist_ok=True)
+    (root / "results" / "stage_2" / "empirical_sober_targets.yaml").write_text("target_deltas: {}\n", encoding="utf-8")
+    (root / "results" / "stage_2" / "empirical_perturbation_targets.yaml").write_text("target_deltas: {}\n", encoding="utf-8")
+    (root / "configs" / "targets").mkdir(parents=True, exist_ok=True)
+    (root / "configs" / "targets" / "empirical_lsd_signatures.yaml").write_text("target_deltas: {}\n", encoding="utf-8")
+
+
+def _write_minimal_ds006072_metadata(root: Path, subject_count: int = MIN_COMPARABLE_SUBJECTS) -> None:
+    data_root = root / "data" / "ds006072"
+    rows = []
+    order_rows = []
+    cifti_rows = []
+    for index in range(1, subject_count + 1):
+        subject = f"P{index}"
+        rows.extend(
+            [
+                {"PatientName": subject, "SessionID": f"{subject}_Drug1", "SessionNumber": f"sub-P{index}_ses-1"},
+                {"PatientName": subject, "SessionID": f"{subject}_Drug2", "SessionNumber": f"sub-P{index}_ses-2"},
+            ]
+        )
+        order_rows.append({"SubID": subject, "Drug1": "MTP", "Drug2": "PSIL"})
+        cifti_rows.extend(
+            [
+                {
+                    "filename": f"sub-{index}_Drug1_rsfMRI_uout_bpss_sr_noGSR_sm4.dtseries.nii",
+                    "relative_path": f"NON_BIDS/ciftis/sub-{index}_Drug1_rsfMRI_uout_bpss_sr_noGSR_sm4.dtseries.nii",
+                    "is_processed_rest_cifti": "True",
+                    "url_available": "True",
+                    "size": "10",
+                },
+                {
+                    "filename": f"sub-{index}_Drug2_rsfMRI_uout_bpss_sr_noGSR_sm4.dtseries.nii",
+                    "relative_path": f"NON_BIDS/ciftis/sub-{index}_Drug2_rsfMRI_uout_bpss_sr_noGSR_sm4.dtseries.nii",
+                    "is_processed_rest_cifti": "True",
+                    "url_available": "True",
+                    "size": "10",
+                },
+            ]
+        )
+    _write_csv(data_root / "session_data.csv", ["PatientName", "SessionID", "SessionNumber"], rows)
+    _write_csv(data_root / "ds006072_drug_order.csv", ["SubID", "Drug1", "Drug2"], order_rows)
+    _write_csv(data_root / "ds006072_cifti_manifest.csv", ["filename", "relative_path", "is_processed_rest_cifti", "url_available", "size"], cifti_rows)
+
+
+def _write_external_viewer(root: Path, subject_count: int = MIN_COMPARABLE_SUBJECTS) -> None:
+    viewer_root = root / "results" / "psilocybin_ds006072" / "empirical_viewer"
+    subject_views = viewer_root / "subject_views"
+    subject_views.mkdir(parents=True, exist_ok=True)
+    modules = [
+        "visual",
+        "auditory",
+        "salience",
+        "default_mode",
+        "executive_frontoparietal",
+        "limbic_affective",
+        "thalamic_gateway",
+        "sensorimotor",
+    ]
+    (viewer_root / "group_overview.json").write_text(
+        __import__("json").dumps({"module_names": modules}),
+        encoding="utf-8",
+    )
+    for index in range(1, subject_count + 1):
+        base = float(index)
+        placebo = [[base + time * 0.1 + module * 0.01 for module in range(len(modules))] for time in range(6)]
+        psilocybin = [[base + time * 0.16 + module * 0.015 for module in range(len(modules))] for time in range(6)]
+        payload = {
+            "subject": f"P{index}",
+            "run": "run-01",
+            "conditions": {
+                "ses-PLCB": {
+                    "module_time_series": placebo
+                },
+                "ses-LSD": {
+                    "module_time_series": psilocybin
+                },
+            },
+        }
+        (subject_views / f"P{index}_run-01.json").write_text(
+            __import__("json").dumps(payload),
+            encoding="utf-8",
+        )
+
+
+def test_comparable_validation_fails_closed_without_empirical_viewer(tmp_path: Path) -> None:
+    _write_scoring_targets(tmp_path)
+    _write_minimal_ds006072_metadata(tmp_path)
+
+    payload = build_ds006072_comparable_validation_status(tmp_path)
+
+    assert payload["analysis_status"] == "blocked_missing_local_ds006072_empirical_viewer"
+    assert payload["scoring_lock_verified"] is True
+    assert payload["unchanged_scoring_applied"] is False
+    assert payload["pair_count"] == 0
+    assert (tmp_path / "results" / "psilocybin_ds006072" / "comparable_empirical_validation_summary.json").exists()
+
+
+def test_comparable_validation_scores_harmonized_pairs_with_locked_rule(tmp_path: Path) -> None:
+    _write_scoring_targets(tmp_path)
+    _write_minimal_ds006072_metadata(tmp_path)
+    _write_external_viewer(tmp_path)
+
+    payload = build_ds006072_comparable_validation_status(tmp_path)
+
+    assert payload["analysis_status"] == "implemented_ds006072_unchanged_scoring_validation"
+    assert payload["scoring_lock_verified"] is True
+    assert payload["unchanged_scoring_applied"] is True
+    assert payload["subject_count"] == MIN_COMPARABLE_SUBJECTS
+    assert payload["pair_count"] == MIN_COMPARABLE_SUBJECTS
+    assert payload["mechanism_ranking"]

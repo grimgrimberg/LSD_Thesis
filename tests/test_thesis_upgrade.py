@@ -93,6 +93,32 @@ def test_thesis_upgrade_external_validation_requires_comparable_scoring(tmp_path
     assert "not comparable psilocybin/control dynamic extraction" in external["strict_requirement"]["missing"]
 
 
+def test_thesis_upgrade_marks_external_validation_complete_only_with_locked_comparable_scoring(tmp_path: Path) -> None:
+    result_dir = tmp_path / "results" / "psilocybin_ds006072"
+    result_dir.mkdir(parents=True)
+    (result_dir / "comparable_empirical_validation_summary.json").write_text(
+        json.dumps(
+            {
+                "analysis_status": "implemented_ds006072_unchanged_scoring_validation",
+                "unchanged_scoring_applied": True,
+                "scoring_lock_verified": True,
+                "subject_count": 3,
+                "minimum_comparable_subjects": 3,
+                "replication_status": "ranking_replicates_lsd_top_layer",
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    status = build_thesis_upgrade_status(tmp_path)
+    external = status["components"]["external_validation"]
+
+    assert external["gate"]["ready"] is True
+    assert external["strict_requirement"]["complete"] is True
+    assert external["scoring_lock_verified"] is True
+    assert external["comparable_subject_count"] == 3
+
+
 def test_write_thesis_upgrade_status_writes_strict_audit(tmp_path: Path) -> None:
     status = write_thesis_upgrade_status(tmp_path)
 

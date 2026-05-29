@@ -9,6 +9,7 @@ from typing import Any
 import numpy as np
 
 from lsd_thesis.core import MODULE_NAMES
+from lsd_thesis.ds006072_validation import build_ds006072_comparable_validation_status
 from lsd_thesis.dynamic_mechanism import (
     build_dynamic_mechanism_summary,
     load_empirical_pairs,
@@ -510,15 +511,20 @@ def build_psilocybin_status(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
         ),
         "claim_guardrail": "No psilocybin replication claim is allowed unless comparable paired drug/control empirical viewer records exist.",
     }
-    if viewer_root.exists():
-        summary = build_dynamic_mechanism_summary(viewer_root)
+    comparable_validation = build_ds006072_comparable_validation_status(repo_root)
+    if comparable_validation.get("unchanged_scoring_applied"):
+        summary = comparable_validation.get("summary", {}) if isinstance(comparable_validation.get("summary"), dict) else {}
         payload.update(
             {
-                "analysis_status": "implemented_comparable_mechanism_ranking" if summary.get("pair_count", 0) else "blocked_empty_viewer",
+                "analysis_status": comparable_validation["analysis_status"],
                 "pair_count": summary.get("pair_count", 0),
                 "subject_count": summary.get("subject_count", 0),
                 "mechanism_ranking": summary.get("mechanism_ranking", []),
                 "summary": summary,
+                "comparable_empirical_validation": comparable_validation,
+                "comparable_empirical_validation_path": comparable_validation["source_path"],
+                "unchanged_scoring_applied": True,
+                "replication_status": comparable_validation.get("replication_status"),
             }
         )
     else:
@@ -542,23 +548,29 @@ def build_psilocybin_status(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
         payload.update(
             {
                 "analysis_status": (
-                    readiness_status
-                    if readiness_status
-                    else
-                    "metadata_and_file_manifest_ready_missing_empirical_viewer"
-                    if func_manifest_path.exists()
-                    else "blocked_missing_local_ds006072_empirical_viewer"
+                    comparable_validation.get("analysis_status")
+                    or readiness_status
+                    or (
+                        "metadata_and_file_manifest_ready_missing_empirical_viewer"
+                        if func_manifest_path.exists()
+                        else "blocked_missing_local_ds006072_empirical_viewer"
+                    )
                 ),
-                "pair_count": 0,
-                "subject_count": 0,
+                "pair_count": comparable_validation.get("pair_count", 0),
+                "subject_count": comparable_validation.get("subject_count", 0),
                 "blocker": (
-                    readiness_blocker
-                    if readiness_blocker
-                    else
-                    "Expected comparable paired psilocybin/control empirical viewer records under "
-                    f"{viewer_root.relative_to(repo_root).as_posix()}."
+                    comparable_validation.get("blocker")
+                    or readiness_blocker
+                    or (
+                        "Expected comparable paired psilocybin/control empirical viewer records under "
+                        f"{viewer_root.relative_to(repo_root).as_posix()}."
+                    )
                 ),
                 "schema_template": schema_path.relative_to(repo_root).as_posix(),
+                "comparable_empirical_validation": comparable_validation,
+                "comparable_empirical_validation_path": comparable_validation["source_path"],
+                "unchanged_scoring_applied": False,
+                "replication_status": comparable_validation.get("replication_status"),
                 "next_commands": [
                     "Build extraction readiness: .venv\\Scripts\\python.exe scripts\\build_ds006072_external_validation_readiness.py",
                     "Acquire or derive ds006072 paired psilocybin/control module time series under data/ds006072/.",

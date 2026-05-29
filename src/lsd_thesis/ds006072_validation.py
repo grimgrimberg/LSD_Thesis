@@ -4,10 +4,13 @@ import csv
 import hashlib
 import json
 import zipfile
+from collections import Counter
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 from xml.etree import ElementTree as ET
+
+from lsd_thesis.dynamic_mechanism import build_dynamic_mechanism_summary, load_empirical_pairs
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 SCHEMA_VERSION = "ds006072_external_validation.v1"
@@ -15,6 +18,7 @@ DS006072_DATASET_ID = "ds006072"
 
 NAMESPACE = {"a": "http://schemas.openxmlformats.org/spreadsheetml/2006/main"}
 PRIMARY_CONTRAST = "psilocybin_vs_active_control_mtp"
+MIN_COMPARABLE_SUBJECTS = 3
 
 
 def _now() -> str:
@@ -23,6 +27,13 @@ def _now() -> str:
 
 def _rel(path: Path, repo_root: Path) -> str:
     return path.resolve().relative_to(repo_root.resolve()).as_posix()
+
+
+def _path_ref(path: Path, repo_root: Path) -> str:
+    try:
+        return _rel(path, repo_root)
+    except ValueError:
+        return path.resolve().as_posix()
 
 
 def _read_csv(path: Path) -> list[dict[str, str]]:
@@ -272,6 +283,7 @@ def _write_scoring_spec(repo_root: Path, output_dir: Path) -> dict[str, Any]:
         "lsd_perturbation_targets": repo_root / "results" / "stage_2" / "empirical_perturbation_targets.yaml",
         "literature_targets": repo_root / "configs" / "targets" / "empirical_lsd_signatures.yaml",
     }
+    scoring_code_paths = {"dynamic_mechanism": Path(build_dynamic_mechanism_summary.__code__.co_filename)}
     spec = {
         "schema_version": SCHEMA_VERSION,
         "generated_at_utc": _now(),
@@ -292,12 +304,252 @@ def _write_scoring_spec(repo_root: Path, output_dir: Path) -> dict[str, Any]:
             }
             for name, path in target_paths.items()
         },
+        "scoring_code_files": {
+            name: {
+                "path": _path_ref(path, repo_root),
+                "exists": path.exists(),
+                "sha256": _sha256_file(path),
+                "entrypoint": "lsd_thesis.dynamic_mechanism.build_dynamic_mechanism_summary"
+                if name == "dynamic_mechanism"
+                else None,
+            }
+            for name, path in scoring_code_paths.items()
+        },
         "claim_guardrail": "This locks the scoring rule. It is not an external validation result until paired ds006072 viewer records exist.",
     }
     path = output_dir / "unchanged_scoring_spec.json"
     path.write_text(json.dumps(spec, indent=2), encoding="utf-8")
     spec["source_path"] = _rel(path, repo_root)
     return spec
+
+
+def _verify_locked_scoring_spec(repo_root: Path, spec: dict[str, Any] | None) -> dict[str, Any]:
+    if not isinstance(spec, dict):
+        return {
+            "scoring_lock_verified": False,
+            "missing_or_mismatched": ["missing unchanged_scoring_spec.json"],
+            "checked_files": {},
+        }
+
+    checked_files: dict[str, dict[str, Any]] = {}
+    missing_or_mismatched: list[str] = []
+    groups = {
+        "target_files": spec.get("target_files", {}),
+        "scoring_code_files": spec.get("scoring_code_files", {}),
+    }
+    for group_name, files in groups.items():
+        if not isinstance(files, dict):
+            missing_or_mismatched.append(group_name)
+            continue
+        for name, payload in files.items():
+            if not isinstance(payload, dict):
+                missing_or_mismatched.append(f"{group_name}.{name}")
+                continue
+            rel_path = str(payload.get("path") or "")
+            expected_hash = payload.get("sha256")
+            path = Path(rel_path)
+            if not path.is_absolute():
+                path = repo_root / rel_path
+            current_hash = _sha256_file(path)
+            exists = path.exists()
+            verified = bool(exists and expected_hash and current_hash == expected_hash)
+            checked_files[f"{group_name}.{name}"] = {
+                "path": rel_path,
+                "exists": exists,
+                "expected_sha256": expected_hash,
+                "current_sha256": current_hash,
+                "verified": verified,
+            }
+            if not verified:
+                missing_or_mismatched.append(f"{group_name}.{name}")
+
+    return {
+        "scoring_lock_verified": not missing_or_mismatched,
+        "missing_or_mismatched": missing_or_mismatched,
+        "checked_files": checked_files,
+    }
+
+
+def _subject_count_from_pairs(pairs: list[Any]) -> int:
+    return len({str(pair.subject) for pair in pairs})
+
+
+def _subject_pair_counts(pairs: list[Any]) -> list[dict[str, Any]]:
+    counts = Counter(str(pair.subject) for pair in pairs)
+    return [{"subject": subject, "pair_count": count} for subject, count in sorted(counts.items())]
+
+
+def _ranking_top_layer(summary: dict[str, Any] | None) -> str | None:
+    if not isinstance(summary, dict):
+        return None
+    rows = summary.get("mechanism_ranking")
+    if isinstance(rows, list) and rows and isinstance(rows[0], dict):
+        layer = rows[0].get("layer")
+        return str(layer) if layer is not None else None
+    return None
+
+
+def _build_comparable_markdown(payload: dict[str, Any]) -> str:
+    lines = [
+        "# ds006072 Comparable Validation Status",
+        "",
+        payload["claim_guardrail"],
+        "",
+        f"- Status: `{payload['analysis_status']}`",
+        f"- Unchanged scoring applied: `{str(payload['unchanged_scoring_applied']).lower()}`",
+        f"- Scoring lock verified: `{str(payload['scoring_lock_verified']).lower()}`",
+        f"- Pair count: `{payload['pair_count']}`",
+        f"- Subject count: `{payload['subject_count']}`",
+        f"- Required subject count: `{payload['minimum_comparable_subjects']}`",
+        f"- Replication status: `{payload['replication_status']}`",
+        "",
+    ]
+    if payload.get("blocker"):
+        lines.extend(["## Blocker", "", str(payload["blocker"]), ""])
+    if payload.get("mechanism_ranking"):
+        lines.extend(["## Mechanism ranking", "", "| Rank | Layer | Score | Status |", "| ---: | --- | ---: | --- |"])
+        for row in payload["mechanism_ranking"]:
+            lines.append(
+                "| {rank} | {layer} | {score:.3f} | {status} |".format(
+                    rank=row.get("rank", ""),
+                    layer=row.get("layer", ""),
+                    score=float(row.get("score") or 0.0),
+                    status=row.get("status", ""),
+                )
+            )
+    return "\n".join(lines) + "\n"
+
+
+def build_ds006072_comparable_validation_status(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
+    repo_root = repo_root.resolve()
+    output_dir = repo_root / "results" / "psilocybin_ds006072"
+    output_dir.mkdir(parents=True, exist_ok=True)
+    scoring_spec_path = output_dir / "unchanged_scoring_spec.json"
+    existing_scoring_spec = json.loads(scoring_spec_path.read_text(encoding="utf-8")) if scoring_spec_path.exists() else None
+    viewer_root = output_dir / "empirical_viewer"
+    subject_views_dir = viewer_root / "subject_views"
+    use_existing_lock = subject_views_dir.exists() and isinstance(existing_scoring_spec, dict)
+    readiness = build_ds006072_external_validation_readiness(repo_root)
+    scoring_spec = (
+        existing_scoring_spec
+        if use_existing_lock
+        else json.loads(scoring_spec_path.read_text(encoding="utf-8"))
+        if scoring_spec_path.exists()
+        else None
+    )
+    scoring_lock = _verify_locked_scoring_spec(repo_root, scoring_spec)
+    subject_view_count = len(list(subject_views_dir.glob("*.json"))) if subject_views_dir.exists() else 0
+    lsd_summary_path = repo_root / "results" / "dynamic_mechanism_ranking" / "summary.json"
+    lsd_summary = json.loads(lsd_summary_path.read_text(encoding="utf-8")) if lsd_summary_path.exists() else None
+    lsd_top_layer = _ranking_top_layer(lsd_summary)
+
+    base_payload: dict[str, Any] = {
+        "schema_version": SCHEMA_VERSION,
+        "generated_at_utc": _now(),
+        "dataset_id": DS006072_DATASET_ID,
+        "primary_contrast": PRIMARY_CONTRAST,
+        "viewer_root": _rel(viewer_root, repo_root),
+        "subject_views_dir": _rel(subject_views_dir, repo_root),
+        "subject_view_count": subject_view_count,
+        "minimum_comparable_subjects": MIN_COMPARABLE_SUBJECTS,
+        "readiness_status": readiness.get("analysis_status"),
+        "readiness_path": "results/psilocybin_ds006072/external_validation_readiness.json",
+        "unchanged_scoring_spec": "results/psilocybin_ds006072/unchanged_scoring_spec.json",
+        "scoring_lock_verified": bool(scoring_lock["scoring_lock_verified"]),
+        "scoring_lock": scoring_lock,
+        "unchanged_scoring_applied": False,
+        "pair_count": 0,
+        "subject_count": 0,
+        "subject_pair_counts": [],
+        "mechanism_ranking": [],
+        "lsd_reference_top_layer": lsd_top_layer,
+        "ds006072_top_layer": None,
+        "replication_status": "not_scored",
+        "claim_guardrail": (
+            "This artifact is the ds006072 external-validation gate. It only passes when paired local "
+            "psilocybin/control empirical-viewer records exist and are scored with the locked ds003059 rule."
+        ),
+    }
+
+    if not subject_views_dir.exists():
+        payload = {
+            **base_payload,
+            "analysis_status": "blocked_missing_local_ds006072_empirical_viewer",
+            "blocker": (
+                "No paired ds006072 empirical-viewer subject views exist. Provide harmonized records under "
+                f"{_rel(subject_views_dir, repo_root)} with ses-PLCB control and ses-LSD psilocybin aliases."
+            ),
+        }
+    elif not scoring_lock["scoring_lock_verified"]:
+        payload = {
+            **base_payload,
+            "analysis_status": "blocked_scoring_lock_not_verified",
+            "blocker": (
+                "The unchanged-scoring lock is missing or its target/code hashes no longer match: "
+                + ", ".join(scoring_lock["missing_or_mismatched"])
+            ),
+        }
+    else:
+        pairs = load_empirical_pairs(viewer_root)
+        pair_count = len(pairs)
+        subject_count = _subject_count_from_pairs(pairs)
+        if pair_count == 0:
+            payload = {
+                **base_payload,
+                "analysis_status": "blocked_no_harmonized_ds006072_pairs",
+                "blocker": (
+                    f"Found {subject_view_count} subject-view files, but none contained both required harmonized "
+                    "conditions: ses-PLCB for active-control MTP and ses-LSD for psilocybin."
+                ),
+            }
+        elif subject_count < MIN_COMPARABLE_SUBJECTS:
+            payload = {
+                **base_payload,
+                "analysis_status": "blocked_insufficient_ds006072_subjects_for_external_validation",
+                "pair_count": pair_count,
+                "subject_count": subject_count,
+                "subject_pair_counts": _subject_pair_counts(pairs),
+                "blocker": (
+                    f"Only {subject_count} comparable ds006072 subjects are present; "
+                    f"need at least {MIN_COMPARABLE_SUBJECTS} before reporting external validation."
+                ),
+            }
+        else:
+            summary = build_dynamic_mechanism_summary(viewer_root)
+            ds006072_top_layer = _ranking_top_layer(summary)
+            replication_status = (
+                "ranking_replicates_lsd_top_layer"
+                if lsd_top_layer is not None and ds006072_top_layer == lsd_top_layer
+                else "ranking_differs_from_lsd_top_layer"
+                if lsd_top_layer is not None and ds006072_top_layer is not None
+                else "scored_no_lsd_reference_top_layer"
+            )
+            payload = {
+                **base_payload,
+                "analysis_status": "implemented_ds006072_unchanged_scoring_validation",
+                "unchanged_scoring_applied": True,
+                "pair_count": int(summary.get("pair_count") or pair_count),
+                "subject_count": int(summary.get("subject_count") or subject_count),
+                "subject_pair_counts": _subject_pair_counts(pairs),
+                "mechanism_ranking": summary.get("mechanism_ranking", []),
+                "summary": summary,
+                "ds006072_top_layer": ds006072_top_layer,
+                "replication_status": replication_status,
+                "blocker": "",
+                "claim_status": (
+                    "external_validation_supports_lsd_top_layer"
+                    if replication_status == "ranking_replicates_lsd_top_layer"
+                    else "external_validation_scored_but_does_not_replicate_lsd_top_layer"
+                ),
+            }
+
+    status_path = output_dir / "comparable_empirical_validation_summary.json"
+    report_path = output_dir / "comparable_empirical_validation_summary.md"
+    status_path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
+    report_path.write_text(_build_comparable_markdown(payload), encoding="utf-8")
+    payload["source_path"] = _rel(status_path, repo_root)
+    payload["report_path"] = _rel(report_path, repo_root)
+    return payload
 
 
 def _write_summary(path: Path, payload: dict[str, Any]) -> None:

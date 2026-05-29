@@ -407,7 +407,15 @@ def _external_gate(repo_root: Path) -> dict[str, Any]:
         or readiness_payload.get("analysis_status")
         or "blocked_missing_local_ds006072_empirical_viewer"
     )
-    ready = _status_is_implemented(status) and bool(comparable_payload.get("unchanged_scoring_applied"))
+    scoring_verified = bool(comparable_payload.get("scoring_lock_verified"))
+    subject_count = int(comparable_payload.get("subject_count") or 0)
+    minimum_subjects = int(comparable_payload.get("minimum_comparable_subjects") or 3)
+    ready = (
+        _status_is_implemented(status)
+        and bool(comparable_payload.get("unchanged_scoring_applied"))
+        and scoring_verified
+        and subject_count >= minimum_subjects
+    )
     manifest_ready = ingestion_status.get("ds006072_metadata") == "ready" and ingestion_status.get("ds006072_func_manifest") == "ready"
     extraction_contract_ready = status.startswith("extraction_contract_ready")
     return {
@@ -431,13 +439,17 @@ def _external_gate(repo_root: Path) -> dict[str, Any]:
             ready,
             f"{_rel(path, repo_root)}; {_rel(readiness_path, repo_root)}; {_rel(comparable_result_path, repo_root)}",
             "The repo has readiness/provenance, but not comparable psilocybin/control dynamic extraction scored unchanged.",
-            "Supply or derive authorized ds006072 processed rest payloads, build paired empirical viewer records, then apply the locked LSD scoring spec without retuning.",
+            "Supply or derive authorized ds006072 processed rest payloads, build paired empirical viewer records, then apply the locked LSD scoring spec without retuning and with matching scoring hashes.",
             "External validation remains absent until comparable ds006072 scoring exists.",
         ),
         "recommended_external_dataset": "OpenNeuro ds006072 psilocybin precision functional mapping",
         "ingestion_status": ingestion_status,
         "primary_subjects_local_ready": readiness_payload.get("primary_subjects_local_ready"),
         "primary_subject_count": readiness_payload.get("primary_subject_count"),
+        "scoring_lock_verified": scoring_verified,
+        "comparable_subject_count": subject_count,
+        "minimum_comparable_subjects": minimum_subjects,
+        "replication_status": comparable_payload.get("replication_status"),
         "comparable_result_path": _rel(comparable_result_path, repo_root),
         "fixed_rule": "Run the same LSD scoring rules on psilocybin/control data without retuning after seeing results.",
         "claim_guardrail": "Metadata and manifests are not external validation; comparable empirical target extraction is required.",

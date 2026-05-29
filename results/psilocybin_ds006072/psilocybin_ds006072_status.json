@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at_utc": "2026-05-29T11:51:34.798114+00:00",
+  "generated_at_utc": "2026-05-29T12:22:07.362816+00:00",
   "dataset_id": "ds006072",
   "source": "OpenNeuro ds006072, Scientific Data 2025 psilocybin precision imaging dataset",
   "local_data_root": "data/ds006072",
@@ -14,7 +14,7 @@
   "functional_manifest_processed_cifti_total_size_bytes": 113592893360,
   "external_validation_readiness": {
     "schema_version": "ds006072_external_validation.v1",
-    "generated_at_utc": "2026-05-27T14:19:06.584902+00:00",
+    "generated_at_utc": "2026-05-29T12:20:40.948284+00:00",
     "dataset_id": "ds006072",
     "analysis_status": "extraction_contract_ready_missing_local_cifti_payloads",
     "primary_contrast": "psilocybin_vs_active_control_mtp",
@@ -37,11 +37,75 @@
   },
   "external_validation_readiness_path": "results/psilocybin_ds006072/external_validation_readiness.json",
   "claim_guardrail": "No psilocybin replication claim is allowed unless comparable paired drug/control empirical viewer records exist.",
-  "analysis_status": "extraction_contract_ready_missing_local_cifti_payloads",
+  "analysis_status": "blocked_missing_local_ds006072_empirical_viewer",
   "pair_count": 0,
   "subject_count": 0,
-  "blocker": "Drug-order mapping and unchanged scoring are locked, but local ds006072 CIFTI/module time-series payloads are absent. Download or provide authorized processed rest CIFTIs before claiming validation.",
+  "blocker": "No paired ds006072 empirical-viewer subject views exist. Provide harmonized records under results/psilocybin_ds006072/empirical_viewer/subject_views with ses-PLCB control and ses-LSD psilocybin aliases.",
   "schema_template": "results/psilocybin_ds006072/required_empirical_viewer_schema.json",
+  "comparable_empirical_validation": {
+    "schema_version": "ds006072_external_validation.v1",
+    "generated_at_utc": "2026-05-29T12:22:08.143705+00:00",
+    "dataset_id": "ds006072",
+    "primary_contrast": "psilocybin_vs_active_control_mtp",
+    "viewer_root": "results/psilocybin_ds006072/empirical_viewer",
+    "subject_views_dir": "results/psilocybin_ds006072/empirical_viewer/subject_views",
+    "subject_view_count": 0,
+    "minimum_comparable_subjects": 3,
+    "readiness_status": "extraction_contract_ready_missing_local_cifti_payloads",
+    "readiness_path": "results/psilocybin_ds006072/external_validation_readiness.json",
+    "unchanged_scoring_spec": "results/psilocybin_ds006072/unchanged_scoring_spec.json",
+    "scoring_lock_verified": true,
+    "scoring_lock": {
+      "scoring_lock_verified": true,
+      "missing_or_mismatched": [],
+      "checked_files": {
+        "target_files.lsd_sober_targets": {
+          "path": "results/stage_2/empirical_sober_targets.yaml",
+          "exists": true,
+          "expected_sha256": "e57c8d25fe04924bbe00b35ef19ba62177090dfae7f9aeb601c28da4b3c290a9",
+          "current_sha256": "e57c8d25fe04924bbe00b35ef19ba62177090dfae7f9aeb601c28da4b3c290a9",
+          "verified": true
+        },
+        "target_files.lsd_perturbation_targets": {
+          "path": "results/stage_2/empirical_perturbation_targets.yaml",
+          "exists": true,
+          "expected_sha256": "33318ab30113c7eceff38755f16ab015a26174a05ce24ab05e6c517bcd023426",
+          "current_sha256": "33318ab30113c7eceff38755f16ab015a26174a05ce24ab05e6c517bcd023426",
+          "verified": true
+        },
+        "target_files.literature_targets": {
+          "path": "configs/targets/empirical_lsd_signatures.yaml",
+          "exists": true,
+          "expected_sha256": "d59c44c1c154be47c2d84d3ad8a273088bc5e6c5499a87c9262077612d4edcd0",
+          "current_sha256": "d59c44c1c154be47c2d84d3ad8a273088bc5e6c5499a87c9262077612d4edcd0",
+          "verified": true
+        },
+        "scoring_code_files.dynamic_mechanism": {
+          "path": "src/lsd_thesis/dynamic_mechanism.py",
+          "exists": true,
+          "expected_sha256": "360dfd734f24df36b7dc8528cf97b0754f8a38cfba4d2a5c2e811cd819d2710b",
+          "current_sha256": "360dfd734f24df36b7dc8528cf97b0754f8a38cfba4d2a5c2e811cd819d2710b",
+          "verified": true
+        }
+      }
+    },
+    "unchanged_scoring_applied": false,
+    "pair_count": 0,
+    "subject_count": 0,
+    "subject_pair_counts": [],
+    "mechanism_ranking": [],
+    "lsd_reference_top_layer": "C",
+    "ds006072_top_layer": null,
+    "replication_status": "not_scored",
+    "claim_guardrail": "This artifact is the ds006072 external-validation gate. It only passes when paired local psilocybin/control empirical-viewer records exist and are scored with the locked ds003059 rule.",
+    "analysis_status": "blocked_missing_local_ds006072_empirical_viewer",
+    "blocker": "No paired ds006072 empirical-viewer subject views exist. Provide harmonized records under results/psilocybin_ds006072/empirical_viewer/subject_views with ses-PLCB control and ses-LSD psilocybin aliases.",
+    "source_path": "results/psilocybin_ds006072/comparable_empirical_validation_summary.json",
+    "report_path": "results/psilocybin_ds006072/comparable_empirical_validation_summary.md"
+  },
+  "comparable_empirical_validation_path": "results/psilocybin_ds006072/comparable_empirical_validation_summary.json",
+  "unchanged_scoring_applied": false,
+  "replication_status": "not_scored",
   "next_commands": [
     "Build extraction readiness: .venv\\Scripts\\python.exe scripts\\build_ds006072_external_validation_readiness.py",
     "Acquire or derive ds006072 paired psilocybin/control module time series under data/ds006072/.",
