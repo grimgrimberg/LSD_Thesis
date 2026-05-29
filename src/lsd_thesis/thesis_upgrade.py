@@ -468,10 +468,12 @@ def _external_gate(repo_root: Path) -> dict[str, Any]:
     path = repo_root / "results" / "psilocybin_ds006072" / "psilocybin_ds006072_status.json"
     readiness_path = repo_root / "results" / "psilocybin_ds006072" / "external_validation_readiness.json"
     comparable_result_path = repo_root / "results" / "psilocybin_ds006072" / "comparable_empirical_validation_summary.json"
+    payload_plan_path = repo_root / "results" / "psilocybin_ds006072" / "minimum_payload_plan.json"
     ingestion_path = repo_root / "results" / "external_ingestion" / "external_ingestion_status.json"
     payload = _read_json(path) or {}
     readiness_payload = _read_json(readiness_path) or {}
     comparable_payload = _read_json(comparable_result_path) or {}
+    payload_plan = _read_json(payload_plan_path) or {}
     ingestion = _read_json(ingestion_path) or {}
     ingestion_status = ingestion.get("analysis_status", {}) if isinstance(ingestion.get("analysis_status"), dict) else {}
     status = str(
@@ -491,28 +493,55 @@ def _external_gate(repo_root: Path) -> dict[str, Any]:
     )
     manifest_ready = ingestion_status.get("ds006072_metadata") == "ready" and ingestion_status.get("ds006072_func_manifest") == "ready"
     extraction_contract_ready = status.startswith("extraction_contract_ready")
+    payload_plan_ready = bool(payload_plan.get("minimum_payload_plan_ready"))
+    payloads_local_ready = bool(payload_plan.get("minimum_payloads_local_ready"))
+    blocker = str(
+        comparable_payload.get("blocker")
+        or payload.get("blocker")
+        or readiness_payload.get("blocker")
+        or "Comparable ds006072 psilocybin/control empirical viewer is not complete."
+    )
+    if not ready and payloads_local_ready:
+        blocker = "Minimum ds006072 payloads are local but have not yet been extracted into empirical-viewer records or scored unchanged."
+    elif not ready and payload_plan_ready:
+        blocker = "Minimum ds006072 payload download plan is ready; selected processed CIFTIs still need local download, extraction, and unchanged scoring."
     return {
         "gate": _gate(
             "External validation",
             status,
             ready,
-            f"{_rel(path, repo_root)}; {_rel(readiness_path, repo_root)}; {_rel(comparable_result_path, repo_root)}; {_rel(ingestion_path, repo_root)}",
-            str(
-                comparable_payload.get("blocker")
-                or payload.get("blocker")
-                or readiness_payload.get("blocker")
-                or "Comparable ds006072 psilocybin/control empirical viewer is not complete."
-            ),
-            1.0 if ready else 0.6 if extraction_contract_ready else 0.45 if manifest_ready else 0.35 if payload else 0.1,
+            f"{_rel(path, repo_root)}; {_rel(readiness_path, repo_root)}; {_rel(comparable_result_path, repo_root)}; {_rel(payload_plan_path, repo_root)}; {_rel(ingestion_path, repo_root)}",
+            blocker,
+            1.0
+            if ready
+            else 0.7
+            if payloads_local_ready
+            else 0.62
+            if payload_plan_ready
+            else 0.6
+            if extraction_contract_ready
+            else 0.45
+            if manifest_ready
+            else 0.35
+            if payload
+            else 0.1,
         ),
         "strict_requirement": _requirement(
             "ds006072_external_validation",
             "ds006072 psilocybin external validation",
             status,
             ready,
-            f"{_rel(path, repo_root)}; {_rel(readiness_path, repo_root)}; {_rel(comparable_result_path, repo_root)}",
-            "The repo has readiness/provenance, but not comparable psilocybin/control dynamic extraction scored unchanged.",
-            "Supply or derive authorized ds006072 processed rest payloads, build paired empirical viewer records, then apply the locked LSD scoring spec without retuning and with matching scoring hashes.",
+            f"{_rel(path, repo_root)}; {_rel(readiness_path, repo_root)}; {_rel(comparable_result_path, repo_root)}; {_rel(payload_plan_path, repo_root)}",
+            (
+                "The repo has a minimum processed-CIFTI payload plan, but not comparable psilocybin/control dynamic extraction scored unchanged."
+                if payload_plan_ready
+                else "The repo has readiness/provenance, but not comparable psilocybin/control dynamic extraction scored unchanged."
+            ),
+            (
+                "Run the minimum payload download plan, extract paired ds006072 empirical viewer records, then apply the locked LSD scoring spec without retuning."
+                if payload_plan_ready
+                else "Supply or derive authorized ds006072 processed rest payloads, build paired empirical viewer records, then apply the locked LSD scoring spec without retuning and with matching scoring hashes."
+            ),
             "External validation remains absent until comparable ds006072 scoring exists.",
         ),
         "recommended_external_dataset": "OpenNeuro ds006072 psilocybin precision functional mapping",
@@ -522,6 +551,11 @@ def _external_gate(repo_root: Path) -> dict[str, Any]:
         "scoring_lock_verified": scoring_verified,
         "comparable_subject_count": subject_count,
         "minimum_comparable_subjects": minimum_subjects,
+        "minimum_payload_plan_ready": payload_plan_ready,
+        "minimum_payloads_local_ready": payloads_local_ready,
+        "minimum_payload_plan_path": _rel(payload_plan_path, repo_root),
+        "minimum_payload_selected_subject_count": payload_plan.get("selected_subject_count"),
+        "minimum_payload_selected_total_size_bytes": payload_plan.get("selected_total_size_bytes"),
         "replication_status": comparable_payload.get("replication_status"),
         "comparable_result_path": _rel(comparable_result_path, repo_root),
         "fixed_rule": "Run the same LSD scoring rules on psilocybin/control data without retuning after seeing results.",

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at_utc": "2026-05-29T19:23:07.275242+00:00",
+  "generated_at_utc": "2026-05-29T19:47:51.373112+00:00",
   "analysis_status": "implemented_loop_status_artifacts",
   "status_rows": [
     {
@@ -60,7 +60,7 @@
     },
     "psilocybin_ds006072": {
       "schema_version": 1,
-      "generated_at_utc": "2026-05-29T19:22:48.689316+00:00",
+      "generated_at_utc": "2026-05-29T19:47:30.350075+00:00",
       "dataset_id": "ds006072",
       "source": "OpenNeuro ds006072, Scientific Data 2025 psilocybin precision imaging dataset",
       "local_data_root": "data/ds006072",
@@ -74,7 +74,7 @@
       "functional_manifest_processed_cifti_total_size_bytes": 113592893360,
       "external_validation_readiness": {
         "schema_version": "ds006072_external_validation.v1",
-        "generated_at_utc": "2026-05-29T18:46:48.126564+00:00",
+        "generated_at_utc": "2026-05-29T19:46:45.366511+00:00",
         "dataset_id": "ds006072",
         "analysis_status": "extraction_contract_ready_missing_local_cifti_payloads",
         "primary_contrast": "psilocybin_vs_active_control_mtp",
@@ -104,7 +104,7 @@
       "schema_template": "results/psilocybin_ds006072/required_empirical_viewer_schema.json",
       "comparable_empirical_validation": {
         "schema_version": "ds006072_external_validation.v1",
-        "generated_at_utc": "2026-05-29T19:22:49.563085+00:00",
+        "generated_at_utc": "2026-05-29T19:47:31.390868+00:00",
         "dataset_id": "ds006072",
         "primary_contrast": "psilocybin_vs_active_control_mtp",
         "viewer_root": "results/psilocybin_ds006072/empirical_viewer",
@@ -177,7 +177,7 @@
     },
     "structural_connectome": {
       "schema_version": 1,
-      "generated_at_utc": "2026-05-29T19:22:51.284882+00:00",
+      "generated_at_utc": "2026-05-29T19:47:33.357131+00:00",
       "artifact_target": "results/structural_connectome",
       "expected_graph_files": [
         "results/structural_connectome/hcp_macro_modules.csv",
@@ -3611,7 +3611,7 @@
     },
     "receptor_priors": {
       "schema_version": 1,
-      "generated_at_utc": "2026-05-29T19:22:52.723192+00:00",
+      "generated_at_utc": "2026-05-29T19:47:34.823649+00:00",
       "artifact_target": "results/receptor_priors",
       "expected_prior_files": [
         "results/receptor_priors/fs5ht_5ht2a_macro_modules.csv",
@@ -7045,7 +7045,7 @@
     },
     "parcellation_sensitivity": {
       "schema_version": 1,
-      "generated_at_utc": "2026-05-29T19:22:53.932756+00:00",
+      "generated_at_utc": "2026-05-29T19:47:36.375722+00:00",
       "analysis_status": "implemented_status_matrix",
       "rows": [
         {
@@ -7228,7 +7228,7 @@
     },
     "literature_benchmark": {
       "schema_version": 1,
-      "generated_at_utc": "2026-05-29T19:23:07.270342+00:00",
+      "generated_at_utc": "2026-05-29T19:47:51.241129+00:00",
       "analysis_status": "implemented_directional_proxy_benchmark",
       "aligned_count": 4,
       "measurable_count": 6,
