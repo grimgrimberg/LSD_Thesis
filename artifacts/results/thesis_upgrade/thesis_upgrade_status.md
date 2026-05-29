@@ -12,7 +12,7 @@ This status file upgrades evidence visibility and fails closed on missing scienc
 | ROCKET benchmark | supporting_internal_signal | true | 1.00 | Add permutation-null, calibration, and MiniRocket/MultiRocket gates before treating this as strong ML evidence. |
 | External validation | blocked_missing_local_ds006072_empirical_viewer | false | 0.45 | No paired ds006072 empirical-viewer subject views exist. Provide harmonized records under results/psilocybin_ds006072/empirical_viewer/subject_views with ses-PLCB control and ses-LSD psilocybin aliases. |
 | Receptor + structural control | fully_integrated | true | 1.00 | Need both a documented structural-connectome graph and PET-derived receptor prior with null controls. |
-| Receptor/myelin/gradient claim | not_supported_yet | false | 0.45 | Current receptor/myelin/gradient alignments are exploratory priors; q-values do not pass FDR and CIs overlap zero. |
+| Receptor/myelin/gradient claim | not_supported_yet | false | 0.45 | Map-prior negative result is formalized; the mechanism claim remains not_supported_yet. |
 | Reproducible archive | manifest_ready | true | 0.75 | Generate the archive manifest, then publish a GitHub release and Zenodo DOI. |
 
 ## Strict Completion Audit
@@ -23,7 +23,7 @@ This status file upgrades evidence visibility and fails closed on missing scienc
 | Full neuromaps spatial-autocorrelation nulls | implemented_schaefer100_full_map_family_moran_spatial_nulls | true | None: full neuromaps spatial-autocorrelation null family coverage is complete. | Use the completed spatial-null family as the primary map-prior evidence layer. |
 | ds006072 psilocybin external validation | blocked_missing_local_ds006072_empirical_viewer | false | The repo has readiness/provenance, but not comparable psilocybin/control dynamic extraction scored unchanged. | Supply or derive authorized ds006072 processed rest payloads, build paired empirical viewer records, then apply the locked LSD scoring spec without retuning and with matching scoring hashes. |
 | Motion/confound control result | implemented_design_and_module_dvars_controls_missing_fd_motion | false | Run/session and module-DVARS proxy controls exist, but a dedicated fMRIPrep FD/DVARS/censoring motion-control result is still missing. | Parse confounds for every subject/session/run, then report whether dynamic effects survive FD, DVARS, censoring, and run/order controls. |
-| Receptor/myelin/gradient claim support | not_supported_yet | false | The strongest current map alignment remains exploratory: no FDR pass and CI overlap with zero. | Promote the claim only after high-resolution parcellation, neuromaps spatial nulls, FDR pass, and uncertainty intervals that do not cross zero. |
+| Receptor/myelin/gradient claim support | not_supported_yet | false | The map-prior negative result is formalized: no module-level or spatial-null family FDR support, and the best spatial-null CI crosses zero. | Promote the claim only after high-resolution parcellation, neuromaps spatial nulls, FDR pass, and uncertainty intervals that do not cross zero. |
 | Project phase | pi_pitch_ready_research_proposal_not_completed_thesis | false | One or more required scientific gates is still missing or fail-closed. | Keep pitching this as an AI/engineering research proposal until every strict evidence gate passes. |
 
 ## Canonical Next State

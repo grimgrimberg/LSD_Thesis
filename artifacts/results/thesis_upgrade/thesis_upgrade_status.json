@@ -1,6 +1,6 @@
 {
   "schema_version": "thesis_upgrade_status.v1",
-  "generated_at_utc": "2026-05-29T12:56:17.596349+00:00",
+  "generated_at_utc": "2026-05-29T18:48:09.334290+00:00",
   "readiness_summary": {
     "ready_gates": 5,
     "total_gates": 8,
@@ -65,7 +65,7 @@
       "status": "not_supported_yet",
       "ready": false,
       "evidence": "results/cortical_maps/cortical_map_alignment_status.json",
-      "blocker": "Current receptor/myelin/gradient alignments are exploratory priors; q-values do not pass FDR and CIs overlap zero.",
+      "blocker": "Map-prior negative result is formalized; the mechanism claim remains not_supported_yet.",
       "score": 0.45
     },
     {
@@ -123,8 +123,8 @@
       "label": "Receptor/myelin/gradient claim support",
       "status": "not_supported_yet",
       "complete": false,
-      "evidence": "results/cortical_maps/cortical_map_alignment_status.json",
-      "missing": "The strongest current map alignment remains exploratory: no FDR pass and CI overlap with zero.",
+      "evidence": "results/cortical_maps/cortical_map_alignment_status.json; results/cortical_maps/map_prior_falsification_status.json",
+      "missing": "The map-prior negative result is formalized: no module-level or spatial-null family FDR support, and the best spatial-null CI crosses zero.",
       "next_action": "Promote the claim only after high-resolution parcellation, neuromaps spatial nulls, FDR pass, and uncertainty intervals that do not cross zero.",
       "claim_effect": "The dashboard must keep this as not_supported_yet until those gates pass."
     },
@@ -850,7 +850,7 @@
         "status": "not_supported_yet",
         "ready": false,
         "evidence": "results/cortical_maps/cortical_map_alignment_status.json",
-        "blocker": "Current receptor/myelin/gradient alignments are exploratory priors; q-values do not pass FDR and CIs overlap zero.",
+        "blocker": "Map-prior negative result is formalized; the mechanism claim remains not_supported_yet.",
         "score": 0.45
       },
       "strict_requirement": {
@@ -858,8 +858,8 @@
         "label": "Receptor/myelin/gradient claim support",
         "status": "not_supported_yet",
         "complete": false,
-        "evidence": "results/cortical_maps/cortical_map_alignment_status.json",
-        "missing": "The strongest current map alignment remains exploratory: no FDR pass and CI overlap with zero.",
+        "evidence": "results/cortical_maps/cortical_map_alignment_status.json; results/cortical_maps/map_prior_falsification_status.json",
+        "missing": "The map-prior negative result is formalized: no module-level or spatial-null family FDR support, and the best spatial-null CI crosses zero.",
         "next_action": "Promote the claim only after high-resolution parcellation, neuromaps spatial nulls, FDR pass, and uncertainty intervals that do not cross zero.",
         "claim_effect": "The dashboard must keep this as not_supported_yet until those gates pass."
       },
@@ -898,6 +898,9 @@
         "fdr_significant_0_05": false,
         "alignment_status": "exploratory_no_fdr_support"
       },
+      "negative_result_ready": true,
+      "negative_result_path": "results/cortical_maps/map_prior_falsification_status.json",
+      "negative_result_claim_effect": "The receptor/myelin/gradient/gene-expression map-prior mechanism is formally downgraded: module-level permutation and Schaefer100 Moran spatial-null families both fail FDR support, and the best spatial-null interval overlaps zero.",
       "claim_guardrail": "External map priors are useful hypotheses, not proof of receptor/myelin/gradient mechanism."
     },
     "reproducible_archive": {
