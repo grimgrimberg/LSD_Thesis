@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-05-29T19:24:10.107020+00:00",
+  "generated_at_utc": "2026-05-29T19:48:46.718243+00:00",
   "claim_guardrail": "GitHub Pages is a static presentation and dashboard snapshot. Treat blocked rows in the claim matrix as unresolved thesis work, not as completed scientific evidence. Interactive FastAPI-only controls are available only in the local dashboard.",
   "entrypoints": {
     "index": "index.html",
@@ -75,6 +75,8 @@
     "artifacts/results/psilocybin_ds006072/ds006072_session_availability.csv",
     "artifacts/results/psilocybin_ds006072/external_validation_readiness.json",
     "artifacts/results/psilocybin_ds006072/external_validation_readiness.md",
+    "artifacts/results/psilocybin_ds006072/minimum_payload_plan.json",
+    "artifacts/results/psilocybin_ds006072/minimum_payload_plan.md",
     "artifacts/results/psilocybin_ds006072/psilocybin_ds006072_status.json",
     "artifacts/results/psilocybin_ds006072/required_empirical_viewer_schema.json",
     "artifacts/results/psilocybin_ds006072/unchanged_scoring_spec.json",

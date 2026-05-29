@@ -1,6 +1,6 @@
 {
   "schema_version": "thesis_upgrade_status.v1",
-  "generated_at_utc": "2026-05-29T19:24:03.142282+00:00",
+  "generated_at_utc": "2026-05-29T19:48:42.451340+00:00",
   "readiness_summary": {
     "ready_gates": 5,
     "total_gates": 8,
@@ -48,9 +48,9 @@
       "label": "External validation",
       "status": "blocked_missing_local_ds006072_empirical_viewer",
       "ready": false,
-      "evidence": "results/psilocybin_ds006072/psilocybin_ds006072_status.json; results/psilocybin_ds006072/external_validation_readiness.json; results/psilocybin_ds006072/comparable_empirical_validation_summary.json; results/external_ingestion/external_ingestion_status.json",
-      "blocker": "No paired ds006072 empirical-viewer subject views exist. Provide harmonized records under results/psilocybin_ds006072/empirical_viewer/subject_views with ses-PLCB control and ses-LSD psilocybin aliases.",
-      "score": 0.45
+      "evidence": "results/psilocybin_ds006072/psilocybin_ds006072_status.json; results/psilocybin_ds006072/external_validation_readiness.json; results/psilocybin_ds006072/comparable_empirical_validation_summary.json; results/psilocybin_ds006072/minimum_payload_plan.json; results/external_ingestion/external_ingestion_status.json",
+      "blocker": "Minimum ds006072 payload download plan is ready; selected processed CIFTIs still need local download, extraction, and unchanged scoring.",
+      "score": 0.62
     },
     {
       "label": "Receptor + structural control",
@@ -103,9 +103,9 @@
       "label": "ds006072 psilocybin external validation",
       "status": "blocked_missing_local_ds006072_empirical_viewer",
       "complete": false,
-      "evidence": "results/psilocybin_ds006072/psilocybin_ds006072_status.json; results/psilocybin_ds006072/external_validation_readiness.json; results/psilocybin_ds006072/comparable_empirical_validation_summary.json",
-      "missing": "The repo has readiness/provenance, but not comparable psilocybin/control dynamic extraction scored unchanged.",
-      "next_action": "Supply or derive authorized ds006072 processed rest payloads, build paired empirical viewer records, then apply the locked LSD scoring spec without retuning and with matching scoring hashes.",
+      "evidence": "results/psilocybin_ds006072/psilocybin_ds006072_status.json; results/psilocybin_ds006072/external_validation_readiness.json; results/psilocybin_ds006072/comparable_empirical_validation_summary.json; results/psilocybin_ds006072/minimum_payload_plan.json",
+      "missing": "The repo has a minimum processed-CIFTI payload plan, but not comparable psilocybin/control dynamic extraction scored unchanged.",
+      "next_action": "Run the minimum payload download plan, extract paired ds006072 empirical viewer records, then apply the locked LSD scoring spec without retuning.",
       "claim_effect": "External validation remains absent until comparable ds006072 scoring exists."
     },
     {
@@ -795,18 +795,18 @@
         "label": "External validation",
         "status": "blocked_missing_local_ds006072_empirical_viewer",
         "ready": false,
-        "evidence": "results/psilocybin_ds006072/psilocybin_ds006072_status.json; results/psilocybin_ds006072/external_validation_readiness.json; results/psilocybin_ds006072/comparable_empirical_validation_summary.json; results/external_ingestion/external_ingestion_status.json",
-        "blocker": "No paired ds006072 empirical-viewer subject views exist. Provide harmonized records under results/psilocybin_ds006072/empirical_viewer/subject_views with ses-PLCB control and ses-LSD psilocybin aliases.",
-        "score": 0.45
+        "evidence": "results/psilocybin_ds006072/psilocybin_ds006072_status.json; results/psilocybin_ds006072/external_validation_readiness.json; results/psilocybin_ds006072/comparable_empirical_validation_summary.json; results/psilocybin_ds006072/minimum_payload_plan.json; results/external_ingestion/external_ingestion_status.json",
+        "blocker": "Minimum ds006072 payload download plan is ready; selected processed CIFTIs still need local download, extraction, and unchanged scoring.",
+        "score": 0.62
       },
       "strict_requirement": {
         "requirement_id": "ds006072_external_validation",
         "label": "ds006072 psilocybin external validation",
         "status": "blocked_missing_local_ds006072_empirical_viewer",
         "complete": false,
-        "evidence": "results/psilocybin_ds006072/psilocybin_ds006072_status.json; results/psilocybin_ds006072/external_validation_readiness.json; results/psilocybin_ds006072/comparable_empirical_validation_summary.json",
-        "missing": "The repo has readiness/provenance, but not comparable psilocybin/control dynamic extraction scored unchanged.",
-        "next_action": "Supply or derive authorized ds006072 processed rest payloads, build paired empirical viewer records, then apply the locked LSD scoring spec without retuning and with matching scoring hashes.",
+        "evidence": "results/psilocybin_ds006072/psilocybin_ds006072_status.json; results/psilocybin_ds006072/external_validation_readiness.json; results/psilocybin_ds006072/comparable_empirical_validation_summary.json; results/psilocybin_ds006072/minimum_payload_plan.json",
+        "missing": "The repo has a minimum processed-CIFTI payload plan, but not comparable psilocybin/control dynamic extraction scored unchanged.",
+        "next_action": "Run the minimum payload download plan, extract paired ds006072 empirical viewer records, then apply the locked LSD scoring spec without retuning.",
         "claim_effect": "External validation remains absent until comparable ds006072 scoring exists."
       },
       "recommended_external_dataset": "OpenNeuro ds006072 psilocybin precision functional mapping",
@@ -821,6 +821,11 @@
       "scoring_lock_verified": true,
       "comparable_subject_count": 0,
       "minimum_comparable_subjects": 3,
+      "minimum_payload_plan_ready": true,
+      "minimum_payloads_local_ready": false,
+      "minimum_payload_plan_path": "results/psilocybin_ds006072/minimum_payload_plan.json",
+      "minimum_payload_selected_subject_count": 3,
+      "minimum_payload_selected_total_size_bytes": 3078165976,
       "replication_status": "not_scored",
       "comparable_result_path": "results/psilocybin_ds006072/comparable_empirical_validation_summary.json",
       "fixed_rule": "Run the same LSD scoring rules on psilocybin/control data without retuning after seeing results.",
