@@ -87094,7 +87094,7 @@
   },
   "external_cortical_maps": {
     "schema_version": "external_cortical_maps.v1",
-    "generated_at_utc": "2026-05-28T19:55:04.899971+00:00",
+    "generated_at_utc": "2026-05-29T11:52:14.552416+00:00",
     "analysis_status": "implemented_module_level_external_map_alignment",
     "module_contract": [
       "visual",
@@ -87928,7 +87928,7 @@
     ],
     "loop_status": {
       "schema_version": 1,
-      "generated_at_utc": "2026-05-28T19:54:44.541779+00:00",
+      "generated_at_utc": "2026-05-29T11:51:53.625212+00:00",
       "analysis_status": "implemented_loop_status_artifacts",
       "status_rows": [
         {
@@ -87988,7 +87988,7 @@
         },
         "psilocybin_ds006072": {
           "schema_version": 1,
-          "generated_at_utc": "2026-05-28T19:54:24.982897+00:00",
+          "generated_at_utc": "2026-05-29T11:51:34.798114+00:00",
           "dataset_id": "ds006072",
           "source": "OpenNeuro ds006072, Scientific Data 2025 psilocybin precision imaging dataset",
           "local_data_root": "data/ds006072",
@@ -88041,7 +88041,7 @@
         },
         "structural_connectome": {
           "schema_version": 1,
-          "generated_at_utc": "2026-05-28T19:54:26.554134+00:00",
+          "generated_at_utc": "2026-05-29T11:51:36.650733+00:00",
           "artifact_target": "results/structural_connectome",
           "expected_graph_files": [
             "results/structural_connectome/hcp_macro_modules.csv",
@@ -91475,7 +91475,7 @@
         },
         "receptor_priors": {
           "schema_version": 1,
-          "generated_at_utc": "2026-05-28T19:54:29.008426+00:00",
+          "generated_at_utc": "2026-05-29T11:51:38.921039+00:00",
           "artifact_target": "results/receptor_priors",
           "expected_prior_files": [
             "results/receptor_priors/fs5ht_5ht2a_macro_modules.csv",
@@ -94909,7 +94909,7 @@
         },
         "parcellation_sensitivity": {
           "schema_version": 1,
-          "generated_at_utc": "2026-05-28T19:54:30.257882+00:00",
+          "generated_at_utc": "2026-05-29T11:51:39.975112+00:00",
           "analysis_status": "implemented_status_matrix",
           "rows": [
             {
@@ -95092,7 +95092,7 @@
         },
         "literature_benchmark": {
           "schema_version": 1,
-          "generated_at_utc": "2026-05-28T19:54:43.391937+00:00",
+          "generated_at_utc": "2026-05-29T11:51:53.620039+00:00",
           "analysis_status": "implemented_directional_proxy_benchmark",
           "aligned_count": 4,
           "measurable_count": 6,
@@ -95301,14 +95301,14 @@
   },
   "thesis_upgrade": {
     "schema_version": "thesis_upgrade_status.v1",
-    "generated_at_utc": "2026-05-28T19:55:38.067247+00:00",
+    "generated_at_utc": "2026-05-29T11:52:32.773522+00:00",
     "readiness_summary": {
-      "ready_gates": 4,
+      "ready_gates": 5,
       "total_gates": 8,
-      "readiness_fraction": 0.5,
-      "strict_complete_gates": 1,
+      "readiness_fraction": 0.625,
+      "strict_complete_gates": 2,
       "strict_total_gates": 6,
-      "strict_completion_fraction": 0.16666666666666666,
+      "strict_completion_fraction": 0.3333333333333333,
       "completion_status": "pi_pitch_ready_research_proposal_not_completed_thesis",
       "thesis_status": "pi_pitch_ready_research_proposal_not_completed_thesis"
     },
@@ -95331,11 +95331,11 @@
       },
       {
         "label": "Neuromaps spatial nulls",
-        "status": "implemented_schaefer100_receptor_myelin_gradient_moran_spatial_nulls",
-        "ready": false,
+        "status": "implemented_schaefer100_full_map_family_moran_spatial_nulls",
+        "ready": true,
         "evidence": "results/cortical_maps/neuromaps_spatial_null_status.json; results/cortical_maps/cortical_map_alignment_status.json",
-        "blocker": "Partial receptor/myelin/gradient Schaefer100 Moran spatial nulls are run; full family coverage is still missing.",
-        "score": 0.7
+        "blocker": "Schaefer100 map-family Moran spatial nulls are complete across receptor, myelin, functional-gradient, and gene-expression priors.",
+        "score": 1.0
       },
       {
         "label": "ROCKET benchmark",
@@ -95392,12 +95392,12 @@
       {
         "requirement_id": "neuromaps_spatial_autocorrelation_nulls",
         "label": "Full neuromaps spatial-autocorrelation nulls",
-        "status": "implemented_schaefer100_receptor_myelin_gradient_moran_spatial_nulls",
-        "complete": false,
-        "evidence": "results/cortical_maps/neuromaps_spatial_null_status.json; current map method: exact_module_label_permutation_null_not_surface_spatial_null; best receptor Moran result: {'map_id': '5ht2a_alt_hc19_savli', 'map_label': '5-HT2A ALT/Savli PET, Schaefer100', 'map_family': 'receptor', 'target_id': 'dmdc_condition_input', 'target_label': 'DMDC condition-input vector', 'target_transform': 'signed', 'source_path': 'results/external_ingestion/hansen_receptors/source/PET_parcellated/scale100/5HT2a_alt_hc19_savli.csv', 'n_nodes': 100, 'n_perm': 999, 'null_family': 'neuromaps.nulls.moran', 'distance_space': 'Schaefer100 parcel-centroid Euclidean distances split by hemisphere', 'r': 0.08255220416729654, 'spatial_p': 0.702, 'ci95_low': -0.11574265150579202, 'ci95_high': 0.2745190642495325, 'ci_crosses_zero': True, 'q': 0.968, 'fdr_pass': False, 'claim_status': 'not_supported_yet'}",
-        "missing": "Schaefer100 receptor, myelin, and functional-gradient Moran spatial nulls are executed, but gene-expression and surface-level family coverage is still missing.",
-        "next_action": "Add gene-expression maps and surface-level null coverage in the active high-resolution/surface space, then rerun the same Moran/spatial-null plus FDR gate family.",
-        "claim_effect": "Receptor/myelin/gradient alignment cannot be promoted beyond exploratory until this passes."
+        "status": "implemented_schaefer100_full_map_family_moran_spatial_nulls",
+        "complete": true,
+        "evidence": "results/cortical_maps/neuromaps_spatial_null_status.json; current map method: exact_module_label_permutation_null_not_surface_spatial_null; family coverage: {'receptor': True, 'myelin': True, 'functional_gradient': True, 'gene_expression': True}; best map-family Moran result: {'map_id': '5ht2a_alt_hc19_savli', 'map_label': '5-HT2A ALT/Savli PET, Schaefer100', 'map_family': 'receptor', 'target_id': 'dmdc_condition_input', 'target_label': 'DMDC condition-input vector', 'target_transform': 'signed', 'source_path': 'results/external_ingestion/hansen_receptors/source/PET_parcellated/scale100/5HT2a_alt_hc19_savli.csv', 'n_nodes': 100, 'n_perm': 999, 'null_family': 'neuromaps.nulls.moran', 'distance_space': 'Schaefer100 parcel-centroid Euclidean distances split by hemisphere', 'r': 0.08255220416729654, 'spatial_p': 0.702, 'ci95_low': -0.11574265150579202, 'ci95_high': 0.2745190642495325, 'ci_crosses_zero': True, 'q': 0.9930000000000001, 'fdr_pass': False, 'claim_status': 'not_supported_yet'}",
+        "missing": "None: full neuromaps spatial-autocorrelation null family coverage is complete.",
+        "next_action": "Use the completed spatial-null family as the primary map-prior evidence layer.",
+        "claim_effect": "Spatial-null family coverage is complete, but receptor/myelin/gradient alignment remains exploratory because no map-family result passes FDR and CI gates."
       },
       {
         "requirement_id": "ds006072_external_validation",
@@ -95524,21 +95524,21 @@
       "neuromaps_spatial_nulls": {
         "gate": {
           "label": "Neuromaps spatial nulls",
-          "status": "implemented_schaefer100_receptor_myelin_gradient_moran_spatial_nulls",
-          "ready": false,
+          "status": "implemented_schaefer100_full_map_family_moran_spatial_nulls",
+          "ready": true,
           "evidence": "results/cortical_maps/neuromaps_spatial_null_status.json; results/cortical_maps/cortical_map_alignment_status.json",
-          "blocker": "Partial receptor/myelin/gradient Schaefer100 Moran spatial nulls are run; full family coverage is still missing.",
-          "score": 0.7
+          "blocker": "Schaefer100 map-family Moran spatial nulls are complete across receptor, myelin, functional-gradient, and gene-expression priors.",
+          "score": 1.0
         },
         "strict_requirement": {
           "requirement_id": "neuromaps_spatial_autocorrelation_nulls",
           "label": "Full neuromaps spatial-autocorrelation nulls",
-          "status": "implemented_schaefer100_receptor_myelin_gradient_moran_spatial_nulls",
-          "complete": false,
-          "evidence": "results/cortical_maps/neuromaps_spatial_null_status.json; current map method: exact_module_label_permutation_null_not_surface_spatial_null; best receptor Moran result: {'map_id': '5ht2a_alt_hc19_savli', 'map_label': '5-HT2A ALT/Savli PET, Schaefer100', 'map_family': 'receptor', 'target_id': 'dmdc_condition_input', 'target_label': 'DMDC condition-input vector', 'target_transform': 'signed', 'source_path': 'results/external_ingestion/hansen_receptors/source/PET_parcellated/scale100/5HT2a_alt_hc19_savli.csv', 'n_nodes': 100, 'n_perm': 999, 'null_family': 'neuromaps.nulls.moran', 'distance_space': 'Schaefer100 parcel-centroid Euclidean distances split by hemisphere', 'r': 0.08255220416729654, 'spatial_p': 0.702, 'ci95_low': -0.11574265150579202, 'ci95_high': 0.2745190642495325, 'ci_crosses_zero': True, 'q': 0.968, 'fdr_pass': False, 'claim_status': 'not_supported_yet'}",
-          "missing": "Schaefer100 receptor, myelin, and functional-gradient Moran spatial nulls are executed, but gene-expression and surface-level family coverage is still missing.",
-          "next_action": "Add gene-expression maps and surface-level null coverage in the active high-resolution/surface space, then rerun the same Moran/spatial-null plus FDR gate family.",
-          "claim_effect": "Receptor/myelin/gradient alignment cannot be promoted beyond exploratory until this passes."
+          "status": "implemented_schaefer100_full_map_family_moran_spatial_nulls",
+          "complete": true,
+          "evidence": "results/cortical_maps/neuromaps_spatial_null_status.json; current map method: exact_module_label_permutation_null_not_surface_spatial_null; family coverage: {'receptor': True, 'myelin': True, 'functional_gradient': True, 'gene_expression': True}; best map-family Moran result: {'map_id': '5ht2a_alt_hc19_savli', 'map_label': '5-HT2A ALT/Savli PET, Schaefer100', 'map_family': 'receptor', 'target_id': 'dmdc_condition_input', 'target_label': 'DMDC condition-input vector', 'target_transform': 'signed', 'source_path': 'results/external_ingestion/hansen_receptors/source/PET_parcellated/scale100/5HT2a_alt_hc19_savli.csv', 'n_nodes': 100, 'n_perm': 999, 'null_family': 'neuromaps.nulls.moran', 'distance_space': 'Schaefer100 parcel-centroid Euclidean distances split by hemisphere', 'r': 0.08255220416729654, 'spatial_p': 0.702, 'ci95_low': -0.11574265150579202, 'ci95_high': 0.2745190642495325, 'ci_crosses_zero': True, 'q': 0.9930000000000001, 'fdr_pass': False, 'claim_status': 'not_supported_yet'}",
+          "missing": "None: full neuromaps spatial-autocorrelation null family coverage is complete.",
+          "next_action": "Use the completed spatial-null family as the primary map-prior evidence layer.",
+          "claim_effect": "Spatial-null family coverage is complete, but receptor/myelin/gradient alignment remains exploratory because no map-family result passes FDR and CI gates."
         },
         "dependency_available": true,
         "null_api_importable": true,
@@ -95561,20 +95561,20 @@
           "ci95_low": -0.11574265150579202,
           "ci95_high": 0.2745190642495325,
           "ci_crosses_zero": true,
-          "q": 0.968,
+          "q": 0.9930000000000001,
           "fdr_pass": false,
           "claim_status": "not_supported_yet"
         },
         "receptor_moran_summary": {
           "method": "schaefer100_neuromaps_moran_public_map_families",
           "n_perm": 999,
-          "test_count": 18,
+          "test_count": 21,
           "fdr_supported_count": 0,
           "family_coverage": {
             "receptor": true,
             "myelin": true,
             "functional_gradient": true,
-            "gene_expression": false
+            "gene_expression": true
           }
         },
         "receptor_moran_results": [
@@ -95595,7 +95595,7 @@
             "ci95_low": -0.11574265150579202,
             "ci95_high": 0.2745190642495325,
             "ci_crosses_zero": true,
-            "q": 0.968,
+            "q": 0.9930000000000001,
             "fdr_pass": false,
             "claim_status": "not_supported_yet"
           },
@@ -95616,7 +95616,7 @@
             "ci95_low": -0.1834761457680087,
             "ci95_high": 0.20929201128215638,
             "ci_crosses_zero": true,
-            "q": 0.968,
+            "q": 0.9930000000000001,
             "fdr_pass": false,
             "claim_status": "not_supported_yet"
           },
@@ -95637,7 +95637,7 @@
             "ci95_low": -0.127619354276132,
             "ci95_high": 0.2633357476374979,
             "ci_crosses_zero": true,
-            "q": 0.968,
+            "q": 0.9930000000000001,
             "fdr_pass": false,
             "claim_status": "not_supported_yet"
           },
@@ -95658,7 +95658,7 @@
             "ci95_low": 0.06283511340680677,
             "ci95_high": 0.43083894325505623,
             "ci_crosses_zero": false,
-            "q": 0.968,
+            "q": 0.9930000000000001,
             "fdr_pass": false,
             "claim_status": "not_supported_yet"
           },
@@ -95679,7 +95679,7 @@
             "ci95_low": -0.21731729502679345,
             "ci95_high": 0.1753389366724683,
             "ci_crosses_zero": true,
-            "q": 0.968,
+            "q": 0.9930000000000001,
             "fdr_pass": false,
             "claim_status": "not_supported_yet"
           },
@@ -95700,7 +95700,7 @@
             "ci95_low": -0.20461929569205553,
             "ci95_high": 0.18818936510735385,
             "ci_crosses_zero": true,
-            "q": 0.968,
+            "q": 0.9930000000000001,
             "fdr_pass": false,
             "claim_status": "not_supported_yet"
           },
@@ -95721,7 +95721,7 @@
             "ci95_low": -0.39742569680446765,
             "ci95_high": -0.0225758065415736,
             "ci_crosses_zero": false,
-            "q": 0.968,
+            "q": 0.9930000000000001,
             "fdr_pass": false,
             "claim_status": "not_supported_yet"
           },
@@ -95742,7 +95742,7 @@
             "ci95_low": -0.15255418926638015,
             "ci95_high": 0.2395097237039932,
             "ci_crosses_zero": true,
-            "q": 0.968,
+            "q": 0.9930000000000001,
             "fdr_pass": false,
             "claim_status": "not_supported_yet"
           },
@@ -95763,7 +95763,7 @@
             "ci95_low": -0.21262811990932576,
             "ci95_high": 0.18010003413237186,
             "ci_crosses_zero": true,
-            "q": 0.968,
+            "q": 0.9930000000000001,
             "fdr_pass": false,
             "claim_status": "not_supported_yet"
           },
@@ -95784,7 +95784,7 @@
             "ci95_low": -0.20892679802111971,
             "ci95_high": 0.18384517644311688,
             "ci_crosses_zero": true,
-            "q": 0.968,
+            "q": 0.9930000000000001,
             "fdr_pass": false,
             "claim_status": "not_supported_yet"
           },
@@ -95805,7 +95805,7 @@
             "ci95_low": -0.17481913081429856,
             "ci95_high": 0.21782815354833446,
             "ci_crosses_zero": true,
-            "q": 0.968,
+            "q": 0.9930000000000001,
             "fdr_pass": false,
             "claim_status": "not_supported_yet"
           },
@@ -95826,7 +95826,7 @@
             "ci95_low": -0.182953506970905,
             "ci95_high": 0.209809056260464,
             "ci_crosses_zero": true,
-            "q": 0.968,
+            "q": 0.9930000000000001,
             "fdr_pass": false,
             "claim_status": "not_supported_yet"
           },
@@ -95847,7 +95847,7 @@
             "ci95_low": -0.14927790268875507,
             "ci95_high": 0.24266750044214902,
             "ci_crosses_zero": true,
-            "q": 0.968,
+            "q": 0.9930000000000001,
             "fdr_pass": false,
             "claim_status": "not_supported_yet"
           },
@@ -95868,7 +95868,7 @@
             "ci95_low": -0.20443632505342196,
             "ci95_high": 0.18837355439074754,
             "ci_crosses_zero": true,
-            "q": 0.968,
+            "q": 0.9930000000000001,
             "fdr_pass": false,
             "claim_status": "not_supported_yet"
           },
@@ -95889,7 +95889,7 @@
             "ci95_low": -0.19922043057839098,
             "ci95_high": 0.1936125923885417,
             "ci_crosses_zero": true,
-            "q": 0.968,
+            "q": 0.9930000000000001,
             "fdr_pass": false,
             "claim_status": "not_supported_yet"
           },
@@ -95910,7 +95910,7 @@
             "ci95_low": -0.07651376044596216,
             "ci95_high": 0.3107223747716829,
             "ci_crosses_zero": true,
-            "q": 0.968,
+            "q": 0.9930000000000001,
             "fdr_pass": false,
             "claim_status": "not_supported_yet"
           },
@@ -95931,7 +95931,7 @@
             "ci95_low": -0.19221638169093583,
             "ci95_high": 0.2006126523720137,
             "ci_crosses_zero": true,
-            "q": 0.968,
+            "q": 0.9930000000000001,
             "fdr_pass": false,
             "claim_status": "not_supported_yet"
           },
@@ -95952,7 +95952,70 @@
             "ci95_low": -0.20257864382905402,
             "ci95_high": 0.1902420451788763,
             "ci_crosses_zero": true,
-            "q": 0.968,
+            "q": 0.9930000000000001,
+            "fdr_pass": false,
+            "claim_status": "not_supported_yet"
+          },
+          {
+            "map_id": "abagen_genepc1",
+            "map_label": "Abagen AHBA gene-expression PC1, Schaefer100 via fsaverage10k",
+            "map_family": "gene_expression",
+            "target_id": "dmdc_condition_input",
+            "target_label": "DMDC condition-input vector",
+            "target_transform": "signed",
+            "source_path": "results/cortical_maps/neuromaps_annotations/abagen_genepc1_schaefer100.csv",
+            "n_nodes": 100,
+            "n_perm": 999,
+            "null_family": "neuromaps.nulls.moran",
+            "distance_space": "Schaefer100 parcel-centroid Euclidean distances split by hemisphere",
+            "r": 0.1547370363463753,
+            "spatial_p": 0.487,
+            "ci95_low": -0.042987610550019324,
+            "ci95_high": 0.34079724957553564,
+            "ci_crosses_zero": true,
+            "q": 0.9930000000000001,
+            "fdr_pass": false,
+            "claim_status": "not_supported_yet"
+          },
+          {
+            "map_id": "abagen_genepc1",
+            "map_label": "Abagen AHBA gene-expression PC1, Schaefer100 via fsaverage10k",
+            "map_family": "gene_expression",
+            "target_id": "dmdc_condition_interaction",
+            "target_label": "DMDC condition-interaction vector",
+            "target_transform": "signed",
+            "source_path": "results/cortical_maps/neuromaps_annotations/abagen_genepc1_schaefer100.csv",
+            "n_nodes": 100,
+            "n_perm": 999,
+            "null_family": "neuromaps.nulls.moran",
+            "distance_space": "Schaefer100 parcel-centroid Euclidean distances split by hemisphere",
+            "r": -0.052528392777558025,
+            "spatial_p": 0.265,
+            "ci95_low": -0.24640422793019437,
+            "ci95_high": 0.14538978811931338,
+            "ci_crosses_zero": true,
+            "q": 0.9930000000000001,
+            "fdr_pass": false,
+            "claim_status": "not_supported_yet"
+          },
+          {
+            "map_id": "abagen_genepc1",
+            "map_label": "Abagen AHBA gene-expression PC1, Schaefer100 via fsaverage10k",
+            "map_family": "gene_expression",
+            "target_id": "dmdc_condition_interaction_abs",
+            "target_label": "Absolute DMDC condition-interaction vector",
+            "target_transform": "absolute",
+            "source_path": "results/cortical_maps/neuromaps_annotations/abagen_genepc1_schaefer100.csv",
+            "n_nodes": 100,
+            "n_perm": 999,
+            "null_family": "neuromaps.nulls.moran",
+            "distance_space": "Schaefer100 parcel-centroid Euclidean distances split by hemisphere",
+            "r": -0.001136582794095847,
+            "spatial_p": 0.993,
+            "ci95_low": -0.1975106071311927,
+            "ci95_high": 0.19532514033740164,
+            "ci_crosses_zero": true,
+            "q": 0.9930000000000001,
             "fdr_pass": false,
             "claim_status": "not_supported_yet"
           }
