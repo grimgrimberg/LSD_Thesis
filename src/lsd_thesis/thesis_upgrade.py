@@ -74,30 +74,43 @@ def _motion_gate(repo_root: Path) -> dict[str, Any]:
     path = repo_root / "results" / "setting_seed" / "motion" / "motion_summary.json"
     control_path = repo_root / "results" / "confound_controls" / "motion_confound_control_status.json"
     design_path = repo_root / "results" / "confound_controls" / "design_confound_control_status.json"
+    module_dvars_path = repo_root / "results" / "confound_controls" / "module_dvars_control_status.json"
     payload = _read_json(path) or {}
     control_payload = _read_json(control_path) or {}
     design_payload = _read_json(design_path) or {}
+    module_dvars_payload = _read_json(module_dvars_path) or {}
     motion_ready = bool(payload.get("motion_analysis_ready"))
     control_status = str(control_payload.get("analysis_status") or "")
     design_status = str(design_payload.get("analysis_status") or "")
     design_ready = bool(design_payload.get("design_confound_control_ready")) and _status_is_implemented(design_status)
+    module_dvars_status = str(module_dvars_payload.get("analysis_status") or "")
+    module_dvars_ready = bool(module_dvars_payload.get("module_dvars_control_ready")) and _status_is_implemented(module_dvars_status)
     control_ready = motion_ready and _status_is_implemented(control_status)
+    partial_proxy_ready = design_ready and module_dvars_ready
     files_present = bool(payload.get("motion_files_present"))
     motion_status = str(payload.get("status") or ("ready" if motion_ready else "blocked_missing_motion_summaries"))
     status = (
         control_status
         if control_ready
-        else "blocked_missing_dedicated_motion_confound_control_result"
-        if motion_ready
+        else "implemented_design_and_module_dvars_controls_missing_fd_motion"
+        if partial_proxy_ready
         else "implemented_design_confound_controls_missing_fd_dvars_motion"
         if design_ready
+        else "implemented_module_dvars_controls_missing_fd_motion"
+        if module_dvars_ready
+        else "blocked_missing_dedicated_motion_confound_control_result"
+        if motion_ready
         else motion_status
     )
     blocker = (
         "Subject/session/run motion summaries and a confound-control sensitivity result are available."
         if control_ready
+        else "Run/session/global-signal and module-DVARS/censoring proxy controls are implemented, but fMRIPrep FD motion summaries are unavailable."
+        if partial_proxy_ready
         else "Run/session/global-signal design controls are implemented, but no FD/DVARS/censoring motion summaries are available."
         if design_ready
+        else "Module-derived DVARS/censoring controls are implemented, but no fMRIPrep FD motion summaries are available."
+        if module_dvars_ready
         else "No dedicated result proves that LSD-placebo dynamic effects survive FD/DVARS/censoring sensitivity controls."
         if motion_ready
         else "No structured subject/session/run confounds with FD/DVARS/censoring coverage are available locally."
@@ -107,18 +120,34 @@ def _motion_gate(repo_root: Path) -> dict[str, Any]:
             "Motion and confounds",
             status,
             control_ready,
-            f"{_rel(path, repo_root)}; {_rel(control_path, repo_root)}; {_rel(design_path, repo_root)}",
+            f"{_rel(path, repo_root)}; {_rel(control_path, repo_root)}; {_rel(design_path, repo_root)}; {_rel(module_dvars_path, repo_root)}",
             blocker,
-            1.0 if control_ready else 0.45 if motion_ready else 0.35 if design_ready else 0.25 if files_present else 0.0,
+            1.0
+            if control_ready
+            else 0.55
+            if partial_proxy_ready
+            else 0.45
+            if motion_ready
+            else 0.4
+            if module_dvars_ready
+            else 0.35
+            if design_ready
+            else 0.25
+            if files_present
+            else 0.0,
         ),
         "strict_requirement": _requirement(
             "motion_confound_control_result",
             "Motion/confound control result",
             status,
             control_ready,
-            f"{_rel(path, repo_root)}; {_rel(control_path, repo_root)}; {_rel(design_path, repo_root)}",
+            f"{_rel(path, repo_root)}; {_rel(control_path, repo_root)}; {_rel(design_path, repo_root)}; {_rel(module_dvars_path, repo_root)}",
             (
-                "Run/session design controls exist, but a dedicated FD/DVARS/censoring motion-control result is still missing."
+                "Run/session and module-DVARS proxy controls exist, but a dedicated fMRIPrep FD/DVARS/censoring motion-control result is still missing."
+                if partial_proxy_ready
+                else "Module-DVARS proxy controls exist, but a dedicated fMRIPrep FD/DVARS/censoring motion-control result is still missing."
+                if module_dvars_ready
+                else "Run/session design controls exist, but a dedicated FD/DVARS/censoring motion-control result is still missing."
                 if design_ready
                 else "A dedicated confound-control result layer with motion/outlier sensitivity outcomes is missing."
             ),
@@ -131,6 +160,9 @@ def _motion_gate(repo_root: Path) -> dict[str, Any]:
         "design_confound_control_ready": design_ready,
         "design_confound_control_path": _rel(design_path, repo_root),
         "design_confound_claim_status": design_payload.get("claim_status"),
+        "module_dvars_control_ready": module_dvars_ready,
+        "module_dvars_control_path": _rel(module_dvars_path, repo_root),
+        "module_dvars_claim_status": module_dvars_payload.get("claim_status"),
         "required_columns": [
             "framewise_displacement",
             "dvars or std_dvars",
