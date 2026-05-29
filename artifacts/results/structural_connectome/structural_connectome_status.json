@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at_utc": "2026-05-29T19:47:33.357131+00:00",
+  "generated_at_utc": "2026-05-29T20:29:59.726607+00:00",
   "artifact_target": "results/structural_connectome",
   "expected_graph_files": [
     "results/structural_connectome/hcp_macro_modules.csv",

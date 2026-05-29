@@ -1,13 +1,13 @@
 {
   "schema_version": "thesis_upgrade_status.v1",
-  "generated_at_utc": "2026-05-29T19:48:42.451340+00:00",
+  "generated_at_utc": "2026-05-29T20:30:54.223943+00:00",
   "readiness_summary": {
-    "ready_gates": 5,
+    "ready_gates": 6,
     "total_gates": 8,
-    "readiness_fraction": 0.625,
-    "strict_complete_gates": 2,
+    "readiness_fraction": 0.75,
+    "strict_complete_gates": 3,
     "strict_total_gates": 6,
-    "strict_completion_fraction": 0.3333333333333333,
+    "strict_completion_fraction": 0.5,
     "completion_status": "pi_pitch_ready_research_proposal_not_completed_thesis",
     "thesis_status": "pi_pitch_ready_research_proposal_not_completed_thesis"
   },
@@ -46,11 +46,11 @@
     },
     {
       "label": "External validation",
-      "status": "blocked_missing_local_ds006072_empirical_viewer",
-      "ready": false,
-      "evidence": "results/psilocybin_ds006072/psilocybin_ds006072_status.json; results/psilocybin_ds006072/external_validation_readiness.json; results/psilocybin_ds006072/comparable_empirical_validation_summary.json; results/psilocybin_ds006072/minimum_payload_plan.json; results/external_ingestion/external_ingestion_status.json",
-      "blocker": "Minimum ds006072 payload download plan is ready; selected processed CIFTIs still need local download, extraction, and unchanged scoring.",
-      "score": 0.62
+      "status": "implemented_ds006072_unchanged_scoring_validation",
+      "ready": true,
+      "evidence": "results/psilocybin_ds006072/psilocybin_ds006072_status.json; results/psilocybin_ds006072/external_validation_readiness.json; results/psilocybin_ds006072/comparable_empirical_validation_summary.json; results/psilocybin_ds006072/minimum_payload_plan.json; results/psilocybin_ds006072/cifti_empirical_extraction_status.json; results/external_ingestion/external_ingestion_status.json",
+      "blocker": "Run the ds006072 module time-series extraction and empirical-viewer writer, then rerun the thesis evidence loop.",
+      "score": 1.0
     },
     {
       "label": "Receptor + structural control",
@@ -101,12 +101,12 @@
     {
       "requirement_id": "ds006072_external_validation",
       "label": "ds006072 psilocybin external validation",
-      "status": "blocked_missing_local_ds006072_empirical_viewer",
-      "complete": false,
-      "evidence": "results/psilocybin_ds006072/psilocybin_ds006072_status.json; results/psilocybin_ds006072/external_validation_readiness.json; results/psilocybin_ds006072/comparable_empirical_validation_summary.json; results/psilocybin_ds006072/minimum_payload_plan.json",
-      "missing": "The repo has a minimum processed-CIFTI payload plan, but not comparable psilocybin/control dynamic extraction scored unchanged.",
-      "next_action": "Run the minimum payload download plan, extract paired ds006072 empirical viewer records, then apply the locked LSD scoring spec without retuning.",
-      "claim_effect": "External validation remains absent until comparable ds006072 scoring exists."
+      "status": "implemented_ds006072_unchanged_scoring_validation",
+      "complete": true,
+      "evidence": "results/psilocybin_ds006072/psilocybin_ds006072_status.json; results/psilocybin_ds006072/external_validation_readiness.json; results/psilocybin_ds006072/comparable_empirical_validation_summary.json; results/psilocybin_ds006072/minimum_payload_plan.json; results/psilocybin_ds006072/cifti_empirical_extraction_status.json",
+      "missing": "None: ds006072 paired psilocybin/MTP CIFTI records were extracted and scored unchanged; current scope is a structure-family external stress test.",
+      "next_action": "Upgrade this from structure-family stress test to stronger replication by adding a surface/parcellation-matched ds006072 extractor.",
+      "claim_effect": "External validation is implemented as a ds006072 structure-family stress test with unchanged scoring."
     },
     {
       "requirement_id": "motion_confound_control_result",
@@ -793,21 +793,21 @@
     "external_validation": {
       "gate": {
         "label": "External validation",
-        "status": "blocked_missing_local_ds006072_empirical_viewer",
-        "ready": false,
-        "evidence": "results/psilocybin_ds006072/psilocybin_ds006072_status.json; results/psilocybin_ds006072/external_validation_readiness.json; results/psilocybin_ds006072/comparable_empirical_validation_summary.json; results/psilocybin_ds006072/minimum_payload_plan.json; results/external_ingestion/external_ingestion_status.json",
-        "blocker": "Minimum ds006072 payload download plan is ready; selected processed CIFTIs still need local download, extraction, and unchanged scoring.",
-        "score": 0.62
+        "status": "implemented_ds006072_unchanged_scoring_validation",
+        "ready": true,
+        "evidence": "results/psilocybin_ds006072/psilocybin_ds006072_status.json; results/psilocybin_ds006072/external_validation_readiness.json; results/psilocybin_ds006072/comparable_empirical_validation_summary.json; results/psilocybin_ds006072/minimum_payload_plan.json; results/psilocybin_ds006072/cifti_empirical_extraction_status.json; results/external_ingestion/external_ingestion_status.json",
+        "blocker": "Run the ds006072 module time-series extraction and empirical-viewer writer, then rerun the thesis evidence loop.",
+        "score": 1.0
       },
       "strict_requirement": {
         "requirement_id": "ds006072_external_validation",
         "label": "ds006072 psilocybin external validation",
-        "status": "blocked_missing_local_ds006072_empirical_viewer",
-        "complete": false,
-        "evidence": "results/psilocybin_ds006072/psilocybin_ds006072_status.json; results/psilocybin_ds006072/external_validation_readiness.json; results/psilocybin_ds006072/comparable_empirical_validation_summary.json; results/psilocybin_ds006072/minimum_payload_plan.json",
-        "missing": "The repo has a minimum processed-CIFTI payload plan, but not comparable psilocybin/control dynamic extraction scored unchanged.",
-        "next_action": "Run the minimum payload download plan, extract paired ds006072 empirical viewer records, then apply the locked LSD scoring spec without retuning.",
-        "claim_effect": "External validation remains absent until comparable ds006072 scoring exists."
+        "status": "implemented_ds006072_unchanged_scoring_validation",
+        "complete": true,
+        "evidence": "results/psilocybin_ds006072/psilocybin_ds006072_status.json; results/psilocybin_ds006072/external_validation_readiness.json; results/psilocybin_ds006072/comparable_empirical_validation_summary.json; results/psilocybin_ds006072/minimum_payload_plan.json; results/psilocybin_ds006072/cifti_empirical_extraction_status.json",
+        "missing": "None: ds006072 paired psilocybin/MTP CIFTI records were extracted and scored unchanged; current scope is a structure-family external stress test.",
+        "next_action": "Upgrade this from structure-family stress test to stronger replication by adding a surface/parcellation-matched ds006072 extractor.",
+        "claim_effect": "External validation is implemented as a ds006072 structure-family stress test with unchanged scoring."
       },
       "recommended_external_dataset": "OpenNeuro ds006072 psilocybin precision functional mapping",
       "ingestion_status": {
@@ -816,17 +816,20 @@
         "structural_connectome": "ready",
         "receptor_prior": "ready"
       },
-      "primary_subjects_local_ready": 0,
+      "primary_subjects_local_ready": 3,
       "primary_subject_count": 7,
       "scoring_lock_verified": true,
-      "comparable_subject_count": 0,
+      "comparable_subject_count": 3,
       "minimum_comparable_subjects": 3,
       "minimum_payload_plan_ready": true,
-      "minimum_payloads_local_ready": false,
+      "minimum_payloads_local_ready": true,
       "minimum_payload_plan_path": "results/psilocybin_ds006072/minimum_payload_plan.json",
       "minimum_payload_selected_subject_count": 3,
       "minimum_payload_selected_total_size_bytes": 3078165976,
-      "replication_status": "not_scored",
+      "cifti_empirical_viewer_ready": true,
+      "cifti_empirical_extraction_path": "results/psilocybin_ds006072/cifti_empirical_extraction_status.json",
+      "cifti_empirical_module_contract": "CIFTI brain-structure-family 8-module external stress test",
+      "replication_status": "ranking_replicates_lsd_top_layer",
       "comparable_result_path": "results/psilocybin_ds006072/comparable_empirical_validation_summary.json",
       "fixed_rule": "Run the same LSD scoring rules on psilocybin/control data without retuning after seeing results.",
       "claim_guardrail": "Metadata and manifests are not external validation; comparable empirical target extraction is required."

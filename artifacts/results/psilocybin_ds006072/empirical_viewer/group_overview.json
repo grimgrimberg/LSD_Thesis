@@ -1,0 +1,100 @@
+{
+  "subjects": [
+    "P1",
+    "P2",
+    "P3"
+  ],
+  "runs": [
+    "run-01"
+  ],
+  "default_subject": "P1",
+  "module_names": [
+    "cortex_left",
+    "cortex_right",
+    "thalamus",
+    "striatal_basal_ganglia",
+    "limbic_medial_temporal",
+    "cerebellum",
+    "brain_stem",
+    "ventral_diencephalon"
+  ],
+  "conditions": {},
+  "paired_subject_count": 3,
+  "delta_metrics": {},
+  "delta_metrics_std": {},
+  "gallery": [],
+  "extraction_metadata": {
+    "schema_version": "ds006072_cifti_empirical_extraction.v1",
+    "module_contract": "CIFTI brain-structure-family 8-module external stress test",
+    "source": "OpenNeuro ds006072 processed rest CIFTI dtseries files",
+    "rows": [
+      {
+        "subject": "P1",
+        "session": "ses-LSD",
+        "condition": "psilocybin",
+        "source_path": "data/ds006072/NON_BIDS/ciftis/sub-1_Drug2_rsfMRI_uout_bpss_sr_noGSR_sm4.dtseries.nii",
+        "source_shape": [
+          1490,
+          91206
+        ],
+        "paired_timepoint_count": 1490
+      },
+      {
+        "subject": "P1",
+        "session": "ses-PLCB",
+        "condition": "active_control_mtp",
+        "source_path": "data/ds006072/NON_BIDS/ciftis/sub-1_Drug1_rsfMRI_uout_bpss_sr_noGSR_sm4.dtseries.nii",
+        "source_shape": [
+          1490,
+          91206
+        ],
+        "paired_timepoint_count": 1490
+      },
+      {
+        "subject": "P2",
+        "session": "ses-LSD",
+        "condition": "psilocybin",
+        "source_path": "data/ds006072/NON_BIDS/ciftis/sub-2_Drug1_rsfMRI_uout_bpss_sr_noGSR_sm4.dtseries.nii",
+        "source_shape": [
+          1490,
+          91206
+        ],
+        "paired_timepoint_count": 1490
+      },
+      {
+        "subject": "P2",
+        "session": "ses-PLCB",
+        "condition": "active_control_mtp",
+        "source_path": "data/ds006072/NON_BIDS/ciftis/sub-2_Drug2_rsfMRI_uout_bpss_sr_noGSR_sm4.dtseries.nii",
+        "source_shape": [
+          1490,
+          91206
+        ],
+        "paired_timepoint_count": 1490
+      },
+      {
+        "subject": "P3",
+        "session": "ses-LSD",
+        "condition": "psilocybin",
+        "source_path": "data/ds006072/NON_BIDS/ciftis/sub-3_Drug2_rsfMRI_uout_bpss_sr_noGSR_sm4.dtseries.nii",
+        "source_shape": [
+          1490,
+          91206
+        ],
+        "paired_timepoint_count": 977
+      },
+      {
+        "subject": "P3",
+        "session": "ses-PLCB",
+        "condition": "active_control_mtp",
+        "source_path": "data/ds006072/NON_BIDS/ciftis/sub-3_Drug1_rsfMRI_uout_bpss_sr_noGSR_sm4.dtseries.nii",
+        "source_shape": [
+          977,
+          91206
+        ],
+        "paired_timepoint_count": 977
+      }
+    ],
+    "claim_guardrail": "This uses CIFTI brain-structure families, not the original ds003059 Harvard-Oxford macro-module extraction. Treat it as an empirical external stress test until a surface/parcellation-matched extractor is added."
+  }
+}
