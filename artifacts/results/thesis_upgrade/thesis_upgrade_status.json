@@ -1,6 +1,6 @@
 {
   "schema_version": "thesis_upgrade_status.v1",
-  "generated_at_utc": "2026-05-29T12:32:55.574445+00:00",
+  "generated_at_utc": "2026-05-29T12:44:21.242303+00:00",
   "readiness_summary": {
     "ready_gates": 5,
     "total_gates": 8,
@@ -14,11 +14,11 @@
   "gates": [
     {
       "label": "Motion and confounds",
-      "status": "unavailable_not_found",
+      "status": "implemented_design_confound_controls_missing_fd_dvars_motion",
       "ready": false,
-      "evidence": "results/setting_seed/motion/motion_summary.json; results/confound_controls/motion_confound_control_status.json",
-      "blocker": "No structured subject/session/run confounds with FD/DVARS/censoring coverage are available locally.",
-      "score": 0.0
+      "evidence": "results/setting_seed/motion/motion_summary.json; results/confound_controls/motion_confound_control_status.json; results/confound_controls/design_confound_control_status.json",
+      "blocker": "Run/session/global-signal design controls are implemented, but no FD/DVARS/censoring motion summaries are available.",
+      "score": 0.35
     },
     {
       "label": "Canonical parcellation",
@@ -111,10 +111,10 @@
     {
       "requirement_id": "motion_confound_control_result",
       "label": "Motion/confound control result",
-      "status": "unavailable_not_found",
+      "status": "implemented_design_confound_controls_missing_fd_dvars_motion",
       "complete": false,
-      "evidence": "results/setting_seed/motion/motion_summary.json; results/confound_controls/motion_confound_control_status.json",
-      "missing": "A dedicated confound-control result layer with motion/outlier sensitivity outcomes is missing.",
+      "evidence": "results/setting_seed/motion/motion_summary.json; results/confound_controls/motion_confound_control_status.json; results/confound_controls/design_confound_control_status.json",
+      "missing": "Run/session design controls exist, but a dedicated FD/DVARS/censoring motion-control result is still missing.",
       "next_action": "Parse confounds for every subject/session/run, then report whether dynamic effects survive FD, DVARS, censoring, and run/order controls.",
       "claim_effect": "Until this passes, motion/confound handling is a framed limitation rather than a proven control."
     },
@@ -143,25 +143,28 @@
     "motion_confound": {
       "gate": {
         "label": "Motion and confounds",
-        "status": "unavailable_not_found",
+        "status": "implemented_design_confound_controls_missing_fd_dvars_motion",
         "ready": false,
-        "evidence": "results/setting_seed/motion/motion_summary.json; results/confound_controls/motion_confound_control_status.json",
-        "blocker": "No structured subject/session/run confounds with FD/DVARS/censoring coverage are available locally.",
-        "score": 0.0
+        "evidence": "results/setting_seed/motion/motion_summary.json; results/confound_controls/motion_confound_control_status.json; results/confound_controls/design_confound_control_status.json",
+        "blocker": "Run/session/global-signal design controls are implemented, but no FD/DVARS/censoring motion summaries are available.",
+        "score": 0.35
       },
       "strict_requirement": {
         "requirement_id": "motion_confound_control_result",
         "label": "Motion/confound control result",
-        "status": "unavailable_not_found",
+        "status": "implemented_design_confound_controls_missing_fd_dvars_motion",
         "complete": false,
-        "evidence": "results/setting_seed/motion/motion_summary.json; results/confound_controls/motion_confound_control_status.json",
-        "missing": "A dedicated confound-control result layer with motion/outlier sensitivity outcomes is missing.",
+        "evidence": "results/setting_seed/motion/motion_summary.json; results/confound_controls/motion_confound_control_status.json; results/confound_controls/design_confound_control_status.json",
+        "missing": "Run/session design controls exist, but a dedicated FD/DVARS/censoring motion-control result is still missing.",
         "next_action": "Parse confounds for every subject/session/run, then report whether dynamic effects survive FD, DVARS, censoring, and run/order controls.",
         "claim_effect": "Until this passes, motion/confound handling is a framed limitation rather than a proven control."
       },
       "motion_summary_ready": false,
       "control_layer_ready": false,
       "control_layer_path": "results/confound_controls/motion_confound_control_status.json",
+      "design_confound_control_ready": true,
+      "design_confound_control_path": "results/confound_controls/design_confound_control_status.json",
+      "design_confound_claim_status": "no_fdr_design_confound_signal_detected",
       "required_columns": [
         "framewise_displacement",
         "dvars or std_dvars",
