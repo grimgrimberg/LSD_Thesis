@@ -1,6 +1,6 @@
 {
   "schema_version": "ds006072_external_validation.v1",
-  "generated_at_utc": "2026-05-29T18:46:48.264601+00:00",
+  "generated_at_utc": "2026-05-29T19:22:49.563085+00:00",
   "dataset_id": "ds006072",
   "primary_contrast": "psilocybin_vs_active_control_mtp",
   "viewer_root": "results/psilocybin_ds006072/empirical_viewer",

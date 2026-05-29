@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-05-29T18:48:16.260230+00:00",
+  "generated_at_utc": "2026-05-29T19:24:10.107020+00:00",
   "claim_guardrail": "GitHub Pages is a static presentation and dashboard snapshot. Treat blocked rows in the claim matrix as unresolved thesis work, not as completed scientific evidence. Interactive FastAPI-only controls are available only in the local dashboard.",
   "entrypoints": {
     "index": "index.html",
@@ -35,6 +35,8 @@
     "artifacts/results/confound_controls/motion_confound_control_status.json",
     "artifacts/results/confound_controls/motion_confound_control_status.md",
     "artifacts/results/confound_controls/motion_dynamic_associations.csv",
+    "artifacts/results/confound_controls/published_motion_qc_status.json",
+    "artifacts/results/confound_controls/published_motion_qc_status.md",
     "artifacts/results/cortical_maps/cortical_map_alignment.md",
     "artifacts/results/cortical_maps/cortical_map_alignment_status.json",
     "artifacts/results/cortical_maps/map_prior_falsification_status.json",
