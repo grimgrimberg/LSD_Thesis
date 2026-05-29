@@ -28,6 +28,42 @@ def test_thesis_upgrade_strict_requirements_fail_closed(tmp_path: Path) -> None:
     assert "not a full spatial-autocorrelation null model" in status["components"]["neuromaps_spatial_nulls"]["claim_guardrail"]
 
 
+def test_thesis_upgrade_marks_map_prior_claim_complete_when_resolved_negative(tmp_path: Path) -> None:
+    output_dir = tmp_path / "results" / "cortical_maps"
+    output_dir.mkdir(parents=True)
+    (output_dir / "cortical_map_alignment_status.json").write_text(
+        json.dumps(
+            {
+                "claim_readiness": {"strong_receptor_myelin_gradient_claim": "not_supported_yet"},
+                "fdr_supported_count": 0,
+            }
+        ),
+        encoding="utf-8",
+    )
+    (output_dir / "map_prior_falsification_status.json").write_text(
+        json.dumps(
+            {
+                "negative_result_ready": True,
+                "claim_status": "resolved_negative_not_promoted",
+                "claim_resolution": {
+                    "joint_fdr_and_ci_support_count": 0,
+                    "strict_gate_resolved": True,
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    status = build_thesis_upgrade_status(tmp_path)
+    requirement = {row["requirement_id"]: row for row in status["strict_completion_requirements"]}[
+        "receptor_myelin_gradient_claim"
+    ]
+
+    assert requirement["complete"] is True
+    assert requirement["status"] == "resolved_negative_not_promoted"
+    assert "negative/control result" in requirement["missing"]
+
+
 def test_thesis_upgrade_marks_schaefer_yeo_complete_when_outputs_exist(tmp_path: Path) -> None:
     sensitivity_dir = tmp_path / "results" / "parcellation_sensitivity"
     canonical_dir = tmp_path / "results" / "stage_2" / "parcellations" / "schaefer_100_yeo_7"

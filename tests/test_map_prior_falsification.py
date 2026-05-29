@@ -49,9 +49,10 @@ def test_map_prior_falsification_marks_negative_result_when_fdr_and_ci_fail(tmp_
 
     status = build_map_prior_falsification_status(tmp_path)
 
-    assert status["analysis_status"] == "implemented_negative_map_prior_result"
+    assert status["analysis_status"] == "implemented_map_prior_claim_resolution"
     assert status["negative_result_ready"] is True
-    assert status["claim_status"] == "not_supported_yet"
+    assert status["claim_status"] == "resolved_negative_not_promoted"
+    assert status["claim_resolution"]["joint_fdr_and_ci_support_count"] == 0
     assert "formally downgraded" in status["claim_effect"]
 
 

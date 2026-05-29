@@ -57,6 +57,26 @@ def _ranked_spatial_rows(map_family: dict[str, Any], limit: int = 12) -> list[di
     return clean[:limit]
 
 
+def _spatial_resolution(rows: list[dict[str, Any]]) -> dict[str, Any]:
+    joint_support = [row for row in rows if bool(row.get("fdr_pass")) and not bool(row.get("ci_crosses_zero", True))]
+    fdr_only = [row for row in rows if bool(row.get("fdr_pass"))]
+    ci_only = [row for row in rows if not bool(row.get("ci_crosses_zero", True))]
+    ranked_by_abs_effect = sorted(
+        rows,
+        key=lambda row: abs(float(row.get("r", 0.0) if row.get("r") is not None else 0.0)),
+        reverse=True,
+    )
+    status = "supported_map_prior_claim" if joint_support else "resolved_negative_not_promoted"
+    return {
+        "claim_resolution_status": status,
+        "joint_fdr_and_ci_support_count": len(joint_support),
+        "fdr_only_support_count": len(fdr_only),
+        "ci_excludes_zero_without_fdr_count": len([row for row in ci_only if not bool(row.get("fdr_pass"))]),
+        "top_abs_effect_rows": ranked_by_abs_effect[:6],
+        "support_rule": "promote only if fdr_pass is true and ci_crosses_zero is false for at least one spatial-null family row",
+    }
+
+
 def build_map_prior_falsification_status(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
     repo_root = repo_root.resolve()
     cortical_path = repo_root / "results" / "cortical_maps" / "cortical_map_alignment_status.json"
@@ -71,6 +91,8 @@ def build_map_prior_falsification_status(repo_root: Path = REPO_ROOT) -> dict[st
     family_complete = all(coverage.values())
     best_module = _best_module_alignment(cortical)
     best_spatial = _best_spatial_result(map_family)
+    spatial_rows = [row for row in map_family.get("results", []) if isinstance(row, dict)] if isinstance(map_family.get("results"), list) else []
+    spatial_resolution = _spatial_resolution(spatial_rows)
     best_spatial_ci_crosses_zero = bool(best_spatial.get("ci_crosses_zero", True)) if best_spatial else True
     best_spatial_fdr_pass = bool(best_spatial.get("fdr_pass", False)) if best_spatial else False
     negative_result_ready = bool(
@@ -79,12 +101,15 @@ def build_map_prior_falsification_status(repo_root: Path = REPO_ROOT) -> dict[st
         and module_fdr_count == 0
         and spatial_fdr_count == 0
         and not best_spatial_fdr_pass
-        and best_spatial_ci_crosses_zero
+        and spatial_resolution["joint_fdr_and_ci_support_count"] == 0
+    )
+    claim_resolution_status = (
+        "supported_map_prior_claim" if spatial_resolution["joint_fdr_and_ci_support_count"] > 0 else "resolved_negative_not_promoted"
     )
     return {
         "schema_version": SCHEMA_VERSION,
         "generated_at_utc": datetime.now(UTC).isoformat(),
-        "analysis_status": "implemented_negative_map_prior_result" if negative_result_ready else "blocked_or_incomplete_map_prior_falsification",
+        "analysis_status": "implemented_map_prior_claim_resolution" if negative_result_ready else "blocked_or_incomplete_map_prior_falsification",
         "negative_result_ready": negative_result_ready,
         "source_paths": {
             "module_alignment": _rel(cortical_path, repo_root),
@@ -104,11 +129,19 @@ def build_map_prior_falsification_status(repo_root: Path = REPO_ROOT) -> dict[st
             "best_result": best_spatial,
             "ranked_rows": _ranked_spatial_rows(map_family),
         },
-        "claim_status": "not_supported_yet",
+        "claim_status": claim_resolution_status if negative_result_ready else "not_supported_yet",
+        "claim_resolution": {
+            **spatial_resolution,
+            "module_fdr_supported_count": module_fdr_count,
+            "spatial_fdr_supported_count": spatial_fdr_count,
+            "family_coverage_complete": family_complete,
+            "spatial_autocorrelation_nulls_complete": spatial_complete,
+            "strict_gate_resolved": negative_result_ready,
+        },
         "claim_effect": (
             "The receptor/myelin/gradient/gene-expression map-prior mechanism is formally downgraded: "
-            "module-level permutation and Schaefer100 Moran spatial-null families both fail FDR support, "
-            "and the best spatial-null interval overlaps zero."
+            "module-level permutation and Schaefer100 Moran spatial-null families contain no row with joint FDR support "
+            "and a confidence interval excluding zero."
             if negative_result_ready
             else "Map-prior falsification is not complete until module and spatial-null evidence are both available."
         ),
@@ -128,6 +161,7 @@ def build_map_prior_falsification_status(repo_root: Path = REPO_ROOT) -> dict[st
 def _markdown(status: dict[str, Any]) -> str:
     spatial = status["spatial_nulls"]
     best = spatial.get("best_result") or {}
+    resolution = status.get("claim_resolution", {})
     lines = [
         "# Map-Prior Falsification Status",
         "",
@@ -136,6 +170,8 @@ def _markdown(status: dict[str, Any]) -> str:
         f"- Status: `{status['analysis_status']}`",
         f"- Claim status: `{status['claim_status']}`",
         f"- Negative result ready: `{str(status['negative_result_ready']).lower()}`",
+        f"- Joint FDR + CI support count: `{resolution.get('joint_fdr_and_ci_support_count')}`",
+        f"- CI-only rows without FDR: `{resolution.get('ci_excludes_zero_without_fdr_count')}`",
         f"- Module-level FDR-supported count: `{status['module_level']['fdr_supported_count']}`",
         f"- Spatial-null FDR-supported count: `{spatial['fdr_supported_count']}`",
         f"- Best spatial-null q: `{best.get('q')}`",
