@@ -1007,9 +1007,9 @@
             <tbody id="thesis_completion_table"></tbody>
           </table>
         </div>
-        <div class="result-table-wrap" aria-label="Partial receptor spatial-null results" style="margin-top: 12px;">
-          <h3>Partial Receptor Spatial Nulls</h3>
-          <p class="plot-caption">Schaefer100 5-HT2A PET priors tested against LSD-placebo dynamic vectors with neuromaps Moran surrogates. This is receptor-only evidence; it does not promote the broader receptor/myelin/gradient claim.</p>
+        <div class="result-table-wrap" aria-label="Partial map-family spatial-null results" style="margin-top: 12px;">
+          <h3>Partial Map-Family Spatial Nulls</h3>
+          <p class="plot-caption">Schaefer100 receptor, myelin, and functional-gradient priors tested against LSD-placebo dynamic vectors with neuromaps Moran surrogates. These are spatial priors; they do not promote the broader mechanism claim unless q/FDR and CI gates pass.</p>
           <table class="result-table">
             <thead><tr><th>Map</th><th>Target</th><th>r</th><th>spatial p</th><th>q</th><th>FDR</th><th>CI crosses zero</th><th>Claim status</th></tr></thead>
             <tbody id="receptor_moran_table"></tbody>
@@ -2003,7 +2003,7 @@
         cards.innerHTML = '<p class="empty">Generate <code>results/thesis_upgrade/thesis_upgrade_status.json</code> to populate this panel.</p>';
         table.innerHTML = '';
         completionTable.innerHTML = '';
-        receptorMoranTable.innerHTML = '<tr><td colspan="8">No receptor Moran spatial-null artifact loaded.</td></tr>';
+        receptorMoranTable.innerHTML = '<tr><td colspan="8">No map-family Moran spatial-null artifact loaded.</td></tr>';
         return;
       }
 
@@ -2027,7 +2027,7 @@
       const receptorSummary = neuromaps.receptor_moran_summary || {};
       addMetricCard(
         cards,
-        'Receptor Moran',
+        'Map-family Moran',
         receptorSummary.test_count ? `${receptorSummary.fdr_supported_count ?? 0}/${receptorSummary.test_count} FDR pass` : 'not run',
         receptorSummary.method || 'partial Schaefer100 spatial-null layer'
       );
@@ -2044,10 +2044,10 @@
       receptorRows.sort((a, b) => Number(a.q ?? Infinity) - Number(b.q ?? Infinity));
       const fmt = (value, digits = 3) => Number.isFinite(Number(value)) ? Number(value).toFixed(digits) : 'n/a';
       receptorMoranTable.innerHTML = receptorRows.length
-        ? receptorRows.slice(0, 12).map((row) => (
+        ? receptorRows.slice(0, 24).map((row) => (
           `<tr><td>${row.map_id || 'n/a'}</td><td>${row.target_id || 'n/a'}</td><td>${fmt(row.r, 3)}</td><td>${fmt(row.spatial_p, 3)}</td><td>${fmt(row.q, 3)}</td><td>${row.fdr_pass ? 'yes' : 'no'}</td><td>${row.ci_crosses_zero ? 'yes' : 'no'}</td><td>${row.claim_status || 'n/a'}</td></tr>`
         )).join('')
-        : '<tr><td colspan="8">No receptor Moran spatial-null results are loaded yet.</td></tr>';
+        : '<tr><td colspan="8">No map-family Moran spatial-null results are loaded yet.</td></tr>';
 
       const colors = gates.map((gate) => gate.ready ? '#1f7a4d' : (Number(gate.score || 0) >= 0.5 ? '#b97616' : '#9d2c2c'));
       Plotly.newPlot('thesis_upgrade_gate_plot', [{

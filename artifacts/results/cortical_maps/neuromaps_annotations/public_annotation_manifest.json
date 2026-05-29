@@ -1,0 +1,87 @@
+{
+  "schema_version": "neuromaps_public_annotations.v1",
+  "generated_at_utc": "2026-05-28T19:55:27.489381+00:00",
+  "parcellation_id": "schaefer_100_yeo_7",
+  "map_space": "fsLR32k annotations parcellated through Schaefer100 labels projected from MNI152 to fsLR32k",
+  "maps": [
+    {
+      "map_id": "hcp1200_myelinmap",
+      "family": "myelin",
+      "label": "HCP S1200 myelin map, Schaefer100 via fsLR32k",
+      "source_path": "results/cortical_maps/neuromaps_annotations/hcp1200_myelinmap_schaefer100.csv",
+      "source_provenance": [
+        {
+          "source": "hcps1200",
+          "desc": "myelinmap",
+          "hemi": "L",
+          "space": "fsLR",
+          "den": "32k",
+          "format": "surface",
+          "tags": [
+            "structural",
+            "MRI"
+          ],
+          "checksum": "d633cbfe37fec25ed428d16f35780652",
+          "url": "https://files.osf.io/v1/resources/4mw3a/providers/osfstorage/6130fe1c4e5ee50219291a2a",
+          "cache_path": ".neuromaps-data/annotations/hcps1200/myelinmap/fsLR/source-hcps1200_desc-myelinmap_space-fsLR_den-32k_hemi-L_feature.func.gii"
+        },
+        {
+          "source": "hcps1200",
+          "desc": "myelinmap",
+          "hemi": "R",
+          "space": "fsLR",
+          "den": "32k",
+          "format": "surface",
+          "tags": [
+            "structural",
+            "MRI"
+          ],
+          "checksum": "0d7e844ee6a74d64e48e0a72a8a83291",
+          "url": "https://files.osf.io/v1/resources/4mw3a/providers/osfstorage/6130fe29af610c0216dfdd20",
+          "cache_path": ".neuromaps-data/annotations/hcps1200/myelinmap/fsLR/source-hcps1200_desc-myelinmap_space-fsLR_den-32k_hemi-R_feature.func.gii"
+        }
+      ]
+    },
+    {
+      "map_id": "margulies2016_fcgradient01",
+      "family": "functional_gradient",
+      "label": "Margulies 2016 principal functional gradient, Schaefer100 via fsLR32k",
+      "source_path": "results/cortical_maps/neuromaps_annotations/margulies2016_fcgradient01_schaefer100.csv",
+      "source_provenance": [
+        {
+          "source": "margulies2016",
+          "desc": "fcgradient01",
+          "hemi": "L",
+          "space": "fsLR",
+          "den": "32k",
+          "format": "surface",
+          "tags": [
+            "functional",
+            "MRI",
+            "fMRI"
+          ],
+          "checksum": "f3ef7c4601a4e8f44cafc59afb8aaa30",
+          "url": "https://files.osf.io/v1/resources/4mw3a/providers/osfstorage/60c22687f3ce9401fa24dc77",
+          "cache_path": ".neuromaps-data/annotations/margulies2016/fcgradient01/fsLR/source-margulies2016_desc-fcgradient01_space-fsLR_den-32k_hemi-L_feature.func.gii"
+        },
+        {
+          "source": "margulies2016",
+          "desc": "fcgradient01",
+          "hemi": "R",
+          "space": "fsLR",
+          "den": "32k",
+          "format": "surface",
+          "tags": [
+            "functional",
+            "MRI",
+            "fMRI"
+          ],
+          "checksum": "463b8be657529800fd41ea3fc418c363",
+          "url": "https://files.osf.io/v1/resources/4mw3a/providers/osfstorage/60c2267df3ce94020124c6f6",
+          "cache_path": ".neuromaps-data/annotations/margulies2016/fcgradient01/fsLR/source-margulies2016_desc-fcgradient01_space-fsLR_den-32k_hemi-R_feature.func.gii"
+        }
+      ]
+    }
+  ],
+  "claim_guardrail": "These are public atlas priors parcellated to Schaefer100. They are spatial priors, not drug-effect measurements."
+}
