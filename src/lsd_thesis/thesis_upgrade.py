@@ -542,17 +542,22 @@ def _receptor_structural_gate(repo_root: Path) -> dict[str, Any]:
 
 def _receptor_myelin_gradient_claim_gate(repo_root: Path) -> dict[str, Any]:
     path = repo_root / "results" / "cortical_maps" / "cortical_map_alignment_status.json"
+    falsification_path = repo_root / "results" / "cortical_maps" / "map_prior_falsification_status.json"
     payload = _read_json(path) or {}
+    falsification = _read_json(falsification_path) or {}
     claim_readiness = payload.get("claim_readiness", {}) if isinstance(payload.get("claim_readiness"), dict) else {}
     neuromaps_status = payload.get("neuromaps_status", {}) if isinstance(payload.get("neuromaps_status"), dict) else {}
     strong_claim_status = str(claim_readiness.get("strong_receptor_myelin_gradient_claim") or "not_supported_yet")
     fdr_supported_count = int(payload.get("fdr_supported_count") or 0)
     best = payload.get("best_alignment", {}) if isinstance(payload.get("best_alignment"), dict) else {}
+    negative_result_ready = bool(falsification.get("negative_result_ready"))
     ready = strong_claim_status not in {"not_supported_yet", "exploratory_not_supported_yet"} and fdr_supported_count > 0
     status = "supported" if ready else strong_claim_status
     blocker = (
         "At least one receptor/myelin/gradient alignment passes the configured uncertainty gates."
         if ready
+        else "Map-prior negative result is formalized; the mechanism claim remains not_supported_yet."
+        if negative_result_ready
         else "Current receptor/myelin/gradient alignments are exploratory priors; q-values do not pass FDR and CIs overlap zero."
     )
     return {
@@ -569,8 +574,12 @@ def _receptor_myelin_gradient_claim_gate(repo_root: Path) -> dict[str, Any]:
             "Receptor/myelin/gradient claim support",
             status,
             ready,
-            _rel(path, repo_root),
-            "The strongest current map alignment remains exploratory: no FDR pass and CI overlap with zero.",
+            f"{_rel(path, repo_root)}; {_rel(falsification_path, repo_root)}",
+            (
+                "The map-prior negative result is formalized: no module-level or spatial-null family FDR support, and the best spatial-null CI crosses zero."
+                if negative_result_ready
+                else "The strongest current map alignment remains exploratory: no FDR pass and CI overlap with zero."
+            ),
             "Promote the claim only after high-resolution parcellation, neuromaps spatial nulls, FDR pass, and uncertainty intervals that do not cross zero.",
             "The dashboard must keep this as not_supported_yet until those gates pass.",
         ),
@@ -578,6 +587,9 @@ def _receptor_myelin_gradient_claim_gate(repo_root: Path) -> dict[str, Any]:
         "neuromaps_status": neuromaps_status,
         "fdr_supported_count": fdr_supported_count,
         "best_alignment": best,
+        "negative_result_ready": negative_result_ready,
+        "negative_result_path": _rel(falsification_path, repo_root),
+        "negative_result_claim_effect": falsification.get("claim_effect"),
         "claim_guardrail": "External map priors are useful hypotheses, not proof of receptor/myelin/gradient mechanism.",
     }
 

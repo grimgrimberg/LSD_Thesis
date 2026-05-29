@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at_utc": "2026-05-29T12:55:09.966044+00:00",
+  "generated_at_utc": "2026-05-29T18:46:45.769188+00:00",
   "dataset_id": "ds006072",
   "source": "OpenNeuro ds006072, Scientific Data 2025 psilocybin precision imaging dataset",
   "local_data_root": "data/ds006072",
@@ -14,7 +14,7 @@
   "functional_manifest_processed_cifti_total_size_bytes": 113592893360,
   "external_validation_readiness": {
     "schema_version": "ds006072_external_validation.v1",
-    "generated_at_utc": "2026-05-29T12:43:28.743299+00:00",
+    "generated_at_utc": "2026-05-29T12:55:11.241266+00:00",
     "dataset_id": "ds006072",
     "analysis_status": "extraction_contract_ready_missing_local_cifti_payloads",
     "primary_contrast": "psilocybin_vs_active_control_mtp",
@@ -44,7 +44,7 @@
   "schema_template": "results/psilocybin_ds006072/required_empirical_viewer_schema.json",
   "comparable_empirical_validation": {
     "schema_version": "ds006072_external_validation.v1",
-    "generated_at_utc": "2026-05-29T12:55:11.271065+00:00",
+    "generated_at_utc": "2026-05-29T18:46:48.264601+00:00",
     "dataset_id": "ds006072",
     "primary_contrast": "psilocybin_vs_active_control_mtp",
     "viewer_root": "results/psilocybin_ds006072/empirical_viewer",

@@ -26,6 +26,7 @@ from lsd_thesis.confound_controls import write_motion_confound_control_status
 from lsd_thesis.cortical_maps import write_cortical_map_alignment_status
 from lsd_thesis.design_confound_controls import write_design_confound_control_status
 from lsd_thesis.module_dvars_controls import write_module_dvars_control_status
+from lsd_thesis.map_prior_falsification import write_map_prior_falsification_status
 from lsd_thesis.neuromaps_spatial_nulls import write_neuromaps_spatial_null_status
 from lsd_thesis.setting_seed.motion import write_motion_outputs
 from lsd_thesis.thesis_upgrade import write_thesis_upgrade_status
@@ -205,6 +206,7 @@ def build_github_pages_site(repo_root: Path = REPO_ROOT, site_dir: Path | None =
     write_module_dvars_control_status(repo_root)
     publication_outputs = build_publication_package(repo_root)
     write_neuromaps_spatial_null_status(repo_root)
+    write_map_prior_falsification_status(repo_root)
     write_thesis_upgrade_status(repo_root)
 
     outputs: dict[str, Path] = {}
