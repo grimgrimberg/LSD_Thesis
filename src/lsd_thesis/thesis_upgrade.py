@@ -261,6 +261,7 @@ def _neuromaps_spatial_null_gate(repo_root: Path) -> dict[str, Any]:
     receptor_nulls = payload.get("receptor_moran_nulls", {}) if isinstance(payload.get("receptor_moran_nulls"), dict) else {}
     receptor_best = receptor_nulls.get("best_result", {}) if isinstance(receptor_nulls.get("best_result"), dict) else {}
     receptor_results = receptor_nulls.get("results", []) if isinstance(receptor_nulls.get("results"), list) else []
+    family_coverage = receptor_nulls.get("family_coverage", {}) if isinstance(receptor_nulls.get("family_coverage"), dict) else {}
     rows = cortical_payload.get("alignment_rows", []) if isinstance(cortical_payload.get("alignment_rows"), list) else []
     first_row = rows[0] if rows and isinstance(rows[0], dict) else {}
     current_method = str(first_row.get("method") or "not_run")
@@ -284,11 +285,13 @@ def _neuromaps_spatial_null_gate(repo_root: Path) -> dict[str, Any]:
     )
     return {
         "gate": _gate(
-            "Neuromaps spatial nulls",
-            status,
-            ready,
-            f"{_rel(path, repo_root)}; {_rel(cortical_path, repo_root)}",
-            "Full surface/parcellation spatial-autocorrelation null testing has not been run."
+        "Neuromaps spatial nulls",
+        status,
+        ready,
+        f"{_rel(path, repo_root)}; {_rel(cortical_path, repo_root)}",
+            "Schaefer100 map-family Moran spatial nulls are complete across receptor, myelin, functional-gradient, and gene-expression priors."
+            if ready
+            else "Full surface/parcellation spatial-autocorrelation null testing has not been run."
             if not receptor_ready
             else "Partial receptor/myelin/gradient Schaefer100 Moran spatial nulls are run; full family coverage is still missing.",
             1.0 if ready else 0.7 if receptor_ready else 0.6 if partial_ready else 0.55 if null_api_importable else 0.35 if dependency_available else 0.15,
@@ -298,10 +301,14 @@ def _neuromaps_spatial_null_gate(repo_root: Path) -> dict[str, Any]:
             "Full neuromaps spatial-autocorrelation nulls",
             status,
             ready,
-            f"{_rel(path, repo_root)}; current map method: {current_method}; best receptor Moran result: {receptor_best or 'none'}",
+            f"{_rel(path, repo_root)}; current map method: {current_method}; family coverage: {family_coverage or 'none'}; best map-family Moran result: {receptor_best or 'none'}",
             missing,
             next_action,
-            "Receptor/myelin/gradient alignment cannot be promoted beyond exploratory until this passes.",
+            (
+                "Spatial-null family coverage is complete, but receptor/myelin/gradient alignment remains exploratory because no map-family result passes FDR and CI gates."
+                if ready
+                else "Receptor/myelin/gradient alignment cannot be promoted beyond exploratory until this passes."
+            ),
         ),
         "dependency_available": dependency_available,
         "null_api_importable": null_api_importable,

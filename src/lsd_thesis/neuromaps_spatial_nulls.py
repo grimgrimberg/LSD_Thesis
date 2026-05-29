@@ -37,7 +37,7 @@ PET_RECEPTOR_MAPS = (
         "path": Path("results/external_ingestion/hansen_receptors/source/PET_parcellated/scale100/5HT2a_mdl_hc3_talbot.csv"),
     },
 )
-PUBLIC_FSLR_ANNOTATION_MAPS = (
+PUBLIC_SURFACE_ANNOTATION_MAPS = (
     {
         "map_id": "hcp1200_myelinmap",
         "family": "myelin",
@@ -55,6 +55,15 @@ PUBLIC_FSLR_ANNOTATION_MAPS = (
         "desc": "fcgradient01",
         "space": "fsLR",
         "den": "32k",
+    },
+    {
+        "map_id": "abagen_genepc1",
+        "family": "gene_expression",
+        "label": "Abagen AHBA gene-expression PC1, Schaefer100 via fsaverage10k",
+        "source": "abagen",
+        "desc": "genepc1",
+        "space": "fsaverage",
+        "den": "10k",
     },
 )
 TARGET_VECTOR_KEYS = (
@@ -261,7 +270,7 @@ def _neuromaps_data_dir(repo_root: Path) -> Path:
     return path
 
 
-def _public_annotation_record(source: str, desc: str, hemi: str) -> dict[str, Any]:
+def _public_annotation_record(source: str, desc: str, space: str, den: str, hemi: str) -> dict[str, Any]:
     from neuromaps.datasets.annotations import get_dataset_info
 
     matches = [
@@ -269,23 +278,29 @@ def _public_annotation_record(source: str, desc: str, hemi: str) -> dict[str, An
         for item in get_dataset_info("annotations", return_restricted=False)
         if item.get("source") == source
         and item.get("desc") == desc
-        and item.get("space") == "fsLR"
-        and item.get("den") == "32k"
+        and item.get("space") == space
+        and item.get("den") == den
         and item.get("hemi") == hemi
     ]
     if len(matches) != 1:
-        raise FileNotFoundError(f"Expected one public fsLR32k annotation for {source}/{desc}/{hemi}, found {len(matches)}.")
+        raise FileNotFoundError(f"Expected one public {space}{den} annotation for {source}/{desc}/{hemi}, found {len(matches)}.")
     return matches[0]
 
 
-def _fetch_public_fslr_annotation_pair(repo_root: Path, source: str, desc: str) -> tuple[tuple[Path, Path], list[dict[str, Any]]]:
+def _fetch_public_surface_annotation_pair(
+    repo_root: Path,
+    source: str,
+    desc: str,
+    space: str,
+    den: str,
+) -> tuple[tuple[Path, Path], list[dict[str, Any]]]:
     from neuromaps.datasets.annotations import _fetch_file
 
     data_dir = _neuromaps_data_dir(repo_root)
     paths: list[Path] = []
     provenance: list[dict[str, Any]] = []
     for hemi in ("L", "R"):
-        record = _public_annotation_record(source, desc, hemi)
+        record = _public_annotation_record(source, desc, space, den, hemi)
         path = data_dir / "annotations" / str(record["rel_path"]) / str(record["fname"])
         path.parent.mkdir(parents=True, exist_ok=True)
         if not path.exists():
@@ -309,19 +324,24 @@ def _fetch_public_fslr_annotation_pair(repo_root: Path, source: str, desc: str) 
     return (paths[0], paths[1]), provenance
 
 
-def _schaefer_fslr_parcellation_paths(repo_root: Path, atlas_path: Path) -> tuple[Path, Path]:
+def _schaefer_surface_parcellation_paths(repo_root: Path, atlas_path: Path, space: str, den: str) -> tuple[Path, Path]:
     from neuromaps import transforms
 
     output_dir = repo_root / "results" / "cortical_maps" / "neuromaps_annotations"
     output_dir.mkdir(parents=True, exist_ok=True)
     paths = (
-        output_dir / "schaefer100_from_mni_space-fsLR_den-32k_hemi-L_label.gii",
-        output_dir / "schaefer100_from_mni_space-fsLR_den-32k_hemi-R_label.gii",
+        output_dir / f"schaefer100_from_mni_space-{space}_den-{den}_hemi-L_label.gii",
+        output_dir / f"schaefer100_from_mni_space-{space}_den-{den}_hemi-R_label.gii",
     )
     if all(path.exists() for path in paths):
         return paths
     _neuromaps_data_dir(repo_root)
-    projected = transforms.mni152_to_fslr(str(atlas_path), "32k", method="nearest")
+    if space == "fsLR":
+        projected = transforms.mni152_to_fslr(str(atlas_path), den, method="nearest")
+    elif space == "fsaverage":
+        projected = transforms.mni152_to_fsaverage(str(atlas_path), den, method="nearest")
+    else:
+        raise ValueError(f"Unsupported surface annotation space: {space}")
     for path, image in zip(paths, projected, strict=True):
         nib.save(image, path)
     return paths
@@ -336,11 +356,13 @@ def _load_public_annotation_maps(repo_root: Path, atlas_path: Path, expected_siz
     from neuromaps.images import load_data
     from neuromaps.parcellate import vertices_to_parcels
 
-    parcellation_paths = _schaefer_fslr_parcellation_paths(repo_root, atlas_path)
     output_dir = repo_root / "results" / "cortical_maps" / "neuromaps_annotations"
     maps: dict[str, dict[str, Any]] = {}
-    for item in PUBLIC_FSLR_ANNOTATION_MAPS:
-        annotation_paths, provenance = _fetch_public_fslr_annotation_pair(repo_root, str(item["source"]), str(item["desc"]))
+    for item in PUBLIC_SURFACE_ANNOTATION_MAPS:
+        space = str(item["space"])
+        den = str(item["den"])
+        parcellation_paths = _schaefer_surface_parcellation_paths(repo_root, atlas_path, space, den)
+        annotation_paths, provenance = _fetch_public_surface_annotation_pair(repo_root, str(item["source"]), str(item["desc"]), space, den)
         vertex_data = load_data(tuple(str(path) for path in annotation_paths))
         vector = np.asarray(vertices_to_parcels(vertex_data, tuple(str(path) for path in parcellation_paths), background=0), dtype=float).squeeze()
         if vector.shape != (expected_size,):
@@ -362,7 +384,7 @@ def _load_public_annotation_maps(repo_root: Path, atlas_path: Path, expected_siz
         "schema_version": "neuromaps_public_annotations.v1",
         "generated_at_utc": datetime.now(UTC).isoformat(),
         "parcellation_id": SCHAEFER_ID,
-        "map_space": "fsLR32k annotations parcellated through Schaefer100 labels projected from MNI152 to fsLR32k",
+        "map_space": "Surface annotations parcellated through Schaefer100 labels projected from MNI152 to each annotation surface space.",
         "maps": [
             {
                 "map_id": payload["map_id"],
@@ -490,7 +512,12 @@ def _run_map_family_moran_nulls(repo_root: Path) -> dict[str, Any]:
         "functional_gradient": any(row["map_family"] == "functional_gradient" for row in rows),
         "gene_expression": any(row["map_family"] == "gene_expression" for row in rows),
     }
-    complete_family_coverage = bool(family_coverage["receptor"] and family_coverage["myelin"] and family_coverage["functional_gradient"])
+    complete_family_coverage = bool(
+        family_coverage["receptor"]
+        and family_coverage["myelin"]
+        and family_coverage["functional_gradient"]
+        and family_coverage["gene_expression"]
+    )
     return {
         "method": "schaefer100_neuromaps_moran_public_map_families",
         "parcellation_id": SCHAEFER_ID,
@@ -516,11 +543,14 @@ def _run_map_family_moran_nulls(repo_root: Path) -> dict[str, Any]:
         "best_result": best,
         "fdr_supported_count": sum(1 for row in rows if row["fdr_pass"] and row["ci_crosses_zero"] is False),
         "family_coverage": family_coverage,
-        "complete_receptor_myelin_gradient_coverage": complete_family_coverage,
+        "complete_map_family_coverage": complete_family_coverage,
+        "complete_receptor_myelin_gradient_coverage": bool(
+            family_coverage["receptor"] and family_coverage["myelin"] and family_coverage["functional_gradient"]
+        ),
         "limitations": [
             "This is a Schaefer100 parcellated Moran null, not a surface-level spin/permutation null.",
-            "Public myelin and functional-gradient priors are parcellated through Schaefer100 labels projected from MNI152 to fsLR32k.",
-            "Gene-expression maps remain missing, and the receptor/myelin/gradient mechanism claim is not promoted unless FDR and CI gates pass.",
+            "Public surface priors are parcellated through Schaefer100 labels projected from MNI152 to each source surface space.",
+            "The receptor/myelin/gradient mechanism claim is not promoted unless FDR and CI gates pass.",
         ],
     }
 
@@ -552,9 +582,16 @@ def build_neuromaps_spatial_null_status(repo_root: Path = REPO_ROOT) -> dict[str
     elif has_high_resolution_summary and has_mechanism_summary and has_hansen_pet:
         try:
             map_family_nulls = _run_map_family_moran_nulls(repo_root)
-            status = "implemented_schaefer100_receptor_myelin_gradient_moran_spatial_nulls"
+            status = (
+                "implemented_schaefer100_full_map_family_moran_spatial_nulls"
+                if map_family_nulls.get("complete_map_family_coverage")
+                else "implemented_schaefer100_receptor_myelin_gradient_moran_spatial_nulls"
+            )
             blocker = (
-                "Schaefer100 Moran spatial nulls now cover receptor, myelin, and functional-gradient priors. "
+                "Schaefer100 Moran spatial nulls cover receptor, myelin, functional-gradient, and gene-expression priors. "
+                "Surface-level spin/null extensions remain a stricter future sensitivity analysis."
+                if map_family_nulls.get("complete_map_family_coverage")
+                else "Schaefer100 Moran spatial nulls now cover receptor, myelin, and functional-gradient priors. "
                 "Full completion still needs gene-expression and preferably surface-level null coverage."
             )
         except Exception as exc:
@@ -572,7 +609,7 @@ def build_neuromaps_spatial_null_status(repo_root: Path = REPO_ROOT) -> dict[str
         "schema_version": SCHEMA_VERSION,
         "generated_at_utc": datetime.now(UTC).isoformat(),
         "analysis_status": status,
-        "spatial_autocorrelation_nulls_complete": False,
+        "spatial_autocorrelation_nulls_complete": bool(map_family_nulls and map_family_nulls.get("complete_map_family_coverage")),
         "partial_spatial_autocorrelation_nulls_complete": map_family_nulls is not None,
         "receptor_spatial_nulls_complete": bool(map_family_nulls and map_family_nulls["family_coverage"].get("receptor")),
         "myelin_spatial_nulls_complete": bool(map_family_nulls and map_family_nulls["family_coverage"].get("myelin")),
@@ -624,7 +661,7 @@ def _markdown(status: dict[str, Any]) -> str:
             f"- Current module statistic: `{status['current_module_statistic']}`",
             f"- Blocker: {status['blocker']}",
             "",
-            "## Partial receptor Moran nulls",
+            "## Map-family Moran nulls",
             "",
             f"- Receptor spatial nulls complete: `{str(status['receptor_spatial_nulls_complete']).lower()}`",
             f"- Myelin spatial nulls complete: `{str(status['myelin_spatial_nulls_complete']).lower()}`",

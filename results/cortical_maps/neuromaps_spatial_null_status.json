@@ -1,13 +1,13 @@
 {
   "schema_version": "neuromaps_spatial_null_status.v1",
-  "generated_at_utc": "2026-05-28T19:55:32.950367+00:00",
-  "analysis_status": "implemented_schaefer100_receptor_myelin_gradient_moran_spatial_nulls",
-  "spatial_autocorrelation_nulls_complete": false,
+  "generated_at_utc": "2026-05-29T11:52:29.315913+00:00",
+  "analysis_status": "implemented_schaefer100_full_map_family_moran_spatial_nulls",
+  "spatial_autocorrelation_nulls_complete": true,
   "partial_spatial_autocorrelation_nulls_complete": true,
   "receptor_spatial_nulls_complete": true,
   "myelin_spatial_nulls_complete": true,
   "functional_gradient_spatial_nulls_complete": true,
-  "gene_expression_spatial_nulls_complete": false,
+  "gene_expression_spatial_nulls_complete": true,
   "dependency_available": true,
   "null_api_importable": true,
   "neuromaps_runtime": {
@@ -165,14 +165,54 @@
           "results/cortical_maps/neuromaps_annotations/schaefer100_from_mni_space-fsLR_den-32k_hemi-L_label.gii",
           "results/cortical_maps/neuromaps_annotations/schaefer100_from_mni_space-fsLR_den-32k_hemi-R_label.gii"
         ]
+      },
+      {
+        "map_id": "abagen_genepc1",
+        "family": "gene_expression",
+        "label": "Abagen AHBA gene-expression PC1, Schaefer100 via fsaverage10k",
+        "source_path": "results/cortical_maps/neuromaps_annotations/abagen_genepc1_schaefer100.csv",
+        "source_provenance": [
+          {
+            "source": "abagen",
+            "desc": "genepc1",
+            "hemi": "L",
+            "space": "fsaverage",
+            "den": "10k",
+            "format": "surface",
+            "tags": [
+              "genetics"
+            ],
+            "checksum": "3ec7cd923a9f5cc1eb83230ad3728f38",
+            "url": "https://files.osf.io/v1/resources/4mw3a/providers/osfstorage/60c2290118f70b01fca797eb",
+            "cache_path": ".neuromaps-data/annotations/abagen/genepc1/fsaverage/source-abagen_desc-genepc1_space-fsaverage_den-10k_hemi-L_feature.func.gii"
+          },
+          {
+            "source": "abagen",
+            "desc": "genepc1",
+            "hemi": "R",
+            "space": "fsaverage",
+            "den": "10k",
+            "format": "surface",
+            "tags": [
+              "genetics"
+            ],
+            "checksum": "435fedeb475f3f6f5c5d24a18acedf1a",
+            "url": "https://files.osf.io/v1/resources/4mw3a/providers/osfstorage/60c228f5f3ce9401fa24e521",
+            "cache_path": ".neuromaps-data/annotations/abagen/genepc1/fsaverage/source-abagen_desc-genepc1_space-fsaverage_den-10k_hemi-R_feature.func.gii"
+          }
+        ],
+        "parcellation_surface_paths": [
+          "results/cortical_maps/neuromaps_annotations/schaefer100_from_mni_space-fsaverage_den-10k_hemi-L_label.gii",
+          "results/cortical_maps/neuromaps_annotations/schaefer100_from_mni_space-fsaverage_den-10k_hemi-R_label.gii"
+        ]
       }
     ],
     "n_nodes": 100,
     "n_perm": 999,
     "seed": 20260528,
-    "map_count": 6,
+    "map_count": 7,
     "target_count": 3,
-    "test_count": 18,
+    "test_count": 21,
     "results": [
       {
         "map_id": "5ht2a_alt_hc19_savli",
@@ -191,7 +231,7 @@
         "ci95_low": -0.11574265150579202,
         "ci95_high": 0.2745190642495325,
         "ci_crosses_zero": true,
-        "q": 0.968,
+        "q": 0.9930000000000001,
         "fdr_pass": false,
         "claim_status": "not_supported_yet"
       },
@@ -212,7 +252,7 @@
         "ci95_low": -0.1834761457680087,
         "ci95_high": 0.20929201128215638,
         "ci_crosses_zero": true,
-        "q": 0.968,
+        "q": 0.9930000000000001,
         "fdr_pass": false,
         "claim_status": "not_supported_yet"
       },
@@ -233,7 +273,7 @@
         "ci95_low": -0.127619354276132,
         "ci95_high": 0.2633357476374979,
         "ci_crosses_zero": true,
-        "q": 0.968,
+        "q": 0.9930000000000001,
         "fdr_pass": false,
         "claim_status": "not_supported_yet"
       },
@@ -254,7 +294,7 @@
         "ci95_low": 0.06283511340680677,
         "ci95_high": 0.43083894325505623,
         "ci_crosses_zero": false,
-        "q": 0.968,
+        "q": 0.9930000000000001,
         "fdr_pass": false,
         "claim_status": "not_supported_yet"
       },
@@ -275,7 +315,7 @@
         "ci95_low": -0.21731729502679345,
         "ci95_high": 0.1753389366724683,
         "ci_crosses_zero": true,
-        "q": 0.968,
+        "q": 0.9930000000000001,
         "fdr_pass": false,
         "claim_status": "not_supported_yet"
       },
@@ -296,7 +336,7 @@
         "ci95_low": -0.20461929569205553,
         "ci95_high": 0.18818936510735385,
         "ci_crosses_zero": true,
-        "q": 0.968,
+        "q": 0.9930000000000001,
         "fdr_pass": false,
         "claim_status": "not_supported_yet"
       },
@@ -317,7 +357,7 @@
         "ci95_low": -0.39742569680446765,
         "ci95_high": -0.0225758065415736,
         "ci_crosses_zero": false,
-        "q": 0.968,
+        "q": 0.9930000000000001,
         "fdr_pass": false,
         "claim_status": "not_supported_yet"
       },
@@ -338,7 +378,7 @@
         "ci95_low": -0.15255418926638015,
         "ci95_high": 0.2395097237039932,
         "ci_crosses_zero": true,
-        "q": 0.968,
+        "q": 0.9930000000000001,
         "fdr_pass": false,
         "claim_status": "not_supported_yet"
       },
@@ -359,7 +399,7 @@
         "ci95_low": -0.21262811990932576,
         "ci95_high": 0.18010003413237186,
         "ci_crosses_zero": true,
-        "q": 0.968,
+        "q": 0.9930000000000001,
         "fdr_pass": false,
         "claim_status": "not_supported_yet"
       },
@@ -380,7 +420,7 @@
         "ci95_low": -0.20892679802111971,
         "ci95_high": 0.18384517644311688,
         "ci_crosses_zero": true,
-        "q": 0.968,
+        "q": 0.9930000000000001,
         "fdr_pass": false,
         "claim_status": "not_supported_yet"
       },
@@ -401,7 +441,7 @@
         "ci95_low": -0.17481913081429856,
         "ci95_high": 0.21782815354833446,
         "ci_crosses_zero": true,
-        "q": 0.968,
+        "q": 0.9930000000000001,
         "fdr_pass": false,
         "claim_status": "not_supported_yet"
       },
@@ -422,7 +462,7 @@
         "ci95_low": -0.182953506970905,
         "ci95_high": 0.209809056260464,
         "ci_crosses_zero": true,
-        "q": 0.968,
+        "q": 0.9930000000000001,
         "fdr_pass": false,
         "claim_status": "not_supported_yet"
       },
@@ -443,7 +483,7 @@
         "ci95_low": -0.14927790268875507,
         "ci95_high": 0.24266750044214902,
         "ci_crosses_zero": true,
-        "q": 0.968,
+        "q": 0.9930000000000001,
         "fdr_pass": false,
         "claim_status": "not_supported_yet"
       },
@@ -464,7 +504,7 @@
         "ci95_low": -0.20443632505342196,
         "ci95_high": 0.18837355439074754,
         "ci_crosses_zero": true,
-        "q": 0.968,
+        "q": 0.9930000000000001,
         "fdr_pass": false,
         "claim_status": "not_supported_yet"
       },
@@ -485,7 +525,7 @@
         "ci95_low": -0.19922043057839098,
         "ci95_high": 0.1936125923885417,
         "ci_crosses_zero": true,
-        "q": 0.968,
+        "q": 0.9930000000000001,
         "fdr_pass": false,
         "claim_status": "not_supported_yet"
       },
@@ -506,7 +546,7 @@
         "ci95_low": -0.07651376044596216,
         "ci95_high": 0.3107223747716829,
         "ci_crosses_zero": true,
-        "q": 0.968,
+        "q": 0.9930000000000001,
         "fdr_pass": false,
         "claim_status": "not_supported_yet"
       },
@@ -527,7 +567,7 @@
         "ci95_low": -0.19221638169093583,
         "ci95_high": 0.2006126523720137,
         "ci_crosses_zero": true,
-        "q": 0.968,
+        "q": 0.9930000000000001,
         "fdr_pass": false,
         "claim_status": "not_supported_yet"
       },
@@ -548,7 +588,70 @@
         "ci95_low": -0.20257864382905402,
         "ci95_high": 0.1902420451788763,
         "ci_crosses_zero": true,
-        "q": 0.968,
+        "q": 0.9930000000000001,
+        "fdr_pass": false,
+        "claim_status": "not_supported_yet"
+      },
+      {
+        "map_id": "abagen_genepc1",
+        "map_label": "Abagen AHBA gene-expression PC1, Schaefer100 via fsaverage10k",
+        "map_family": "gene_expression",
+        "target_id": "dmdc_condition_input",
+        "target_label": "DMDC condition-input vector",
+        "target_transform": "signed",
+        "source_path": "results/cortical_maps/neuromaps_annotations/abagen_genepc1_schaefer100.csv",
+        "n_nodes": 100,
+        "n_perm": 999,
+        "null_family": "neuromaps.nulls.moran",
+        "distance_space": "Schaefer100 parcel-centroid Euclidean distances split by hemisphere",
+        "r": 0.1547370363463753,
+        "spatial_p": 0.487,
+        "ci95_low": -0.042987610550019324,
+        "ci95_high": 0.34079724957553564,
+        "ci_crosses_zero": true,
+        "q": 0.9930000000000001,
+        "fdr_pass": false,
+        "claim_status": "not_supported_yet"
+      },
+      {
+        "map_id": "abagen_genepc1",
+        "map_label": "Abagen AHBA gene-expression PC1, Schaefer100 via fsaverage10k",
+        "map_family": "gene_expression",
+        "target_id": "dmdc_condition_interaction",
+        "target_label": "DMDC condition-interaction vector",
+        "target_transform": "signed",
+        "source_path": "results/cortical_maps/neuromaps_annotations/abagen_genepc1_schaefer100.csv",
+        "n_nodes": 100,
+        "n_perm": 999,
+        "null_family": "neuromaps.nulls.moran",
+        "distance_space": "Schaefer100 parcel-centroid Euclidean distances split by hemisphere",
+        "r": -0.052528392777558025,
+        "spatial_p": 0.265,
+        "ci95_low": -0.24640422793019437,
+        "ci95_high": 0.14538978811931338,
+        "ci_crosses_zero": true,
+        "q": 0.9930000000000001,
+        "fdr_pass": false,
+        "claim_status": "not_supported_yet"
+      },
+      {
+        "map_id": "abagen_genepc1",
+        "map_label": "Abagen AHBA gene-expression PC1, Schaefer100 via fsaverage10k",
+        "map_family": "gene_expression",
+        "target_id": "dmdc_condition_interaction_abs",
+        "target_label": "Absolute DMDC condition-interaction vector",
+        "target_transform": "absolute",
+        "source_path": "results/cortical_maps/neuromaps_annotations/abagen_genepc1_schaefer100.csv",
+        "n_nodes": 100,
+        "n_perm": 999,
+        "null_family": "neuromaps.nulls.moran",
+        "distance_space": "Schaefer100 parcel-centroid Euclidean distances split by hemisphere",
+        "r": -0.001136582794095847,
+        "spatial_p": 0.993,
+        "ci95_low": -0.1975106071311927,
+        "ci95_high": 0.19532514033740164,
+        "ci_crosses_zero": true,
+        "q": 0.9930000000000001,
         "fdr_pass": false,
         "claim_status": "not_supported_yet"
       }
@@ -570,7 +673,7 @@
       "ci95_low": -0.11574265150579202,
       "ci95_high": 0.2745190642495325,
       "ci_crosses_zero": true,
-      "q": 0.968,
+      "q": 0.9930000000000001,
       "fdr_pass": false,
       "claim_status": "not_supported_yet"
     },
@@ -579,13 +682,14 @@
       "receptor": true,
       "myelin": true,
       "functional_gradient": true,
-      "gene_expression": false
+      "gene_expression": true
     },
+    "complete_map_family_coverage": true,
     "complete_receptor_myelin_gradient_coverage": true,
     "limitations": [
       "This is a Schaefer100 parcellated Moran null, not a surface-level spin/permutation null.",
-      "Public myelin and functional-gradient priors are parcellated through Schaefer100 labels projected from MNI152 to fsLR32k.",
-      "Gene-expression maps remain missing, and the receptor/myelin/gradient mechanism claim is not promoted unless FDR and CI gates pass."
+      "Public surface priors are parcellated through Schaefer100 labels projected from MNI152 to each source surface space.",
+      "The receptor/myelin/gradient mechanism claim is not promoted unless FDR and CI gates pass."
     ]
   },
   "map_family_moran_nulls": {
@@ -710,14 +814,54 @@
           "results/cortical_maps/neuromaps_annotations/schaefer100_from_mni_space-fsLR_den-32k_hemi-L_label.gii",
           "results/cortical_maps/neuromaps_annotations/schaefer100_from_mni_space-fsLR_den-32k_hemi-R_label.gii"
         ]
+      },
+      {
+        "map_id": "abagen_genepc1",
+        "family": "gene_expression",
+        "label": "Abagen AHBA gene-expression PC1, Schaefer100 via fsaverage10k",
+        "source_path": "results/cortical_maps/neuromaps_annotations/abagen_genepc1_schaefer100.csv",
+        "source_provenance": [
+          {
+            "source": "abagen",
+            "desc": "genepc1",
+            "hemi": "L",
+            "space": "fsaverage",
+            "den": "10k",
+            "format": "surface",
+            "tags": [
+              "genetics"
+            ],
+            "checksum": "3ec7cd923a9f5cc1eb83230ad3728f38",
+            "url": "https://files.osf.io/v1/resources/4mw3a/providers/osfstorage/60c2290118f70b01fca797eb",
+            "cache_path": ".neuromaps-data/annotations/abagen/genepc1/fsaverage/source-abagen_desc-genepc1_space-fsaverage_den-10k_hemi-L_feature.func.gii"
+          },
+          {
+            "source": "abagen",
+            "desc": "genepc1",
+            "hemi": "R",
+            "space": "fsaverage",
+            "den": "10k",
+            "format": "surface",
+            "tags": [
+              "genetics"
+            ],
+            "checksum": "435fedeb475f3f6f5c5d24a18acedf1a",
+            "url": "https://files.osf.io/v1/resources/4mw3a/providers/osfstorage/60c228f5f3ce9401fa24e521",
+            "cache_path": ".neuromaps-data/annotations/abagen/genepc1/fsaverage/source-abagen_desc-genepc1_space-fsaverage_den-10k_hemi-R_feature.func.gii"
+          }
+        ],
+        "parcellation_surface_paths": [
+          "results/cortical_maps/neuromaps_annotations/schaefer100_from_mni_space-fsaverage_den-10k_hemi-L_label.gii",
+          "results/cortical_maps/neuromaps_annotations/schaefer100_from_mni_space-fsaverage_den-10k_hemi-R_label.gii"
+        ]
       }
     ],
     "n_nodes": 100,
     "n_perm": 999,
     "seed": 20260528,
-    "map_count": 6,
+    "map_count": 7,
     "target_count": 3,
-    "test_count": 18,
+    "test_count": 21,
     "results": [
       {
         "map_id": "5ht2a_alt_hc19_savli",
@@ -736,7 +880,7 @@
         "ci95_low": -0.11574265150579202,
         "ci95_high": 0.2745190642495325,
         "ci_crosses_zero": true,
-        "q": 0.968,
+        "q": 0.9930000000000001,
         "fdr_pass": false,
         "claim_status": "not_supported_yet"
       },
@@ -757,7 +901,7 @@
         "ci95_low": -0.1834761457680087,
         "ci95_high": 0.20929201128215638,
         "ci_crosses_zero": true,
-        "q": 0.968,
+        "q": 0.9930000000000001,
         "fdr_pass": false,
         "claim_status": "not_supported_yet"
       },
@@ -778,7 +922,7 @@
         "ci95_low": -0.127619354276132,
         "ci95_high": 0.2633357476374979,
         "ci_crosses_zero": true,
-        "q": 0.968,
+        "q": 0.9930000000000001,
         "fdr_pass": false,
         "claim_status": "not_supported_yet"
       },
@@ -799,7 +943,7 @@
         "ci95_low": 0.06283511340680677,
         "ci95_high": 0.43083894325505623,
         "ci_crosses_zero": false,
-        "q": 0.968,
+        "q": 0.9930000000000001,
         "fdr_pass": false,
         "claim_status": "not_supported_yet"
       },
@@ -820,7 +964,7 @@
         "ci95_low": -0.21731729502679345,
         "ci95_high": 0.1753389366724683,
         "ci_crosses_zero": true,
-        "q": 0.968,
+        "q": 0.9930000000000001,
         "fdr_pass": false,
         "claim_status": "not_supported_yet"
       },
@@ -841,7 +985,7 @@
         "ci95_low": -0.20461929569205553,
         "ci95_high": 0.18818936510735385,
         "ci_crosses_zero": true,
-        "q": 0.968,
+        "q": 0.9930000000000001,
         "fdr_pass": false,
         "claim_status": "not_supported_yet"
       },
@@ -862,7 +1006,7 @@
         "ci95_low": -0.39742569680446765,
         "ci95_high": -0.0225758065415736,
         "ci_crosses_zero": false,
-        "q": 0.968,
+        "q": 0.9930000000000001,
         "fdr_pass": false,
         "claim_status": "not_supported_yet"
       },
@@ -883,7 +1027,7 @@
         "ci95_low": -0.15255418926638015,
         "ci95_high": 0.2395097237039932,
         "ci_crosses_zero": true,
-        "q": 0.968,
+        "q": 0.9930000000000001,
         "fdr_pass": false,
         "claim_status": "not_supported_yet"
       },
@@ -904,7 +1048,7 @@
         "ci95_low": -0.21262811990932576,
         "ci95_high": 0.18010003413237186,
         "ci_crosses_zero": true,
-        "q": 0.968,
+        "q": 0.9930000000000001,
         "fdr_pass": false,
         "claim_status": "not_supported_yet"
       },
@@ -925,7 +1069,7 @@
         "ci95_low": -0.20892679802111971,
         "ci95_high": 0.18384517644311688,
         "ci_crosses_zero": true,
-        "q": 0.968,
+        "q": 0.9930000000000001,
         "fdr_pass": false,
         "claim_status": "not_supported_yet"
       },
@@ -946,7 +1090,7 @@
         "ci95_low": -0.17481913081429856,
         "ci95_high": 0.21782815354833446,
         "ci_crosses_zero": true,
-        "q": 0.968,
+        "q": 0.9930000000000001,
         "fdr_pass": false,
         "claim_status": "not_supported_yet"
       },
@@ -967,7 +1111,7 @@
         "ci95_low": -0.182953506970905,
         "ci95_high": 0.209809056260464,
         "ci_crosses_zero": true,
-        "q": 0.968,
+        "q": 0.9930000000000001,
         "fdr_pass": false,
         "claim_status": "not_supported_yet"
       },
@@ -988,7 +1132,7 @@
         "ci95_low": -0.14927790268875507,
         "ci95_high": 0.24266750044214902,
         "ci_crosses_zero": true,
-        "q": 0.968,
+        "q": 0.9930000000000001,
         "fdr_pass": false,
         "claim_status": "not_supported_yet"
       },
@@ -1009,7 +1153,7 @@
         "ci95_low": -0.20443632505342196,
         "ci95_high": 0.18837355439074754,
         "ci_crosses_zero": true,
-        "q": 0.968,
+        "q": 0.9930000000000001,
         "fdr_pass": false,
         "claim_status": "not_supported_yet"
       },
@@ -1030,7 +1174,7 @@
         "ci95_low": -0.19922043057839098,
         "ci95_high": 0.1936125923885417,
         "ci_crosses_zero": true,
-        "q": 0.968,
+        "q": 0.9930000000000001,
         "fdr_pass": false,
         "claim_status": "not_supported_yet"
       },
@@ -1051,7 +1195,7 @@
         "ci95_low": -0.07651376044596216,
         "ci95_high": 0.3107223747716829,
         "ci_crosses_zero": true,
-        "q": 0.968,
+        "q": 0.9930000000000001,
         "fdr_pass": false,
         "claim_status": "not_supported_yet"
       },
@@ -1072,7 +1216,7 @@
         "ci95_low": -0.19221638169093583,
         "ci95_high": 0.2006126523720137,
         "ci_crosses_zero": true,
-        "q": 0.968,
+        "q": 0.9930000000000001,
         "fdr_pass": false,
         "claim_status": "not_supported_yet"
       },
@@ -1093,7 +1237,70 @@
         "ci95_low": -0.20257864382905402,
         "ci95_high": 0.1902420451788763,
         "ci_crosses_zero": true,
-        "q": 0.968,
+        "q": 0.9930000000000001,
+        "fdr_pass": false,
+        "claim_status": "not_supported_yet"
+      },
+      {
+        "map_id": "abagen_genepc1",
+        "map_label": "Abagen AHBA gene-expression PC1, Schaefer100 via fsaverage10k",
+        "map_family": "gene_expression",
+        "target_id": "dmdc_condition_input",
+        "target_label": "DMDC condition-input vector",
+        "target_transform": "signed",
+        "source_path": "results/cortical_maps/neuromaps_annotations/abagen_genepc1_schaefer100.csv",
+        "n_nodes": 100,
+        "n_perm": 999,
+        "null_family": "neuromaps.nulls.moran",
+        "distance_space": "Schaefer100 parcel-centroid Euclidean distances split by hemisphere",
+        "r": 0.1547370363463753,
+        "spatial_p": 0.487,
+        "ci95_low": -0.042987610550019324,
+        "ci95_high": 0.34079724957553564,
+        "ci_crosses_zero": true,
+        "q": 0.9930000000000001,
+        "fdr_pass": false,
+        "claim_status": "not_supported_yet"
+      },
+      {
+        "map_id": "abagen_genepc1",
+        "map_label": "Abagen AHBA gene-expression PC1, Schaefer100 via fsaverage10k",
+        "map_family": "gene_expression",
+        "target_id": "dmdc_condition_interaction",
+        "target_label": "DMDC condition-interaction vector",
+        "target_transform": "signed",
+        "source_path": "results/cortical_maps/neuromaps_annotations/abagen_genepc1_schaefer100.csv",
+        "n_nodes": 100,
+        "n_perm": 999,
+        "null_family": "neuromaps.nulls.moran",
+        "distance_space": "Schaefer100 parcel-centroid Euclidean distances split by hemisphere",
+        "r": -0.052528392777558025,
+        "spatial_p": 0.265,
+        "ci95_low": -0.24640422793019437,
+        "ci95_high": 0.14538978811931338,
+        "ci_crosses_zero": true,
+        "q": 0.9930000000000001,
+        "fdr_pass": false,
+        "claim_status": "not_supported_yet"
+      },
+      {
+        "map_id": "abagen_genepc1",
+        "map_label": "Abagen AHBA gene-expression PC1, Schaefer100 via fsaverage10k",
+        "map_family": "gene_expression",
+        "target_id": "dmdc_condition_interaction_abs",
+        "target_label": "Absolute DMDC condition-interaction vector",
+        "target_transform": "absolute",
+        "source_path": "results/cortical_maps/neuromaps_annotations/abagen_genepc1_schaefer100.csv",
+        "n_nodes": 100,
+        "n_perm": 999,
+        "null_family": "neuromaps.nulls.moran",
+        "distance_space": "Schaefer100 parcel-centroid Euclidean distances split by hemisphere",
+        "r": -0.001136582794095847,
+        "spatial_p": 0.993,
+        "ci95_low": -0.1975106071311927,
+        "ci95_high": 0.19532514033740164,
+        "ci_crosses_zero": true,
+        "q": 0.9930000000000001,
         "fdr_pass": false,
         "claim_status": "not_supported_yet"
       }
@@ -1115,7 +1322,7 @@
       "ci95_low": -0.11574265150579202,
       "ci95_high": 0.2745190642495325,
       "ci_crosses_zero": true,
-      "q": 0.968,
+      "q": 0.9930000000000001,
       "fdr_pass": false,
       "claim_status": "not_supported_yet"
     },
@@ -1124,13 +1331,14 @@
       "receptor": true,
       "myelin": true,
       "functional_gradient": true,
-      "gene_expression": false
+      "gene_expression": true
     },
+    "complete_map_family_coverage": true,
     "complete_receptor_myelin_gradient_coverage": true,
     "limitations": [
       "This is a Schaefer100 parcellated Moran null, not a surface-level spin/permutation null.",
-      "Public myelin and functional-gradient priors are parcellated through Schaefer100 labels projected from MNI152 to fsLR32k.",
-      "Gene-expression maps remain missing, and the receptor/myelin/gradient mechanism claim is not promoted unless FDR and CI gates pass."
+      "Public surface priors are parcellated through Schaefer100 labels projected from MNI152 to each source surface space.",
+      "The receptor/myelin/gradient mechanism claim is not promoted unless FDR and CI gates pass."
     ]
   },
   "module_level_alignment_status": "implemented_module_level_external_map_alignment",
@@ -1159,7 +1367,7 @@
       "vazquez_rodriguez"
     ]
   },
-  "blocker": "Schaefer100 Moran spatial nulls now cover receptor, myelin, and functional-gradient priors. Full completion still needs gene-expression and preferably surface-level null coverage.",
+  "blocker": "Schaefer100 Moran spatial nulls cover receptor, myelin, functional-gradient, and gene-expression priors. Surface-level spin/null extensions remain a stricter future sensitivity analysis.",
   "claim_status": "receptor_myelin_gradient_spatial_nulls_executed_claim_not_promoted",
   "claim_guardrail": "The current exact 8-module permutation test is not a substitute for neuromaps spatial-autocorrelation null testing."
 }
