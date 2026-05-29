@@ -14,6 +14,32 @@ def test_motion_confound_control_fails_closed_without_motion_summary(tmp_path: P
     assert status["next_action"]
 
 
+def test_motion_confound_control_includes_negative_source_availability(tmp_path: Path) -> None:
+    output_dir = tmp_path / "results" / "confound_controls"
+    output_dir.mkdir(parents=True)
+    (output_dir / "ds003059_motion_source_availability.json").write_text(
+        json.dumps(
+            {
+                "analysis_status": "no_authorized_subject_level_motion_confounds_found",
+                "motion_source_availability_ready": True,
+                "source_confounds_available": False,
+                "local_search": {"motion_file_count": 0},
+                "openneuro_raw_snapshot": {"confound_like_file_count": 0},
+                "public_derivative_repositories": {"available_count": 0},
+                "conclusion": "No checked source exposes subject-level motion confounds.",
+                "next_action": "Run fMRIPrep or supply authorized confounds.",
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    status = build_motion_confound_control_status(tmp_path)
+
+    assert status["analysis_status"] == "blocked_absent_authorized_subject_level_motion_confounds"
+    assert status["source_availability"]["source_confounds_available"] is False
+    assert "No checked source" in status["blocker"]
+
+
 def test_motion_confound_control_computes_subject_run_associations(tmp_path: Path) -> None:
     motion_dir = tmp_path / "results" / "setting_seed" / "motion"
     views_dir = tmp_path / "results" / "stage_2" / "empirical_viewer" / "subject_views"

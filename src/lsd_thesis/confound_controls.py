@@ -47,6 +47,23 @@ def _read_json(path: Path) -> dict[str, Any] | None:
     return raw
 
 
+def _source_availability_payload(repo_root: Path) -> dict[str, Any] | None:
+    path = repo_root / "results" / "confound_controls" / "ds003059_motion_source_availability.json"
+    payload = _read_json(path)
+    if not payload:
+        return None
+    return {
+        "path": _rel(path, repo_root),
+        "analysis_status": payload.get("analysis_status"),
+        "source_confounds_available": payload.get("source_confounds_available"),
+        "local_motion_file_count": (payload.get("local_search") or {}).get("motion_file_count"),
+        "openneuro_confound_like_file_count": (payload.get("openneuro_raw_snapshot") or {}).get("confound_like_file_count"),
+        "public_derivative_available_count": (payload.get("public_derivative_repositories") or {}).get("available_count"),
+        "conclusion": payload.get("conclusion"),
+        "next_action": payload.get("next_action"),
+    }
+
+
 def _rel(path: Path, repo_root: Path) -> str:
     return path.relative_to(repo_root).as_posix()
 
@@ -213,6 +230,10 @@ def _blocked_status(
     motion_payload: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     payload = motion_payload or {}
+    source_availability = _source_availability_payload(repo_root)
+    if source_availability and source_availability.get("source_confounds_available") is False:
+        status = "blocked_absent_authorized_subject_level_motion_confounds"
+        blocker = str(source_availability.get("conclusion") or blocker)
     return {
         "schema_version": SCHEMA_VERSION,
         "generated_at_utc": datetime.now(UTC).isoformat(),
@@ -235,11 +256,15 @@ def _blocked_status(
             "Generate a motion summary from authorized fMRIPrep confounds, then rerun scripts/build_motion_confound_controls.py.",
         ),
         "blocker": blocker,
+        "source_availability": source_availability,
         "merged_subject_run_count": 0,
         "association_rows": [],
         "high_risk_motion_association_count": 0,
         "claim_status": "not_proven_motion_confound_control_missing",
-        "claim_guardrail": "Motion/confound handling remains a limitation until this artifact contains implemented sensitivity results.",
+        "claim_guardrail": (
+            "Motion/confound handling remains a limitation until this artifact contains implemented FD/DVARS/censoring sensitivity results. "
+            "If source availability is false, the correct academic action is to downgrade motion-sensitive claims rather than infer safety from proxies."
+        ),
     }
 
 

@@ -1,6 +1,6 @@
 {
   "schema_version": "thesis_upgrade_status.v1",
-  "generated_at_utc": "2026-05-29T20:30:54.223943+00:00",
+  "generated_at_utc": "2026-05-29T20:53:40.411830+00:00",
   "readiness_summary": {
     "ready_gates": 6,
     "total_gates": 8,
@@ -16,7 +16,7 @@
       "label": "Motion and confounds",
       "status": "implemented_published_fd_context_and_proxy_controls_missing_subject_level_fd",
       "ready": false,
-      "evidence": "results/setting_seed/motion/motion_summary.json; results/confound_controls/motion_confound_control_status.json; results/confound_controls/design_confound_control_status.json; results/confound_controls/module_dvars_control_status.json; results/confound_controls/published_motion_qc_status.json",
+      "evidence": "results/setting_seed/motion/motion_summary.json; results/confound_controls/motion_confound_control_status.json; results/confound_controls/design_confound_control_status.json; results/confound_controls/module_dvars_control_status.json; results/confound_controls/published_motion_qc_status.json; results/confound_controls/ds003059_motion_source_availability.json",
       "blocker": "Published ds003059 FD/scrubbing QC context plus local run/design and module-DVARS proxy controls are implemented, but subject-level FD/DVARS confounds are unavailable.",
       "score": 0.65
     },
@@ -113,9 +113,9 @@
       "label": "Motion/confound control result",
       "status": "implemented_published_fd_context_and_proxy_controls_missing_subject_level_fd",
       "complete": false,
-      "evidence": "results/setting_seed/motion/motion_summary.json; results/confound_controls/motion_confound_control_status.json; results/confound_controls/design_confound_control_status.json; results/confound_controls/module_dvars_control_status.json; results/confound_controls/published_motion_qc_status.json",
-      "missing": "Published aggregate FD/scrubbing context, run/session controls, and module-DVARS proxy controls exist, but a subject-level FD/DVARS/censoring motion-control result is still missing.",
-      "next_action": "Parse confounds for every subject/session/run, then report whether dynamic effects survive FD, DVARS, censoring, and run/order controls.",
+      "evidence": "results/setting_seed/motion/motion_summary.json; results/confound_controls/motion_confound_control_status.json; results/confound_controls/design_confound_control_status.json; results/confound_controls/module_dvars_control_status.json; results/confound_controls/published_motion_qc_status.json; results/confound_controls/ds003059_motion_source_availability.json",
+      "missing": "A source-availability check found no local/OpenNeuro raw/public derivative subject-level FD/DVARS/censoring confounds; full motion proof requires authorized fMRIPrep outputs or a local preprocessing run.",
+      "next_action": "Supply authorized fMRIPrep outputs or run preprocessing to create desc-confounds_timeseries.tsv files, then report whether dynamic effects survive FD, DVARS, censoring, and run/order controls.",
       "claim_effect": "Until this passes, motion/confound handling is a framed limitation rather than a proven control."
     },
     {
@@ -145,7 +145,7 @@
         "label": "Motion and confounds",
         "status": "implemented_published_fd_context_and_proxy_controls_missing_subject_level_fd",
         "ready": false,
-        "evidence": "results/setting_seed/motion/motion_summary.json; results/confound_controls/motion_confound_control_status.json; results/confound_controls/design_confound_control_status.json; results/confound_controls/module_dvars_control_status.json; results/confound_controls/published_motion_qc_status.json",
+        "evidence": "results/setting_seed/motion/motion_summary.json; results/confound_controls/motion_confound_control_status.json; results/confound_controls/design_confound_control_status.json; results/confound_controls/module_dvars_control_status.json; results/confound_controls/published_motion_qc_status.json; results/confound_controls/ds003059_motion_source_availability.json",
         "blocker": "Published ds003059 FD/scrubbing QC context plus local run/design and module-DVARS proxy controls are implemented, but subject-level FD/DVARS confounds are unavailable.",
         "score": 0.65
       },
@@ -154,9 +154,9 @@
         "label": "Motion/confound control result",
         "status": "implemented_published_fd_context_and_proxy_controls_missing_subject_level_fd",
         "complete": false,
-        "evidence": "results/setting_seed/motion/motion_summary.json; results/confound_controls/motion_confound_control_status.json; results/confound_controls/design_confound_control_status.json; results/confound_controls/module_dvars_control_status.json; results/confound_controls/published_motion_qc_status.json",
-        "missing": "Published aggregate FD/scrubbing context, run/session controls, and module-DVARS proxy controls exist, but a subject-level FD/DVARS/censoring motion-control result is still missing.",
-        "next_action": "Parse confounds for every subject/session/run, then report whether dynamic effects survive FD, DVARS, censoring, and run/order controls.",
+        "evidence": "results/setting_seed/motion/motion_summary.json; results/confound_controls/motion_confound_control_status.json; results/confound_controls/design_confound_control_status.json; results/confound_controls/module_dvars_control_status.json; results/confound_controls/published_motion_qc_status.json; results/confound_controls/ds003059_motion_source_availability.json",
+        "missing": "A source-availability check found no local/OpenNeuro raw/public derivative subject-level FD/DVARS/censoring confounds; full motion proof requires authorized fMRIPrep outputs or a local preprocessing run.",
+        "next_action": "Supply authorized fMRIPrep outputs or run preprocessing to create desc-confounds_timeseries.tsv files, then report whether dynamic effects survive FD, DVARS, censoring, and run/order controls.",
         "claim_effect": "Until this passes, motion/confound handling is a framed limitation rather than a proven control."
       },
       "motion_summary_ready": false,
@@ -177,6 +177,9 @@
         "original_analysis_excluded_high_motion_subjects": true,
         "strict_subject_level_fd_gate_complete": false
       },
+      "motion_source_availability_path": "results/confound_controls/ds003059_motion_source_availability.json",
+      "motion_source_availability_status": "no_authorized_subject_level_motion_confounds_found",
+      "motion_source_confounds_available": false,
       "required_columns": [
         "framewise_displacement",
         "dvars or std_dvars",
@@ -194,7 +197,7 @@
         "dvars_spike_threshold": 1.5,
         "reporting_unit": "subject/session/run"
       },
-      "claim_guardrail": "Motion sensitivity is not complete until structured confounds are present and parsed."
+      "claim_guardrail": "Motion sensitivity is not complete until structured confounds are present and parsed. A negative source-availability check strengthens provenance, but it does not prove motion safety."
     },
     "canonical_parcellation": {
       "gate": {

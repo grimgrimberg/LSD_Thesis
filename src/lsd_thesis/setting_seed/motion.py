@@ -105,12 +105,17 @@ def discover_motion_files(
     root = _default_repo_root() if repo_root is None else Path(repo_root)
     search_roots = tuple(Path(item) for item in roots) if roots is not None else _default_search_roots(root, stage_2_dir)
     found: list[Path] = []
+    seen: set[Path] = set()
     for search_root in search_roots:
         if not search_root.exists():
             continue
         try:
             for path in search_root.rglob("*"):
                 if path.is_file() and MOTION_FILE_PATTERN.search(path.name) and path.suffix.lower() in {".tsv", ".csv", ".txt"}:
+                    resolved = path.resolve()
+                    if resolved in seen:
+                        continue
+                    seen.add(resolved)
                     found.append(path)
         except OSError:
             continue

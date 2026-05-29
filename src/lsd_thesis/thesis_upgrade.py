@@ -76,11 +76,13 @@ def _motion_gate(repo_root: Path) -> dict[str, Any]:
     design_path = repo_root / "results" / "confound_controls" / "design_confound_control_status.json"
     module_dvars_path = repo_root / "results" / "confound_controls" / "module_dvars_control_status.json"
     published_motion_path = repo_root / "results" / "confound_controls" / "published_motion_qc_status.json"
+    source_availability_path = repo_root / "results" / "confound_controls" / "ds003059_motion_source_availability.json"
     payload = _read_json(path) or {}
     control_payload = _read_json(control_path) or {}
     design_payload = _read_json(design_path) or {}
     module_dvars_payload = _read_json(module_dvars_path) or {}
     published_motion_payload = _read_json(published_motion_path) or {}
+    source_availability_payload = _read_json(source_availability_path) or {}
     motion_ready = bool(payload.get("motion_analysis_ready"))
     control_status = str(control_payload.get("analysis_status") or "")
     design_status = str(design_payload.get("analysis_status") or "")
@@ -94,6 +96,9 @@ def _motion_gate(repo_root: Path) -> dict[str, Any]:
     control_ready = motion_ready and _status_is_implemented(control_status)
     partial_proxy_ready = design_ready and module_dvars_ready
     files_present = bool(payload.get("motion_files_present"))
+    source_availability_status = str(source_availability_payload.get("analysis_status") or "")
+    source_availability_checked = bool(source_availability_payload.get("motion_source_availability_ready"))
+    source_confounds_available = source_availability_payload.get("source_confounds_available")
     motion_status = str(payload.get("status") or ("ready" if motion_ready else "blocked_missing_motion_summaries"))
     status = (
         control_status
@@ -127,6 +132,8 @@ def _motion_gate(repo_root: Path) -> dict[str, Any]:
         if module_dvars_ready
         else "No dedicated result proves that LSD-placebo dynamic effects survive FD/DVARS/censoring sensitivity controls."
         if motion_ready
+        else str(source_availability_payload.get("conclusion"))
+        if source_availability_checked and source_confounds_available is False
         else "No structured subject/session/run confounds with FD/DVARS/censoring coverage are available locally."
     )
     return {
@@ -134,7 +141,7 @@ def _motion_gate(repo_root: Path) -> dict[str, Any]:
             "Motion and confounds",
             status,
             control_ready,
-            f"{_rel(path, repo_root)}; {_rel(control_path, repo_root)}; {_rel(design_path, repo_root)}; {_rel(module_dvars_path, repo_root)}; {_rel(published_motion_path, repo_root)}",
+            f"{_rel(path, repo_root)}; {_rel(control_path, repo_root)}; {_rel(design_path, repo_root)}; {_rel(module_dvars_path, repo_root)}; {_rel(published_motion_path, repo_root)}; {_rel(source_availability_path, repo_root)}",
             blocker,
             1.0
             if control_ready
@@ -159,8 +166,11 @@ def _motion_gate(repo_root: Path) -> dict[str, Any]:
             "Motion/confound control result",
             status,
             control_ready,
-            f"{_rel(path, repo_root)}; {_rel(control_path, repo_root)}; {_rel(design_path, repo_root)}; {_rel(module_dvars_path, repo_root)}; {_rel(published_motion_path, repo_root)}",
+            f"{_rel(path, repo_root)}; {_rel(control_path, repo_root)}; {_rel(design_path, repo_root)}; {_rel(module_dvars_path, repo_root)}; {_rel(published_motion_path, repo_root)}; {_rel(source_availability_path, repo_root)}",
             (
+                "A source-availability check found no local/OpenNeuro raw/public derivative subject-level FD/DVARS/censoring confounds; full motion proof requires authorized fMRIPrep outputs or a local preprocessing run."
+                if source_availability_checked and source_confounds_available is False
+                else
                 "Published aggregate FD/scrubbing context, run/session controls, and module-DVARS proxy controls exist, but a subject-level FD/DVARS/censoring motion-control result is still missing."
                 if partial_proxy_ready and published_motion_ready
                 else "Run/session and module-DVARS proxy controls exist, but a dedicated fMRIPrep FD/DVARS/censoring motion-control result is still missing."
@@ -173,7 +183,11 @@ def _motion_gate(repo_root: Path) -> dict[str, Any]:
                 if design_ready
                 else "A dedicated confound-control result layer with motion/outlier sensitivity outcomes is missing."
             ),
-            "Parse confounds for every subject/session/run, then report whether dynamic effects survive FD, DVARS, censoring, and run/order controls.",
+            (
+                "Supply authorized fMRIPrep outputs or run preprocessing to create desc-confounds_timeseries.tsv files, then report whether dynamic effects survive FD, DVARS, censoring, and run/order controls."
+                if source_availability_checked and source_confounds_available is False
+                else "Parse confounds for every subject/session/run, then report whether dynamic effects survive FD, DVARS, censoring, and run/order controls."
+            ),
             "Until this passes, motion/confound handling is a framed limitation rather than a proven control.",
         ),
         "motion_summary_ready": motion_ready,
@@ -189,6 +203,9 @@ def _motion_gate(repo_root: Path) -> dict[str, Any]:
         "published_motion_qc_path": _rel(published_motion_path, repo_root),
         "published_motion_claim_status": published_motion_payload.get("claim_status"),
         "published_motion_high_risk_context": published_motion_payload.get("high_risk_motion_context"),
+        "motion_source_availability_path": _rel(source_availability_path, repo_root),
+        "motion_source_availability_status": source_availability_status,
+        "motion_source_confounds_available": source_confounds_available,
         "required_columns": [
             "framewise_displacement",
             "dvars or std_dvars",
@@ -206,7 +223,10 @@ def _motion_gate(repo_root: Path) -> dict[str, Any]:
             "dvars_spike_threshold": 1.5,
             "reporting_unit": "subject/session/run",
         },
-        "claim_guardrail": "Motion sensitivity is not complete until structured confounds are present and parsed.",
+        "claim_guardrail": (
+            "Motion sensitivity is not complete until structured confounds are present and parsed. "
+            "A negative source-availability check strengthens provenance, but it does not prove motion safety."
+        ),
     }
 
 
