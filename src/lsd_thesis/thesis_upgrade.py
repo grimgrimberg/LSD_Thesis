@@ -469,11 +469,13 @@ def _external_gate(repo_root: Path) -> dict[str, Any]:
     readiness_path = repo_root / "results" / "psilocybin_ds006072" / "external_validation_readiness.json"
     comparable_result_path = repo_root / "results" / "psilocybin_ds006072" / "comparable_empirical_validation_summary.json"
     payload_plan_path = repo_root / "results" / "psilocybin_ds006072" / "minimum_payload_plan.json"
+    cifti_extraction_path = repo_root / "results" / "psilocybin_ds006072" / "cifti_empirical_extraction_status.json"
     ingestion_path = repo_root / "results" / "external_ingestion" / "external_ingestion_status.json"
     payload = _read_json(path) or {}
     readiness_payload = _read_json(readiness_path) or {}
     comparable_payload = _read_json(comparable_result_path) or {}
     payload_plan = _read_json(payload_plan_path) or {}
+    cifti_extraction = _read_json(cifti_extraction_path) or {}
     ingestion = _read_json(ingestion_path) or {}
     ingestion_status = ingestion.get("analysis_status", {}) if isinstance(ingestion.get("analysis_status"), dict) else {}
     status = str(
@@ -495,6 +497,7 @@ def _external_gate(repo_root: Path) -> dict[str, Any]:
     extraction_contract_ready = status.startswith("extraction_contract_ready")
     payload_plan_ready = bool(payload_plan.get("minimum_payload_plan_ready"))
     payloads_local_ready = bool(payload_plan.get("minimum_payloads_local_ready"))
+    cifti_viewer_ready = bool(cifti_extraction.get("cifti_empirical_viewer_ready"))
     blocker = str(
         comparable_payload.get("blocker")
         or payload.get("blocker")
@@ -502,7 +505,11 @@ def _external_gate(repo_root: Path) -> dict[str, Any]:
         or "Comparable ds006072 psilocybin/control empirical viewer is not complete."
     )
     if not ready and payloads_local_ready:
-        blocker = "Minimum ds006072 payloads are local but have not yet been extracted into empirical-viewer records or scored unchanged."
+        blocker = (
+            "Minimum ds006072 payloads are local and CIFTI extraction is ready, but unchanged comparable scoring has not passed."
+            if cifti_viewer_ready
+            else "Minimum ds006072 payloads are local but have not yet been extracted into empirical-viewer records or scored unchanged."
+        )
     elif not ready and payload_plan_ready:
         blocker = "Minimum ds006072 payload download plan is ready; selected processed CIFTIs still need local download, extraction, and unchanged scoring."
     return {
@@ -510,12 +517,12 @@ def _external_gate(repo_root: Path) -> dict[str, Any]:
             "External validation",
             status,
             ready,
-            f"{_rel(path, repo_root)}; {_rel(readiness_path, repo_root)}; {_rel(comparable_result_path, repo_root)}; {_rel(payload_plan_path, repo_root)}; {_rel(ingestion_path, repo_root)}",
+            f"{_rel(path, repo_root)}; {_rel(readiness_path, repo_root)}; {_rel(comparable_result_path, repo_root)}; {_rel(payload_plan_path, repo_root)}; {_rel(cifti_extraction_path, repo_root)}; {_rel(ingestion_path, repo_root)}",
             blocker,
             1.0
             if ready
             else 0.7
-            if payloads_local_ready
+            if payloads_local_ready or cifti_viewer_ready
             else 0.62
             if payload_plan_ready
             else 0.6
@@ -531,18 +538,34 @@ def _external_gate(repo_root: Path) -> dict[str, Any]:
             "ds006072 psilocybin external validation",
             status,
             ready,
-            f"{_rel(path, repo_root)}; {_rel(readiness_path, repo_root)}; {_rel(comparable_result_path, repo_root)}; {_rel(payload_plan_path, repo_root)}",
+            f"{_rel(path, repo_root)}; {_rel(readiness_path, repo_root)}; {_rel(comparable_result_path, repo_root)}; {_rel(payload_plan_path, repo_root)}; {_rel(cifti_extraction_path, repo_root)}",
             (
+                "None: ds006072 paired psilocybin/MTP CIFTI records were extracted and scored unchanged; current scope is a structure-family external stress test."
+                if ready and cifti_viewer_ready
+                else "None: ds006072 paired psilocybin/control empirical records were scored unchanged."
+                if ready
+                else
                 "The repo has a minimum processed-CIFTI payload plan, but not comparable psilocybin/control dynamic extraction scored unchanged."
                 if payload_plan_ready
                 else "The repo has readiness/provenance, but not comparable psilocybin/control dynamic extraction scored unchanged."
             ),
             (
+                "Upgrade this from structure-family stress test to stronger replication by adding a surface/parcellation-matched ds006072 extractor."
+                if ready and cifti_viewer_ready
+                else "Use the scored ds006072 result as the current external-validation evidence layer."
+                if ready
+                else
                 "Run the minimum payload download plan, extract paired ds006072 empirical viewer records, then apply the locked LSD scoring spec without retuning."
                 if payload_plan_ready
                 else "Supply or derive authorized ds006072 processed rest payloads, build paired empirical viewer records, then apply the locked LSD scoring spec without retuning and with matching scoring hashes."
             ),
-            "External validation remains absent until comparable ds006072 scoring exists.",
+            (
+                "External validation is implemented as a ds006072 structure-family stress test with unchanged scoring."
+                if ready and cifti_viewer_ready
+                else "External validation is implemented with unchanged ds006072 scoring."
+                if ready
+                else "External validation remains absent until comparable ds006072 scoring exists."
+            ),
         ),
         "recommended_external_dataset": "OpenNeuro ds006072 psilocybin precision functional mapping",
         "ingestion_status": ingestion_status,
@@ -556,6 +579,9 @@ def _external_gate(repo_root: Path) -> dict[str, Any]:
         "minimum_payload_plan_path": _rel(payload_plan_path, repo_root),
         "minimum_payload_selected_subject_count": payload_plan.get("selected_subject_count"),
         "minimum_payload_selected_total_size_bytes": payload_plan.get("selected_total_size_bytes"),
+        "cifti_empirical_viewer_ready": cifti_viewer_ready,
+        "cifti_empirical_extraction_path": _rel(cifti_extraction_path, repo_root),
+        "cifti_empirical_module_contract": cifti_extraction.get("module_contract"),
         "replication_status": comparable_payload.get("replication_status"),
         "comparable_result_path": _rel(comparable_result_path, repo_root),
         "fixed_rule": "Run the same LSD scoring rules on psilocybin/control data without retuning after seeing results.",

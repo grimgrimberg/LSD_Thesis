@@ -25,6 +25,7 @@ from plotly.offline import get_plotlyjs
 from lsd_thesis.confound_controls import write_motion_confound_control_status
 from lsd_thesis.cortical_maps import write_cortical_map_alignment_status
 from lsd_thesis.design_confound_controls import write_design_confound_control_status
+from lsd_thesis.ds006072_cifti_extraction import write_ds006072_cifti_extraction_status
 from lsd_thesis.ds006072_payload_plan import write_ds006072_payload_plan_status
 from lsd_thesis.module_dvars_controls import write_module_dvars_control_status
 from lsd_thesis.map_prior_falsification import write_map_prior_falsification_status
@@ -211,6 +212,7 @@ def build_github_pages_site(repo_root: Path = REPO_ROOT, site_dir: Path | None =
     write_neuromaps_spatial_null_status(repo_root)
     write_map_prior_falsification_status(repo_root)
     write_ds006072_payload_plan_status(repo_root)
+    write_ds006072_cifti_extraction_status(repo_root)
     write_thesis_upgrade_status(repo_root)
 
     outputs: dict[str, Path] = {}

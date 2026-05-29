@@ -426,6 +426,8 @@ def build_ds006072_comparable_validation_status(repo_root: Path = REPO_ROOT) -> 
     output_dir.mkdir(parents=True, exist_ok=True)
     scoring_spec_path = output_dir / "unchanged_scoring_spec.json"
     existing_scoring_spec = json.loads(scoring_spec_path.read_text(encoding="utf-8")) if scoring_spec_path.exists() else None
+    extraction_status_path = output_dir / "cifti_empirical_extraction_status.json"
+    extraction_status = json.loads(extraction_status_path.read_text(encoding="utf-8")) if extraction_status_path.exists() else {}
     viewer_root = output_dir / "empirical_viewer"
     subject_views_dir = viewer_root / "subject_views"
     use_existing_lock = subject_views_dir.exists() and isinstance(existing_scoring_spec, dict)
@@ -465,9 +467,19 @@ def build_ds006072_comparable_validation_status(repo_root: Path = REPO_ROOT) -> 
         "lsd_reference_top_layer": lsd_top_layer,
         "ds006072_top_layer": None,
         "replication_status": "not_scored",
+        "extraction_status_path": "results/psilocybin_ds006072/cifti_empirical_extraction_status.json",
+        "extraction_status": extraction_status.get("analysis_status"),
+        "extraction_module_contract": extraction_status.get("module_contract"),
+        "validation_scope": (
+            "structure_family_external_stress_test"
+            if extraction_status.get("module_contract")
+            else "harmonized_empirical_viewer_external_validation"
+        ),
         "claim_guardrail": (
             "This artifact is the ds006072 external-validation gate. It only passes when paired local "
-            "psilocybin/control empirical-viewer records exist and are scored with the locked ds003059 rule."
+            "psilocybin/control empirical-viewer records exist and are scored with the locked ds003059 rule. "
+            "If extraction_module_contract is a CIFTI structure-family stress test, treat the result as stronger "
+            "than manifest readiness but weaker than a surface/parcellation-matched replication."
         ),
     }
 
@@ -516,6 +528,11 @@ def build_ds006072_comparable_validation_status(repo_root: Path = REPO_ROOT) -> 
             }
         else:
             summary = build_dynamic_mechanism_summary(viewer_root)
+            summary["dataset_scope"] = (
+                "OpenNeuro ds006072 paired psilocybin/MTP empirical viewer records scored with the locked ds003059 rule"
+            )
+            if extraction_status.get("module_contract"):
+                summary["dataset_scope"] += f"; extraction contract: {extraction_status['module_contract']}"
             ds006072_top_layer = _ranking_top_layer(summary)
             replication_status = (
                 "ranking_replicates_lsd_top_layer"
@@ -537,7 +554,10 @@ def build_ds006072_comparable_validation_status(repo_root: Path = REPO_ROOT) -> 
                 "replication_status": replication_status,
                 "blocker": "",
                 "claim_status": (
-                    "external_validation_supports_lsd_top_layer"
+                    "external_structure_family_validation_supports_lsd_top_layer"
+                    if extraction_status.get("module_contract")
+                    and replication_status == "ranking_replicates_lsd_top_layer"
+                    else "external_validation_supports_lsd_top_layer"
                     if replication_status == "ranking_replicates_lsd_top_layer"
                     else "external_validation_scored_but_does_not_replicate_lsd_top_layer"
                 ),
