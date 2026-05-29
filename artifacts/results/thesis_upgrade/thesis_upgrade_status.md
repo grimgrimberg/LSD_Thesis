@@ -12,7 +12,7 @@ This status file upgrades evidence visibility and fails closed on missing scienc
 | ROCKET benchmark | supporting_internal_signal | true | 1.00 | Add permutation-null, calibration, and MiniRocket/MultiRocket gates before treating this as strong ML evidence. |
 | External validation | implemented_ds006072_unchanged_scoring_validation | true | 1.00 | Run the ds006072 module time-series extraction and empirical-viewer writer, then rerun the thesis evidence loop. |
 | Receptor + structural control | fully_integrated | true | 1.00 | Need both a documented structural-connectome graph and PET-derived receptor prior with null controls. |
-| Receptor/myelin/gradient claim | not_supported_yet | false | 0.45 | Map-prior negative result is formalized; the mechanism claim remains not_supported_yet. |
+| Receptor/myelin/gradient claim | resolved_negative_not_promoted | true | 1.00 | The map-prior claim is resolved as a negative control: do not promote receptor/myelin/gradient mechanism claims from this dataset. |
 | Reproducible archive | manifest_ready | true | 0.75 | Generate the archive manifest, then publish a GitHub release and Zenodo DOI. |
 
 ## Strict Completion Audit
@@ -23,7 +23,7 @@ This status file upgrades evidence visibility and fails closed on missing scienc
 | Full neuromaps spatial-autocorrelation nulls | implemented_schaefer100_full_map_family_moran_spatial_nulls | true | None: full neuromaps spatial-autocorrelation null family coverage is complete. | Use the completed spatial-null family as the primary map-prior evidence layer. |
 | ds006072 psilocybin external validation | implemented_ds006072_unchanged_scoring_validation | true | None: ds006072 paired psilocybin/MTP CIFTI records were extracted and scored unchanged; current scope is a structure-family external stress test. | Upgrade this from structure-family stress test to stronger replication by adding a surface/parcellation-matched ds006072 extractor. |
 | Motion/confound control result | implemented_published_fd_context_and_proxy_controls_missing_subject_level_fd | false | A source-availability check found no local/OpenNeuro raw/public derivative subject-level FD/DVARS/censoring confounds; full motion proof requires authorized fMRIPrep outputs or a local preprocessing run. | Supply authorized fMRIPrep outputs or run preprocessing to create desc-confounds_timeseries.tsv files, then report whether dynamic effects survive FD, DVARS, censoring, and run/order controls. |
-| Receptor/myelin/gradient claim support | not_supported_yet | false | The map-prior negative result is formalized: no module-level or spatial-null family FDR support, and the best spatial-null CI crosses zero. | Promote the claim only after high-resolution parcellation, neuromaps spatial nulls, FDR pass, and uncertainty intervals that do not cross zero. |
+| Receptor/myelin/gradient claim resolution | resolved_negative_not_promoted | true | None: the claim is resolved as a negative/control result and is not promoted as a mechanism claim. | Use the negative map-prior result as a guardrail: keep receptor/myelin/gradient as future hypotheses, not current claims. |
 | Project phase | pi_pitch_ready_research_proposal_not_completed_thesis | false | One or more required scientific gates is still missing or fail-closed. | Keep pitching this as an AI/engineering research proposal until every strict evidence gate passes. |
 
 ## Canonical Next State

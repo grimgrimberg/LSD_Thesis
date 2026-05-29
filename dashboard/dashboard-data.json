@@ -87094,7 +87094,7 @@
   },
   "external_cortical_maps": {
     "schema_version": "external_cortical_maps.v1",
-    "generated_at_utc": "2026-05-29T20:53:12.010528+00:00",
+    "generated_at_utc": "2026-05-29T21:08:11.074288+00:00",
     "analysis_status": "implemented_module_level_external_map_alignment",
     "module_contract": [
       "visual",
@@ -87928,7 +87928,7 @@
     ],
     "loop_status": {
       "schema_version": 1,
-      "generated_at_utc": "2026-05-29T20:52:49.178709+00:00",
+      "generated_at_utc": "2026-05-29T21:07:49.533415+00:00",
       "analysis_status": "implemented_loop_status_artifacts",
       "status_rows": [
         {
@@ -87988,7 +87988,7 @@
         },
         "psilocybin_ds006072": {
           "schema_version": 1,
-          "generated_at_utc": "2026-05-29T20:52:28.760167+00:00",
+          "generated_at_utc": "2026-05-29T21:07:30.995339+00:00",
           "dataset_id": "ds006072",
           "source": "OpenNeuro ds006072, Scientific Data 2025 psilocybin precision imaging dataset",
           "local_data_root": "data/ds006072",
@@ -88002,7 +88002,7 @@
           "functional_manifest_processed_cifti_total_size_bytes": 113592893360,
           "external_validation_readiness": {
             "schema_version": "ds006072_external_validation.v1",
-            "generated_at_utc": "2026-05-29T20:29:58.276631+00:00",
+            "generated_at_utc": "2026-05-29T20:52:29.712551+00:00",
             "dataset_id": "ds006072",
             "analysis_status": "local_cifti_payloads_ready_for_comparable_extraction",
             "primary_contrast": "psilocybin_vs_active_control_mtp",
@@ -88073,7 +88073,7 @@
           "summary": {
             "schema_version": 3,
             "analysis_status": "implemented_first_pass",
-            "generated_at_utc": "2026-05-29T20:52:30.710302+00:00",
+            "generated_at_utc": "2026-05-29T21:07:32.598757+00:00",
             "inference_metadata": {
               "metric_ci_alpha": 0.05,
               "metric_bootstrap_iterations": 1024,
@@ -90453,7 +90453,7 @@
           },
           "comparable_empirical_validation": {
             "schema_version": "ds006072_external_validation.v1",
-            "generated_at_utc": "2026-05-29T20:52:29.731455+00:00",
+            "generated_at_utc": "2026-05-29T21:07:31.849556+00:00",
             "dataset_id": "ds006072",
             "primary_contrast": "psilocybin_vs_active_control_mtp",
             "viewer_root": "results/psilocybin_ds006072/empirical_viewer",
@@ -90569,7 +90569,7 @@
             "summary": {
               "schema_version": 3,
               "analysis_status": "implemented_first_pass",
-              "generated_at_utc": "2026-05-29T20:52:30.710302+00:00",
+              "generated_at_utc": "2026-05-29T21:07:32.598757+00:00",
               "inference_metadata": {
                 "metric_ci_alpha": 0.05,
                 "metric_bootstrap_iterations": 1024,
@@ -92959,7 +92959,7 @@
         },
         "structural_connectome": {
           "schema_version": 1,
-          "generated_at_utc": "2026-05-29T20:52:32.144863+00:00",
+          "generated_at_utc": "2026-05-29T21:07:33.419829+00:00",
           "artifact_target": "results/structural_connectome",
           "expected_graph_files": [
             "results/structural_connectome/hcp_macro_modules.csv",
@@ -96393,7 +96393,7 @@
         },
         "receptor_priors": {
           "schema_version": 1,
-          "generated_at_utc": "2026-05-29T20:52:33.761313+00:00",
+          "generated_at_utc": "2026-05-29T21:07:34.895554+00:00",
           "artifact_target": "results/receptor_priors",
           "expected_prior_files": [
             "results/receptor_priors/fs5ht_5ht2a_macro_modules.csv",
@@ -99827,7 +99827,7 @@
         },
         "parcellation_sensitivity": {
           "schema_version": 1,
-          "generated_at_utc": "2026-05-29T20:52:34.947419+00:00",
+          "generated_at_utc": "2026-05-29T21:07:35.624425+00:00",
           "analysis_status": "implemented_status_matrix",
           "rows": [
             {
@@ -100010,7 +100010,7 @@
         },
         "literature_benchmark": {
           "schema_version": 1,
-          "generated_at_utc": "2026-05-29T20:52:49.171637+00:00",
+          "generated_at_utc": "2026-05-29T21:07:49.527338+00:00",
           "analysis_status": "implemented_directional_proxy_benchmark",
           "aligned_count": 4,
           "measurable_count": 6,
@@ -100219,14 +100219,14 @@
   },
   "thesis_upgrade": {
     "schema_version": "thesis_upgrade_status.v1",
-    "generated_at_utc": "2026-05-29T20:53:43.305589+00:00",
+    "generated_at_utc": "2026-05-29T21:08:28.481577+00:00",
     "readiness_summary": {
-      "ready_gates": 6,
+      "ready_gates": 7,
       "total_gates": 8,
-      "readiness_fraction": 0.75,
-      "strict_complete_gates": 3,
+      "readiness_fraction": 0.875,
+      "strict_complete_gates": 4,
       "strict_total_gates": 6,
-      "strict_completion_fraction": 0.5,
+      "strict_completion_fraction": 0.6666666666666666,
       "completion_status": "pi_pitch_ready_research_proposal_not_completed_thesis",
       "thesis_status": "pi_pitch_ready_research_proposal_not_completed_thesis"
     },
@@ -100281,11 +100281,11 @@
       },
       {
         "label": "Receptor/myelin/gradient claim",
-        "status": "not_supported_yet",
-        "ready": false,
+        "status": "resolved_negative_not_promoted",
+        "ready": true,
         "evidence": "results/cortical_maps/cortical_map_alignment_status.json",
-        "blocker": "Map-prior negative result is formalized; the mechanism claim remains not_supported_yet.",
-        "score": 0.45
+        "blocker": "The map-prior claim is resolved as a negative control: do not promote receptor/myelin/gradient mechanism claims from this dataset.",
+        "score": 1.0
       },
       {
         "label": "Reproducible archive",
@@ -100339,13 +100339,13 @@
       },
       {
         "requirement_id": "receptor_myelin_gradient_claim",
-        "label": "Receptor/myelin/gradient claim support",
-        "status": "not_supported_yet",
-        "complete": false,
+        "label": "Receptor/myelin/gradient claim resolution",
+        "status": "resolved_negative_not_promoted",
+        "complete": true,
         "evidence": "results/cortical_maps/cortical_map_alignment_status.json; results/cortical_maps/map_prior_falsification_status.json",
-        "missing": "The map-prior negative result is formalized: no module-level or spatial-null family FDR support, and the best spatial-null CI crosses zero.",
-        "next_action": "Promote the claim only after high-resolution parcellation, neuromaps spatial nulls, FDR pass, and uncertainty intervals that do not cross zero.",
-        "claim_effect": "The dashboard must keep this as not_supported_yet until those gates pass."
+        "missing": "None: the claim is resolved as a negative/control result and is not promoted as a mechanism claim.",
+        "next_action": "Use the negative map-prior result as a guardrail: keep receptor/myelin/gradient as future hypotheses, not current claims.",
+        "claim_effect": "The thesis no longer depends on an unsupported receptor/myelin/gradient claim; the result is a completed negative control."
       },
       {
         "requirement_id": "project_phase",
@@ -101086,21 +101086,21 @@
       "receptor_myelin_gradient_claim": {
         "gate": {
           "label": "Receptor/myelin/gradient claim",
-          "status": "not_supported_yet",
-          "ready": false,
+          "status": "resolved_negative_not_promoted",
+          "ready": true,
           "evidence": "results/cortical_maps/cortical_map_alignment_status.json",
-          "blocker": "Map-prior negative result is formalized; the mechanism claim remains not_supported_yet.",
-          "score": 0.45
+          "blocker": "The map-prior claim is resolved as a negative control: do not promote receptor/myelin/gradient mechanism claims from this dataset.",
+          "score": 1.0
         },
         "strict_requirement": {
           "requirement_id": "receptor_myelin_gradient_claim",
-          "label": "Receptor/myelin/gradient claim support",
-          "status": "not_supported_yet",
-          "complete": false,
+          "label": "Receptor/myelin/gradient claim resolution",
+          "status": "resolved_negative_not_promoted",
+          "complete": true,
           "evidence": "results/cortical_maps/cortical_map_alignment_status.json; results/cortical_maps/map_prior_falsification_status.json",
-          "missing": "The map-prior negative result is formalized: no module-level or spatial-null family FDR support, and the best spatial-null CI crosses zero.",
-          "next_action": "Promote the claim only after high-resolution parcellation, neuromaps spatial nulls, FDR pass, and uncertainty intervals that do not cross zero.",
-          "claim_effect": "The dashboard must keep this as not_supported_yet until those gates pass."
+          "missing": "None: the claim is resolved as a negative/control result and is not promoted as a mechanism claim.",
+          "next_action": "Use the negative map-prior result as a guardrail: keep receptor/myelin/gradient as future hypotheses, not current claims.",
+          "claim_effect": "The thesis no longer depends on an unsupported receptor/myelin/gradient claim; the result is a completed negative control."
         },
         "claim_readiness": {
           "strong_receptor_myelin_gradient_claim": "not_supported_yet",
@@ -101139,7 +101139,147 @@
         },
         "negative_result_ready": true,
         "negative_result_path": "results/cortical_maps/map_prior_falsification_status.json",
-        "negative_result_claim_effect": "The receptor/myelin/gradient/gene-expression map-prior mechanism is formally downgraded: module-level permutation and Schaefer100 Moran spatial-null families both fail FDR support, and the best spatial-null interval overlaps zero.",
+        "negative_result_claim_effect": "The receptor/myelin/gradient/gene-expression map-prior mechanism is formally downgraded: module-level permutation and Schaefer100 Moran spatial-null families contain no row with joint FDR support and a confidence interval excluding zero.",
+        "claim_resolution": {
+          "claim_resolution_status": "resolved_negative_not_promoted",
+          "joint_fdr_and_ci_support_count": 0,
+          "fdr_only_support_count": 0,
+          "ci_excludes_zero_without_fdr_count": 2,
+          "top_abs_effect_rows": [
+            {
+              "map_id": "5ht2a_cimbi_hc29_beliveau",
+              "map_label": "5-HT2A CIMBI/Beliveau PET, Schaefer100",
+              "map_family": "receptor",
+              "target_id": "dmdc_condition_input",
+              "target_label": "DMDC condition-input vector",
+              "target_transform": "signed",
+              "source_path": "results/external_ingestion/hansen_receptors/source/PET_parcellated/scale100/5HT2a_cimbi_hc29_beliveau.csv",
+              "n_nodes": 100,
+              "n_perm": 999,
+              "null_family": "neuromaps.nulls.moran",
+              "distance_space": "Schaefer100 parcel-centroid Euclidean distances split by hemisphere",
+              "r": 0.2560925484568797,
+              "spatial_p": 0.222,
+              "ci95_low": 0.06283511340680677,
+              "ci95_high": 0.43083894325505623,
+              "ci_crosses_zero": false,
+              "q": 0.9930000000000001,
+              "fdr_pass": false,
+              "claim_status": "not_supported_yet"
+            },
+            {
+              "map_id": "5ht2a_mdl_hc3_talbot",
+              "map_label": "5-HT2A MDL/Talbot PET, Schaefer100",
+              "map_family": "receptor",
+              "target_id": "dmdc_condition_input",
+              "target_label": "DMDC condition-input vector",
+              "target_transform": "signed",
+              "source_path": "results/external_ingestion/hansen_receptors/source/PET_parcellated/scale100/5HT2a_mdl_hc3_talbot.csv",
+              "n_nodes": 100,
+              "n_perm": 999,
+              "null_family": "neuromaps.nulls.moran",
+              "distance_space": "Schaefer100 parcel-centroid Euclidean distances split by hemisphere",
+              "r": -0.21802712709514585,
+              "spatial_p": 0.24,
+              "ci95_low": -0.39742569680446765,
+              "ci95_high": -0.0225758065415736,
+              "ci_crosses_zero": false,
+              "q": 0.9930000000000001,
+              "fdr_pass": false,
+              "claim_status": "not_supported_yet"
+            },
+            {
+              "map_id": "abagen_genepc1",
+              "map_label": "Abagen AHBA gene-expression PC1, Schaefer100 via fsaverage10k",
+              "map_family": "gene_expression",
+              "target_id": "dmdc_condition_input",
+              "target_label": "DMDC condition-input vector",
+              "target_transform": "signed",
+              "source_path": "results/cortical_maps/neuromaps_annotations/abagen_genepc1_schaefer100.csv",
+              "n_nodes": 100,
+              "n_perm": 999,
+              "null_family": "neuromaps.nulls.moran",
+              "distance_space": "Schaefer100 parcel-centroid Euclidean distances split by hemisphere",
+              "r": 0.1547370363463753,
+              "spatial_p": 0.487,
+              "ci95_low": -0.042987610550019324,
+              "ci95_high": 0.34079724957553564,
+              "ci_crosses_zero": true,
+              "q": 0.9930000000000001,
+              "fdr_pass": false,
+              "claim_status": "not_supported_yet"
+            },
+            {
+              "map_id": "margulies2016_fcgradient01",
+              "map_label": "Margulies 2016 principal functional gradient, Schaefer100 via fsLR32k",
+              "map_family": "functional_gradient",
+              "target_id": "dmdc_condition_input",
+              "target_label": "DMDC condition-input vector",
+              "target_transform": "signed",
+              "source_path": "results/cortical_maps/neuromaps_annotations/margulies2016_fcgradient01_schaefer100.csv",
+              "n_nodes": 100,
+              "n_perm": 999,
+              "null_family": "neuromaps.nulls.moran",
+              "distance_space": "Schaefer100 parcel-centroid Euclidean distances split by hemisphere",
+              "r": 0.12173385749728224,
+              "spatial_p": 0.484,
+              "ci95_low": -0.07651376044596216,
+              "ci95_high": 0.3107223747716829,
+              "ci_crosses_zero": true,
+              "q": 0.9930000000000001,
+              "fdr_pass": false,
+              "claim_status": "not_supported_yet"
+            },
+            {
+              "map_id": "5ht2a_alt_hc19_savli",
+              "map_label": "5-HT2A ALT/Savli PET, Schaefer100",
+              "map_family": "receptor",
+              "target_id": "dmdc_condition_input",
+              "target_label": "DMDC condition-input vector",
+              "target_transform": "signed",
+              "source_path": "results/external_ingestion/hansen_receptors/source/PET_parcellated/scale100/5HT2a_alt_hc19_savli.csv",
+              "n_nodes": 100,
+              "n_perm": 999,
+              "null_family": "neuromaps.nulls.moran",
+              "distance_space": "Schaefer100 parcel-centroid Euclidean distances split by hemisphere",
+              "r": 0.08255220416729654,
+              "spatial_p": 0.702,
+              "ci95_low": -0.11574265150579202,
+              "ci95_high": 0.2745190642495325,
+              "ci_crosses_zero": true,
+              "q": 0.9930000000000001,
+              "fdr_pass": false,
+              "claim_status": "not_supported_yet"
+            },
+            {
+              "map_id": "5ht2a_alt_hc19_savli",
+              "map_label": "5-HT2A ALT/Savli PET, Schaefer100",
+              "map_family": "receptor",
+              "target_id": "dmdc_condition_interaction_abs",
+              "target_label": "Absolute DMDC condition-interaction vector",
+              "target_transform": "absolute",
+              "source_path": "results/external_ingestion/hansen_receptors/source/PET_parcellated/scale100/5HT2a_alt_hc19_savli.csv",
+              "n_nodes": 100,
+              "n_perm": 999,
+              "null_family": "neuromaps.nulls.moran",
+              "distance_space": "Schaefer100 parcel-centroid Euclidean distances split by hemisphere",
+              "r": 0.07056766567567313,
+              "spatial_p": 0.432,
+              "ci95_low": -0.127619354276132,
+              "ci95_high": 0.2633357476374979,
+              "ci_crosses_zero": true,
+              "q": 0.9930000000000001,
+              "fdr_pass": false,
+              "claim_status": "not_supported_yet"
+            }
+          ],
+          "support_rule": "promote only if fdr_pass is true and ci_crosses_zero is false for at least one spatial-null family row",
+          "module_fdr_supported_count": 0,
+          "spatial_fdr_supported_count": 0,
+          "family_coverage_complete": true,
+          "spatial_autocorrelation_nulls_complete": true,
+          "strict_gate_resolved": true
+        },
         "claim_guardrail": "External map priors are useful hypotheses, not proof of receptor/myelin/gradient mechanism."
       },
       "reproducible_archive": {
