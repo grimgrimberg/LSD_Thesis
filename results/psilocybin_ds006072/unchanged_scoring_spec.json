@@ -1,6 +1,6 @@
 {
   "schema_version": "ds006072_external_validation.v1",
-  "generated_at_utc": "2026-05-31T09:30:41.906089+00:00",
+  "generated_at_utc": "2026-05-31T09:37:38.072958+00:00",
   "source_dataset_id": "ds003059",
   "external_dataset_id": "ds006072",
   "fixed_rule": "Run lsd_thesis.dynamic_mechanism.build_dynamic_mechanism_summary on ds006072 empirical viewer records without changing mechanism weights, metric direction rules, target files, or ranking code after seeing psilocybin results.",
