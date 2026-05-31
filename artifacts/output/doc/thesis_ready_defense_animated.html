@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thesis Defense Deck</title>
+  <style>
+    :root {
+      --bg: #f6f4ef;
+      --ink: #19222b;
+      --muted: #5f6b73;
+      --panel: #fffdf8;
+      --line: #d6d0c5;
+      --teal: #0b6f6c;
+      --rust: #b44b34;
+      --blue: #274f7a;
+      --green: #2f7d5a;
+      --red: #9e2f2f;
+      --shadow: 0 28px 80px rgba(25, 34, 43, 0.12);
+      --mono: "Cascadia Code", "SFMono-Regular", Consolas, monospace;
+      --sans: Aptos, "Segoe UI", system-ui, sans-serif;
+      --serif: "Palatino Linotype", Georgia, serif;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; height: 100%; background: var(--bg); color: var(--ink); font-family: var(--sans); }
+    body {
+      overflow: hidden;
+      background:
+        linear-gradient(90deg, rgba(11,111,108,0.055) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(180,75,52,0.045) 1px, transparent 1px),
+        var(--bg);
+      background-size: 56px 56px;
+    }
+    .app { height: 100vh; display: grid; grid-template-columns: 260px 1fr; }
+    nav {
+      padding: 18px 14px;
+      border-right: 1px solid var(--line);
+      background: rgba(255,253,248,0.86);
+      overflow: auto;
+    }
+    nav h1 { margin: 0 0 14px; font: 700 18px/1.1 var(--serif); color: var(--teal); }
+    nav button {
+      width: 100%;
+      display: block;
+      padding: 8px 10px;
+      margin: 0 0 6px;
+      border: 1px solid transparent;
+      border-radius: 7px;
+      background: transparent;
+      color: var(--muted);
+      text-align: left;
+      font: 600 12px/1.25 var(--sans);
+      cursor: pointer;
+    }
+    nav button[aria-current="true"] { background: #eef7f5; border-color: rgba(11,111,108,0.35); color: var(--ink); }
+    .stage { position: relative; overflow: hidden; padding: 24px; }
+    .slide {
+      position: absolute;
+      inset: 24px;
+      display: none;
+      padding: 30px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: rgba(255,253,248,0.97);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .slide.active { display: grid; grid-template-rows: auto 1fr auto; animation: slideIn 360ms ease-out both; }
+    @keyframes slideIn { from { opacity: 0; transform: translateY(18px) scale(0.99); } to { opacity: 1; transform: none; } }
+    .slide-header { display: flex; align-items: baseline; gap: 18px; border-bottom: 1px solid var(--line); padding-bottom: 14px; }
+    .slide-header span { color: var(--rust); font-weight: 800; letter-spacing: 0.08em; }
+    h2 { margin: 0; font: 700 clamp(28px, 3.4vw, 46px)/1.02 var(--serif); color: var(--teal); letter-spacing: 0; }
+    .slide-grid { display: grid; grid-template-columns: minmax(0, 0.95fr) minmax(360px, 0.85fr); gap: 28px; align-items: start; padding-top: 22px; min-height: 0; }
+    .takeaway {
+      margin: 0 0 18px;
+      padding: 16px 18px;
+      border-left: 5px solid var(--rust);
+      border-radius: 0 8px 8px 0;
+      background: #f9ece8;
+      font: 800 20px/1.35 var(--sans);
+    }
+    .bullets { margin: 0; padding: 0; display: grid; gap: 12px; list-style: none; }
+    .bullets li {
+      position: relative;
+      padding: 10px 12px 10px 32px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      font-size: 18px;
+      line-height: 1.38;
+    }
+    .bullets li::before {
+      content: "";
+      position: absolute;
+      left: 12px;
+      top: 20px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--teal);
+    }
+    .step { opacity: 0; transform: translateY(14px); transition: opacity 240ms ease, transform 240ms ease; }
+    .step.visible { opacity: 1; transform: none; }
+    .code-cards, .metric-grid { display: grid; gap: 10px; }
+    .code-card, .concept-card, .metric-card {
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      box-shadow: 0 10px 24px rgba(25,34,43,0.06);
+    }
+    .code-card code { display: block; margin-bottom: 6px; font: 700 13px/1.2 var(--mono); color: var(--blue); white-space: normal; }
+    .code-card span, .concept-card span, .metric-card span { color: var(--muted); line-height: 1.35; }
+    .concept-card strong { display: block; margin-bottom: 10px; font: 800 24px/1.1 var(--serif); color: var(--blue); }
+    .ranking-board { display: grid; gap: 8px; }
+    .rank-row { display: grid; grid-template-columns: 36px 44px 1fr 90px; gap: 8px; align-items: center; padding: 10px; border: 1px solid var(--line); border-radius: 8px; background: #fff; }
+    .rank-row b { color: var(--rust); font-size: 18px; }
+    .rank-row strong { color: var(--teal); font-size: 22px; }
+    .rank-row code { font-family: var(--mono); color: var(--blue); }
+    .rank-row em { grid-column: 3 / -1; color: var(--muted); font-size: 13px; font-style: normal; }
+    .pipeline { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; }
+    .pipe-node { width: 116px; min-height: 102px; padding: 10px; border: 1px solid var(--line); border-radius: 8px; background: #fff; }
+    .pipe-node span, .road-step span { display: inline-grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: var(--teal); color: #fff; font-weight: 800; }
+    .pipe-node strong, .road-step strong { display: block; margin: 8px 0 4px; color: var(--blue); }
+    .pipe-node small { color: var(--muted); }
+    .pipe-arrow { color: var(--rust); font-weight: 900; }
+    .metric-card strong { display: block; font: 900 32px/1 var(--sans); margin-bottom: 8px; }
+    .metric-card.supportive strong { color: var(--green); }
+    .metric-card.opposes strong { color: var(--red); }
+    .roadmap { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+    .road-step { min-height: 120px; padding: 14px; border: 1px solid var(--line); border-radius: 8px; background: #fff; }
+    .notes {
+      display: none;
+      margin-top: 12px;
+      padding: 12px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.35;
+    }
+    body.show-notes .notes { display: block; }
+    .controls {
+      position: fixed;
+      right: 24px;
+      bottom: 18px;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      padding: 8px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255,253,248,0.92);
+      box-shadow: 0 12px 28px rgba(25,34,43,0.12);
+    }
+    .controls button { border: 0; border-radius: 999px; background: var(--teal); color: #fff; padding: 8px 12px; font-weight: 800; cursor: pointer; }
+    .controls span { padding: 0 6px; color: var(--muted); font-size: 12px; }
+    .progress { position: fixed; left: 0; right: 0; bottom: 0; height: 4px; background: rgba(11,111,108,0.16); }
+    .progress > div { height: 100%; width: 0%; background: var(--teal); transition: width 180ms ease; }
+    @media (max-width: 980px) {
+      body { overflow: auto; }
+      .app { display: block; }
+      nav { display: none; }
+      .stage { min-height: 100vh; }
+      .slide { position: static; min-height: calc(100vh - 48px); }
+      .slide-grid { grid-template-columns: 1fr; }
+      .roadmap { grid-template-columns: 1fr; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .slide.active, .step { animation: none; transition: none; }
+    }
+    @media print {
+      body { overflow: visible; background: #fff; }
+      .app { display: block; }
+      nav, .controls, .progress { display: none; }
+      .stage { padding: 0; }
+      .slide { display: block !important; position: static; min-height: 100vh; page-break-after: always; box-shadow: none; border-radius: 0; }
+      .step { opacity: 1 !important; transform: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <nav aria-label="Slide navigation">
+      <h1>Thesis Defense</h1>
+      <button type="button" data-target="0">01. Explainable AI Ranking of LSD Macro-Dynamics</button><button type="button" data-target="1">02. Why This Is A Thesis Instead Of A Demo</button><button type="button" data-target="2">03. Data Boundary</button><button type="button" data-target="3">04. Pipeline Overview</button><button type="button" data-target="4">05. Current Mechanism Ranking</button><button type="button" data-target="5">06. A: Transition-State Proxy</button><button type="button" data-target="6">07. B: DMDc Predictive Baseline</button><button type="button" data-target="7">08. C: Hierarchy And Routing</button><button type="button" data-target="8">09. D: Dynamic Repertoire And Graph Metrics</button><button type="button" data-target="9">10. E: Network-Control Energy</button><button type="button" data-target="10">11. E Result: Supportive But Split</button><button type="button" data-target="11">12. File-By-File Code Walkthrough</button><button type="button" data-target="12">13. How The Code Runs</button><button type="button" data-target="13">14. Explainability Plan</button><button type="button" data-target="14">15. Robustness Is The Next Scientific Gate</button><button type="button" data-target="15">16. Hard Reviewer Questions</button><button type="button" data-target="16">17. Demo Script</button><button type="button" data-target="17">18. Thesis-Ready Claim</button><button type="button" data-target="18">19. What I Would Do Next</button>
+    </nav>
+    <main class="stage">
+      
+    <section class="slide" id="explainable-ai-ranking-of-lsd-macro-dynamics" data-slide="0">
+      <header class="slide-header">
+        <span>01 / 19</span>
+        <h2>Explainable AI Ranking of LSD Macro-Dynamics</h2>
+      </header>
+      <div class="slide-grid">
+        <main>
+          <p class="takeaway step">The thesis is a mechanism-ranking framework, not a claim that AI discovers the true biological mechanism of LSD.</p>
+          <ul class="bullets"><li class="step">Question: which transparent control-theoretic and graph-dynamic surrogate mechanisms align best with paired LSD-placebo fMRI proxy evidence?</li><li class="step">Current result: C hierarchy/routing ranks first; E network-control energy ranks second; B DMDc is a negative baseline.</li><li class="step">Defense stance: every claim is macro-dynamics proxy evidence, not receptor-level, clinical, or subjective-state validation.</li></ul>
+        </main>
+        <aside>
+          
+    <div class="concept-card step">
+      <strong>Explainable AI Ranking of LSD Macro-Dynamics</strong>
+      <span>The thesis is a mechanism-ranking framework, not a claim that AI discovers the true biological mechanism of LSD.</span>
+    </div>
+        </aside>
+      </div>
+      <footer class="notes"><strong>Speaker notes</strong><p>Open by narrowing the claim. This is not a psychedelic-experience simulator and not receptor pharmacology.</p><p>The project is valuable because it turns vague mechanism language into explicit, testable ranking hypotheses.</p></footer>
+    </section>
+    <section class="slide" id="why-this-is-a-thesis-instead-of-a-demo" data-slide="1">
+      <header class="slide-header">
+        <span>02 / 19</span>
+        <h2>Why This Is A Thesis Instead Of A Demo</h2>
+      </header>
+      <div class="slide-grid">
+        <main>
+          <p class="takeaway step">The scientific contribution is the testing framework: mechanisms can win, lose, or fail honestly.</p>
+          <ul class="bullets"><li class="step">Prediction framing: rank candidate mechanism layers by signed alignment with empirical LSD-minus-placebo target summaries.</li><li class="step">Explainability framing: each layer maps to named metrics, nulls, code paths, and limitations.</li><li class="step">Scientific value: negative results are not hidden; they identify underconstrained or wrong mechanism stories.</li></ul>
+        </main>
+        <aside>
+          
+    <div class="concept-card step">
+      <strong>Why This Is A Thesis Instead Of A Demo</strong>
+      <span>The scientific contribution is the testing framework: mechanisms can win, lose, or fail honestly.</span>
+    </div>
+        </aside>
+      </div>
+      <footer class="notes"><strong>Speaker notes</strong><p>A reviewer will ask what is new. The answer is not a new brain theory; it is an auditable mechanism-ranking pipeline with explicit failure criteria.</p></footer>
+    </section>
+    <section class="slide" id="data-boundary" data-slide="2">
+      <header class="slide-header">
+        <span>03 / 19</span>
+        <h2>Data Boundary</h2>
+      </header>
+      <div class="slide-grid">
+        <main>
+          <p class="takeaway step">The current empirical layer uses cached paired ds003059 placebo/LSD records; run-02 music is not part of the primary ranking yet.</p>
+          <ul class="bullets"><li class="step">Current input: 30 paired subject/run records from 15 subjects.</li><li class="step">Current runs: run-01 and run-03.</li><li class="step">Current representation: coarse 8-module time series and derived FC/state summaries.</li><li class="step">Blocked claim: run-02/music remains exploratory until motion/context checks are completed.</li></ul>
+        </main>
+        <aside>
+          
+    <div class="concept-card step">
+      <strong>Data Boundary</strong>
+      <span>The current empirical layer uses cached paired ds003059 placebo/LSD records; run-02 music is not part of the primary ranking yet.</span>
+    </div>
+        </aside>
+      </div>
+      <footer class="notes"><strong>Speaker notes</strong><p>Say exactly what data are in the result. Do not imply external validation or music-run evidence.</p></footer>
+    </section>
+    <section class="slide" id="pipeline-overview" data-slide="3">
+      <header class="slide-header">
+        <span>04 / 19</span>
+        <h2>Pipeline Overview</h2>
+      </header>
+      <div class="slide-grid">
+        <main>
+          <p class="takeaway step">The repo moves from cached fMRI summaries to mechanism scores, exports, and an interactive dashboard.</p>
+          <ul class="bullets"><li class="step">Load paired empirical records.</li><li class="step">Compute A/B/C/D/E mechanism layers.</li><li class="step">Rank mechanisms by signed support scores.</li><li class="step">Export JSON, CSV, XLSX, HTML figures, report, and dashboard payload.</li><li class="step">Use tests and smoke checks to protect reproducibility.</li></ul>
+        </main>
+        <aside>
+          
+    <div class="pipeline">
+      
+          <div class="pipe-node step">
+            <span>1</span>
+            <strong>Data</strong>
+            <small>paired placebo/LSD records</small>
+          </div><div class="pipe-arrow step">-></div>
+          <div class="pipe-node step">
+            <span>2</span>
+            <strong>A-E</strong>
+            <small>mechanism metrics</small>
+          </div><div class="pipe-arrow step">-></div>
+          <div class="pipe-node step">
+            <span>3</span>
+            <strong>Rank</strong>
+            <small>signed support scores</small>
+          </div><div class="pipe-arrow step">-></div>
+          <div class="pipe-node step">
+            <span>4</span>
+            <strong>Export</strong>
+            <small>JSON / CSV / XLSX / figures</small>
+          </div><div class="pipe-arrow step">-></div>
+          <div class="pipe-node step">
+            <span>5</span>
+            <strong>Demo</strong>
+            <small>dashboard and defense deck</small>
+          </div>
+    </div>
+    
+    <div class="code-cards">
+      
+          <article class="code-card step">
+            <code>src/lsd_thesis/dynamic_mechanism.py</code>
+            <span>core A+B+C+D+E computation</span>
+          </article>
+          <article class="code-card step">
+            <code>scripts/run_dynamic_mechanism_ranking.py</code>
+            <span>artifact generation</span>
+          </article>
+          <article class="code-card step">
+            <code>scripts/export_dynamic_mechanism_tables.py</code>
+            <span>CSV/XLSX export</span>
+          </article>
+          <article class="code-card step">
+            <code>src/lsd_thesis/templates/dashboard.html</code>
+            <span>presentation dashboard</span>
+          </article>
+    </div>
+        </aside>
+      </div>
+      <footer class="notes"><strong>Speaker notes</strong><p>This slide is the backbone for the rest of the deck. Every later slide maps to one stage of this flow.</p></footer>
+    </section>
+    <section class="slide" id="current-mechanism-ranking" data-slide="4">
+      <header class="slide-header">
+        <span>05 / 19</span>
+        <h2>Current Mechanism Ranking</h2>
+      </header>
+      <div class="slide-grid">
+        <main>
+          <p class="takeaway step">C and E are the current story; B is explicitly negative.</p>
+          <ul class="bullets"><li class="step">1: C hierarchy/routing, score 0.332606.</li><li class="step">2: E network-control energy, score 0.175078.</li><li class="step">3: D dynamic repertoire / graph metrics, score 0.150619.</li><li class="step">4: A transition-state proxy, score 0.148906.</li><li class="step">5: B DMDc condition-interaction, score -0.074064.</li></ul>
+        </main>
+        <aside>
+          
+    <div class="ranking-board">
+      
+          <div class="rank-row step">
+            <b>1</b><strong>C</strong><span>Hierarchy / routing</span><code>0.332606</code><em>strongest current support</em>
+          </div>
+          <div class="rank-row step">
+            <b>2</b><strong>E</strong><span>Network-control energy</span><code>0.175078</code><em>supportive but split</em>
+          </div>
+          <div class="rank-row step">
+            <b>3</b><strong>D</strong><span>Graph repertoire</span><code>0.150619</code><em>supporting evidence</em>
+          </div>
+          <div class="rank-row step">
+            <b>4</b><strong>A</strong><span>Transition-state proxy</span><code>0.148906</code><em>weak/moderate</em>
+          </div>
+          <div class="rank-row step">
+            <b>5</b><strong>B</strong><span>DMDc baseline</span><code>-0.074064</code><em>negative baseline</em>
+          </div>
+    </div>
+        </aside>
+      </div>
+      <footer class="notes"><strong>Speaker notes</strong><p>Do not overstate the differences between D and A; they are close. Emphasize that C is the clearest current leader and E is the control-theory candidate.</p></footer>
+    </section>
+    <section class="slide" id="a-transition-state-proxy" data-slide="5">
+      <header class="slide-header">
+        <span>06 / 19</span>
+        <h2>A: Transition-State Proxy</h2>
+      </header>
+      <div class="slide-grid">
+        <main>
+          <p class="takeaway step">A tests whether LSD broadens or destabilizes macro-state switching, but state labels are still a sensitivity risk.</p>
+          <ul class="bullets"><li class="step">Metrics: state occupancy entropy, transition entropy, transition rate, dwell time, barrier-reduction proxy, step distance.</li><li class="step">Current evidence: weak-to-moderate support through transition entropy, transition rate, and shorter dwell proxies.</li><li class="step">Main caveat: PCA-quantile state labels are transparent but not a final HMM/state-space solution.</li></ul>
+        </main>
+        <aside>
+          
+    <div class="code-cards">
+      
+          <article class="code-card step">
+            <code>summarize_transition_proxy()</code>
+            <span>A-layer aggregator</span>
+          </article>
+          <article class="code-card step">
+            <code>_state_labels_from_reference()</code>
+            <span>PCA-quantile labels</span>
+          </article>
+    </div>
+        </aside>
+      </div>
+      <footer class="notes"><strong>Speaker notes</strong><p>Use this as an interpretable baseline layer. It motivates state dynamics, but it is not enough for final mechanism claims.</p></footer>
+    </section>
+    <section class="slide" id="b-dmdc-predictive-baseline" data-slide="6">
+      <header class="slide-header">
+        <span>07 / 19</span>
+        <h2>B: DMDc Predictive Baseline</h2>
+      </header>
+      <div class="slide-grid">
+        <main>
+          <p class="takeaway step">B does not support the main story, and that makes the result more defensible.</p>
+          <ul class="bullets"><li class="step">Equation: z_pair(x[t+1]) = A z_pair(x[t]) + B u[t] + C(u[t] * z_pair(x[t])) + bias + noise.</li><li class="step">Validation: leave-one-subject-out one-step prediction.</li><li class="step">Result: condition-interaction relative improvement is -0.074064 percent.</li><li class="step">Interpretation: DMDc is a negative-control baseline, not network-control energy.</li></ul>
+        </main>
+        <aside>
+          
+    <div class="code-cards">
+      
+          <article class="code-card step">
+            <code>summarize_dmdc()</code>
+            <span>LOSO DMDc baseline</span>
+          </article>
+          <article class="code-card step">
+            <code>_dynamic_samples()</code>
+            <span>paired normalized one-step samples</span>
+          </article>
+    </div>
+        </aside>
+      </div>
+      <footer class="notes"><strong>Speaker notes</strong><p>This is a defense strength: the project does not hide that simple linear prediction is weak.</p></footer>
+    </section>
+    <section class="slide" id="c-hierarchy-and-routing" data-slide="7">
+      <header class="slide-header">
+        <span>08 / 19</span>
+        <h2>C: Hierarchy And Routing</h2>
+      </header>
+      <div class="slide-grid">
+        <main>
+          <p class="takeaway step">C is the strongest current layer because sensory, thalamic, and receptor-prior coupling signs align best.</p>
+          <ul class="bullets"><li class="step">Supportive: sensory-transmodal coupling, sensory global coupling, thalamic global/transmodal coupling.</li><li class="step">Added upgrade: hierarchy-gradient flattening and receptor-weighted global coupling.</li><li class="step">Sign conflict: associative-global coupling does not match the expected direction.</li><li class="step">Claim boundary: this is FC proxy evidence, not proof of REBUS or thalamic gating.</li></ul>
+        </main>
+        <aside>
+          
+    <div class="code-cards">
+      
+          <article class="code-card step">
+            <code>summarize_hierarchy_routing()</code>
+            <span>C-layer aggregation</span>
+          </article>
+          <article class="code-card step">
+            <code>_hierarchy_routing_metrics()</code>
+            <span>FC hierarchy and receptor-prior metrics</span>
+          </article>
+    </div>
+        </aside>
+      </div>
+      <footer class="notes"><strong>Speaker notes</strong><p>This is the slide to linger on. It carries the current thesis-ready result, but the conflict must be shown.</p></footer>
+    </section>
+    <section class="slide" id="d-dynamic-repertoire-and-graph-metrics" data-slide="8">
+      <header class="slide-header">
+        <span>09 / 19</span>
+        <h2>D: Dynamic Repertoire And Graph Metrics</h2>
+      </header>
+      <div class="slide-grid">
+        <main>
+          <p class="takeaway step">D improves after graph-theory metrics are added, but dynamic-FC movement remains mixed.</p>
+          <ul class="bullets"><li class="step">Supportive: between-network integration, modularity reduction, participation coefficient, global efficiency.</li><li class="step">Weak/conflicting: dynamic-FC variance and FC path length move against the expected repertoire direction.</li><li class="step">Next test: window-size sensitivity and dynamic-community robustness.</li></ul>
+        </main>
+        <aside>
+          
+    <div class="code-cards">
+      
+          <article class="code-card step">
+            <code>summarize_dynamic_repertoire()</code>
+            <span>D-layer aggregation</span>
+          </article>
+          <article class="code-card step">
+            <code>_weighted_modularity()</code>
+            <span>graph modularity</span>
+          </article>
+          <article class="code-card step">
+            <code>_mean_participation_coefficient()</code>
+            <span>connector-like graph integration</span>
+          </article>
+    </div>
+        </aside>
+      </div>
+      <footer class="notes"><strong>Speaker notes</strong><p>Make clear that D is useful but not clean. It adds network neuroscience credibility without becoming the headline.</p></footer>
+    </section>
+    <section class="slide" id="e-network-control-energy" data-slide="9">
+      <header class="slide-header">
+        <span>10 / 19</span>
+        <h2>E: Network-Control Energy</h2>
+      </header>
+      <div class="slide-grid">
+        <main>
+          <p class="takeaway step">E is the mathematically serious control-theory layer, but it is still a proxy until structural connectomes and PET receptor maps are added.</p>
+          <ul class="bullets"><li class="step">Equation: x[t+1] = A_graph x[t] + B_profile u[t].</li><li class="step">Energy: minimum finite-horizon sum of squared control inputs.</li><li class="step">Profiles: receptor, hierarchy, sensory, transmodal, thalamic, uniform, degree, random receptor-prior permutations.</li><li class="step">Current graph: macro-module proxy graph, not a structural connectome.</li></ul>
+        </main>
+        <aside>
+          
+    <div class="code-cards">
+      
+          <article class="code-card step">
+            <code>summarize_network_control_energy()</code>
+            <span>E-layer aggregation</span>
+          </article>
+          <article class="code-card step">
+            <code>_minimum_control_energy()</code>
+            <span>finite-horizon energy</span>
+          </article>
+          <article class="code-card step">
+            <code>_module_prior_vectors()</code>
+            <span>control-profile priors</span>
+          </article>
+    </div>
+        </aside>
+      </div>
+      <footer class="notes"><strong>Speaker notes</strong><p>Explain E intuitively: how much control effort is needed to move from one brain-state summary to another under a chosen control profile.</p></footer>
+    </section>
+    <section class="slide" id="e-result-supportive-but-split" data-slide="10">
+      <header class="slide-header">
+        <span>11 / 19</span>
+        <h2>E Result: Supportive But Split</h2>
+      </header>
+      <div class="slide-grid">
+        <main>
+          <p class="takeaway step">E supports lower LSD transition energy, but not receptor-specific control placement.</p>
+          <ul class="bullets"><li class="step">Supportive: LSD vs placebo receptor-profile transition-energy reduction is +4.70 percent.</li><li class="step">Supportive: LSD vs placebo uniform-control transition-energy reduction is +6.94 percent.</li><li class="step">Not supportive: receptor-prior control is -34.39 percent worse than uniform control.</li><li class="step">Not supportive: receptor-prior control is -15.08 percent worse than random receptor-prior permutations.</li><li class="step">Defensible claim: landscape-flattening proxy is plausible; receptor-specific placement remains unproven.</li></ul>
+        </main>
+        <aside>
+          
+    <div class="metric-grid">
+      
+          <article class="metric-card supportive step">
+            <strong>+4.70%</strong>
+            <span>LSD vs placebo receptor-profile transition-energy reduction</span>
+          </article>
+          <article class="metric-card supportive step">
+            <strong>+6.94%</strong>
+            <span>LSD vs placebo uniform-control transition-energy reduction</span>
+          </article>
+          <article class="metric-card opposes step">
+            <strong>-34.39%</strong>
+            <span>Receptor-prior control vs uniform control</span>
+          </article>
+          <article class="metric-card opposes step">
+            <strong>-15.08%</strong>
+            <span>Receptor-prior control vs random receptor-prior permutations</span>
+          </article>
+    </div>
+        </aside>
+      </div>
+      <footer class="notes"><strong>Speaker notes</strong><p>This is probably the most important defense slide. It prevents overclaiming while preserving the control-theory contribution.</p></footer>
+    </section>
+    <section class="slide" id="file-by-file-code-walkthrough" data-slide="11">
+      <header class="slide-header">
+        <span>12 / 19</span>
+        <h2>File-By-File Code Walkthrough</h2>
+      </header>
+      <div class="slide-grid">
+        <main>
+          <p class="takeaway step">The project is explainable because the code has a clear path from data to metrics to exports.</p>
+          <ul class="bullets"><li class="step">Data loading: empirical viewer JSON records become paired placebo/LSD arrays.</li><li class="step">Metric engine: dynamic_mechanism.py computes A+B+C+D+E.</li><li class="step">Artifact engine: run_dynamic_mechanism_ranking.py writes report, tables, and figures.</li><li class="step">Export engine: export_dynamic_mechanism_tables.py creates reviewable CSV/XLSX files.</li><li class="step">Demo layer: FastAPI app and dashboard template expose results interactively.</li><li class="step">Tests: focused tests assert schema, dashboard containers, and parcellation metadata.</li></ul>
+        </main>
+        <aside>
+          
+    <div class="code-cards">
+      
+          <article class="code-card step">
+            <code>src/lsd_thesis/dynamic_mechanism.py</code>
+            <span>core science logic</span>
+          </article>
+          <article class="code-card step">
+            <code>scripts/run_dynamic_mechanism_ranking.py</code>
+            <span>ranking artifact builder</span>
+          </article>
+          <article class="code-card step">
+            <code>scripts/export_dynamic_mechanism_tables.py</code>
+            <span>CSV/XLSX exporter</span>
+          </article>
+          <article class="code-card step">
+            <code>src/lsd_thesis/data/parcellations.py</code>
+            <span>parcellation and receptor-prior metadata</span>
+          </article>
+          <article class="code-card step">
+            <code>src/lsd_thesis/web/app.py</code>
+            <span>dashboard API payloads</span>
+          </article>
+          <article class="code-card step">
+            <code>src/lsd_thesis/templates/dashboard.html</code>
+            <span>interactive result presentation</span>
+          </article>
+          <article class="code-card step">
+            <code>tests/test_dynamic_mechanism.py</code>
+            <span>A+B+C+D+E schema checks</span>
+          </article>
+    </div>
+        </aside>
+      </div>
+      <footer class="notes"><strong>Speaker notes</strong><p>Use this slide to show that the project is not a black box. Every result has a function, file, and artifact.</p></footer>
+    </section>
+    <section class="slide" id="how-the-code-runs" data-slide="12">
+      <header class="slide-header">
+        <span>13 / 19</span>
+        <h2>How The Code Runs</h2>
+      </header>
+      <div class="slide-grid">
+        <main>
+          <p class="takeaway step">The demo can be reproduced with a short command chain and audited through saved artifacts.</p>
+          <ul class="bullets"><li class="step">Run ranking: uv run python scripts/run_dynamic_mechanism_ranking.py</li><li class="step">Export review tables: uv run python scripts/export_dynamic_mechanism_tables.py</li><li class="step">Launch dashboard: uv run python scripts/run_dashboard.py</li><li class="step">Primary outputs: summary.json, stage report, HTML figures, CSV/XLSX workbook.</li><li class="step">Known environment issue: Windows permission locks can affect pytest temp and coverage cleanup.</li></ul>
+        </main>
+        <aside>
+          
+    <div class="concept-card step">
+      <strong>How The Code Runs</strong>
+      <span>The demo can be reproduced with a short command chain and audited through saved artifacts.</span>
+    </div>
+        </aside>
+      </div>
+      <footer class="notes"><strong>Speaker notes</strong><p>Do not promise full pytest is currently clean if the environment still has temp/coverage permission problems.</p></footer>
+    </section>
+    <section class="slide" id="explainability-plan" data-slide="13">
+      <header class="slide-header">
+        <span>14 / 19</span>
+        <h2>Explainability Plan</h2>
+      </header>
+      <div class="slide-grid">
+        <main>
+          <p class="takeaway step">Explainability here means traceable mechanisms, signed metrics, nulls, and failure modes rather than post-hoc mysticism.</p>
+          <ul class="bullets"><li class="step">Global explanation: mechanism ranking board and layer scores.</li><li class="step">Metric explanation: signed effect size, sign consistency, sign-test p-values.</li><li class="step">Individual failure explanation: metric-level sign conflicts and negative baselines.</li><li class="step">Control explanation: compare receptor, uniform, random, degree, and future structural nulls.</li><li class="step">Presentation explanation: show what each layer would need to support before a claim strengthens.</li></ul>
+        </main>
+        <aside>
+          
+    <div class="concept-card step">
+      <strong>Explainability Plan</strong>
+      <span>Explainability here means traceable mechanisms, signed metrics, nulls, and failure modes rather than post-hoc mysticism.</span>
+    </div>
+        </aside>
+      </div>
+      <footer class="notes"><strong>Speaker notes</strong><p>Avoid making SHAP the center of this project. The current explainability is stronger because the mechanism layers are themselves interpretable.</p></footer>
+    </section>
+    <section class="slide" id="robustness-is-the-next-scientific-gate" data-slide="14">
+      <header class="slide-header">
+        <span>15 / 19</span>
+        <h2>Robustness Is The Next Scientific Gate</h2>
+      </header>
+      <div class="slide-grid">
+        <main>
+          <p class="takeaway step">The next thesis task is not a prettier deck; it is proving whether C and E survive stress tests.</p>
+          <ul class="bullets"><li class="step">Subject/bootstrap uncertainty for layer scores.</li><li class="step">Run split: run-01 vs run-03.</li><li class="step">E horizon sensitivity.</li><li class="step">A/E state-labeling sensitivity.</li><li class="step">D window-size sensitivity.</li><li class="step">Decision: keep, weaken, or reject each mechanism story based on robustness.</li></ul>
+        </main>
+        <aside>
+          
+    <div class="roadmap">
+      
+          <div class="road-step step">
+            <span>1</span>
+            <strong>Robustness</strong>
+          </div>
+          <div class="road-step step">
+            <span>2</span>
+            <strong>Structural graph</strong>
+          </div>
+          <div class="road-step step">
+            <span>3</span>
+            <strong>Receptor maps</strong>
+          </div>
+          <div class="road-step step">
+            <span>4</span>
+            <strong>Schaefer/Yeo</strong>
+          </div>
+          <div class="road-step step">
+            <span>5</span>
+            <strong>Final deck</strong>
+          </div>
+    </div>
+        </aside>
+      </div>
+      <footer class="notes"><strong>Speaker notes</strong><p>This slide answers what you would do next and shows you understand the current evidence is not final.</p></footer>
+    </section>
+    <section class="slide" id="hard-reviewer-questions" data-slide="15">
+      <header class="slide-header">
+        <span>16 / 19</span>
+        <h2>Hard Reviewer Questions</h2>
+      </header>
+      <div class="slide-grid">
+        <main>
+          <p class="takeaway step">The deck should make objections easy to answer before they are asked.</p>
+          <ul class="bullets"><li class="step">Why this model? Because every mechanism is explicit, testable, and falsifiable.</li><li class="step">Why trust it? Trust the pipeline and artifacts, not a biological overclaim.</li><li class="step">What is new? AI-assisted ranking and failure analysis of transparent control-theoretic surrogate mechanisms.</li><li class="step">What is weak? 8-module proxy, coarse receptor priors, no structural connectome yet, motion sensitivity, dynamic-FC sensitivity.</li><li class="step">What would change your mind? Robustness failure or nulls defeating C/E.</li></ul>
+        </main>
+        <aside>
+          
+    <div class="concept-card step">
+      <strong>Hard Reviewer Questions</strong>
+      <span>The deck should make objections easy to answer before they are asked.</span>
+    </div>
+        </aside>
+      </div>
+      <footer class="notes"><strong>Speaker notes</strong><p>This should be delivered plainly. Do not sound defensive; the limitations are part of the scientific design.</p></footer>
+    </section>
+    <section class="slide" id="demo-script" data-slide="16">
+      <header class="slide-header">
+        <span>17 / 19</span>
+        <h2>Demo Script</h2>
+      </header>
+      <div class="slide-grid">
+        <main>
+          <p class="takeaway step">The dashboard should be used as an evidence console, not a marketing page.</p>
+          <ul class="bullets"><li class="step">Open dashboard and show claim boundary first.</li><li class="step">Show mechanism ranking board: C first, E second, B negative.</li><li class="step">Open E plot and explain split result.</li><li class="step">Open CSV/XLSX exports to show reviewability.</li><li class="step">Show code path from dynamic_mechanism.py to dashboard payload.</li><li class="step">End with next-step robustness gate.</li></ul>
+        </main>
+        <aside>
+          
+    <div class="concept-card step">
+      <strong>Demo Script</strong>
+      <span>The dashboard should be used as an evidence console, not a marketing page.</span>
+    </div>
+        </aside>
+      </div>
+      <footer class="notes"><strong>Speaker notes</strong><p>Keep the demo short. If the audience is skeptical, go straight to limitations and exports.</p></footer>
+    </section>
+    <section class="slide" id="thesis-ready-claim" data-slide="17">
+      <header class="slide-header">
+        <span>18 / 19</span>
+        <h2>Thesis-Ready Claim</h2>
+      </header>
+      <div class="slide-grid">
+        <main>
+          <p class="takeaway step">The final claim is conservative, but it is defensible.</p>
+          <ul class="bullets"><li class="step">Current defensible claim: hierarchy/routing and graph-control-energy summaries align better with paired LSD-placebo macro-dynamic evidence than generic DMDc condition prediction.</li><li class="step">Current unresolved claim: receptor-specific network-control placement remains unproven.</li><li class="step">Minimum viable thesis: explainable mechanism ranking plus honest failure analysis.</li><li class="step">Ambitious thesis: structural-connectome and PET-informed network-control robustness.</li></ul>
+        </main>
+        <aside>
+          
+    <div class="concept-card step">
+      <strong>Thesis-Ready Claim</strong>
+      <span>The final claim is conservative, but it is defensible.</span>
+    </div>
+        </aside>
+      </div>
+      <footer class="notes"><strong>Speaker notes</strong><p>End by showing that the project can succeed even if receptor-specific E remains negative.</p></footer>
+    </section>
+    <section class="slide" id="what-i-would-do-next" data-slide="18">
+      <header class="slide-header">
+        <span>19 / 19</span>
+        <h2>What I Would Do Next</h2>
+      </header>
+      <div class="slide-grid">
+        <main>
+          <p class="takeaway step">Do robustness before structural upgrades or final slides.</p>
+          <ul class="bullets"><li class="step">1. Run A+B+C+D+E robustness.</li><li class="step">2. Upgrade E with a structural-connectome graph.</li><li class="step">3. Upgrade receptor priors with PET-derived 5-HT2A maps.</li><li class="step">4. Run Schaefer/Yeo sensitivity for C/D.</li><li class="step">5. Build final defense deck after the robustness story stabilizes.</li></ul>
+        </main>
+        <aside>
+          
+    <div class="roadmap">
+      
+          <div class="road-step step">
+            <span>1</span>
+            <strong>Robustness</strong>
+          </div>
+          <div class="road-step step">
+            <span>2</span>
+            <strong>Structural graph</strong>
+          </div>
+          <div class="road-step step">
+            <span>3</span>
+            <strong>Receptor maps</strong>
+          </div>
+          <div class="road-step step">
+            <span>4</span>
+            <strong>Schaefer/Yeo</strong>
+          </div>
+          <div class="road-step step">
+            <span>5</span>
+            <strong>Final deck</strong>
+          </div>
+    </div>
+        </aside>
+      </div>
+      <footer class="notes"><strong>Speaker notes</strong><p>This slide matches NEXT_STEPS.md and should be the final practical handoff.</p></footer>
+    </section>
+    </main>
+  </div>
+  <div class="controls">
+    <button type="button" id="prev">Prev</button>
+    <span id="counter"></span>
+    <button type="button" id="next">Next</button>
+    <button type="button" id="notes">Notes</button>
+  </div>
+  <div class="progress"><div id="progress"></div></div>
+  <script>
+    const slides = Array.from(document.querySelectorAll('.slide'));
+    const navButtons = Array.from(document.querySelectorAll('nav button'));
+    let slideIndex = 0;
+    let stepIndex = 0;
+
+    function visibleSteps(slide) {
+      return Array.from(slide.querySelectorAll('.step'));
+    }
+
+    function render() {
+      slides.forEach((slide, index) => {
+        const active = index === slideIndex;
+        slide.classList.toggle('active', active);
+        visibleSteps(slide).forEach((step, stepNumber) => {
+          step.classList.toggle('visible', active && stepNumber < stepIndex);
+        });
+      });
+      navButtons.forEach((button, index) => {
+        button.setAttribute('aria-current', index === slideIndex ? 'true' : 'false');
+      });
+      document.getElementById('counter').textContent = (slideIndex + 1) + ' / ' + slides.length + ' - step ' + stepIndex;
+      const denominator = Math.max(1, slides.length - 1);
+      document.getElementById('progress').style.width = ((slideIndex / denominator) * 100).toFixed(2) + '%';
+    }
+
+    function next() {
+      const steps = visibleSteps(slides[slideIndex]);
+      if (stepIndex < steps.length) {
+        stepIndex += 1;
+      } else if (slideIndex < slides.length - 1) {
+        slideIndex += 1;
+        stepIndex = 1;
+      }
+      render();
+    }
+
+    function prev() {
+      if (stepIndex > 1) {
+        stepIndex -= 1;
+      } else if (slideIndex > 0) {
+        slideIndex -= 1;
+        stepIndex = Math.max(1, visibleSteps(slides[slideIndex]).length);
+      }
+      render();
+    }
+
+    document.getElementById('next').addEventListener('click', next);
+    document.getElementById('prev').addEventListener('click', prev);
+    document.getElementById('notes').addEventListener('click', () => document.body.classList.toggle('show-notes'));
+    navButtons.forEach((button) => button.addEventListener('click', () => {
+      slideIndex = Number(button.dataset.target);
+      stepIndex = 1;
+      render();
+    }));
+    document.addEventListener('keydown', (event) => {
+      if (['ArrowRight', 'PageDown', ' '].includes(event.key)) {
+        event.preventDefault();
+        next();
+      }
+      if (['ArrowLeft', 'PageUp', 'Backspace'].includes(event.key)) {
+        event.preventDefault();
+        prev();
+      }
+      if (event.key.toLowerCase() === 'n') {
+        document.body.classList.toggle('show-notes');
+      }
+      if (event.key.toLowerCase() === 'f') {
+        document.documentElement.requestFullscreen?.();
+      }
+    });
+    stepIndex = 1;
+    render();
+  </script>
+</body>
+</html>

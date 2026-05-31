@@ -1,10 +1,10 @@
 {
   "schema_version": "ds006072_cifti_empirical_extraction.v1",
-  "generated_at_utc": "2026-05-31T07:31:48.515929+00:00",
+  "generated_at_utc": "2026-05-31T08:16:15.302299+00:00",
   "analysis_status": "implemented_ds006072_cifti_structure_family_empirical_viewer",
   "cifti_empirical_viewer_ready": true,
   "minimum_subjects_required": 3,
-  "minimum_payloads_local_ready": true,
+  "minimum_payloads_local_ready": false,
   "subject_view_count": 3,
   "viewer_root": "results/psilocybin_ds006072/empirical_viewer",
   "subject_views_dir": "results/psilocybin_ds006072/empirical_viewer/subject_views",

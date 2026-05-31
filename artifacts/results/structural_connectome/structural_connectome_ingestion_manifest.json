@@ -1,0 +1,21 @@
+{
+  "schema_version": "external_ingestion.v1",
+  "kind": "structural_connectome",
+  "generated_at_utc": "2026-05-27T14:18:28.573902+00:00",
+  "source_csv": "D:\\LSD_Thesis\\results\\external_ingestion\\hansen_receptors\\hcp_macro_modules_projected_from_schaefer100.csv",
+  "copied_source": "results/structural_connectome/source_hcp_macro_modules_projected_from_schaefer100.csv",
+  "output_path": "results/structural_connectome/hcp_macro_modules.csv",
+  "provenance": "hansen_receptors_schaefer100_weighted_structural_projection",
+  "module_count": 8,
+  "modules": [
+    "visual",
+    "auditory",
+    "salience",
+    "default_mode",
+    "executive_frontoparietal",
+    "limbic_affective",
+    "thalamic_gateway",
+    "sensorimotor"
+  ],
+  "claim_guardrail": "This validates and imports a structural-connectome matrix for sensitivity analysis. It does not prove receptor-level, clinical, or subjective psychedelic mechanisms."
+}

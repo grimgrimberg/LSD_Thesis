@@ -1,9 +1,9 @@
 # ds006072 External Validation Readiness
 
-- Status: `local_cifti_payloads_ready_for_comparable_extraction`
-- Drug-order mapping source: `data/ds006072/PPFM_session_notes jss 20250402.xlsx`
-- Planned primary subjects: `7`
-- Locally ready primary subjects: `3`
+- Status: `blocked_missing_drug_order_or_processed_rest_manifest`
+- Drug-order mapping source: `None`
+- Planned primary subjects: `0`
+- Locally ready primary subjects: `0`
 
 ## Claim boundary
 
@@ -11,4 +11,4 @@ This is an extraction-and-scoring gate for true external validation. It does not
 
 ## Next step
 
-Run the ds006072 module time-series extraction and empirical-viewer writer, then rerun the thesis evidence loop.
+Need ds006072 drug-order mapping and processed-rest CIFTI manifest before comparable extraction planning.

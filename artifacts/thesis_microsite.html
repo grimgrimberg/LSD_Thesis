@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" href="data:,">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thesis Microsite</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f4f5f0;
+      --panel: #fffffb;
+      --panel-soft: #ecefe8;
+      --text: #181b19;
+      --muted: #626b65;
+      --line: #d2d8cf;
+      --accent: #0b6f6c;
+      --accent-2: #b3422a;
+      --gold: #9b6818;
+      --display-font: "Palatino Linotype", "Book Antiqua", Georgia, serif;
+      --body-font: Aptos, "Segoe UI", "Trebuchet MS", sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background:
+        linear-gradient(90deg, rgba(11, 111, 108, 0.045) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(179, 66, 42, 0.035) 1px, transparent 1px),
+        var(--bg);
+      background-size: 48px 48px;
+      color: var(--text);
+      font-family: var(--body-font);
+      line-height: 1.65;
+      scroll-behavior: smooth;
+    }
+    main {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 40px 24px 72px;
+    }
+    .hero {
+      display: grid;
+      gap: 12px;
+      padding: 28px;
+      border: 1px solid var(--line);
+      border-top: 5px solid var(--accent);
+      border-radius: 8px;
+      margin-bottom: 28px;
+      background: var(--panel);
+      box-shadow: 0 18px 42px rgba(24, 27, 25, 0.07);
+    }
+    .eyebrow {
+      margin: 0;
+      color: var(--accent-2);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font: 700 0.78rem/1.2 var(--body-font);
+    }
+    h1, h2, h3 {
+      margin: 0;
+      line-height: 1.15;
+      color: var(--accent);
+    }
+    h1 {
+      font-family: var(--display-font);
+      font-size: clamp(2.2rem, 4.6vw, 4rem);
+      letter-spacing: 0;
+      max-width: 13ch;
+    }
+    .lede {
+      margin: 0;
+      max-width: 80ch;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(250px, 320px) minmax(0, 1fr);
+      gap: 24px;
+      align-items: start;
+    }
+    .toc {
+      position: sticky;
+      top: 20px;
+      align-self: start;
+      background: rgba(255, 255, 255, 0.78);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 20px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 14px 32px rgba(22, 32, 42, 0.05);
+    }
+    .toc h2 {
+      font-size: 1.1rem;
+      margin-bottom: 12px;
+    }
+    .toc ol {
+      margin: 0;
+      padding-left: 20px;
+      color: var(--muted);
+    }
+    .toc li {
+      margin-bottom: 8px;
+    }
+    .toc a {
+      color: inherit;
+      text-decoration: none;
+    }
+    .toc a:hover {
+      color: var(--accent);
+      text-decoration: underline;
+    }
+    .sections {
+      display: grid;
+      gap: 18px;
+    }
+    .section {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 24px;
+      box-shadow: 0 12px 30px rgba(22, 32, 42, 0.05);
+    }
+    .section:hover {
+      border-color: rgba(11, 111, 108, 0.38);
+    }
+    .section-header {
+      display: grid;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .section-meta {
+      color: var(--muted);
+      font: 700 0.82rem/1.4 var(--body-font);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .section h2 {
+      font-size: clamp(1.35rem, 2vw, 1.8rem);
+    }
+    .section-summary {
+      margin: 0;
+      color: var(--muted);
+      max-width: 76ch;
+    }
+    .section-body {
+      display: grid;
+      gap: 14px;
+    }
+    .section-body p {
+      margin: 0;
+      max-width: 78ch;
+    }
+    .section-body h3 {
+      font-size: 1.08rem;
+      margin-top: 4px;
+    }
+    .section-body ul {
+      margin: 0;
+      padding-left: 22px;
+    }
+    .section-body li {
+      margin-bottom: 8px;
+    }
+    .report-figure {
+      margin: 10px 0 0;
+      padding: 16px;
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      background: var(--panel-soft);
+    }
+    .report-figure img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: #fff;
+    }
+    .report-figure figcaption {
+      margin-top: 10px;
+      color: var(--text);
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+    .report-figure__note {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+    @media (max-width: 980px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+      .toc {
+        position: static;
+      }
+    }
+    @media (max-width: 700px) {
+      main {
+        padding-inline: 16px;
+      }
+      .section, .toc {
+        border-radius: 8px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="hero">
+      <p class="eyebrow">Canonical long-form report</p>
+      <h1>Thesis Microsite</h1>
+      <p class="lede">Rendered from the thesis report markdown so the web report stays synchronized with the DOCX and PDF outputs, while preserving the distinction between implemented facts, proxy observations, and hypotheses.</p>
+    </section>
+
+    <div class="layout">
+      <aside class="toc" aria-label="Table of contents">
+        <h2>Contents</h2>
+        <ol>
+          <li><a href="#executive-summary">Executive Summary</a></li>
+          <li><a href="#abstract">Abstract</a></li>
+          <li><a href="#1-introduction-and-problem-statement">1. Introduction and Problem Statement</a></li>
+          <li><a href="#2-research-objectives-and-thesis-questions">2. Research Objectives and Thesis Questions</a></li>
+          <li><a href="#3-scientific-scope-and-claim-boundaries">3. Scientific Scope and Claim Boundaries</a></li>
+          <li><a href="#4-repository-architecture-and-staged-workflow">4. Repository Architecture and Staged Workflow</a></li>
+          <li><a href="#5-mathematical-model-and-dynamical-assumptions">5. Mathematical Model and Dynamical Assumptions</a></li>
+          <li><a href="#6-empirical-data-source-and-dataset-provenance">6. Empirical Data Source and Dataset Provenance</a></li>
+          <li><a href="#7-macro-module-extraction-strategy">7. Macro-Module Extraction Strategy</a></li>
+          <li><a href="#8-shared-observable-space-and-metric-definitions">8. Shared Observable Space and Metric Definitions</a></li>
+          <li><a href="#9-stage-1-synthetic-baseline-and-hand-designed-perturbation">9. Stage 1: Synthetic Baseline and Hand-Designed Perturbation</a></li>
+          <li><a href="#10-stage-2-empirical-bridge-and-sober-regime-fitting">10. Stage 2: Empirical Bridge and Sober-Regime Fitting</a></li>
+          <li><a href="#11-stage-3-perturbation-ranking-against-empirical-lsd-minus-placebo-deltas">11. Stage 3: Perturbation Ranking Against Empirical LSD-minus-Placebo Deltas</a></li>
+          <li><a href="#12-stage-4-ablation-and-pairwise-combination-analysis">12. Stage 4: Ablation and Pairwise Combination Analysis</a></li>
+          <li><a href="#13-dashboard-artifact-layer-and-communicability">13. Dashboard, Artifact Layer, and Communicability</a></li>
+          <li><a href="#14-training-dataset-export-and-auxiliary-benchmarking">14. Training Dataset Export and Auxiliary Benchmarking</a></li>
+          <li><a href="#15-what-worked-well">15. What Worked Well</a></li>
+          <li><a href="#16-what-did-not-work-or-remains-scientifically-weak">16. What Did Not Work or Remains Scientifically Weak</a></li>
+          <li><a href="#17-threats-to-validity">17. Threats to Validity</a></li>
+          <li><a href="#18-defendable-thesis-claims-and-claims-to-avoid">18. Defendable Thesis Claims and Claims to Avoid</a></li>
+          <li><a href="#19-reproducibility-verification-and-audit-trail">19. Reproducibility, Verification, and Audit Trail</a></li>
+          <li><a href="#20-conclusion">20. Conclusion</a></li>
+          <li><a href="#references">References</a></li>
+        </ol>
+      </aside>
+
+      <div class="sections">
+        <article class="section" id="executive-summary">
+          <div class="section-header">
+            <div class="section-meta">Section 1 of 23</div>
+            <h2>Executive Summary</h2>
+            <p class="section-summary">This report analyzes the repository as a complete thesis artifact rather than as a conventional software project. The central output of the repository is not a claim that LSD has been mechanistically simulated. Instead, the repository implements a transparent surrogate model of altered-state-inspired macro-dynamics, grounded in coarse whole-brain modules, explicit graph structure, and summary statistics extracted from real resting-state fMRI data.</p>
+          </div>
+
+          <div class="section-body">
+            <p>This report analyzes the repository as a complete thesis artifact rather than as a conventional software project. The central output of the repository is not a claim that LSD has been mechanistically simulated. Instead, the repository implements a transparent surrogate model of altered-state-inspired macro-dynamics, grounded in coarse whole-brain modules, explicit graph structure, and summary statistics extracted from real resting-state fMRI data.</p>
+<p>The project combines four major components. First, it defines an eight-module stochastic dynamical system with interpretable control terms for local stability, adaptation, graph coupling, top-down constraint, and stochasticity. Second, it connects that simulator to real data from OpenNeuro dataset <code>ds003059</code>, retaining only placebo and LSD resting-state runs and excluding music runs. Third, it derives a shared metric space in which simulated and empirical dynamics can be compared using the same observables. Fourth, it exposes all of this through saved reports, figures, machine-readable summaries, and a dashboard for model inspection and empirical review.</p>
+<p>The most defensible result of the repository is methodological. The codebase demonstrates an inspectable end-to-end pipeline that moves from public neuroimaging data to macro-module extraction, to sober-regime fitting, to perturbation ranking, ablation, and benchmark export. The pipeline is reproducible through machine-readable artifacts and explicit verification commands rather than hard-coded pass/fail prose in this report. However, the strongest scientific conclusion is negative or at least strongly qualified: the current eight-module extraction and the current perturbation family do not yet reproduce a robust, canonical psychedelic macro-signature.</p>
+<p>The repository therefore succeeds as a transparent hypothesis-ranking and falsification environment. It does not yet succeed as a strong explanatory model of psychedelic whole-brain dynamics. For thesis defense purposes, that distinction is not a weakness to hide. It is one of the central intellectual contributions of the work.</p>
+          </div>
+        </article>
+        <article class="section" id="abstract">
+          <div class="section-header">
+            <div class="section-meta">Section 2 of 23</div>
+            <h2>Abstract</h2>
+            <p class="section-summary">This repository implements a transparent surrogate model for altered-state-inspired whole-brain macro-dynamics. The system is explicitly positioned as a graph-modulated macro-scale analogue rather than as a receptor model, a simulator of subjective experience, or a clinical decision system. Its scientific aim is modest but non-trivial: to determine whether a simple, interpretable dynamical system can be fitted to empirical placebo resting-state summaries and then perturbed in ways that partially reproduce LSD-associated changes observed in a real dataset.</p>
+          </div>
+
+          <div class="section-body">
+            <p>This repository implements a transparent surrogate model for altered-state-inspired whole-brain macro-dynamics. The system is explicitly positioned as a graph-modulated macro-scale analogue rather than as a receptor model, a simulator of subjective experience, or a clinical decision system. Its scientific aim is modest but non-trivial: to determine whether a simple, interpretable dynamical system can be fitted to empirical placebo resting-state summaries and then perturbed in ways that partially reproduce LSD-associated changes observed in a real dataset.</p>
+<p>The model comprises eight coarse brain modules linked by a weighted graph and governed by stochastic bistable dynamics with adaptation and an optional low-dimensional hierarchical constraint. The empirical branch of the repository downloads and processes real resting-state functional MRI data from <code>OpenNeuro ds003059 placebo resting-state summary (15 session averages)</code>, retaining only <code>run-01</code> and <code>run-03</code> for both <code>ses-PLCB</code> and <code>ses-LSD</code>. A transparent Harvard-Oxford-based anatomical proxy is then used to compress these data into eight module time series. Shared observables are computed for both simulated and empirical data, including within-network stability, cross-network communication, thalamic coupling, hierarchical compression, entropy/diversity, switching rate, a metastability proxy, and an effective barrier proxy.</p>
+<p>The repository demonstrates several concrete achievements. It produces actual empirical target files from <code>ds003059</code>, calibrates a sober regime against placebo-derived targets, ranks abstract perturbation families against empirical LSD-minus-placebo deltas, runs ablation analyses, exports a training-ready windowed dataset, and exposes results through a browser dashboard. The engineering stack is well developed and records saved summaries plus visual artifacts for every stage; the current verification status should be taken from the latest command log and machine-readable validation artifacts, not from static thesis prose.</p>
+<p>At the same time, the scientific limitations are explicit. The current eight-module mapping is intentionally coarse and not canonical. Several empirical deltas extracted under this mapping differ in sign from literature-based expectations. The best-scoring perturbation family remains a weak proxy-objective hypothesis rather than a convincing mechanistic explanation. In short, the repository provides a transparent modeling framework and a partially successful empirical bridge, but not yet a robust explanatory account of psychedelic neurodynamics.</p>
+          </div>
+        </article>
+        <article class="section" id="1-introduction-and-problem-statement">
+          <div class="section-header">
+            <div class="section-meta">Section 3 of 23</div>
+            <h2>1. Introduction and Problem Statement</h2>
+            <p class="section-summary">Computational work on psychedelics often faces an immediate tradeoff between interpretability and expressivity. Highly detailed mechanistic models are difficult to justify with available data and often collapse under parameter uncertainty. Highly flexible machine learning models can discover predictive structure, but they usually make it difficult to explain why a result occurred or which mechanistic story a result should support. The repository analyzed here chooses a different path. It asks whether a transparent, low-dimensional, graph-based surrogate can reproduce selected macro-dynamic signatures associated with psychedelic states while remaining narrow in its claims and explicit in its limitations.</p>
+          </div>
+
+          <div class="section-body">
+            <p>Computational work on psychedelics often faces an immediate tradeoff between interpretability and expressivity. Highly detailed mechanistic models are difficult to justify with available data and often collapse under parameter uncertainty. Highly flexible machine learning models can discover predictive structure, but they usually make it difficult to explain why a result occurred or which mechanistic story a result should support. The repository analyzed here chooses a different path. It asks whether a transparent, low-dimensional, graph-based surrogate can reproduce selected macro-dynamic signatures associated with psychedelic states while remaining narrow in its claims and explicit in its limitations.</p>
+<p>That framing matters. The project is not attempting to simulate receptor pharmacology. It is not attempting to simulate subjectively reported experience. It is not attempting to decode consciousness or to infer clinical response. Instead, the project seeks a defensible middle ground: a model that is simple enough to understand, cheap enough to ablate, structured enough to be empirically challenged, and grounded enough in real neuroimaging data to be more than a purely conceptual toy.</p>
+<p>The repository addresses a practical scientific problem. If one starts from a whole-brain viewpoint and intentionally compresses the system into a small number of large modules, which families of perturbation remain plausible as explanations for altered-state-like dynamics? Put differently, if one only allows visible graph structure, a small set of state variables, and a small set of control terms, what signatures can be matched, which cannot be matched, and where does the model fail? This project treats failure as a result rather than as a reason to obscure the analysis.</p>
+<p>The software structure reflects that scientific stance. The code prioritizes explicit configuration, limited mathematical complexity, saved outputs, and repeated opportunities for inspection. The result is a repository that should be read both as a scientific artifact and as a thesis defense object. The question is not merely whether the code runs. The question is whether the repository supports claims that can survive critical academic scrutiny.</p>
+          </div>
+        </article>
+        <article class="section" id="2-research-objectives-and-thesis-questions">
+          <div class="section-header">
+            <div class="section-meta">Section 4 of 23</div>
+            <h2>2. Research Objectives and Thesis Questions</h2>
+            <p class="section-summary">The repository is organized around four linked research questions.</p>
+          </div>
+
+          <div class="section-body">
+            <p>The repository is organized around four linked research questions.</p>
+<ul><li>Can a small graph-coupled surrogate model generate macro-scale signatures associated with altered-state-like brain dynamics while preserving interpretability?</li><li>Can real placebo resting-state summaries extracted from <code>ds003059</code> be used to calibrate a sober reference regime for that surrogate model?</li><li>Once such a sober regime has been calibrated, which abstract perturbation mechanisms most closely match empirical LSD-minus-placebo changes under the repository&#x27;s chosen observable space?</li><li>Can the same empirical windows that support surrogate-model evaluation also support auxiliary predictive benchmarks, thereby establishing that the extracted signal contains usable condition information?</li></ul>
+<p>From these questions, the repository makes several intended contributions.</p>
+<ul><li>It proposes a transparent eight-module dynamical model that is simple enough to explain term by term.</li><li>It implements a real empirical bridge from OpenNeuro data to model-facing macro targets.</li><li>It uses a shared observable space so that empirical and simulated outputs are compared on common footing.</li><li>It treats perturbation ranking as a formal hypothesis-ordering problem rather than as a narrative exercise.</li><li>It preserves interpretability through saved figures, reports, cached viewer payloads, and explicit configuration.</li></ul>
+<p>The repository therefore attempts to contribute both methodologically and scientifically. Methodologically, it shows how to structure a cautious surrogate-model workflow. Scientifically, it provides evidence about which macro-scale perturbations are and are not plausible within the chosen model class.</p>
+          </div>
+        </article>
+        <article class="section" id="3-scientific-scope-and-claim-boundaries">
+          <div class="section-header">
+            <div class="section-meta">Section 5 of 23</div>
+            <h2>3. Scientific Scope and Claim Boundaries</h2>
+            <p class="section-summary">One of the strongest aspects of the repository is that it repeatedly narrows its claims. The local AGENTS.md, the main README.md, the limitations document, and the stage reports all insist on the same framing. The model is a surrogate. Its perturbations are altered-state-inspired. Its observables are macro-dynamic proxies. This restraint is not cosmetic. It is central to the validity of the project.</p>
+          </div>
+
+          <div class="section-body">
+            <p>One of the strongest aspects of the repository is that it repeatedly narrows its claims. The local <code>AGENTS.md</code>, the main <code>README.md</code>, the limitations document, and the stage reports all insist on the same framing. The model is a surrogate. Its perturbations are altered-state-inspired. Its observables are macro-dynamic proxies. This restraint is not cosmetic. It is central to the validity of the project.</p>
+<p>Several claims are therefore outside the legitimate scope of the repository.</p>
+<ul><li>The repository does not model serotonin receptor binding or intracellular signaling.</li><li>It does not model the pharmacokinetics or pharmacodynamics of LSD.</li><li>It does not claim to simulate conscious content, ego dissolution, or the phenomenology of a psychedelic experience.</li><li>It does not provide subject-level diagnosis, prognosis, or treatment guidance.</li><li>It does not establish biological ground truth for metastability, switching barriers, or hierarchy.</li></ul>
+<p>Conversely, several narrower claims are within scope.</p>
+<ul><li>The repository does implement a mathematically explicit stochastic whole-brain surrogate with graph-modulated interactions.</li><li>It does derive real macro-module summaries from a public LSD dataset.</li><li>It does fit a sober regime against placebo-derived metrics and compare perturbed simulations to empirical deltas.</li><li>It does show where those comparisons succeed, where they fail, and where the interpretation becomes unstable.</li></ul>
+<p>This disciplined scope is exactly what protects the thesis. A transparent model that fails honestly is more defensible than an ambitious model that overclaims.</p>
+          </div>
+        </article>
+        <article class="section" id="4-repository-architecture-and-staged-workflow">
+          <div class="section-header">
+            <div class="section-meta">Section 6 of 23</div>
+            <h2>4. Repository Architecture and Staged Workflow</h2>
+            <p class="section-summary">The repository is organized as a staged scientific pipeline. The top-level script scripts/run_pipeline.py orchestrates the major phases. Its command structure reflects the research workflow rather than a generic software release process.</p>
+          </div>
+
+          <div class="section-body">
+            <p>The repository is organized as a staged scientific pipeline. The top-level script <code>scripts/run_pipeline.py</code> orchestrates the major phases. Its command structure reflects the research workflow rather than a generic software release process.</p>
+<ul><li>Stage 1 generates synthetic baseline and perturbed simulations and saves graphs, activity traces, FC matrices, diversity summaries, and switching summaries.</li><li>Stage 2 either loads preconfigured sober targets or, when the dataset directory is present, generates empirical targets directly from <code>ds003059</code>, fits a sober regime, saves figures, and emits machine-readable provenance.</li><li>Stage 3 fits a sober reference regime again, applies a grid of perturbation mechanisms, and ranks them against empirical LSD-minus-placebo target deltas.</li><li>Stage 4 performs single-mechanism and pairwise ablation analysis using the best available strengths from Stage 3.</li><li>Follow-up commands export a training dataset and run local benchmark scripts for condition prediction and multitask spectral regression.</li></ul>
+<p>At the package level, the architecture is equally explicit.</p>
+<ul><li><code>src/lsd_thesis/core.py</code> defines fixed implementation module names and typed configuration models.</li><li><code>src/lsd_thesis/graph.py</code> loads graph topology and hierarchy projection matrices.</li><li><code>src/lsd_thesis/simulator.py</code> runs the surrogate dynamics.</li><li><code>src/lsd_thesis/metrics.py</code> defines the common observable space.</li><li><code>src/lsd_thesis/data/ds003059.py</code> manages empirical extraction and target generation.</li><li><code>src/lsd_thesis/fit.py</code> calibrates a sober regime.</li><li><code>src/lsd_thesis/perturbation.py</code> ranks abstract perturbation mechanisms.</li><li><code>src/lsd_thesis/ablation.py</code> performs single and pairwise ablations.</li><li><code>src/lsd_thesis/data/empirical_viewer.py</code> builds dashboard-facing empirical payloads.</li><li><code>src/lsd_thesis/web/app.py</code> serves the dashboard and artifact endpoints.</li><li><code>src/lsd_thesis/training.py</code> slices empirical trajectories into windowed datasets for downstream benchmarks.</li></ul>
+<p>This architecture matters academically because each stage exposes an audit boundary. One can inspect graph definitions independently of simulator code, simulator code independently of empirical extraction, and empirical extraction independently of perturbation scoring. The repository is therefore legible in a way that many scientific codebases are not.</p>
+          </div>
+        </article>
+        <article class="section" id="5-mathematical-model-and-dynamical-assumptions">
+          <div class="section-header">
+            <div class="section-meta">Section 7 of 23</div>
+            <h2>5. Mathematical Model and Dynamical Assumptions</h2>
+            <p class="section-summary">The central simulator is defined in the project specification as a graph-coupled stochastic dynamical system with adaptation and an optional low-dimensional top-down constraint. In plain form, each module state evolves under the combined effect of a bistable local potential, a restoring rigidity term, an adaptation term, cross-module graph input, a hierarchy-projection constraint, and stochastic noise.</p>
+          </div>
+
+          <div class="section-body">
+            <p>The central simulator is defined in the project specification as a graph-coupled stochastic dynamical system with adaptation and an optional low-dimensional top-down constraint. In plain form, each module state evolves under the combined effect of a bistable local potential, a restoring rigidity term, an adaptation term, cross-module graph input, a hierarchy-projection constraint, and stochastic noise.</p>
+<p>The intended interpretation of each term is as follows.</p>
+<ul><li>The barrier term determines how deep or shallow a module&#x27;s local metastable landscape is within the model.</li><li>The rigidity term determines how strongly a module is pulled back toward its baseline.</li><li>The adaptation term discourages indefinite occupation of the same state.</li><li>The graph coupling term allows neighboring modules to influence one another through a weighted adjacency matrix.</li><li>The hierarchy constraint term pulls the evolving state back toward a sober low-dimensional manifold encoded by the matrix <code>H</code>.</li><li>The temperature term injects stochastic variability.</li><li>The timescale term determines how quickly each module responds.</li></ul>
+<p>The repository defines eight modules in a fixed implementation order:</p>
+<ul><li>visual</li><li>auditory</li><li>salience</li><li>default_mode</li><li>executive_frontoparietal</li><li>limbic_affective</li><li>thalamic_gateway</li><li>sensorimotor</li></ul>
+<p>These modules are themselves grouped into broader categories. Visual, auditory, and sensorimotor belong to a sensory group. Salience, default mode, executive frontoparietal, and limbic affective belong to an associative group. Thalamic gateway is treated as its own gateway group. This grouping matters because the simulator scales within-group and cross-group coupling separately, and several observables are defined in terms of this distinction.</p>
+<p>The baseline and altered-state-inspired regimes are specified in YAML, which is another strength of the project. The model is not hidden behind arbitrary code constants. The baseline regime has stronger rigidity, deeper barriers, lower cross-group scale, and stronger hierarchy constraint. The altered-state-inspired regime lowers rigidity and barriers, increases cross-group scale and temperature, and weakens the hierarchy constraint. These are exactly the kinds of manipulations one would want to inspect and debate in a thesis setting.</p>
+<p>At the same time, the mathematical simplicity imposes limits. The model has no explicit hemodynamics, no receptor layer, no structural connectome, no subject-specific parameterization, and no formal identifiability analysis. Those omissions do not invalidate the model. They define its epistemic ceiling.</p>
+          </div>
+        </article>
+        <article class="section" id="6-empirical-data-source-and-dataset-provenance">
+          <div class="section-header">
+            <div class="section-meta">Section 8 of 23</div>
+            <h2>6. Empirical Data Source and Dataset Provenance</h2>
+            <p class="section-summary">The empirical branch of the repository is anchored to OpenNeuro dataset ds003059, version 1.0.0. The local dataset metadata present in data/ds003059/dataset_description.json identifies the dataset as a derivative release titled Neural correlates of the LSD experience revealed by multimodal neuroimaging, with BIDS version 1.4.0, license CC0, and dataset DOI 10.18112/openneuro.ds003059.v1.0.0. The local README inside the dataset explicitly states that Rest1 and Rest3 are resting-state scans and that Rest2 is a music condition. The repository therefore excludes run-02 and uses only run-01 and run-03.</p>
+          </div>
+
+          <div class="section-body">
+            <p>The empirical branch of the repository is anchored to OpenNeuro dataset <code>ds003059</code>, version <code>1.0.0</code>. The local dataset metadata present in <code>data/ds003059/dataset_description.json</code> identifies the dataset as a derivative release titled <em>Neural correlates of the LSD experience revealed by multimodal neuroimaging</em>, with BIDS version <code>1.4.0</code>, license <code>CC0</code>, and dataset DOI <code>10.18112/openneuro.ds003059.v1.0.0</code>. The local <code>README</code> inside the dataset explicitly states that Rest1 and Rest3 are resting-state scans and that Rest2 is a music condition. The repository therefore excludes <code>run-02</code> and uses only <code>run-01</code> and <code>run-03</code>.</p>
+<p>This choice is scientifically sensible and explicitly documented in code. The Stage 2 extraction path retains only the following:</p>
+<ul><li>sessions <code>ses-LSD</code> and <code>ses-PLCB</code></li><li>task-rest runs only</li><li><code>run-01</code> and <code>run-03</code></li></ul>
+<p>The Stage 2 summary saved in <code>results/stage_2/stage_2_summary.json</code> records a small internal empirical cohort comprising fifteen paired subjects and sixty total resting runs. The subjects used are <code>sub-001</code>, <code>sub-002</code>, <code>sub-003</code>, <code>sub-004</code>, <code>sub-006</code>, <code>sub-009</code>, <code>sub-010</code>, <code>sub-011</code>, <code>sub-012</code>, <code>sub-013</code>, <code>sub-015</code>, <code>sub-017</code>, <code>sub-018</code>, <code>sub-019</code>, and <code>sub-020</code>. The dataset README reports fifteen subjects after its own motion-related exclusions; this repository inherits that derivative preprocessing and does not independently re-estimate motion, FD/DVARS, confounds, or censoring.</p>
+<p>An important methodological point is that the repository does not preprocess raw scanner data from scratch. It downloads BOLD files from the derivative dataset and inherits the preprocessing history described by the dataset authors. That preprocessing history is substantial and includes despiking, slice-time correction, motion correction, brain extraction, spatial normalization, scrubbing, smoothing, band-pass filtering, detrending, and nuisance regression. This is not a weakness in itself. It simply means that the thesis must acknowledge that the project sits on top of a preprocessed derivative rather than on minimally processed raw acquisitions.</p>
+<p>This provenance strengthens the report in two ways. First, it grounds the model in a specific, citable empirical object rather than in generic psychedelic literature. Second, it defines the boundaries of what the repository can legitimately claim about empirical validity.</p>
+          </div>
+        </article>
+        <article class="section" id="7-macro-module-extraction-strategy">
+          <div class="section-header">
+            <div class="section-meta">Section 9 of 23</div>
+            <h2>7. Macro-Module Extraction Strategy</h2>
+            <p class="section-summary">The key compression step in the repository is the conversion of volumetric BOLD data into eight coarse module time series. This is implemented in src/lsd_thesis/data/ds003059.py. The repository uses a transparent proxy mapping built from the Harvard-Oxford cortical and subcortical atlases as fetched through Nilearn. Each of the eight target modules is associated with a small set of cortical and, when relevant, subcortical atlas labels. These labels are merged into a custom integer-valued label image, and average time series are then extracted for each module.</p>
+          </div>
+
+          <div class="section-body">
+            <p>The key compression step in the repository is the conversion of volumetric BOLD data into eight coarse module time series. This is implemented in <code>src/lsd_thesis/data/ds003059.py</code>. The repository uses a transparent proxy mapping built from the Harvard-Oxford cortical and subcortical atlases as fetched through Nilearn. Each of the eight target modules is associated with a small set of cortical and, when relevant, subcortical atlas labels. These labels are merged into a custom integer-valued label image, and average time series are then extracted for each module.</p>
+<p>The transparency of this step is a major virtue. The mapping is inspectable, deterministic, and reproducible. There is no hidden neural network embedding, no latent parcel estimation, and no opaque dimensionality reduction. If one disagrees with the label assignments, one can inspect and replace them directly.</p>
+<p>However, the scientific price of that transparency is equally clear. The module definitions are not canonical functional networks. They are a coarse anatomical proxy. The repository itself acknowledges this repeatedly. For that reason, the extracted deltas should not be read as if they were definitive statements about canonical default mode network disintegration, sensory expansion, or global integration under LSD. They are measurements in a custom macro space chosen for interpretability.</p>
+<p>Technically, the extraction path is robust. The code first attempts extraction through <code>NiftiLabelsMasker</code> using sample z-scoring. If that path fails because of file access or format issues, it falls back to manual voxel averaging and explicit standardization. This fallback raises operational reliability. The extracted time series for each run are saved to disk under <code>results/stage_2/module_time_series/</code>, which is another important reproducibility feature because it prevents repeated expensive extraction and makes downstream review easier.</p>
+          </div>
+        </article>
+        <article class="section" id="8-shared-observable-space-and-metric-definitions">
+          <div class="section-header">
+            <div class="section-meta">Section 10 of 23</div>
+            <h2>8. Shared Observable Space and Metric Definitions</h2>
+            <p class="section-summary">The repository compares empirical and simulated dynamics in a common metric space. This design choice is one of the most important conceptual commitments in the codebase. Rather than comparing raw time series directly, it compares higher-level observables that are computed in the same way from both empirical module traces and simulated module traces.</p>
+          </div>
+
+          <div class="section-body">
+            <p>The repository compares empirical and simulated dynamics in a common metric space. This design choice is one of the most important conceptual commitments in the codebase. Rather than comparing raw time series directly, it compares higher-level observables that are computed in the same way from both empirical module traces and simulated module traces.</p>
+<p>The observables are:</p>
+<ul><li>within-network stability: mean FC among modules belonging to the same coarse group</li><li>cross-network communication: mean FC among modules belonging to different coarse groups</li><li>thalamic coupling: mean FC between the thalamic gateway module and all other modules</li><li>hierarchical compression: correlation between mean sensory and associative signals</li><li>entropy/diversity: normalized entropy of state labels inferred from KMeans clustering</li><li>switching rate: frequency of transitions between successive clustered states</li><li>metastability proxy: average change in sliding-window FC vectors</li><li>effective barrier proxy: mean dwell time in inferred state segments</li></ul>
+<p>Several implementation details deserve emphasis. State labels are generated by KMeans clustering over the time points of each trajectory. Functional connectivity is computed by correlation across module channels. Dynamic FC change uses sliding windows and upper-triangle vector differences. Dwell time is based on change-point segmentation of the state label sequence. These are all reasonable macro-dynamic summaries, but they are still engineered proxies. They are not direct measurements of latent neural mechanisms.</p>
+<p>This metric space does important work for the thesis. It defines what it would mean for the model to match the data. It also reveals where the model can fail. A mismatch is not hidden behind a subjective narrative. It is exposed as a disagreement in explicitly named summary variables.</p>
+          </div>
+        </article>
+        <article class="section" id="9-stage-1-synthetic-baseline-and-hand-designed-perturbation">
+          <div class="section-header">
+            <div class="section-meta">Section 11 of 23 · 1 figure</div>
+            <h2>9. Stage 1: Synthetic Baseline and Hand-Designed Perturbation</h2>
+            <p class="section-summary">Stage 1 is the conceptual proof-of-behavior phase. The code runs both the sober baseline regime and the altered-state-inspired YAML regime and compares their outputs on the shared metric space. This stage does not use empirical fitting. It asks whether the hand-designed perturbation at least moves the model in broadly intended directions.</p>
+          </div>
+
+          <div class="section-body">
+            <p>Stage 1 is the conceptual proof-of-behavior phase. The code runs both the sober baseline regime and the altered-state-inspired YAML regime and compares their outputs on the shared metric space. This stage does not use empirical fitting. It asks whether the hand-designed perturbation at least moves the model in broadly intended directions.</p>
+<h3>Stage 1 synthetic shift snapshot</h3>
+<figure class="report-figure"><img src="figures/stage1_metric_shift.png" alt="Stage 1 compares baseline and perturbed proxy values for entropy and switching rate with units shown on the axis labels." /><figcaption>Stage 1 compares baseline and perturbed proxy values for entropy and switching rate with units shown on the axis labels.</figcaption><p class="report-figure__note">Limitation: These are surrogate macro-dynamics only. They do not claim receptor-level realism, subjective experience, or direct biological measurement.</p></figure>
+<p>The current Stage 1 evidence is directionally mixed. Baseline state entropy is <code>0.989</code> and perturbed state entropy is <code>0.998</code>. The corresponding switching rates move from <code>0.147</code> to <code>0.203</code>. These shifts support the interpretation that the perturbation expands the model&#x27;s effective state repertoire and increases turnover, but they do not by themselves validate the overall altered-state-inspired regime.</p>
+<p>The saved Stage 1 summary shows a mixed result.</p>
+<ul><li>baseline entropy: <code>0.9890</code></li><li>perturbed entropy: <code>0.9976</code></li><li>baseline switching rate: <code>0.1471</code></li><li>perturbed switching rate: <code>0.2032</code></li><li>baseline cross-group FC: <code>0.0864</code></li><li>perturbed cross-group FC: <code>-0.0149</code></li><li>baseline dynamic FC change: <code>1.2654</code></li><li>perturbed dynamic FC change: <code>1.2570</code></li></ul>
+<p>Two findings support the altered-state-inspired intuition. Entropy increases, suggesting a broader surrogate state repertoire, and switching rate increases, suggesting less local persistence. In addition, within-group FC decreases, which is consistent with reduced local stability under perturbation.</p>
+<p>However, two findings immediately undermine any claim of straightforward success. Cross-group FC decreases rather than increasing, despite the configured increase in cross-group coupling, and dynamic FC change does not increase. The Stage 1 report interprets this correctly: the first perturbation appears to produce decorrelation or noise rather than a clean increase in integrative dynamics.</p>
+<p>Scientifically, Stage 1 should therefore be framed as a preliminary sanity check, not as evidence that the hand-designed altered-state-inspired regime is already valid. This is important for defense. The repository does not hide the failure. It carries the problem forward into later stages, which is exactly the right scientific move.</p>
+          </div>
+        </article>
+        <article class="section" id="10-stage-2-empirical-bridge-and-sober-regime-fitting">
+          <div class="section-header">
+            <div class="section-meta">Section 12 of 23 · 1 figure</div>
+            <h2>10. Stage 2: Empirical Bridge and Sober-Regime Fitting</h2>
+            <p class="section-summary">The current empirical bridge uses fifteen paired subjects and sixty total resting runs. The Stage 2 fit statement is: Stage 2 objective changed from 1628.945 to 2.054 (decreased); lower scores are better. The selected score comes from the optimization step.</p>
+          </div>
+
+          <div class="section-body">
+            <p>The current empirical bridge uses fifteen paired subjects and sixty total resting runs. The Stage 2 fit statement is: Stage 2 objective changed from 1628.945 to 2.054 (decreased); lower scores are better. The selected score comes from the optimization step.</p>
+<p>Stage 2 is the empirical core of the repository. It contains two conceptually distinct subproblems. The first is empirical target generation. The second is calibration of a sober reference regime against placebo-derived targets.</p>
+<h3>10.1 Empirical Target Generation</h3>
+<p>The empirical generation path is explicit and well structured.</p>
+<ul><li>The code queries the OpenNeuro GraphQL API to reconstruct the dataset file tree.</li><li>It filters that file tree to the exact sessions and runs required for the study design.</li><li>It downloads only the BOLD files required for the selected rest runs.</li><li>It extracts module time series for each run.</li><li>It computes observable summaries for each run and saves those summaries to <code>empirical_run_summaries.json</code>.</li><li>It aggregates placebo runs within subject, then across subjects, to build a sober target set.</li><li>It computes paired LSD-minus-placebo deltas to build a perturbation target set.</li></ul>
+<p>The resulting files are central thesis artifacts.</p>
+<ul><li><code>results/stage_2/empirical_sober_targets.yaml</code></li><li><code>results/stage_2/empirical_perturbation_targets.yaml</code></li><li><code>results/stage_2/ds003059_rest_manifest.json</code></li><li><code>results/stage_2/empirical_run_summaries.json</code></li></ul>
+<p>The empirical sober target file shows group-level placebo metrics such as within-network stability <code>0.2823</code>, cross-network communication <code>0.1997</code>, thalamic coupling <code>0.2043</code>, entropy/diversity <code>0.9738</code>, metastability proxy <code>1.2027</code>, and effective barrier proxy <code>3.5334</code>. Confidence labels are attached using paired t-tests across placebo and LSD subject means. This is an aggregate consistency summary across paired runs, not a substitute for subject-level motion, FD/DVARS, confound, or censoring QC.</p>
+<h3>10.2 Sober-Regime Calibration</h3>
+<h3>Stage 2 fit and robustness snapshot</h3>
+<figure class="report-figure"><img src="figures/stage2_fit_robustness.png" alt="Stage 2 compares the initial objective with the selected score from the optimization step and summarizes limited repeatability evidence." /><figcaption>Stage 2 compares the initial objective with the selected score from the optimization step and summarizes limited repeatability evidence.</figcaption><p class="report-figure__note">Limitation: This figure summarizes a cached benchmark anchored to OpenNeuro ds003059 placebo resting-state summary (15 session averages). It is evidence of fit quality and run-to-run consistency, not a proof of generalization.</p></figure>
+<p>The sober fit uses a transparent random search rather than a heavy optimizer. This choice is important both scientifically and rhetorically. The fit should be described as calibration, not as proof of global optimization. The code perturbs a baseline regime across a limited set of global parameters and module overrides, especially for the thalamic gateway, default mode, and executive frontoparietal modules.</p>
+<p>The saved Stage 2 summary reports a small internal empirical cohort comprising fifteen paired subjects and sixty total resting runs. This bridge is the key reason the repository can make narrower empirical claims than narrative similarity alone, while still ruling out external or clinical validation claims.</p>
+<p>By the repository&#x27;s own loss function, this is a substantial reduction relative to the uncalibrated baseline. The best single-seed fitted metrics also move toward the placebo targets. For example, within-network stability reaches <code>0.2913</code>, cross-network communication reaches <code>0.1014</code>, entropy/diversity <code>0.8194</code>, and switching rate <code>0.2412</code>.</p>
+<p>However, a deeper reading of the same summary exposes an important weakness. The repository also records multi-seed mean and standard deviation for the best regime. Across five seeds, the same regime produces mean within-network stability <code>0.0962 +/- 0.0239</code>, mean cross-network communication <code>0.0420 +/- 0.0256</code>, mean entropy/diversity <code>0.9912 +/- 0.0072</code>, and mean switching rate <code>0.2623 +/- 0.0156</code>. In other words, the best single-seed fit is not stable across repeated stochastic realizations.</p>
+<p>This is one of the most important scientific findings in the repository. The calibration objective can discover a good-looking run, but the implied parameterization is not yet robust enough to support strong claims of identified sober dynamics. For defense purposes, this should be stated plainly. Stage 2 establishes that empirical anchoring is feasible and that the sober regime can be better aligned with placebo targets, but it does not yet establish a stable calibrated model in the stronger inferential sense.</p>
+<p>Subject-disjoint held-out validation has not yet been configured or performed for Stage 2/3; the current evidence remains calibration plus stochastic diagnostics.</p>
+          </div>
+        </article>
+        <article class="section" id="11-stage-3-perturbation-ranking-against-empirical-lsd-minus-placebo-deltas">
+          <div class="section-header">
+            <div class="section-meta">Section 13 of 23</div>
+            <h2>11. Stage 3: Perturbation Ranking Against Empirical LSD-minus-Placebo Deltas</h2>
+            <p class="section-summary">In the current evidence, the best-scoring perturbation family is less_hierarchical_constraint at strength 0.25. That result is directionally interesting in proxy-objective space, but it remains a weak macro-level hypothesis rather than a convincing mechanistic explanation.</p>
+          </div>
+
+          <div class="section-body">
+            <p>In the current evidence, the best-scoring perturbation family is <code>less_hierarchical_constraint</code> at strength <code>0.25</code>. That result is directionally interesting in proxy-objective space, but it remains a weak macro-level hypothesis rather than a convincing mechanistic explanation.</p>
+<p>Stage 3 is where the repository turns from calibration to explanatory testing. Given a fitted sober regime, the code applies four one-at-a-time perturbation families across a small strength grid:</p>
+<ul><li>more cross-talk</li><li>less hierarchical constraint</li><li>more stochasticity</li><li>lower switching barrier</li></ul>
+<p>The target is not a literature-averaged generic psychedelic signature. The target is the empirical LSD-minus-placebo delta extracted from the same Stage 2 pipeline. Under the current eight-module extraction, those empirical deltas are:</p>
+<ul><li>within-network stability: <code>+0.0661</code></li><li>cross-network communication: <code>+0.0741</code></li><li>thalamic coupling: <code>+0.1199</code></li><li>hierarchical compression: <code>+0.0541</code></li><li>entropy/diversity: <code>-0.0023</code></li><li>switching rate: <code>+0.0123</code></li><li>metastability proxy: <code>-0.0540</code></li><li>effective barrier proxy: <code>-0.1492</code></li></ul>
+<p>These values already reveal a critical interpretive challenge. When compared with the repository&#x27;s literature-style target configuration in <code>configs/targets/empirical_lsd_signatures.yaml</code>, three signs disagree with canonical expectations:</p>
+<ul><li>within-network stability is positive rather than negative</li><li>entropy/diversity is slightly negative rather than positive</li><li>metastability proxy is negative rather than positive</li></ul>
+<p>This means the mechanism-ranking problem is already constrained by a coarse empirical space that is only partly aligned with the broader literature. The repository acknowledges this in <code>docs/limitations.md</code>, and that acknowledgment is essential.</p>
+<p>The best one-shot Stage 3 perturbation family is <code>less_hierarchical_constraint</code> at strength <code>0.25</code>. The seed-panel robust best-scoring perturbation family is <code>more_cross_talk</code> at strength <code>0.10</code>. These rankings are directionally interesting, but they remain weak macro-level hypotheses rather than convincing mechanistic explanations.</p>
+<p>The current comparison also shows that sign mismatches remain for: <code>within_network_stability</code>, <code>entropy_diversity</code>, and <code>metastability_proxy</code>.</p>
+<p>When the best model delta is compared with the empirical delta, the weaknesses become obvious.</p>
+<ul><li>cross-network communication is overshot (<code>0.3543</code> model versus <code>0.0741</code> empirical)</li><li>thalamic coupling is overshot (<code>0.4203</code> model versus <code>0.1199</code> empirical)</li><li>hierarchical compression is overshot (<code>0.4498</code> model versus <code>0.0541</code> empirical)</li><li>switching rate has the wrong sign (<code>-0.1171</code> model versus <code>+0.0123</code> empirical)</li><li>metastability proxy has the wrong sign (<code>+0.0668</code> model versus <code>-0.0540</code> empirical)</li><li>effective barrier proxy is catastrophically mismatched (<code>+3.8678</code> model versus <code>-0.1492</code> empirical)</li></ul>
+<p>The correct thesis interpretation is therefore that Stage 3 produces a ranked hypothesis list inside a limited model family. It does not identify a convincing mechanism of LSD-related whole-brain change. The repository&#x27;s own report says as much, and that is scientifically appropriate.</p>
+          </div>
+        </article>
+        <article class="section" id="12-stage-4-ablation-and-pairwise-combination-analysis">
+          <div class="section-header">
+            <div class="section-meta">Section 14 of 23</div>
+            <h2>12. Stage 4: Ablation and Pairwise Combination Analysis</h2>
+            <p class="section-summary">The best current pairwise combination is less_hierarchical_constraint+lower_switching_barrier. The best single mechanism is lower_switching_barrier (score 5028.2029). The best pair is less_hierarchical_constraint+lower_switching_barrier (score 4819.2698), which outperformed the best single mechanism under the current objective; lower scores are better. This comparison is informative because it shows whether simple perturbation superposition helps under the current objective without turning that objective into a mechanistic claim.</p>
+          </div>
+
+          <div class="section-body">
+            <p>The best current pairwise combination is <code>less_hierarchical_constraint+lower_switching_barrier</code>. The best single mechanism is <code>lower_switching_barrier</code> (score 5028.2029). The best pair is <code>less_hierarchical_constraint+lower_switching_barrier</code> (score 4819.2698), which outperformed the best single mechanism under the current objective; lower scores are better. This comparison is informative because it shows whether simple perturbation superposition helps under the current objective without turning that objective into a mechanistic claim.</p>
+<p>Stage 4 extends Stage 3 by testing single mechanisms at their best available strengths and then testing pairwise combinations. This is the right next step in principle. If one mechanism is insufficient, perhaps a combination of reduced top-down constraint, increased noise, altered coupling, and weaker barriers could close the gap.</p>
+<p>The saved Stage 4 summary reports:</p>
+<ul><li>best single mechanism: <code>lower_switching_barrier</code></li><li>best single score: <code>5028.2029</code></li><li>best pairwise mechanism: <code>less_hierarchical_constraint+lower_switching_barrier</code></li><li>best pairwise score: <code>4819.2698</code></li></ul>
+<p>The report generator derives this comparison from <code>Stage4Evidence</code> rather than fixed prose. The machine-readable Stage 4 summary should remain the authoritative numerical source whenever narrative artifacts are regenerated.</p>
+<p>Substantively, Stage 4 still has value. Even a negative ablation result constrains the plausible explanation space. It suggests that the current simulator and current coarse metric extraction do not admit an easy rescue through simple perturbation superposition. That is useful information.</p>
+          </div>
+        </article>
+        <article class="section" id="13-dashboard-artifact-layer-and-communicability">
+          <div class="section-header">
+            <div class="section-meta">Section 15 of 23</div>
+            <h2>13. Dashboard, Artifact Layer, and Communicability</h2>
+            <p class="section-summary">The repository does more than compute numbers. It exposes the pipeline through a dashboard and a dense artifact layer. This is not trivial polish. It is part of the scientific contribution because it makes the model inspectable by people who are not comfortable reading Python source.</p>
+          </div>
+
+          <div class="section-body">
+            <p>The repository does more than compute numbers. It exposes the pipeline through a dashboard and a dense artifact layer. This is not trivial polish. It is part of the scientific contribution because it makes the model inspectable by people who are not comfortable reading Python source.</p>
+<p>The dashboard contains two viewers.</p>
+<ul><li>A model explorer for synthetic simulations, adjustable parameters, and FC or ablation outputs.</li><li>An empirical explorer for group-level placebo versus LSD summaries, paired subject/run inspection, windowed FC changes, module traces, and downsampled window-averaged preview slices.</li></ul>
+<p>The empirical viewer is especially valuable for a thesis defense because it closes the gap between raw downloaded volumes and model-facing metrics. The viewer exposes:</p>
+<ul><li>subject selection</li><li>run selection</li><li>aligned placebo versus LSD views</li><li>per-window previews of downsampled, plane-normalized fMRI-derived slices</li><li>per-window module traces</li><li>per-window FC matrices</li><li>group-level uncertainty bands and error bars</li><li>direct links to saved Stage 2 empirical figures and stage reports</li></ul>
+<p>This makes the repository useful as a communication artifact. A reviewer can inspect group means, then a paired subject, then a specific run, then a specific window, and then compare that with the metric summary files. The viewer should still be read as an exploratory proxy-data interface, not as a QC-complete neuroimaging browser.</p>
+<p>The limitations are explicitly stated in code and docs. The raw views are downsampled previews, not a clinical imaging viewer. The metric blocks are descriptive rather than inferential. The atlas mapping remains a proxy. Those caveats should be retained in any thesis presentation.</p>
+          </div>
+        </article>
+        <article class="section" id="14-training-dataset-export-and-auxiliary-benchmarking">
+          <div class="section-header">
+            <div class="section-meta">Section 16 of 23</div>
+            <h2>14. Training Dataset Export and Auxiliary Benchmarking</h2>
+            <p class="section-summary">The repository includes a secondary line of work that exports Stage 2 empirical windows into a training-ready dataset and benchmarks a few simple machine learning models. This branch does not replace the surrogate-model thesis. Instead, it asks whether the extracted windows contain enough structure to support auxiliary prediction tasks.</p>
+          </div>
+
+          <div class="section-body">
+            <p>The repository includes a secondary line of work that exports Stage 2 empirical windows into a training-ready dataset and benchmarks a few simple machine learning models. This branch does not replace the surrogate-model thesis. Instead, it asks whether the extracted windows contain enough structure to support auxiliary prediction tasks.</p>
+<p>The exported dataset <code>results/training/ds003059_windows.npz</code> records window arrays, condition labels for placebo versus LSD, subject/session/run identifiers, and enough shape information for downstream scripts to report current sample counts. This template avoids fixed window counts because they can change when window length, stride, subject subset, or extraction settings change.</p>
+<p>Evaluation uses leave-one-subject-out cross-validation through <code>LeaveOneGroupOut(subject)</code>, which is the right choice for avoiding subject leakage in a dataset this small.</p>
+<p>The condition-only benchmark compares logistic regression, histogram gradient boosting, and a small temporal CNN. The strongest current condition model is <code>temporal_cnn</code>. This is not a strong classification result in absolute terms, but it is enough to support a modest claim that the extracted macro windows contain usable condition signal.</p>
+<p>The multitask benchmark asks models to perform both condition classification and regression of the FC eigenspectrum of each window. The strongest current multitask model is <code>multitask_temporal_cnn</code>. This split result is intellectually interesting because it suggests that learned temporal features are helpful for condition discrimination, while explicit engineered FC geometry remains the stronger route to graph-level spectral targets. That aligns well with the broader surrogate philosophy of the repository. Transparent graph-informed features are still scientifically valuable and should not be assumed obsolete simply because a neural network is available.</p>
+<p>The cloud training scaffold under <code>cloud/hf_jobs/train_sequence_autoencoder.py</code> remains minimal. It is best understood as infrastructure for future experiments rather than as a mature scientific result.</p>
+          </div>
+        </article>
+        <article class="section" id="15-what-worked-well">
+          <div class="section-header">
+            <div class="section-meta">Section 17 of 23</div>
+            <h2>15. What Worked Well</h2>
+            <p class="section-summary">Several aspects of the repository are genuinely strong and should be defended confidently.</p>
+          </div>
+
+          <div class="section-body">
+            <p>Several aspects of the repository are genuinely strong and should be defended confidently.</p>
+<p>First, the repository has a coherent scientific architecture. It is not a collection of disconnected notebooks. It has a staged pipeline, typed models, saved summaries, an empirical data bridge, and a dashboard. This already places it above many exploratory research codebases.</p>
+<p>Second, the empirical path is real. The repository does not stop at literature-inspired targets. It queries OpenNeuro, downloads exact files, extracts module time series, constructs paired deltas, and records provenance. This is a meaningful accomplishment.</p>
+<p>Third, the codebase is operationally healthy, but this generated report intentionally avoids embedding a fixed test count or dated validation claim. Use the latest machine-readable validation record, CI result, or local verification transcript for the current number of tests, coverage, lint status, and type-check status.</p>
+<p>The system includes tests for simulator behavior, fit logic, perturbation logic, viewer caches, web integration, publication generation, and training helpers.</p>
+<p>Fourth, the project saves its outputs systematically. Every stage writes reports, figures, JSON summaries, and, in Stage 2, empirical target files and viewer caches. This makes the project much easier to review and defend.</p>
+<p>Fifth, the dashboard substantially strengthens interpretability. It is not merely decorative. It materially helps explain what the model is doing and how empirical targets are formed.</p>
+<p>Finally, the benchmark branch supports a useful auxiliary internal claim: the extracted macro windows contain limited condition-relevant signal under the current proxy extraction. It is not evidence of biological mechanism or external predictive validity.</p>
+          </div>
+        </article>
+        <article class="section" id="16-what-did-not-work-or-remains-scientifically-weak">
+          <div class="section-header">
+            <div class="section-meta">Section 18 of 23</div>
+            <h2>16. What Did Not Work or Remains Scientifically Weak</h2>
+            <p class="section-summary">The repository is strongest when it admits its current failures. Several weaknesses should be framed openly rather than defensively.</p>
+          </div>
+
+          <div class="section-body">
+            <p>The repository is strongest when it admits its current failures. Several weaknesses should be framed openly rather than defensively.</p>
+<p>The first weakness is the hand-designed altered-state-inspired perturbation in Stage 1. It does not produce a clean increase in cross-network integration, and it fails to increase dynamic FC change. This means the initial intuition was only partially successful.</p>
+<p>The second weakness is the empirical extraction itself. Under the current eight-module Harvard-Oxford proxy, several LSD-minus-placebo deltas do not align with literature-level expectations. This may reflect the coarseness of the mapping, the fact that the repository works in a custom observable space, the derivative nature of the dataset, or some combination of the three.</p>
+<p>The third weakness is calibration stability. Stage 2 records seed-disjoint selection and validation diagnostics, and the approved CV5 run adds subject-disjoint internal held-out evaluation under the same dataset and proxy extraction. Together, these reduce but do not remove dependence on stochastic seeds, split composition, and the current objective. The fitted regime should therefore be treated as a proxy calibration with preliminary internal validation, not as a stable external estimate.</p>
+<p>The fourth weakness is perturbation underexpression. Stage 3 does not find a perturbation family that convincingly matches the empirical delta profile. Even the best-scoring family overshoots some metrics, flips the sign of others, and fails badly on the effective barrier proxy.</p>
+<p>The fifth weakness is the lack of robust combination gains in Stage 4. Pairwise combinations do not solve the mismatch problem.</p>
+<p>The sixth weakness is reproducibility at the version-control level. The generated report intentionally avoids claiming a fixed commit state unless a machine-readable version stamp is present. This does not invalidate the results, but formal thesis archiving should still point to a stable exact revision and artifact snapshot.</p>
+<p>The seventh weakness is documentation drift. The experiment log contains older numbers, and the Stage 4 markdown report conflicts with the Stage 4 JSON summary. These are fixable issues, but they matter in a defense context because discrepancies between narrative and artifact invite avoidable questions.</p>
+<p>The eighth weakness is uneven test coverage. While the overall test suite is solid, coverage is weakest in precisely the areas that are most empirically delicate: <code>data/ds003059.py</code>, <code>perturbation.py</code>, <code>ablation.py</code>, and <code>training.py</code>.</p>
+          </div>
+        </article>
+        <article class="section" id="17-threats-to-validity">
+          <div class="section-header">
+            <div class="section-meta">Section 19 of 23</div>
+            <h2>17. Threats to Validity</h2>
+            <p class="section-summary">The central threats to validity fall into four categories: construct validity, internal validity, external validity, and reproducibility validity.</p>
+          </div>
+
+          <div class="section-body">
+            <p>The central threats to validity fall into four categories: construct validity, internal validity, external validity, and reproducibility validity.</p>
+<h3>17.1 Construct Validity</h3>
+<p>The observables in this repository are proxies. Within-network stability, switching rate, metastability, and effective barrier are operational summaries derived from clustering and FC calculations. They are not direct measurements of hidden neurobiological variables. Any thesis claim must preserve that distinction.</p>
+<h3>17.2 Internal Validity</h3>
+<p>The simulator is stochastic, and Stage 2 demonstrates meaningful sensitivity to seed variation. This threatens the stability of fitted parameter claims. In addition, the perturbation search grid is intentionally small, which means a failure to find a good match may reflect both model limitations and search limitations.</p>
+<h3>17.3 External Validity</h3>
+<p>The repository is anchored to one dataset and one coarse mapping. There is no cross-dataset validation against independent LSD or psilocybin cohorts. The model therefore cannot yet claim that its findings generalize beyond <code>ds003059</code>.</p>
+<h3>17.4 Reproducibility Validity</h3>
+<p>The repository saves artifacts extensively and passes local verification, which is a strength. However, formal reproducibility would benefit from a committed git revision, frozen artifact manifests, and an explicit archival snapshot for the thesis.</p>
+<p>These threats do not nullify the project. They define the appropriate strength of the thesis claims.</p>
+          </div>
+        </article>
+        <article class="section" id="18-defendable-thesis-claims-and-claims-to-avoid">
+          <div class="section-header">
+            <div class="section-meta">Section 20 of 23</div>
+            <h2>18. Defendable Thesis Claims and Claims to Avoid</h2>
+            <p class="section-summary">For defense purposes, it is helpful to separate claims that the repository clearly supports from claims that it does not support.</p>
+          </div>
+
+          <div class="section-body">
+            <p>For defense purposes, it is helpful to separate claims that the repository clearly supports from claims that it does not support.</p>
+<h3>18.1 Claims the Repository Supports</h3>
+<ul><li>The project implements a transparent graph-based surrogate model for macro-scale altered-state-inspired dynamics.</li><li>The project derives placebo and LSD-minus-placebo target summaries from a real public neuroimaging dataset rather than relying only on literature summaries.</li><li>The project demonstrates that placebo-derived calibration can better align a sober reference regime under the chosen objective.</li><li>The project demonstrates that the current model class and the current eight-module extraction are insufficient to reproduce the full empirical altered-state signature robustly.</li><li>The project provides a reproducible hypothesis-ranking and ablation environment for comparing perturbation families.</li><li>The exported empirical windows contain limited condition-relevant signal under subject-held-out evaluation in the current proxy space.</li><li>The ROCKET-style supporting classifier detects condition-relevant signal under leak-proof subject-disjoint evaluation (<code>approved CV5 subject-disjoint manifest</code>, primary unit <code>subject_session_run_aggregated_windows</code>; balanced accuracy <code>0.667 +/- 0.053</code>, ROC AUC <code>0.711 +/- 0.078</code>). This remains an internal proxy classification diagnostic, not receptor-level, clinical, subjective-experience, or external-validity evidence.</li></ul>
+<h3>18.2 Claims the Repository Does Not Support</h3>
+<ul><li>It does not show that LSD has been mechanistically simulated.</li><li>It does not show that the selected perturbation family is the true biological driver of psychedelic dynamics.</li><li>It does not show that subjective experience has been modeled.</li><li>It does not show that the eight-module mapping is the correct or canonical representation of whole-brain psychedelic organization.</li><li>It does not show that the best fit regime is a stable or unique parameter solution.</li></ul>
+<h3>18.3 Recommended Oral Defense Framing</h3>
+<p>The strongest defense framing is the following: this thesis built a transparent surrogate-modeling environment, connected it to real public data, and used that environment to identify both partial successes and hard failures. The scientific contribution is not only a candidate model. It is also the explicit demonstration that a simple, interpretable model class can only go so far under the current macro extraction, thereby clarifying which future directions are actually justified.</p>
+          </div>
+        </article>
+        <article class="section" id="19-reproducibility-verification-and-audit-trail">
+          <div class="section-header">
+            <div class="section-meta">Section 21 of 23</div>
+            <h2>19. Reproducibility, Verification, and Audit Trail</h2>
+            <p class="section-summary">The repository includes multiple layers of auditability.</p>
+          </div>
+
+          <div class="section-body">
+            <p>The repository includes multiple layers of auditability.</p>
+<ul><li>source code with typed configuration and explicit stage boundaries</li><li>saved stage reports under <code>docs/stage_reports/</code></li><li>saved summaries under <code>results/stage_<em>/stage_</em>_summary.json</code></li><li>empirical target YAML files under <code>results/stage_2/</code></li><li>raw-to-summary viewer caches under <code>results/stage_2/empirical_viewer/</code></li><li>benchmark summaries under <code>results/training/</code></li><li>leak-proof ROCKET diagnostic outputs under <code>results/training/rocket_condition_benchmark/</code>, with primary metrics aggregated to <code>subject_session_run_aggregated_windows</code> and <code>window_random_reporting=false</code></li></ul>
+<p>The main user-facing commands are also stable and documented.</p>
+<ul><li>install dependencies: <code>uv sync --extra dev</code></li><li>run full tests: <code>uv run pytest</code></li><li>lint: <code>uv run ruff check .</code></li><li>type check: <code>uv run mypy src</code></li><li>run staged pipeline: <code>uv run python scripts/run_pipeline.py run-all</code></li><li>run all stages plus benchmarks: <code>uv run python scripts/run_pipeline.py run-everything</code></li><li>launch dashboard: <code>uv run python scripts/run_dashboard.py</code></li></ul>
+<p>Current validation status should be read from the latest verification run rather than from fixed prose in this template. The intended validation commands are:</p>
+<ul><li><code>uv run pytest</code></li><li><code>uv run ruff check .</code></li><li><code>uv run mypy src</code></li></ul>
+<p>The largest reproducibility weakness is not operational failure. It is the absence of a recorded commit hash. The version-stamp utility correctly reports an unborn git state. Before formal submission, the repository should be committed and archived so that the thesis can refer to a stable exact revision.</p>
+          </div>
+        </article>
+        <article class="section" id="20-conclusion">
+          <div class="section-header">
+            <div class="section-meta">Section 22 of 23</div>
+            <h2>20. Conclusion</h2>
+            <p class="section-summary">Taken as a whole, this repository is a serious and defensible thesis artifact. Its value lies in the combination of transparency, empirical grounding, and honest negative results. The codebase implements a full pipeline from public dataset to surrogate model, from surrogate model to fitted sober regime, from fitted regime to perturbation ranking, and from those rankings to saved artifacts and auxiliary benchmarks.</p>
+          </div>
+
+          <div class="section-body">
+            <p>Taken as a whole, this repository is a serious and defensible thesis artifact. Its value lies in the combination of transparency, empirical grounding, and honest negative results. The codebase implements a full pipeline from public dataset to surrogate model, from surrogate model to fitted sober regime, from fitted regime to perturbation ranking, and from those rankings to saved artifacts and auxiliary benchmarks.</p>
+<p>The central conclusion is not that psychedelic whole-brain dynamics have been explained. The central conclusion is that a simple graph-based surrogate framework can be made empirically accountable, and that under the current eight-module extraction it only partially succeeds. Some altered-state-like signatures are captured, some are not, and the current best-fitting parameterization is still unstable across seeds. That is a scientifically useful outcome because it constrains the next iteration of modeling rather than merely postponing the question.</p>
+<p>If defended carefully, this thesis can be presented as a strong piece of transparent computational neuroscience infrastructure plus a cautious empirical finding: the current macro-scale surrogate framework is plausible enough to study, rich enough to fail informatively, and explicit enough to tell us exactly where the next research effort must go. That is already a worthwhile thesis contribution.</p>
+          </div>
+        </article>
+        <article class="section" id="references">
+          <div class="section-header">
+            <div class="section-meta">Section 23 of 23</div>
+            <h2>References</h2>
+          </div>
+
+          <div class="section-body">
+            <h3>External References</h3>
+<ul><li>Carhart-Harris, R. L., Muthukumaraswamy, S., Roseman, L., Kaelen, M., Droog, W., Murphy, K., Tagliazucchi, E., Schenberg, E. E., Nest, T., Orban, C., Leech, R., Williams, L. T., Williams, T. M., Bolstridge, M., Sessa, B., McGonigle, J., Sereno, M. I., Nichols, D., Hellyer, P. J., Hobden, P., Evans, J., Singh, K. D., Wise, R. G., Curran, H. V., Feilding, A., and Nutt, D. J. (2016). Neural correlates of the LSD experience revealed by multimodal neuroimaging. <em>Proceedings of the National Academy of Sciences</em>, 113(17), 4853-4858. DOI: <code>10.1073/pnas.1518377113</code>.</li><li>Carhart-Harris, R. L., Roseman, L., Bolstridge, M., Demetriou, L., Pannekoek, J. N., Wall, M. B., Tanner, M., Kaelen, M., McGonigle, J., Murphy, K., Leech, R., Curran, H. V., and Nutt, D. J. (2016). The effects of LSD on whole-brain functional connectivity. <em>Current Biology</em>, 26(8), 1043-1050. DOI: <code>10.1016/j.cub.2016.02.010</code>.</li><li>Gorgolewski, K. J., Auer, T., Calhoun, V. D., Craddock, R. C., Das, S., Duff, E. P., Flandin, G., Ghosh, S. S., Glatard, T., Halchenko, Y. O., Handwerker, D. A., Hanke, M., Keator, D., Li, X., Michael, Z., Maumet, C., Nichols, B. N., Nichols, T. E., Pellman, J., Poline, J.-B., Rokem, A., Schaefer, G., Sochat, V., Triplett, W., Turner, J. A., Varoquaux, G., and Poldrack, R. A. (2016). The brain imaging data structure, a format for organizing and describing outputs of neuroimaging experiments. <em>Scientific Data</em>, 3, 160044. DOI: <code>10.1038/sdata.2016.44</code>.</li><li>Markiewicz, C. J., Gorgolewski, K. J., Feingold, F., Blair, R., Halchenko, Y. O., Miller, E., Hardcastle, N., Wexler, J., Esteban, O., Goncavles, M., Jwa, A., Poldrack, R. A., and Ghosh, S. (2021). OpenNeuro: An open resource for sharing of neuroimaging data. <em>Nature Neuroscience</em>, 24, 1455-1457. DOI: <code>10.1038/s41593-021-00974-6</code>.</li><li>OpenNeuro. (accessed 2026-04-15). Dataset <code>ds003059</code>, version <code>1.0.0</code>. URL: <code>https://openneuro.org/datasets/ds003059/versions/1.0.0</code>. Dataset DOI: <code>10.18112/openneuro.ds003059.v1.0.0</code>.</li><li>FSL and FSLeyes atlas documentation. Harvard-Oxford cortical and subcortical atlases as distributed through FSL and accessed in this project via Nilearn atlas fetchers. URL consulted: <code>https://pages.fmrib.ox.ac.uk/fsl/fsleyes/fsleyes/userdoc/atlases.html</code>.</li></ul>
+<h3>Internal Repository Artifacts Consulted</h3>
+<ul><li><code>README.md</code></li><li><code>SPEC.md</code></li><li><code>AGENTS.md</code></li><li><code>docs/architecture.md</code></li><li><code>docs/limitations.md</code></li><li><code>docs/next_steps.md</code></li><li><code>docs/experiment_log.md</code></li><li><code>docs/stage_reports/stage_1.md</code></li><li><code>docs/stage_reports/stage_2.md</code></li><li><code>docs/stage_reports/stage_3.md</code></li><li><code>docs/stage_reports/stage_4.md</code></li><li><code>docs/multitask_benchmark_conclusions.md</code></li><li><code>results/stage_1/stage_1_summary.json</code></li><li><code>results/stage_2/stage_2_summary.json</code></li><li><code>results/stage_2/empirical_sober_targets.yaml</code></li><li><code>results/stage_2/empirical_perturbation_targets.yaml</code></li><li><code>results/stage_2/empirical_run_summaries.json</code></li><li><code>results/stage_3/stage_3_summary.json</code></li><li><code>results/stage_4/stage_4_summary.json</code></li><li><code>results/training/condition_benchmark/comparison_summary.json</code></li><li><code>results/training/multitask_benchmark/comparison_summary.json</code></li><li><code>results/training/rocket_condition_benchmark/comparison_summary.json</code></li><li><code>results/training/rocket_condition_benchmark/benchmark_report.md</code></li><li><code>data/ds003059/dataset_description.json</code></li><li><code>data/ds003059/README</code></li></ul>
+          </div>
+        </article>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

@@ -1,130 +1,20 @@
 {
   "schema_version": "ds006072_minimum_payload_plan.v1",
-  "generated_at_utc": "2026-05-31T07:31:48.488172+00:00",
+  "generated_at_utc": "2026-05-31T08:16:15.271227+00:00",
   "dataset_id": "ds006072",
-  "analysis_status": "minimum_validation_payloads_local_ready_for_extraction",
+  "analysis_status": "blocked_insufficient_downloadable_primary_pairs",
   "minimum_subjects_required": 3,
-  "candidate_comparable_subject_count": 7,
-  "selected_subject_count": 3,
-  "selected_local_ready_subject_count": 3,
-  "selected_subjects": [
-    {
-      "subject": "P1",
-      "conditions": [
-        "active_control_mtp",
-        "psilocybin"
-      ],
-      "planned_file_count": 2,
-      "total_size_bytes": 1088440416,
-      "local_payload_ready": true
-    },
-    {
-      "subject": "P2",
-      "conditions": [
-        "active_control_mtp",
-        "psilocybin"
-      ],
-      "planned_file_count": 2,
-      "total_size_bytes": 1088440128,
-      "local_payload_ready": true
-    },
-    {
-      "subject": "P3",
-      "conditions": [
-        "active_control_mtp",
-        "psilocybin"
-      ],
-      "planned_file_count": 2,
-      "total_size_bytes": 901285432,
-      "local_payload_ready": true
-    }
-  ],
-  "selected_files": [
-    {
-      "subject": "P1",
-      "condition": "active_control_mtp",
-      "session_id": "P1_Drug1",
-      "session_suffix": "Drug1",
-      "filename": "sub-1_Drug1_rsfMRI_uout_bpss_sr_noGSR_sm4.dtseries.nii",
-      "relative_path": "NON_BIDS/ciftis/sub-1_Drug1_rsfMRI_uout_bpss_sr_noGSR_sm4.dtseries.nii",
-      "url": "https://s3.amazonaws.com/openneuro.org/ds006072/NON_BIDS/ciftis/sub-1_Drug1_rsfMRI_uout_bpss_sr_noGSR_sm4.dtseries.nii?versionId=U0lSfEZJGpTmNNt9hzRwldFOI.Jt4C_g",
-      "size_bytes": 544220208,
-      "local_path": "data/ds006072/NON_BIDS/ciftis/sub-1_Drug1_rsfMRI_uout_bpss_sr_noGSR_sm4.dtseries.nii",
-      "local_file_ready": true,
-      "local_size_bytes": 544220208
-    },
-    {
-      "subject": "P1",
-      "condition": "psilocybin",
-      "session_id": "P1_Drug2",
-      "session_suffix": "Drug2",
-      "filename": "sub-1_Drug2_rsfMRI_uout_bpss_sr_noGSR_sm4.dtseries.nii",
-      "relative_path": "NON_BIDS/ciftis/sub-1_Drug2_rsfMRI_uout_bpss_sr_noGSR_sm4.dtseries.nii",
-      "url": "https://s3.amazonaws.com/openneuro.org/ds006072/NON_BIDS/ciftis/sub-1_Drug2_rsfMRI_uout_bpss_sr_noGSR_sm4.dtseries.nii?versionId=J6xn3qvorrjmnOanmVFWi.6Txm.FZRsX",
-      "size_bytes": 544220208,
-      "local_path": "data/ds006072/NON_BIDS/ciftis/sub-1_Drug2_rsfMRI_uout_bpss_sr_noGSR_sm4.dtseries.nii",
-      "local_file_ready": true,
-      "local_size_bytes": 544220208
-    },
-    {
-      "subject": "P2",
-      "condition": "active_control_mtp",
-      "session_id": "P2_Drug2",
-      "session_suffix": "Drug2",
-      "filename": "sub-2_Drug2_rsfMRI_uout_bpss_sr_noGSR_sm4.dtseries.nii",
-      "relative_path": "NON_BIDS/ciftis/sub-2_Drug2_rsfMRI_uout_bpss_sr_noGSR_sm4.dtseries.nii",
-      "url": "https://s3.amazonaws.com/openneuro.org/ds006072/NON_BIDS/ciftis/sub-2_Drug2_rsfMRI_uout_bpss_sr_noGSR_sm4.dtseries.nii?versionId=tu86jTAheftVOPWad.IRYId3jIOT4IZZ",
-      "size_bytes": 544220064,
-      "local_path": "data/ds006072/NON_BIDS/ciftis/sub-2_Drug2_rsfMRI_uout_bpss_sr_noGSR_sm4.dtseries.nii",
-      "local_file_ready": true,
-      "local_size_bytes": 544220064
-    },
-    {
-      "subject": "P2",
-      "condition": "psilocybin",
-      "session_id": "P2_Drug1",
-      "session_suffix": "Drug1",
-      "filename": "sub-2_Drug1_rsfMRI_uout_bpss_sr_noGSR_sm4.dtseries.nii",
-      "relative_path": "NON_BIDS/ciftis/sub-2_Drug1_rsfMRI_uout_bpss_sr_noGSR_sm4.dtseries.nii",
-      "url": "https://s3.amazonaws.com/openneuro.org/ds006072/NON_BIDS/ciftis/sub-2_Drug1_rsfMRI_uout_bpss_sr_noGSR_sm4.dtseries.nii?versionId=N9XNIVO6rsPm8o1gC0B.NsFBuJHuImK7",
-      "size_bytes": 544220064,
-      "local_path": "data/ds006072/NON_BIDS/ciftis/sub-2_Drug1_rsfMRI_uout_bpss_sr_noGSR_sm4.dtseries.nii",
-      "local_file_ready": true,
-      "local_size_bytes": 544220064
-    },
-    {
-      "subject": "P3",
-      "condition": "active_control_mtp",
-      "session_id": "P3_Drug1",
-      "session_suffix": "Drug1",
-      "filename": "sub-3_Drug1_rsfMRI_uout_bpss_sr_noGSR_sm4.dtseries.nii",
-      "relative_path": "NON_BIDS/ciftis/sub-3_Drug1_rsfMRI_uout_bpss_sr_noGSR_sm4.dtseries.nii",
-      "url": "https://s3.amazonaws.com/openneuro.org/ds006072/NON_BIDS/ciftis/sub-3_Drug1_rsfMRI_uout_bpss_sr_noGSR_sm4.dtseries.nii?versionId=AFkiN0U61vywr9kuuFHdRcv9nowqzeTv",
-      "size_bytes": 357065368,
-      "local_path": "data/ds006072/NON_BIDS/ciftis/sub-3_Drug1_rsfMRI_uout_bpss_sr_noGSR_sm4.dtseries.nii",
-      "local_file_ready": true,
-      "local_size_bytes": 357065368
-    },
-    {
-      "subject": "P3",
-      "condition": "psilocybin",
-      "session_id": "P3_Drug2",
-      "session_suffix": "Drug2",
-      "filename": "sub-3_Drug2_rsfMRI_uout_bpss_sr_noGSR_sm4.dtseries.nii",
-      "relative_path": "NON_BIDS/ciftis/sub-3_Drug2_rsfMRI_uout_bpss_sr_noGSR_sm4.dtseries.nii",
-      "url": "https://s3.amazonaws.com/openneuro.org/ds006072/NON_BIDS/ciftis/sub-3_Drug2_rsfMRI_uout_bpss_sr_noGSR_sm4.dtseries.nii?versionId=kJJC0NRVbiIRhvCAMab85XkTt81VSjzW",
-      "size_bytes": 544220064,
-      "local_path": "data/ds006072/NON_BIDS/ciftis/sub-3_Drug2_rsfMRI_uout_bpss_sr_noGSR_sm4.dtseries.nii",
-      "local_file_ready": true,
-      "local_size_bytes": 544220064
-    }
-  ],
-  "selected_file_count": 6,
-  "selected_total_size_bytes": 3078165976,
-  "minimum_payload_plan_ready": true,
-  "minimum_payloads_local_ready": true,
+  "candidate_comparable_subject_count": 0,
+  "selected_subject_count": 0,
+  "selected_local_ready_subject_count": 0,
+  "selected_subjects": [],
+  "selected_files": [],
+  "selected_file_count": 0,
+  "selected_total_size_bytes": 0,
+  "minimum_payload_plan_ready": false,
+  "minimum_payloads_local_ready": false,
   "data_root": "data/ds006072",
-  "blocker": "Minimum paired ds006072 processed CIFTI payloads are local. Run the extraction writer, then unchanged scoring.",
+  "blocker": "The local ds006072 manifests do not identify enough downloadable paired psilocybin/MTP processed CIFTIs.",
   "next_commands": [
     ".\\.venv\\Scripts\\python.exe scripts\\build_ds006072_payload_plan.py",
     ".\\.venv\\Scripts\\python.exe scripts\\build_ds006072_payload_plan.py --execute",
@@ -136,7 +26,7 @@
     "Write results/psilocybin_ds006072/empirical_viewer/subject_views/*.json using ses-PLCB for MTP and ses-LSD for psilocybin.",
     "Run the unchanged ds003059 dynamic-mechanism scoring code without retuning."
   ],
-  "claim_status": "minimum_payloads_local_ready_not_yet_extracted",
+  "claim_status": "not_ready_for_external_validation",
   "claim_guardrail": "This is a concrete acquisition bridge for external validation. It is not a psilocybin replication result until the selected payloads are local, empirical-viewer records are written, and unchanged scoring is applied.",
   "download_execute_requested": false,
   "downloaded_files": []

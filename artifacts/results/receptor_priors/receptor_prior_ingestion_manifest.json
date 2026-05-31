@@ -1,0 +1,22 @@
+{
+  "schema_version": "external_ingestion.v1",
+  "kind": "receptor_prior",
+  "generated_at_utc": "2026-05-27T14:18:28.504103+00:00",
+  "source_csv": "D:\\LSD_Thesis\\results\\external_ingestion\\hansen_receptors\\fs5ht_5ht2a_macro_modules_raw.csv",
+  "copied_source": "results/receptor_priors/source_fs5ht_5ht2a_macro_modules_raw.csv",
+  "output_path": "results/receptor_priors/fs5ht_5ht2a_macro_modules.csv",
+  "provenance": "hansen_receptors_schaefer100_5ht2a_pet_projection",
+  "normalization": "min_max_0_1_within_supplied_module_vector",
+  "module_count": 8,
+  "modules": [
+    "visual",
+    "auditory",
+    "salience",
+    "default_mode",
+    "executive_frontoparietal",
+    "limbic_affective",
+    "thalamic_gateway",
+    "sensorimotor"
+  ],
+  "claim_guardrail": "This validates and imports a PET-derived receptor-prior vector for sensitivity analysis. It remains a parcellation-level prior, not receptor pharmacology or subjective-experience evidence."
+}

@@ -1,0 +1,5 @@
+pair_count,parcellation_id,status,subject_count,summary_path,top_layer
+30,schaefer_100_yeo_7,implemented_mechanism_ranking,15,results/parcellation_sensitivity/schaefer_100_yeo_7/summary.json,C
+30,schaefer_200_yeo_7,implemented_mechanism_ranking,15,results/parcellation_sensitivity/schaefer_200_yeo_7/summary.json,C
+30,schaefer_100_yeo_17,implemented_mechanism_ranking,15,results/parcellation_sensitivity/schaefer_100_yeo_17/summary.json,C
+30,schaefer_200_yeo_17,implemented_mechanism_ranking,15,results/parcellation_sensitivity/schaefer_200_yeo_17/summary.json,C
