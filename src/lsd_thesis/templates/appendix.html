@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Appendix | {{ payload.project.title }}</title>
+  {% include "site_styles.html" %}
+</head>
+<body>
+  <header class="topbar">
+    <nav class="nav" aria-label="Primary">
+      <a class="brand" href="{{ links.home }}">LSD<span>_Thesis</span></a>
+      <div class="nav-links">
+        <a href="{{ links.home }}">Pitch</a>
+        <a href="{{ links.thesis }}">Thesis story</a>
+        <a href="{{ links.dashboard }}">Evidence dashboard</a>
+        <a href="{{ links.methods }}">Methods</a>
+        <a href="{{ links.appendix }}" aria-current="page">Appendix</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="shell">
+    <section class="hero">
+      <div>
+        <p class="eyebrow">Reproducible archive surface</p>
+        <h1>Artifacts, not raw data.</h1>
+        <p class="lede">This page indexes the derived reports, figures, and status files copied into the static GitHub Pages snapshot.</p>
+      </div>
+      <aside class="panel">
+        <span class="tag">Public boundary</span>
+        <p>Raw datasets, local caches, credentials, and private machine paths are not part of this archive.</p>
+      </aside>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2>Priority reports</h2>
+        <p>Start here when explaining the project to a PI.</p>
+      </div>
+      <div class="card-grid">
+        {% for link in payload.appendix.priority_reports %}
+        <article class="card">
+          <a href="{{ link.href | replace('/artifacts/', artifact_prefix) }}">{{ link.label }}</a>
+        </article>
+        {% endfor %}
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2>All derived artifacts</h2>
+        <p>{{ payload.appendix.all_artifacts | length }} links are exposed by the current payload.</p>
+      </div>
+      <div class="artifact-list">
+        {% for item in payload.appendix.all_artifacts %}
+        <div class="artifact-row">
+          <a href="{{ item.href | replace('/artifacts/', artifact_prefix) }}">{{ item.label }}</a>
+          <span>{{ item.kind }}</span>
+        </div>
+        {% endfor %}
+      </div>
+    </section>
+  </main>
+</body>
+</html>

@@ -10,6 +10,8 @@ from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
+from jinja2 import Environment, FileSystemLoader, select_autoescape
+
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SRC_ROOT = REPO_ROOT / "src"
 SCRIPTS_ROOT = REPO_ROOT / "scripts"
@@ -20,7 +22,6 @@ for path in (SRC_ROOT, SCRIPTS_ROOT):
 # ruff: noqa: E402
 from build_publication_package import build_publication_package
 from export_thesis_loop_tables import export_thesis_loop_tables
-from plotly.offline import get_plotlyjs
 
 from lsd_thesis.confound_controls import write_motion_confound_control_status
 from lsd_thesis.cortical_maps import write_cortical_map_alignment_status
@@ -35,7 +36,7 @@ from lsd_thesis.published_motion_qc import write_published_motion_qc_status
 from lsd_thesis.setting_seed.motion import write_motion_outputs
 from lsd_thesis.thesis_upgrade import write_thesis_upgrade_status
 from lsd_thesis.thesis_loop import build_thesis_evidence_loop
-from lsd_thesis.web.app import build_dashboard_payload
+from lsd_thesis.web.site_payload import build_public_site_payload, build_route_links
 
 STATIC_FAVICON_TAG = '<link rel="icon" href="data:,">'
 
@@ -171,7 +172,7 @@ def _copy_dashboard_linked_artifacts(repo_root: Path, site: Path, dashboard_payl
 
 
 def _published_artifact_paths(outputs: dict[str, Path], site: Path) -> list[str]:
-    excluded = {"index", "dashboard", "dashboard_data", "dashboard_plotly"}
+    excluded = {"index", "thesis", "dashboard", "methods", "appendix", "dashboard_data"}
     paths: list[str] = []
     for key, path in outputs.items():
         if key in excluded:
@@ -183,34 +184,82 @@ def _published_artifact_paths(outputs: dict[str, Path], site: Path) -> list[str]
     return sorted(set(paths))
 
 
-def _write_static_dashboard(repo_root: Path, site: Path) -> dict[str, Path | list[str]]:
+def _template_environment(repo_root: Path) -> Environment:
+    return Environment(
+        loader=FileSystemLoader(str(repo_root / "src" / "lsd_thesis" / "templates")),
+        autoescape=select_autoescape(("html", "xml")),
+    )
+
+
+def _render_static_template(
+    environment: Environment,
+    template_name: str,
+    payload: dict[str, Any],
+    *,
+    depth: int,
+    artifact_prefix: str,
+    data_url: str = "dashboard/dashboard-data.json",
+) -> str:
+    html = environment.get_template(template_name).render(
+        payload=payload,
+        links=build_route_links(static=True, depth=depth),
+        artifact_prefix=artifact_prefix,
+        data_url=data_url,
+    )
+    return _with_static_favicon(html)
+
+
+def _write_static_public_site(repo_root: Path, site: Path) -> dict[str, Path | list[str]]:
     dashboard_dir = site / "dashboard"
     dashboard_dir.mkdir(parents=True, exist_ok=True)
-    payload = build_dashboard_payload(repo_root)
+    payload = build_public_site_payload(repo_root)
+    environment = _template_environment(repo_root)
+
     dashboard_data = dashboard_dir / "dashboard-data.json"
     dashboard_data.write_text(json.dumps(payload, indent=2), encoding="utf-8")
-    dashboard_html = dashboard_dir / "index.html"
-    template_path = repo_root / "src" / "lsd_thesis" / "templates" / "dashboard.html"
-    dashboard_html.write_text(_static_dashboard_html(template_path), encoding="utf-8")
+
     root_html = site / "index.html"
+    thesis_html = site / "thesis.html"
+    dashboard_html = dashboard_dir / "index.html"
+    methods_html = site / "methods.html"
+    appendix_html = site / "appendix.html"
+
     root_html.write_text(
-        _static_dashboard_html(
-            template_path,
-            plotly_src="dashboard/assets/plotly.min.js",
-            dashboard_data_src="dashboard/dashboard-data.json",
-            artifact_prefix="artifacts/",
+        _render_static_template(environment, "public_site.html", payload, depth=0, artifact_prefix="artifacts/"),
+        encoding="utf-8",
+    )
+    thesis_html.write_text(
+        _render_static_template(environment, "thesis_story.html", payload, depth=0, artifact_prefix="artifacts/"),
+        encoding="utf-8",
+    )
+    dashboard_html.write_text(
+        _render_static_template(
+            environment,
+            "evidence_dashboard.html",
+            payload,
+            depth=1,
+            artifact_prefix="../artifacts/",
+            data_url="dashboard-data.json",
         ),
         encoding="utf-8",
     )
-    plotly_asset = dashboard_dir / "assets" / "plotly.min.js"
-    plotly_asset.parent.mkdir(parents=True, exist_ok=True)
-    plotly_asset.write_text(get_plotlyjs(), encoding="utf-8")
+    methods_html.write_text(
+        _render_static_template(environment, "methods_reproducibility.html", payload, depth=0, artifact_prefix="artifacts/"),
+        encoding="utf-8",
+    )
+    appendix_html.write_text(
+        _render_static_template(environment, "appendix.html", payload, depth=0, artifact_prefix="artifacts/"),
+        encoding="utf-8",
+    )
+
     copied_artifacts = _copy_dashboard_linked_artifacts(repo_root, site, payload)
     return {
         "index": root_html,
+        "thesis": thesis_html,
         "dashboard": dashboard_html,
         "dashboard_data": dashboard_data,
-        "dashboard_plotly": plotly_asset,
+        "methods": methods_html,
+        "appendix": appendix_html,
         "dashboard_artifacts": copied_artifacts,
     }
 
@@ -238,8 +287,8 @@ def build_github_pages_site(repo_root: Path = REPO_ROOT, site_dir: Path | None =
     outputs: dict[str, Path] = {}
 
     optional_files = {
-        "thesis": (Path(publication_outputs["thesis_microsite_html"]), site / "thesis.html"),
-        "defense": (Path(publication_outputs["defense_presentation_html"]), site / "defense.html"),
+        "thesis_microsite": (Path(publication_outputs["thesis_microsite_html"]), site / "artifacts" / "thesis_microsite.html"),
+        "defense": (Path(publication_outputs["defense_presentation_html"]), site / "artifacts" / "defense_presentation.html"),
         "report_markdown": (Path(publication_outputs["thesis_report_markdown"]), site / "artifacts" / "thesis_report_revised.md"),
         "claim_matrix_csv": (
             repo_root / "results" / "thesis_evidence_loop" / "claim_evidence_matrix.csv",
@@ -289,9 +338,9 @@ def build_github_pages_site(repo_root: Path = REPO_ROOT, site_dir: Path | None =
     )
     if psilocybin_ds006072 is not None:
         outputs["psilocybin_ds006072"] = psilocybin_ds006072
-    dashboard_outputs = _write_static_dashboard(repo_root, site)
-    outputs.update({key: value for key, value in dashboard_outputs.items() if isinstance(value, Path)})
-    dashboard_artifacts = dashboard_outputs.get("dashboard_artifacts", [])
+    public_site_outputs = _write_static_public_site(repo_root, site)
+    outputs.update({key: value for key, value in public_site_outputs.items() if isinstance(value, Path)})
+    dashboard_artifacts = public_site_outputs.get("dashboard_artifacts", [])
 
     manifest = {
         "generated_at_utc": datetime.now(UTC).isoformat(),
@@ -301,9 +350,10 @@ def build_github_pages_site(repo_root: Path = REPO_ROOT, site_dir: Path | None =
         ),
         "entrypoints": {
             "index": "index.html",
-            "thesis": "thesis.html" if "thesis" in outputs else None,
-            "defense": "defense.html" if "defense" in outputs else None,
+            "thesis": "thesis.html",
             "dashboard": "dashboard/index.html",
+            "methods": "methods.html",
+            "appendix": "appendix.html",
         },
         "artifacts": sorted(
             set(_published_artifact_paths(outputs, site))

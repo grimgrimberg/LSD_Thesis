@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Evidence dashboard | {{ payload.project.title }}</title>
+  {% include "site_styles.html" %}
+</head>
+<body>
+  <header class="topbar">
+    <nav class="nav" aria-label="Primary">
+      <a class="brand" href="{{ links.home }}">LSD<span>_Thesis</span></a>
+      <div class="nav-links">
+        <a href="{{ links.home }}">Pitch</a>
+        <a href="{{ links.thesis }}">Thesis story</a>
+        <a href="{{ links.dashboard }}" aria-current="page">Evidence dashboard</a>
+        <a href="{{ links.methods }}">Methods</a>
+        <a href="{{ links.appendix }}">Appendix</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="shell">
+    <section class="hero">
+      <div>
+        <p class="eyebrow">Interactive evidence surface</p>
+        <h1>Show the gate before the claim.</h1>
+        <p class="lede">{{ payload.project.one_sentence_claim }}</p>
+      </div>
+      <aside class="panel">
+        <span class="tag">Conservative framing</span>
+        <p>The receptor, myelin, gradient, and structural-connectome panels are exploratory priors until stronger spatial-null and external-validation gates pass.</p>
+      </aside>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2>Claim Status</h2>
+        <p>Inline uncertainty fields are shown for every available strict requirement.</p>
+      </div>
+      <div id="status-grid" class="status-grid" aria-live="polite"></div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2>Mechanism family gates</h2>
+        <p>q-value + FDR significance + CI overlap with zero are displayed where the current artifact reports them, and marked not reported otherwise.</p>
+      </div>
+      <div id="claim-grid" class="status-grid"></div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2>Artifact search</h2>
+        <p>Search derived artifacts only. Raw datasets and private local caches are intentionally excluded.</p>
+      </div>
+      <div class="panel">
+        <div class="artifact-controls">
+          <input id="artifact-search" type="search" placeholder="Search claim, motion, rocket, neuromaps, psilocybin...">
+          <button class="secondary" type="button" data-filter="all">All</button>
+          <button class="secondary" type="button" data-filter="reports">Reports</button>
+          <button class="secondary" type="button" data-filter="figures">Figures</button>
+        </div>
+        <div id="artifact-list" class="artifact-list"></div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const PUBLIC_SITE_DATA_URL = {{ data_url | tojson }};
+    const ARTIFACT_PREFIX = {{ artifact_prefix | tojson }};
+    let activeArtifactFilter = 'all';
+    let publicPayload = null;
+
+    function escapeText(value) {
+      return String(value ?? '').replace(/[&<>"']/g, character => ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#39;'
+      }[character]));
+    }
+
+    function artifactHref(href) {
+      if (!href) return '#';
+      if (href.startsWith('/artifacts/')) {
+        return `${ARTIFACT_PREFIX}${href.slice('/artifacts/'.length)}`;
+      }
+      return href;
+    }
+
+    async function loadPayload() {
+      if (publicPayload) return publicPayload;
+      const response = await fetch(PUBLIC_SITE_DATA_URL, { headers: { 'Accept': 'application/json' } });
+      if (!response.ok) throw new Error(`Could not load public-site data: ${response.status}`);
+      publicPayload = await response.json();
+      return publicPayload;
+    }
+
+    function renderStatusCards(payload) {
+      const grid = document.getElementById('status-grid');
+      grid.innerHTML = '';
+      (payload.dashboard?.status_cards || []).forEach(card => {
+        const node = document.createElement('article');
+        node.className = 'status-card';
+        node.innerHTML = `
+          <span class="tag">${escapeText(card.label)}</span>
+          <strong>${escapeText(card.value)}</strong>
+          <small>${escapeText(card.detail)}</small>
+        `;
+        grid.appendChild(node);
+      });
+    }
+
+    function renderClaimCards(payload) {
+      const grid = document.getElementById('claim-grid');
+      grid.innerHTML = '';
+      const cards = payload.claim_ladder?.requirements || [];
+      if (!cards.length) {
+        grid.innerHTML = '<article class="status-card"><strong>No strict requirement table found.</strong><small>Rebuild thesis-upgrade artifacts to populate this panel.</small></article>';
+        return;
+      }
+      cards.forEach(card => {
+        const node = document.createElement('article');
+        node.className = 'status-card';
+        node.innerHTML = `
+          <span class="tag">${escapeText(card.status)}</span>
+          <strong>${escapeText(card.title)}</strong>
+          <small>q-value: ${escapeText(card.q_value)} | FDR pass: ${escapeText(card.fdr_pass)} | CI: ${escapeText(card.ci)} | CI crosses zero: ${escapeText(card.ci_crosses_zero)}</small>
+          <p>${escapeText(card.evidence)}</p>
+          <small>Next action: ${escapeText(card.next_action)}</small>
+        `;
+        grid.appendChild(node);
+      });
+    }
+
+    function renderArtifacts(payload) {
+      const list = document.getElementById('artifact-list');
+      const query = document.getElementById('artifact-search').value.trim().toLowerCase();
+      const artifacts = payload.appendix?.all_artifacts || [];
+      const filtered = artifacts.filter(item => {
+        const haystack = `${item.kind || ''} ${item.label || ''} ${item.href || ''}`.toLowerCase();
+        const filterOk = activeArtifactFilter === 'all' || item.kind === activeArtifactFilter;
+        return filterOk && (!query || haystack.includes(query));
+      }).slice(0, 60);
+      list.innerHTML = '';
+      if (!filtered.length) {
+        list.innerHTML = '<p>No matching derived artifact found.</p>';
+        return;
+      }
+      filtered.forEach(item => {
+        const row = document.createElement('div');
+        row.className = 'artifact-row';
+        row.innerHTML = `<a href="${artifactHref(item.href)}">${escapeText(item.label)}</a><span>${escapeText(item.kind)}</span>`;
+        list.appendChild(row);
+      });
+    }
+
+    async function main() {
+      const payload = await loadPayload();
+      renderStatusCards(payload);
+      renderClaimCards(payload);
+      renderArtifacts(payload);
+      document.getElementById('artifact-search').addEventListener('input', () => renderArtifacts(payload));
+      document.querySelectorAll('[data-filter]').forEach(button => {
+        button.addEventListener('click', () => {
+          activeArtifactFilter = button.dataset.filter || 'all';
+          renderArtifacts(payload);
+        });
+      });
+    }
+
+    main().catch(error => {
+      document.getElementById('status-grid').innerHTML = `<article class="status-card"><strong>Dashboard data failed to load.</strong><small>${escapeText(error.message)}</small></article>`;
+    });
+  </script>
+</body>
+</html>
