@@ -285,6 +285,9 @@ def build_github_pages_site(repo_root: Path = REPO_ROOT, site_dir: Path | None =
     write_thesis_upgrade_status(repo_root)
 
     outputs: dict[str, Path] = {}
+    nojekyll = site / ".nojekyll"
+    nojekyll.write_text("", encoding="utf-8")
+    outputs["nojekyll"] = nojekyll
 
     optional_files = {
         "thesis_microsite": (Path(publication_outputs["thesis_microsite_html"]), site / "artifacts" / "thesis_microsite.html"),
@@ -320,6 +323,18 @@ def build_github_pages_site(repo_root: Path = REPO_ROOT, site_dir: Path | None =
     figures = _copy_tree(repo_root / "output" / "doc" / "figures", site / "figures")
     if figures is not None:
         outputs["figures"] = figures
+    doc_bundle = _copy_tree(repo_root / "output" / "doc", site / "artifacts" / "output" / "doc")
+    if doc_bundle is not None:
+        outputs["doc_bundle"] = doc_bundle
+    dynamic_mechanism = _copy_tree(
+        repo_root / "results" / "dynamic_mechanism_ranking",
+        site / "artifacts" / "results" / "dynamic_mechanism_ranking",
+    )
+    if dynamic_mechanism is not None:
+        outputs["dynamic_mechanism"] = dynamic_mechanism
+    stage2_figures = _copy_tree(repo_root / "results" / "stage_2" / "figures", site / "artifacts" / "results" / "stage_2" / "figures")
+    if stage2_figures is not None:
+        outputs["stage2_figures"] = stage2_figures
     cortical_maps = _copy_tree(repo_root / "results" / "cortical_maps", site / "artifacts" / "results" / "cortical_maps")
     if cortical_maps is not None:
         outputs["cortical_maps"] = cortical_maps
@@ -338,6 +353,29 @@ def build_github_pages_site(repo_root: Path = REPO_ROOT, site_dir: Path | None =
     )
     if psilocybin_ds006072 is not None:
         outputs["psilocybin_ds006072"] = psilocybin_ds006072
+    receptor_priors = _copy_tree(repo_root / "results" / "receptor_priors", site / "artifacts" / "results" / "receptor_priors")
+    if receptor_priors is not None:
+        outputs["receptor_priors"] = receptor_priors
+    structural_connectome = _copy_tree(
+        repo_root / "results" / "structural_connectome", site / "artifacts" / "results" / "structural_connectome"
+    )
+    if structural_connectome is not None:
+        outputs["structural_connectome"] = structural_connectome
+    parcellation_sensitivity = _copy_tree(
+        repo_root / "results" / "parcellation_sensitivity", site / "artifacts" / "results" / "parcellation_sensitivity"
+    )
+    if parcellation_sensitivity is not None:
+        outputs["parcellation_sensitivity"] = parcellation_sensitivity
+    literature_benchmark = _copy_tree(
+        repo_root / "results" / "literature_benchmark", site / "artifacts" / "results" / "literature_benchmark"
+    )
+    if literature_benchmark is not None:
+        outputs["literature_benchmark"] = literature_benchmark
+    reproducible_archive = _copy_tree(
+        repo_root / "results" / "reproducible_archive", site / "artifacts" / "results" / "reproducible_archive"
+    )
+    if reproducible_archive is not None:
+        outputs["reproducible_archive"] = reproducible_archive
     public_site_outputs = _write_static_public_site(repo_root, site)
     outputs.update({key: value for key, value in public_site_outputs.items() if isinstance(value, Path)})
     dashboard_artifacts = public_site_outputs.get("dashboard_artifacts", [])

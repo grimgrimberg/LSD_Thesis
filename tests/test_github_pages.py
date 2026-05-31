@@ -98,6 +98,7 @@ def test_build_github_pages_site_makes_pitch_story_dashboard_methods_and_appendi
     assert outputs["methods"] == tmp_path / "_site" / "methods.html"
     assert outputs["appendix"] == tmp_path / "_site" / "appendix.html"
     assert (tmp_path / "_site" / "dashboard" / "dashboard-data.json").exists()
+    assert (tmp_path / "_site" / ".nojekyll").exists()
     assert "dashboard-data.json" in (tmp_path / "_site" / "dashboard" / "index.html").read_text(encoding="utf-8")
     assert '<link rel="icon" href="data:,">' in (tmp_path / "_site" / "index.html").read_text(encoding="utf-8")
     assert (tmp_path / "_site" / "artifacts" / "claim_evidence_matrix.csv").exists()
