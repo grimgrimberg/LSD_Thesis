@@ -50,6 +50,12 @@ def _payload() -> dict:
             ],
         },
         "methods": {
+            "local_runtime": {
+                "static_boundary": "GitHub Pages is static and cannot run backend API features.",
+                "local_boundary": "The local FastAPI app can call /api/dashboard-data, /api/simulate, and /api/empirical-view.",
+                "features": ["Interactive simulation", "Subject viewer"],
+                "command": "uv run python scripts/run_dashboard.py",
+            },
             "pipeline_steps": ["Raw fMRI", "Dynamic features"],
             "limitations": ["8-module layer is for explanation"],
             "controls": ["Subject-disjoint CV"],
@@ -85,6 +91,23 @@ def test_public_site_templates_render_pitch_and_defense_language(template_name: 
     html = _render(template_name)
 
     assert required_text in html
+
+
+def test_static_templates_do_not_link_to_backend_only_local_route() -> None:
+    for template_name in (
+        "public_site.html",
+        "thesis_story.html",
+        "evidence_dashboard.html",
+        "methods_reproducibility.html",
+        "appendix.html",
+    ):
+        html = _render(template_name)
+        assert 'href="/local-dashboard"' not in html
+        assert "methods.html#local-dashboard" in html
+
+    methods_html = _render("methods_reproducibility.html")
+    assert "GitHub Pages is static" in methods_html
+    assert "/api/simulate" in methods_html
 
 
 def test_evidence_dashboard_inline_javascript_passes_node_syntax_check(tmp_path: Path) -> None:

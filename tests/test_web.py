@@ -4,6 +4,7 @@ from pathlib import Path
 from types import SimpleNamespace
 
 import numpy as np
+from fastapi.testclient import TestClient
 
 from lsd_thesis.graph import load_graph_config
 from lsd_thesis.simulator import load_regime_config
@@ -13,6 +14,7 @@ from lsd_thesis.web.app import (
     _resolve_artifact_path,
     build_dashboard_payload,
     build_simulation_payload,
+    create_app,
     load_empirical_viewer_detail,
     load_empirical_viewer_overview,
 )
@@ -802,3 +804,49 @@ def test_dashboard_inline_javascript_passes_node_syntax_check(tmp_path: Path) ->
     )
 
     assert result.returncode == 0, result.stderr
+
+
+def test_local_dashboard_route_keeps_backend_interactive_features_available() -> None:
+    client = TestClient(create_app())
+
+    response = client.get("/local-dashboard")
+
+    assert response.status_code == 200
+    assert "fetchJson('/api/dashboard-data')" in response.text
+    assert "/api/simulate" in response.text
+    assert "/api/empirical-view" in response.text
+    assert "Static GitHub Pages build" not in response.text
+
+
+def test_public_dashboard_route_links_to_local_dashboard_without_serving_legacy_shell(monkeypatch) -> None:
+    monkeypatch.setattr(
+        "lsd_thesis.web.app.build_public_site_payload",
+        lambda repo_root: {
+            "generated_at_utc": "2026-05-31T00:00:00+00:00",
+            "project": {
+                "title": "Fixture",
+                "one_sentence_claim": "Fixture claim",
+                "guardrail": "Fixture guardrail",
+            },
+            "methods": {
+                "local_runtime": {
+                    "static_boundary": "GitHub Pages is static.",
+                    "local_boundary": "Local FastAPI can call /api/simulate.",
+                    "features": ["Simulation"],
+                    "command": "uv run python scripts/run_dashboard.py",
+                }
+            },
+            "claim_ladder": {"requirements": [], "tiers": [], "primary_claim": "Fixture claim"},
+            "dashboard": {"status_cards": []},
+            "appendix": {"all_artifacts": [], "priority_reports": []},
+            "pitch": {"why_now": [], "pi_fit": []},
+        },
+    )
+    client = TestClient(create_app())
+
+    response = client.get("/dashboard")
+
+    assert response.status_code == 200
+    assert 'href="/local-dashboard"' in response.text
+    assert "Backend-only features" in response.text
+    assert "fetchJson('/api/dashboard-data')" not in response.text

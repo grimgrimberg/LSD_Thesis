@@ -1,6 +1,6 @@
 {
   "schema_version": "neuromaps_spatial_null_status.v1",
-  "generated_at_utc": "2026-05-31T08:16:15.239063+00:00",
+  "generated_at_utc": "2026-05-31T08:25:17.682004+00:00",
   "analysis_status": "blocked_missing_neuromaps_surface_input_manifest",
   "spatial_autocorrelation_nulls_complete": false,
   "partial_spatial_autocorrelation_nulls_complete": false,

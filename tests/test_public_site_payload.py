@@ -53,6 +53,8 @@ def test_public_site_payload_separates_claim_tiers_and_uncertainty_fields(tmp_pa
 
     assert payload["project"]["one_sentence_claim"].startswith("This project tests whether LSD-like")
     assert payload["dashboard"]["status_cards"][0]["value"] == "1/2 strict gates"
+    assert payload["methods"]["local_runtime"]["route"] == "/local-dashboard"
+    assert "/api/simulate" in payload["methods"]["local_runtime"]["local_boundary"]
     assert payload["claim_ladder"]["requirements"][0]["status"] == "supported_now"
     assert payload["claim_ladder"]["requirements"][0]["q_value"] == "0.04"
     assert payload["claim_ladder"]["requirements"][1]["status"] == "not_supported_yet"
@@ -62,5 +64,8 @@ def test_public_site_payload_separates_claim_tiers_and_uncertainty_fields(tmp_pa
 
 def test_public_site_route_links_static_and_local() -> None:
     assert build_route_links(static=False)["dashboard"] == "/dashboard"
+    assert build_route_links(static=False)["local_dashboard"] == "/local-dashboard"
     assert build_route_links(static=True, depth=0)["methods"] == "methods.html"
+    assert build_route_links(static=True, depth=0)["local_dashboard"] == "methods.html#local-dashboard"
     assert build_route_links(static=True, depth=1)["appendix"] == "../appendix.html"
+    assert build_route_links(static=True, depth=1)["local_dashboard"] == "../methods.html#local-dashboard"

@@ -14,6 +14,7 @@
         <a href="{{ links.home }}">Pitch</a>
         <a href="{{ links.thesis }}">Thesis story</a>
         <a href="{{ links.dashboard }}">Evidence dashboard</a>
+        <a href="{{ links.local_dashboard }}">Local full dashboard</a>
         <a href="{{ links.methods }}" aria-current="page">Methods</a>
         <a href="{{ links.appendix }}">Appendix</a>
       </div>
@@ -31,6 +32,24 @@
         <span class="tag">Plain-language DTI framing</span>
         <p>DTI-derived structural connectivity is used like a wiring-map prior: it asks whether anatomy could constrain dynamics. It is not a raw scan viewer and does not prove drug effects.</p>
       </aside>
+    </section>
+
+    <section class="section">
+      <div class="section-head" id="local-dashboard">
+        <h2>Local full dashboard</h2>
+        <p>{{ payload.methods.local_runtime.static_boundary }}</p>
+      </div>
+      <div class="panel">
+        <span class="tag">Run locally</span>
+        <h3>{{ payload.methods.local_runtime.command }}</h3>
+        <p>{{ payload.methods.local_runtime.local_boundary }}</p>
+        <ul class="plain-list">
+          {% for feature in payload.methods.local_runtime.features %}
+          <li>{{ feature }}</li>
+          {% endfor %}
+        </ul>
+        <a class="button" href="{{ links.local_dashboard }}">Open the local full dashboard route</a>
+      </div>
     </section>
 
     <section class="section">

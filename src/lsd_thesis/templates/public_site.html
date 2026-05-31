@@ -14,6 +14,7 @@
         <a href="{{ links.home }}" aria-current="page">Pitch</a>
         <a href="{{ links.thesis }}">Thesis story</a>
         <a href="{{ links.dashboard }}">Evidence dashboard</a>
+        <a href="{{ links.local_dashboard }}">Local full dashboard</a>
         <a href="{{ links.methods }}">Methods</a>
         <a href="{{ links.appendix }}">Appendix</a>
       </div>
@@ -29,6 +30,7 @@
         <p>{{ payload.project.guardrail }}</p>
         <div class="artifact-controls">
           <a class="button" href="{{ links.dashboard }}">Open the evidence dashboard</a>
+          <a class="button secondary" href="{{ links.local_dashboard }}">Local-only full dashboard</a>
           <a class="button secondary" href="{{ links.thesis }}">Read the thesis story</a>
         </div>
       </div>
@@ -80,6 +82,19 @@
           </ul>
         </article>
         {% endfor %}
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2>Why the public site is intentionally smaller</h2>
+        <p>{{ payload.methods.local_runtime.static_boundary }}</p>
+      </div>
+      <div class="panel">
+        <span class="tag">Local backend route</span>
+        <h3>{{ payload.methods.local_runtime.title }}</h3>
+        <p>{{ payload.methods.local_runtime.local_boundary }}</p>
+        <a class="button" href="{{ links.local_dashboard }}">Open or learn how to run it</a>
       </div>
     </section>
 

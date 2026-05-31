@@ -196,6 +196,7 @@ def build_route_links(*, static: bool, depth: int = 0) -> dict[str, str]:
             "home": "/",
             "thesis": "/thesis",
             "dashboard": "/dashboard",
+            "local_dashboard": "/local-dashboard",
             "methods": "/methods",
             "appendix": "/appendix",
         }
@@ -204,6 +205,7 @@ def build_route_links(*, static: bool, depth: int = 0) -> dict[str, str]:
         "home": f"{prefix}index.html",
         "thesis": f"{prefix}thesis.html",
         "dashboard": f"{prefix}dashboard/",
+        "local_dashboard": f"{prefix}methods.html#local-dashboard",
         "methods": f"{prefix}methods.html",
         "appendix": f"{prefix}appendix.html",
     }
@@ -279,6 +281,25 @@ def build_public_site_payload(
             "source_dashboard_key_count": len(dashboard_payload),
         },
         "methods": {
+            "local_runtime": {
+                "title": "Local full dashboard",
+                "route": "/local-dashboard",
+                "command": "uv run python scripts/run_dashboard.py",
+                "static_boundary": (
+                    "GitHub Pages is static: it can show the pitch, claim gates, and derived artifacts, "
+                    "but it cannot run simulations or subject-level API calls."
+                ),
+                "local_boundary": (
+                    "The local FastAPI dashboard can call /api/dashboard-data, /api/simulate, "
+                    "and /api/empirical-view, so backend-only simulation and empirical viewer features live there."
+                ),
+                "features": [
+                    "Interactive perturbation simulation controls",
+                    "Subject/run empirical viewer calls",
+                    "Plotly-heavy model and fMRI diagnostic panels",
+                    "Local artifact serving through the guarded /artifacts route",
+                ],
+            },
             "pipeline_steps": [
                 "Raw/derived fMRI inputs and provenance manifests",
                 "Preprocessing/cache and quality-control gates",

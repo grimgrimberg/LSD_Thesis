@@ -1490,6 +1490,16 @@ def create_app() -> FastAPI:
     async def public_dashboard() -> HTMLResponse:
         return _public_site_html("evidence_dashboard.html")
 
+    @app.get("/local-dashboard", response_class=HTMLResponse)
+    @app.get("/local-dashboard/", response_class=HTMLResponse)
+    @app.get("/dashboard/full", response_class=HTMLResponse)
+    @app.get("/dashboard/full/", response_class=HTMLResponse)
+    async def local_dashboard() -> HTMLResponse:
+        html = (REPO_ROOT / "src" / "lsd_thesis" / "templates" / "dashboard.html").read_text(
+            encoding="utf-8"
+        )
+        return HTMLResponse(html, headers=_dashboard_security_headers())
+
     @app.get("/methods", response_class=HTMLResponse)
     @app.get("/methods.html", response_class=HTMLResponse)
     async def methods() -> HTMLResponse:

@@ -14,6 +14,7 @@
         <a href="{{ links.home }}">Pitch</a>
         <a href="{{ links.thesis }}">Thesis story</a>
         <a href="{{ links.dashboard }}" aria-current="page">Evidence dashboard</a>
+        <a href="{{ links.local_dashboard }}">Local full dashboard</a>
         <a href="{{ links.methods }}">Methods</a>
         <a href="{{ links.appendix }}">Appendix</a>
       </div>
@@ -30,6 +31,8 @@
       <aside class="panel">
         <span class="tag">Conservative framing</span>
         <p>The receptor, myelin, gradient, and structural-connectome panels are exploratory priors until stronger spatial-null and external-validation gates pass.</p>
+        <p>{{ payload.methods.local_runtime.static_boundary }}</p>
+        <a class="button secondary" href="{{ links.local_dashboard }}">Backend-only features</a>
       </aside>
     </section>
 
