@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at_utc": "2026-05-29T21:07:49.533415+00:00",
+  "generated_at_utc": "2026-05-31T07:04:28.968193+00:00",
   "analysis_status": "implemented_loop_status_artifacts",
   "status_rows": [
     {
@@ -60,7 +60,7 @@
     },
     "psilocybin_ds006072": {
       "schema_version": 1,
-      "generated_at_utc": "2026-05-29T21:07:30.995339+00:00",
+      "generated_at_utc": "2026-05-31T07:03:59.602252+00:00",
       "dataset_id": "ds006072",
       "source": "OpenNeuro ds006072, Scientific Data 2025 psilocybin precision imaging dataset",
       "local_data_root": "data/ds006072",
@@ -74,7 +74,7 @@
       "functional_manifest_processed_cifti_total_size_bytes": 113592893360,
       "external_validation_readiness": {
         "schema_version": "ds006072_external_validation.v1",
-        "generated_at_utc": "2026-05-29T20:52:29.712551+00:00",
+        "generated_at_utc": "2026-05-29T21:07:31.822895+00:00",
         "dataset_id": "ds006072",
         "analysis_status": "local_cifti_payloads_ready_for_comparable_extraction",
         "primary_contrast": "psilocybin_vs_active_control_mtp",
@@ -145,7 +145,7 @@
       "summary": {
         "schema_version": 3,
         "analysis_status": "implemented_first_pass",
-        "generated_at_utc": "2026-05-29T21:07:32.598757+00:00",
+        "generated_at_utc": "2026-05-31T07:04:02.606774+00:00",
         "inference_metadata": {
           "metric_ci_alpha": 0.05,
           "metric_bootstrap_iterations": 1024,
@@ -2525,7 +2525,7 @@
       },
       "comparable_empirical_validation": {
         "schema_version": "ds006072_external_validation.v1",
-        "generated_at_utc": "2026-05-29T21:07:31.849556+00:00",
+        "generated_at_utc": "2026-05-31T07:04:01.237560+00:00",
         "dataset_id": "ds006072",
         "primary_contrast": "psilocybin_vs_active_control_mtp",
         "viewer_root": "results/psilocybin_ds006072/empirical_viewer",
@@ -2641,7 +2641,7 @@
         "summary": {
           "schema_version": 3,
           "analysis_status": "implemented_first_pass",
-          "generated_at_utc": "2026-05-29T21:07:32.598757+00:00",
+          "generated_at_utc": "2026-05-31T07:04:02.606774+00:00",
           "inference_metadata": {
             "metric_ci_alpha": 0.05,
             "metric_bootstrap_iterations": 1024,
@@ -5031,7 +5031,7 @@
     },
     "structural_connectome": {
       "schema_version": 1,
-      "generated_at_utc": "2026-05-29T21:07:33.419829+00:00",
+      "generated_at_utc": "2026-05-31T07:04:05.868159+00:00",
       "artifact_target": "results/structural_connectome",
       "expected_graph_files": [
         "results/structural_connectome/hcp_macro_modules.csv",
@@ -8465,7 +8465,7 @@
     },
     "receptor_priors": {
       "schema_version": 1,
-      "generated_at_utc": "2026-05-29T21:07:34.895554+00:00",
+      "generated_at_utc": "2026-05-31T07:04:07.747200+00:00",
       "artifact_target": "results/receptor_priors",
       "expected_prior_files": [
         "results/receptor_priors/fs5ht_5ht2a_macro_modules.csv",
@@ -11899,7 +11899,7 @@
     },
     "parcellation_sensitivity": {
       "schema_version": 1,
-      "generated_at_utc": "2026-05-29T21:07:35.624425+00:00",
+      "generated_at_utc": "2026-05-31T07:04:09.528138+00:00",
       "analysis_status": "implemented_status_matrix",
       "rows": [
         {
@@ -12082,7 +12082,7 @@
     },
     "literature_benchmark": {
       "schema_version": 1,
-      "generated_at_utc": "2026-05-29T21:07:49.527338+00:00",
+      "generated_at_utc": "2026-05-31T07:04:28.952305+00:00",
       "analysis_status": "implemented_directional_proxy_benchmark",
       "aligned_count": 4,
       "measurable_count": 6,
