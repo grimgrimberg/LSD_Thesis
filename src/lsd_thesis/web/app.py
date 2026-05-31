@@ -1457,6 +1457,7 @@ def create_app() -> FastAPI:
             links=build_route_links(static=False),
             artifact_prefix="/artifacts/",
             data_url=data_url,
+            deployment_mode="local",
         )
         return HTMLResponse(html, headers=_dashboard_security_headers())
 

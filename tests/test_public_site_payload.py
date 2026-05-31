@@ -53,6 +53,8 @@ def test_public_site_payload_separates_claim_tiers_and_uncertainty_fields(tmp_pa
 
     assert payload["project"]["one_sentence_claim"].startswith("This project tests whether LSD-like")
     assert payload["dashboard"]["status_cards"][0]["value"] == "1/2 strict gates"
+    assert payload["dashboard"]["viewer_modes"][0]["title"] == "Public/static dashboard"
+    assert payload["pitch"]["meeting_script"][0].startswith("Start with the one-sentence claim")
     assert payload["methods"]["local_runtime"]["route"] == "/local-dashboard"
     assert "/api/simulate" in payload["methods"]["local_runtime"]["local_boundary"]
     assert payload["claim_ladder"]["requirements"][0]["status"] == "supported_now"

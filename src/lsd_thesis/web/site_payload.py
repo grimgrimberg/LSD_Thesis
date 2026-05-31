@@ -240,6 +240,19 @@ def build_public_site_payload(
             ),
         },
         "pitch": {
+            "meeting_script": [
+                "Start with the one-sentence claim: altered transition/control dynamics versus generic noise, motion, or static connectivity.",
+                "Show the claim ladder so the PI sees what is supported now versus proxy, exploratory, or blocked.",
+                "Open the evidence dashboard and point to q-value, FDR, CI, and claim-status fields before interpreting any mechanism.",
+                "End with falsification: motion controls, Schaefer/Yeo spatial nulls, subject-disjoint CV, or psilocybin replication can downgrade the claim.",
+            ],
+            "what_to_open": [
+                {"label": "Pitch homepage", "why": "sets the project frame and audience"},
+                {"label": "Thesis story", "why": "separates strong claims from exploratory priors"},
+                {"label": "Evidence dashboard", "why": "shows claim gates and searchable artifacts"},
+                {"label": "Methods", "why": "shows confounds, parcellation limits, and local-only features"},
+                {"label": "Appendix", "why": "keeps reproducible derived artifacts one click away"},
+            ],
             "why_now": [
                 "The project connects AI time-series benchmarking, control theory, perception, and psychedelic neuroscience in one inspectable pipeline.",
                 "The defendable unit is macro-dynamics: transitions, coupling, stability, uncertainty gates, and falsification tests.",
@@ -258,6 +271,26 @@ def build_public_site_payload(
         },
         "dashboard": {
             "status_cards": _status_cards(dashboard_payload),
+            "viewer_modes": [
+                {
+                    "title": "Public/static dashboard",
+                    "route": "/dashboard/",
+                    "works": "Claim status, q/FDR/CI fields, methods links, and derived artifact search.",
+                    "does_not_work": "Live simulation, subject-level fMRI preview calls, and local artifact mutation.",
+                },
+                {
+                    "title": "Local clean dashboard",
+                    "route": "/dashboard",
+                    "works": "The same clean dashboard, backed by local FastAPI JSON.",
+                    "does_not_work": "Public sharing unless the server is running on your machine.",
+                },
+                {
+                    "title": "Local full dashboard",
+                    "route": "/local-dashboard",
+                    "works": "Simulation controls, empirical subject/run explorer, full Plotly diagnostics, and guarded local artifact serving.",
+                    "does_not_work": "GitHub Pages hosting, because it requires the FastAPI backend.",
+                },
+            ],
             "primary_panels": [
                 {
                     "title": "What the project tests",

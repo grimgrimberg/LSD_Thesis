@@ -32,8 +32,29 @@
         <span class="tag">Conservative framing</span>
         <p>The receptor, myelin, gradient, and structural-connectome panels are exploratory priors until stronger spatial-null and external-validation gates pass.</p>
         <p>{{ payload.methods.local_runtime.static_boundary }}</p>
+        {% if deployment_mode == "local" %}
         <a class="button secondary" href="{{ links.local_dashboard }}">Backend-only features</a>
+        {% else %}
+        <a class="button secondary" href="{{ links.methods }}#local-dashboard">Backend-only feature guide</a>
+        {% endif %}
       </aside>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2>What works where</h2>
+        <p>This prevents the public site from looking broken: backend-only controls live in the local FastAPI dashboard.</p>
+      </div>
+      <div class="status-grid">
+        {% for mode in payload.dashboard.viewer_modes %}
+        <article class="status-card">
+          <span class="tag">{{ mode.route }}</span>
+          <strong>{{ mode.title }}</strong>
+          <small>Works: {{ mode.works }}</small>
+          <small>Does not work: {{ mode.does_not_work }}</small>
+        </article>
+        {% endfor %}
+      </div>
     </section>
 
     <section class="section">

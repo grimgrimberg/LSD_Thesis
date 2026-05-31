@@ -48,7 +48,11 @@
           <li>{{ feature }}</li>
           {% endfor %}
         </ul>
+        {% if deployment_mode == "local" %}
         <a class="button" href="{{ links.local_dashboard }}">Open the local full dashboard route</a>
+        {% else %}
+        <p class="callout">On the public GitHub Pages site this is intentionally not a live backend link. Start the local server, then open <strong>{{ payload.methods.local_runtime.route }}</strong>.</p>
+        {% endif %}
       </div>
     </section>
 

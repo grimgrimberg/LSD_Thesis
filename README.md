@@ -1,6 +1,12 @@
-# Whole-Brain Surrogate Model MVP
+# LSD Thesis Macro-Dynamics Pitch
 
-This repository builds a small, transparent surrogate model for altered-state-inspired whole-brain dynamics.
+This repository is a data-science and engineering pitch for a master's thesis idea:
+
+> Test whether LSD-like empirical macro-dynamics are better explained by altered transition/control dynamics than by generic noise, motion, or static connectivity changes.
+
+The project has two audiences:
+- **Developer mode:** run the local FastAPI dashboard and inspect the full backend-driven analysis.
+- **PI pitch mode:** open the public GitHub Pages site and walk through the claim ladder, methods, limitations, and derived artifacts without needing raw data or a live server.
 
 Plain English:
 - it is a toy whole-brain simulator with 8 big brain modules
@@ -9,6 +15,43 @@ Plain English:
 - it is not a receptor model
 - it is not a model of subjective experience
 - it is not a claim that the code is simulating "what LSD feels like"
+
+## Start Here For A PI Pitch
+
+Public site:
+
+- `https://grimgrimberg.github.io/LSD_Thesis/`
+
+Use this order in a meeting:
+
+1. **Pitch homepage:** the one-sentence claim and why this is a data-science/engineering project.
+2. **Thesis story:** what is supported now, proxy-supported, exploratory, or blocked/future work.
+3. **Evidence dashboard:** claim status, uncertainty fields, FDR/CI visibility, and artifact search.
+4. **Methods:** motion/confounds, parcellation limits, external validation status, and local-dashboard boundary.
+5. **Appendix:** derived artifacts only; no raw private data is published.
+
+The shortest honest framing:
+
+> This is a conservative macro-dynamics surrogate project. It is strong as a PI pitch and thesis proposal because it has a real empirical anchor, leak-proof validation scaffolding, explicit claim gates, and visible negative results. It is not yet a completed neuroscience thesis or receptor-level mechanism proof.
+
+## What Works Where
+
+| Surface | URL / command | What works there | What does not work there |
+| --- | --- | --- | --- |
+| Public pitch site | `https://grimgrimberg.github.io/LSD_Thesis/` | PI story, claim ladder, methods, static dashboard, derived artifacts | Live simulation, subject-level API calls, raw-data viewing |
+| Public evidence dashboard | `https://grimgrimberg.github.io/LSD_Thesis/dashboard/` | Claim Status, q/FDR/CI fields where available, artifact search | FastAPI-only simulation and empirical subject picker |
+| Local clean dashboard | `uv run python scripts/run_dashboard.py`, then `http://127.0.0.1:8000/dashboard` | Same clean dashboard, backed by local FastAPI JSON | Public sharing unless the server is running on your machine |
+| Local full dashboard | `http://127.0.0.1:8000/local-dashboard` | Legacy full interactive model explorer, simulation controls, empirical viewer, local artifact serving | Suitable for a live demo, not GitHub Pages |
+
+If something interactive does not work on GitHub Pages, that is expected: GitHub Pages is a static host. The backend-only features are intentionally available only through the local FastAPI dashboard.
+
+## What Is Actually Proven Right Now
+
+- The public site is a static derived-artifact snapshot.
+- The local dashboard has a separate backend route for interactive features.
+- The project keeps receptor/myelin/gradient/structural-connectome layers as exploratory priors unless stronger gates pass.
+- Motion/confound handling, external psilocybin validation, high-resolution parcellation, and full spatial-null testing remain explicit thesis gates.
+- Negative or not-supported-yet results are part of the evidence story, not hidden failures.
 
 ## If You Know Nothing, Start Here
 
@@ -204,7 +247,12 @@ This runs:
 uv run python scripts/run_dashboard.py
 ```
 
-Then open `http://127.0.0.1:8000/`.
+Then open:
+
+- `http://127.0.0.1:8000/` for the local pitch homepage
+- `http://127.0.0.1:8000/dashboard` for the clean local evidence dashboard
+- `http://127.0.0.1:8000/local-dashboard` for the full backend-only interactive dashboard
+- `http://127.0.0.1:8000/dashboard/full` as an alias for the full dashboard
 
 ### 8. One-command build plus dashboard
 
@@ -250,7 +298,21 @@ If a PDF export is generated separately in your local environment, keep it along
 
 ## What The Dashboard Now Shows
 
-There are two different viewers in the same page:
+There are two dashboard modes:
+
+1. **Clean evidence dashboard**
+- local route: `/dashboard`
+- public route: `/dashboard/`
+- purpose: PI pitch, claim status, uncertainty gates, artifact search
+- limitation: static GitHub Pages cannot call local APIs
+
+2. **Full local dashboard**
+- local route: `/local-dashboard`
+- alias: `/dashboard/full`
+- purpose: backend-driven simulation controls, empirical subject/run explorer, full Plotly-heavy diagnostics
+- limitation: requires `uv run python scripts/run_dashboard.py`
+
+Inside the full local dashboard there are two different viewers:
 
 1. **Model explorer**
 - the synthetic surrogate simulation

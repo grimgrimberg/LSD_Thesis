@@ -87,6 +87,36 @@
 
     <section class="section">
       <div class="section-head">
+        <h2>Five-minute meeting script</h2>
+        <p>Use this when pitching the project to a PI who has not seen the repo before.</p>
+      </div>
+      <div class="card-grid">
+        {% for item in payload.pitch.meeting_script %}
+        <article class="card">
+          <span class="tag">Pitch step</span>
+          <p>{{ item }}</p>
+        </article>
+        {% endfor %}
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2>What to open</h2>
+        <p>This keeps the demo linear instead of jumping through plots and files.</p>
+      </div>
+      <div class="card-grid">
+        {% for item in payload.pitch.what_to_open %}
+        <article class="card">
+          <span class="tag">{{ item.label }}</span>
+          <p>{{ item.why }}</p>
+        </article>
+        {% endfor %}
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
         <h2>Why the public site is intentionally smaller</h2>
         <p>{{ payload.methods.local_runtime.static_boundary }}</p>
       </div>
@@ -94,7 +124,12 @@
         <span class="tag">Local backend route</span>
         <h3>{{ payload.methods.local_runtime.title }}</h3>
         <p>{{ payload.methods.local_runtime.local_boundary }}</p>
+        {% if deployment_mode == "local" %}
         <a class="button" href="{{ links.local_dashboard }}">Open or learn how to run it</a>
+        {% else %}
+        <p class="callout">On GitHub Pages this is documentation only. Run <strong>{{ payload.methods.local_runtime.command }}</strong>, then open <strong>{{ payload.methods.local_runtime.route }}</strong> locally.</p>
+        <a class="button secondary" href="{{ links.methods }}#local-dashboard">Read local setup</a>
+        {% endif %}
       </div>
     </section>
 

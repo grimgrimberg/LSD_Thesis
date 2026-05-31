@@ -22,12 +22,22 @@ def _payload() -> dict:
             "guardrail": "This is a conservative surrogate-analysis site.",
         },
         "pitch": {
+            "meeting_script": ["Start with the one-sentence claim."],
+            "what_to_open": [{"label": "Evidence dashboard", "why": "shows claim gates"}],
             "pi_fit": ["AI/data-science angle"],
             "why_now": ["Dashboard-first communication"],
         },
         "dashboard": {
             "status_cards": [
                 {"label": "Motion/confounds", "value": "blocked", "detail": "explicitly gated"}
+            ],
+            "viewer_modes": [
+                {
+                    "title": "Public/static dashboard",
+                    "route": "/dashboard/",
+                    "works": "Claim status",
+                    "does_not_work": "Live simulation",
+                }
             ],
         },
         "claim_ladder": {
@@ -74,6 +84,7 @@ def _render(template_name: str) -> str:
         links=build_route_links(static=True),
         artifact_prefix="artifacts/",
         data_url="dashboard/dashboard-data.json",
+        deployment_mode="static",
     )
 
 
@@ -108,6 +119,8 @@ def test_static_templates_do_not_link_to_backend_only_local_route() -> None:
     methods_html = _render("methods_reproducibility.html")
     assert "GitHub Pages is static" in methods_html
     assert "/api/simulate" in methods_html
+    assert 'href="/local-dashboard"' not in methods_html
+    assert "Start the local server" in methods_html
 
 
 def test_evidence_dashboard_inline_javascript_passes_node_syntax_check(tmp_path: Path) -> None:

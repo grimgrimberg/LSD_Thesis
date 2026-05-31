@@ -214,6 +214,7 @@ def _render_static_template(
         links=build_route_links(static=True, depth=depth),
         artifact_prefix=artifact_prefix,
         data_url=data_url,
+        deployment_mode="static",
     )
     return _with_static_favicon(html)
 
