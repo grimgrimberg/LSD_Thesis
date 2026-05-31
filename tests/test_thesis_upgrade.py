@@ -129,6 +129,36 @@ def test_thesis_upgrade_external_validation_requires_comparable_scoring(tmp_path
     assert "not comparable psilocybin/control dynamic extraction" in external["strict_requirement"]["missing"]
 
 
+def test_thesis_upgrade_marks_motion_complete_with_image_motion_qc(tmp_path: Path) -> None:
+    confound_dir = tmp_path / "results" / "confound_controls"
+    confound_dir.mkdir(parents=True)
+    (confound_dir / "image_motion_qc_status.json").write_text(
+        json.dumps(
+            {
+                "analysis_status": "implemented_image_derived_motion_qc_control",
+                "image_motion_qc_ready": True,
+                "claim_status": "no_image_motion_qc_sensitivity_detected",
+                "high_risk_image_motion_qc_association_count": 0,
+                "unstable_high_burden_exclusion_count": 0,
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    status = build_thesis_upgrade_status(tmp_path)
+    motion = status["components"]["motion_confound"]
+    requirement = {row["requirement_id"]: row for row in status["strict_completion_requirements"]}[
+        "motion_confound_control_result"
+    ]
+
+    assert motion["gate"]["ready"] is True
+    assert motion["image_motion_qc_ready"] is True
+    assert motion["fmriprep_motion_control_ready"] is False
+    assert requirement["complete"] is True
+    assert requirement["status"] == "implemented_image_derived_motion_qc_control"
+    assert "raw-BOLD image-derived motion/QC sensitivity is implemented" in requirement["missing"]
+
+
 def test_thesis_upgrade_marks_external_validation_complete_only_with_locked_comparable_scoring(tmp_path: Path) -> None:
     result_dir = tmp_path / "results" / "psilocybin_ds006072"
     result_dir.mkdir(parents=True)

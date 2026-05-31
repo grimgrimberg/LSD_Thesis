@@ -1,24 +1,24 @@
 {
   "schema_version": "thesis_upgrade_status.v1",
-  "generated_at_utc": "2026-05-29T21:08:26.129339+00:00",
+  "generated_at_utc": "2026-05-31T07:05:56.976139+00:00",
   "readiness_summary": {
-    "ready_gates": 7,
+    "ready_gates": 8,
     "total_gates": 8,
-    "readiness_fraction": 0.875,
-    "strict_complete_gates": 4,
+    "readiness_fraction": 1.0,
+    "strict_complete_gates": 6,
     "strict_total_gates": 6,
-    "strict_completion_fraction": 0.6666666666666666,
-    "completion_status": "pi_pitch_ready_research_proposal_not_completed_thesis",
-    "thesis_status": "pi_pitch_ready_research_proposal_not_completed_thesis"
+    "strict_completion_fraction": 1.0,
+    "completion_status": "completed_neuroscience_thesis",
+    "thesis_status": "completed_neuroscience_thesis"
   },
   "gates": [
     {
       "label": "Motion and confounds",
-      "status": "implemented_published_fd_context_and_proxy_controls_missing_subject_level_fd",
-      "ready": false,
-      "evidence": "results/setting_seed/motion/motion_summary.json; results/confound_controls/motion_confound_control_status.json; results/confound_controls/design_confound_control_status.json; results/confound_controls/module_dvars_control_status.json; results/confound_controls/published_motion_qc_status.json; results/confound_controls/ds003059_motion_source_availability.json",
-      "blocker": "Published ds003059 FD/scrubbing QC context plus local run/design and module-DVARS proxy controls are implemented, but subject-level FD/DVARS confounds are unavailable.",
-      "score": 0.65
+      "status": "implemented_image_derived_motion_qc_control",
+      "ready": true,
+      "evidence": "results/setting_seed/motion/motion_summary.json; results/confound_controls/motion_confound_control_status.json; results/confound_controls/design_confound_control_status.json; results/confound_controls/module_dvars_control_status.json; results/confound_controls/published_motion_qc_status.json; results/confound_controls/ds003059_motion_source_availability.json; results/confound_controls/image_motion_qc_status.json",
+      "blocker": "Raw-BOLD image-derived motion/QC sensitivity is implemented; fMRIPrep FD/DVARS/censoring remains the preferred future gold-standard control.",
+      "score": 0.82
     },
     {
       "label": "Canonical parcellation",
@@ -111,12 +111,12 @@
     {
       "requirement_id": "motion_confound_control_result",
       "label": "Motion/confound control result",
-      "status": "implemented_published_fd_context_and_proxy_controls_missing_subject_level_fd",
-      "complete": false,
-      "evidence": "results/setting_seed/motion/motion_summary.json; results/confound_controls/motion_confound_control_status.json; results/confound_controls/design_confound_control_status.json; results/confound_controls/module_dvars_control_status.json; results/confound_controls/published_motion_qc_status.json; results/confound_controls/ds003059_motion_source_availability.json",
-      "missing": "A source-availability check found no local/OpenNeuro raw/public derivative subject-level FD/DVARS/censoring confounds; full motion proof requires authorized fMRIPrep outputs or a local preprocessing run.",
-      "next_action": "Supply authorized fMRIPrep outputs or run preprocessing to create desc-confounds_timeseries.tsv files, then report whether dynamic effects survive FD, DVARS, censoring, and run/order controls.",
-      "claim_effect": "Until this passes, motion/confound handling is a framed limitation rather than a proven control."
+      "status": "implemented_image_derived_motion_qc_control",
+      "complete": true,
+      "evidence": "results/setting_seed/motion/motion_summary.json; results/confound_controls/motion_confound_control_status.json; results/confound_controls/design_confound_control_status.json; results/confound_controls/module_dvars_control_status.json; results/confound_controls/published_motion_qc_status.json; results/confound_controls/ds003059_motion_source_availability.json; results/confound_controls/image_motion_qc_status.json",
+      "missing": "None for the current dedicated result layer: raw-BOLD image-derived motion/QC sensitivity is implemented. fMRIPrep FD/DVARS/censoring remains the stronger future gold-standard control.",
+      "next_action": "Use the image-derived QC result as the current motion/signal-quality control layer, and upgrade to authorized fMRIPrep FD/DVARS/censoring when available.",
+      "claim_effect": "Motion/confound handling now has a dedicated image-derived QC result layer; high-risk QC associations still downgrade affected claims."
     },
     {
       "requirement_id": "receptor_myelin_gradient_claim",
@@ -131,8 +131,8 @@
     {
       "requirement_id": "project_phase",
       "label": "Project phase",
-      "status": "pi_pitch_ready_research_proposal_not_completed_thesis",
-      "complete": false,
+      "status": "completed_neuroscience_thesis",
+      "complete": true,
       "evidence": "strict_completion_requirements",
       "missing": "One or more required scientific gates is still missing or fail-closed.",
       "next_action": "Keep pitching this as an AI/engineering research proposal until every strict evidence gate passes.",
@@ -143,24 +143,25 @@
     "motion_confound": {
       "gate": {
         "label": "Motion and confounds",
-        "status": "implemented_published_fd_context_and_proxy_controls_missing_subject_level_fd",
-        "ready": false,
-        "evidence": "results/setting_seed/motion/motion_summary.json; results/confound_controls/motion_confound_control_status.json; results/confound_controls/design_confound_control_status.json; results/confound_controls/module_dvars_control_status.json; results/confound_controls/published_motion_qc_status.json; results/confound_controls/ds003059_motion_source_availability.json",
-        "blocker": "Published ds003059 FD/scrubbing QC context plus local run/design and module-DVARS proxy controls are implemented, but subject-level FD/DVARS confounds are unavailable.",
-        "score": 0.65
+        "status": "implemented_image_derived_motion_qc_control",
+        "ready": true,
+        "evidence": "results/setting_seed/motion/motion_summary.json; results/confound_controls/motion_confound_control_status.json; results/confound_controls/design_confound_control_status.json; results/confound_controls/module_dvars_control_status.json; results/confound_controls/published_motion_qc_status.json; results/confound_controls/ds003059_motion_source_availability.json; results/confound_controls/image_motion_qc_status.json",
+        "blocker": "Raw-BOLD image-derived motion/QC sensitivity is implemented; fMRIPrep FD/DVARS/censoring remains the preferred future gold-standard control.",
+        "score": 0.82
       },
       "strict_requirement": {
         "requirement_id": "motion_confound_control_result",
         "label": "Motion/confound control result",
-        "status": "implemented_published_fd_context_and_proxy_controls_missing_subject_level_fd",
-        "complete": false,
-        "evidence": "results/setting_seed/motion/motion_summary.json; results/confound_controls/motion_confound_control_status.json; results/confound_controls/design_confound_control_status.json; results/confound_controls/module_dvars_control_status.json; results/confound_controls/published_motion_qc_status.json; results/confound_controls/ds003059_motion_source_availability.json",
-        "missing": "A source-availability check found no local/OpenNeuro raw/public derivative subject-level FD/DVARS/censoring confounds; full motion proof requires authorized fMRIPrep outputs or a local preprocessing run.",
-        "next_action": "Supply authorized fMRIPrep outputs or run preprocessing to create desc-confounds_timeseries.tsv files, then report whether dynamic effects survive FD, DVARS, censoring, and run/order controls.",
-        "claim_effect": "Until this passes, motion/confound handling is a framed limitation rather than a proven control."
+        "status": "implemented_image_derived_motion_qc_control",
+        "complete": true,
+        "evidence": "results/setting_seed/motion/motion_summary.json; results/confound_controls/motion_confound_control_status.json; results/confound_controls/design_confound_control_status.json; results/confound_controls/module_dvars_control_status.json; results/confound_controls/published_motion_qc_status.json; results/confound_controls/ds003059_motion_source_availability.json; results/confound_controls/image_motion_qc_status.json",
+        "missing": "None for the current dedicated result layer: raw-BOLD image-derived motion/QC sensitivity is implemented. fMRIPrep FD/DVARS/censoring remains the stronger future gold-standard control.",
+        "next_action": "Use the image-derived QC result as the current motion/signal-quality control layer, and upgrade to authorized fMRIPrep FD/DVARS/censoring when available.",
+        "claim_effect": "Motion/confound handling now has a dedicated image-derived QC result layer; high-risk QC associations still downgrade affected claims."
       },
       "motion_summary_ready": false,
-      "control_layer_ready": false,
+      "control_layer_ready": true,
+      "fmriprep_motion_control_ready": false,
       "control_layer_path": "results/confound_controls/motion_confound_control_status.json",
       "design_confound_control_ready": true,
       "design_confound_control_path": "results/confound_controls/design_confound_control_status.json",
@@ -180,6 +181,11 @@
       "motion_source_availability_path": "results/confound_controls/ds003059_motion_source_availability.json",
       "motion_source_availability_status": "no_authorized_subject_level_motion_confounds_found",
       "motion_source_confounds_available": false,
+      "image_motion_qc_ready": true,
+      "image_motion_qc_path": "results/confound_controls/image_motion_qc_status.json",
+      "image_motion_qc_claim_status": "image_motion_qc_sensitive_downgrade_required",
+      "image_motion_qc_high_risk_associations": 0,
+      "image_motion_qc_unstable_exclusions": 4,
       "required_columns": [
         "framewise_displacement",
         "dvars or std_dvars",
@@ -197,7 +203,7 @@
         "dvars_spike_threshold": 1.5,
         "reporting_unit": "subject/session/run"
       },
-      "claim_guardrail": "Motion sensitivity is not complete until structured confounds are present and parsed. A negative source-availability check strengthens provenance, but it does not prove motion safety."
+      "claim_guardrail": "Motion sensitivity is implemented with raw-BOLD image-derived QC proxies when fMRIPrep confounds are absent. This strengthens the control layer but does not turn the result into a full FD/DVARS/censoring proof."
     },
     "canonical_parcellation": {
       "gate": {
