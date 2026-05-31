@@ -1,8 +1,9 @@
 {
-  "generated_at_utc": "2026-05-31T07:06:05.721138+00:00",
+  "generated_at_utc": "2026-05-31T07:31:52.720081+00:00",
   "claim_guardrail": "GitHub Pages is a static presentation and dashboard snapshot. Treat blocked rows in the claim matrix as unresolved thesis work, not as completed scientific evidence. Interactive FastAPI-only controls are available only in the local dashboard.",
   "entrypoints": {
     "index": "index.html",
+    "thesis": "thesis.html",
     "defense": "defense.html",
     "dashboard": "dashboard/index.html"
   },
@@ -112,6 +113,7 @@
     "artifacts/thesis_report_revised.md",
     "defense.html",
     "figures/stage1_metric_shift.png",
-    "figures/stage2_fit_robustness.png"
+    "figures/stage2_fit_robustness.png",
+    "thesis.html"
   ]
 }
