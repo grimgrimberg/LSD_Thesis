@@ -1,6 +1,6 @@
 {
   "schema_version": "external_cortical_maps.v1",
-  "generated_at_utc": "2026-05-31T08:25:12.557772+00:00",
+  "generated_at_utc": "2026-05-31T09:00:13.172657+00:00",
   "analysis_status": "implemented_module_level_external_map_alignment",
   "module_contract": [
     "visual",

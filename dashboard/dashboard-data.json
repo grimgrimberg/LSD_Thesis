@@ -1,6 +1,6 @@
 {
   "schema_version": "public_site.v1",
-  "generated_at_utc": "2026-05-31T08:25:22.990188+00:00",
+  "generated_at_utc": "2026-05-31T09:00:24.009190+00:00",
   "project": {
     "title": "LSD Thesis Macro-Dynamics Pitch",
     "subtitle": "A data-science and engineering proposal for psychedelic-inspired brain dynamics.",
@@ -9,6 +9,34 @@
     "guardrail": "This is a conservative surrogate-analysis site. It does not claim subjective experience, receptor-level realism, or completed external validation."
   },
   "pitch": {
+    "meeting_script": [
+      "Start with the one-sentence claim: altered transition/control dynamics versus generic noise, motion, or static connectivity.",
+      "Show the claim ladder so the PI sees what is supported now versus proxy, exploratory, or blocked.",
+      "Open the evidence dashboard and point to q-value, FDR, CI, and claim-status fields before interpreting any mechanism.",
+      "End with falsification: motion controls, Schaefer/Yeo spatial nulls, subject-disjoint CV, or psilocybin replication can downgrade the claim."
+    ],
+    "what_to_open": [
+      {
+        "label": "Pitch homepage",
+        "why": "sets the project frame and audience"
+      },
+      {
+        "label": "Thesis story",
+        "why": "separates strong claims from exploratory priors"
+      },
+      {
+        "label": "Evidence dashboard",
+        "why": "shows claim gates and searchable artifacts"
+      },
+      {
+        "label": "Methods",
+        "why": "shows confounds, parcellation limits, and local-only features"
+      },
+      {
+        "label": "Appendix",
+        "why": "keeps reproducible derived artifacts one click away"
+      }
+    ],
     "why_now": [
       "The project connects AI time-series benchmarking, control theory, perception, and psychedelic neuroscience in one inspectable pipeline.",
       "The defendable unit is macro-dynamics: transitions, coupling, stability, uncertainty gates, and falsification tests.",
@@ -165,6 +193,26 @@
         "label": "Map priors",
         "value": "implemented_module_level_external_map_alignment",
         "detail": "Receptor, myelin, and gradient maps are displayed as exploratory priors, not proof of mechanism."
+      }
+    ],
+    "viewer_modes": [
+      {
+        "title": "Public/static dashboard",
+        "route": "/dashboard/",
+        "works": "Claim status, q/FDR/CI fields, methods links, and derived artifact search.",
+        "does_not_work": "Live simulation, subject-level fMRI preview calls, and local artifact mutation."
+      },
+      {
+        "title": "Local clean dashboard",
+        "route": "/dashboard",
+        "works": "The same clean dashboard, backed by local FastAPI JSON.",
+        "does_not_work": "Public sharing unless the server is running on your machine."
+      },
+      {
+        "title": "Local full dashboard",
+        "route": "/local-dashboard",
+        "works": "Simulation controls, empirical subject/run explorer, full Plotly diagnostics, and guarded local artifact serving.",
+        "does_not_work": "GitHub Pages hosting, because it requires the FastAPI backend."
       }
     ],
     "primary_panels": [
@@ -53578,7 +53626,7 @@
     },
     "external_cortical_maps": {
       "schema_version": "external_cortical_maps.v1",
-      "generated_at_utc": "2026-05-31T08:25:12.557772+00:00",
+      "generated_at_utc": "2026-05-31T09:00:13.172657+00:00",
       "analysis_status": "implemented_module_level_external_map_alignment",
       "module_contract": [
         "visual",
@@ -54412,7 +54460,7 @@
       ],
       "loop_status": {
         "schema_version": 1,
-        "generated_at_utc": "2026-05-31T08:24:46.948157+00:00",
+        "generated_at_utc": "2026-05-31T08:59:46.633132+00:00",
         "analysis_status": "implemented_loop_status_artifacts",
         "status_rows": [
           {
@@ -54472,7 +54520,7 @@
           },
           "psilocybin_ds006072": {
             "schema_version": 1,
-            "generated_at_utc": "2026-05-31T08:24:45.782912+00:00",
+            "generated_at_utc": "2026-05-31T08:59:45.787795+00:00",
             "dataset_id": "ds006072",
             "source": "OpenNeuro ds006072, Scientific Data 2025 psilocybin precision imaging dataset",
             "local_data_root": "data/ds006072",
@@ -54486,7 +54534,7 @@
             "functional_manifest_processed_cifti_total_size_bytes": null,
             "external_validation_readiness": {
               "schema_version": "ds006072_external_validation.v1",
-              "generated_at_utc": "2026-05-31T08:15:44.687656+00:00",
+              "generated_at_utc": "2026-05-31T08:58:55.364566+00:00",
               "dataset_id": "ds006072",
               "analysis_status": "blocked_missing_drug_order_or_processed_rest_manifest",
               "primary_contrast": "psilocybin_vs_active_control_mtp",
@@ -54557,14 +54605,14 @@
             "summary": {
               "schema_version": 3,
               "analysis_status": "implemented_first_pass",
-              "generated_at_utc": "2026-05-31T08:24:46.814085+00:00",
+              "generated_at_utc": "2026-05-31T08:59:46.536140+00:00",
               "inference_metadata": {
                 "metric_ci_alpha": 0.05,
                 "metric_bootstrap_iterations": 1024,
                 "multiple_testing": "Benjamini-Hochberg FDR q-values on sign-flip familywise tests",
                 "metric_bootstrap_seed_base": 20260520
               },
-              "source_viewer_root": "D:/LSD_Thesis/.worktrees/scratch-thesis-site/results/psilocybin_ds006072/empirical_viewer",
+              "source_viewer_root": "D:/LSD_Thesis/.worktrees/main-source-publish/results/psilocybin_ds006072/empirical_viewer",
               "dataset_scope": "OpenNeuro ds006072 paired psilocybin/MTP empirical viewer records scored with the locked ds003059 rule; extraction contract: CIFTI brain-structure-family 8-module external stress test",
               "pair_count": 3,
               "subject_count": 3,
@@ -56937,7 +56985,7 @@
             },
             "comparable_empirical_validation": {
               "schema_version": "ds006072_external_validation.v1",
-              "generated_at_utc": "2026-05-31T08:24:45.924148+00:00",
+              "generated_at_utc": "2026-05-31T08:59:45.831782+00:00",
               "dataset_id": "ds006072",
               "primary_contrast": "psilocybin_vs_active_control_mtp",
               "viewer_root": "results/psilocybin_ds006072/empirical_viewer",
@@ -57053,14 +57101,14 @@
               "summary": {
                 "schema_version": 3,
                 "analysis_status": "implemented_first_pass",
-                "generated_at_utc": "2026-05-31T08:24:46.814085+00:00",
+                "generated_at_utc": "2026-05-31T08:59:46.536140+00:00",
                 "inference_metadata": {
                   "metric_ci_alpha": 0.05,
                   "metric_bootstrap_iterations": 1024,
                   "multiple_testing": "Benjamini-Hochberg FDR q-values on sign-flip familywise tests",
                   "metric_bootstrap_seed_base": 20260520
                 },
-                "source_viewer_root": "D:/LSD_Thesis/.worktrees/scratch-thesis-site/results/psilocybin_ds006072/empirical_viewer",
+                "source_viewer_root": "D:/LSD_Thesis/.worktrees/main-source-publish/results/psilocybin_ds006072/empirical_viewer",
                 "dataset_scope": "OpenNeuro ds006072 paired psilocybin/MTP empirical viewer records scored with the locked ds003059 rule; extraction contract: CIFTI brain-structure-family 8-module external stress test",
                 "pair_count": 3,
                 "subject_count": 3,
@@ -59439,11 +59487,11 @@
             "comparable_empirical_validation_path": "results/psilocybin_ds006072/comparable_empirical_validation_summary.json",
             "unchanged_scoring_applied": true,
             "replication_status": "ranking_replicates_lsd_top_layer",
-            "source_path": "D:/LSD_Thesis/.worktrees/scratch-thesis-site/results/psilocybin_ds006072/psilocybin_ds006072_status.json"
+            "source_path": "D:/LSD_Thesis/.worktrees/main-source-publish/results/psilocybin_ds006072/psilocybin_ds006072_status.json"
           },
           "structural_connectome": {
             "schema_version": 1,
-            "generated_at_utc": "2026-05-31T08:24:46.832947+00:00",
+            "generated_at_utc": "2026-05-31T08:59:46.552817+00:00",
             "artifact_target": "results/structural_connectome",
             "expected_graph_files": [
               "results/structural_connectome/hcp_macro_modules.csv",
@@ -59457,11 +59505,11 @@
             "proxy_graph_control_status": "not_run",
             "proxy_graph_control_rows": [],
             "proxy_graph_control_path": null,
-            "source_path": "D:/LSD_Thesis/.worktrees/scratch-thesis-site/results/structural_connectome/structural_connectome_status.json"
+            "source_path": "D:/LSD_Thesis/.worktrees/main-source-publish/results/structural_connectome/structural_connectome_status.json"
           },
           "receptor_priors": {
             "schema_version": 1,
-            "generated_at_utc": "2026-05-31T08:24:46.840257+00:00",
+            "generated_at_utc": "2026-05-31T08:59:46.558009+00:00",
             "artifact_target": "results/receptor_priors",
             "expected_prior_files": [
               "results/receptor_priors/fs5ht_5ht2a_macro_modules.csv",
@@ -59476,11 +59524,11 @@
             "proxy_null_board_status": "not_run",
             "proxy_null_board_path": null,
             "proxy_null_board_rows": [],
-            "source_path": "D:/LSD_Thesis/.worktrees/scratch-thesis-site/results/receptor_priors/receptor_prior_status.json"
+            "source_path": "D:/LSD_Thesis/.worktrees/main-source-publish/results/receptor_priors/receptor_prior_status.json"
           },
           "parcellation_sensitivity": {
             "schema_version": 1,
-            "generated_at_utc": "2026-05-31T08:24:46.921050+00:00",
+            "generated_at_utc": "2026-05-31T08:59:46.613431+00:00",
             "analysis_status": "implemented_status_matrix",
             "rows": [
               {
@@ -59659,18 +59707,18 @@
               }
             ],
             "claim_guardrail": "Parcellation sensitivity is not a completed empirical result unless a parcellation-specific empirical_viewer exists.",
-            "source_path": "D:/LSD_Thesis/.worktrees/scratch-thesis-site/results/parcellation_sensitivity/parcellation_sensitivity_status.json"
+            "source_path": "D:/LSD_Thesis/.worktrees/main-source-publish/results/parcellation_sensitivity/parcellation_sensitivity_status.json"
           },
           "literature_benchmark": {
             "schema_version": 1,
-            "generated_at_utc": "2026-05-31T08:24:46.943726+00:00",
+            "generated_at_utc": "2026-05-31T08:59:46.628737+00:00",
             "analysis_status": "implemented_directional_proxy_benchmark",
             "aligned_count": null,
             "measurable_count": null,
             "alignment_fraction": null,
             "rows": [],
             "claim_guardrail": null,
-            "source_path": "D:/LSD_Thesis/.worktrees/scratch-thesis-site/results/literature_benchmark/literature_benchmark_status.json"
+            "source_path": "D:/LSD_Thesis/.worktrees/main-source-publish/results/literature_benchmark/literature_benchmark_status.json"
           }
         },
         "claim_guardrail": "Implemented/blocked statuses are evidence. A blocked status means the code path and artifact contract exist, but the raw local data required for the scientific claim are absent.",
@@ -59773,7 +59821,7 @@
     },
     "thesis_upgrade": {
       "schema_version": "thesis_upgrade_status.v1",
-      "generated_at_utc": "2026-05-31T08:25:22.989869+00:00",
+      "generated_at_utc": "2026-05-31T09:00:24.008945+00:00",
       "readiness_summary": {
         "ready_gates": 4,
         "total_gates": 8,

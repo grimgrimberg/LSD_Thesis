@@ -420,6 +420,71 @@
 
     <section class="section">
       <div class="section-head">
+        <h2>Five-minute meeting script</h2>
+        <p>Use this when pitching the project to a PI who has not seen the repo before.</p>
+      </div>
+      <div class="card-grid">
+        
+        <article class="card">
+          <span class="tag">Pitch step</span>
+          <p>Start with the one-sentence claim: altered transition/control dynamics versus generic noise, motion, or static connectivity.</p>
+        </article>
+        
+        <article class="card">
+          <span class="tag">Pitch step</span>
+          <p>Show the claim ladder so the PI sees what is supported now versus proxy, exploratory, or blocked.</p>
+        </article>
+        
+        <article class="card">
+          <span class="tag">Pitch step</span>
+          <p>Open the evidence dashboard and point to q-value, FDR, CI, and claim-status fields before interpreting any mechanism.</p>
+        </article>
+        
+        <article class="card">
+          <span class="tag">Pitch step</span>
+          <p>End with falsification: motion controls, Schaefer/Yeo spatial nulls, subject-disjoint CV, or psilocybin replication can downgrade the claim.</p>
+        </article>
+        
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2>What to open</h2>
+        <p>This keeps the demo linear instead of jumping through plots and files.</p>
+      </div>
+      <div class="card-grid">
+        
+        <article class="card">
+          <span class="tag">Pitch homepage</span>
+          <p>sets the project frame and audience</p>
+        </article>
+        
+        <article class="card">
+          <span class="tag">Thesis story</span>
+          <p>separates strong claims from exploratory priors</p>
+        </article>
+        
+        <article class="card">
+          <span class="tag">Evidence dashboard</span>
+          <p>shows claim gates and searchable artifacts</p>
+        </article>
+        
+        <article class="card">
+          <span class="tag">Methods</span>
+          <p>shows confounds, parcellation limits, and local-only features</p>
+        </article>
+        
+        <article class="card">
+          <span class="tag">Appendix</span>
+          <p>keeps reproducible derived artifacts one click away</p>
+        </article>
+        
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
         <h2>Why the public site is intentionally smaller</h2>
         <p>GitHub Pages is static: it can show the pitch, claim gates, and derived artifacts, but it cannot run simulations or subject-level API calls.</p>
       </div>
@@ -427,7 +492,10 @@
         <span class="tag">Local backend route</span>
         <h3>Local full dashboard</h3>
         <p>The local FastAPI dashboard can call /api/dashboard-data, /api/simulate, and /api/empirical-view, so backend-only simulation and empirical viewer features live there.</p>
-        <a class="button" href="methods.html#local-dashboard">Open or learn how to run it</a>
+        
+        <p class="callout">On GitHub Pages this is documentation only. Run <strong>uv run python scripts/run_dashboard.py</strong>, then open <strong>/local-dashboard</strong> locally.</p>
+        <a class="button secondary" href="methods.html#local-dashboard">Read local setup</a>
+        
       </div>
     </section>
 
@@ -455,7 +523,7 @@
   </main>
 
   <footer class="shell">
-    Static snapshot generated at 2026-05-31T08:25:22.990188+00:00. Derived artifacts only; raw data are not published here.
+    Static snapshot generated at 2026-05-31T09:00:24.009190+00:00. Derived artifacts only; raw data are not published here.
   </footer>
 </body>
 </html>

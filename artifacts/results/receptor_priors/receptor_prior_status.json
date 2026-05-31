@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at_utc": "2026-05-31T08:24:46.840257+00:00",
+  "generated_at_utc": "2026-05-31T08:59:46.558009+00:00",
   "artifact_target": "results/receptor_priors",
   "expected_prior_files": [
     "results/receptor_priors/fs5ht_5ht2a_macro_modules.csv",

@@ -294,8 +294,41 @@
         <span class="tag">Conservative framing</span>
         <p>The receptor, myelin, gradient, and structural-connectome panels are exploratory priors until stronger spatial-null and external-validation gates pass.</p>
         <p>GitHub Pages is static: it can show the pitch, claim gates, and derived artifacts, but it cannot run simulations or subject-level API calls.</p>
-        <a class="button secondary" href="../methods.html#local-dashboard">Backend-only features</a>
+        
+        <a class="button secondary" href="../methods.html#local-dashboard">Backend-only feature guide</a>
+        
       </aside>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2>What works where</h2>
+        <p>This prevents the public site from looking broken: backend-only controls live in the local FastAPI dashboard.</p>
+      </div>
+      <div class="status-grid">
+        
+        <article class="status-card">
+          <span class="tag">/dashboard/</span>
+          <strong>Public/static dashboard</strong>
+          <small>Works: Claim status, q/FDR/CI fields, methods links, and derived artifact search.</small>
+          <small>Does not work: Live simulation, subject-level fMRI preview calls, and local artifact mutation.</small>
+        </article>
+        
+        <article class="status-card">
+          <span class="tag">/dashboard</span>
+          <strong>Local clean dashboard</strong>
+          <small>Works: The same clean dashboard, backed by local FastAPI JSON.</small>
+          <small>Does not work: Public sharing unless the server is running on your machine.</small>
+        </article>
+        
+        <article class="status-card">
+          <span class="tag">/local-dashboard</span>
+          <strong>Local full dashboard</strong>
+          <small>Works: Simulation controls, empirical subject/run explorer, full Plotly diagnostics, and guarded local artifact serving.</small>
+          <small>Does not work: GitHub Pages hosting, because it requires the FastAPI backend.</small>
+        </article>
+        
+      </div>
     </section>
 
     <section class="section">

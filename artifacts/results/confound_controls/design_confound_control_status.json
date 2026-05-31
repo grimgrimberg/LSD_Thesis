@@ -1,6 +1,6 @@
 {
   "schema_version": "design_confound_control.v1",
-  "generated_at_utc": "2026-05-31T08:25:12.605455+00:00",
+  "generated_at_utc": "2026-05-31T09:00:13.292080+00:00",
   "analysis_status": "blocked_missing_primary_empirical_viewer_subject_views",
   "design_confound_control_ready": false,
   "source_paths": {
