@@ -18,6 +18,8 @@ __pycache__/
 /codex_logs/
 /_codex_skills_disabled_*/
 /.neuromaps-data/
+/.worktrees/
+/.deploy-gh-pages/
 
 # Raw data downloads. Keep root-anchored so src/lsd_thesis/data remains tracked.
 /data/
