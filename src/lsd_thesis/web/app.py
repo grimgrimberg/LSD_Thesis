@@ -171,6 +171,14 @@ def load_empirical_viewer_overview(viewer_root: Path) -> dict[str, Any] | None:
         overview["available_pair_count"] = sum(len(runs) for runs in paired_run_index.values())
         if overview.get("default_subject") not in paired_run_index:
             overview["default_subject"] = paired_subjects[0]
+        default_subject = str(overview.get("default_subject") or paired_subjects[0])
+        subject_runs = paired_run_index.get(default_subject) or paired_runs
+        if overview.get("default_run") not in subject_runs and subject_runs:
+            overview["default_run"] = subject_runs[0]
+    elif not overview.get("default_run"):
+        runs = overview.get("runs")
+        if isinstance(runs, list) and runs:
+            overview["default_run"] = str(runs[0])
     overview.setdefault(
         "display_metadata",
         {
@@ -788,6 +796,53 @@ def _dashboard_security_headers() -> dict[str, str]:
             "frame-ancestors 'none'"
         ),
     }
+
+
+LOCAL_DASHBOARD_NOTICE = """
+<aside class="local-backend-mode" role="note" aria-label="Local backend mode">
+  <style>
+    .local-backend-mode {
+      background: #0f1c25;
+      border-bottom: 1px solid rgba(130, 219, 216, 0.35);
+      color: #eef8f7;
+      display: grid;
+      gap: 0.6rem;
+      padding: 1rem clamp(1rem, 3vw, 2rem);
+    }
+    .local-backend-mode strong {
+      color: #9ce0d9;
+      display: block;
+      font-size: 0.82rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .local-backend-mode p {
+      margin: 0;
+      max-width: 70rem;
+    }
+    .local-backend-mode a {
+      color: #f4c76f;
+      font-weight: 700;
+      margin-right: 1rem;
+    }
+  </style>
+  <p><strong>Local backend mode</strong>
+  This dense command center is the interactive FastAPI view. It can call
+  <code>/api/dashboard-data</code>, <code>/api/simulate</code>, and
+  <code>/api/empirical-view</code>; the public Pages site is the cleaner static pitch snapshot.</p>
+  <p>
+    <a href="/dashboard">Open clean evidence dashboard</a>
+    <a href="/methods">Review methods and limitations</a>
+  </p>
+</aside>
+"""
+
+
+def _local_dashboard_html() -> str:
+    html = (REPO_ROOT / "src" / "lsd_thesis" / "templates" / "dashboard.html").read_text(
+        encoding="utf-8"
+    )
+    return html.replace("<body>", f"<body>\n{LOCAL_DASHBOARD_NOTICE}", 1)
 
 
 def _load_set_setting_seed_payload(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
@@ -1496,10 +1551,7 @@ def create_app() -> FastAPI:
     @app.get("/dashboard/full", response_class=HTMLResponse)
     @app.get("/dashboard/full/", response_class=HTMLResponse)
     async def local_dashboard() -> HTMLResponse:
-        html = (REPO_ROOT / "src" / "lsd_thesis" / "templates" / "dashboard.html").read_text(
-            encoding="utf-8"
-        )
-        return HTMLResponse(html, headers=_dashboard_security_headers())
+        return HTMLResponse(_local_dashboard_html(), headers=_dashboard_security_headers())
 
     @app.get("/methods", response_class=HTMLResponse)
     @app.get("/methods.html", response_class=HTMLResponse)
