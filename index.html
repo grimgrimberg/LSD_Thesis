@@ -276,6 +276,7 @@
         <a href="index.html" aria-current="page">Pitch</a>
         <a href="thesis.html">Thesis story</a>
         <a href="dashboard/">Evidence dashboard</a>
+        <a href="methods.html#local-dashboard">Local full dashboard</a>
         <a href="methods.html">Methods</a>
         <a href="appendix.html">Appendix</a>
       </div>
@@ -291,6 +292,7 @@
         <p>This is a conservative surrogate-analysis site. It does not claim subjective experience, receptor-level realism, or completed external validation.</p>
         <div class="artifact-controls">
           <a class="button" href="dashboard/">Open the evidence dashboard</a>
+          <a class="button secondary" href="methods.html#local-dashboard">Local-only full dashboard</a>
           <a class="button secondary" href="thesis.html">Read the thesis story</a>
         </div>
       </div>
@@ -418,6 +420,19 @@
 
     <section class="section">
       <div class="section-head">
+        <h2>Why the public site is intentionally smaller</h2>
+        <p>GitHub Pages is static: it can show the pitch, claim gates, and derived artifacts, but it cannot run simulations or subject-level API calls.</p>
+      </div>
+      <div class="panel">
+        <span class="tag">Local backend route</span>
+        <h3>Local full dashboard</h3>
+        <p>The local FastAPI dashboard can call /api/dashboard-data, /api/simulate, and /api/empirical-view, so backend-only simulation and empirical viewer features live there.</p>
+        <a class="button" href="methods.html#local-dashboard">Open or learn how to run it</a>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
         <h2>Why now</h2>
         <p>The site is designed as an academic pitch surface first, with the dense data-science dashboard one click away.</p>
       </div>
@@ -440,7 +455,7 @@
   </main>
 
   <footer class="shell">
-    Static snapshot generated at 2026-05-31T08:16:20.342319+00:00. Derived artifacts only; raw data are not published here.
+    Static snapshot generated at 2026-05-31T08:25:22.990188+00:00. Derived artifacts only; raw data are not published here.
   </footer>
 </body>
 </html>
