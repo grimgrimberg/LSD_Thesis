@@ -39,6 +39,7 @@ from lsd_thesis.thesis_loop import build_thesis_evidence_loop
 from lsd_thesis.web.site_payload import build_public_site_payload, build_route_links
 
 STATIC_FAVICON_TAG = '<link rel="icon" href="data:,">'
+PUBLISH_TEMP_SUFFIXES = (".bak", ".log", ".old", ".part", ".tmp")
 
 
 def _remove_tree(path: Path) -> None:
@@ -73,7 +74,15 @@ def _copy_tree(source: Path, destination: Path) -> Path | None:
         return None
     if destination.exists():
         _remove_tree(destination)
-    shutil.copytree(source, destination)
+
+    def _ignore_publish_temp(_directory: str, names: list[str]) -> list[str]:
+        return [
+            name
+            for name in names
+            if name.startswith("~$") or name.lower().endswith(PUBLISH_TEMP_SUFFIXES)
+        ]
+
+    shutil.copytree(source, destination, ignore=_ignore_publish_temp)
     return destination
 
 

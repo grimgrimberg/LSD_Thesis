@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at_utc": "2026-05-31T08:12:54.891673+00:00",
+  "generated_at_utc": "2026-05-31T08:15:45.512721+00:00",
   "analysis_status": "implemented_loop_status_artifacts",
   "status_rows": [
     {
@@ -60,7 +60,7 @@
     },
     "psilocybin_ds006072": {
       "schema_version": 1,
-      "generated_at_utc": "2026-05-31T08:12:53.665719+00:00",
+      "generated_at_utc": "2026-05-31T08:15:44.607811+00:00",
       "dataset_id": "ds006072",
       "source": "OpenNeuro ds006072, Scientific Data 2025 psilocybin precision imaging dataset",
       "local_data_root": "data/ds006072",
@@ -74,7 +74,7 @@
       "functional_manifest_processed_cifti_total_size_bytes": null,
       "external_validation_readiness": {
         "schema_version": "ds006072_external_validation.v1",
-        "generated_at_utc": "2026-05-31T08:06:15.159814+00:00",
+        "generated_at_utc": "2026-05-31T08:12:53.765557+00:00",
         "dataset_id": "ds006072",
         "analysis_status": "blocked_missing_drug_order_or_processed_rest_manifest",
         "primary_contrast": "psilocybin_vs_active_control_mtp",
@@ -145,7 +145,7 @@
       "summary": {
         "schema_version": 3,
         "analysis_status": "implemented_first_pass",
-        "generated_at_utc": "2026-05-31T08:12:54.641984+00:00",
+        "generated_at_utc": "2026-05-31T08:15:45.422722+00:00",
         "inference_metadata": {
           "metric_ci_alpha": 0.05,
           "metric_bootstrap_iterations": 1024,
@@ -2525,7 +2525,7 @@
       },
       "comparable_empirical_validation": {
         "schema_version": "ds006072_external_validation.v1",
-        "generated_at_utc": "2026-05-31T08:12:53.780445+00:00",
+        "generated_at_utc": "2026-05-31T08:15:44.746470+00:00",
         "dataset_id": "ds006072",
         "primary_contrast": "psilocybin_vs_active_control_mtp",
         "viewer_root": "results/psilocybin_ds006072/empirical_viewer",
@@ -2633,7 +2633,7 @@
         "ds006072_top_layer": "C",
         "replication_status": "ranking_replicates_lsd_top_layer",
         "extraction_status_path": "results/psilocybin_ds006072/cifti_empirical_extraction_status.json",
-        "extraction_status": "blocked_missing_minimum_payload_plan",
+        "extraction_status": "implemented_ds006072_cifti_structure_family_empirical_viewer",
         "extraction_module_contract": "CIFTI brain-structure-family 8-module external stress test",
         "validation_scope": "structure_family_external_stress_test",
         "claim_guardrail": "This artifact is the ds006072 external-validation gate. It only passes when paired local psilocybin/control empirical-viewer records exist and are scored with the locked ds003059 rule. If extraction_module_contract is a CIFTI structure-family stress test, treat the result as stronger than manifest readiness but weaker than a surface/parcellation-matched replication.",
@@ -2641,7 +2641,7 @@
         "summary": {
           "schema_version": 3,
           "analysis_status": "implemented_first_pass",
-          "generated_at_utc": "2026-05-31T08:12:54.641984+00:00",
+          "generated_at_utc": "2026-05-31T08:15:45.422722+00:00",
           "inference_metadata": {
             "metric_ci_alpha": 0.05,
             "metric_bootstrap_iterations": 1024,
@@ -5031,7 +5031,7 @@
     },
     "structural_connectome": {
       "schema_version": 1,
-      "generated_at_utc": "2026-05-31T08:12:54.658514+00:00",
+      "generated_at_utc": "2026-05-31T08:15:45.438564+00:00",
       "artifact_target": "results/structural_connectome",
       "expected_graph_files": [
         "results/structural_connectome/hcp_macro_modules.csv",
@@ -5049,7 +5049,7 @@
     },
     "receptor_priors": {
       "schema_version": 1,
-      "generated_at_utc": "2026-05-31T08:12:54.665076+00:00",
+      "generated_at_utc": "2026-05-31T08:15:45.442528+00:00",
       "artifact_target": "results/receptor_priors",
       "expected_prior_files": [
         "results/receptor_priors/fs5ht_5ht2a_macro_modules.csv",
@@ -5068,7 +5068,7 @@
     },
     "parcellation_sensitivity": {
       "schema_version": 1,
-      "generated_at_utc": "2026-05-31T08:12:54.871964+00:00",
+      "generated_at_utc": "2026-05-31T08:15:45.491349+00:00",
       "analysis_status": "implemented_status_matrix",
       "rows": [
         {
@@ -5251,7 +5251,7 @@
     },
     "literature_benchmark": {
       "schema_version": 1,
-      "generated_at_utc": "2026-05-31T08:12:54.887482+00:00",
+      "generated_at_utc": "2026-05-31T08:15:45.507894+00:00",
       "analysis_status": "implemented_directional_proxy_benchmark",
       "aligned_count": null,
       "measurable_count": null,
