@@ -675,8 +675,19 @@ def test_dashboard_template_contains_scholarly_sections_and_figure_links() -> No
         "Reproduce This Dashboard Snapshot",
         "Artifact Browser",
         "Pipeline Status",
+        "Evidence command center",
+        "Claim-gated reading path",
+        "Thesis artifact browser",
     ):
         assert heading in html
+    assert "GitHub Pages command center" in html
+    assert "dashboard-first thesis website" in html
+    assert "revamp_claim_grid" in html
+    assert "revamp_artifact_search" in html
+    assert "hydrateRevampCommandCenter(dashboardState);" in html
+    assert "artifactDisplayHref" in html
+    assert "Strict audit JSON" in html
+    assert "/artifacts/output/doc/thesis_microsite.html" in html
     assert "Hiring-Readiness Claim Evidence Matrix" in html
     assert "CSV/XLSX export" in html
     assert "Plot Review: Core Evidence vs Appendix" in html

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Whole-Brain Surrogate Dashboard</title>
+  <title>LSD Thesis Evidence Dashboard</title>
   <script src="/assets/plotly.min.js"></script>
   <style>
     :root {
@@ -564,6 +564,261 @@
       .layout, .plots { display: block; }
       .card { margin-bottom: 12px; min-height: 0; }
     }
+
+    /* Dashboard-first GitHub Pages revamp */
+    :root {
+      --command-bg: #10231f;
+      --command-bg-2: #173c35;
+      --command-ink: #f8f3e7;
+      --command-muted: #c7d8cf;
+      --signal: #e1a33a;
+      --signal-2: #3aa99f;
+      --danger-soft: #fff0e6;
+      --ok-soft: #edf8ef;
+      --focus-ring: 0 0 0 3px rgba(225, 163, 58, 0.34);
+    }
+    .topbar {
+      box-shadow: 0 8px 30px rgba(16, 35, 31, 0.08);
+    }
+    .brand strong {
+      font-family: "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+      letter-spacing: -0.01em;
+    }
+    .site-command {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 28px 24px 14px;
+    }
+    .command-shell {
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: minmax(320px, 1.1fr) minmax(320px, 0.9fr);
+      gap: 22px;
+      padding: clamp(22px, 4vw, 42px);
+      border-radius: 18px;
+      border: 1px solid rgba(248, 243, 231, 0.2);
+      background:
+        radial-gradient(circle at 12% 10%, rgba(225, 163, 58, 0.28), transparent 28%),
+        radial-gradient(circle at 88% 18%, rgba(58, 169, 159, 0.22), transparent 32%),
+        linear-gradient(135deg, var(--command-bg), var(--command-bg-2));
+      color: var(--command-ink);
+      box-shadow: 0 28px 70px rgba(16, 35, 31, 0.22);
+    }
+    .command-shell::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(90deg, rgba(248, 243, 231, 0.06) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(248, 243, 231, 0.045) 1px, transparent 1px);
+      background-size: 34px 34px;
+      mask-image: linear-gradient(90deg, rgba(0,0,0,0.9), transparent 78%);
+    }
+    .command-copy, .command-side { position: relative; z-index: 1; }
+    .command-eyebrow {
+      display: inline-flex;
+      width: max-content;
+      max-width: 100%;
+      border: 1px solid rgba(248, 243, 231, 0.28);
+      border-radius: 999px;
+      padding: 6px 10px;
+      color: var(--command-muted);
+      background: rgba(255, 255, 255, 0.08);
+      font-size: 12px;
+      font-weight: 850;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .command-shell h1 {
+      margin: 14px 0 12px;
+      font-family: "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+      font-size: clamp(38px, 6vw, 76px);
+      line-height: 0.92;
+      letter-spacing: -0.055em;
+      max-width: 10ch;
+    }
+    .command-shell p {
+      max-width: 760px;
+      color: var(--command-muted);
+      font-size: clamp(15px, 1.5vw, 18px);
+      margin: 0 0 18px;
+    }
+    .route-rail, .command-filter-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+    .route-card {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 42px;
+      padding: 9px 12px;
+      border: 1px solid rgba(248, 243, 231, 0.25);
+      border-radius: 999px;
+      color: var(--command-ink);
+      background: rgba(255, 255, 255, 0.1);
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 13px;
+      transition: transform 160ms ease, background 160ms ease, border-color 160ms ease;
+    }
+    .route-card:hover, .route-card:focus {
+      transform: translateY(-2px);
+      border-color: var(--signal);
+      background: rgba(225, 163, 58, 0.18);
+      outline: none;
+      box-shadow: var(--focus-ring);
+    }
+    .command-side {
+      display: grid;
+      gap: 12px;
+      align-content: start;
+    }
+    .command-stat-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(130px, 1fr));
+      gap: 10px;
+    }
+    .command-stat {
+      border: 1px solid rgba(248, 243, 231, 0.2);
+      border-radius: 14px;
+      padding: 13px;
+      background: rgba(255, 255, 255, 0.1);
+      min-height: 104px;
+    }
+    .command-stat span { display: block; color: var(--command-muted); font-size: 12px; }
+    .command-stat strong { display: block; margin-top: 6px; font-size: 28px; line-height: 1; }
+    .command-stat small { display: block; margin-top: 8px; color: var(--command-muted); font-size: 12px; line-height: 1.35; }
+    .revamp-workbench {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 12px 24px 8px;
+    }
+    .workbench-grid {
+      display: grid;
+      grid-template-columns: minmax(300px, 0.9fr) minmax(360px, 1.1fr);
+      gap: 16px;
+      align-items: start;
+    }
+    .workbench-panel {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: rgba(255, 255, 251, 0.92);
+      box-shadow: 0 18px 48px rgba(16, 35, 31, 0.08);
+      padding: 16px;
+    }
+    .workbench-panel h2 {
+      margin: 0 0 8px;
+      font-family: "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+      font-size: 24px;
+      letter-spacing: -0.02em;
+    }
+    .workbench-panel p { margin: 0 0 12px; color: var(--muted); font-size: 13px; }
+    .claim-card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .claim-card {
+      border: 1px solid var(--line);
+      border-left: 5px solid var(--line-strong);
+      border-radius: 12px;
+      padding: 12px;
+      background: #fff;
+      min-height: 142px;
+    }
+    .claim-card[data-complete="true"] { border-left-color: var(--green); background: var(--ok-soft); }
+    .claim-card[data-complete="false"] { border-left-color: var(--amber); background: var(--danger-soft); }
+    .claim-card strong { display: block; font-size: 14px; line-height: 1.25; }
+    .claim-card span { display: inline-flex; margin-top: 8px; border: 1px solid var(--line); border-radius: 999px; padding: 3px 7px; font-size: 11px; font-weight: 850; text-transform: uppercase; background: #fff; }
+    .claim-card p { margin-top: 8px; font-size: 12px; line-height: 1.35; }
+    .artifact-search {
+      display: grid;
+      grid-template-columns: minmax(180px, 1fr) auto auto auto;
+      gap: 8px;
+      align-items: center;
+      margin: 12px 0;
+    }
+    .artifact-search input, .artifact-search button {
+      border: 1px solid var(--line-strong);
+      border-radius: 999px;
+      padding: 9px 12px;
+      background: #fff;
+      color: var(--ink);
+    }
+    .artifact-search button {
+      cursor: pointer;
+      font-weight: 850;
+      background: var(--surface-muted);
+    }
+    .artifact-search button[aria-pressed="true"] {
+      color: #fff;
+      background: var(--teal);
+      border-color: var(--teal);
+    }
+    .artifact-result-list {
+      display: grid;
+      gap: 8px;
+      max-height: 420px;
+      overflow: auto;
+      padding-right: 4px;
+    }
+    .artifact-result {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 8px;
+      align-items: center;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 10px;
+      background: #fff;
+    }
+    .artifact-result a { color: var(--blue); font-weight: 850; text-decoration: none; overflow-wrap: anywhere; }
+    .artifact-result a:hover, .artifact-result a:focus { text-decoration: underline; }
+    .artifact-kind {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 3px 7px;
+      color: var(--muted);
+      font-size: 11px;
+      text-transform: uppercase;
+      font-weight: 850;
+      background: var(--surface-muted);
+    }
+    .reading-path {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(160px, 1fr));
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .reading-path a {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 12px;
+      background: #fff;
+      color: var(--ink);
+      text-decoration: none;
+      min-height: 108px;
+    }
+    .reading-path a:hover, .reading-path a:focus { border-color: var(--teal); box-shadow: var(--focus-ring); outline: none; }
+    .reading-path b { display: block; color: var(--teal); font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; }
+    .reading-path span { display: block; margin-top: 7px; color: var(--muted); font-size: 12px; line-height: 1.35; }
+    @media (max-width: 980px) {
+      .command-shell, .workbench-grid { grid-template-columns: 1fr; }
+      .reading-path { grid-template-columns: repeat(2, minmax(160px, 1fr)); }
+      .artifact-search { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 620px) {
+      .site-command, .revamp-workbench { padding-left: 14px; padding-right: 14px; }
+      .command-stat-grid, .reading-path { grid-template-columns: 1fr; }
+      .command-shell h1 { max-width: none; }
+    }
+
   </style>
 </head>
 <body>
@@ -571,9 +826,10 @@
   <header class="topbar" role="banner">
     <div class="brand">
       <strong>Macro-Dynamics Surrogate Dashboard</strong>
-      <span>FastAPI research interface, no /dashboard route</span>
+      <span>GitHub Pages command center · dashboard-first thesis website</span>
     </div>
     <nav class="nav-tabs" aria-label="Dashboard sections">
+      <a href="#site_command">Start</a>
       <a href="#snapshot">Snapshot</a>
       <a href="#evidence_loop">Evidence loop</a>
       <a href="#set_setting_seed">Set/Setting/Seed</a>
@@ -585,6 +841,61 @@
       <a href="#limitations">Limitations</a>
     </nav>
   </header>
+
+  <section class="site-command" id="site_command" aria-labelledby="command_title">
+    <div class="command-shell">
+      <div class="command-copy">
+        <span class="command-eyebrow">GitHub Pages dashboard-first thesis site</span>
+        <h1 id="command_title">Evidence command center</h1>
+        <p>The public landing page is now the dashboard. Start with the strict claim gates, jump into the thesis website artifacts, then drill into methods, figures, external validation, and conservative limitations without leaving the page.</p>
+        <div class="route-rail" aria-label="Primary thesis website routes">
+          <a class="route-card" href="/artifacts/output/doc/thesis_microsite.html">Thesis website</a>
+          <a class="route-card" href="/artifacts/output/doc/defense_presentation.html">Defense deck</a>
+          <a class="route-card" href="/artifacts/output/doc/thesis_report_revised.md">Thesis report</a>
+          <a class="route-card" href="/artifacts/CLAIM_LADDER.md">Claim ladder</a>
+          <a class="route-card" href="/artifacts/results/thesis_upgrade/thesis_upgrade_status.json">Strict audit JSON</a>
+          <a class="route-card" href="https://github.com/grimgrimberg/LSD_Thesis">Repository</a>
+        </div>
+      </div>
+      <aside class="command-side" aria-label="Dashboard status summary">
+        <div class="command-stat-grid">
+          <div class="command-stat"><span>Strict thesis gates</span><strong id="revamp_strict_count">loading</strong><small>Completion is derived from the published thesis-upgrade audit.</small></div>
+          <div class="command-stat"><span>Thesis phase</span><strong id="revamp_thesis_status">loading</strong><small>Dashboard uses the same fail-closed status contract as the repo.</small></div>
+          <div class="command-stat"><span>Motion/QC gate</span><strong id="revamp_motion_status">loading</strong><small>Raw-BOLD image-QC result is shown separately from fMRIPrep FD.</small></div>
+          <div class="command-stat"><span>Best next click</span><strong>Claims</strong><small>Read the gate cards before interpreting plots.</small></div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="revamp-workbench" id="evidence_command" aria-labelledby="evidence_command_title">
+    <div class="workbench-grid">
+      <div class="workbench-panel">
+        <h2 id="evidence_command_title">Claim-gated reading path</h2>
+        <p>Each card is generated from the strict completion audit. Green cards are implemented or resolved; orange cards are still blocked or downgraded.</p>
+        <div id="revamp_claim_grid" class="claim-card-grid" aria-live="polite"></div>
+        <div class="reading-path" aria-label="Recommended dashboard reading order">
+          <a href="#thesis_completion_table"><b>1. Claim status</b><span>Strict gates, blockers, and completion status.</span></a>
+          <a href="#dynamic_mechanism_status"><b>2. Mechanism ranking</b><span>Which surrogate families beat controls and where uncertainty gates matter.</span></a>
+          <a href="#validation_summary"><b>3. Validation</b><span>CV5, external ds006072, motion/QC, and negative controls.</span></a>
+          <a href="#artifact_browser"><b>4. Archive</b><span>Open reports, tables, figures, and reproducibility outputs.</span></a>
+        </div>
+      </div>
+      <div class="workbench-panel" id="artifact_browser">
+        <h2>Thesis artifact browser</h2>
+        <p>Search the linked website outputs, reports, figures, tables, and status JSON without guessing where they live.</p>
+        <div class="artifact-search" role="search">
+          <label class="sr-only" for="revamp_artifact_search">Search thesis artifacts</label>
+          <input id="revamp_artifact_search" type="search" placeholder="Search reports, figures, claims, motion, psilocybin..." autocomplete="off" />
+          <button type="button" data-artifact-filter="all" aria-pressed="true">All</button>
+          <button type="button" data-artifact-filter="reports" aria-pressed="false">Reports</button>
+          <button type="button" data-artifact-filter="figures" aria-pressed="false">Figures</button>
+        </div>
+        <div id="revamp_artifact_results" class="artifact-result-list" aria-live="polite"></div>
+      </div>
+    </div>
+  </section>
+
 
   <section class="hero" id="snapshot" aria-labelledby="snapshot_title">
     <div class="hero-panel">
@@ -3311,8 +3622,106 @@
       applyEmpiricalWindow(0);
     }
 
+
+    function compactStatus(value) {
+      const text = String(value || 'unknown').replace(/_/g, ' ');
+      return text.length > 34 ? `${text.slice(0, 31)}...` : text;
+    }
+
+    function artifactDisplayHref(href) {
+      if (typeof artifactHref === 'function') {
+        return artifactHref(href);
+      }
+      return href || '#';
+    }
+
+    function hydrateRevampCommandCenter(state) {
+      const upgrade = state.thesis_upgrade || {};
+      const summary = upgrade.readiness_summary || {};
+      const requirements = Array.isArray(upgrade.strict_completion_requirements) ? upgrade.strict_completion_requirements : [];
+      const motion = upgrade.components?.motion_confound || {};
+      const strictCount = document.getElementById('revamp_strict_count');
+      const thesisStatus = document.getElementById('revamp_thesis_status');
+      const motionStatus = document.getElementById('revamp_motion_status');
+      if (strictCount) strictCount.textContent = `${summary.strict_complete_gates ?? 0}/${summary.strict_total_gates ?? requirements.length}`;
+      if (thesisStatus) thesisStatus.textContent = compactStatus(summary.thesis_status || summary.completion_status);
+      if (motionStatus) motionStatus.textContent = compactStatus(motion.strict_requirement?.status || motion.gate?.status);
+
+      const claimGrid = document.getElementById('revamp_claim_grid');
+      if (claimGrid) {
+        claimGrid.innerHTML = '';
+        requirements.forEach(requirement => {
+          const card = document.createElement('article');
+          card.className = 'claim-card';
+          card.dataset.complete = String(Boolean(requirement.complete));
+          const title = document.createElement('strong');
+          title.textContent = requirement.label || requirement.requirement_id || 'Requirement';
+          const status = document.createElement('span');
+          status.textContent = requirement.complete ? 'complete' : 'blocked';
+          const detail = document.createElement('p');
+          detail.textContent = requirement.complete
+            ? (requirement.claim_effect || requirement.status || 'Implemented evidence gate.')
+            : (requirement.missing || requirement.next_action || 'Evidence is not complete yet.');
+          card.append(title, status, detail);
+          claimGrid.appendChild(card);
+        });
+      }
+
+      const reports = Array.isArray(state.artifact_links?.reports) ? state.artifact_links.reports : [];
+      const figures = Array.isArray(state.artifact_links?.figures) ? state.artifact_links.figures : [];
+      const artifacts = [
+        ...reports.map(item => ({ ...item, kind: 'reports' })),
+        ...figures.map(item => ({ ...item, kind: 'figures' }))
+      ];
+      const search = document.getElementById('revamp_artifact_search');
+      const resultList = document.getElementById('revamp_artifact_results');
+      const filterButtons = Array.from(document.querySelectorAll('[data-artifact-filter]'));
+      let activeFilter = 'all';
+
+      function renderArtifactResults() {
+        if (!resultList) return;
+        const query = String(search?.value || '').trim().toLowerCase();
+        const filtered = artifacts.filter(item => {
+          const haystack = `${item.label || ''} ${item.href || ''} ${item.kind || ''}`.toLowerCase();
+          const filterOk = activeFilter === 'all' || item.kind === activeFilter;
+          return filterOk && (!query || haystack.includes(query));
+        }).slice(0, 18);
+        resultList.innerHTML = '';
+        if (!filtered.length) {
+          const empty = document.createElement('p');
+          empty.className = 'empty';
+          empty.textContent = 'No matching artifacts. Try claim, motion, psilocybin, figure, report, or status.';
+          resultList.appendChild(empty);
+          return;
+        }
+        filtered.forEach(item => {
+          const row = document.createElement('div');
+          row.className = 'artifact-result';
+          const link = document.createElement('a');
+          link.href = artifactDisplayHref(item.href);
+          link.textContent = item.label || item.href || 'Artifact';
+          const kind = document.createElement('span');
+          kind.className = 'artifact-kind';
+          kind.textContent = item.kind || 'artifact';
+          row.append(link, kind);
+          resultList.appendChild(row);
+        });
+      }
+
+      filterButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          activeFilter = button.dataset.artifactFilter || 'all';
+          filterButtons.forEach(item => item.setAttribute('aria-pressed', String(item === button)));
+          renderArtifactResults();
+        });
+      });
+      if (search) search.addEventListener('input', renderArtifactResults);
+      renderArtifactResults();
+    }
+
     async function main() {
       dashboardState = await fetchJson('/api/dashboard-data');
+      hydrateRevampCommandCenter(dashboardState);
       renderHeroSnapshot(dashboardState);
       renderThesisExpansion(dashboardState.thesis_expansion);
       renderThesisUpgrade(dashboardState.thesis_upgrade);

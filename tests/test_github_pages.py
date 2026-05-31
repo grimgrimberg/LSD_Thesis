@@ -15,7 +15,7 @@ def _load_build_github_pages_module():
     return module
 
 
-def test_build_github_pages_site_copies_microsite_and_claim_matrix_artifacts(tmp_path: Path) -> None:
+def test_build_github_pages_site_makes_root_the_static_dashboard_and_links_thesis_artifacts(tmp_path: Path) -> None:
     module = _load_build_github_pages_module()
     output_dir = tmp_path / "output" / "doc"
     output_dir.mkdir(parents=True)
@@ -78,7 +78,11 @@ def test_build_github_pages_site_copies_microsite_and_claim_matrix_artifacts(tmp
     outputs = module.build_github_pages_site(tmp_path, tmp_path / "_site")
 
     assert outputs["index"] == tmp_path / "_site" / "index.html"
-    assert (tmp_path / "_site" / "index.html").read_text(encoding="utf-8") == "<html><title>Thesis</title></html>"
+    index_html = (tmp_path / "_site" / "index.html").read_text(encoding="utf-8")
+    assert "fetchJson('dashboard/dashboard-data.json')" in index_html
+    assert 'src="dashboard/assets/plotly.min.js"' in index_html
+    assert "artifacts/${path}" in index_html
+    assert (tmp_path / "_site" / "thesis.html").read_text(encoding="utf-8") == "<html><title>Thesis</title></html>"
     assert (tmp_path / "_site" / "defense.html").exists()
     assert (tmp_path / "_site" / "artifacts" / "claim_evidence_matrix.csv").exists()
     assert (tmp_path / "_site" / "artifacts" / "claim_evidence_matrix.md").exists()
@@ -98,6 +102,9 @@ def test_build_github_pages_site_copies_microsite_and_claim_matrix_artifacts(tmp
     assert "../artifacts/${path}" in dashboard_html
     manifest = json.loads((tmp_path / "_site" / "pages_manifest.json").read_text(encoding="utf-8"))
     assert manifest["claim_guardrail"].startswith("GitHub Pages is a static presentation")
+    assert manifest["entrypoints"]["index"] == "index.html"
+    assert manifest["entrypoints"]["thesis"] == "thesis.html"
     assert manifest["entrypoints"]["dashboard"] == "dashboard/index.html"
+    assert "thesis.html" in manifest["artifacts"]
     assert "artifacts/claim_evidence_matrix.csv" in manifest["artifacts"]
     assert "artifacts/results/training/rocket_condition_benchmark/benchmark_report.md" in manifest["artifacts"]

@@ -90,17 +90,23 @@ def _inject_static_favicon(path: Path) -> None:
     path.write_text(_with_static_favicon(path.read_text(encoding="utf-8")), encoding="utf-8")
 
 
-def _static_dashboard_html(template_path: Path) -> str:
+def _static_dashboard_html(
+    template_path: Path,
+    *,
+    plotly_src: str = "assets/plotly.min.js",
+    dashboard_data_src: str = "dashboard-data.json",
+    artifact_prefix: str = "../artifacts/",
+) -> str:
     html = template_path.read_text(encoding="utf-8")
     replacements = {
-        'src="/assets/plotly.min.js"': 'src="assets/plotly.min.js"',
-        'href="/artifacts/': 'href="../artifacts/',
-        "fetchJson('/api/dashboard-data')": "fetchJson('dashboard-data.json')",
+        'src="/assets/plotly.min.js"': f'src="{plotly_src}"',
+        'href="/artifacts/': f'href="{artifact_prefix}',
+        "fetchJson('/api/dashboard-data')": f"fetchJson('{dashboard_data_src}')",
         "subjectDetail = await fetchJson(`/api/empirical-view?subject=${encodeURIComponent(subject)}&run=${encodeURIComponent(run)}`);": (
             "subjectDetail = { error: 'Static GitHub Pages build: subject-level fMRI previews require the local FastAPI dashboard.' };"
         ),
-        "return `/artifacts/${path}`;": "return `../artifacts/${path}`;",
-        "href.startsWith('/artifacts/')": "(href.startsWith('/artifacts/') || href.startsWith('../artifacts/'))",
+        "return `/artifacts/${path}`;": f"return `{artifact_prefix}${{path}}`;",
+        "href.startsWith('/artifacts/')": f"(href.startsWith('/artifacts/') || href.startsWith('{artifact_prefix}'))",
         "document.getElementById('simulate').addEventListener('click', async () => {": (
             "const simulateButton = document.getElementById('simulate');\n"
             "      simulateButton.disabled = true;\n"
@@ -184,12 +190,24 @@ def _write_static_dashboard(repo_root: Path, site: Path) -> dict[str, Path | lis
     dashboard_data = dashboard_dir / "dashboard-data.json"
     dashboard_data.write_text(json.dumps(payload, indent=2), encoding="utf-8")
     dashboard_html = dashboard_dir / "index.html"
-    dashboard_html.write_text(_static_dashboard_html(repo_root / "src" / "lsd_thesis" / "templates" / "dashboard.html"), encoding="utf-8")
+    template_path = repo_root / "src" / "lsd_thesis" / "templates" / "dashboard.html"
+    dashboard_html.write_text(_static_dashboard_html(template_path), encoding="utf-8")
+    root_html = site / "index.html"
+    root_html.write_text(
+        _static_dashboard_html(
+            template_path,
+            plotly_src="dashboard/assets/plotly.min.js",
+            dashboard_data_src="dashboard/dashboard-data.json",
+            artifact_prefix="artifacts/",
+        ),
+        encoding="utf-8",
+    )
     plotly_asset = dashboard_dir / "assets" / "plotly.min.js"
     plotly_asset.parent.mkdir(parents=True, exist_ok=True)
     plotly_asset.write_text(get_plotlyjs(), encoding="utf-8")
     copied_artifacts = _copy_dashboard_linked_artifacts(repo_root, site, payload)
     return {
+        "index": root_html,
         "dashboard": dashboard_html,
         "dashboard_data": dashboard_data,
         "dashboard_plotly": plotly_asset,
@@ -218,13 +236,9 @@ def build_github_pages_site(repo_root: Path = REPO_ROOT, site_dir: Path | None =
     write_thesis_upgrade_status(repo_root)
 
     outputs: dict[str, Path] = {}
-    index = _copy_file(Path(publication_outputs["thesis_microsite_html"]), site / "index.html")
-    if index is None:
-        raise FileNotFoundError("Publication package did not produce thesis_microsite.html.")
-    _inject_static_favicon(index)
-    outputs["index"] = index
 
     optional_files = {
+        "thesis": (Path(publication_outputs["thesis_microsite_html"]), site / "thesis.html"),
         "defense": (Path(publication_outputs["defense_presentation_html"]), site / "defense.html"),
         "report_markdown": (Path(publication_outputs["thesis_report_markdown"]), site / "artifacts" / "thesis_report_revised.md"),
         "claim_matrix_csv": (
@@ -287,6 +301,7 @@ def build_github_pages_site(repo_root: Path = REPO_ROOT, site_dir: Path | None =
         ),
         "entrypoints": {
             "index": "index.html",
+            "thesis": "thesis.html" if "thesis" in outputs else None,
             "defense": "defense.html" if "defense" in outputs else None,
             "dashboard": "dashboard/index.html",
         },
