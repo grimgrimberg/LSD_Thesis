@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-05-31T09:00:24.598458+00:00",
+  "generated_at_utc": "2026-05-31T09:39:39.577367+00:00",
   "claim_guardrail": "GitHub Pages is a static presentation and dashboard snapshot. Treat blocked rows in the claim matrix as unresolved thesis work, not as completed scientific evidence. Interactive FastAPI-only controls are available only in the local dashboard.",
   "entrypoints": {
     "index": "index.html",
@@ -110,6 +110,7 @@
     "artifacts/results/psilocybin_ds006072/psilocybin_ds006072_status.json",
     "artifacts/results/psilocybin_ds006072/required_empirical_viewer_schema.json",
     "artifacts/results/psilocybin_ds006072/unchanged_scoring_spec.json",
+    "artifacts/results/receptor_priors/proxy_receptor_null_board.csv",
     "artifacts/results/receptor_priors/receptor_prior_ingestion_manifest.json",
     "artifacts/results/receptor_priors/receptor_prior_status.json",
     "artifacts/results/receptor_priors/required_fs5ht_5ht2a_macro_modules_template.csv",
@@ -124,6 +125,7 @@
     "artifacts/results/stage_2/figures/sober_fit_history.html",
     "artifacts/results/stage_2/figures/sober_metric_fit.html",
     "artifacts/results/stage_2/figures/target_sober_fc_matrix.html",
+    "artifacts/results/structural_connectome/proxy_graph_control_nulls.csv",
     "artifacts/results/structural_connectome/required_hcp_macro_modules_template.csv",
     "artifacts/results/structural_connectome/structural_connectome_ingestion_manifest.json",
     "artifacts/results/structural_connectome/structural_connectome_status.json",

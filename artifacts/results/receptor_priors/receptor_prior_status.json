@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at_utc": "2026-05-31T08:59:46.558009+00:00",
+  "generated_at_utc": "2026-05-31T09:38:02.997556+00:00",
   "artifact_target": "results/receptor_priors",
   "expected_prior_files": [
     "results/receptor_priors/fs5ht_5ht2a_macro_modules.csv",
@@ -12,7 +12,80 @@
   "blocker": "No local PET-derived receptor-prior CSV was found.",
   "required_schema": "CSV with module,receptor_weight and optional source columns.",
   "schema_template": "results/receptor_priors/required_fs5ht_5ht2a_macro_modules_template.csv",
-  "proxy_null_board_status": "not_run",
-  "proxy_null_board_path": null,
-  "proxy_null_board_rows": []
+  "proxy_null_board_status": "implemented_coarse_prior_null_board_not_pet",
+  "proxy_null_board_path": "results/receptor_priors/proxy_receptor_null_board.csv",
+  "proxy_null_board_rows": [
+    {
+      "metric": "lsd_vs_placebo_receptor_transition_energy_reduction_pct",
+      "mean_delta": 4.702198506533535,
+      "signed_effect_size": 0.37576604844255507,
+      "expected_direction": "positive means LSD within-condition transitions need less receptor-profile control energy than placebo",
+      "null_family": "coarse_receptor_proxy",
+      "prior_source": "coarse module-level proxy prior from receptor-gradient model config; not a PET-derived receptor map",
+      "claim_status": "proxy_only_not_pet_receptor_claim"
+    },
+    {
+      "metric": "lsd_vs_placebo_uniform_transition_energy_reduction_pct",
+      "mean_delta": 6.935892752544529,
+      "signed_effect_size": 0.7242170950688606,
+      "expected_direction": "positive means LSD within-condition transitions need less uniform-control energy than placebo",
+      "null_family": "uniform_control",
+      "prior_source": "coarse module-level proxy prior from receptor-gradient model config; not a PET-derived receptor map",
+      "claim_status": "proxy_only_not_pet_receptor_claim"
+    },
+    {
+      "metric": "receptor_vs_uniform_energy_reduction_pct",
+      "mean_delta": -34.3869884708404,
+      "signed_effect_size": -1.457887579613032,
+      "expected_direction": "positive means receptor-prior control needs less energy than uniform control",
+      "null_family": "uniform_control",
+      "prior_source": "coarse module-level proxy prior from receptor-gradient model config; not a PET-derived receptor map",
+      "claim_status": "proxy_only_not_pet_receptor_claim"
+    },
+    {
+      "metric": "receptor_vs_random_energy_reduction_pct",
+      "mean_delta": -15.4342613806409,
+      "signed_effect_size": -0.8321254106889895,
+      "expected_direction": "positive means receptor-prior control needs less energy than random receptor-prior permutations",
+      "null_family": "random_permutation",
+      "prior_source": "coarse module-level proxy prior from receptor-gradient model config; not a PET-derived receptor map",
+      "claim_status": "proxy_only_not_pet_receptor_claim"
+    },
+    {
+      "metric": "hierarchy_vs_uniform_energy_reduction_pct",
+      "mean_delta": -300.46956304822345,
+      "signed_effect_size": -2.2969792663885165,
+      "expected_direction": "positive means hierarchy-prior control needs less energy than uniform control",
+      "null_family": "uniform_control",
+      "prior_source": "coarse module-level proxy prior from receptor-gradient model config; not a PET-derived receptor map",
+      "claim_status": "proxy_only_not_pet_receptor_claim"
+    },
+    {
+      "metric": "transmodal_vs_uniform_energy_reduction_pct",
+      "mean_delta": -674.315980973865,
+      "signed_effect_size": -2.0346717830255048,
+      "expected_direction": "positive means transmodal-prior control needs less energy than uniform control",
+      "null_family": "uniform_control",
+      "prior_source": "coarse module-level proxy prior from receptor-gradient model config; not a PET-derived receptor map",
+      "claim_status": "proxy_only_not_pet_receptor_claim"
+    },
+    {
+      "metric": "state_target_alignment_receptor",
+      "mean_delta": 0.13300315069221882,
+      "signed_effect_size": 0.46364101084434517,
+      "expected_direction": "positive means modules with higher receptor prior align with larger LSD-minus-placebo state displacement",
+      "null_family": "coarse_receptor_proxy",
+      "prior_source": "coarse module-level proxy prior from receptor-gradient model config; not a PET-derived receptor map",
+      "claim_status": "proxy_only_not_pet_receptor_claim"
+    },
+    {
+      "metric": "spatial_autocorrelation_preserving_null",
+      "mean_delta": null,
+      "signed_effect_size": null,
+      "expected_direction": "PET-derived receptor map should outperform spatial nulls",
+      "null_family": "spatial_null_missing",
+      "prior_source": "missing PET receptor map",
+      "claim_status": "blocked_until_neuromaps_or_FS5ht_projection_exists"
+    }
+  ]
 }

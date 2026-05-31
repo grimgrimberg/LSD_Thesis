@@ -1,0 +1,20 @@
+graph_control,graph_source,lsd_vs_placebo_receptor_transition_energy_reduction_pct,receptor_vs_random_energy_reduction_pct,receptor_vs_uniform_energy_reduction_pct,rewire_index,state_target_alignment_receptor,support_score
+macro_proxy_graph,"macro_proxy_graph; proxy graph control, not HCP structural connectome",4.702198506533535,-14.214731114495072,-34.3869884708404,,0.13300315069221882,0.21183035701941078
+uniform_weight_graph,"uniform_weight_graph; proxy graph control, not HCP structural connectome",3.8943761126499026,-3.803757951899512,-22.24847009578297,,0.13300315069221882,0.31552330412219354
+degree_expected_graph,"degree_expected_graph; proxy graph control, not HCP structural connectome",4.470415240659168,-9.71664619458491,-29.29573443489324,,0.13300315069221882,0.26147021938726467
+edge_weight_rewire_null,rewired macro-proxy edge-weight null; not HCP structural connectome,3.4953301013006044,3.872719827893189,-12.221300137231095,0,0.13300315069221882,0.44131554549238816
+edge_weight_rewire_null,rewired macro-proxy edge-weight null; not HCP structural connectome,4.926186697188426,-0.7328999224900453,-17.97723417118442,1,0.13300315069221882,0.42589749866565585
+edge_weight_rewire_null,rewired macro-proxy edge-weight null; not HCP structural connectome,3.082625519020206,7.7947726892359315,-10.193289417449455,2,0.13300315069221882,0.4983398321844616
+edge_weight_rewire_null,rewired macro-proxy edge-weight null; not HCP structural connectome,5.104717448180986,-22.78673100971311,-43.01623602104077,3,0.13300315069221882,0.15207428819066632
+edge_weight_rewire_null,rewired macro-proxy edge-weight null; not HCP structural connectome,4.495686968120134,-8.923383183222825,-27.53279803714942,4,0.13300315069221882,0.28951678007923065
+edge_weight_rewire_null,rewired macro-proxy edge-weight null; not HCP structural connectome,3.350800119672593,-0.9532812810829832,-19.910991163435906,5,0.13300315069221882,0.3530642939818865
+edge_weight_rewire_null,rewired macro-proxy edge-weight null; not HCP structural connectome,4.046499086247285,-4.162754862386243,-22.62151821545653,6,0.13300315069221882,0.3076519162322807
+edge_weight_rewire_null,rewired macro-proxy edge-weight null; not HCP structural connectome,4.013860098578283,-8.335725281188644,-29.89037925952308,7,0.13300315069221882,0.2754265146030591
+edge_weight_rewire_null,rewired macro-proxy edge-weight null; not HCP structural connectome,4.8005011010202265,-4.654984828636728,-22.587316306527363,8,0.13300315069221882,0.33073733344921175
+edge_weight_rewire_null,rewired macro-proxy edge-weight null; not HCP structural connectome,4.464124957810071,-13.855651262170744,-32.861072589957736,9,0.13300315069221882,0.23198197109099977
+edge_weight_rewire_null,rewired macro-proxy edge-weight null; not HCP structural connectome,4.29996007221886,-1.639990479219674,-19.076950180867062,10,0.13300315069221882,0.34230743372875594
+edge_weight_rewire_null,rewired macro-proxy edge-weight null; not HCP structural connectome,4.4466356917017,-15.636000165679254,-34.244904784852,11,0.13300315069221882,0.19075149371575462
+edge_weight_rewire_null,rewired macro-proxy edge-weight null; not HCP structural connectome,4.487833965521429,-15.885659635150416,-33.09941121308414,12,0.13300315069221882,0.19967631618440163
+edge_weight_rewire_null,rewired macro-proxy edge-weight null; not HCP structural connectome,3.890688463314012,-6.353141958519869,-24.966835315844833,13,0.13300315069221882,0.30270786659692056
+edge_weight_rewire_null,rewired macro-proxy edge-weight null; not HCP structural connectome,3.3460787238893253,-7.191985415964259,-27.165905550833298,14,0.13300315069221882,0.19790713924521625
+edge_weight_rewire_null,rewired macro-proxy edge-weight null; not HCP structural connectome,4.3178379982059845,-6.439744614853897,-24.950712439624514,15,0.13300315069221882,0.2994188224961803

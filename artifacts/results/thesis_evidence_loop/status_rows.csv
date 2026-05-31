@@ -4,4 +4,4 @@ results/psilocybin_ds006072/,,Comparable ranking generated.,Psilocybin ds006072,
 results/structural_connectome/,,No local HCP/normative structural graph CSV was found.,HCP structural graph,blocked_missing_hcp_structural_graph,3
 results/receptor_priors/,,No local PET-derived receptor-prior CSV was found.,PET receptor priors,blocked_missing_pet_receptor_prior,4
 results/parcellation_sensitivity/,,Status matrix generated; see per-parcellation rows.,Schaefer/Yeo sensitivity,implemented_status_matrix,5
-results/literature_benchmark/,,None/None measurable proxy checks aligned.,Mega-analysis comparison,implemented_directional_proxy_benchmark,6
+results/literature_benchmark/,,4/6 measurable proxy checks aligned.,Mega-analysis comparison,implemented_directional_proxy_benchmark,6

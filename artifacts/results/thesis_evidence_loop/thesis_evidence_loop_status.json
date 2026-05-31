@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at_utc": "2026-05-31T08:59:46.633132+00:00",
+  "generated_at_utc": "2026-05-31T09:38:40.681049+00:00",
   "analysis_status": "implemented_loop_status_artifacts",
   "status_rows": [
     {
@@ -48,7 +48,7 @@
       "label": "Mega-analysis comparison",
       "status": "implemented_directional_proxy_benchmark",
       "artifact_target": "results/literature_benchmark/",
-      "evidence": "None/None measurable proxy checks aligned.",
+      "evidence": "4/6 measurable proxy checks aligned.",
       "blocker": ""
     }
   ],
@@ -60,7 +60,7 @@
     },
     "psilocybin_ds006072": {
       "schema_version": 1,
-      "generated_at_utc": "2026-05-31T08:59:45.787795+00:00",
+      "generated_at_utc": "2026-05-31T09:37:38.020808+00:00",
       "dataset_id": "ds006072",
       "source": "OpenNeuro ds006072, Scientific Data 2025 psilocybin precision imaging dataset",
       "local_data_root": "data/ds006072",
@@ -74,7 +74,7 @@
       "functional_manifest_processed_cifti_total_size_bytes": null,
       "external_validation_readiness": {
         "schema_version": "ds006072_external_validation.v1",
-        "generated_at_utc": "2026-05-31T08:58:55.364566+00:00",
+        "generated_at_utc": "2026-05-31T09:30:42.069657+00:00",
         "dataset_id": "ds006072",
         "analysis_status": "blocked_missing_drug_order_or_processed_rest_manifest",
         "primary_contrast": "psilocybin_vs_active_control_mtp",
@@ -145,7 +145,7 @@
       "summary": {
         "schema_version": 3,
         "analysis_status": "implemented_first_pass",
-        "generated_at_utc": "2026-05-31T08:59:46.536140+00:00",
+        "generated_at_utc": "2026-05-31T09:37:40.289893+00:00",
         "inference_metadata": {
           "metric_ci_alpha": 0.05,
           "metric_bootstrap_iterations": 1024,
@@ -2525,7 +2525,7 @@
       },
       "comparable_empirical_validation": {
         "schema_version": "ds006072_external_validation.v1",
-        "generated_at_utc": "2026-05-31T08:59:45.831782+00:00",
+        "generated_at_utc": "2026-05-31T09:37:38.292836+00:00",
         "dataset_id": "ds006072",
         "primary_contrast": "psilocybin_vs_active_control_mtp",
         "viewer_root": "results/psilocybin_ds006072/empirical_viewer",
@@ -2641,7 +2641,7 @@
         "summary": {
           "schema_version": 3,
           "analysis_status": "implemented_first_pass",
-          "generated_at_utc": "2026-05-31T08:59:46.536140+00:00",
+          "generated_at_utc": "2026-05-31T09:37:40.289893+00:00",
           "inference_metadata": {
             "metric_ci_alpha": 0.05,
             "metric_bootstrap_iterations": 1024,
@@ -5031,7 +5031,7 @@
     },
     "structural_connectome": {
       "schema_version": 1,
-      "generated_at_utc": "2026-05-31T08:59:46.552817+00:00",
+      "generated_at_utc": "2026-05-31T09:37:42.388632+00:00",
       "artifact_target": "results/structural_connectome",
       "expected_graph_files": [
         "results/structural_connectome/hcp_macro_modules.csv",
@@ -5042,14 +5042,205 @@
       "blocker": "No local HCP/normative structural graph CSV was found.",
       "required_schema": "CSV edge list with source,target,weight or square matrix with module plus module columns.",
       "schema_template": "results/structural_connectome/required_hcp_macro_modules_template.csv",
-      "proxy_graph_control_status": "not_run",
-      "proxy_graph_control_rows": [],
-      "proxy_graph_control_path": null,
+      "proxy_graph_control_status": "implemented_macro_proxy_graph_controls_not_hcp",
+      "proxy_graph_control_rows": [
+        {
+          "graph_control": "macro_proxy_graph",
+          "rewire_index": null,
+          "support_score": 0.21183035701941078,
+          "graph_source": "macro_proxy_graph; proxy graph control, not HCP structural connectome",
+          "receptor_vs_random_energy_reduction_pct": -14.214731114495072,
+          "receptor_vs_uniform_energy_reduction_pct": -34.3869884708404,
+          "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 4.702198506533535,
+          "state_target_alignment_receptor": 0.13300315069221882
+        },
+        {
+          "graph_control": "uniform_weight_graph",
+          "rewire_index": null,
+          "support_score": 0.31552330412219354,
+          "graph_source": "uniform_weight_graph; proxy graph control, not HCP structural connectome",
+          "receptor_vs_random_energy_reduction_pct": -3.803757951899512,
+          "receptor_vs_uniform_energy_reduction_pct": -22.24847009578297,
+          "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 3.8943761126499026,
+          "state_target_alignment_receptor": 0.13300315069221882
+        },
+        {
+          "graph_control": "degree_expected_graph",
+          "rewire_index": null,
+          "support_score": 0.26147021938726467,
+          "graph_source": "degree_expected_graph; proxy graph control, not HCP structural connectome",
+          "receptor_vs_random_energy_reduction_pct": -9.71664619458491,
+          "receptor_vs_uniform_energy_reduction_pct": -29.29573443489324,
+          "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 4.470415240659168,
+          "state_target_alignment_receptor": 0.13300315069221882
+        },
+        {
+          "graph_control": "edge_weight_rewire_null",
+          "rewire_index": 0,
+          "support_score": 0.44131554549238816,
+          "graph_source": "rewired macro-proxy edge-weight null; not HCP structural connectome",
+          "receptor_vs_random_energy_reduction_pct": 3.872719827893189,
+          "receptor_vs_uniform_energy_reduction_pct": -12.221300137231095,
+          "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 3.4953301013006044,
+          "state_target_alignment_receptor": 0.13300315069221882
+        },
+        {
+          "graph_control": "edge_weight_rewire_null",
+          "rewire_index": 1,
+          "support_score": 0.42589749866565585,
+          "graph_source": "rewired macro-proxy edge-weight null; not HCP structural connectome",
+          "receptor_vs_random_energy_reduction_pct": -0.7328999224900453,
+          "receptor_vs_uniform_energy_reduction_pct": -17.97723417118442,
+          "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 4.926186697188426,
+          "state_target_alignment_receptor": 0.13300315069221882
+        },
+        {
+          "graph_control": "edge_weight_rewire_null",
+          "rewire_index": 2,
+          "support_score": 0.4983398321844616,
+          "graph_source": "rewired macro-proxy edge-weight null; not HCP structural connectome",
+          "receptor_vs_random_energy_reduction_pct": 7.7947726892359315,
+          "receptor_vs_uniform_energy_reduction_pct": -10.193289417449455,
+          "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 3.082625519020206,
+          "state_target_alignment_receptor": 0.13300315069221882
+        },
+        {
+          "graph_control": "edge_weight_rewire_null",
+          "rewire_index": 3,
+          "support_score": 0.15207428819066632,
+          "graph_source": "rewired macro-proxy edge-weight null; not HCP structural connectome",
+          "receptor_vs_random_energy_reduction_pct": -22.78673100971311,
+          "receptor_vs_uniform_energy_reduction_pct": -43.01623602104077,
+          "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 5.104717448180986,
+          "state_target_alignment_receptor": 0.13300315069221882
+        },
+        {
+          "graph_control": "edge_weight_rewire_null",
+          "rewire_index": 4,
+          "support_score": 0.28951678007923065,
+          "graph_source": "rewired macro-proxy edge-weight null; not HCP structural connectome",
+          "receptor_vs_random_energy_reduction_pct": -8.923383183222825,
+          "receptor_vs_uniform_energy_reduction_pct": -27.53279803714942,
+          "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 4.495686968120134,
+          "state_target_alignment_receptor": 0.13300315069221882
+        },
+        {
+          "graph_control": "edge_weight_rewire_null",
+          "rewire_index": 5,
+          "support_score": 0.3530642939818865,
+          "graph_source": "rewired macro-proxy edge-weight null; not HCP structural connectome",
+          "receptor_vs_random_energy_reduction_pct": -0.9532812810829832,
+          "receptor_vs_uniform_energy_reduction_pct": -19.910991163435906,
+          "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 3.350800119672593,
+          "state_target_alignment_receptor": 0.13300315069221882
+        },
+        {
+          "graph_control": "edge_weight_rewire_null",
+          "rewire_index": 6,
+          "support_score": 0.3076519162322807,
+          "graph_source": "rewired macro-proxy edge-weight null; not HCP structural connectome",
+          "receptor_vs_random_energy_reduction_pct": -4.162754862386243,
+          "receptor_vs_uniform_energy_reduction_pct": -22.62151821545653,
+          "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 4.046499086247285,
+          "state_target_alignment_receptor": 0.13300315069221882
+        },
+        {
+          "graph_control": "edge_weight_rewire_null",
+          "rewire_index": 7,
+          "support_score": 0.2754265146030591,
+          "graph_source": "rewired macro-proxy edge-weight null; not HCP structural connectome",
+          "receptor_vs_random_energy_reduction_pct": -8.335725281188644,
+          "receptor_vs_uniform_energy_reduction_pct": -29.89037925952308,
+          "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 4.013860098578283,
+          "state_target_alignment_receptor": 0.13300315069221882
+        },
+        {
+          "graph_control": "edge_weight_rewire_null",
+          "rewire_index": 8,
+          "support_score": 0.33073733344921175,
+          "graph_source": "rewired macro-proxy edge-weight null; not HCP structural connectome",
+          "receptor_vs_random_energy_reduction_pct": -4.654984828636728,
+          "receptor_vs_uniform_energy_reduction_pct": -22.587316306527363,
+          "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 4.8005011010202265,
+          "state_target_alignment_receptor": 0.13300315069221882
+        },
+        {
+          "graph_control": "edge_weight_rewire_null",
+          "rewire_index": 9,
+          "support_score": 0.23198197109099977,
+          "graph_source": "rewired macro-proxy edge-weight null; not HCP structural connectome",
+          "receptor_vs_random_energy_reduction_pct": -13.855651262170744,
+          "receptor_vs_uniform_energy_reduction_pct": -32.861072589957736,
+          "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 4.464124957810071,
+          "state_target_alignment_receptor": 0.13300315069221882
+        },
+        {
+          "graph_control": "edge_weight_rewire_null",
+          "rewire_index": 10,
+          "support_score": 0.34230743372875594,
+          "graph_source": "rewired macro-proxy edge-weight null; not HCP structural connectome",
+          "receptor_vs_random_energy_reduction_pct": -1.639990479219674,
+          "receptor_vs_uniform_energy_reduction_pct": -19.076950180867062,
+          "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 4.29996007221886,
+          "state_target_alignment_receptor": 0.13300315069221882
+        },
+        {
+          "graph_control": "edge_weight_rewire_null",
+          "rewire_index": 11,
+          "support_score": 0.19075149371575462,
+          "graph_source": "rewired macro-proxy edge-weight null; not HCP structural connectome",
+          "receptor_vs_random_energy_reduction_pct": -15.636000165679254,
+          "receptor_vs_uniform_energy_reduction_pct": -34.244904784852,
+          "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 4.4466356917017,
+          "state_target_alignment_receptor": 0.13300315069221882
+        },
+        {
+          "graph_control": "edge_weight_rewire_null",
+          "rewire_index": 12,
+          "support_score": 0.19967631618440163,
+          "graph_source": "rewired macro-proxy edge-weight null; not HCP structural connectome",
+          "receptor_vs_random_energy_reduction_pct": -15.885659635150416,
+          "receptor_vs_uniform_energy_reduction_pct": -33.09941121308414,
+          "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 4.487833965521429,
+          "state_target_alignment_receptor": 0.13300315069221882
+        },
+        {
+          "graph_control": "edge_weight_rewire_null",
+          "rewire_index": 13,
+          "support_score": 0.30270786659692056,
+          "graph_source": "rewired macro-proxy edge-weight null; not HCP structural connectome",
+          "receptor_vs_random_energy_reduction_pct": -6.353141958519869,
+          "receptor_vs_uniform_energy_reduction_pct": -24.966835315844833,
+          "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 3.890688463314012,
+          "state_target_alignment_receptor": 0.13300315069221882
+        },
+        {
+          "graph_control": "edge_weight_rewire_null",
+          "rewire_index": 14,
+          "support_score": 0.19790713924521625,
+          "graph_source": "rewired macro-proxy edge-weight null; not HCP structural connectome",
+          "receptor_vs_random_energy_reduction_pct": -7.191985415964259,
+          "receptor_vs_uniform_energy_reduction_pct": -27.165905550833298,
+          "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 3.3460787238893253,
+          "state_target_alignment_receptor": 0.13300315069221882
+        },
+        {
+          "graph_control": "edge_weight_rewire_null",
+          "rewire_index": 15,
+          "support_score": 0.2994188224961803,
+          "graph_source": "rewired macro-proxy edge-weight null; not HCP structural connectome",
+          "receptor_vs_random_energy_reduction_pct": -6.439744614853897,
+          "receptor_vs_uniform_energy_reduction_pct": -24.950712439624514,
+          "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 4.3178379982059845,
+          "state_target_alignment_receptor": 0.13300315069221882
+        }
+      ],
+      "proxy_graph_control_path": "results/structural_connectome/proxy_graph_control_nulls.csv",
       "source_path": "D:/LSD_Thesis/.worktrees/main-source-publish/results/structural_connectome/structural_connectome_status.json"
     },
     "receptor_priors": {
       "schema_version": 1,
-      "generated_at_utc": "2026-05-31T08:59:46.558009+00:00",
+      "generated_at_utc": "2026-05-31T09:38:02.997556+00:00",
       "artifact_target": "results/receptor_priors",
       "expected_prior_files": [
         "results/receptor_priors/fs5ht_5ht2a_macro_modules.csv",
@@ -5061,14 +5252,87 @@
       "blocker": "No local PET-derived receptor-prior CSV was found.",
       "required_schema": "CSV with module,receptor_weight and optional source columns.",
       "schema_template": "results/receptor_priors/required_fs5ht_5ht2a_macro_modules_template.csv",
-      "proxy_null_board_status": "not_run",
-      "proxy_null_board_path": null,
-      "proxy_null_board_rows": [],
+      "proxy_null_board_status": "implemented_coarse_prior_null_board_not_pet",
+      "proxy_null_board_path": "results/receptor_priors/proxy_receptor_null_board.csv",
+      "proxy_null_board_rows": [
+        {
+          "metric": "lsd_vs_placebo_receptor_transition_energy_reduction_pct",
+          "mean_delta": 4.702198506533535,
+          "signed_effect_size": 0.37576604844255507,
+          "expected_direction": "positive means LSD within-condition transitions need less receptor-profile control energy than placebo",
+          "null_family": "coarse_receptor_proxy",
+          "prior_source": "coarse module-level proxy prior from receptor-gradient model config; not a PET-derived receptor map",
+          "claim_status": "proxy_only_not_pet_receptor_claim"
+        },
+        {
+          "metric": "lsd_vs_placebo_uniform_transition_energy_reduction_pct",
+          "mean_delta": 6.935892752544529,
+          "signed_effect_size": 0.7242170950688606,
+          "expected_direction": "positive means LSD within-condition transitions need less uniform-control energy than placebo",
+          "null_family": "uniform_control",
+          "prior_source": "coarse module-level proxy prior from receptor-gradient model config; not a PET-derived receptor map",
+          "claim_status": "proxy_only_not_pet_receptor_claim"
+        },
+        {
+          "metric": "receptor_vs_uniform_energy_reduction_pct",
+          "mean_delta": -34.3869884708404,
+          "signed_effect_size": -1.457887579613032,
+          "expected_direction": "positive means receptor-prior control needs less energy than uniform control",
+          "null_family": "uniform_control",
+          "prior_source": "coarse module-level proxy prior from receptor-gradient model config; not a PET-derived receptor map",
+          "claim_status": "proxy_only_not_pet_receptor_claim"
+        },
+        {
+          "metric": "receptor_vs_random_energy_reduction_pct",
+          "mean_delta": -15.4342613806409,
+          "signed_effect_size": -0.8321254106889895,
+          "expected_direction": "positive means receptor-prior control needs less energy than random receptor-prior permutations",
+          "null_family": "random_permutation",
+          "prior_source": "coarse module-level proxy prior from receptor-gradient model config; not a PET-derived receptor map",
+          "claim_status": "proxy_only_not_pet_receptor_claim"
+        },
+        {
+          "metric": "hierarchy_vs_uniform_energy_reduction_pct",
+          "mean_delta": -300.46956304822345,
+          "signed_effect_size": -2.2969792663885165,
+          "expected_direction": "positive means hierarchy-prior control needs less energy than uniform control",
+          "null_family": "uniform_control",
+          "prior_source": "coarse module-level proxy prior from receptor-gradient model config; not a PET-derived receptor map",
+          "claim_status": "proxy_only_not_pet_receptor_claim"
+        },
+        {
+          "metric": "transmodal_vs_uniform_energy_reduction_pct",
+          "mean_delta": -674.315980973865,
+          "signed_effect_size": -2.0346717830255048,
+          "expected_direction": "positive means transmodal-prior control needs less energy than uniform control",
+          "null_family": "uniform_control",
+          "prior_source": "coarse module-level proxy prior from receptor-gradient model config; not a PET-derived receptor map",
+          "claim_status": "proxy_only_not_pet_receptor_claim"
+        },
+        {
+          "metric": "state_target_alignment_receptor",
+          "mean_delta": 0.13300315069221882,
+          "signed_effect_size": 0.46364101084434517,
+          "expected_direction": "positive means modules with higher receptor prior align with larger LSD-minus-placebo state displacement",
+          "null_family": "coarse_receptor_proxy",
+          "prior_source": "coarse module-level proxy prior from receptor-gradient model config; not a PET-derived receptor map",
+          "claim_status": "proxy_only_not_pet_receptor_claim"
+        },
+        {
+          "metric": "spatial_autocorrelation_preserving_null",
+          "mean_delta": null,
+          "signed_effect_size": null,
+          "expected_direction": "PET-derived receptor map should outperform spatial nulls",
+          "null_family": "spatial_null_missing",
+          "prior_source": "missing PET receptor map",
+          "claim_status": "blocked_until_neuromaps_or_FS5ht_projection_exists"
+        }
+      ],
       "source_path": "D:/LSD_Thesis/.worktrees/main-source-publish/results/receptor_priors/receptor_prior_status.json"
     },
     "parcellation_sensitivity": {
       "schema_version": 1,
-      "generated_at_utc": "2026-05-31T08:59:46.613431+00:00",
+      "generated_at_utc": "2026-05-31T09:38:03.451251+00:00",
       "analysis_status": "implemented_status_matrix",
       "rows": [
         {
@@ -5251,13 +5515,112 @@
     },
     "literature_benchmark": {
       "schema_version": 1,
-      "generated_at_utc": "2026-05-31T08:59:46.628737+00:00",
+      "generated_at_utc": "2026-05-31T09:38:40.674563+00:00",
       "analysis_status": "implemented_directional_proxy_benchmark",
-      "aligned_count": null,
-      "measurable_count": null,
-      "alignment_fraction": null,
-      "rows": [],
-      "claim_guardrail": null,
+      "aligned_count": 4,
+      "measurable_count": 6,
+      "alignment_fraction": 0.6666666666666666,
+      "rows": [
+        {
+          "benchmark": "2026 Nature Medicine transmodal-unimodal coupling",
+          "layer": "C",
+          "project_metric": "sensory_transmodal_coupling",
+          "expected_sign": 1,
+          "observed_mean_delta": 0.04733502986356756,
+          "observed_signed_effect_size": 0.4712328497123826,
+          "sign_match": true,
+          "status": "aligned",
+          "source": "Girn et al., Nature Medicine 2026",
+          "url": "https://www.nature.com/articles/s41591-026-04287-9",
+          "interpretation": "Direct coarse proxy for increased coupling between unimodal/sensory and transmodal systems.",
+          "caveat": "Current project uses 8 modules, not the consortium atlas/Bayesian mega-analysis pipeline."
+        },
+        {
+          "benchmark": "2026 Nature Medicine increased between-network integration",
+          "layer": "D",
+          "project_metric": "between_network_integration",
+          "expected_sign": 1,
+          "observed_mean_delta": 0.09389973441903991,
+          "observed_signed_effect_size": 0.6912753690211185,
+          "sign_match": true,
+          "status": "aligned",
+          "source": "Girn et al., Nature Medicine 2026",
+          "url": "https://www.nature.com/articles/s41591-026-04287-9",
+          "interpretation": "Graph-dynamic proxy for enhanced integration across broad systems.",
+          "caveat": "Integration metric is descriptive FC, not the exact mega-analysis posterior."
+        },
+        {
+          "benchmark": "2026 Nature Medicine within-network coupling reduction",
+          "layer": "D",
+          "project_metric": "within_network_segregation",
+          "expected_sign": -1,
+          "observed_mean_delta": 0.04719850725480669,
+          "observed_signed_effect_size": -0.3727777377903871,
+          "sign_match": false,
+          "status": "opposes_or_weak",
+          "source": "Girn et al., Nature Medicine 2026",
+          "url": "https://www.nature.com/articles/s41591-026-04287-9",
+          "interpretation": "Checks whether the current data show reduced segregation/within-system coupling.",
+          "caveat": "The paper notes not all visually apparent patterns yielded high-confidence posteriors."
+        },
+        {
+          "benchmark": "2026 Nature Medicine thalamic-unimodal coupling",
+          "layer": "C",
+          "project_metric": "thalamic_sensory_coupling",
+          "expected_sign": 1,
+          "observed_mean_delta": 0.09802926335161216,
+          "observed_signed_effect_size": 0.42549394887338277,
+          "sign_match": true,
+          "status": "aligned",
+          "source": "Girn et al., Nature Medicine 2026",
+          "url": "https://www.nature.com/articles/s41591-026-04287-9",
+          "interpretation": "Coarse thalamic-gateway to sensory/unimodal proxy.",
+          "caveat": "The current thalamic module is coarse and does not resolve thalamic nuclei."
+        },
+        {
+          "benchmark": "Singleton 2022 lower psychedelic control energy",
+          "layer": "E",
+          "project_metric": "lsd_vs_placebo_receptor_transition_energy_reduction_pct",
+          "expected_sign": 1,
+          "observed_mean_delta": 4.702198506533535,
+          "observed_signed_effect_size": 0.37576604844255507,
+          "sign_match": true,
+          "status": "aligned",
+          "source": "Singleton et al., Nature Communications 2022",
+          "url": "https://www.nature.com/articles/s41467-022-33578-1",
+          "interpretation": "Local proxy check for lower transition-control energy under LSD.",
+          "caveat": "This is not full receptor-informed NCT until structural connectome and PET receptor maps are added."
+        },
+        {
+          "benchmark": "Singleton 2022 receptor-informed control placement",
+          "layer": "E",
+          "project_metric": "receptor_vs_random_energy_reduction_pct",
+          "expected_sign": 1,
+          "observed_mean_delta": -15.4342613806409,
+          "observed_signed_effect_size": -0.8321254106889895,
+          "sign_match": false,
+          "status": "opposes_or_weak",
+          "source": "Singleton et al., Nature Communications 2022",
+          "url": "https://www.nature.com/articles/s41467-022-33578-1",
+          "interpretation": "Tests whether the coarse receptor prior beats random receptor-prior permutations.",
+          "caveat": "A negative or weak result should block receptor-specific claims."
+        },
+        {
+          "benchmark": "2026 Nature Medicine striatal-unimodal coupling",
+          "layer": "C/D",
+          "project_metric": "not_available_current_8_module_proxy",
+          "expected_sign": 1,
+          "observed_mean_delta": null,
+          "observed_signed_effect_size": null,
+          "sign_match": null,
+          "status": "missing_required_region",
+          "source": "Girn et al., Nature Medicine 2026",
+          "url": "https://www.nature.com/articles/s41591-026-04287-9",
+          "interpretation": "Needs striatum/caudate/putamen parcels before this can be tested.",
+          "caveat": "Do not claim striatal support from the current Harvard-Oxford 8-module proxy."
+        }
+      ],
+      "claim_guardrail": "Literature benchmarking compares directionally mapped proxy metrics to published targets; it is not a reproduction of the cited studies.",
       "source_path": "D:/LSD_Thesis/.worktrees/main-source-publish/results/literature_benchmark/literature_benchmark_status.json"
     }
   },
@@ -5338,7 +5701,7 @@
       "csv/xlsx export": "results/literature_benchmark/literature_benchmark.csv; results/thesis_evidence_loop/claim_evidence_matrix.csv",
       "citation": "Girn et al. 2026 Nature Medicine https://www.nature.com/articles/s41591-026-04287-9; Singleton et al. 2022 Nature Communications https://www.nature.com/articles/s41467-022-33578-1",
       "limitation": "Requires explicit per-row mismatch reason; unresolved mismatches stay out of final conclusions.",
-      "status": "blocked_no_measurable_literature_checks"
+      "status": "requires_mismatch_diagnosis_2_of_6_checks"
     }
   ],
   "claim_evidence_matrix_columns": [
