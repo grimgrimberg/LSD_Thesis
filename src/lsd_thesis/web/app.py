@@ -21,6 +21,7 @@ from lsd_thesis.graph import load_graph_config
 from lsd_thesis.metrics import compute_observable_summary
 from lsd_thesis.simulator import load_regime_config, run_simulation
 from lsd_thesis.subject_split import build_no_subject_validation_boundary
+from lsd_thesis.web.site_payload import build_public_site_payload, build_route_links
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
 TEMPLATES = Jinja2Templates(directory=str(REPO_ROOT / "src" / "lsd_thesis" / "templates"))
@@ -385,6 +386,9 @@ def _artifact_links(repo_root: Path) -> dict[str, list[dict[str, str]]]:
         ),
         ("Motion Confound Control Status", repo_root / "results" / "confound_controls" / "motion_confound_control_status.json"),
         ("Motion Confound Control Report", repo_root / "results" / "confound_controls" / "motion_confound_control_status.md"),
+        ("Image-Derived Motion/QC Status", repo_root / "results" / "confound_controls" / "image_motion_qc_status.json"),
+        ("Image-Derived Motion/QC Report", repo_root / "results" / "confound_controls" / "image_motion_qc_status.md"),
+        ("Image-Derived Motion/QC Associations", repo_root / "results" / "confound_controls" / "image_motion_qc_dynamic_associations.csv"),
         ("Thesis Upgrade Status", repo_root / "results" / "thesis_upgrade" / "thesis_upgrade_status.json"),
         ("Thesis Upgrade Report", repo_root / "results" / "thesis_upgrade" / "thesis_upgrade_status.md"),
         ("Reproducible Archive Manifest", repo_root / "results" / "reproducible_archive" / "ARCHIVE_MANIFEST.json"),
@@ -1333,6 +1337,7 @@ def _build_thesis_expansion_payload(repo_root: Path = REPO_ROOT) -> dict[str, An
 
 
 _dashboard_cache: dict[str, Any] | None = None
+_public_site_cache: dict[str, Any] | None = None
 
 
 def build_dashboard_payload(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
@@ -1445,6 +1450,16 @@ def build_dashboard_payload(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
 def create_app() -> FastAPI:
     app = FastAPI(title="Whole-Brain Surrogate Dashboard")
 
+    def _public_site_html(template_name: str, *, data_url: str = "/api/public-site-data") -> HTMLResponse:
+        payload = build_public_site_payload(REPO_ROOT)
+        html = TEMPLATES.get_template(template_name).render(
+            payload=payload,
+            links=build_route_links(static=False),
+            artifact_prefix="/artifacts/",
+            data_url=data_url,
+        )
+        return HTMLResponse(html, headers=_dashboard_security_headers())
+
     @app.get("/assets/plotly.min.js")
     async def plotly_asset() -> Response:
         global _plotly_js_cache
@@ -1463,10 +1478,37 @@ def create_app() -> FastAPI:
 
     @app.get("/", response_class=HTMLResponse)
     async def index() -> HTMLResponse:
+        return _public_site_html("public_site.html")
+
+    @app.get("/thesis", response_class=HTMLResponse)
+    @app.get("/thesis.html", response_class=HTMLResponse)
+    async def thesis_story() -> HTMLResponse:
+        return _public_site_html("thesis_story.html")
+
+    @app.get("/dashboard", response_class=HTMLResponse)
+    @app.get("/dashboard/", response_class=HTMLResponse)
+    async def public_dashboard() -> HTMLResponse:
+        return _public_site_html("evidence_dashboard.html")
+
+    @app.get("/local-dashboard", response_class=HTMLResponse)
+    @app.get("/local-dashboard/", response_class=HTMLResponse)
+    @app.get("/dashboard/full", response_class=HTMLResponse)
+    @app.get("/dashboard/full/", response_class=HTMLResponse)
+    async def local_dashboard() -> HTMLResponse:
         html = (REPO_ROOT / "src" / "lsd_thesis" / "templates" / "dashboard.html").read_text(
             encoding="utf-8"
         )
         return HTMLResponse(html, headers=_dashboard_security_headers())
+
+    @app.get("/methods", response_class=HTMLResponse)
+    @app.get("/methods.html", response_class=HTMLResponse)
+    async def methods() -> HTMLResponse:
+        return _public_site_html("methods_reproducibility.html")
+
+    @app.get("/appendix", response_class=HTMLResponse)
+    @app.get("/appendix.html", response_class=HTMLResponse)
+    async def appendix() -> HTMLResponse:
+        return _public_site_html("appendix.html")
 
     @app.get("/favicon.ico")
     async def favicon() -> Response:
@@ -1493,6 +1535,13 @@ def create_app() -> FastAPI:
         if _dashboard_cache is None:
             _dashboard_cache = build_dashboard_payload(REPO_ROOT)
         return _dashboard_cache
+
+    @app.get("/api/public-site-data")
+    async def public_site_data() -> dict[str, Any]:
+        global _public_site_cache
+        if _public_site_cache is None:
+            _public_site_cache = build_public_site_payload(REPO_ROOT)
+        return _public_site_cache
 
     @app.get("/api/empirical-view")
     async def empirical_view(subject: str, run: str) -> dict[str, Any]:

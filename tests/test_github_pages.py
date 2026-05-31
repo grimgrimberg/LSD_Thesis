@@ -15,12 +15,37 @@ def _load_build_github_pages_module():
     return module
 
 
-def test_build_github_pages_site_copies_microsite_and_claim_matrix_artifacts(tmp_path: Path) -> None:
+def _write_template_fixture(template_dir: Path) -> None:
+    template_dir.mkdir(parents=True)
+    (template_dir / "site_styles.html").write_text("<style>body{font-family:sans-serif}</style>", encoding="utf-8")
+    (template_dir / "public_site.html").write_text(
+        "<html><head></head><body>Pitch {{ payload.project.title }} {{ links.dashboard }}</body></html>",
+        encoding="utf-8",
+    )
+    (template_dir / "thesis_story.html").write_text(
+        "<html><head></head><body>Thesis {{ payload.claim_ladder.primary_claim }}</body></html>",
+        encoding="utf-8",
+    )
+    (template_dir / "evidence_dashboard.html").write_text(
+        "<html><head></head><body>Dashboard {{ data_url }} {{ artifact_prefix }}</body></html>",
+        encoding="utf-8",
+    )
+    (template_dir / "methods_reproducibility.html").write_text(
+        "<html><head></head><body>Methods {{ payload.methods.pipeline_steps[0] }}</body></html>",
+        encoding="utf-8",
+    )
+    (template_dir / "appendix.html").write_text(
+        "<html><head></head><body>Appendix {{ payload.appendix.all_artifacts|length }}</body></html>",
+        encoding="utf-8",
+    )
+
+
+def test_build_github_pages_site_makes_pitch_story_dashboard_methods_and_appendix(tmp_path: Path) -> None:
     module = _load_build_github_pages_module()
     output_dir = tmp_path / "output" / "doc"
     output_dir.mkdir(parents=True)
-    (output_dir / "thesis_microsite.html").write_text("<html><title>Thesis</title></html>", encoding="utf-8")
-    (output_dir / "defense_presentation.html").write_text("<html><title>Defense</title></html>", encoding="utf-8")
+    (output_dir / "thesis_microsite.html").write_text("<html><title>Old thesis artifact</title></html>", encoding="utf-8")
+    (output_dir / "defense_presentation.html").write_text("<html><title>Defense artifact</title></html>", encoding="utf-8")
     (output_dir / "thesis_report_revised.md").write_text("# Report\n", encoding="utf-8")
     claim_dir = tmp_path / "results" / "thesis_evidence_loop"
     claim_dir.mkdir(parents=True)
@@ -29,20 +54,7 @@ def test_build_github_pages_site_copies_microsite_and_claim_matrix_artifacts(tmp
     rocket_dir = tmp_path / "results" / "training" / "rocket_condition_benchmark"
     rocket_dir.mkdir(parents=True)
     (rocket_dir / "benchmark_report.md").write_text("# ROCKET Condition Benchmark\n", encoding="utf-8")
-    (rocket_dir / "comparison_summary.json").write_text('{"schema_version":"rocket_condition_benchmark.v1"}\n', encoding="utf-8")
-    template_dir = tmp_path / "src" / "lsd_thesis" / "templates"
-    template_dir.mkdir(parents=True)
-    (template_dir / "dashboard.html").write_text(
-        '<html><head><script src="/assets/plotly.min.js"></script></head>'
-        "<script>"
-        "dashboardState = await fetchJson('/api/dashboard-data');"
-        "subjectDetail = await fetchJson(`/api/empirical-view?subject=${encodeURIComponent(subject)}&run=${encodeURIComponent(run)}`);"
-        "document.getElementById('simulate').addEventListener('click', async () => {"
-        "return `/artifacts/${path}`;"
-        "if (!href.startsWith('/artifacts/')) return;"
-        "</script></html>",
-        encoding="utf-8",
-    )
+    _write_template_fixture(tmp_path / "src" / "lsd_thesis" / "templates")
 
     module.build_publication_package = lambda repo_root: {
         "thesis_microsite_html": output_dir / "thesis_microsite.html",
@@ -50,54 +62,60 @@ def test_build_github_pages_site_copies_microsite_and_claim_matrix_artifacts(tmp
         "thesis_report_markdown": output_dir / "thesis_report_revised.md",
     }
     module.build_thesis_evidence_loop = lambda repo_root: {}
-    module.build_dashboard_payload = lambda repo_root: {
+    module.build_public_site_payload = lambda repo_root: {
+        "project": {"title": "Fixture pitch"},
+        "claim_ladder": {"primary_claim": "Fixture claim"},
+        "methods": {"pipeline_steps": ["Raw fMRI"]},
+        "appendix": {
+            "all_artifacts": [
+                {
+                    "kind": "reports",
+                    "label": "ROCKET report",
+                    "href": "/artifacts/results/training/rocket_condition_benchmark/benchmark_report.md",
+                }
+            ]
+        },
         "artifact_links": {
             "reports": [
-                {
-                    "label": "Claim matrix",
-                    "href": "/artifacts/results/thesis_evidence_loop/claim_evidence_matrix.csv",
-                },
                 {
                     "label": "ROCKET report",
                     "href": "/artifacts/results/training/rocket_condition_benchmark/benchmark_report.md",
                 }
             ],
             "figures": [],
-        }
+        },
     }
-    module.export_thesis_loop_tables = lambda repo_root, export_dir: {
-        "workbook_path": (export_dir / "thesis_evidence_loop_tables.xlsx").as_posix(),
-        "claim_matrix_csv": (export_dir / "claim_evidence_matrix.csv").as_posix(),
-    }
-    module.get_plotlyjs = lambda: "window.Plotly={newPlot:function(){}};"
+    module.export_thesis_loop_tables = lambda repo_root, export_dir: {}
     export_dir = claim_dir / "exports"
     export_dir.mkdir()
-    (export_dir / "claim_evidence_matrix.csv").write_text("claim,status\nC,ready\n", encoding="utf-8")
     (export_dir / "thesis_evidence_loop_tables.xlsx").write_bytes(b"xlsx")
 
     outputs = module.build_github_pages_site(tmp_path, tmp_path / "_site")
 
     assert outputs["index"] == tmp_path / "_site" / "index.html"
-    assert (tmp_path / "_site" / "index.html").read_text(encoding="utf-8") == "<html><title>Thesis</title></html>"
-    assert (tmp_path / "_site" / "defense.html").exists()
+    assert outputs["thesis"] == tmp_path / "_site" / "thesis.html"
+    assert outputs["dashboard"] == tmp_path / "_site" / "dashboard" / "index.html"
+    assert outputs["methods"] == tmp_path / "_site" / "methods.html"
+    assert outputs["appendix"] == tmp_path / "_site" / "appendix.html"
+    assert (tmp_path / "_site" / "dashboard" / "dashboard-data.json").exists()
+    assert (tmp_path / "_site" / ".nojekyll").exists()
+    assert "dashboard-data.json" in (tmp_path / "_site" / "dashboard" / "index.html").read_text(encoding="utf-8")
+    assert '<link rel="icon" href="data:,">' in (tmp_path / "_site" / "index.html").read_text(encoding="utf-8")
     assert (tmp_path / "_site" / "artifacts" / "claim_evidence_matrix.csv").exists()
     assert (tmp_path / "_site" / "artifacts" / "claim_evidence_matrix.md").exists()
     assert (tmp_path / "_site" / "artifacts" / "thesis_evidence_loop_tables.xlsx").exists()
+    assert (tmp_path / "_site" / "artifacts" / "thesis_microsite.html").exists()
+    assert (tmp_path / "_site" / "artifacts" / "defense_presentation.html").exists()
     assert (
         tmp_path / "_site" / "artifacts" / "results" / "training" / "rocket_condition_benchmark" / "benchmark_report.md"
     ).exists()
-    assert (tmp_path / "_site" / "dashboard" / "index.html").exists()
-    assert (tmp_path / "_site" / "dashboard" / "dashboard-data.json").exists()
-    assert (tmp_path / "_site" / "dashboard" / "assets" / "plotly.min.js").exists()
-    dashboard_html = (tmp_path / "_site" / "dashboard" / "index.html").read_text(encoding="utf-8")
-    assert 'src="assets/plotly.min.js"' in dashboard_html
-    assert '<link rel="icon" href="data:,">' in dashboard_html
-    assert "fetchJson('dashboard-data.json')" in dashboard_html
-    assert "/api/empirical-view" not in dashboard_html
-    assert "simulateButton.disabled = true" in dashboard_html
-    assert "../artifacts/${path}" in dashboard_html
     manifest = json.loads((tmp_path / "_site" / "pages_manifest.json").read_text(encoding="utf-8"))
     assert manifest["claim_guardrail"].startswith("GitHub Pages is a static presentation")
-    assert manifest["entrypoints"]["dashboard"] == "dashboard/index.html"
-    assert "artifacts/claim_evidence_matrix.csv" in manifest["artifacts"]
+    assert manifest["entrypoints"] == {
+        "index": "index.html",
+        "thesis": "thesis.html",
+        "dashboard": "dashboard/index.html",
+        "methods": "methods.html",
+        "appendix": "appendix.html",
+    }
     assert "artifacts/results/training/rocket_condition_benchmark/benchmark_report.md" in manifest["artifacts"]

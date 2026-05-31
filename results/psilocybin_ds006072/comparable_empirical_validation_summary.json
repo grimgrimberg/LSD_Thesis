@@ -1,13 +1,13 @@
 {
   "schema_version": "ds006072_external_validation.v1",
-  "generated_at_utc": "2026-05-29T21:07:31.849556+00:00",
+  "generated_at_utc": "2026-05-31T08:24:45.924148+00:00",
   "dataset_id": "ds006072",
   "primary_contrast": "psilocybin_vs_active_control_mtp",
   "viewer_root": "results/psilocybin_ds006072/empirical_viewer",
   "subject_views_dir": "results/psilocybin_ds006072/empirical_viewer/subject_views",
   "subject_view_count": 3,
   "minimum_comparable_subjects": 3,
-  "readiness_status": "local_cifti_payloads_ready_for_comparable_extraction",
+  "readiness_status": "blocked_missing_drug_order_or_processed_rest_manifest",
   "readiness_path": "results/psilocybin_ds006072/external_validation_readiness.json",
   "unchanged_scoring_spec": "results/psilocybin_ds006072/unchanged_scoring_spec.json",
   "scoring_lock_verified": true,
@@ -32,15 +32,15 @@
       "target_files.literature_targets": {
         "path": "configs/targets/empirical_lsd_signatures.yaml",
         "exists": true,
-        "expected_sha256": "d59c44c1c154be47c2d84d3ad8a273088bc5e6c5499a87c9262077612d4edcd0",
-        "current_sha256": "d59c44c1c154be47c2d84d3ad8a273088bc5e6c5499a87c9262077612d4edcd0",
+        "expected_sha256": "dbf1abab475f86726a51667ac754ed8a602ecabffaccc15c6e1cdb52919a9eb7",
+        "current_sha256": "dbf1abab475f86726a51667ac754ed8a602ecabffaccc15c6e1cdb52919a9eb7",
         "verified": true
       },
       "scoring_code_files.dynamic_mechanism": {
         "path": "src/lsd_thesis/dynamic_mechanism.py",
         "exists": true,
-        "expected_sha256": "360dfd734f24df36b7dc8528cf97b0754f8a38cfba4d2a5c2e811cd819d2710b",
-        "current_sha256": "360dfd734f24df36b7dc8528cf97b0754f8a38cfba4d2a5c2e811cd819d2710b",
+        "expected_sha256": "292ec98c8815e5fc0840fb9e6ae974e6636ccab4fbfe26108b32dee77e0a21c1",
+        "current_sha256": "292ec98c8815e5fc0840fb9e6ae974e6636ccab4fbfe26108b32dee77e0a21c1",
         "verified": true
       }
     }
@@ -116,14 +116,14 @@
   "summary": {
     "schema_version": 3,
     "analysis_status": "implemented_first_pass",
-    "generated_at_utc": "2026-05-29T21:07:32.598757+00:00",
+    "generated_at_utc": "2026-05-31T08:24:46.814085+00:00",
     "inference_metadata": {
       "metric_ci_alpha": 0.05,
       "metric_bootstrap_iterations": 1024,
       "multiple_testing": "Benjamini-Hochberg FDR q-values on sign-flip familywise tests",
       "metric_bootstrap_seed_base": 20260520
     },
-    "source_viewer_root": "D:/LSD_Thesis/results/psilocybin_ds006072/empirical_viewer",
+    "source_viewer_root": "D:/LSD_Thesis/.worktrees/scratch-thesis-site/results/psilocybin_ds006072/empirical_viewer",
     "dataset_scope": "OpenNeuro ds006072 paired psilocybin/MTP empirical viewer records scored with the locked ds003059 rule; extraction contract: CIFTI brain-structure-family 8-module external stress test",
     "pair_count": 3,
     "subject_count": 3,
