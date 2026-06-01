@@ -523,20 +523,48 @@ def _parcellation_gate(repo_root: Path) -> dict[str, Any]:
     }
     canonical = "schaefer_100_yeo_7"
     canonical_status = implemented.get(canonical, "")
-    candidate_outputs = [
-        repo_root
-        / "results"
-        / "stage_2"
-        / "parcellations"
-        / canonical
-        / "parcellation_extraction_summary.json",
+    extraction_path = repo_root / "results" / "stage_2" / "parcellations" / canonical / "parcellation_extraction_summary.json"
+    viewer_path = (
         repo_root
         / "results"
         / "stage_2"
         / "parcellations"
         / canonical
         / "empirical_viewer"
-        / "group_overview.json",
+        / "group_overview.json"
+    )
+    ranking_path = repo_root / "results" / "parcellation_sensitivity" / canonical / "summary.json"
+    extraction_payload = _read_json(extraction_path) or {}
+    viewer_payload = _read_json(viewer_path) or {}
+    ranking_payload = _read_json(ranking_path) or {}
+    raw_viewer_subjects = viewer_payload.get("subjects")
+    raw_viewer_runs = viewer_payload.get("runs")
+    raw_viewer_modules = viewer_payload.get("module_names")
+    raw_ranking_modules = ranking_payload.get("modules")
+    raw_mechanism_ranking = ranking_payload.get("mechanism_ranking")
+    viewer_subjects = raw_viewer_subjects if isinstance(raw_viewer_subjects, list) else []
+    viewer_runs = raw_viewer_runs if isinstance(raw_viewer_runs, list) else []
+    viewer_modules = raw_viewer_modules if isinstance(raw_viewer_modules, list) else []
+    ranking_modules = raw_ranking_modules if isinstance(raw_ranking_modules, list) else []
+    mechanism_ranking = raw_mechanism_ranking if isinstance(raw_mechanism_ranking, list) else []
+    extraction_ready = (
+        str(extraction_payload.get("parcellation_id")) == canonical
+        and _status_is_implemented(str(extraction_payload.get("analysis_status") or ""))
+        and _int_payload_value(extraction_payload, "subject_count") > 0
+        and _int_payload_value(extraction_payload, "record_count") > 0
+        and _int_payload_value(extraction_payload, "module_count") >= 100
+    )
+    viewer_ready = bool(viewer_subjects and viewer_runs and len(viewer_modules) >= 100)
+    ranking_ready = (
+        _status_is_implemented(str(ranking_payload.get("analysis_status") or ""))
+        and _int_payload_value(ranking_payload, "subject_count") > 0
+        and _int_payload_value(ranking_payload, "pair_count") > 0
+        and len(ranking_modules) >= 100
+        and bool(mechanism_ranking)
+    )
+    candidate_outputs = [
+        extraction_path,
+        viewer_path,
         repo_root
         / "results"
         / "stage_2"
@@ -544,13 +572,13 @@ def _parcellation_gate(repo_root: Path) -> dict[str, Any]:
         / "parcellations"
         / canonical
         / "overview.json",
-        repo_root / "results" / "parcellation_sensitivity" / canonical / "summary.json",
+        ranking_path,
     ]
     observed_outputs = [_rel(candidate, repo_root) for candidate in candidate_outputs if candidate.exists()]
-    has_extraction = (repo_root / "results" / "stage_2" / "parcellations" / canonical / "parcellation_extraction_summary.json").exists()
-    has_viewer = (repo_root / "results" / "stage_2" / "parcellations" / canonical / "empirical_viewer" / "group_overview.json").exists()
-    has_ranking = (repo_root / "results" / "parcellation_sensitivity" / canonical / "summary.json").exists()
-    ready = _status_is_implemented(canonical_status) and has_extraction and has_viewer and has_ranking
+    has_extraction = extraction_path.exists()
+    has_viewer = viewer_path.exists()
+    has_ranking = ranking_path.exists()
+    ready = _status_is_implemented(canonical_status) and extraction_ready and viewer_ready and ranking_ready
     blocker = (
         "Canonical Schaefer/Yeo extraction, empirical viewer, and mechanism ranking are available."
         if ready
@@ -598,6 +626,14 @@ def _parcellation_gate(repo_root: Path) -> dict[str, Any]:
             "has_extraction_summary": has_extraction,
             "has_empirical_viewer": has_viewer,
             "has_mechanism_ranking": has_ranking,
+            "extraction_summary_ready": extraction_ready,
+            "empirical_viewer_ready": viewer_ready,
+            "mechanism_ranking_ready": ranking_ready,
+        },
+        "artifact_contract": {
+            "minimum_subject_count": 1,
+            "minimum_pair_count": 1,
+            "minimum_module_count": 100,
         },
         "engineering_logic": (
             "Use Schaefer parcels as state nodes and Yeo networks as interpretable macro-supernodes; "

@@ -144,7 +144,90 @@ def test_thesis_upgrade_marks_map_prior_claim_complete_when_resolved_negative(tm
     assert component["neuromaps_status"]["spatial_autocorrelation_nulls_complete"] is True
 
 
+def _write_valid_schaefer_yeo_outputs(tmp_path: Path) -> None:
+    sensitivity_dir = tmp_path / "results" / "parcellation_sensitivity"
+    canonical_dir = tmp_path / "results" / "stage_2" / "parcellations" / "schaefer_100_yeo_7"
+    ranking_dir = sensitivity_dir / "schaefer_100_yeo_7"
+    viewer_dir = canonical_dir / "empirical_viewer"
+    ranking_dir.mkdir(parents=True)
+    viewer_dir.mkdir(parents=True)
+    canonical_dir.mkdir(parents=True, exist_ok=True)
+    modules = [f"parcel_{index:03d}" for index in range(100)]
+    subjects = ["sub-001", "sub-002"]
+    runs = ["run-01", "run-03"]
+    (canonical_dir / "parcellation_extraction_summary.json").write_text(
+        json.dumps(
+            {
+                "analysis_status": "implemented_schaefer_empirical_viewer",
+                "parcellation_id": "schaefer_100_yeo_7",
+                "subject_count": len(subjects),
+                "record_count": 8,
+                "module_count": len(modules),
+                "ranking_pair_count": 4,
+            }
+        ),
+        encoding="utf-8",
+    )
+    (viewer_dir / "group_overview.json").write_text(
+        json.dumps(
+            {
+                "subjects": subjects,
+                "runs": runs,
+                "module_names": modules,
+            }
+        ),
+        encoding="utf-8",
+    )
+    (ranking_dir / "summary.json").write_text(
+        json.dumps(
+            {
+                "analysis_status": "implemented_first_pass",
+                "subject_count": len(subjects),
+                "pair_count": 4,
+                "modules": modules,
+                "mechanism_ranking": [{"rank": 1, "layer": "C"}],
+            }
+        ),
+        encoding="utf-8",
+    )
+    (sensitivity_dir / "parcellation_sensitivity_status.json").write_text(
+        json.dumps(
+            {
+                "analysis_status": "implemented_status_matrix",
+                "rows": [
+                    {
+                        "parcellation_id": "schaefer_100_yeo_7",
+                        "status": "implemented_mechanism_ranking",
+                        "pair_count": 30,
+                        "subject_count": 15,
+                    }
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
+
+
 def test_thesis_upgrade_marks_schaefer_yeo_complete_when_outputs_exist(tmp_path: Path) -> None:
+    _write_valid_schaefer_yeo_outputs(tmp_path)
+
+    status = build_thesis_upgrade_status(tmp_path)
+    parcellation = status["components"]["canonical_parcellation"]
+
+    assert parcellation["gate"]["ready"] is True
+    assert parcellation["strict_requirement"]["complete"] is True
+    assert parcellation["strict_requirement"]["missing"].startswith("None:")
+    assert parcellation["completion_checks"] == {
+        "has_extraction_summary": True,
+        "has_empirical_viewer": True,
+        "has_mechanism_ranking": True,
+        "extraction_summary_ready": True,
+        "empirical_viewer_ready": True,
+        "mechanism_ranking_ready": True,
+    }
+
+
+def test_thesis_upgrade_rejects_empty_schaefer_yeo_outputs(tmp_path: Path) -> None:
     sensitivity_dir = tmp_path / "results" / "parcellation_sensitivity"
     canonical_dir = tmp_path / "results" / "stage_2" / "parcellations" / "schaefer_100_yeo_7"
     ranking_dir = sensitivity_dir / "schaefer_100_yeo_7"
@@ -163,8 +246,6 @@ def test_thesis_upgrade_marks_schaefer_yeo_complete_when_outputs_exist(tmp_path:
                     {
                         "parcellation_id": "schaefer_100_yeo_7",
                         "status": "implemented_mechanism_ranking",
-                        "pair_count": 30,
-                        "subject_count": 15,
                     }
                 ],
             }
@@ -175,14 +256,11 @@ def test_thesis_upgrade_marks_schaefer_yeo_complete_when_outputs_exist(tmp_path:
     status = build_thesis_upgrade_status(tmp_path)
     parcellation = status["components"]["canonical_parcellation"]
 
-    assert parcellation["gate"]["ready"] is True
-    assert parcellation["strict_requirement"]["complete"] is True
-    assert parcellation["strict_requirement"]["missing"].startswith("None:")
-    assert parcellation["completion_checks"] == {
-        "has_extraction_summary": True,
-        "has_empirical_viewer": True,
-        "has_mechanism_ranking": True,
-    }
+    assert parcellation["gate"]["ready"] is False
+    assert parcellation["strict_requirement"]["complete"] is False
+    assert parcellation["completion_checks"]["extraction_summary_ready"] is False
+    assert parcellation["completion_checks"]["empirical_viewer_ready"] is False
+    assert parcellation["completion_checks"]["mechanism_ranking_ready"] is False
 
 
 def test_thesis_upgrade_external_validation_requires_comparable_scoring(tmp_path: Path) -> None:
@@ -878,28 +956,7 @@ def test_receptor_structural_gate_requires_ingestion_readiness(tmp_path: Path) -
 def test_thesis_upgrade_project_phase_completes_only_with_hard_motion_and_stronger_external_validation(
     tmp_path: Path,
 ) -> None:
-    sensitivity_dir = tmp_path / "results" / "parcellation_sensitivity"
-    canonical_dir = tmp_path / "results" / "stage_2" / "parcellations" / "schaefer_100_yeo_7"
-    viewer_dir = canonical_dir / "empirical_viewer"
-    ranking_dir = sensitivity_dir / "schaefer_100_yeo_7"
-    viewer_dir.mkdir(parents=True)
-    ranking_dir.mkdir(parents=True)
-    (canonical_dir / "parcellation_extraction_summary.json").write_text("{}", encoding="utf-8")
-    (viewer_dir / "group_overview.json").write_text("{}", encoding="utf-8")
-    (ranking_dir / "summary.json").write_text("{}", encoding="utf-8")
-    (sensitivity_dir / "parcellation_sensitivity_status.json").write_text(
-        json.dumps(
-            {
-                "rows": [
-                    {
-                        "parcellation_id": "schaefer_100_yeo_7",
-                        "status": "implemented_mechanism_ranking",
-                    }
-                ]
-            }
-        ),
-        encoding="utf-8",
-    )
+    _write_valid_schaefer_yeo_outputs(tmp_path)
 
     cortical_dir = tmp_path / "results" / "cortical_maps"
     cortical_dir.mkdir(parents=True)
@@ -1034,28 +1091,7 @@ def test_thesis_upgrade_project_phase_completes_only_with_hard_motion_and_strong
 
 
 def test_thesis_upgrade_project_phase_names_only_remaining_hard_requirements(tmp_path: Path) -> None:
-    sensitivity_dir = tmp_path / "results" / "parcellation_sensitivity"
-    canonical_dir = tmp_path / "results" / "stage_2" / "parcellations" / "schaefer_100_yeo_7"
-    viewer_dir = canonical_dir / "empirical_viewer"
-    ranking_dir = sensitivity_dir / "schaefer_100_yeo_7"
-    viewer_dir.mkdir(parents=True)
-    ranking_dir.mkdir(parents=True)
-    (canonical_dir / "parcellation_extraction_summary.json").write_text("{}", encoding="utf-8")
-    (viewer_dir / "group_overview.json").write_text("{}", encoding="utf-8")
-    (ranking_dir / "summary.json").write_text("{}", encoding="utf-8")
-    (sensitivity_dir / "parcellation_sensitivity_status.json").write_text(
-        json.dumps(
-            {
-                "rows": [
-                    {
-                        "parcellation_id": "schaefer_100_yeo_7",
-                        "status": "implemented_mechanism_ranking",
-                    }
-                ]
-            }
-        ),
-        encoding="utf-8",
-    )
+    _write_valid_schaefer_yeo_outputs(tmp_path)
 
     cortical_dir = tmp_path / "results" / "cortical_maps"
     cortical_dir.mkdir(parents=True)

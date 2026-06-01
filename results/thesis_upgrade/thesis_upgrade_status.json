@@ -1,6 +1,6 @@
 {
   "schema_version": "thesis_upgrade_status.v1",
-  "generated_at_utc": "2026-06-01T22:54:48.152167+00:00",
+  "generated_at_utc": "2026-06-01T23:09:46.488572+00:00",
   "readiness_summary": {
     "ready_gates": 6,
     "total_gates": 9,
@@ -312,7 +312,15 @@
       "completion_checks": {
         "has_extraction_summary": true,
         "has_empirical_viewer": true,
-        "has_mechanism_ranking": true
+        "has_mechanism_ranking": true,
+        "extraction_summary_ready": true,
+        "empirical_viewer_ready": true,
+        "mechanism_ranking_ready": true
+      },
+      "artifact_contract": {
+        "minimum_subject_count": 1,
+        "minimum_pair_count": 1,
+        "minimum_module_count": 100
       },
       "engineering_logic": "Use Schaefer parcels as state nodes and Yeo networks as interpretable macro-supernodes; then test whether mechanism rankings survive the refined state-space.",
       "claim_guardrail": "Schaefer/Yeo is implemented for ds003059 high-resolution sensitivity. This resolves the coarse-parcellation gate, but does not by itself establish receptor, myelin, gradient, psilocybin, or spatial-null claims."
