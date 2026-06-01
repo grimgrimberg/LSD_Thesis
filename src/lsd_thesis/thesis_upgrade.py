@@ -12,6 +12,8 @@ SCHEMA_VERSION = "thesis_upgrade_status.v1"
 MINIMUM_PAIRED_MOTION_CONTROL_ROWS = 4
 REQUIRED_MOTION_CONTROL_FEATURE_FAMILIES = ("fd", "dvars", "censoring")
 REQUIRED_NEUROMAPS_MAP_FAMILIES = ("receptor", "myelin", "functional_gradient", "gene_expression")
+ROCKET_MINIMUM_BALANCED_ACCURACY = 0.60
+ROCKET_MINIMUM_ROC_AUC = 0.60
 STRICT_REQUIREMENT_IDS = (
     "schaefer_yeo_high_resolution",
     "neuromaps_spatial_autocorrelation_nulls",
@@ -156,6 +158,13 @@ def _int_payload_value(payload: dict[str, Any], key: str, default: int = 0) -> i
         return default
 
 
+def _optional_float(value: Any) -> float | None:
+    try:
+        return float(value)
+    except (TypeError, ValueError):
+        return None
+
+
 def _motion_feature_family_coverage(rows: Any) -> dict[str, bool]:
     coverage = {family: False for family in REQUIRED_MOTION_CONTROL_FEATURE_FAMILIES}
     if not isinstance(rows, list):
@@ -171,6 +180,34 @@ def _motion_feature_family_coverage(rows: Any) -> dict[str, bool]:
         if any(token in feature for token in ("motion_outlier", "outlier", "censor", "scrub", "non_steady_state")):
             coverage["censoring"] = True
     return coverage
+
+
+def _external_scoring_lock_details_verified(payload: dict[str, Any]) -> bool:
+    scoring_lock = payload.get("scoring_lock")
+    if not isinstance(scoring_lock, dict):
+        return False
+    if scoring_lock.get("scoring_lock_verified") is not True:
+        return False
+    if scoring_lock.get("missing_or_mismatched") != []:
+        return False
+    checked_files = scoring_lock.get("checked_files")
+    if not isinstance(checked_files, dict) or not checked_files:
+        return False
+    for checked_file in checked_files.values():
+        if not isinstance(checked_file, dict):
+            return False
+        expected_sha = checked_file.get("expected_sha256")
+        current_sha = checked_file.get("current_sha256")
+        if (
+            checked_file.get("exists") is not True
+            or checked_file.get("verified") is not True
+            or not isinstance(expected_sha, str)
+            or not isinstance(current_sha, str)
+            or not expected_sha
+            or expected_sha != current_sha
+        ):
+            return False
+    return True
 
 
 def _motion_gate(repo_root: Path) -> dict[str, Any]:
@@ -728,14 +765,21 @@ def _rocket_gate(repo_root: Path) -> dict[str, Any]:
     has_transform_variant = any(
         isinstance(payload.get(key), dict) for key in ("minirocket", "multirocket")
     ) or "minirocket" in str(payload.get("model", "")).lower() or "multirocket" in str(payload.get("model", "")).lower()
-    ba = aggregate.get("balanced_accuracy_mean")
-    auc = aggregate.get("roc_auc_mean")
+    ba = _optional_float(aggregate.get("balanced_accuracy_mean"))
+    auc = _optional_float(aggregate.get("roc_auc_mean"))
     internal_integrity_ready = bool(has_subject_disjoint and has_run_aggregation and has_no_window_random and ba is not None)
+    performance_floor_ready = bool(
+        ba is not None
+        and auc is not None
+        and ba > ROCKET_MINIMUM_BALANCED_ACCURACY
+        and auc > ROCKET_MINIMUM_ROC_AUC
+    )
     thesis_strength_ready = bool(
         internal_integrity_ready
         and has_permutation_null
         and has_calibration
         and has_transform_variant
+        and performance_floor_ready
     )
     score = (
         0.35 * float(has_subject_disjoint)
@@ -778,6 +822,12 @@ def _rocket_gate(repo_root: Path) -> dict[str, Any]:
             "permutation_null": has_permutation_null,
             "calibration": has_calibration,
             "minirocket_or_multirocket_variant": has_transform_variant,
+            "performance_floor": performance_floor_ready,
+        },
+        "performance_floor_ready": performance_floor_ready,
+        "performance_floor": {
+            "minimum_balanced_accuracy_mean": ROCKET_MINIMUM_BALANCED_ACCURACY,
+            "minimum_roc_auc_mean": ROCKET_MINIMUM_ROC_AUC,
         },
         "strengthening_requirements": [
             "MiniRocket or MultiRocket transform mode",
@@ -786,9 +836,13 @@ def _rocket_gate(repo_root: Path) -> dict[str, Any]:
             "label-permutation null distribution",
             "subject/session/run confidence intervals",
             "Brier score and calibration curve",
+            "balanced accuracy and ROC AUC both above the configured performance floor",
             "external ds006072 run without score retuning",
         ],
-        "claim_guardrail": "ROCKET remains supporting internal proxy evidence until null, calibration, and external gates pass.",
+        "claim_guardrail": (
+            "ROCKET remains supporting internal proxy evidence until null, calibration, transform-variant, "
+            "performance-floor, and external gates pass."
+        ),
     }
 
 
@@ -905,7 +959,9 @@ def _external_gate(repo_root: Path) -> dict[str, Any]:
         or readiness_payload.get("analysis_status")
         or "blocked_missing_local_ds006072_empirical_viewer"
     )
-    scoring_verified = bool(comparable_payload.get("scoring_lock_verified"))
+    top_level_scoring_verified = bool(comparable_payload.get("scoring_lock_verified"))
+    scoring_lock_details_verified = _external_scoring_lock_details_verified(comparable_payload)
+    scoring_verified = top_level_scoring_verified and scoring_lock_details_verified
     subject_count = int(comparable_payload.get("subject_count") or 0)
     minimum_subjects = int(comparable_payload.get("minimum_comparable_subjects") or 3)
     ready = (
@@ -934,7 +990,9 @@ def _external_gate(repo_root: Path) -> dict[str, Any]:
         or readiness_payload.get("blocker")
         or "Comparable ds006072 psilocybin/control empirical viewer is not complete."
     )
-    if not ready and payloads_local_ready:
+    if not ready and top_level_scoring_verified and not scoring_lock_details_verified:
+        blocker = "Comparable ds006072 scoring claims a lock, but the nested scoring-lock hashes are missing or stale."
+    elif not ready and payloads_local_ready:
         blocker = (
             "Minimum ds006072 payloads are local and CIFTI extraction is ready, but unchanged comparable scoring has not passed."
             if cifti_viewer_ready
@@ -1010,10 +1068,13 @@ def _external_gate(repo_root: Path) -> dict[str, Any]:
                 if ready and cifti_viewer_ready
                 else "None: ds006072 paired psilocybin/control empirical records were scored unchanged."
                 if ready
+                else "The comparable ds006072 scoring lock is missing nested verified hash details or reports mismatches."
+                if top_level_scoring_verified and not scoring_lock_details_verified
                 else
                 "The repo has a minimum processed-CIFTI payload plan, but not comparable psilocybin/control dynamic extraction scored unchanged."
                 if payload_plan_ready
-                else "The repo has readiness/provenance, but not comparable psilocybin/control dynamic extraction scored unchanged."
+                else
+                "The repo has readiness/provenance, but not comparable psilocybin/control dynamic extraction scored unchanged."
             ),
             (
                 "Use this as the stronger parcellation-matched ds006072 evidence layer; keep the small-subject scope visible."
@@ -1049,6 +1110,13 @@ def _external_gate(repo_root: Path) -> dict[str, Any]:
         "primary_subjects_local_ready": readiness_payload.get("primary_subjects_local_ready"),
         "primary_subject_count": readiness_payload.get("primary_subject_count"),
         "scoring_lock_verified": scoring_verified,
+        "top_level_scoring_lock_verified": top_level_scoring_verified,
+        "scoring_lock_details_verified": scoring_lock_details_verified,
+        "scoring_lock_missing_or_mismatched": (
+            comparable_payload.get("scoring_lock", {}).get("missing_or_mismatched")
+            if isinstance(comparable_payload.get("scoring_lock"), dict)
+            else None
+        ),
         "comparable_subject_count": subject_count,
         "minimum_comparable_subjects": minimum_subjects,
         "minimum_payload_plan_ready": payload_plan_ready,

@@ -1,6 +1,6 @@
 {
   "schema_version": "thesis_upgrade_status.v1",
-  "generated_at_utc": "2026-06-01T22:41:41.012741+00:00",
+  "generated_at_utc": "2026-06-01T22:54:48.152167+00:00",
   "readiness_summary": {
     "ready_gates": 6,
     "total_gates": 9,
@@ -876,7 +876,13 @@
         "no_window_random_reporting": true,
         "permutation_null": false,
         "calibration": false,
-        "minirocket_or_multirocket_variant": false
+        "minirocket_or_multirocket_variant": false,
+        "performance_floor": true
+      },
+      "performance_floor_ready": true,
+      "performance_floor": {
+        "minimum_balanced_accuracy_mean": 0.6,
+        "minimum_roc_auc_mean": 0.6
       },
       "strengthening_requirements": [
         "MiniRocket or MultiRocket transform mode",
@@ -885,9 +891,10 @@
         "label-permutation null distribution",
         "subject/session/run confidence intervals",
         "Brier score and calibration curve",
+        "balanced accuracy and ROC AUC both above the configured performance floor",
         "external ds006072 run without score retuning"
       ],
-      "claim_guardrail": "ROCKET remains supporting internal proxy evidence until null, calibration, and external gates pass."
+      "claim_guardrail": "ROCKET remains supporting internal proxy evidence until null, calibration, transform-variant, performance-floor, and external gates pass."
     },
     "public_dashboard": {
       "gate": {
@@ -945,6 +952,9 @@
       "primary_subjects_local_ready": 3,
       "primary_subject_count": 7,
       "scoring_lock_verified": true,
+      "top_level_scoring_lock_verified": true,
+      "scoring_lock_details_verified": true,
+      "scoring_lock_missing_or_mismatched": [],
       "comparable_subject_count": 3,
       "minimum_comparable_subjects": 3,
       "minimum_payload_plan_ready": true,

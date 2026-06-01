@@ -304,9 +304,40 @@ def test_thesis_upgrade_rocket_internal_signal_is_not_thesis_strength_ready(tmp_
         "permutation_null": False,
         "calibration": False,
         "minirocket_or_multirocket_variant": False,
+        "performance_floor": True,
     }
     assert rocket["gate"]["status"] == "supporting_internal_signal"
     assert rocket["gate"]["ready"] is False
+
+
+def test_thesis_upgrade_rocket_strength_requires_performance_floor(tmp_path: Path) -> None:
+    rocket_dir = tmp_path / "results" / "training" / "rocket_condition_benchmark"
+    rocket_dir.mkdir(parents=True)
+    (rocket_dir / "comparison_summary.json").write_text(
+        json.dumps(
+            {
+                "cv_strategy": "approved CV5 subject-disjoint manifest",
+                "primary_evaluation_unit": "subject_session_run_aggregated_windows",
+                "window_random_reporting": False,
+                "model": "minirocket_logistic_regression",
+                "permutation_null": {"p_value": 0.04},
+                "calibration": {"brier_score": 0.24},
+                "aggregate": {
+                    "balanced_accuracy_mean": 0.51,
+                    "roc_auc_mean": 0.58,
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    status = build_thesis_upgrade_status(tmp_path)
+    rocket = status["components"]["rocket_strengthening"]
+
+    assert rocket["gate"]["ready"] is False
+    assert rocket["gate"]["status"] == "supporting_internal_signal"
+    assert rocket["performance_floor_ready"] is False
+    assert rocket["strengthening_coverage"]["performance_floor"] is False
 
 
 def _public_dashboard_status_payload(completion_status: str = "research_demo_ready_not_completed_thesis") -> dict[str, object]:
@@ -681,6 +712,29 @@ def test_thesis_upgrade_surfaces_fmriprep_preflight_status(tmp_path: Path) -> No
     assert requirement["next_action"] == "Obtain original raw BIDS or author confounds."
 
 
+def _verified_scoring_lock() -> dict[str, object]:
+    return {
+        "scoring_lock_verified": True,
+        "missing_or_mismatched": [],
+        "checked_files": {
+            "target_files.lsd_sober_targets": {
+                "path": "results/stage_2/empirical_sober_targets.yaml",
+                "exists": True,
+                "expected_sha256": "abc",
+                "current_sha256": "abc",
+                "verified": True,
+            },
+            "scoring_code_files.dynamic_mechanism": {
+                "path": "src/lsd_thesis/dynamic_mechanism.py",
+                "exists": True,
+                "expected_sha256": "def",
+                "current_sha256": "def",
+                "verified": True,
+            },
+        },
+    }
+
+
 def test_thesis_upgrade_marks_external_validation_complete_only_with_locked_comparable_scoring(tmp_path: Path) -> None:
     result_dir = tmp_path / "results" / "psilocybin_ds006072"
     result_dir.mkdir(parents=True)
@@ -690,6 +744,7 @@ def test_thesis_upgrade_marks_external_validation_complete_only_with_locked_comp
                 "analysis_status": "implemented_ds006072_unchanged_scoring_validation",
                 "unchanged_scoring_applied": True,
                 "scoring_lock_verified": True,
+                "scoring_lock": _verified_scoring_lock(),
                 "subject_count": 3,
                 "minimum_comparable_subjects": 3,
                 "replication_status": "ranking_replicates_lsd_top_layer",
@@ -713,6 +768,47 @@ def test_thesis_upgrade_marks_external_validation_complete_only_with_locked_comp
     assert external["gate"]["blocker"] == (
         "Comparable ds006072 empirical records were scored unchanged; upgrade scope if stronger parcellation matching is needed."
     )
+
+
+def test_thesis_upgrade_external_validation_rejects_stale_scoring_lock_details(tmp_path: Path) -> None:
+    result_dir = tmp_path / "results" / "psilocybin_ds006072"
+    result_dir.mkdir(parents=True)
+    (result_dir / "comparable_empirical_validation_summary.json").write_text(
+        json.dumps(
+            {
+                "analysis_status": "implemented_ds006072_unchanged_scoring_validation",
+                "unchanged_scoring_applied": True,
+                "scoring_lock_verified": True,
+                "scoring_lock": {
+                    "scoring_lock_verified": True,
+                    "missing_or_mismatched": ["scoring_code_files.dynamic_mechanism"],
+                    "checked_files": {
+                        "scoring_code_files.dynamic_mechanism": {
+                            "path": "src/lsd_thesis/dynamic_mechanism.py",
+                            "exists": True,
+                            "expected_sha256": "old",
+                            "current_sha256": "new",
+                            "verified": False,
+                        }
+                    },
+                },
+                "subject_count": 3,
+                "minimum_comparable_subjects": 3,
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    status = build_thesis_upgrade_status(tmp_path)
+    external = status["components"]["external_validation"]
+    requirement = {row["requirement_id"]: row for row in status["strict_completion_requirements"]}[
+        "ds006072_external_validation"
+    ]
+
+    assert external["gate"]["ready"] is False
+    assert external["scoring_lock_verified"] is False
+    assert external["scoring_lock_details_verified"] is False
+    assert requirement["complete"] is False
 
 
 def test_receptor_structural_gate_uses_ready_language_when_both_layers_exist(tmp_path: Path) -> None:
@@ -902,6 +998,7 @@ def test_thesis_upgrade_project_phase_completes_only_with_hard_motion_and_strong
                 "analysis_status": "implemented_ds006072_unchanged_scoring_validation",
                 "unchanged_scoring_applied": True,
                 "scoring_lock_verified": True,
+                "scoring_lock": _verified_scoring_lock(),
                 "subject_count": 3,
                 "minimum_comparable_subjects": 3,
                 "stronger_external_validation_ready": True,
@@ -1011,6 +1108,7 @@ def test_thesis_upgrade_project_phase_names_only_remaining_hard_requirements(tmp
                 "analysis_status": "implemented_ds006072_unchanged_scoring_validation",
                 "unchanged_scoring_applied": True,
                 "scoring_lock_verified": True,
+                "scoring_lock": _verified_scoring_lock(),
                 "subject_count": 3,
                 "minimum_comparable_subjects": 3,
                 "stronger_external_validation_ready": True,
