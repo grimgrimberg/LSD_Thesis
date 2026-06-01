@@ -20,6 +20,7 @@ The missing `project_phase` item is derived from the motion-proof blocker. It is
 
 - Hosted CI now runs the quality gate and has passed repeatedly on this branch.
 - Dashboard artifact policy was split out of `src/lsd_thesis/web/app.py` into `src/lsd_thesis/web/artifacts.py`.
+- Dashboard empirical-viewer and run-02 music-run policy was split out of `src/lsd_thesis/web/app.py` into `src/lsd_thesis/web/empirical_viewer.py`.
 - Dynamic mechanism prior/mask policy was split out of `src/lsd_thesis/dynamic_mechanism.py` into `src/lsd_thesis/dynamic_mechanism_priors.py`.
 - Dashboard string-HTML cleanup is guarded by a repo-hygiene test: the dashboard template must not contain `.innerHTML`, `.outerHTML`, `insertAdjacentHTML`, or `dangerouslySetInnerHTML`.
 - Generated-artifact policy is documented and tested through `.gitignore`, `docs/ARCHIVE_POLICY.md`, and `tests/test_repo_hygiene.py`.
@@ -81,7 +82,7 @@ Do not mark the strict motion gate complete from raw-BOLD image QC, published ag
 
 Priority order:
 
-1. Split another large dashboard payload concern out of `src/lsd_thesis/web/app.py`.
+1. Continue splitting remaining dashboard payload/status concerns out of `src/lsd_thesis/web/app.py`.
 2. Extract public transition/dynamic summary helpers so `dynamic_robustness.py` stops importing private helpers from `dynamic_mechanism.py`.
 3. Add a compact dashboard/reporting architecture map.
 4. Continue reducing stale generated-run reports; only commit tracked docs and curated evidence.
