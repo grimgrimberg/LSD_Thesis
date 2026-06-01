@@ -126,7 +126,7 @@ def _render_heading(level: int, text: str) -> str:
 def _render_figure(figure: ParsedFigure) -> str:
     parts = [
         '<figure class="report-figure">',
-        f'<img src="{escape(figure.src, quote=True)}" alt="{escape(figure.alt, quote=True)}" />',
+        f'<img src="{_safe_href(figure.src)}" alt="{escape(figure.alt, quote=True)}" />',
     ]
     if figure.caption:
         parts.append(f"<figcaption>{_render_inline(figure.caption)}</figcaption>")

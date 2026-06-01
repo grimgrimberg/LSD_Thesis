@@ -12,23 +12,33 @@ GitHub Pages is a presentation surface. The thesis also needs a citable, reprodu
 4. Static GitHub Pages snapshot for reviewer browsing.
 5. Archive manifest under `results/reproducible_archive/`.
 
+## Artifact Tiers
+
+| Tier | Role | Examples | Git policy |
+| --- | --- | --- | --- |
+| A | Tracked evidence and reproducibility metadata | Source code, configs, command docs, stage reports, selected JSON/YAML summaries, archive manifest, checksums, dataset identifiers, source URLs | May be tracked when curated and reviewable |
+| B | Generated local outputs | `output/`, temporary review folders, Plotly HTML, generated figures, CSV exports, NPY/NPZ caches, empirical viewer payloads | Ignored by default; regenerate from commands |
+| C | Forbidden or private artifacts | Raw OpenNeuro data, local `.venv/`, machine logs, `.env` files, tokens, SSH keys, cloud credentials | Never commit or archive |
+
 ## What Goes Into The Archive
 
-- Source code.
-- Configs.
-- Command docs.
-- Thesis reports and static microsite.
-- Derived aggregate JSON/CSV/Markdown outputs.
+- Tier A source code, configs, command docs, and stage reports.
+- Publication-facing reports and static microsite snapshots when intentionally curated.
+- Derived aggregate JSON/CSV/Markdown outputs selected for reproducibility.
 - Claim/evidence matrices.
 - Checksums for included artifacts.
 - Dataset identifiers and source URLs.
 
 ## What Does Not Go Into The Archive
 
-- Raw OpenNeuro NIfTI/CIFTI files.
+- Tier C raw OpenNeuro NIfTI/CIFTI files.
 - Local `.venv/`, caches, temporary files, and machine-specific logs.
 - `.env` files, tokens, credentials, SSH keys, or secrets.
-- Large NPY/NPZ caches unless explicitly curated and justified.
+- Tier B large generated files such as figures, Plotly HTML, NPY/NPZ caches, or empirical viewer payloads unless explicitly curated and justified.
+
+## Serving And Export Rule
+
+The dashboard may serve selected Tier A or curated Tier B files through `/artifacts/`, but only from allowlisted report/output/result roots. Serving a file locally does not make it safe to commit or include in an archive.
 
 ## Commands
 

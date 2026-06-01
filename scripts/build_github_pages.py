@@ -4,11 +4,12 @@ import argparse
 import json
 import os
 import shutil
-import sys
 import stat
+import sys
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
+from urllib.parse import unquote
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SRC_ROOT = REPO_ROOT / "src"
@@ -28,13 +29,13 @@ from lsd_thesis.design_confound_controls import write_design_confound_control_st
 from lsd_thesis.ds006072_cifti_extraction import write_ds006072_cifti_extraction_status
 from lsd_thesis.ds006072_payload_plan import write_ds006072_payload_plan_status
 from lsd_thesis.image_motion_qc import write_image_motion_qc_status
-from lsd_thesis.module_dvars_controls import write_module_dvars_control_status
 from lsd_thesis.map_prior_falsification import write_map_prior_falsification_status
+from lsd_thesis.module_dvars_controls import write_module_dvars_control_status
 from lsd_thesis.neuromaps_spatial_nulls import write_neuromaps_spatial_null_status
 from lsd_thesis.published_motion_qc import write_published_motion_qc_status
 from lsd_thesis.setting_seed.motion import write_motion_outputs
-from lsd_thesis.thesis_upgrade import write_thesis_upgrade_status
 from lsd_thesis.thesis_loop import build_thesis_evidence_loop
+from lsd_thesis.thesis_upgrade import write_thesis_upgrade_status
 from lsd_thesis.web.app import build_dashboard_payload
 
 STATIC_FAVICON_TAG = '<link rel="icon" href="data:,">'
@@ -120,10 +121,29 @@ def _static_dashboard_html(
 
 
 def _dashboard_artifact_path_from_href(href: str) -> str | None:
+    normalized = unquote(href).replace("\\", "/").split("#", 1)[0].split("?", 1)[0]
     for prefix in ("/artifacts/", "../artifacts/"):
-        if href.startswith(prefix):
-            return href.removeprefix(prefix)
+        if normalized.startswith(prefix):
+            return normalized.removeprefix(prefix)
     return None
+
+
+def _resolve_dashboard_artifact_source(repo_root: Path, raw_relative: str, allowed_prefixes: tuple[str, ...]) -> tuple[Path, str] | None:
+    relative_path = Path(raw_relative)
+    if relative_path.is_absolute() or any(part in {"", ".", ".."} for part in relative_path.parts):
+        return None
+    relative_posix = relative_path.as_posix()
+    if not relative_posix.startswith(allowed_prefixes):
+        return None
+    resolved_root = repo_root.resolve()
+    source = (resolved_root / relative_path).resolve()
+    try:
+        canonical_relative = source.relative_to(resolved_root).as_posix()
+    except ValueError:
+        return None
+    if not canonical_relative.startswith(allowed_prefixes):
+        return None
+    return source, canonical_relative
 
 
 def _copy_dashboard_linked_artifacts(repo_root: Path, site: Path, dashboard_payload: dict[str, Any]) -> list[str]:
@@ -158,10 +178,13 @@ def _copy_dashboard_linked_artifacts(repo_root: Path, site: Path, dashboard_payl
         links.extend(link for link in empirical_viewer.get("reports", []) if isinstance(link, dict))
 
     for link in links:
-        relative = _dashboard_artifact_path_from_href(str(link.get("href", "")))
-        if relative is None or not relative.startswith(allowed_prefixes):
+        raw_relative = _dashboard_artifact_path_from_href(str(link.get("href", "")))
+        if raw_relative is None:
             continue
-        source = repo_root / relative
+        resolved = _resolve_dashboard_artifact_source(repo_root, raw_relative, allowed_prefixes)
+        if resolved is None:
+            continue
+        source, relative = resolved
         if not source.exists() or not source.is_file():
             continue
         destination = site / "artifacts" / relative

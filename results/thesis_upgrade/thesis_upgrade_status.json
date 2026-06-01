@@ -1,15 +1,15 @@
 {
   "schema_version": "thesis_upgrade_status.v1",
-  "generated_at_utc": "2026-05-31T07:31:48.758906+00:00",
+  "generated_at_utc": "2026-06-01T11:53:15.479368+00:00",
   "readiness_summary": {
     "ready_gates": 8,
     "total_gates": 8,
     "readiness_fraction": 1.0,
-    "strict_complete_gates": 6,
+    "strict_complete_gates": 4,
     "strict_total_gates": 6,
-    "strict_completion_fraction": 1.0,
-    "completion_status": "completed_neuroscience_thesis",
-    "thesis_status": "completed_neuroscience_thesis"
+    "strict_completion_fraction": 0.6666666666666666,
+    "completion_status": "research_demo_ready_not_completed_thesis",
+    "thesis_status": "research_demo_ready_not_completed_thesis"
   },
   "gates": [
     {
@@ -49,7 +49,7 @@
       "status": "implemented_ds006072_unchanged_scoring_validation",
       "ready": true,
       "evidence": "results/psilocybin_ds006072/psilocybin_ds006072_status.json; results/psilocybin_ds006072/external_validation_readiness.json; results/psilocybin_ds006072/comparable_empirical_validation_summary.json; results/psilocybin_ds006072/minimum_payload_plan.json; results/psilocybin_ds006072/cifti_empirical_extraction_status.json; results/external_ingestion/external_ingestion_status.json",
-      "blocker": "Run the ds006072 module time-series extraction and empirical-viewer writer, then rerun the thesis evidence loop.",
+      "blocker": "Schaefer100/Yeo7 ds006072 extraction and unchanged scoring are complete; ranking_differs_from_lsd_top_layer; ds006072 top=E, LSD reference top=C.",
       "score": 1.0
     },
     {
@@ -104,19 +104,19 @@
       "status": "implemented_ds006072_unchanged_scoring_validation",
       "complete": true,
       "evidence": "results/psilocybin_ds006072/psilocybin_ds006072_status.json; results/psilocybin_ds006072/external_validation_readiness.json; results/psilocybin_ds006072/comparable_empirical_validation_summary.json; results/psilocybin_ds006072/minimum_payload_plan.json; results/psilocybin_ds006072/cifti_empirical_extraction_status.json",
-      "missing": "None: ds006072 paired psilocybin/MTP CIFTI records were extracted and scored unchanged; current scope is a structure-family external stress test.",
-      "next_action": "Upgrade this from structure-family stress test to stronger replication by adding a surface/parcellation-matched ds006072 extractor.",
-      "claim_effect": "External validation is implemented as a ds006072 structure-family stress test with unchanged scoring."
+      "missing": "None: ds006072 paired psilocybin/MTP CIFTI records were extracted through Schaefer100/Yeo7 cortex parcels and scored unchanged.",
+      "next_action": "Use this as the stronger parcellation-matched ds006072 evidence layer; keep the small-subject scope visible.",
+      "claim_effect": "External validation is implemented as a ds006072 Schaefer100/Yeo7 parcellation-matched stress test with unchanged scoring."
     },
     {
       "requirement_id": "motion_confound_control_result",
       "label": "Motion/confound control result",
-      "status": "implemented_image_derived_motion_qc_control",
-      "complete": true,
+      "status": "blocked_absent_authorized_subject_level_motion_confounds",
+      "complete": false,
       "evidence": "results/setting_seed/motion/motion_summary.json; results/confound_controls/motion_confound_control_status.json; results/confound_controls/design_confound_control_status.json; results/confound_controls/module_dvars_control_status.json; results/confound_controls/published_motion_qc_status.json; results/confound_controls/ds003059_motion_source_availability.json; results/confound_controls/image_motion_qc_status.json",
-      "missing": "None for the current dedicated result layer: raw-BOLD image-derived motion/QC sensitivity is implemented. fMRIPrep FD/DVARS/censoring remains the stronger future gold-standard control.",
-      "next_action": "Use the image-derived QC result as the current motion/signal-quality control layer, and upgrade to authorized fMRIPrep FD/DVARS/censoring when available.",
-      "claim_effect": "Motion/confound handling now has a dedicated image-derived QC result layer; high-risk QC associations still downgrade affected claims."
+      "missing": "Raw-BOLD image-derived motion/QC sensitivity is implemented, but strict completion still requires fMRIPrep FD/DVARS/censoring motion proof.",
+      "next_action": "Use the image-derived QC result as the current motion/signal-quality proxy layer, but do not mark the strict motion gate complete until authorized fMRIPrep FD/DVARS/censoring proof exists.",
+      "claim_effect": "Motion/confound handling has an image-derived QC proxy layer, but strict thesis completion still fails without fMRIPrep FD/DVARS/censoring proof."
     },
     {
       "requirement_id": "receptor_myelin_gradient_claim",
@@ -131,12 +131,12 @@
     {
       "requirement_id": "project_phase",
       "label": "Project phase",
-      "status": "completed_neuroscience_thesis",
-      "complete": true,
+      "status": "research_demo_ready_not_completed_thesis",
+      "complete": false,
       "evidence": "strict_completion_requirements",
-      "missing": "One or more required scientific gates is still missing or fail-closed.",
-      "next_action": "Keep pitching this as an AI/engineering research proposal until every strict evidence gate passes.",
-      "claim_effect": "This remains a strong PI pitch, not a completed neuroscience thesis, until all strict gates are true."
+      "missing": "Proxy/stress-test evidence gates are visible, but completion still requires fMRIPrep FD/DVARS/censoring motion proof.",
+      "next_action": "Keep this as a controlled research demo while upgrading fMRIPrep FD/DVARS/censoring motion proof.",
+      "claim_effect": "This remains a controlled research demo/PI pitch until fMRIPrep FD/DVARS/censoring motion proof passes."
     }
   ],
   "components": {
@@ -152,12 +152,12 @@
       "strict_requirement": {
         "requirement_id": "motion_confound_control_result",
         "label": "Motion/confound control result",
-        "status": "implemented_image_derived_motion_qc_control",
-        "complete": true,
+        "status": "blocked_absent_authorized_subject_level_motion_confounds",
+        "complete": false,
         "evidence": "results/setting_seed/motion/motion_summary.json; results/confound_controls/motion_confound_control_status.json; results/confound_controls/design_confound_control_status.json; results/confound_controls/module_dvars_control_status.json; results/confound_controls/published_motion_qc_status.json; results/confound_controls/ds003059_motion_source_availability.json; results/confound_controls/image_motion_qc_status.json",
-        "missing": "None for the current dedicated result layer: raw-BOLD image-derived motion/QC sensitivity is implemented. fMRIPrep FD/DVARS/censoring remains the stronger future gold-standard control.",
-        "next_action": "Use the image-derived QC result as the current motion/signal-quality control layer, and upgrade to authorized fMRIPrep FD/DVARS/censoring when available.",
-        "claim_effect": "Motion/confound handling now has a dedicated image-derived QC result layer; high-risk QC associations still downgrade affected claims."
+        "missing": "Raw-BOLD image-derived motion/QC sensitivity is implemented, but strict completion still requires fMRIPrep FD/DVARS/censoring motion proof.",
+        "next_action": "Use the image-derived QC result as the current motion/signal-quality proxy layer, but do not mark the strict motion gate complete until authorized fMRIPrep FD/DVARS/censoring proof exists.",
+        "claim_effect": "Motion/confound handling has an image-derived QC proxy layer, but strict thesis completion still fails without fMRIPrep FD/DVARS/censoring proof."
       },
       "motion_summary_ready": false,
       "control_layer_ready": true,
@@ -805,7 +805,7 @@
         "status": "implemented_ds006072_unchanged_scoring_validation",
         "ready": true,
         "evidence": "results/psilocybin_ds006072/psilocybin_ds006072_status.json; results/psilocybin_ds006072/external_validation_readiness.json; results/psilocybin_ds006072/comparable_empirical_validation_summary.json; results/psilocybin_ds006072/minimum_payload_plan.json; results/psilocybin_ds006072/cifti_empirical_extraction_status.json; results/external_ingestion/external_ingestion_status.json",
-        "blocker": "Run the ds006072 module time-series extraction and empirical-viewer writer, then rerun the thesis evidence loop.",
+        "blocker": "Schaefer100/Yeo7 ds006072 extraction and unchanged scoring are complete; ranking_differs_from_lsd_top_layer; ds006072 top=E, LSD reference top=C.",
         "score": 1.0
       },
       "strict_requirement": {
@@ -814,9 +814,9 @@
         "status": "implemented_ds006072_unchanged_scoring_validation",
         "complete": true,
         "evidence": "results/psilocybin_ds006072/psilocybin_ds006072_status.json; results/psilocybin_ds006072/external_validation_readiness.json; results/psilocybin_ds006072/comparable_empirical_validation_summary.json; results/psilocybin_ds006072/minimum_payload_plan.json; results/psilocybin_ds006072/cifti_empirical_extraction_status.json",
-        "missing": "None: ds006072 paired psilocybin/MTP CIFTI records were extracted and scored unchanged; current scope is a structure-family external stress test.",
-        "next_action": "Upgrade this from structure-family stress test to stronger replication by adding a surface/parcellation-matched ds006072 extractor.",
-        "claim_effect": "External validation is implemented as a ds006072 structure-family stress test with unchanged scoring."
+        "missing": "None: ds006072 paired psilocybin/MTP CIFTI records were extracted through Schaefer100/Yeo7 cortex parcels and scored unchanged.",
+        "next_action": "Use this as the stronger parcellation-matched ds006072 evidence layer; keep the small-subject scope visible.",
+        "claim_effect": "External validation is implemented as a ds006072 Schaefer100/Yeo7 parcellation-matched stress test with unchanged scoring."
       },
       "recommended_external_dataset": "OpenNeuro ds006072 psilocybin precision functional mapping",
       "ingestion_status": {
@@ -836,12 +836,18 @@
       "minimum_payload_selected_subject_count": 3,
       "minimum_payload_selected_total_size_bytes": 3078165976,
       "cifti_empirical_viewer_ready": true,
+      "schaefer100_empirical_viewer_ready": true,
+      "stronger_external_validation_ready": true,
+      "validation_scope": "parcellation_matched_schaefer100_yeo7_external_validation",
       "cifti_empirical_extraction_path": "results/psilocybin_ds006072/cifti_empirical_extraction_status.json",
       "cifti_empirical_module_contract": "CIFTI brain-structure-family 8-module external stress test",
-      "replication_status": "ranking_replicates_lsd_top_layer",
+      "schaefer100_module_contract": "CIFTI fsLR cortex Schaefer100/Yeo7 parcel external validation",
+      "replication_status": "ranking_differs_from_lsd_top_layer",
+      "ds006072_top_layer": "E",
+      "lsd_reference_top_layer": "C",
       "comparable_result_path": "results/psilocybin_ds006072/comparable_empirical_validation_summary.json",
       "fixed_rule": "Run the same LSD scoring rules on psilocybin/control data without retuning after seeing results.",
-      "claim_guardrail": "Metadata and manifests are not external validation; comparable empirical target extraction is required."
+      "claim_guardrail": "Metadata and manifests are not external validation. Comparable ds006072 scoring is an external stress test, not population or clinical validation; top-layer mismatches are negative/partial evidence."
     },
     "receptor_structural": {
       "gate": {

@@ -9,7 +9,7 @@ import re
 import urllib.request
 from datetime import UTC, datetime
 from pathlib import Path
-from typing import Any
+from typing import Any, cast
 
 import numpy as np
 
@@ -118,14 +118,14 @@ def _load_structural_matrix(path: Path) -> np.ndarray:
         raise ValueError(f"Structural matrix contains non-finite values: {path}")
     if np.any(matrix < 0):
         raise ValueError(f"Structural matrix contains negative weights: {path}")
-    return (matrix + matrix.T) / 2.0
+    return cast(np.ndarray, (matrix + matrix.T) / 2.0)
 
 
 def _zscore(values: np.ndarray) -> np.ndarray:
     std = float(np.std(values))
     if std <= 1e-12:
-        return np.zeros_like(values, dtype=float)
-    return (values - float(np.mean(values))) / std
+        return cast(np.ndarray, np.zeros_like(values, dtype=float))
+    return cast(np.ndarray, (values - float(np.mean(values))) / std)
 
 
 def _parcel_class_indices() -> dict[str, list[int]]:

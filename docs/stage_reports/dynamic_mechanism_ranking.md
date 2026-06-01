@@ -1,6 +1,6 @@
 # Dynamic Mechanism Ranking: A+B+C+D+E Proxy-Control Pass
 
-Generated: `2026-05-20T07:15:19.573379+00:00`
+Generated: `2026-06-01T11:37:06.566792+00:00`
 
 ## Scope
 
@@ -121,7 +121,7 @@ E is a receptor/hierarchy-informed proxy-control test. It is not full receptor-i
 
 ## Robustness And Literature Benchmark
 
-These robustness checks are in-sample stress tests on the cached LSD data. They do not replace psilocybin replication, structural-connectome controls, PET receptor maps, or Schaefer/Yeo sensitivity.
+These robustness checks are in-sample stress tests on the cached LSD data. They do not replace the ds006072 cross-drug stress test, structural-connectome controls, PET receptor maps, or Schaefer/Yeo sensitivity.
 
 ### Subject Bootstrap
 
@@ -189,4 +189,5 @@ These robustness checks are in-sample stress tests on the cached LSD data. They 
 - C and D use coarse 8-module FC and graph proxies, not canonical network or thalamic-nucleus definitions.
 - E currently uses a macro-module proxy graph and coarse receptor priors; it is not full structural-connectome/PET receptor-informed network control theory.
 - Nulls include receptor-weight permutations and degree controls, but not yet degree-preserving structural graph rewires or spatial-autocorrelation-preserving receptor-map nulls.
+- Metric summaries now include bootstrap confidence intervals and BH-FDR correction for sign-consistency p-values; with small n these are uncertainty descriptors, not population claims.
 - Run-02 music data are available in the fMRI explorer but are not part of this primary A+B+C+D+E ranking summary.

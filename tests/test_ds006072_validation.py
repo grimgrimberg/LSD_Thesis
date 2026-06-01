@@ -161,8 +161,12 @@ def _write_minimal_ds006072_metadata(root: Path, subject_count: int = MIN_COMPAR
     _write_csv(data_root / "ds006072_cifti_manifest.csv", ["filename", "relative_path", "is_processed_rest_cifti", "url_available", "size"], cifti_rows)
 
 
-def _write_external_viewer(root: Path, subject_count: int = MIN_COMPARABLE_SUBJECTS) -> None:
-    viewer_root = root / "results" / "psilocybin_ds006072" / "empirical_viewer"
+def _write_external_viewer(
+    root: Path,
+    subject_count: int = MIN_COMPARABLE_SUBJECTS,
+    viewer_root: Path | None = None,
+) -> None:
+    viewer_root = viewer_root or root / "results" / "psilocybin_ds006072" / "empirical_viewer"
     subject_views = viewer_root / "subject_views"
     subject_views.mkdir(parents=True, exist_ok=True)
     modules = [
@@ -227,3 +231,42 @@ def test_comparable_validation_scores_harmonized_pairs_with_locked_rule(tmp_path
     assert payload["subject_count"] == MIN_COMPARABLE_SUBJECTS
     assert payload["pair_count"] == MIN_COMPARABLE_SUBJECTS
     assert payload["mechanism_ranking"]
+    assert payload["stronger_external_validation_ready"] is False
+
+
+def test_comparable_validation_prefers_schaefer100_viewer_when_ready(tmp_path: Path) -> None:
+    _write_scoring_targets(tmp_path)
+    _write_minimal_ds006072_metadata(tmp_path)
+    schaefer_viewer = (
+        tmp_path
+        / "results"
+        / "psilocybin_ds006072"
+        / "parcellations"
+        / "schaefer_100_yeo_7"
+        / "empirical_viewer"
+    )
+    _write_external_viewer(tmp_path, viewer_root=schaefer_viewer)
+    status_dir = tmp_path / "results" / "psilocybin_ds006072"
+    status_dir.mkdir(parents=True, exist_ok=True)
+    (status_dir / "cifti_empirical_extraction_status.json").write_text(
+        __import__("json").dumps(
+            {
+                "analysis_status": "implemented_ds006072_schaefer100_parcellation_empirical_viewer",
+                "cifti_empirical_viewer_ready": True,
+                "schaefer100_empirical_viewer_ready": True,
+                "stronger_external_validation_ready": True,
+                "schaefer100_viewer_root": "results/psilocybin_ds006072/parcellations/schaefer_100_yeo_7/empirical_viewer",
+                "schaefer100_module_contract": "CIFTI fsLR cortex Schaefer100/Yeo7 parcel external validation",
+                "schaefer100_parcellation_id": "schaefer_100_yeo_7",
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    payload = build_ds006072_comparable_validation_status(tmp_path)
+
+    assert payload["analysis_status"] == "implemented_ds006072_unchanged_scoring_validation"
+    assert payload["viewer_root"] == "results/psilocybin_ds006072/parcellations/schaefer_100_yeo_7/empirical_viewer"
+    assert payload["validation_scope"] == "parcellation_matched_schaefer100_yeo7_external_validation"
+    assert payload["schaefer100_empirical_viewer_ready"] is True
+    assert payload["stronger_external_validation_ready"] is True

@@ -93,7 +93,6 @@ def build_map_prior_falsification_status(repo_root: Path = REPO_ROOT) -> dict[st
     best_spatial = _best_spatial_result(map_family)
     spatial_rows = [row for row in map_family.get("results", []) if isinstance(row, dict)] if isinstance(map_family.get("results"), list) else []
     spatial_resolution = _spatial_resolution(spatial_rows)
-    best_spatial_ci_crosses_zero = bool(best_spatial.get("ci_crosses_zero", True)) if best_spatial else True
     best_spatial_fdr_pass = bool(best_spatial.get("fdr_pass", False)) if best_spatial else False
     negative_result_ready = bool(
         spatial_complete

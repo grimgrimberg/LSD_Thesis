@@ -5,7 +5,7 @@ import json
 import math
 from datetime import UTC, datetime
 from pathlib import Path
-from typing import Any
+from typing import Any, cast
 
 import numpy as np
 from scipy import stats
@@ -62,7 +62,7 @@ def _module_dvars_series(module_time_series: Any) -> np.ndarray | None:
     if array is None:
         return None
     diffs = np.diff(array, axis=0)
-    return np.sqrt(np.mean(diffs * diffs, axis=1))
+    return cast(np.ndarray, np.sqrt(np.mean(diffs * diffs, axis=1)))
 
 
 def _robust_z(values: np.ndarray) -> np.ndarray:

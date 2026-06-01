@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import argparse
 import json
-from pathlib import Path
 
 from lsd_thesis.ds006072_payload_plan import REPO_ROOT, write_ds006072_payload_plan_status
 from lsd_thesis.ds006072_validation import MIN_COMPARABLE_SUBJECTS

@@ -428,7 +428,12 @@ def build_ds006072_comparable_validation_status(repo_root: Path = REPO_ROOT) -> 
     existing_scoring_spec = json.loads(scoring_spec_path.read_text(encoding="utf-8")) if scoring_spec_path.exists() else None
     extraction_status_path = output_dir / "cifti_empirical_extraction_status.json"
     extraction_status = json.loads(extraction_status_path.read_text(encoding="utf-8")) if extraction_status_path.exists() else {}
-    viewer_root = output_dir / "empirical_viewer"
+    schaefer100_ready = bool(extraction_status.get("schaefer100_empirical_viewer_ready"))
+    viewer_root = (
+        repo_root / str(extraction_status.get("schaefer100_viewer_root"))
+        if schaefer100_ready and extraction_status.get("schaefer100_viewer_root")
+        else output_dir / "empirical_viewer"
+    )
     subject_views_dir = viewer_root / "subject_views"
     use_existing_lock = subject_views_dir.exists() and isinstance(existing_scoring_spec, dict)
     readiness = build_ds006072_external_validation_readiness(repo_root)
@@ -469,17 +474,27 @@ def build_ds006072_comparable_validation_status(repo_root: Path = REPO_ROOT) -> 
         "replication_status": "not_scored",
         "extraction_status_path": "results/psilocybin_ds006072/cifti_empirical_extraction_status.json",
         "extraction_status": extraction_status.get("analysis_status"),
-        "extraction_module_contract": extraction_status.get("module_contract"),
+        "extraction_module_contract": (
+            extraction_status.get("schaefer100_module_contract")
+            if schaefer100_ready
+            else extraction_status.get("module_contract")
+        ),
+        "structure_family_viewer_ready": bool(extraction_status.get("cifti_empirical_viewer_ready")),
+        "schaefer100_empirical_viewer_ready": schaefer100_ready,
+        "stronger_external_validation_ready": schaefer100_ready,
+        "schaefer100_parcellation_id": extraction_status.get("schaefer100_parcellation_id"),
         "validation_scope": (
-            "structure_family_external_stress_test"
+            "parcellation_matched_schaefer100_yeo7_external_validation"
+            if schaefer100_ready
+            else "structure_family_external_stress_test"
             if extraction_status.get("module_contract")
             else "harmonized_empirical_viewer_external_validation"
         ),
         "claim_guardrail": (
             "This artifact is the ds006072 external-validation gate. It only passes when paired local "
             "psilocybin/control empirical-viewer records exist and are scored with the locked ds003059 rule. "
-            "If extraction_module_contract is a CIFTI structure-family stress test, treat the result as stronger "
-            "than manifest readiness but weaker than a surface/parcellation-matched replication."
+            "A Schaefer100/Yeo7 validation scope is stronger than the CIFTI structure-family stress test, but "
+            "still remains a small-subject cross-drug stress test rather than a population replication."
         ),
     }
 
@@ -531,8 +546,13 @@ def build_ds006072_comparable_validation_status(repo_root: Path = REPO_ROOT) -> 
             summary["dataset_scope"] = (
                 "OpenNeuro ds006072 paired psilocybin/MTP empirical viewer records scored with the locked ds003059 rule"
             )
-            if extraction_status.get("module_contract"):
-                summary["dataset_scope"] += f"; extraction contract: {extraction_status['module_contract']}"
+            extraction_contract = (
+                extraction_status.get("schaefer100_module_contract")
+                if schaefer100_ready
+                else extraction_status.get("module_contract")
+            )
+            if extraction_contract:
+                summary["dataset_scope"] += f"; extraction contract: {extraction_contract}"
             ds006072_top_layer = _ranking_top_layer(summary)
             replication_status = (
                 "ranking_replicates_lsd_top_layer"
@@ -554,6 +574,12 @@ def build_ds006072_comparable_validation_status(repo_root: Path = REPO_ROOT) -> 
                 "replication_status": replication_status,
                 "blocker": "",
                 "claim_status": (
+                    "external_parcellation_matched_validation_supports_lsd_top_layer"
+                    if schaefer100_ready
+                    and replication_status == "ranking_replicates_lsd_top_layer"
+                    else "external_parcellation_matched_validation_scored_but_does_not_replicate_lsd_top_layer"
+                    if schaefer100_ready
+                    else
                     "external_structure_family_validation_supports_lsd_top_layer"
                     if extraction_status.get("module_contract")
                     and replication_status == "ranking_replicates_lsd_top_layer"

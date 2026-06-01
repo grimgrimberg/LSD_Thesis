@@ -44,7 +44,7 @@ data = []
 packages = ["src/lsd_thesis"]
 
 [tool.pytest.ini_options]
-pythonpath = ["src"]
+pythonpath = ["src", "."]
 testpaths = ["tests"]
 addopts = "--cov=lsd_thesis --cov-report=term-missing --cov-fail-under=70"
 markers = [

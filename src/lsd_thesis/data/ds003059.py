@@ -481,11 +481,11 @@ def validate_empirical_cache_metadata(
         dataset_dir=dataset_dir,
     )
     current_fingerprint = _stable_json_hash(current_inputs)
-    if metadata.get("cache_fingerprint") != current_fingerprint:
-        raise ValueError("Empirical cache fingerprint mismatch; regenerate the empirical targets.")
     if dataset_dir is not None and metadata.get("run_file_hash_status") == "available":
         if metadata.get("run_file_hashes") != current_inputs.get("run_file_hashes"):
             raise ValueError("Empirical cache raw run-file fingerprints changed; regenerate the empirical targets.")
+    if metadata.get("cache_fingerprint") != current_fingerprint:
+        raise ValueError("Empirical cache fingerprint mismatch; regenerate the empirical targets.")
     return metadata
 
 

@@ -66,7 +66,37 @@ def test_cifti_extraction_status_detects_existing_subject_views(tmp_path: Path) 
 
     assert status["analysis_status"] == "implemented_ds006072_cifti_structure_family_empirical_viewer"
     assert status["cifti_empirical_viewer_ready"] is True
+    assert status["stronger_external_validation_ready"] is False
     assert status["subject_view_count"] == 3
+
+
+def test_cifti_extraction_status_detects_schaefer100_subject_views(tmp_path: Path) -> None:
+    result_dir = tmp_path / "results" / "psilocybin_ds006072"
+    subject_views = result_dir / "empirical_viewer" / "subject_views"
+    schaefer_views = result_dir / "parcellations" / "schaefer_100_yeo_7" / "empirical_viewer" / "subject_views"
+    subject_views.mkdir(parents=True)
+    schaefer_views.mkdir(parents=True)
+    (result_dir / "minimum_payload_plan.json").write_text(
+        json.dumps(
+            {
+                "minimum_subjects_required": 3,
+                "minimum_payloads_local_ready": True,
+                "minimum_payload_plan_ready": True,
+            }
+        ),
+        encoding="utf-8",
+    )
+    for index in range(3):
+        (subject_views / f"P{index + 1}_run-01.json").write_text("{}", encoding="utf-8")
+        (schaefer_views / f"P{index + 1}_run-01.json").write_text("{}", encoding="utf-8")
+
+    status = build_ds006072_cifti_extraction_status(tmp_path)
+
+    assert status["analysis_status"] == "implemented_ds006072_schaefer100_parcellation_empirical_viewer"
+    assert status["cifti_empirical_viewer_ready"] is True
+    assert status["schaefer100_empirical_viewer_ready"] is True
+    assert status["stronger_external_validation_ready"] is True
+    assert status["schaefer100_subject_view_count"] == 3
 
 
 def test_write_cifti_extraction_status_writes_artifacts(tmp_path: Path) -> None:

@@ -136,6 +136,11 @@ def _condition_vector_figure(summary: dict[str, Any], key: str, title: str, colo
     return figure
 
 
+def _fieldnames_with_row_extras(base_fields: list[str], rows: list[dict[str, Any]]) -> list[str]:
+    extras = sorted({key for row in rows for key in row if key not in base_fields})
+    return [*base_fields, *extras]
+
+
 def _write_tables(summary: dict[str, Any], output_dir: Path) -> None:
     metric_fields = [
         "metric",
@@ -155,10 +160,11 @@ def _write_tables(summary: dict[str, Any], output_dir: Path) -> None:
         ("network_control_energy", "network_control_energy_metric_deltas.csv"),
     ):
         path = output_dir / filename
+        rows = summary[section_key]["metric_deltas"]
         with path.open("w", encoding="utf-8", newline="") as handle:
-            writer = csv.DictWriter(handle, fieldnames=metric_fields)
+            writer = csv.DictWriter(handle, fieldnames=_fieldnames_with_row_extras(metric_fields, rows))
             writer.writeheader()
-            writer.writerows(summary[section_key]["metric_deltas"])
+            writer.writerows(rows)
 
     for section_key, filename in (
         ("transition_proxy", "transition_run_metric_deltas.csv"),
@@ -167,10 +173,11 @@ def _write_tables(summary: dict[str, Any], output_dir: Path) -> None:
         ("network_control_energy", "network_control_energy_run_metric_deltas.csv"),
     ):
         path = output_dir / filename
+        rows = summary[section_key].get("run_metric_deltas", [])
         with path.open("w", encoding="utf-8", newline="") as handle:
-            writer = csv.DictWriter(handle, fieldnames=["run", *metric_fields])
+            writer = csv.DictWriter(handle, fieldnames=_fieldnames_with_row_extras(["run", *metric_fields], rows))
             writer.writeheader()
-            writer.writerows(summary[section_key].get("run_metric_deltas", []))
+            writer.writerows(rows)
 
     network_energy_path = output_dir / "network_control_energy_profiles.csv"
     with network_energy_path.open("w", encoding="utf-8", newline="") as handle:

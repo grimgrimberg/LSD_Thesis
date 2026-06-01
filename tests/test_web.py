@@ -467,6 +467,12 @@ def test_dashboard_payload_includes_provenance_block(tmp_path: Path, monkeypatch
     assert payload["claim_status"]["audience"] == "prospective Master's PI"
     assert "altered transition/control dynamics" in payload["claim_status"]["falsifiable_thesis_claim"]
     assert any(row["source"] == "ds003059 LSD-placebo" for row in payload["claim_status"]["external_validation_status"])
+    external_plan = {row["source_id"]: row for row in payload["thesis_expansion"]["external_source_plan"]}
+    assert external_plan["girn_2026_mega_analysis"]["status"] == "planned comparison"
+    assert external_plan["dosenbach_siegel_ds006072_2025"]["status"] == "implemented external stress test"
+    assert external_plan["markello_neuromaps_2022"]["status"] == "planned biological prior"
+    assert external_plan["hcp_young_adult"]["status"] == "planned graph prior"
+    assert external_plan["schaefer_2018_local_global"]["status"] == "planned parcellation"
     strict_requirements = {row["requirement_id"]: row for row in payload["thesis_upgrade"]["strict_completion_requirements"]}
     assert strict_requirements["neuromaps_spatial_autocorrelation_nulls"]["complete"] is False
     assert strict_requirements["project_phase"]["status"] == "pi_pitch_ready_research_proposal_not_completed_thesis"
@@ -784,6 +790,14 @@ def test_dashboard_template_contains_scholarly_sections_and_figure_links() -> No
     assert "renderSubjectSignals(subjectDetail, currentWindow);" in html
     assert "@media print" in html
     assert "zmid: 0" in html
+
+
+def test_dashboard_template_uses_dom_safe_rendering_without_inner_html() -> None:
+    html = (ROOT / "src" / "lsd_thesis" / "templates" / "dashboard.html").read_text(encoding="utf-8")
+
+    assert "innerHTML" not in html
+    assert "replaceChildren" in html
+    assert "textContent" in html
 
 
 def test_dashboard_inline_javascript_passes_node_syntax_check(tmp_path: Path) -> None:

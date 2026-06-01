@@ -8,9 +8,16 @@ from lsd_thesis.ds006072_cifti_extraction import REPO_ROOT, write_ds006072_cifti
 
 def main() -> None:
     parser = argparse.ArgumentParser(
-        description="Build ds006072 CIFTI structure-family empirical viewer records for unchanged external scoring."
+        description=(
+            "Build ds006072 CIFTI empirical viewer records for unchanged external scoring, "
+            "including the stronger Schaefer100/Yeo7 cortex parcel layer when --execute is used."
+        )
     )
-    parser.add_argument("--execute", action="store_true", help="Extract local selected CIFTIs into empirical-viewer subject records.")
+    parser.add_argument(
+        "--execute",
+        action="store_true",
+        help="Extract local selected CIFTIs into structure-family and Schaefer100 empirical-viewer records.",
+    )
     args = parser.parse_args()
 
     status = write_ds006072_cifti_extraction_status(REPO_ROOT, execute=args.execute)
@@ -22,6 +29,9 @@ def main() -> None:
                 "analysis_status": status["analysis_status"],
                 "subject_view_count": status["subject_view_count"],
                 "cifti_empirical_viewer_ready": status["cifti_empirical_viewer_ready"],
+                "schaefer100_subject_view_count": status["schaefer100_subject_view_count"],
+                "schaefer100_empirical_viewer_ready": status["schaefer100_empirical_viewer_ready"],
+                "stronger_external_validation_ready": status["stronger_external_validation_ready"],
                 "claim_status": status["claim_status"],
             },
             indent=2,

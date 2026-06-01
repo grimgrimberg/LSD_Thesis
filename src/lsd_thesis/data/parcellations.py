@@ -6,7 +6,7 @@ import shutil
 from collections.abc import Sequence
 from dataclasses import asdict, dataclass
 from pathlib import Path
-from typing import Any
+from typing import Any, cast
 
 import nibabel as nib
 import numpy as np
@@ -390,7 +390,7 @@ def _load_cached_schaefer_files(
         if len(labels) != n_rois:
             continue
         return (
-            nib.load(str(image_path)),
+            cast(nib.Nifti1Image, nib.load(str(image_path))),
             labels,
             {
                 "atlas": "Schaefer 2018",
@@ -432,7 +432,11 @@ def fetch_schaefer_labels_image(
                 metadata["cache_status"] = "loaded_from_partial_nilearn_cache_after_fetch_error"
                 return labels_img, module_names, metadata
         raise
-    labels_img = atlas.maps if isinstance(atlas.maps, nib.Nifti1Image) else nib.load(str(atlas.maps))
+    labels_img = (
+        atlas.maps
+        if isinstance(atlas.maps, nib.Nifti1Image)
+        else cast(nib.Nifti1Image, nib.load(str(atlas.maps)))
+    )
     module_names = _atlas_module_names(atlas.labels, n_rois)
     metadata = {
         "atlas": "Schaefer 2018",
@@ -470,7 +474,7 @@ def _standardize_columns(time_series: np.ndarray) -> np.ndarray:
     centered = array - np.mean(array, axis=0, keepdims=True)
     std = np.std(centered, axis=0, ddof=1, keepdims=True) if len(centered) > 1 else np.ones((1, centered.shape[1]))
     safe_std = np.where(std > 1e-8, std, 1.0)
-    return (centered / safe_std).astype(float, copy=False)
+    return cast(np.ndarray, (centered / safe_std).astype(float, copy=False))
 
 
 def extract_schaefer_time_series(
@@ -525,7 +529,7 @@ def _write_minimal_viewer(
                 },
             }
             (subject_views_dir / f"{subject}_{run}.json").write_text(json.dumps(detail), encoding="utf-8")
-    group_overview = {
+    group_overview: dict[str, Any] = {
         "subjects": subjects,
         "runs": runs,
         "default_subject": subjects[0] if subjects else None,
@@ -565,7 +569,7 @@ def extract_schaefer_empirical_viewer(
     summary_path = output_dir / "parcellation_extraction_summary.json"
     ranking_output_dir = stage_2_path.parent / "parcellation_sensitivity" / parcellation_id
     if summary_path.exists() and not force:
-        return json.loads(summary_path.read_text(encoding="utf-8"))
+        return cast(dict[str, Any], json.loads(summary_path.read_text(encoding="utf-8")))
 
     atlas_cache_dir = Path(nilearn_data_dir) if nilearn_data_dir is not None else stage_2_path.parent / "nilearn_data"
     labels_img, module_names, atlas_metadata = fetch_schaefer_labels_image(

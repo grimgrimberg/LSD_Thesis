@@ -99,8 +99,8 @@ Outputs:
 
 Current boundary:
 
-- run-02 music module time series are not currently cached
-- motion summaries are not currently cached
+- run-02 music module time series are excluded from the legacy `results/stage_2` cache; a non-legacy run-02 extraction output exists separately for music-specific work
+- subject/run-level fMRIPrep FD, DVARS, confound, and censoring tables are not currently cached
 - music-control analysis is scaffolded only
 - PCA outputs are visualization-only
 - all claims remain macro-dynamics proxy claims, not clinical, subjective-experience, receptor, or Stable-Diffusion-literal claims
@@ -377,6 +377,14 @@ Main files:
 - `cloud/`
   Cloud-training scaffolding for later DNN experiments.
 
+## Artifact Policy
+
+- **Tier A tracked evidence:** curated source docs, configs, command docs, stage reports, selected JSON/YAML summaries, checksums, and archive manifests.
+- **Tier B generated outputs:** `output/`, temporary review folders, Plotly HTML, generated figures, CSV exports, NPY/NPZ caches, and empirical viewer payloads. These are ignored by default and should be regenerated from commands.
+- **Tier C forbidden/private artifacts:** raw OpenNeuro data, local environments, machine logs, `.env` files, tokens, SSH keys, and credentials. These must not be committed or archived.
+
+See `docs/ARCHIVE_POLICY.md` for the archive rules used when preparing a citable snapshot.
+
 ## The Most Important Output Files
 
 - `results/stage_2/empirical_sober_targets.yaml`
@@ -432,7 +440,7 @@ The current weak point is not hidden:
 - the coarse 8-module anatomical mapping does not yield a perfectly canonical psychedelic signature on every metric
 - the Harvard-Oxford proxy mapping has overlapping source labels that are assigned by module order; this is transparent but underdefended without an atlas audit table
 - the entropy, switching, metastability, and barrier metrics are clustering/statistical proxies, not direct biological quantities
-- the current repository has no committed baseline yet, so generated outputs should be treated as local artifacts until a provenance commit exists
+- generated outputs should be tied to their recorded provenance commit and dirty-status metadata, not treated as timeless ground truth
 
 That means:
 - the pipeline is real
@@ -611,4 +619,4 @@ This repository supports macro-scale surrogate experiments and mismatch analysis
 
 ## Expected Outputs
 
-After a full local run, expect stage summaries under `results/stage_*/`, generated figures under `results/stage_*/figures/`, empirical target YAML files under `results/stage_2/`, dashboard payloads under `results/stage_2/empirical_viewer/`, training summaries under `results/training/`, and publication outputs under `output/doc/`. Raw data and generated binary artifacts are intentionally not part of the lean Git baseline.
+After a full local run, expect stage summaries under `results/stage_*/`, generated figures under `results/stage_*/figures/`, empirical target YAML files under `results/stage_2/`, dashboard payloads under `results/stage_2/empirical_viewer/`, training summaries under `results/training/`, and publication outputs under `output/doc/`. Tier B generated outputs and Tier C raw/private artifacts are intentionally not part of the lean Git baseline.

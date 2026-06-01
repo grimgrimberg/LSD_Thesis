@@ -42,17 +42,29 @@ Current export artifacts:
 - `results/receptor_priors/receptor_prior_status.json`
 - `results/parcellation_sensitivity/parcellation_sensitivity_status.json`
 - `results/literature_benchmark/literature_benchmark_status.json`
+- `results/thesis_evidence_loop/external_source_plan.csv`
+- `results/thesis_evidence_loop/external_source_plan.md`
 
 Current evidence-loop implementation status:
 
 | Step | Status | Scientific meaning |
 | --- | --- | --- |
 | LSD robustness | `implemented_lsd_robustness` | Current LSD C/E robustness is populated. |
-| Psilocybin `ds006072` | `blocked_missing_local_ds006072_empirical_viewer` | The code path and artifact contract exist, but comparable local psilocybin/control viewer records are absent. |
-| HCP structural graph | `blocked_missing_hcp_structural_graph` | The code path can rerun E with a supplied structural CSV graph, but no HCP/normative graph is local. |
-| PET receptor priors | `blocked_missing_pet_receptor_prior` | The code path can rerun E with a supplied PET receptor-prior CSV, but no PET-derived 5-HT2A prior is local. |
-| Schaefer/Yeo sensitivity | `implemented_status_matrix` | Metadata/status matrix exists; empirical Schaefer/Yeo viewer extraction is still absent. |
+| Psilocybin `ds006072` | `implemented_ds006072_unchanged_scoring_validation` | A local Schaefer100/Yeo7 psilocybin/MTP stress test now exists under unchanged scoring; it is stronger than the earlier structure-family pass, but the small-sample ranking differs from the LSD top layer and must be reported as a negative/partial external result. |
+| HCP structural graph | `implemented_hcp_structural_graph_sensitivity` | E can be rerun with a local structural-connectome CSV graph and graph controls. |
+| PET receptor priors | `implemented_pet_receptor_prior_sensitivity` | PET-derived prior sensitivity is generated, but receptor-specific placement remains unsupported unless it beats uniform/random/degree/spatial controls. |
+| Schaefer/Yeo sensitivity | `implemented_status_matrix` | Schaefer 100/200 by Yeo 7/17 sensitivity rows exist; treat them as C/D/E sensitivity evidence, not a replacement for full subcortical/striatal testing. |
 | Mega-analysis comparison | `implemented_directional_proxy_benchmark` | Directional proxy benchmark is populated from current LSD results. |
+
+External source plan:
+
+| Source | Planned role | Use in project |
+| --- | --- | --- |
+| Girn et al., Nature Medicine 2026 | planned comparison | Final external benchmark for C/D/E directionality: transmodal-unimodal coupling, subnetwork specificity, and striatal-unimodal effects. |
+| Dosenbach/Siegel group, Scientific Data 2025 | planned dataset | OpenNeuro `ds006072` is the first cross-drug psilocybin expansion after LSD robustness, using raw/minimally processed/fully processed imaging provenance. |
+| Markello et al., Nature Methods 2022 | planned biological prior | `neuromaps` replaces hand-built receptor proxies with documented receptor-map projection and spatial-null tooling. |
+| Human Connectome Project Young Adult | planned graph prior | HCP Young Adult is the normative diffusion/resting-fMRI source for structural-connectome graph and null sensitivity. |
+| Schaefer et al., Cerebral Cortex 2018 | planned parcellation | Schaefer/Yeo is the sensitivity layer for C/D/E beyond the 8-module proxy. |
 
 The thesis claim should therefore be:
 

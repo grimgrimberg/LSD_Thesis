@@ -7,6 +7,8 @@ import sys
 from pathlib import Path
 from typing import Any
 
+from lsd_thesis.external_source_plan import EXTERNAL_SOURCE_PLAN_COLUMNS
+
 REPO_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
@@ -37,6 +39,8 @@ def _read_csv(path: Path) -> list[dict[str, Any]]:
 def _headers(rows: list[dict[str, Any]]) -> list[str]:
     if rows and all(column in rows[0] for column in CLAIM_EVIDENCE_COLUMNS):
         return CLAIM_EVIDENCE_COLUMNS
+    if rows and all(column in rows[0] for column in EXTERNAL_SOURCE_PLAN_COLUMNS):
+        return EXTERNAL_SOURCE_PLAN_COLUMNS
     return sorted({key for row in rows for key in row})
 
 
@@ -73,6 +77,9 @@ def export_thesis_loop_tables(repo_root: Path, output_dir: Path) -> dict[str, st
     loop = _load_json(repo_root / "results" / "thesis_evidence_loop" / "thesis_evidence_loop_status.json")
     status_rows = list(loop.get("status_rows", []))
     claim_rows = _read_csv(repo_root / "results" / "thesis_evidence_loop" / "claim_evidence_matrix.csv")
+    external_source_rows = _read_csv(repo_root / "results" / "thesis_evidence_loop" / "external_source_plan.csv")
+    if not external_source_rows:
+        external_source_rows = list(loop.get("external_source_plan", []))
     parcellation_rows = _read_csv(repo_root / "results" / "parcellation_sensitivity" / "parcellation_status.csv")
     parcellation_ranking_rows = _read_csv(repo_root / "results" / "parcellation_sensitivity" / "parcellation_ranking_comparison.csv")
     graph_rows = _read_csv(repo_root / "results" / "structural_connectome" / "proxy_graph_control_nulls.csv")
@@ -81,6 +88,7 @@ def export_thesis_loop_tables(repo_root: Path, output_dir: Path) -> dict[str, st
 
     tables = {
         "status_rows": status_rows,
+        "external_source_plan": external_source_rows,
         "claim_evidence_matrix": claim_rows,
         "ds006072_summary": ds006072_rows,
         "parcellation_status": parcellation_rows,
@@ -103,6 +111,7 @@ def export_thesis_loop_tables(repo_root: Path, output_dir: Path) -> dict[str, st
         "output_dir": output_dir.as_posix(),
         "workbook_path": workbook_path.as_posix(),
         "claim_matrix_csv": (output_dir / "claim_evidence_matrix.csv").as_posix(),
+        "external_source_plan_csv": (output_dir / "external_source_plan.csv").as_posix(),
     }
 
 

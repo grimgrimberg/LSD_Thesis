@@ -7,7 +7,7 @@ import os
 import shutil
 from datetime import UTC, datetime
 from pathlib import Path
-from typing import Any
+from typing import Any, cast
 
 import nibabel as nib
 import numpy as np
@@ -17,7 +17,7 @@ SCHEMA_VERSION = "neuromaps_spatial_null_status.v1"
 SCHAEFER_ID = "schaefer_100_yeo_7"
 DEFAULT_N_PERM = 999
 DEFAULT_SEED = 20260528
-PET_RECEPTOR_MAPS = (
+PET_RECEPTOR_MAPS: tuple[dict[str, Any], ...] = (
     {
         "map_id": "5ht2a_alt_hc19_savli",
         "family": "receptor",
@@ -37,7 +37,7 @@ PET_RECEPTOR_MAPS = (
         "path": Path("results/external_ingestion/hansen_receptors/source/PET_parcellated/scale100/5HT2a_mdl_hc3_talbot.csv"),
     },
 )
-PUBLIC_SURFACE_ANNOTATION_MAPS = (
+PUBLIC_SURFACE_ANNOTATION_MAPS: tuple[dict[str, Any], ...] = (
     {
         "map_id": "hcp1200_myelinmap",
         "family": "myelin",
@@ -186,7 +186,7 @@ def _load_schaefer_atlas_path(repo_root: Path) -> Path:
 
 
 def _schaefer_centroids(atlas_path: Path, expected_size: int = 100) -> np.ndarray:
-    image = nib.load(str(atlas_path))
+    image = cast(nib.Nifti1Image, nib.load(str(atlas_path)))
     data = np.asarray(image.get_fdata(), dtype=float)
     centroids: list[np.ndarray] = []
     for label in range(1, expected_size + 1):
@@ -284,7 +284,7 @@ def _public_annotation_record(source: str, desc: str, space: str, den: str, hemi
     ]
     if len(matches) != 1:
         raise FileNotFoundError(f"Expected one public {space}{den} annotation for {source}/{desc}/{hemi}, found {len(matches)}.")
-    return matches[0]
+    return cast(dict[str, Any], matches[0])
 
 
 def _fetch_public_surface_annotation_pair(

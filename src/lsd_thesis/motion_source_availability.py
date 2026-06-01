@@ -116,9 +116,16 @@ def build_motion_source_availability(
     conclusion = (
         "Subject-level FD/DVARS/censoring inputs are available from at least one checked source."
         if source_confounds_available
-        else "Local repo search, OpenNeuro raw snapshot metadata, and public OpenNeuroDerivatives repo checks did not expose subject-level FD/DVARS/censoring confounds."
+        else (
+            "Local repo search, OpenNeuro raw snapshot metadata, and public "
+            "OpenNeuroDerivatives repo checks did not expose subject-level "
+            "FD/DVARS/censoring confounds."
+        )
         if raw_snapshot_checked and derivative_repo_statuses
-        else "Local repo search found no subject-level FD/DVARS/censoring confounds; remote source checks have not been executed."
+        else (
+            "Local repo search found no subject-level FD/DVARS/censoring confounds; "
+            "remote source checks have not been executed."
+        )
     )
     return {
         "schema_version": SCHEMA_VERSION,
@@ -146,12 +153,19 @@ def build_motion_source_availability(
         "source_confounds_available": source_confounds_available,
         "conclusion": conclusion,
         "next_action": (
-            "Ingest the available confound files with scripts/run_setting_seed_motion_summary.py, then rerun scripts/build_motion_confound_controls.py."
+            "Ingest the available confound files with scripts/run_setting_seed_motion_summary.py, "
+            "then rerun scripts/build_motion_confound_controls.py."
             if source_confounds_available
-            else "Supply authorized fMRIPrep desc-confounds_timeseries.tsv files or run fMRIPrep/MRIQC from ds003059 raw BOLD before claiming full subject-level motion control."
+            else (
+                "Supply authorized fMRIPrep desc-confounds_timeseries.tsv files or run "
+                "fMRIPrep/MRIQC from ds003059 raw BOLD before claiming full subject-level "
+                "motion control."
+            )
         ),
         "claim_guardrail": (
-            "This artifact proves source availability, not motion safety. The motion-control gate can only pass after real subject/run FD, DVARS, and censoring values join to dynamic deltas."
+            "This artifact proves source availability, not motion safety. The motion-control "
+            "gate can only pass after real subject/run FD, DVARS, and censoring values join "
+            "to dynamic deltas."
         ),
     }
 

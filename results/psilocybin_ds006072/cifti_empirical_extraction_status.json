@@ -1,13 +1,18 @@
 {
   "schema_version": "ds006072_cifti_empirical_extraction.v1",
-  "generated_at_utc": "2026-05-31T07:31:48.515929+00:00",
-  "analysis_status": "implemented_ds006072_cifti_structure_family_empirical_viewer",
+  "generated_at_utc": "2026-06-01T10:45:52.099172+00:00",
+  "analysis_status": "implemented_ds006072_schaefer100_parcellation_empirical_viewer",
   "cifti_empirical_viewer_ready": true,
+  "schaefer100_empirical_viewer_ready": true,
+  "stronger_external_validation_ready": true,
   "minimum_subjects_required": 3,
   "minimum_payloads_local_ready": true,
   "subject_view_count": 3,
+  "schaefer100_subject_view_count": 3,
   "viewer_root": "results/psilocybin_ds006072/empirical_viewer",
   "subject_views_dir": "results/psilocybin_ds006072/empirical_viewer/subject_views",
+  "schaefer100_viewer_root": "results/psilocybin_ds006072/parcellations/schaefer_100_yeo_7/empirical_viewer",
+  "schaefer100_subject_views_dir": "results/psilocybin_ds006072/parcellations/schaefer_100_yeo_7/empirical_viewer/subject_views",
   "module_names": [
     "cortex_left",
     "cortex_right",
@@ -19,6 +24,8 @@
     "ventral_diencephalon"
   ],
   "module_contract": "CIFTI brain-structure-family 8-module external stress test",
+  "schaefer100_module_contract": "CIFTI fsLR cortex Schaefer100/Yeo7 parcel external validation",
+  "schaefer100_parcellation_id": "schaefer_100_yeo_7",
   "resampling_rule": "linear_resample_each_condition_to_within_subject_minimum_timepoint_count",
   "blocker": "",
   "next_commands": [
@@ -26,8 +33,173 @@
     ".\\.venv\\Scripts\\python.exe scripts\\build_ds006072_cifti_empirical_viewer.py --execute",
     ".\\.venv\\Scripts\\python.exe scripts\\build_ds006072_comparable_validation.py"
   ],
-  "claim_status": "empirical_viewer_ready_for_unchanged_scoring",
-  "claim_guardrail": "This is real ds006072 CIFTI extraction into an empirical viewer, but it uses broad CIFTI structure families. It is stronger than manifest readiness and weaker than a surface/parcellation-matched replication.",
-  "execute_requested": false,
-  "extraction_result": null
+  "claim_status": "schaefer100_empirical_viewer_ready_for_unchanged_scoring",
+  "claim_guardrail": "This is real ds006072 CIFTI extraction into an empirical viewer, but it uses broad CIFTI structure families. It is stronger than manifest readiness and weaker than a surface/parcellation-matched replication unless schaefer100_empirical_viewer_ready is true.",
+  "execute_requested": true,
+  "extraction_result": {
+    "subjects_written": [
+      "P1",
+      "P2",
+      "P3"
+    ],
+    "subject_view_count": 3,
+    "condition_file_count": 6,
+    "viewer_root": "results/psilocybin_ds006072/empirical_viewer",
+    "subject_views_dir": "results/psilocybin_ds006072/empirical_viewer/subject_views",
+    "extraction_rows": [
+      {
+        "subject": "P1",
+        "session": "ses-LSD",
+        "condition": "psilocybin",
+        "source_path": "data/ds006072/NON_BIDS/ciftis/sub-1_Drug2_rsfMRI_uout_bpss_sr_noGSR_sm4.dtseries.nii",
+        "source_shape": [
+          1490,
+          91206
+        ],
+        "paired_timepoint_count": 1490
+      },
+      {
+        "subject": "P1",
+        "session": "ses-PLCB",
+        "condition": "active_control_mtp",
+        "source_path": "data/ds006072/NON_BIDS/ciftis/sub-1_Drug1_rsfMRI_uout_bpss_sr_noGSR_sm4.dtseries.nii",
+        "source_shape": [
+          1490,
+          91206
+        ],
+        "paired_timepoint_count": 1490
+      },
+      {
+        "subject": "P2",
+        "session": "ses-LSD",
+        "condition": "psilocybin",
+        "source_path": "data/ds006072/NON_BIDS/ciftis/sub-2_Drug1_rsfMRI_uout_bpss_sr_noGSR_sm4.dtseries.nii",
+        "source_shape": [
+          1490,
+          91206
+        ],
+        "paired_timepoint_count": 1490
+      },
+      {
+        "subject": "P2",
+        "session": "ses-PLCB",
+        "condition": "active_control_mtp",
+        "source_path": "data/ds006072/NON_BIDS/ciftis/sub-2_Drug2_rsfMRI_uout_bpss_sr_noGSR_sm4.dtseries.nii",
+        "source_shape": [
+          1490,
+          91206
+        ],
+        "paired_timepoint_count": 1490
+      },
+      {
+        "subject": "P3",
+        "session": "ses-LSD",
+        "condition": "psilocybin",
+        "source_path": "data/ds006072/NON_BIDS/ciftis/sub-3_Drug2_rsfMRI_uout_bpss_sr_noGSR_sm4.dtseries.nii",
+        "source_shape": [
+          1490,
+          91206
+        ],
+        "paired_timepoint_count": 977
+      },
+      {
+        "subject": "P3",
+        "session": "ses-PLCB",
+        "condition": "active_control_mtp",
+        "source_path": "data/ds006072/NON_BIDS/ciftis/sub-3_Drug1_rsfMRI_uout_bpss_sr_noGSR_sm4.dtseries.nii",
+        "source_shape": [
+          977,
+          91206
+        ],
+        "paired_timepoint_count": 977
+      }
+    ]
+  },
+  "schaefer100_extraction_result": {
+    "subjects_written": [
+      "P1",
+      "P2",
+      "P3"
+    ],
+    "subject_view_count": 3,
+    "condition_file_count": 6,
+    "viewer_root": "results/psilocybin_ds006072/parcellations/schaefer_100_yeo_7/empirical_viewer",
+    "subject_views_dir": "results/psilocybin_ds006072/parcellations/schaefer_100_yeo_7/empirical_viewer/subject_views",
+    "module_contract": "CIFTI fsLR cortex Schaefer100/Yeo7 parcel external validation",
+    "parcellation_id": "schaefer_100_yeo_7",
+    "extraction_rows": [
+      {
+        "subject": "P1",
+        "session": "ses-LSD",
+        "condition": "psilocybin",
+        "source_path": "data/ds006072/NON_BIDS/ciftis/sub-1_Drug2_rsfMRI_uout_bpss_sr_noGSR_sm4.dtseries.nii",
+        "source_shape": [
+          1490,
+          91206
+        ],
+        "paired_timepoint_count": 1490,
+        "parcellation_id": "schaefer_100_yeo_7"
+      },
+      {
+        "subject": "P1",
+        "session": "ses-PLCB",
+        "condition": "active_control_mtp",
+        "source_path": "data/ds006072/NON_BIDS/ciftis/sub-1_Drug1_rsfMRI_uout_bpss_sr_noGSR_sm4.dtseries.nii",
+        "source_shape": [
+          1490,
+          91206
+        ],
+        "paired_timepoint_count": 1490,
+        "parcellation_id": "schaefer_100_yeo_7"
+      },
+      {
+        "subject": "P2",
+        "session": "ses-LSD",
+        "condition": "psilocybin",
+        "source_path": "data/ds006072/NON_BIDS/ciftis/sub-2_Drug1_rsfMRI_uout_bpss_sr_noGSR_sm4.dtseries.nii",
+        "source_shape": [
+          1490,
+          91206
+        ],
+        "paired_timepoint_count": 1490,
+        "parcellation_id": "schaefer_100_yeo_7"
+      },
+      {
+        "subject": "P2",
+        "session": "ses-PLCB",
+        "condition": "active_control_mtp",
+        "source_path": "data/ds006072/NON_BIDS/ciftis/sub-2_Drug2_rsfMRI_uout_bpss_sr_noGSR_sm4.dtseries.nii",
+        "source_shape": [
+          1490,
+          91206
+        ],
+        "paired_timepoint_count": 1490,
+        "parcellation_id": "schaefer_100_yeo_7"
+      },
+      {
+        "subject": "P3",
+        "session": "ses-LSD",
+        "condition": "psilocybin",
+        "source_path": "data/ds006072/NON_BIDS/ciftis/sub-3_Drug2_rsfMRI_uout_bpss_sr_noGSR_sm4.dtseries.nii",
+        "source_shape": [
+          1490,
+          91206
+        ],
+        "paired_timepoint_count": 977,
+        "parcellation_id": "schaefer_100_yeo_7"
+      },
+      {
+        "subject": "P3",
+        "session": "ses-PLCB",
+        "condition": "active_control_mtp",
+        "source_path": "data/ds006072/NON_BIDS/ciftis/sub-3_Drug1_rsfMRI_uout_bpss_sr_noGSR_sm4.dtseries.nii",
+        "source_shape": [
+          977,
+          91206
+        ],
+        "paired_timepoint_count": 977,
+        "parcellation_id": "schaefer_100_yeo_7"
+      }
+    ]
+  }
 }

@@ -201,7 +201,10 @@ def build_motion_summary(
             "unusable_file_count": 0,
             "coverage_by_run": {},
             "input_contract": input_contract,
-            "next_action": "Place authorized fMRIPrep confounds TSV/CSV files under one configured search root, then rerun scripts/run_setting_seed_motion_summary.py.",
+            "next_action": (
+                "Place authorized fMRIPrep confounds TSV/CSV files under one configured "
+                "search root, then rerun scripts/run_setting_seed_motion_summary.py."
+            ),
             "summaries": [],
             "claim_guardrail": "Motion sensitivity is unavailable until structured subject/session/run confounds are parsed.",
         }

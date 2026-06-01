@@ -108,3 +108,32 @@ def test_build_github_pages_site_makes_root_the_static_dashboard_and_links_thesi
     assert "thesis.html" in manifest["artifacts"]
     assert "artifacts/claim_evidence_matrix.csv" in manifest["artifacts"]
     assert "artifacts/results/training/rocket_condition_benchmark/benchmark_report.md" in manifest["artifacts"]
+
+
+def test_build_github_pages_rejects_traversal_dashboard_artifact_links(tmp_path: Path) -> None:
+    module = _load_build_github_pages_module()
+    allowed_dir = tmp_path / "results" / "stage_2" / "figures"
+    allowed_dir.mkdir(parents=True)
+    (allowed_dir / "safe.html").write_text("<html>safe</html>", encoding="utf-8")
+    secret_path = tmp_path / "secret.txt"
+    secret_path.write_text("do not copy\n", encoding="utf-8")
+    site = tmp_path / "_site"
+    site.mkdir()
+
+    copied = module._copy_dashboard_linked_artifacts(
+        tmp_path,
+        site,
+        {
+            "artifact_links": {
+                "figures": [
+                    {"href": "/artifacts/results/stage_2/figures/safe.html"},
+                    {"href": "/artifacts/results/stage_2/figures/../../../secret.txt"},
+                    {"href": "/artifacts/results/stage_2/figures/%2E%2E/%2E%2E/%2E%2E/secret.txt"},
+                ]
+            }
+        },
+    )
+
+    assert copied == ["artifacts/results/stage_2/figures/safe.html"]
+    assert (site / "artifacts" / "results" / "stage_2" / "figures" / "safe.html").exists()
+    assert not (site / "artifacts" / "secret.txt").exists()

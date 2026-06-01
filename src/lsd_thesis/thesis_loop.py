@@ -4,7 +4,7 @@ import csv
 import json
 from datetime import UTC, datetime
 from pathlib import Path
-from typing import Any
+from typing import Any, cast
 
 import numpy as np
 
@@ -16,6 +16,11 @@ from lsd_thesis.dynamic_mechanism import (
     summarize_network_control_energy,
 )
 from lsd_thesis.dynamic_robustness import build_dynamic_robustness_summary
+from lsd_thesis.external_source_plan import (
+    EXTERNAL_SOURCE_PLAN_COLUMNS,
+    external_source_by_id,
+    external_source_plan_rows,
+)
 from lsd_thesis.graph import load_graph_config
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
@@ -71,7 +76,7 @@ def _write_markdown_table(path: Path, rows: list[dict[str, Any]], headers: list[
 def _load_json(path: Path) -> dict[str, Any] | None:
     if not path.exists():
         return None
-    return json.loads(path.read_text(encoding="utf-8"))
+    return cast(dict[str, Any], json.loads(path.read_text(encoding="utf-8")))
 
 
 def _status_row(
@@ -243,11 +248,11 @@ def _build_claim_evidence_matrix(components: dict[str, Any]) -> list[dict[str, A
             status=_analysis_status(receptor),
         ),
         _claim_row(
-            claim="ds006072 psilocybin reproduces the LSD A+B+C+D+E ranking",
+            claim="ds006072 psilocybin tests the LSD A+B+C+D+E ranking",
             dataset="OpenNeuro ds006072 psilocybin precision functional mapping",
             model_layer="A+B+C+D+E mechanism ranking",
             null_control="same scoring rules as LSD; paired psilocybin/control empirical viewer",
-            figure="thesis_loop_steps; planned LSD-vs-psilocybin ranking comparison",
+            figure="thesis_loop_steps; LSD-vs-psilocybin ranking comparison",
             export=(
                 "results/psilocybin_ds006072/psilocybin_ds006072_status.json; "
                 "results/thesis_evidence_loop/exports/ds006072_summary.csv"
@@ -256,7 +261,10 @@ def _build_claim_evidence_matrix(components: dict[str, Any]) -> list[dict[str, A
                 "Dosenbach/Siegel group 2025 Scientific Data https://doi.org/10.1038/s41597-025-05189-0; "
                 "OpenNeuro ds006072 https://openneuro.org/datasets/ds006072"
             ),
-            limitation="Manifest readiness is not replication; no claim until comparable empirical viewer exists.",
+            limitation=(
+                "Comparable Schaefer100/Yeo7 scoring is a cross-drug stress test; "
+                "a differing top layer is negative/partial external evidence, not replication."
+            ),
             status=_analysis_status(psilocybin),
         ),
         _claim_row(
@@ -399,7 +407,7 @@ def _rewired_weight_graph(matrix: np.ndarray, rng: np.random.Generator) -> np.nd
     output = np.zeros_like(graph, dtype=float)
     output[upper_indices] = shuffled
     output = output + output.T
-    return output
+    return cast(np.ndarray, output)
 
 
 def _build_proxy_graph_control_rows(pairs: list[Any], graph_matrix: np.ndarray) -> list[dict[str, Any]]:
@@ -487,7 +495,11 @@ def build_psilocybin_status(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
         "schema_version": 1,
         "generated_at_utc": _now(),
         "dataset_id": DS006072_DATASET_ID,
-        "source": "OpenNeuro ds006072, Scientific Data 2025 psilocybin precision imaging dataset",
+        "source": (
+            "Dosenbach/Siegel group Scientific Data 2025; OpenNeuro ds006072 psilocybin precision "
+            "functional mapping dataset with raw, minimally processed, and fully processed imaging"
+        ),
+        "source_reference": external_source_by_id("dosenbach_siegel_ds006072_2025"),
         "local_data_root": local_data_root.relative_to(repo_root).as_posix(),
         "viewer_root": viewer_root.relative_to(repo_root).as_posix(),
         "metadata_manifest": metadata_manifest_path.relative_to(repo_root).as_posix() if metadata_manifest_path.exists() else None,
@@ -514,6 +526,17 @@ def build_psilocybin_status(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
     comparable_validation = build_ds006072_comparable_validation_status(repo_root)
     if comparable_validation.get("unchanged_scoring_applied"):
         summary = comparable_validation.get("summary", {}) if isinstance(comparable_validation.get("summary"), dict) else {}
+        if isinstance(payload.get("external_validation_readiness"), dict):
+            readiness_snapshot = dict(payload["external_validation_readiness"])
+            readiness_snapshot["readiness_context"] = "pre_extraction_source_availability_snapshot"
+            readiness_snapshot["blocker"] = (
+                "Superseded by comparable empirical validation summary; retained as source-availability context."
+            )
+            readiness_snapshot["claim_guardrail"] = (
+                "Superseded by comparable empirical validation summary; this nested readiness snapshot is "
+                "not the current validation verdict."
+            )
+            payload["external_validation_readiness"] = readiness_snapshot
         payload.update(
             {
                 "analysis_status": comparable_validation["analysis_status"],
@@ -525,6 +548,16 @@ def build_psilocybin_status(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
                 "comparable_empirical_validation_path": comparable_validation["source_path"],
                 "unchanged_scoring_applied": True,
                 "replication_status": comparable_validation.get("replication_status"),
+                "validation_scope": comparable_validation.get("validation_scope"),
+                "stronger_external_validation_ready": comparable_validation.get("stronger_external_validation_ready"),
+                "schaefer100_empirical_viewer_ready": comparable_validation.get("schaefer100_empirical_viewer_ready"),
+                "ds006072_top_layer": comparable_validation.get("ds006072_top_layer"),
+                "lsd_reference_top_layer": comparable_validation.get("lsd_reference_top_layer"),
+                "claim_guardrail": (
+                    "Comparable ds006072 Schaefer100/Yeo7 scoring is implemented as a small-subject "
+                    "cross-drug stress test. It is not population, clinical, or subjective-state validation, "
+                    "and a top-layer mismatch must be reported as negative/partial external evidence."
+                ),
             }
         )
     else:
@@ -571,6 +604,11 @@ def build_psilocybin_status(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
                 "comparable_empirical_validation_path": comparable_validation["source_path"],
                 "unchanged_scoring_applied": False,
                 "replication_status": comparable_validation.get("replication_status"),
+                "validation_scope": comparable_validation.get("validation_scope"),
+                "stronger_external_validation_ready": comparable_validation.get("stronger_external_validation_ready"),
+                "schaefer100_empirical_viewer_ready": comparable_validation.get("schaefer100_empirical_viewer_ready"),
+                "ds006072_top_layer": comparable_validation.get("ds006072_top_layer"),
+                "lsd_reference_top_layer": comparable_validation.get("lsd_reference_top_layer"),
                 "next_commands": [
                     "Build extraction readiness: .venv\\Scripts\\python.exe scripts\\build_ds006072_external_validation_readiness.py",
                     "Acquire or derive ds006072 paired psilocybin/control module time series under data/ds006072/.",
@@ -596,6 +634,7 @@ def build_structural_connectome_status(repo_root: Path = REPO_ROOT) -> dict[str,
         "schema_version": 1,
         "generated_at_utc": _now(),
         "artifact_target": output_dir.relative_to(repo_root).as_posix(),
+        "source_reference": external_source_by_id("hcp_young_adult"),
         "expected_graph_files": [path.relative_to(repo_root).as_posix() for path in graph_candidates],
         "claim_guardrail": "HCP structural-control claims require a documented structural-connectome graph, not the macro-module proxy graph.",
     }
@@ -666,6 +705,7 @@ def build_receptor_prior_status(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
         "schema_version": 1,
         "generated_at_utc": _now(),
         "artifact_target": output_dir.relative_to(repo_root).as_posix(),
+        "source_reference": external_source_by_id("markello_neuromaps_2022"),
         "expected_prior_files": [path.relative_to(repo_root).as_posix() for path in prior_candidates],
         "claim_guardrail": "Receptor-specific claims require PET-derived 5-HT2A/FS5ht priors and spatial nulls.",
     }
@@ -790,10 +830,11 @@ def build_parcellation_sensitivity_status(repo_root: Path = REPO_ROOT) -> dict[s
                     "blocker": f"No empirical_viewer found at {viewer_root.relative_to(repo_root).as_posix()}",
                 }
             )
-    payload = {
+    payload: dict[str, Any] = {
         "schema_version": 1,
         "generated_at_utc": _now(),
         "analysis_status": "implemented_status_matrix",
+        "source_reference": external_source_by_id("schaefer_2018_local_global"),
         "rows": rows,
         "ranking_comparison_rows": comparisons,
         "claim_guardrail": "Parcellation sensitivity is not a completed empirical result unless a parcellation-specific empirical_viewer exists.",
@@ -814,6 +855,7 @@ def build_literature_benchmark_status(repo_root: Path = REPO_ROOT) -> dict[str, 
             "generated_at_utc": _now(),
             "analysis_status": "blocked_missing_dynamic_summary",
             "blocker": "Run scripts/run_dynamic_mechanism_ranking.py first.",
+            "source_reference": external_source_by_id("girn_2026_mega_analysis"),
         }
     else:
         robustness = build_dynamic_robustness_summary(summary, repo_root / "results" / "stage_2" / "empirical_viewer")
@@ -823,6 +865,7 @@ def build_literature_benchmark_status(repo_root: Path = REPO_ROOT) -> dict[str, 
             "schema_version": 1,
             "generated_at_utc": _now(),
             "analysis_status": "implemented_directional_proxy_benchmark",
+            "source_reference": external_source_by_id("girn_2026_mega_analysis"),
             "aligned_count": benchmark.get("aligned_count"),
             "measurable_count": benchmark.get("measurable_count"),
             "alignment_fraction": benchmark.get("alignment_fraction"),
@@ -862,6 +905,14 @@ def build_thesis_evidence_loop(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
         f"{literature.get('aligned_count', 0)}/{literature.get('measurable_count', 0)} "
         "measurable proxy checks aligned."
     )
+    psilocybin_evidence = str(psilocybin.get("blocker") or "Comparable ranking generated.")
+    if psilocybin.get("unchanged_scoring_applied"):
+        psilocybin_evidence = (
+            f"{psilocybin.get('validation_scope', 'validation_scope_unknown')}; "
+            f"{psilocybin.get('replication_status', 'replication_status_unknown')}; "
+            f"ds006072 top={psilocybin.get('ds006072_top_layer')}, "
+            f"LSD reference top={psilocybin.get('lsd_reference_top_layer')}."
+        )
     status_rows = [
         _status_row(
             "1",
@@ -875,7 +926,7 @@ def build_thesis_evidence_loop(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
             "Psilocybin ds006072",
             psilocybin["analysis_status"],
             "results/psilocybin_ds006072/",
-            psilocybin.get("blocker", "Comparable ranking generated."),
+            psilocybin_evidence,
         ),
         _status_row(
             "3",
@@ -906,7 +957,7 @@ def build_thesis_evidence_loop(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
             literature_evidence,
         ),
     ]
-    payload = {
+    payload: dict[str, Any] = {
         "schema_version": 1,
         "generated_at_utc": _now(),
         "analysis_status": "implemented_loop_status_artifacts",
@@ -924,11 +975,25 @@ def build_thesis_evidence_loop(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
             "but the raw local data required for the scientific claim are absent."
         ),
     }
+    component_statuses = {
+        name: _analysis_status(component)
+        for name, component in payload["components"].items()
+        if isinstance(component, dict)
+    }
+    external_plan = external_source_plan_rows(component_statuses)
     claim_evidence_matrix = _build_claim_evidence_matrix(payload["components"])
     output_dir = repo_root / "results" / "thesis_evidence_loop"
     claim_csv_path = output_dir / "claim_evidence_matrix.csv"
     claim_markdown_path = output_dir / "claim_evidence_matrix.md"
+    source_plan_csv_path = output_dir / "external_source_plan.csv"
+    source_plan_markdown_path = output_dir / "external_source_plan.md"
     _write_csv(output_dir / "status_rows.csv", status_rows)
+    payload["external_source_plan"] = external_plan
+    payload["external_source_plan_columns"] = EXTERNAL_SOURCE_PLAN_COLUMNS
+    payload["external_source_plan_paths"] = {
+        "csv": source_plan_csv_path.relative_to(repo_root).as_posix(),
+        "markdown": source_plan_markdown_path.relative_to(repo_root).as_posix(),
+    }
     payload["claim_evidence_matrix"] = claim_evidence_matrix
     payload["claim_evidence_matrix_columns"] = CLAIM_EVIDENCE_COLUMNS
     payload["claim_evidence_matrix_paths"] = {
@@ -944,6 +1009,16 @@ def build_thesis_evidence_loop(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
         claim_markdown_path,
         claim_evidence_matrix,
         CLAIM_EVIDENCE_COLUMNS,
+    )
+    _write_csv(
+        source_plan_csv_path,
+        external_plan,
+        EXTERNAL_SOURCE_PLAN_COLUMNS,
+    )
+    _write_markdown_table(
+        source_plan_markdown_path,
+        external_plan,
+        EXTERNAL_SOURCE_PLAN_COLUMNS,
     )
     payload["source_path"] = _write_json(output_dir / "thesis_evidence_loop_status.json", payload)
     return payload

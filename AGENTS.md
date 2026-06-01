@@ -82,6 +82,7 @@ Use the BRATING loop on empirical work:
 - Do not rewrite Git history.
 - Do not delete raw data, generated outputs, notebooks, or large artifacts without confirmation.
 - Do not commit `/data/`, `/output/`, `.venv/`, `tmp/`, `.codex/`, `.superpowers/`, `node_modules/`, NPY/NPZ caches, generated figures, or credential-like files.
+- Treat artifacts by tier: Tier A curated evidence may be tracked; Tier B generated outputs are ignored/regenerable; Tier C raw data, secrets, and machine-local state must never be committed.
 - Keep `src/lsd_thesis/data/` tracked; it is source code, not raw data.
 
 ## No-Secret Policy

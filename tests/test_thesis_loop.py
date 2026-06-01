@@ -2,6 +2,7 @@ import csv
 from pathlib import Path
 from uuid import uuid4
 
+from lsd_thesis.external_source_plan import EXTERNAL_SOURCE_PLAN_COLUMNS
 from lsd_thesis.thesis_loop import build_thesis_evidence_loop
 from scripts.export_thesis_loop_tables import export_thesis_loop_tables
 
@@ -27,6 +28,37 @@ def test_thesis_evidence_loop_writes_serious_blocked_statuses_without_fabricatin
     assert (repo_root / "results" / "psilocybin_ds006072" / "required_empirical_viewer_schema.json").exists()
     assert (repo_root / "results" / "structural_connectome" / "required_hcp_macro_modules_template.csv").exists()
     assert (repo_root / "results" / "receptor_priors" / "required_fs5ht_5ht2a_macro_modules_template.csv").exists()
+    assert (repo_root / "results" / "thesis_evidence_loop" / "external_source_plan.csv").exists()
+    assert (repo_root / "results" / "thesis_evidence_loop" / "external_source_plan.md").exists()
+
+
+def test_thesis_evidence_loop_exports_requested_external_source_plan() -> None:
+    repo_root = _root()
+
+    payload = build_thesis_evidence_loop(repo_root)
+
+    assert payload["external_source_plan_columns"] == EXTERNAL_SOURCE_PLAN_COLUMNS
+    assert payload["external_source_plan_paths"] == {
+        "csv": "results/thesis_evidence_loop/external_source_plan.csv",
+        "markdown": "results/thesis_evidence_loop/external_source_plan.md",
+    }
+    by_source = {row["source_id"]: row for row in payload["external_source_plan"]}
+    assert set(by_source) == {
+        "girn_2026_mega_analysis",
+        "dosenbach_siegel_ds006072_2025",
+        "markello_neuromaps_2022",
+        "hcp_young_adult",
+        "schaefer_2018_local_global",
+    }
+    assert by_source["girn_2026_mega_analysis"]["status"] == "planned comparison"
+    assert by_source["girn_2026_mega_analysis"]["use_in_project"] == "Final external benchmark for C/D/E directionality."
+    assert by_source["dosenbach_siegel_ds006072_2025"]["status"] == "implemented external stress test"
+    assert by_source["dosenbach_siegel_ds006072_2025"]["component"] == "psilocybin_ds006072"
+    assert by_source["markello_neuromaps_2022"]["status"] == "planned biological prior"
+    assert "receptor PET annotations" in by_source["markello_neuromaps_2022"]["key_evidence"]
+    assert by_source["hcp_young_adult"]["status"] == "planned graph prior"
+    assert by_source["schaefer_2018_local_global"]["status"] == "planned parcellation"
+    assert by_source["schaefer_2018_local_global"]["target_layers"] == "C/D/E"
 
 
 def test_thesis_evidence_loop_writes_hiring_readiness_claim_matrix() -> None:
@@ -55,14 +87,14 @@ def test_thesis_evidence_loop_writes_hiring_readiness_claim_matrix() -> None:
     assert any("C survives Schaefer/Yeo" in row["claim"] for row in matrix)
     assert any("E survives real structural-connectome" in row["claim"] for row in matrix)
     assert any("E survives PET receptor-map" in row["claim"] for row in matrix)
-    assert any("ds006072 psilocybin reproduces" in row["claim"] for row in matrix)
+    assert any("ds006072 psilocybin tests" in row["claim"] for row in matrix)
     assert any("Failed literature checks" in row["claim"] for row in matrix)
 
     by_claim = {row["claim"]: row for row in matrix}
     assert by_claim["E survives real structural-connectome graph"]["status"] == "blocked_missing_hcp_structural_graph"
     assert by_claim["E survives PET receptor-map priors"]["status"] == "blocked_missing_pet_receptor_prior"
     assert (
-        by_claim["ds006072 psilocybin reproduces the LSD A+B+C+D+E ranking"]["status"]
+        by_claim["ds006072 psilocybin tests the LSD A+B+C+D+E ranking"]["status"]
         == "blocked_missing_local_ds006072_empirical_viewer"
     )
 
@@ -84,10 +116,15 @@ def test_export_thesis_loop_tables_includes_claim_matrix() -> None:
     outputs = export_thesis_loop_tables(repo_root, repo_root / "results" / "thesis_evidence_loop" / "exports")
 
     claim_csv = repo_root / "results" / "thesis_evidence_loop" / "exports" / "claim_evidence_matrix.csv"
+    source_plan_csv = repo_root / "results" / "thesis_evidence_loop" / "exports" / "external_source_plan.csv"
     workbook_path = repo_root / "results" / "thesis_evidence_loop" / "exports" / "thesis_evidence_loop_tables.xlsx"
     assert outputs["claim_matrix_csv"] == claim_csv.as_posix()
+    assert outputs["external_source_plan_csv"] == source_plan_csv.as_posix()
     assert outputs["workbook_path"] == workbook_path.as_posix()
     assert claim_csv.exists()
+    assert source_plan_csv.exists()
     assert workbook_path.exists()
     header = claim_csv.read_text(encoding="utf-8").splitlines()[0]
     assert header == "claim,dataset,model layer,null/control,figure,csv/xlsx export,citation,limitation,status"
+    source_header = source_plan_csv.read_text(encoding="utf-8").splitlines()[0]
+    assert source_header == ",".join(EXTERNAL_SOURCE_PLAN_COLUMNS)

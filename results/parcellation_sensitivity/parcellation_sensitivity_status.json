@@ -1,7 +1,22 @@
 {
   "schema_version": 1,
-  "generated_at_utc": "2026-05-31T07:30:48.956572+00:00",
+  "generated_at_utc": "2026-06-01T11:53:34.224872+00:00",
   "analysis_status": "implemented_status_matrix",
+  "source_reference": {
+    "source_id": "schaefer_2018_local_global",
+    "source": "Schaefer et al., Cerebral Cortex 2018",
+    "source_type": "parcellation",
+    "key_evidence": "Multiresolution local-global cortical parcellations support network neuroscience and graph analyses.",
+    "use_in_project": "Sensitivity layer for C/D/E beyond the 8-module proxy.",
+    "status": "planned parcellation",
+    "component": "parcellation_sensitivity",
+    "target_layers": "C/D/E",
+    "artifact_target": "results/parcellation_sensitivity/",
+    "next_artifact": "results/parcellation_sensitivity/parcellation_sensitivity_status.json",
+    "claim_boundary": "The 8-module layer stays a transparent summary; C/D/E claims need Schaefer/Yeo sensitivity rows before promotion.",
+    "url": "https://academic.oup.com/cercor/article/28/9/3095/3978804",
+    "doi": "10.1093/cercor/bhx179"
+  },
   "rows": [
     {
       "parcellation_id": "schaefer_100_yeo_7",

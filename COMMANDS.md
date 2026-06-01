@@ -2,12 +2,12 @@
 
 ## Environment Notes
 
-The project is on a Windows path opened through a Linux/WSL-style Codex shell. In this shell, `uv` is not on Linux `PATH`, but Windows `uv` is available through `cmd.exe`.
+The project is normally worked from Windows/PowerShell at `D:\LSD_Thesis`.
 
 Use one of these command styles:
 
 - Windows terminal from `D:\LSD_Thesis`: `uv run ...`
-- Current Codex/WSL shell: `cmd.exe /C "uv run ..."`
+- WSL shell, if `uv` is not on the Linux `PATH`: `cmd.exe /C "uv run ..."`
 
 ## Setup
 
@@ -23,7 +23,7 @@ Codex/WSL shell:
 cmd.exe /C "uv sync --extra dev"
 ```
 
-Status: not rerun during this phase because the existing Windows virtualenv resolves Python 3.13.13.
+Status: not rerun during the 2026-05-31 cleanup because the existing Windows virtualenv resolves Python 3.13.13.
 
 ## Run Tests
 
@@ -199,24 +199,23 @@ uv run python scripts/run_pipeline.py run-everything
 
 ## Clean
 
-Manual cleanup targets, all ignored by Git:
+Manual cleanup targets, all ignored by Git as Tier B generated outputs:
 
 ```bash
 rm -rf .pytest_cache .ruff_cache .mypy_cache
 rm -rf output tmp tmp_*
 ```
 
-Ask before deleting raw `/data/` or generated `/results/` artifacts.
+Do not clean Tier A tracked evidence from `results/` or `docs/` without checking Git status first. Ask before deleting raw Tier C `/data/` files or large generated `/results/` artifacts.
 
 ## Discovered Command Results
 
-- `cmd.exe /C "uv --version"`: succeeded, `uv 0.9.21`.
-- `cmd.exe /C "uv run python --version"`: succeeded, Python 3.13.13.
-- `cmd.exe /C "uv run pytest --collect-only -q -o addopts="`: succeeded during planning, 98 tests collected before the repo hygiene test was added.
-- `cmd.exe /C "uv run pytest tests/test_imports.py tests/test_simulator.py tests/test_metrics.py tests/test_perturbation.py tests/test_repo_hygiene.py -q -o addopts="`: succeeded, 9 passed.
-- `cmd.exe /C "uv run ruff check ."`: succeeded after lint fixes revealed by tracking `src/lsd_thesis/data/`.
-- `cmd.exe /C "uv run mypy src"`: succeeded, 26 source files.
-- `cmd.exe /C "uv run pytest"`: succeeded, 99 passed with 84.84% coverage.
+- `uv run ruff check .`: succeeded on 2026-05-31, all checks passed.
+- `uv run mypy src`: succeeded on 2026-05-31, no issues found in 67 source files.
+- `uv run pytest`: succeeded on 2026-05-31, 316 passed, 4 warnings, 80.13% coverage.
+- `uv pip check`: succeeded on 2026-05-31, all installed packages compatible.
+- `npm audit --prefix tools\pptx --audit-level=moderate`: succeeded on 2026-05-31, 0 vulnerabilities.
+- `npm test --prefix tools\pptx`: succeeded on 2026-05-31, `node --check build_defense_deck.mjs`.
 - `cmd.exe /C "uv run python scripts/run_pipeline.py run-everything"`: succeeded on 2026-05-05; stages 1-4, training export, condition benchmark, and multitask benchmark completed.
 - `cmd.exe /C "uv run python scripts/render_publication_figures.py --all"`: succeeded and wrote `stage1_metric_shift.png` and `stage2_fit_robustness.png` under `results/publication_figures/`.
 - `cmd.exe /C "uv run python scripts/build_publication_package.py"`: succeeded and rebuilt markdown, DOCX, HTML, PPTX, and publication figures under `output/doc/`.

@@ -3,8 +3,8 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from lsd_thesis.cortical_maps import write_cortical_map_alignment_status
 from lsd_thesis.core import MODULE_NAMES
+from lsd_thesis.cortical_maps import write_cortical_map_alignment_status
 
 
 def test_cortical_map_alignment_writes_q_value_and_guardrails(tmp_path: Path) -> None:

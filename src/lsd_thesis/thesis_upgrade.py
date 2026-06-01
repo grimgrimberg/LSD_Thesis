@@ -31,6 +31,10 @@ def _rel(path: Path, repo_root: Path) -> str:
     return path.relative_to(repo_root).as_posix()
 
 
+def _evidence_paths(repo_root: Path, *paths: Path) -> str:
+    return "; ".join(_rel(path, repo_root) for path in paths)
+
+
 def _gate(label: str, status: str, ready: bool, evidence: str, blocker: str, score: float) -> dict[str, Any]:
     return {
         "label": label,
@@ -99,6 +103,11 @@ def _motion_gate(repo_root: Path) -> dict[str, Any]:
     image_motion_ready = bool(image_motion_payload.get("image_motion_qc_ready")) and _status_is_implemented(image_motion_status)
     fmriprep_control_ready = motion_ready and _status_is_implemented(control_status)
     control_ready = fmriprep_control_ready or image_motion_ready
+    strict_motion_status = (
+        control_status
+        if control_status
+        else "blocked_missing_fmriprep_fd_dvars_censoring_motion_proof"
+    )
     partial_proxy_ready = design_ready and module_dvars_ready
     files_present = bool(payload.get("motion_files_present"))
     source_availability_status = str(source_availability_payload.get("analysis_status") or "")
@@ -129,7 +138,11 @@ def _motion_gate(repo_root: Path) -> dict[str, Any]:
         if fmriprep_control_ready
         else "Raw-BOLD image-derived motion/QC sensitivity is implemented; fMRIPrep FD/DVARS/censoring remains the preferred future gold-standard control."
         if image_motion_ready
-        else "Published ds003059 FD/scrubbing QC context plus local run/design and module-DVARS proxy controls are implemented, but subject-level FD/DVARS confounds are unavailable."
+        else (
+            "Published ds003059 FD/scrubbing QC context plus local run/design and "
+            "module-DVARS proxy controls are implemented, but subject-level FD/DVARS "
+            "confounds are unavailable."
+        )
         if partial_proxy_ready and published_motion_ready
         else "Run/session/global-signal and module-DVARS/censoring proxy controls are implemented, but fMRIPrep FD motion summaries are unavailable."
         if partial_proxy_ready
@@ -145,12 +158,22 @@ def _motion_gate(repo_root: Path) -> dict[str, Any]:
         if source_availability_checked and source_confounds_available is False
         else "No structured subject/session/run confounds with FD/DVARS/censoring coverage are available locally."
     )
+    motion_evidence = _evidence_paths(
+        repo_root,
+        path,
+        control_path,
+        design_path,
+        module_dvars_path,
+        published_motion_path,
+        source_availability_path,
+        image_motion_path,
+    )
     return {
         "gate": _gate(
             "Motion and confounds",
             status,
             control_ready,
-            f"{_rel(path, repo_root)}; {_rel(control_path, repo_root)}; {_rel(design_path, repo_root)}; {_rel(module_dvars_path, repo_root)}; {_rel(published_motion_path, repo_root)}; {_rel(source_availability_path, repo_root)}; {_rel(image_motion_path, repo_root)}",
+            motion_evidence,
             blocker,
             1.0
             if fmriprep_control_ready
@@ -175,17 +198,26 @@ def _motion_gate(repo_root: Path) -> dict[str, Any]:
         "strict_requirement": _requirement(
             "motion_confound_control_result",
             "Motion/confound control result",
-            status,
-            control_ready,
-            f"{_rel(path, repo_root)}; {_rel(control_path, repo_root)}; {_rel(design_path, repo_root)}; {_rel(module_dvars_path, repo_root)}; {_rel(published_motion_path, repo_root)}; {_rel(source_availability_path, repo_root)}; {_rel(image_motion_path, repo_root)}",
+            strict_motion_status,
+            fmriprep_control_ready,
+            motion_evidence,
             (
-                "None for the current dedicated result layer: raw-BOLD image-derived motion/QC sensitivity is implemented. fMRIPrep FD/DVARS/censoring remains the stronger future gold-standard control."
+                "Raw-BOLD image-derived motion/QC sensitivity is implemented, but "
+                "strict completion still requires fMRIPrep FD/DVARS/censoring motion proof."
                 if image_motion_ready and not fmriprep_control_ready
                 else
-                "A source-availability check found no local/OpenNeuro raw/public derivative subject-level FD/DVARS/censoring confounds; full motion proof requires authorized fMRIPrep outputs or a local preprocessing run."
+                (
+                    "A source-availability check found no local/OpenNeuro raw/public "
+                    "derivative subject-level FD/DVARS/censoring confounds; full motion "
+                    "proof requires authorized fMRIPrep outputs or a local preprocessing run."
+                )
                 if source_availability_checked and source_confounds_available is False
                 else
-                "Published aggregate FD/scrubbing context, run/session controls, and module-DVARS proxy controls exist, but a subject-level FD/DVARS/censoring motion-control result is still missing."
+                (
+                    "Published aggregate FD/scrubbing context, run/session controls, and "
+                    "module-DVARS proxy controls exist, but a subject-level FD/DVARS/censoring "
+                    "motion-control result is still missing."
+                )
                 if partial_proxy_ready and published_motion_ready
                 else "Run/session and module-DVARS proxy controls exist, but a dedicated fMRIPrep FD/DVARS/censoring motion-control result is still missing."
                 if partial_proxy_ready
@@ -198,15 +230,27 @@ def _motion_gate(repo_root: Path) -> dict[str, Any]:
                 else "A dedicated confound-control result layer with motion/outlier sensitivity outcomes is missing."
             ),
             (
-                "Use the image-derived QC result as the current motion/signal-quality control layer, and upgrade to authorized fMRIPrep FD/DVARS/censoring when available."
+                (
+                    "Use the image-derived QC result as the current motion/signal-quality "
+                    "proxy layer, but do not mark the strict motion gate complete until "
+                    "authorized fMRIPrep FD/DVARS/censoring proof exists."
+                )
                 if image_motion_ready and not fmriprep_control_ready
                 else
-                "Supply authorized fMRIPrep outputs or run preprocessing to create desc-confounds_timeseries.tsv files, then report whether dynamic effects survive FD, DVARS, censoring, and run/order controls."
+                (
+                    "Supply authorized fMRIPrep outputs or run preprocessing to create "
+                    "desc-confounds_timeseries.tsv files, then report whether dynamic "
+                    "effects survive FD, DVARS, censoring, and run/order controls."
+                )
                 if source_availability_checked and source_confounds_available is False
-                else "Parse confounds for every subject/session/run, then report whether dynamic effects survive FD, DVARS, censoring, and run/order controls."
+                else (
+                    "Parse confounds for every subject/session/run, then report whether dynamic effects "
+                    "survive FD, DVARS, censoring, and run/order controls."
+                )
             ),
             (
-                "Motion/confound handling now has a dedicated image-derived QC result layer; high-risk QC associations still downgrade affected claims."
+                "Motion/confound handling has an image-derived QC proxy layer, but strict thesis "
+                "completion still fails without fMRIPrep FD/DVARS/censoring proof."
                 if image_motion_ready and not fmriprep_control_ready
                 else "Until this passes, motion/confound handling is a framed limitation rather than a proven control."
             ),
@@ -391,7 +435,11 @@ def _neuromaps_spatial_null_gate(repo_root: Path) -> dict[str, Any]:
     missing = (
         "None: full neuromaps spatial-autocorrelation null family coverage is complete."
         if ready
-        else "Schaefer100 receptor, myelin, and functional-gradient Moran spatial nulls are executed, but gene-expression and surface-level family coverage is still missing."
+        else (
+            "Schaefer100 receptor, myelin, and functional-gradient Moran spatial nulls "
+            "are executed, but gene-expression and surface-level family coverage is still "
+            "missing."
+        )
         if receptor_ready
         else "neuromaps is installed and its null API imports, but the surface/high-resolution map input manifest and executed null results are missing."
         if null_api_importable
@@ -400,35 +448,63 @@ def _neuromaps_spatial_null_gate(repo_root: Path) -> dict[str, Any]:
     next_action = (
         "Use the completed spatial-null family as the primary map-prior evidence layer."
         if ready
-        else "Add gene-expression maps and surface-level null coverage in the active high-resolution/surface space, then rerun the same Moran/spatial-null plus FDR gate family."
+        else (
+            "Add gene-expression maps and surface-level null coverage in the active "
+            "high-resolution/surface space, then rerun the same Moran/spatial-null plus "
+            "FDR gate family."
+        )
         if receptor_ready
-        else "Create results/cortical_maps/neuromaps_surface_inputs.json, project receptor/myelin/gradient maps to Schaefer/Yeo or surface space, run neuromaps nulls, and FDR-correct the family."
+        else (
+            "Create results/cortical_maps/neuromaps_surface_inputs.json, project "
+            "receptor/myelin/gradient maps to Schaefer/Yeo or surface space, run neuromaps "
+            "nulls, and FDR-correct the family."
+        )
         if null_api_importable
         else "Install/use neuromaps, project maps to the active Schaefer/Yeo or surface space, run spatial nulls, and FDR-correct the resulting family."
     )
+    neuromaps_evidence = _evidence_paths(repo_root, path, cortical_path)
+    map_family_evidence = (
+        f"{_rel(path, repo_root)}; current map method: {current_method}; "
+        f"family coverage: {family_coverage or 'none'}; "
+        f"best map-family Moran result: {receptor_best or 'none'}"
+    )
     return {
         "gate": _gate(
-        "Neuromaps spatial nulls",
-        status,
-        ready,
-        f"{_rel(path, repo_root)}; {_rel(cortical_path, repo_root)}",
+            "Neuromaps spatial nulls",
+            status,
+            ready,
+            neuromaps_evidence,
             "Schaefer100 map-family Moran spatial nulls are complete across receptor, myelin, functional-gradient, and gene-expression priors."
             if ready
             else "Full surface/parcellation spatial-autocorrelation null testing has not been run."
             if not receptor_ready
             else "Partial receptor/myelin/gradient Schaefer100 Moran spatial nulls are run; full family coverage is still missing.",
-            1.0 if ready else 0.7 if receptor_ready else 0.6 if partial_ready else 0.55 if null_api_importable else 0.35 if dependency_available else 0.15,
+            1.0
+            if ready
+            else 0.7
+            if receptor_ready
+            else 0.6
+            if partial_ready
+            else 0.55
+            if null_api_importable
+            else 0.35
+            if dependency_available
+            else 0.15,
         ),
         "strict_requirement": _requirement(
             "neuromaps_spatial_autocorrelation_nulls",
             "Full neuromaps spatial-autocorrelation nulls",
             status,
             ready,
-            f"{_rel(path, repo_root)}; current map method: {current_method}; family coverage: {family_coverage or 'none'}; best map-family Moran result: {receptor_best or 'none'}",
+            map_family_evidence,
             missing,
             next_action,
             (
-                "Spatial-null family coverage is complete, but receptor/myelin/gradient alignment remains exploratory because no map-family result passes FDR and CI gates."
+                (
+                    "Spatial-null family coverage is complete, but receptor/myelin/gradient "
+                    "alignment remains exploratory because no map-family result passes FDR "
+                    "and CI gates."
+                )
                 if ready
                 else "Receptor/myelin/gradient alignment cannot be promoted beyond exploratory until this passes."
             ),
@@ -548,6 +624,15 @@ def _external_gate(repo_root: Path) -> dict[str, Any]:
     payload_plan_ready = bool(payload_plan.get("minimum_payload_plan_ready"))
     payloads_local_ready = bool(payload_plan.get("minimum_payloads_local_ready"))
     cifti_viewer_ready = bool(cifti_extraction.get("cifti_empirical_viewer_ready"))
+    schaefer100_viewer_ready = bool(
+        comparable_payload.get("schaefer100_empirical_viewer_ready")
+        or cifti_extraction.get("schaefer100_empirical_viewer_ready")
+    )
+    stronger_external_validation_ready = bool(
+        comparable_payload.get("stronger_external_validation_ready")
+        or cifti_extraction.get("stronger_external_validation_ready")
+    )
+    validation_scope = str(comparable_payload.get("validation_scope") or "")
     blocker = str(
         comparable_payload.get("blocker")
         or payload.get("blocker")
@@ -562,12 +647,39 @@ def _external_gate(repo_root: Path) -> dict[str, Any]:
         )
     elif not ready and payload_plan_ready:
         blocker = "Minimum ds006072 payload download plan is ready; selected processed CIFTIs still need local download, extraction, and unchanged scoring."
+    elif ready and stronger_external_validation_ready:
+        replication_status = comparable_payload.get("replication_status") or "scored_without_replication_status"
+        ds006072_top_layer = comparable_payload.get("ds006072_top_layer") or "unknown"
+        lsd_reference_top_layer = comparable_payload.get("lsd_reference_top_layer") or "unknown"
+        blocker = (
+            "Schaefer100/Yeo7 ds006072 extraction and unchanged scoring are complete; "
+            f"{replication_status}; ds006072 top={ds006072_top_layer}, LSD reference top={lsd_reference_top_layer}."
+        )
+    elif ready:
+        blocker = "Comparable ds006072 empirical records were scored unchanged; upgrade scope if stronger parcellation matching is needed."
+    external_evidence = _evidence_paths(
+        repo_root,
+        path,
+        readiness_path,
+        comparable_result_path,
+        payload_plan_path,
+        cifti_extraction_path,
+        ingestion_path,
+    )
+    external_requirement_evidence = _evidence_paths(
+        repo_root,
+        path,
+        readiness_path,
+        comparable_result_path,
+        payload_plan_path,
+        cifti_extraction_path,
+    )
     return {
         "gate": _gate(
             "External validation",
             status,
             ready,
-            f"{_rel(path, repo_root)}; {_rel(readiness_path, repo_root)}; {_rel(comparable_result_path, repo_root)}; {_rel(payload_plan_path, repo_root)}; {_rel(cifti_extraction_path, repo_root)}; {_rel(ingestion_path, repo_root)}",
+            external_evidence,
             blocker,
             1.0
             if ready
@@ -588,9 +700,18 @@ def _external_gate(repo_root: Path) -> dict[str, Any]:
             "ds006072 psilocybin external validation",
             status,
             ready,
-            f"{_rel(path, repo_root)}; {_rel(readiness_path, repo_root)}; {_rel(comparable_result_path, repo_root)}; {_rel(payload_plan_path, repo_root)}; {_rel(cifti_extraction_path, repo_root)}",
+            external_requirement_evidence,
             (
-                "None: ds006072 paired psilocybin/MTP CIFTI records were extracted and scored unchanged; current scope is a structure-family external stress test."
+                (
+                    "None: ds006072 paired psilocybin/MTP CIFTI records were extracted "
+                    "through Schaefer100/Yeo7 cortex parcels and scored unchanged."
+                )
+                if ready and stronger_external_validation_ready
+                else (
+                    "None: ds006072 paired psilocybin/MTP CIFTI records were extracted "
+                    "and scored unchanged; current scope is a structure-family external "
+                    "stress test."
+                )
                 if ready and cifti_viewer_ready
                 else "None: ds006072 paired psilocybin/control empirical records were scored unchanged."
                 if ready
@@ -600,17 +721,28 @@ def _external_gate(repo_root: Path) -> dict[str, Any]:
                 else "The repo has readiness/provenance, but not comparable psilocybin/control dynamic extraction scored unchanged."
             ),
             (
-                "Upgrade this from structure-family stress test to stronger replication by adding a surface/parcellation-matched ds006072 extractor."
+                "Use this as the stronger parcellation-matched ds006072 evidence layer; keep the small-subject scope visible."
+                if ready and stronger_external_validation_ready
+                else "Upgrade this from structure-family stress test to a stronger parcellation-matched ds006072 stress test."
                 if ready and cifti_viewer_ready
                 else "Use the scored ds006072 result as the current external-validation evidence layer."
                 if ready
                 else
-                "Run the minimum payload download plan, extract paired ds006072 empirical viewer records, then apply the locked LSD scoring spec without retuning."
+                (
+                    "Run the minimum payload download plan, extract paired ds006072 empirical "
+                    "viewer records, then apply the locked LSD scoring spec without retuning."
+                )
                 if payload_plan_ready
-                else "Supply or derive authorized ds006072 processed rest payloads, build paired empirical viewer records, then apply the locked LSD scoring spec without retuning and with matching scoring hashes."
+                else (
+                    "Supply or derive authorized ds006072 processed rest payloads, build "
+                    "paired empirical viewer records, then apply the locked LSD scoring spec "
+                    "without retuning and with matching scoring hashes."
+                )
             ),
             (
-                "External validation is implemented as a ds006072 structure-family stress test with unchanged scoring."
+                "External validation is implemented as a ds006072 Schaefer100/Yeo7 parcellation-matched stress test with unchanged scoring."
+                if ready and stronger_external_validation_ready
+                else "External validation is implemented as a ds006072 structure-family stress test with unchanged scoring."
                 if ready and cifti_viewer_ready
                 else "External validation is implemented with unchanged ds006072 scoring."
                 if ready
@@ -630,12 +762,21 @@ def _external_gate(repo_root: Path) -> dict[str, Any]:
         "minimum_payload_selected_subject_count": payload_plan.get("selected_subject_count"),
         "minimum_payload_selected_total_size_bytes": payload_plan.get("selected_total_size_bytes"),
         "cifti_empirical_viewer_ready": cifti_viewer_ready,
+        "schaefer100_empirical_viewer_ready": schaefer100_viewer_ready,
+        "stronger_external_validation_ready": stronger_external_validation_ready,
+        "validation_scope": validation_scope,
         "cifti_empirical_extraction_path": _rel(cifti_extraction_path, repo_root),
         "cifti_empirical_module_contract": cifti_extraction.get("module_contract"),
+        "schaefer100_module_contract": cifti_extraction.get("schaefer100_module_contract"),
         "replication_status": comparable_payload.get("replication_status"),
+        "ds006072_top_layer": comparable_payload.get("ds006072_top_layer"),
+        "lsd_reference_top_layer": comparable_payload.get("lsd_reference_top_layer"),
         "comparable_result_path": _rel(comparable_result_path, repo_root),
         "fixed_rule": "Run the same LSD scoring rules on psilocybin/control data without retuning after seeing results.",
-        "claim_guardrail": "Metadata and manifests are not external validation; comparable empirical target extraction is required.",
+        "claim_guardrail": (
+            "Metadata and manifests are not external validation. Comparable ds006072 scoring is an external stress "
+            "test, not population or clinical validation; top-layer mismatches are negative/partial evidence."
+        ),
     }
 
 
@@ -694,12 +835,16 @@ def _receptor_myelin_gradient_claim_gate(repo_root: Path) -> dict[str, Any]:
     blocker = (
         "At least one receptor/myelin/gradient alignment passes the configured uncertainty gates."
         if ready and not resolved_negative
-        else "The map-prior claim is resolved as a negative control: do not promote receptor/myelin/gradient mechanism claims from this dataset."
+        else (
+            "The map-prior claim is resolved as a negative control: do not promote "
+            "receptor/myelin/gradient mechanism claims from this dataset."
+        )
         if resolved_negative
         else "Map-prior negative result is formalized; the mechanism claim remains not_supported_yet."
         if negative_result_ready
         else "Current receptor/myelin/gradient alignments are exploratory priors; q-values do not pass FDR and CIs overlap zero."
     )
+    claim_evidence = _evidence_paths(repo_root, path, falsification_path)
     return {
         "gate": _gate(
             "Receptor/myelin/gradient claim",
@@ -714,18 +859,27 @@ def _receptor_myelin_gradient_claim_gate(repo_root: Path) -> dict[str, Any]:
             "Receptor/myelin/gradient claim resolution",
             status,
             ready,
-            f"{_rel(path, repo_root)}; {_rel(falsification_path, repo_root)}",
+            claim_evidence,
             (
                 "None: the claim is resolved as a negative/control result and is not promoted as a mechanism claim."
                 if resolved_negative
-                else "The map-prior negative result is formalized: no module-level or spatial-null family FDR support, and the best spatial-null CI crosses zero."
+                else (
+                    "The map-prior negative result is formalized: no module-level or "
+                    "spatial-null family FDR support, and the best spatial-null CI crosses zero."
+                )
                 if negative_result_ready
                 else "The strongest current map alignment remains exploratory: no FDR pass and CI overlap with zero."
             ),
             (
-                "Use the negative map-prior result as a guardrail: keep receptor/myelin/gradient as future hypotheses, not current claims."
+                (
+                    "Use the negative map-prior result as a guardrail: keep "
+                    "receptor/myelin/gradient as future hypotheses, not current claims."
+                )
                 if resolved_negative
-                else "Promote the claim only after high-resolution parcellation, neuromaps spatial nulls, FDR pass, and uncertainty intervals that do not cross zero."
+                else (
+                    "Promote the claim only after high-resolution parcellation, neuromaps "
+                    "spatial nulls, FDR pass, and uncertainty intervals that do not cross zero."
+                )
             ),
             (
                 "The thesis no longer depends on an unsupported receptor/myelin/gradient claim; the result is a completed negative control."
@@ -785,27 +939,85 @@ def build_thesis_upgrade_status(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
         components["receptor_myelin_gradient_claim"]["strict_requirement"],
     ]
     evidence_requirements_complete = all(requirement["complete"] for requirement in strict_requirements)
+    non_motion_strict_requirements_complete = all(
+        requirement["complete"]
+        for requirement in strict_requirements
+        if requirement["requirement_id"] != "motion_confound_control_result"
+    )
+    full_motion_control_ready = bool(components["motion_confound"].get("fmriprep_motion_control_ready"))
+    external_validation = components["external_validation"]
+    stronger_external_validation_ready = bool(external_validation.get("stronger_external_validation_ready"))
+    project_complete = (
+        evidence_requirements_complete
+        and full_motion_control_ready
+        and stronger_external_validation_ready
+    )
+    proxy_evidence_visible = evidence_requirements_complete or non_motion_strict_requirements_complete
+    project_status = (
+        "completed_neuroscience_thesis"
+        if project_complete
+        else "research_demo_ready_not_completed_thesis"
+        if proxy_evidence_visible
+        else "pi_pitch_ready_research_proposal_not_completed_thesis"
+    )
+    remaining_hard_requirements = []
+    if not full_motion_control_ready:
+        remaining_hard_requirements.append("fMRIPrep FD/DVARS/censoring motion proof")
+    if not stronger_external_validation_ready:
+        remaining_hard_requirements.append("stronger parcellation-matched external validation")
+    project_missing = (
+        "None: all strict science gates and hard completion requirements are satisfied."
+        if project_complete
+        else "Proxy/stress-test evidence gates are visible, but completion still requires {requirements}.".format(
+            requirements=" and ".join(remaining_hard_requirements)
+        )
+        if proxy_evidence_visible and remaining_hard_requirements
+        else (
+            "Proxy/stress-test evidence gates are visible, but hard completion requirements are not fully resolved."
+        )
+        if proxy_evidence_visible
+        else "One or more required scientific gates is still missing or fail-closed."
+    )
+    project_next_action = (
+        "Proceed with final thesis packaging and archive release."
+        if project_complete
+        else "Keep this as a controlled research demo while upgrading {requirements}.".format(
+            requirements=" and ".join(remaining_hard_requirements)
+        )
+        if proxy_evidence_visible and remaining_hard_requirements
+        else (
+            "Keep this as a controlled research demo while resolving the remaining hard completion requirements."
+        )
+        if proxy_evidence_visible
+        else "Keep pitching this as an AI/engineering research proposal until every strict evidence gate passes."
+    )
+    project_claim_effect = (
+        "The strict evidence package is complete under the current thesis contract."
+        if project_complete
+        else "This remains a controlled research demo/PI pitch until {requirements} passes.".format(
+            requirements=" and ".join(remaining_hard_requirements)
+        )
+        if proxy_evidence_visible and remaining_hard_requirements
+        else (
+            "This remains a controlled research demo/PI pitch, not a completed neuroscience "
+            "thesis, until hard motion and external-validation requirements pass."
+        )
+    )
     strict_requirements.append(
         _requirement(
             "project_phase",
             "Project phase",
-            "completed_neuroscience_thesis"
-            if evidence_requirements_complete
-            else "pi_pitch_ready_research_proposal_not_completed_thesis",
-            evidence_requirements_complete,
+            project_status,
+            project_complete,
             "strict_completion_requirements",
-            "One or more required scientific gates is still missing or fail-closed.",
-            "Keep pitching this as an AI/engineering research proposal until every strict evidence gate passes.",
-            "This remains a strong PI pitch, not a completed neuroscience thesis, until all strict gates are true.",
+            project_missing,
+            project_next_action,
+            project_claim_effect,
         )
     )
     ready_count = sum(1 for gate in gates if gate["ready"])
     strict_ready_count = sum(1 for requirement in strict_requirements if requirement["complete"])
-    completion_status = (
-        "completed_neuroscience_thesis"
-        if strict_ready_count == len(strict_requirements)
-        else "pi_pitch_ready_research_proposal_not_completed_thesis"
-    )
+    completion_status = project_status
     return {
         "schema_version": SCHEMA_VERSION,
         "generated_at_utc": datetime.now(UTC).isoformat(),

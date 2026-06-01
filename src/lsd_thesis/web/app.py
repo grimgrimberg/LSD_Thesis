@@ -5,22 +5,24 @@ import json
 import math
 import re
 from pathlib import Path
-from typing import Any, Literal, cast
+from typing import Any, cast
 
-import networkx as nx
 import numpy as np
 from fastapi import FastAPI, HTTPException, Response
 from fastapi.responses import FileResponse, HTMLResponse
 from fastapi.templating import Jinja2Templates
-from pydantic import BaseModel, ConfigDict, ValidationInfo, field_validator
 
-from lsd_thesis.core import MODULE_GROUPS, GraphConfig, RegimeConfig
 from lsd_thesis.data.ds003059 import atlas_label_overlap_rows
 from lsd_thesis.data.targets import load_perturbation_target_set, load_sober_target_set
+from lsd_thesis.external_source_plan import external_source_plan_rows
 from lsd_thesis.graph import load_graph_config
-from lsd_thesis.metrics import compute_observable_summary
-from lsd_thesis.simulator import load_regime_config, run_simulation
+from lsd_thesis.simulator import load_regime_config
 from lsd_thesis.subject_split import build_no_subject_validation_boundary
+from lsd_thesis.web.simulation_payload import (
+    SimulationRequest,
+    build_simulation_payload,
+    graph_payload,
+)
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
 TEMPLATES = Jinja2Templates(directory=str(REPO_ROOT / "src" / "lsd_thesis" / "templates"))
@@ -69,84 +71,6 @@ ALLOWED_ARTIFACT_ROOTS: tuple[tuple[str, ...], ...] = (
 )
 TEMP_ARTIFACT_SUFFIXES = (".bak", ".log", ".old", ".part", ".tmp")
 _plotly_js_cache: str | None = None
-
-
-class SimulationRequest(BaseModel):
-    model_config = ConfigDict(extra="forbid", allow_inf_nan=False)
-
-    regime: Literal["baseline", "perturbed"] = "baseline"
-    within_group_scale: float | None = None
-    cross_group_scale: float | None = None
-    constraint_scale: float | None = None
-    rigidity: float | None = None
-    barrier: float | None = None
-    temperature: float | None = None
-    tau: float | None = None
-
-    @field_validator(
-        "within_group_scale", "cross_group_scale", "constraint_scale",
-        "rigidity", "barrier", "temperature", "tau",
-        mode="before",
-    )
-    @classmethod
-    def _validate_numeric_parameter(cls, value: float | None, info: ValidationInfo) -> float | None:
-        if value is None:
-            return None
-        number = float(value)
-        if not math.isfinite(number):
-            raise ValueError("Parameter must be finite.")
-        field_name = str(info.field_name)
-        if field_name == "constraint_scale":
-            if number < 0.0:
-                raise ValueError("constraint_scale must be non-negative.")
-        elif number <= 0.0:
-            raise ValueError("Parameter must be positive.")
-        if field_name == "tau" and number < 0.05:
-            raise ValueError("tau is too small for stable interactive simulation (min 0.05).")
-        if number > 100.0:
-            raise ValueError("Parameter too large (max 100).")
-        return number
-
-
-def _graph_payload(graph: GraphConfig) -> dict[str, Any]:
-    network = nx.Graph()
-    for module in graph.modules:
-        network.add_node(module)
-    for i, source in enumerate(graph.modules):
-        for j, target in enumerate(graph.modules):
-            if i < j and graph.adjacency[i, j] != 0:
-                network.add_edge(source, target, weight=float(graph.adjacency[i, j]))
-    positions = nx.spring_layout(network, seed=9, weight="weight")
-
-    return {
-        "nodes": [
-            {
-                "name": module,
-                "x": float(positions[module][0]),
-                "y": float(positions[module][1]),
-                "group": MODULE_GROUPS[module],
-            }
-            for module in graph.modules
-        ],
-        "edges": [
-            {"source": source, "target": target, "weight": float(data["weight"])}
-            for source, target, data in network.edges(data=True)
-        ],
-    }
-
-
-def build_simulation_payload(graph: GraphConfig, regime: RegimeConfig) -> dict[str, Any]:
-    result = run_simulation(graph, regime)
-    if not np.all(np.isfinite(result.time_series)):
-        raise ValueError("Simulation produced non-finite values; check regime parameters.")
-    observable = compute_observable_summary(result.time_series, graph.modules)
-    return {
-        "time": result.time.tolist(),
-        "modules": list(graph.modules),
-        "time_series": result.time_series.tolist(),
-        "fc_matrix": observable.fc_matrix.tolist(),
-        "metrics": observable.metric_map(),
-    }
 
 
 def load_empirical_viewer_overview(viewer_root: Path) -> dict[str, Any] | None:
@@ -986,7 +910,7 @@ def _load_claim_status_payload(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
         "methods_pipeline": [
             "raw fMRI / empirical cache",
             "preprocessing and quality metadata",
-            "8-module summary plus future Schaefer/Yeo parcels",
+            "8-module summary plus Schaefer/Yeo parcel layers",
             "dynamic features and DMDC/control metrics",
             "AI/ML benchmarks with subject-disjoint validation",
             "uncertainty gates: CI, p, q, FDR, nulls",
@@ -1001,9 +925,12 @@ def _load_claim_status_payload(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
             },
             {
                 "source": "ds006072 psilocybin",
-                "role": "future external validation candidate",
-                "status": "readiness_provenance_layer",
-                "claim_boundary": "Not validation until comparable data are ingested and scored unchanged.",
+                "role": "external stress-test dataset",
+                "status": "scored_when_comparable_viewer_present",
+                "claim_boundary": (
+                    "Schaefer100/Yeo7 unchanged scoring is an external stress test; "
+                    "a top-layer mismatch is negative/partial evidence, not LSD replication."
+                ),
             },
             {
                 "source": "Lyons et al. 2026 Nature Communications",
@@ -1119,14 +1046,21 @@ def _load_claim_status_payload(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
                 "tier": "F",
                 "claim": "External psilocybin validation",
                 "status": "blocked_future_work",
-                "evidence": "Lyons 2026 and PsiConnect 2026 are context/planning anchors until comparable data are ingested and scored unchanged.",
+                "evidence": (
+                    "Lyons 2026 and PsiConnect 2026 are context/planning anchors until "
+                    "comparable data are ingested and scored unchanged."
+                ),
                 "pi_framing": "A concrete future collaboration/data-access target.",
             },
         ],
         "methods_limitations": [
             {
                 "topic": "Motion and run/music confounds",
-                "message": "Must be shown as a first-class limitation and control target before strengthening empirical claims; include preprocessing, signal quality, and fixed-order/session risks.",
+                "message": (
+                    "Must be shown as a first-class limitation and control target before "
+                    "strengthening empirical claims; include preprocessing, signal quality, "
+                    "and fixed-order/session risks."
+                ),
                 "slide_takeaway": "The project treats confounds as engineering tests, not footnotes.",
             },
             {
@@ -1161,8 +1095,10 @@ def _load_claim_status_payload(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
             "Downgrade map-prior claims if random, degree, or uniform controls explain the result as well.",
         ],
         "claim_guardrail": (
-            "This is a PI pitch for an AI/engineering Master's project in perception and psychedelic-state dynamics. "
-            "It should sell research potential, reproducibility, and rigorous uncertainty gates without pretending to be a completed neuroscience mechanism thesis."
+            "This is a PI pitch for an AI/engineering Master's project in perception and "
+            "psychedelic-state dynamics. It should sell research potential, reproducibility, "
+            "and rigorous uncertainty gates without pretending to be a completed neuroscience "
+            "mechanism thesis."
         ),
     }
 
@@ -1174,7 +1110,25 @@ def _build_thesis_expansion_payload(repo_root: Path = REPO_ROOT) -> dict[str, An
         for row in loop_status.get("status_rows", [])
         if isinstance(row, dict)
     }
-    payload = {
+    raw_source_plan = loop_status.get("external_source_plan")
+    source_plan: list[dict[str, Any]] = (
+        [row for row in raw_source_plan if isinstance(row, dict)]
+        if isinstance(raw_source_plan, list)
+        else external_source_plan_rows()
+    )
+    scholarly_anchors = [
+        {
+            "source": row.get("source"),
+            "claim": row.get("key_evidence"),
+            "use_in_project": row.get("use_in_project"),
+            "status": row.get("status"),
+            "url": row.get("url"),
+            "current_component_status": row.get("current_component_status"),
+        }
+        for row in source_plan
+        if isinstance(row, dict)
+    ]
+    payload: dict[str, Any] = {
         "thesis_goal": (
             "Build a reproducible explainable AI framework that ranks transparent "
             "control-theoretic and graph-dynamic surrogate mechanisms across LSD and "
@@ -1188,13 +1142,13 @@ def _build_thesis_expansion_payload(repo_root: Path = REPO_ROOT) -> dict[str, An
         ),
         "status_summary": (
             "The LSD A+B+C+D+E ranking is implemented. The next loop upgrades the "
-            "evidence base with robustness, ds006072 psilocybin replication, HCP "
+            "evidence base with robustness, a ds006072 psilocybin cross-drug stress test, HCP "
             "structural connectivity, neuromaps/FS5ht receptor priors, Schaefer/Yeo "
             "sensitivity, and comparison to the 2026 Nature Medicine mega-analysis."
         ),
         "claim_guardrail": (
             "Dashboard status labels separate implemented evidence from planned tests. "
-            "No planned dataset or literature comparison is shown as a completed result."
+            "Implemented cross-dataset stress tests are not shown as replication or population validation."
         ),
         "loop_steps": [
             {
@@ -1210,8 +1164,8 @@ def _build_thesis_expansion_payload(repo_root: Path = REPO_ROOT) -> dict[str, An
                 "label": "Psilocybin ds006072",
                 "status": "planned",
                 "artifact_target": "results/psilocybin_ds006072/",
-                "scientific_question": "Does the LSD ranking generalize to psilocybin precision functional mapping data?",
-                "dashboard_output": "LSD-vs-psilocybin mechanism ranking comparison.",
+                "scientific_question": "Does the LSD ranking generalize to psilocybin precision functional mapping data, or fail under unchanged scoring?",
+                "dashboard_output": "LSD-vs-psilocybin mechanism ranking comparison with negative/partial outcomes retained.",
             },
             {
                 "step": "3",
@@ -1246,24 +1200,8 @@ def _build_thesis_expansion_payload(repo_root: Path = REPO_ROOT) -> dict[str, An
                 "dashboard_output": "Scholarly benchmark agreement table with explicit mismatches.",
             },
         ],
-        "scholarly_anchors": [
-            {
-                "source": "Girn et al., Nature Medicine 2026",
-                "claim": (
-                    "Common psychedelic signature: increased transmodal-unimodal functional coupling with "
-                    "subnetwork specificity; striatal-unimodal effects are prominent."
-                ),
-                "use_in_project": "Final external benchmark for C/D/E directionality.",
-                "status": "planned comparison",
-                "url": "https://www.nature.com/articles/s41591-026-04287-9",
-            },
-            {
-                "source": "Dosenbach/Siegel group, Scientific Data 2025",
-                "claim": "OpenNeuro ds006072 provides psilocybin precision functional mapping data with raw, minimally processed, and fully processed imaging.",
-                "use_in_project": "First cross-drug dataset expansion after LSD robustness.",
-                "status": "planned dataset",
-                "url": "https://www.nature.com/articles/s41597-025-05189-0",
-            },
+        "scholarly_anchors": scholarly_anchors
+        + [
             {
                 "source": "Singleton et al., Nature Communications 2022",
                 "claim": "Receptor-informed network control links LSD and psilocybin to lower control-energy landscape estimates.",
@@ -1271,28 +1209,8 @@ def _build_thesis_expansion_payload(repo_root: Path = REPO_ROOT) -> dict[str, An
                 "status": "method benchmark",
                 "url": "https://www.nature.com/articles/s41467-022-33578-1",
             },
-            {
-                "source": "Markello et al., Nature Methods 2022",
-                "claim": "neuromaps provides standardized brain-map comparison tools and receptor PET annotations.",
-                "use_in_project": "Replace hand-built receptor proxies with documented receptor-map projections.",
-                "status": "planned biological prior",
-                "url": "https://www.nature.com/articles/s41592-022-01625-w",
-            },
-            {
-                "source": "Human Connectome Project Young Adult",
-                "claim": "Large normative dataset with diffusion and resting-state fMRI for healthy young adults.",
-                "use_in_project": "Source for structural-connectome graph and null sensitivity.",
-                "status": "planned graph prior",
-                "url": "https://www.humanconnectome.org/study/hcp-young-adult/overview",
-            },
-            {
-                "source": "Schaefer et al., Cerebral Cortex 2018",
-                "claim": "Multiresolution local-global cortical parcellations support network neuroscience and graph analyses.",
-                "use_in_project": "Sensitivity layer for C/D/E beyond the 8-module proxy.",
-                "status": "planned parcellation",
-                "url": "https://academic.oup.com/cercor/article/28/9/3095/3978804",
-            },
         ],
+        "external_source_plan": source_plan,
         "success_criteria": [
             "C and/or E remain defensible under LSD robustness checks.",
             "At least one cross-dataset psilocybin analysis runs without changing the scoring rules after seeing results.",
@@ -1324,9 +1242,10 @@ def _build_thesis_expansion_payload(repo_root: Path = REPO_ROOT) -> dict[str, An
         }
         payload["status_summary"] = (
             "The evidence-loop artifact contract is implemented. LSD robustness, Schaefer/Yeo sensitivity, "
-            "literature benchmarking, ds006072 manifests, proxy graph nulls, and coarse receptor-prior nulls "
-            "are populated from current results. True psilocybin replication, HCP structural graph claims, "
-            "and PET receptor-map claims remain blocked until their required local data artifacts exist. "
+            "literature benchmarking, ds006072 Schaefer100/Yeo7 scoring, proxy graph nulls, and coarse receptor-prior nulls "
+            "are populated from current results. The ds006072 top-layer mismatch is negative/partial cross-drug "
+            "evidence rather than replication; HCP structural graph claims and PET receptor-map claims remain "
+            "blocked until their required local data artifacts exist. "
             f"Component statuses: {component_statuses}."
         )
         payload["claim_guardrail"] = loop_status.get("claim_guardrail", payload["claim_guardrail"])
@@ -1414,7 +1333,7 @@ def build_dashboard_payload(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
         empirical_viewer["gallery"] = gallery_items
 
     return {
-        "graph": _graph_payload(graph),
+        "graph": graph_payload(graph),
         "baseline": build_simulation_payload(graph, baseline),
         "perturbed": build_simulation_payload(graph, perturbed),
         "stage_summaries": stage_summaries,

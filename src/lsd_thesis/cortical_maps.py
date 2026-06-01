@@ -282,7 +282,11 @@ def _correlation_ci(r_value: float | None, n: int) -> tuple[float | None, float 
 
 
 def _bh_q_values(rows: list[dict[str, Any]]) -> None:
-    indexed = [(index, row.get("permutation_p")) for index, row in enumerate(rows) if row.get("permutation_p") is not None]
+    indexed: list[tuple[int, float]] = []
+    for index, row in enumerate(rows):
+        p_value = row.get("permutation_p")
+        if p_value is not None:
+            indexed.append((index, float(p_value)))
     indexed.sort(key=lambda pair: float(pair[1]))
     m = len(indexed)
     previous = 1.0
@@ -293,9 +297,9 @@ def _bh_q_values(rows: list[dict[str, Any]]) -> None:
         previous = q_value
         q_by_index[index] = q_value
     for index, row in enumerate(rows):
-        q_value = q_by_index.get(index)
-        row["q_value"] = q_value
-        row["fdr_significant_0_05"] = bool(q_value is not None and q_value <= 0.05)
+        q_or_none = q_by_index.get(index)
+        row["q_value"] = q_or_none
+        row["fdr_significant_0_05"] = bool(q_or_none is not None and q_or_none <= 0.05)
         row["alignment_status"] = (
             "fdr_supported_module_proxy"
             if row["fdr_significant_0_05"] and not row.get("ci_overlaps_zero", True)
@@ -399,20 +403,38 @@ def build_cortical_map_alignment(repo_root: Path = REPO_ROOT, output_dir: Path |
                 else "No alignment rows are available."
             ),
             "required_for_stronger_claim": [
-                "Re-extract empirical LSD-placebo dynamic features at a higher-resolution cortical parcellation rather than only the 8-module presentation layer.",
+                (
+                    "Re-extract empirical LSD-placebo dynamic features at a higher-resolution "
+                    "cortical parcellation rather than only the 8-module presentation layer."
+                ),
                 "Project receptor, myelin, functional-gradient, and AHBA maps into the same parcellation.",
                 "Run spatial-autocorrelation-aware nulls with neuromaps or equivalent surface/parcellation nulls.",
-                "Retain q-value, FDR-significance, CI-overlap, and external-dataset replication gates before strengthening claims.",
+                (
+                    "Retain q-value, FDR-significance, CI-overlap, and external-dataset "
+                    "replication gates before strengthening claims."
+                ),
             ],
-            "claim_boundary": "The dashboard may say these maps are plausible anatomical/molecular priors. It should not say they prove receptor, myelin, or gradient mechanisms.",
+            "claim_boundary": (
+                "The dashboard may say these maps are plausible anatomical/molecular priors. "
+                "It should not say they prove receptor, myelin, or gradient mechanisms."
+            ),
         },
         "parcellation_upgrade": {
             "current_contract": "8_macro_modules_for_readable_dashboard_and_legacy_pipeline_compatibility",
-            "recommendation": "Do not simply rename the 8 modules. Keep them as a public-facing bridge layer and add a separate high-resolution inference layer.",
-            "recommended_next_contract": "Schaefer-100 or Schaefer-200 parcels with Yeo-7/Yeo-17 network labels, plus optional Glasser/HCP-MMP1.0 sensitivity.",
+            "recommendation": (
+                "Do not simply rename the 8 modules. Keep them as a public-facing bridge "
+                "layer and add a separate high-resolution inference layer."
+            ),
+            "recommended_next_contract": (
+                "Schaefer-100 or Schaefer-200 parcels with Yeo-7/Yeo-17 network labels, "
+                "plus optional Glasser/HCP-MMP1.0 sensitivity."
+            ),
             "why": (
-                "Schaefer/Yeo is easier to align with neuromaps and resting-state network literature; Glasser is anatomically rich for myelin/HCP claims but harder to match "
-                "to every external map and subcortical target. The thesis should report high-resolution inference first and aggregate to 8 modules only for explanation."
+                "Schaefer/Yeo is easier to align with neuromaps and resting-state network "
+                "literature; Glasser is anatomically rich for myelin/HCP claims but harder "
+                "to match to every external map and subcortical target. The thesis should "
+                "report high-resolution inference first and aggregate to 8 modules only for "
+                "explanation."
             ),
             "minimum_next_artifacts": [
                 "results/cortical_maps/schaefer_yield_manifest.json",
@@ -474,12 +496,18 @@ def build_cortical_map_alignment(repo_root: Path = REPO_ROOT, output_dir: Path |
             "published": "2026-05-21",
             "doi": "10.1038/s41597-026-07312-1",
             "status": "candidate_future_authorized_external_dataset_not_ingested",
-            "claim_boundary": "Useful for planning future external validation only; it is not evidence for the current scores until data are obtained and scored unchanged.",
+            "claim_boundary": (
+                "Useful for planning future external validation only; it is not evidence "
+                "for the current scores until data are obtained and scored unchanged."
+            ),
         },
         "source_references": SOURCE_REFERENCES,
         "neuromaps_status": {
             "analysis_status": "not_run_module_level_only",
-            "recommended_next_step": "Project source maps and empirical LSD-placebo effects to a common cortical surface/parcellation and run neuromaps spatial nulls.",
+            "recommended_next_step": (
+                "Project source maps and empirical LSD-placebo effects to a common cortical "
+                "surface/parcellation and run neuromaps spatial nulls."
+            ),
             "claim_guardrail": (
                 "This pass compares maps after aggregation to the 8-module thesis contract with exact label-permutation p-values. "
                 "It is not a full neuromaps surface-level spatial-autocorrelation null analysis."

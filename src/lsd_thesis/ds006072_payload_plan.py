@@ -138,7 +138,11 @@ def build_ds006072_payload_plan_status(
         }
         if any(file_row is None for file_row in condition_files.values()):
             continue
-        files = [condition_files[condition] for condition in PRIMARY_CONDITIONS if condition_files[condition] is not None]
+        files: list[dict[str, Any]] = []
+        for condition in PRIMARY_CONDITIONS:
+            file_row = condition_files[condition]
+            if file_row is not None:
+                files.append(file_row)
         subject_ready = all(bool(file_row["local_file_ready"]) for file_row in files)
         comparable_subject_rows.append(
             {

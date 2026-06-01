@@ -332,6 +332,7 @@ def build_motion_confound_control_status(repo_root: Path = REPO_ROOT) -> dict[st
             motion_payload,
         )
     high_risk_count = sum(1 for row in rows if row["motion_sensitivity_flag"])
+    motion_suffixes = ("_delta_lsd_minus_placebo", "_mean_abs", "_observed")
     return {
         "schema_version": SCHEMA_VERSION,
         "generated_at_utc": datetime.now(UTC).isoformat(),
@@ -343,14 +344,22 @@ def build_motion_confound_control_status(repo_root: Path = REPO_ROOT) -> dict[st
         },
         "motion_summary_status": motion_payload.get("status", "available_parsed"),
         "motion_files_present": bool(motion_payload.get("motion_files_present")),
-        "parsed_summary_count": int(motion_payload.get("parsed_summary_count") or len(motion_payload.get("summaries", []))),
+        "parsed_summary_count": int(
+            motion_payload.get("parsed_summary_count") or len(motion_payload.get("summaries", []))
+        ),
         "input_contract": {
             **CONFOUND_CONTROL_INPUT_CONTRACT,
             "motion_input_contract": motion_payload.get("input_contract"),
         },
         "merged_subject_run_count": len(merged),
-        "motion_feature_count": len([key for key in merged[0] if key.endswith(("_delta_lsd_minus_placebo", "_mean_abs", "_observed"))]),
-        "dynamic_metric_count": len([key for key in merged[0] if key not in {"subject", "run"} and not key.endswith(("_delta_lsd_minus_placebo", "_mean_abs", "_observed"))]),
+        "motion_feature_count": len([key for key in merged[0] if key.endswith(motion_suffixes)]),
+        "dynamic_metric_count": len(
+            [
+                key
+                for key in merged[0]
+                if key not in {"subject", "run"} and not key.endswith(motion_suffixes)
+            ]
+        ),
         "association_rows": rows,
         "high_risk_motion_association_count": high_risk_count,
         "claim_status": "motion_sensitive_downgrade_required" if high_risk_count else "no_fdr_motion_association_detected",

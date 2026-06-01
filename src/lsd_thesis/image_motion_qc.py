@@ -5,7 +5,7 @@ import json
 import math
 from datetime import UTC, datetime
 from pathlib import Path
-from typing import Any
+from typing import Any, cast
 
 import nibabel as nib
 import numpy as np
@@ -133,10 +133,10 @@ def _sample_mask(data: np.ndarray) -> np.ndarray:
         mask = np.isfinite(mean_volume) & (mean_volume != 0)
     if int(mask.sum()) < 8:
         mask = np.isfinite(mean_volume)
-    return mask
+    return cast(np.ndarray, mask)
 
 
-def _masked_coordinates(img: nib.spatialimages.SpatialImage, mask: np.ndarray, stride: int) -> np.ndarray:
+def _masked_coordinates(img: nib.Nifti1Image, mask: np.ndarray, stride: int) -> np.ndarray:
     grids = np.meshgrid(
         *(np.arange(size, dtype=float) * float(stride) for size in mask.shape),
         indexing="ij",
@@ -149,7 +149,7 @@ def _masked_coordinates(img: nib.spatialimages.SpatialImage, mask: np.ndarray, s
 def summarize_bold_image(path: Path, *, repo_root: Path = REPO_ROOT, stride: int = DEFAULT_STRIDE) -> dict[str, Any]:
     if stride < 1:
         raise ValueError("stride must be >= 1")
-    img = nib.load(str(path))
+    img = cast(nib.Nifti1Image, nib.load(str(path)))
     if len(img.shape) != 4 or img.shape[3] < 3:
         raise ValueError(f"Expected 4D BOLD with at least 3 volumes: {path}")
     slices = (slice(None, None, stride), slice(None, None, stride), slice(None, None, stride), slice(None))

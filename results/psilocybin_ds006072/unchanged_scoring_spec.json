@@ -1,6 +1,6 @@
 {
   "schema_version": "ds006072_external_validation.v1",
-  "generated_at_utc": "2026-05-31T07:30:41.962904+00:00",
+  "generated_at_utc": "2026-06-01T11:53:18.434614+00:00",
   "source_dataset_id": "ds003059",
   "external_dataset_id": "ds006072",
   "fixed_rule": "Run lsd_thesis.dynamic_mechanism.build_dynamic_mechanism_summary on ds006072 empirical viewer records without changing mechanism weights, metric direction rules, target files, or ranking code after seeing psilocybin results.",
@@ -27,7 +27,7 @@
     "dynamic_mechanism": {
       "path": "src/lsd_thesis/dynamic_mechanism.py",
       "exists": true,
-      "sha256": "360dfd734f24df36b7dc8528cf97b0754f8a38cfba4d2a5c2e811cd819d2710b",
+      "sha256": "2c15102a84d0fb491c672f85c5584039650c5dc360c531d331ce1952fe40f567",
       "entrypoint": "lsd_thesis.dynamic_mechanism.build_dynamic_mechanism_summary"
     }
   },

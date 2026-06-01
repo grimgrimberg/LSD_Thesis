@@ -902,12 +902,12 @@
       <div>
         <div class="scope-badges" aria-label="Claim scope">
           <span class="status-pill status-pill--ok">five-fold subject-disjoint internal validation</span>
-          <span class="status-pill status-pill--warning">not external validation</span>
+          <span class="status-pill status-pill--warning">ds006072 external stress test, not population validation</span>
           <span class="status-pill status-pill--warning">not clinical validation</span>
           <span class="status-pill status-pill--warning">not subjective-state realism</span>
         </div>
         <h1 id="snapshot_title">Thesis Snapshot</h1>
-        <p>This interface presents a transparent mechanism-ranking workspace: empirical ds003059-derived proxy summaries, transition/barrier diagnostics, controlled-dynamics baselines, and completed preliminary internal CV5 results without claiming receptor-level, clinical, external, or subjective-experience validation.</p>
+        <p>This interface presents a transparent mechanism-ranking workspace: empirical ds003059-derived proxy summaries, transition/barrier diagnostics, controlled-dynamics baselines, completed preliminary internal CV5 results, and a small-subject ds006072 external stress test without claiming receptor-level, clinical, population-level, or subjective-experience validation.</p>
         <div class="callout callout--scope">
           <strong>Claim boundary:</strong> the primary question is which candidate surrogate mechanism best aligns with empirical LSD-minus-placebo proxy targets. A ranking result is a model-comparison result, not proof of a biological mechanism.
         </div>
@@ -1525,12 +1525,53 @@
       container.appendChild(card);
     }
 
+    function clearElement(element) {
+      if (element) {
+        element.replaceChildren();
+      }
+    }
+
+    function emptyParagraph(message) {
+      const paragraph = document.createElement('p');
+      paragraph.className = 'empty';
+      paragraph.textContent = message;
+      return paragraph;
+    }
+
+    function setEmptyMessage(element, message) {
+      if (!element) return;
+      element.replaceChildren(emptyParagraph(message));
+    }
+
+    function setEmptyCodeMessage(element, before, codeText, after = '') {
+      if (!element) return;
+      const paragraph = document.createElement('p');
+      paragraph.className = 'empty';
+      paragraph.append(document.createTextNode(before));
+      const code = document.createElement('code');
+      code.textContent = codeText;
+      paragraph.appendChild(code);
+      if (after) {
+        paragraph.append(document.createTextNode(after));
+      }
+      element.replaceChildren(paragraph);
+    }
+
+    function appendTableMessage(tbody, message, colSpan = 1) {
+      const row = document.createElement('tr');
+      const cell = document.createElement('td');
+      cell.colSpan = colSpan;
+      cell.textContent = message;
+      row.appendChild(cell);
+      tbody.appendChild(row);
+    }
+
     function renderThesisExpansion(expansion) {
       const status = document.getElementById('thesis_loop_status');
       const stepsContainer = document.getElementById('thesis_loop_steps');
       const anchorContainer = document.getElementById('scholarly_anchor_list');
-      stepsContainer.innerHTML = '';
-      anchorContainer.innerHTML = '';
+      clearElement(stepsContainer);
+      clearElement(anchorContainer);
       if (!expansion) {
         status.textContent = 'No thesis expansion payload is available.';
         return;
@@ -1577,10 +1618,12 @@
         claim.textContent = anchor.claim || '';
         const use = document.createElement('p');
         use.textContent = `Use: ${anchor.use_in_project || 'not recorded'}`;
+        const current = document.createElement('p');
+        current.textContent = `Current component status: ${anchor.current_component_status || 'not recorded'}`;
         const tag = document.createElement('span');
         tag.className = `status-tag status-tag--${anchor.status === 'planned comparison' || anchor.status === 'planned dataset' || anchor.status === 'planned biological prior' || anchor.status === 'planned graph prior' || anchor.status === 'planned parcellation' ? 'planned' : 'next'}`;
         tag.textContent = anchor.status || 'reference';
-        item.append(link, claim, use, tag);
+        item.append(link, claim, use, current, tag);
         anchorContainer.appendChild(item);
       });
       renderClaimEvidenceMatrix(expansion.loop_status || {});
@@ -1604,8 +1647,8 @@
         'limitation',
         'status'
       ];
-      table.innerHTML = '';
-      links.innerHTML = '';
+      clearElement(table);
+      clearElement(links);
       const rows = loopStatus.claim_evidence_matrix || [];
       if (!rows.length) {
         appendTableRow(table, ['No claim evidence matrix is loaded yet.', '', '', '', '', '', '', '', 'missing']);
@@ -1625,7 +1668,7 @@
         links.appendChild(anchor);
       });
       if (!links.children.length) {
-        links.innerHTML = '<p class="empty">Run scripts/run_thesis_evidence_loop.py to generate claim matrix links.</p>';
+        setEmptyMessage(links, 'Run scripts/run_thesis_evidence_loop.py to generate claim matrix links.');
       }
     }
 
@@ -1638,10 +1681,10 @@
       const parcellationTable = document.getElementById('parcellation_sensitivity_table');
       const structuralTable = document.getElementById('structural_proxy_null_table');
       const receptorTable = document.getElementById('receptor_null_table');
-      psilocybinTable.innerHTML = '';
-      parcellationTable.innerHTML = '';
-      structuralTable.innerHTML = '';
-      receptorTable.innerHTML = '';
+      clearElement(psilocybinTable);
+      clearElement(parcellationTable);
+      clearElement(structuralTable);
+      clearElement(receptorTable);
 
       [
         ['Status', psilocybin.analysis_status || 'missing'],
@@ -1690,7 +1733,7 @@
       const cards = document.getElementById('dti_structural_cards');
       const networkId = 'dti_structural_network';
       const matrixId = 'dti_structural_matrix';
-      cards.innerHTML = '';
+      clearElement(cards);
       if (!dti || !Array.isArray(dti.modules) || !dti.modules.length) {
         status.textContent = dti?.claim_guardrail || 'No structural-connectome matrix is loaded for DTI-style dynamics context.';
         Plotly.purge(networkId);
@@ -1770,9 +1813,9 @@
       const readiness = document.getElementById('external_maps_claim_readiness');
       const heatmapId = 'external_maps_heatmap';
       const alignmentId = 'external_maps_alignment';
-      cards.innerHTML = '';
-      table.innerHTML = '';
-      benchmarkTable.innerHTML = '';
+      clearElement(cards);
+      clearElement(table);
+      clearElement(benchmarkTable);
       readiness.textContent = '';
       const maps = Array.isArray(payload.maps) ? payload.maps : [];
       const rows = Array.isArray(payload.alignment_rows) ? payload.alignment_rows : [];
@@ -1844,27 +1887,23 @@
         .sort((a, b) => Number(b.abs_pearson_r || 0) - Number(a.abs_pearson_r || 0))
         .slice(0, 12)
         .forEach(row => {
-          const tr = document.createElement('tr');
-          tr.innerHTML = `
-            <td>${row.map_label || row.map_id}</td>
-            <td>${row.target_label || row.target_id}</td>
-            <td>${metricText(Number(row.pearson_r), 3)}</td>
-            <td>${metricText(Number(row.permutation_p), 4)}</td>
-            <td>${metricText(Number(row.q_value), 4)}</td>
-            <td>${row.ci_overlaps_zero ? 'yes' : 'no'}</td>
-            <td>${row.alignment_status || 'n/a'}</td>
-          `;
-          table.appendChild(tr);
+          appendTableRow(table, [
+            row.map_label || row.map_id,
+            row.target_label || row.target_id,
+            metricText(Number(row.pearson_r), 3),
+            metricText(Number(row.permutation_p), 4),
+            metricText(Number(row.q_value), 4),
+            row.ci_overlaps_zero ? 'yes' : 'no',
+            row.alignment_status || 'n/a'
+          ]);
         });
       (psilocybinBenchmark.metric_mapping || []).forEach(row => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-          <td>${row.article_measure || 'n/a'}</td>
-          <td>${row.dashboard_proxy || 'n/a'}</td>
-          <td>${row.use || 'context only'}</td>
-          <td>${row.claim_boundary || 'not validation'}</td>
-        `;
-        benchmarkTable.appendChild(tr);
+        appendTableRow(benchmarkTable, [
+          row.article_measure || 'n/a',
+          row.dashboard_proxy || 'n/a',
+          row.use || 'context only',
+          row.claim_boundary || 'not validation'
+        ]);
       });
     }
 
@@ -1878,14 +1917,14 @@
       const uncertainty = document.getElementById('claim_uncertainty_table');
       const limitations = document.getElementById('claim_limitations_table');
       const falsification = document.getElementById('claim_falsification_table');
-      cards.innerHTML = '';
-      table.innerHTML = '';
+      clearElement(cards);
+      clearElement(table);
       pipeline.textContent = '';
-      externalValidation.innerHTML = '';
-      nullControls.innerHTML = '';
-      uncertainty.innerHTML = '';
-      limitations.innerHTML = '';
-      falsification.innerHTML = '';
+      clearElement(externalValidation);
+      clearElement(nullControls);
+      clearElement(uncertainty);
+      clearElement(limitations);
+      clearElement(falsification);
       const tiers = Array.isArray(payload.claim_tiers) ? payload.claim_tiers : [];
       const methodRows = Array.isArray(payload.methods_limitations) ? payload.methods_limitations : [];
       if (!tiers.length) {
@@ -1906,60 +1945,48 @@
       addMetricCard(cards, 'Exploratory tiers', `${exploratory}`, 'show as opportunities');
       addMetricCard(cards, 'Blocked / future', `${blocked}`, 'turn into work plan');
       tiers.forEach(row => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-          <td>${row.tier || ''}</td>
-          <td>${row.claim || ''}<br><span class="muted">${row.evidence || ''}</span></td>
-          <td>${row.status || ''}</td>
-          <td>${row.pi_framing || ''}</td>
-        `;
-          table.appendChild(tr);
+        appendTableRow(table, [
+          row.tier || '',
+          `${row.claim || ''}\n${row.evidence || ''}`,
+          row.status || '',
+          row.pi_framing || ''
+        ]);
       });
       (payload.external_validation_status || []).forEach(row => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-          <td>${row.source || ''}</td>
-          <td>${row.role || ''}</td>
-          <td>${row.status || ''}</td>
-          <td>${row.claim_boundary || ''}</td>
-        `;
-        externalValidation.appendChild(tr);
+        appendTableRow(externalValidation, [
+          row.source || '',
+          row.role || '',
+          row.status || '',
+          row.claim_boundary || ''
+        ]);
       });
       (payload.null_controls || []).forEach(row => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-          <td>${row.control || ''}</td>
-          <td>${row.purpose || ''}</td>
-          <td>${row.status || ''}</td>
-        `;
-        nullControls.appendChild(tr);
+        appendTableRow(nullControls, [
+          row.control || '',
+          row.purpose || '',
+          row.status || ''
+        ]);
       });
       (payload.uncertainty_gate_rows || []).forEach(row => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-          <td>${row.effect || ''}</td>
-          <td>${row.ci || ''}</td>
-          <td>${row.p || ''}</td>
-          <td>${row.q || ''}</td>
-          <td>${row.fdr_pass || ''}</td>
-          <td>${row.ci_crosses_zero || ''}</td>
-          <td>${row.claim_status || ''}</td>
-        `;
-        uncertainty.appendChild(tr);
+        appendTableRow(uncertainty, [
+          row.effect || '',
+          row.ci || '',
+          row.p || '',
+          row.q || '',
+          row.fdr_pass || '',
+          row.ci_crosses_zero || '',
+          row.claim_status || ''
+        ]);
       });
       methodRows.forEach(row => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-          <td>${row.topic || ''}</td>
-          <td>${row.message || ''}</td>
-          <td>${row.slide_takeaway || ''}</td>
-        `;
-        limitations.appendChild(tr);
+        appendTableRow(limitations, [
+          row.topic || '',
+          row.message || '',
+          row.slide_takeaway || ''
+        ]);
       });
       (payload.falsification_checks || []).forEach(check => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `<td>${check}</td>`;
-        falsification.appendChild(tr);
+        appendTableRow(falsification, [check]);
       });
     }
 
@@ -2019,7 +2046,7 @@
     }
 
     function renderDynamicInferenceGating(dynamicMechanism, tableBody) {
-      tableBody.innerHTML = '';
+      clearElement(tableBody);
       const families = [
         ['A', 'transition-state proxy', dynamicMechanism.transition_proxy?.metric_deltas || []],
         ['C', 'hierarchy / routing', dynamicMechanism.hierarchy_routing?.metric_deltas || []],
@@ -2063,13 +2090,13 @@
       ids.forEach(id => {
         const element = document.getElementById(id);
         if (element) {
-          element.innerHTML = `<p class="empty">${message}</p>`;
+          setEmptyMessage(element, message);
         }
       });
       const literatureTable = document.getElementById('literature_benchmark_table');
       const claimTable = document.getElementById('dynamic_claim_verdict_table');
-      if (literatureTable) literatureTable.innerHTML = '';
-      if (claimTable) claimTable.innerHTML = '';
+      clearElement(literatureTable);
+      clearElement(claimTable);
     }
 
     function renderDynamicRobustness(dynamicMechanism) {
@@ -2079,10 +2106,10 @@
       const claimTable = document.getElementById('dynamic_claim_verdict_table');
       const links = document.getElementById('dynamic_robustness_links');
       const literatureTable = document.getElementById('literature_benchmark_table');
-      cards.innerHTML = '';
-      claimTable.innerHTML = '';
-      links.innerHTML = '';
-      literatureTable.innerHTML = '';
+      clearElement(cards);
+      clearElement(claimTable);
+      clearElement(links);
+      clearElement(literatureTable);
 
       if (!robustness || robustness.analysis_status !== 'implemented_first_pass_robustness') {
         status.textContent = 'Robustness artifacts are not loaded. Regenerate with uv run python scripts/run_dynamic_mechanism_ranking.py.';
@@ -2163,7 +2190,7 @@
           yaxis: { title: 'Bootstrap mean support score (unitless)' }
         }), plotConfig());
       } else {
-        document.getElementById('robustness_bootstrap_plot').innerHTML = '<p class="empty">Bootstrap layer summary is missing.</p>';
+        setEmptyMessage(document.getElementById('robustness_bootstrap_plot'), 'Bootstrap layer summary is missing.');
       }
 
       const runRows = robustness.run_sensitivity?.run_rows || [];
@@ -2180,7 +2207,7 @@
           legend: { orientation: 'h' }
         }), plotConfig());
       } else {
-        document.getElementById('robustness_run_plot').innerHTML = '<p class="empty">Run sensitivity rows are missing.</p>';
+        setEmptyMessage(document.getElementById('robustness_run_plot'), 'Run sensitivity rows are missing.');
       }
 
       const stateRows = robustness.state_label_sensitivity?.rows || [];
@@ -2197,7 +2224,7 @@
           legend: { orientation: 'h' }
         }), plotConfig());
       } else {
-        document.getElementById('robustness_state_label_plot').innerHTML = '<p class="empty">State-label sensitivity rows are missing.</p>';
+        setEmptyMessage(document.getElementById('robustness_state_label_plot'), 'State-label sensitivity rows are missing.');
       }
 
       if (horizonRows.length) {
@@ -2226,7 +2253,7 @@
           legend: { orientation: 'h' }
         }), plotConfig());
       } else {
-        document.getElementById('robustness_e_horizon_plot').innerHTML = '<p class="empty">E horizon sensitivity rows are missing.</p>';
+        setEmptyMessage(document.getElementById('robustness_e_horizon_plot'), 'E horizon sensitivity rows are missing.');
       }
 
       const windowRows = robustness.d_window_sensitivity?.rows || [];
@@ -2256,7 +2283,7 @@
           legend: { orientation: 'h' }
         }), plotConfig());
       } else {
-        document.getElementById('robustness_d_window_plot').innerHTML = '<p class="empty">D window-size sensitivity rows are missing.</p>';
+        setEmptyMessage(document.getElementById('robustness_d_window_plot'), 'D window-size sensitivity rows are missing.');
       }
 
       if (literatureRows.length) {
@@ -2283,7 +2310,7 @@
           ]);
         });
       } else {
-        document.getElementById('literature_benchmark_plot').innerHTML = '<p class="empty">Literature benchmark rows are missing.</p>';
+        setEmptyMessage(document.getElementById('literature_benchmark_plot'), 'Literature benchmark rows are missing.');
       }
     }
 
@@ -2292,7 +2319,7 @@
       const cv5 = state.cv5_validation || {};
       const score = cv5.aggregate_metrics?.score_mean || {};
       const signAgreement = cv5.aggregate_metrics?.sign_agreement_fraction || {};
-      container.innerHTML = '';
+      clearElement(container);
       addMetricCard(container, 'CV5 folds', `${cv5.completed_folds ?? 0}/${cv5.total_folds ?? 0}`, 'preliminary internal validation');
       addMetricCard(container, 'Subject universe', `${cv5.total_subjects ?? state.provenance?.subject_count ?? 'n/a'}`, 'complete paired subjects when available');
       addMetricCard(container, 'Held out per fold', '3', 'n=3 limits precision');
@@ -2310,10 +2337,11 @@
       if (!status || !cards || !table || !completionTable || !receptorMoranTable) return;
       if (!upgrade || !Array.isArray(upgrade.gates)) {
         status.textContent = 'Thesis-upgrade gates are not loaded. Run uv run python scripts/build_thesis_upgrade_status.py.';
-        cards.innerHTML = '<p class="empty">Generate <code>results/thesis_upgrade/thesis_upgrade_status.json</code> to populate this panel.</p>';
-        table.innerHTML = '';
-        completionTable.innerHTML = '';
-        receptorMoranTable.innerHTML = '<tr><td colspan="8">No map-family Moran spatial-null artifact loaded.</td></tr>';
+        setEmptyCodeMessage(cards, 'Generate ', 'results/thesis_upgrade/thesis_upgrade_status.json', ' to populate this panel.');
+        clearElement(table);
+        clearElement(completionTable);
+        clearElement(receptorMoranTable);
+        appendTableMessage(receptorMoranTable, 'No map-family Moran spatial-null artifact loaded.', 8);
         return;
       }
 
@@ -2326,7 +2354,7 @@
         `${summary.strict_complete_gates ?? 0}/${summary.strict_total_gates ?? requirements.length} strict completion requirements complete. ` +
         (upgrade.claim_guardrail || '');
 
-      cards.innerHTML = '';
+      clearElement(cards);
       addMetricCard(cards, 'Ready gates', `${summary.ready_gates ?? 0}/${summary.total_gates ?? gates.length}`, 'readiness, not truth');
       addMetricCard(cards, 'Strict completion', `${summary.strict_complete_gates ?? 0}/${summary.strict_total_gates ?? requirements.length}`, summary.completion_status || 'not completed thesis');
       const canonical = upgrade.components?.canonical_parcellation || {};
@@ -2344,20 +2372,45 @@
       const archive = upgrade.components?.reproducible_archive || {};
       addMetricCard(cards, 'Archive', archive.gate?.status || 'unknown', archive.claim_guardrail || 'GitHub Pages is not the citable archive');
 
-      table.innerHTML = gates.map((gate) => (
-        `<tr><td>${gate.label || 'n/a'}</td><td>${gate.status || 'n/a'}</td><td>${gate.ready ? 'yes' : 'no'}</td><td>${gate.blocker || ''}</td></tr>`
-      )).join('');
-      completionTable.innerHTML = requirements.map((requirement) => (
-        `<tr><td>${requirement.label || 'n/a'}</td><td>${requirement.status || 'n/a'}</td><td>${requirement.complete ? 'yes' : 'no'}</td><td>${requirement.missing || ''}</td><td>${requirement.next_action || ''}</td></tr>`
-      )).join('');
+      clearElement(table);
+      gates.forEach((gate) => {
+        appendTableRow(table, [
+          gate.label || 'n/a',
+          gate.status || 'n/a',
+          gate.ready ? 'yes' : 'no',
+          gate.blocker || ''
+        ]);
+      });
+      clearElement(completionTable);
+      requirements.forEach((requirement) => {
+        appendTableRow(completionTable, [
+          requirement.label || 'n/a',
+          requirement.status || 'n/a',
+          requirement.complete ? 'yes' : 'no',
+          requirement.missing || '',
+          requirement.next_action || ''
+        ]);
+      });
       const receptorRows = Array.isArray(neuromaps.receptor_moran_results) ? [...neuromaps.receptor_moran_results] : [];
       receptorRows.sort((a, b) => Number(a.q ?? Infinity) - Number(b.q ?? Infinity));
       const fmt = (value, digits = 3) => Number.isFinite(Number(value)) ? Number(value).toFixed(digits) : 'n/a';
-      receptorMoranTable.innerHTML = receptorRows.length
-        ? receptorRows.slice(0, 24).map((row) => (
-          `<tr><td>${row.map_id || 'n/a'}</td><td>${row.target_id || 'n/a'}</td><td>${fmt(row.r, 3)}</td><td>${fmt(row.spatial_p, 3)}</td><td>${fmt(row.q, 3)}</td><td>${row.fdr_pass ? 'yes' : 'no'}</td><td>${row.ci_crosses_zero ? 'yes' : 'no'}</td><td>${row.claim_status || 'n/a'}</td></tr>`
-        )).join('')
-        : '<tr><td colspan="8">No map-family Moran spatial-null results are loaded yet.</td></tr>';
+      clearElement(receptorMoranTable);
+      if (receptorRows.length) {
+        receptorRows.slice(0, 24).forEach((row) => {
+          appendTableRow(receptorMoranTable, [
+            row.map_id || 'n/a',
+            row.target_id || 'n/a',
+            fmt(row.r, 3),
+            fmt(row.spatial_p, 3),
+            fmt(row.q, 3),
+            row.fdr_pass ? 'yes' : 'no',
+            row.ci_crosses_zero ? 'yes' : 'no',
+            row.claim_status || 'n/a'
+          ]);
+        });
+      } else {
+        appendTableMessage(receptorMoranTable, 'No map-family Moran spatial-null results are loaded yet.', 8);
+      }
 
       const colors = gates.map((gate) => gate.ready ? '#1f7a4d' : (Number(gate.score || 0) >= 0.5 ? '#b97616' : '#9d2c2c'));
       Plotly.newPlot('thesis_upgrade_gate_plot', [{
@@ -2414,22 +2467,22 @@
       const hierarchyPlot = document.getElementById('dynamic_hierarchy_plot');
       const repertoirePlot = document.getElementById('dynamic_repertoire_plot');
       const controlPlot = document.getElementById('dynamic_control_plot');
-      cards.innerHTML = '';
-      tableBody.innerHTML = '';
-      inferenceTable.innerHTML = '';
-      figureLinks.innerHTML = '';
+      clearElement(cards);
+      clearElement(tableBody);
+      clearElement(inferenceTable);
+      clearElement(figureLinks);
       if (!dynamicMechanism || dynamicMechanism.analysis_status === 'missing') {
         status.textContent = 'A+B+C+D+E results are not loaded. Generate them with uv run python scripts/run_dynamic_mechanism_ranking.py.';
-        cards.innerHTML = '<p class="empty">Run <code>uv run python scripts/run_dynamic_mechanism_ranking.py</code> to populate A+B+C+D+E results.</p>';
+        setEmptyCodeMessage(cards, 'Run ', 'uv run python scripts/run_dynamic_mechanism_ranking.py', ' to populate A+B+C+D+E results.');
         appendTableRow(tableBody, ['n/a', 'A+B+C+D+E', 'pending', 'missing artifact', 'n/a', 'No summary.json loaded.']);
         appendTableRow(inferenceTable, ['n/a', 'A/C/D/E', 'n/a', 'n/a', 'n/a', 'No metric-family inference artifact is loaded.']);
         renderDynamicRobustness(dynamicMechanism || {});
-        transitionPlot.innerHTML = '<p class="empty">No transition-state proxy artifact is loaded.</p>';
-        dmdcPlot.innerHTML = '<p class="empty">No DMDc artifact is loaded.</p>';
-        conditionVectorPlot.innerHTML = '<p class="empty">No condition-bias vector is loaded.</p>';
-        hierarchyPlot.innerHTML = '<p class="empty">No hierarchy/routing artifact is loaded.</p>';
-        repertoirePlot.innerHTML = '<p class="empty">No dynamic repertoire artifact is loaded.</p>';
-        controlPlot.innerHTML = '<p class="empty">No network-control energy artifact is loaded.</p>';
+        setEmptyMessage(transitionPlot, 'No transition-state proxy artifact is loaded.');
+        setEmptyMessage(dmdcPlot, 'No DMDc artifact is loaded.');
+        setEmptyMessage(conditionVectorPlot, 'No condition-bias vector is loaded.');
+        setEmptyMessage(hierarchyPlot, 'No hierarchy/routing artifact is loaded.');
+        setEmptyMessage(repertoirePlot, 'No dynamic repertoire artifact is loaded.');
+        setEmptyMessage(controlPlot, 'No network-control energy artifact is loaded.');
         return;
       }
 
@@ -2497,7 +2550,7 @@
 
       const transitionRows = dynamicMechanism.transition_proxy?.metric_deltas || [];
       if (!transitionRows.length) {
-        transitionPlot.innerHTML = '<p class="empty">Transition-state metric rows are missing from the artifact.</p>';
+        setEmptyMessage(transitionPlot, 'Transition-state metric rows are missing from the artifact.');
       } else {
         Plotly.newPlot('dynamic_transition_plot', [{
           x: transitionRows.map(row => metricLabel(row.metric)),
@@ -2526,7 +2579,7 @@
 
       const foldRows = dmdc.fold_rows || [];
       if (!foldRows.length) {
-        dmdcPlot.innerHTML = '<p class="empty">DMDc fold rows are missing from the artifact.</p>';
+        setEmptyMessage(dmdcPlot, 'DMDc fold rows are missing from the artifact.');
       } else {
         Plotly.newPlot('dynamic_dmdc_plot', [
           {
@@ -2560,7 +2613,7 @@
 
       const vectorRows = dmdc.condition_input_vector || [];
       if (!vectorRows.length) {
-        conditionVectorPlot.innerHTML = '<p class="empty">DMDc condition-bias vector is missing from the artifact.</p>';
+        setEmptyMessage(conditionVectorPlot, 'DMDc condition-bias vector is missing from the artifact.');
       } else {
         Plotly.newPlot('dynamic_condition_vector_plot', [{
           x: vectorRows.map(row => row.module),
@@ -2576,7 +2629,7 @@
       function plotMetricDeltas(containerId, rows, title, color) {
         const target = document.getElementById(containerId);
         if (!rows.length) {
-          target.innerHTML = '<p class="empty">Metric rows are missing from the artifact.</p>';
+          setEmptyMessage(target, 'Metric rows are missing from the artifact.');
           return;
         }
         Plotly.newPlot(containerId, [{
@@ -2630,11 +2683,11 @@
       const cards = document.getElementById('cv5_summary_cards');
       const tableBody = document.querySelector('#cv5_fold_table tbody');
       const plot = document.getElementById('cv5_fold_plot');
-      cards.innerHTML = '';
-      tableBody.innerHTML = '';
+      clearElement(cards);
+      clearElement(tableBody);
       if (!cv5Validation) {
-        cards.innerHTML = '<p class="empty">No CV5 aggregate validation artifact is available.</p>';
-        plot.innerHTML = '<p class="empty">No CV5 fold plot available.</p>';
+        setEmptyMessage(cards, 'No CV5 aggregate validation artifact is available.');
+        setEmptyMessage(plot, 'No CV5 fold plot available.');
         return;
       }
       const score = cv5Validation.aggregate_metrics?.score_mean || {};
@@ -2666,7 +2719,7 @@
         tableBody.appendChild(tr);
       }
       if (!foldMetrics.length) {
-        plot.innerHTML = '<p class="empty">CV5 aggregate exists, but per-fold metric rows were not recorded.</p>';
+        setEmptyMessage(plot, 'CV5 aggregate exists, but per-fold metric rows were not recorded.');
         return;
       }
       Plotly.newPlot('cv5_fold_plot', [
@@ -2779,7 +2832,7 @@
     function renderAblation(stageSummaries) {
       const stage4 = stageSummaries.stage_4;
       if (!stage4) {
-        document.getElementById('ablation_plot').innerHTML = '<p class="empty">Run Stage 4 to populate ablation results.</p>';
+        setEmptyMessage(document.getElementById('ablation_plot'), 'Run Stage 4 to populate ablation results.');
         return;
       }
       Plotly.newPlot('ablation_plot', [{
@@ -2810,13 +2863,13 @@
     function renderDeltaComparison(empirical, stageSummaries) {
       const stage3 = stageSummaries.stage_3;
       if (!stage3 || !empirical.target_deltas || !stage3.best_delta_metrics) {
-        document.getElementById('delta_plot').innerHTML = '<p class="empty">Run Stage 3 after Stage 2 to populate empirical-vs-model deltas.</p>';
+        setEmptyMessage(document.getElementById('delta_plot'), 'Run Stage 3 after Stage 2 to populate empirical-vs-model deltas.');
         return;
       }
       const names = Object.keys(empirical.target_deltas).filter(name => stage3.best_delta_metrics[name] !== undefined);
       const displayNames = names.map(metricLabel);
       if (!names.length) {
-        document.getElementById('delta_plot').innerHTML = '<p class="empty">Stage 3 is present, but no matching model delta metrics were found for the empirical targets.</p>';
+        setEmptyMessage(document.getElementById('delta_plot'), 'Stage 3 is present, but no matching model delta metrics were found for the empirical targets.');
         return;
       }
       const data = [
@@ -2875,16 +2928,20 @@
     function renderRawPreview(containerId, preview) {
       const container = document.getElementById(containerId);
       if (!preview) {
-        container.innerHTML = '<p class="empty">No downsampled preview available for this selected window.</p>';
+        setEmptyMessage(container, 'No downsampled preview available for this selected window.');
         return;
       }
-      container.innerHTML =
-        `<p class="panel-note">Window-averaged slice preview, normalized for display; intensity units are arbitrary display values and qualitative only.</p>
-        <div class="plane-grid">
-          <div id="${containerId}_axial"></div>
-          <div id="${containerId}_coronal"></div>
-          <div id="${containerId}_sagittal"></div>
-        </div>`;
+      const note = document.createElement('p');
+      note.className = 'panel-note';
+      note.textContent = 'Window-averaged slice preview, normalized for display; intensity units are arbitrary display values and qualitative only.';
+      const planeGrid = document.createElement('div');
+      planeGrid.className = 'plane-grid';
+      ['axial', 'coronal', 'sagittal'].forEach(plane => {
+        const planeContainer = document.createElement('div');
+        planeContainer.id = `${containerId}_${plane}`;
+        planeGrid.appendChild(planeContainer);
+      });
+      container.replaceChildren(note, planeGrid);
       ['axial', 'coronal', 'sagittal'].forEach(plane => {
         Plotly.newPlot(`${containerId}_${plane}`, [{
           z: preview[plane],
@@ -2902,7 +2959,7 @@
     function renderEmpiricalGroupOverview(overview) {
       if (!overview) {
         ['empirical_group_traces', 'empirical_group_metric_delta', 'empirical_group_fc_delta', 'empirical_group_fc_plcb', 'empirical_group_fc_lsd']
-          .forEach(id => document.getElementById(id).innerHTML = '<p class="empty">Run Stage 2 with empirical data to populate this section.</p>');
+          .forEach(id => setEmptyMessage(document.getElementById(id), 'Run Stage 2 with empirical data to populate this section.'));
         return;
       }
 
@@ -3018,7 +3075,7 @@
 
     function renderArtifactLinks(empiricalViewer, artifactLinks) {
       const container = document.getElementById('artifact_links');
-      container.innerHTML = '';
+      clearElement(container);
       const galleryLinks = empiricalViewer && empiricalViewer.gallery ? empiricalViewer.gallery : [];
       const reportLinks = empiricalViewer && empiricalViewer.reports ? empiricalViewer.reports : (artifactLinks ? artifactLinks.reports : []);
       const figureLinks = artifactLinks && artifactLinks.figures ? artifactLinks.figures : [];
@@ -3035,7 +3092,7 @@
         container.appendChild(anchor);
       });
       if (!container.children.length) {
-        container.innerHTML = '<p class="empty">No report or gallery links available yet.</p>';
+        setEmptyMessage(container, 'No report or gallery links available yet.');
       }
     }
 
@@ -3303,7 +3360,7 @@
       const badges = document.getElementById('empirical_viewer_badges');
       if (!overview || !detail) {
         summary.textContent = 'Empirical viewer not available.';
-        badges.innerHTML = '';
+        clearElement(badges);
         updateEmpiricalRunNotice(overview, detail);
         return;
       }
@@ -3326,7 +3383,7 @@
         `Whole-run cross-network delta: ${(lsd.metrics.cross_network_communication - plc.metrics.cross_network_communication).toFixed(3)}\n` +
         `Window cross-network delta: ${windowDelta.metrics.cross_network_communication.toFixed(3)}\n` +
         `Window switching delta: ${windowDelta.metrics.switching_rate.toFixed(3)}`;
-      badges.innerHTML = '';
+      clearElement(badges);
       updateEmpiricalRunNotice(overview, detail);
       const badgeTexts = [
         `Subject ${detail.subject}`,
@@ -3349,7 +3406,7 @@
     function renderEmpiricalInterpretation(detail, windowIndex) {
       const container = document.getElementById('empirical_interpretation');
       if (!detail) {
-        container.innerHTML = '<p class="empty">Pick a subject to inspect the empirical interpretation.</p>';
+        setEmptyMessage(container, 'Pick a subject to inspect the empirical interpretation.');
         return;
       }
       const full = detail.delta_metrics;
@@ -3517,8 +3574,8 @@
       const runSelect = document.getElementById('empirical_run');
       const moduleSelect = document.getElementById('empirical_module_focus');
       const runQuickSelect = document.getElementById('empirical_run_quick_select');
-      subjectSelect.innerHTML = '';
-      moduleSelect.innerHTML = '';
+      clearElement(subjectSelect);
+      clearElement(moduleSelect);
       overview.subjects.forEach(subject => {
         const option = document.createElement('option');
         option.value = subject;
@@ -3541,8 +3598,8 @@
         const preferredRun = subjectRuns.includes(previousRun)
           ? previousRun
           : (subjectRuns.includes(overview.default_run) ? overview.default_run : subjectRuns[0]);
-        runSelect.innerHTML = '';
-        runQuickSelect.innerHTML = '';
+        clearElement(runSelect);
+        clearElement(runQuickSelect);
         subjectRuns.forEach(run => {
           const option = document.createElement('option');
           const label = empiricalRunLabel(overview, run);
@@ -3649,7 +3706,7 @@
 
       const claimGrid = document.getElementById('revamp_claim_grid');
       if (claimGrid) {
-        claimGrid.innerHTML = '';
+        clearElement(claimGrid);
         requirements.forEach(requirement => {
           const card = document.createElement('article');
           card.className = 'claim-card';
@@ -3686,7 +3743,7 @@
           const filterOk = activeFilter === 'all' || item.kind === activeFilter;
           return filterOk && (!query || haystack.includes(query));
         }).slice(0, 18);
-        resultList.innerHTML = '';
+        clearElement(resultList);
         if (!filtered.length) {
           const empty = document.createElement('p');
           empty.className = 'empty';

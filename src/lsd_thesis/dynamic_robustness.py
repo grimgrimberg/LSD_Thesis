@@ -3,21 +3,23 @@ from __future__ import annotations
 import json
 from datetime import UTC, datetime
 from pathlib import Path
-from typing import Any
+from typing import Any, cast
 
 import numpy as np
 
 from lsd_thesis.dynamic_mechanism import (
     CONTROL_HORIZON,
     EmpiricalPair,
+    load_empirical_pairs,
+    summarize_dynamic_repertoire,
+    summarize_network_control_energy,
+)
+from lsd_thesis.dynamic_mechanism_stats import (
     _aggregate_metric_deltas,
     _mean_step_distance,
     _state_labels_from_reference,
     _transition_metrics,
     _zscore_pair,
-    load_empirical_pairs,
-    summarize_dynamic_repertoire,
-    summarize_network_control_energy,
 )
 
 BOOTSTRAP_ITERATIONS = 256
@@ -186,7 +188,7 @@ def _bootstrap_scores(summary: dict[str, Any], *, iterations: int = BOOTSTRAP_IT
     for layer in ["A", "B", "C", "D", "E"]:
         layer_rows = [row for row in score_rows if row["layer"] == layer]
         scores = np.asarray([row["score"] for row in layer_rows], dtype=float)
-        ranks = np.asarray([row["rank"] for row in layer_rows], dtype=float)
+        rank_values = np.asarray([row["rank"] for row in layer_rows], dtype=float)
         layer_summary.append(
             {
                 "layer": layer,
@@ -195,8 +197,8 @@ def _bootstrap_scores(summary: dict[str, Any], *, iterations: int = BOOTSTRAP_IT
                 "score_std": float(np.std(scores, ddof=1)) if len(scores) > 1 else 0.0,
                 "score_ci_low": float(np.quantile(scores, 0.025)),
                 "score_ci_high": float(np.quantile(scores, 0.975)),
-                "median_rank": float(np.median(ranks)),
-                "rank_1_fraction": float(np.mean(ranks == 1.0)),
+                "median_rank": float(np.median(rank_values)),
+                "rank_1_fraction": float(np.mean(rank_values == 1.0)),
             }
         )
 
@@ -448,7 +450,7 @@ def _window_sensitivity(pairs: list[EmpiricalPair]) -> dict[str, Any]:
 def _section_metric(summary: dict[str, Any], section_key: str, metric: str) -> dict[str, Any] | None:
     for row in summary.get(section_key, {}).get("metric_deltas", []):
         if row.get("metric") == metric:
-            return row
+            return cast(dict[str, Any], row)
     return None
 
 
@@ -613,8 +615,14 @@ def _claim_verdicts(summary: dict[str, Any], robustness: dict[str, Any], literat
     control_metric = _section_metric(summary, "network_control_energy", "lsd_vs_placebo_receptor_transition_energy_reduction_pct")
     c_bootstrap = bootstrap_layers.get("C", {})
     literature_rows = literature.get("rows", [])
-    transmodal = next((row for row in literature_rows if "transmodal-unimodal" in str(row.get("benchmark"))), {})
-    striatal = next((row for row in literature_rows if "striatal" in str(row.get("benchmark"))), {})
+    transmodal: dict[str, Any] = next(
+        (row for row in literature_rows if "transmodal-unimodal" in str(row.get("benchmark"))),
+        {},
+    )
+    striatal: dict[str, Any] = next(
+        (row for row in literature_rows if "striatal" in str(row.get("benchmark"))),
+        {},
+    )
     return [
         {
             "claim": "C hierarchy/routing is currently the strongest implemented LSD mechanism layer.",
@@ -679,7 +687,8 @@ def build_dynamic_robustness_summary(summary: dict[str, Any], viewer_root: Path)
         "d_window_sensitivity": _window_sensitivity(pairs),
         "claim_guardrail": (
             "These robustness checks are in-sample stress tests on the cached LSD data. "
-            "They do not replace psilocybin replication, structural-connectome controls, PET receptor maps, or Schaefer/Yeo sensitivity."
+            "They do not replace the ds006072 cross-drug stress test, structural-connectome controls, "
+            "PET receptor maps, or Schaefer/Yeo sensitivity."
         ),
     }
     literature = _literature_benchmark(summary)

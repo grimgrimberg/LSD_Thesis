@@ -194,6 +194,25 @@ def test_render_thesis_microsite_sanitizes_unsafe_markdown_links() -> None:
     assert 'href="docs/stage_reports/stage_2.md"' in html
 
 
+def test_render_thesis_microsite_sanitizes_unsafe_image_sources() -> None:
+    report = """# Thesis
+
+## Section
+
+![Unsafe image](javascript:alert(1))
+
+*Figure: Unsafe image source should be blocked.*
+"""
+    sections = build_thesis_microsite_sections(report)
+    html = render_thesis_microsite("Thesis", sections)
+
+    parser = _FirstImageParser()
+    parser.feed(html)
+    assert parser.first_image_attrs is not None
+    assert parser.first_image_attrs["src"] == "#"
+    assert "javascript:alert" not in html
+
+
 def test_build_defense_presentation_slides_are_derived_from_long_form_report() -> None:
     slides = build_defense_presentation_slides(_SAMPLE_REPORT)
     html = render_defense_presentation("Defense Deck", slides)

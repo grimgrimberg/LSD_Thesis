@@ -13,6 +13,8 @@ The next loop is now:
 5. Re-run C/D/E on Schaefer 100/200 and Yeo 7/17.
 6. Compare final patterns to the 2026 Nature Medicine psychedelic mega-analysis, especially transmodal-unimodal coupling and striatal-unimodal effects.
 
+The source plan for those steps is now exported through `results/thesis_evidence_loop/external_source_plan.csv` and `results/thesis_evidence_loop/external_source_plan.md`.
+
 Dashboard rule:
 
 > The dashboard must show implemented results, planned analyses, blocked analyses, scholarly anchors, export paths, and claim limitations in one evidence loop. It must not present planned psilocybin/HCP/receptor/Schaefer results as completed.
@@ -47,7 +49,7 @@ Current atlas/data update:
 
 Current psilocybin update:
 
-> `ds006072` metadata and file manifests are implemented under `data/ds006072/`. The raw rest BOLD candidate set is about 2.64 TB; the processed CIFTI candidate set is about 113.6 GB. The cross-dataset empirical viewer is still blocked until a justified subset/preprocessing route is selected.
+> `ds006072` metadata and file manifests are implemented under `data/ds006072/`. The raw rest BOLD candidate set is about 2.64 TB; the processed CIFTI candidate set is about 113.6 GB. A local Schaefer100/Yeo7 psilocybin/MTP stress test now exists under unchanged scoring, using the local processed CIFTIs and fsLR Schaefer labels. This upgrades the earlier structure-family pass, but the small-sample psilocybin ranking is not a clean replication of the LSD top layer and must stay framed as a negative/partial external result.
 
 External-data rule:
 

@@ -1,7 +1,22 @@
 {
   "schema_version": 1,
-  "generated_at_utc": "2026-05-31T07:30:47.658060+00:00",
+  "generated_at_utc": "2026-06-01T11:53:32.909985+00:00",
   "artifact_target": "results/receptor_priors",
+  "source_reference": {
+    "source_id": "markello_neuromaps_2022",
+    "source": "Markello et al., Nature Methods 2022",
+    "source_type": "biological prior",
+    "key_evidence": "neuromaps provides standardized brain-map comparison tools and receptor PET annotations.",
+    "use_in_project": "Replace hand-built receptor proxies with documented receptor-map projections.",
+    "status": "planned biological prior",
+    "component": "receptor_priors",
+    "target_layers": "E",
+    "artifact_target": "results/receptor_priors/",
+    "next_artifact": "results/receptor_priors/receptor_prior_status.json",
+    "claim_boundary": "Current coarse receptor weights are proxy-only; receptor claims need PET-derived maps and spatial-autocorrelation-preserving nulls.",
+    "url": "https://www.nature.com/articles/s41592-022-01625-w",
+    "doi": "10.1038/s41592-022-01625-w"
+  },
   "expected_prior_files": [
     "results/receptor_priors/fs5ht_5ht2a_macro_modules.csv",
     "data/receptor_priors/fs5ht_5ht2a_macro_modules.csv",

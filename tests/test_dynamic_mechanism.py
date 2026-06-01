@@ -103,7 +103,7 @@ def test_benjamini_hochberg_monotone_and_bounded() -> None:
 
     assert len(q_values) == 5
     assert all(0.0 <= value <= 1.0 for value in q_values)
-    sorted_pairs = sorted(zip([0.01, 0.04, 0.03, 0.20, 0.50], q_values))
+    sorted_pairs = sorted(zip([0.01, 0.04, 0.03, 0.20, 0.50], q_values, strict=True))
     assert [value for _, value in sorted_pairs] == sorted(value for _, value in sorted_pairs)
 
 
