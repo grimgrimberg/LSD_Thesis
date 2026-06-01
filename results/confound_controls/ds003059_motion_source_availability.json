@@ -44,7 +44,10 @@
         "available": false
       }
     ],
-    "available_count": 0
+    "available_count": 0,
+    "candidate_repository_available": false,
+    "confound_files_verified": false,
+    "availability_note": "Reachable derivative repository URLs are candidate leads only; they do not count as available motion confounds unless file-level FD/DVARS/censoring evidence is verified or local authorized confounds parse successfully."
   },
   "source_confounds_available": false,
   "conclusion": "Local repo search, OpenNeuro ds003059 snapshot metadata, and public OpenNeuroDerivatives repo checks did not expose subject-level FD/DVARS/censoring confounds.",

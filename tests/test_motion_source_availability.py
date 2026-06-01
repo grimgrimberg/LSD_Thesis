@@ -45,6 +45,26 @@ def test_motion_source_availability_detects_local_confounds(tmp_path: Path) -> N
     assert payload["local_search"]["parsed_summary_count"] == 1
 
 
+def test_motion_source_availability_does_not_treat_reachable_derivative_repo_as_verified_confounds(
+    tmp_path: Path,
+) -> None:
+    payload = build_motion_source_availability(
+        tmp_path,
+        openneuro_files=[
+            {"filename": "sub-001/ses-LSD/func/sub-001_ses-LSD_task-rest_bold.nii.gz", "directory": False},
+        ],
+        derivative_repo_statuses=[
+            {"url": "https://example.test/fmriprep", "status_code": 200, "available": True},
+        ],
+    )
+
+    assert payload["analysis_status"] == "no_authorized_subject_level_motion_confounds_found"
+    assert payload["source_confounds_available"] is False
+    assert payload["public_derivative_repositories"]["available_count"] == 1
+    assert payload["public_derivative_repositories"]["candidate_repository_available"] is True
+    assert payload["public_derivative_repositories"]["confound_files_verified"] is False
+
+
 def test_motion_source_availability_detects_configured_external_confound_roots(tmp_path: Path) -> None:
     repo_root = tmp_path / "repo"
     external_root = tmp_path / "author_confounds"

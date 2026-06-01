@@ -108,7 +108,7 @@ def build_motion_source_availability(
     local_available = bool(local_summary.get("motion_analysis_ready"))
     raw_snapshot_checked = bool(openneuro_files) or remote_error is not None
     raw_snapshot_has_confounds = bool(openneuro_motion_like)
-    source_confounds_available = local_available or raw_snapshot_has_confounds or derivative_available
+    source_confounds_available = local_available or raw_snapshot_has_confounds
     analysis_status = (
         "authorized_subject_level_motion_confounds_available"
         if source_confounds_available
@@ -163,6 +163,13 @@ def build_motion_source_availability(
             "checked": bool(derivative_repo_statuses),
             "statuses": list(derivative_repo_statuses),
             "available_count": sum(1 for item in derivative_repo_statuses if item.get("available")),
+            "candidate_repository_available": derivative_available,
+            "confound_files_verified": False,
+            "availability_note": (
+                "Reachable derivative repository URLs are candidate leads only; they do not count as "
+                "available motion confounds unless file-level FD/DVARS/censoring evidence is verified "
+                "or local authorized confounds parse successfully."
+            ),
         },
         "source_confounds_available": source_confounds_available,
         "conclusion": conclusion,
