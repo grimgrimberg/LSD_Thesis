@@ -1,6 +1,6 @@
 {
   "schema_version": "thesis_upgrade_status.v1",
-  "generated_at_utc": "2026-06-01T16:04:10.835738+00:00",
+  "generated_at_utc": "2026-06-01T18:14:47.394105+00:00",
   "readiness_summary": {
     "ready_gates": 8,
     "total_gates": 8,
@@ -72,7 +72,7 @@
       "label": "Receptor/myelin/gradient claim",
       "status": "resolved_negative_not_promoted",
       "ready": true,
-      "evidence": "results/cortical_maps/cortical_map_alignment_status.json",
+      "evidence": "results/cortical_maps/cortical_map_alignment_status.json; results/cortical_maps/map_prior_falsification_status.json",
       "blocker": "The map-prior claim is resolved as a negative control: do not promote receptor/myelin/gradient mechanism claims from this dataset.",
       "score": 1.0
     },
@@ -913,7 +913,7 @@
         "label": "Receptor/myelin/gradient claim",
         "status": "resolved_negative_not_promoted",
         "ready": true,
-        "evidence": "results/cortical_maps/cortical_map_alignment_status.json",
+        "evidence": "results/cortical_maps/cortical_map_alignment_status.json; results/cortical_maps/map_prior_falsification_status.json",
         "blocker": "The map-prior claim is resolved as a negative control: do not promote receptor/myelin/gradient mechanism claims from this dataset.",
         "score": 1.0
       },
@@ -928,20 +928,20 @@
         "claim_effect": "The thesis no longer depends on an unsupported receptor/myelin/gradient claim; the result is a completed negative control."
       },
       "claim_readiness": {
-        "strong_receptor_myelin_gradient_claim": "not_supported_yet",
-        "current_best_result": "The strongest current module-level alignment is still exploratory because FDR significance and CI-zero gates are not both passed.",
+        "strong_receptor_myelin_gradient_claim": "resolved_negative_not_promoted",
+        "current_best_result": "The completed module-level and Schaefer100 spatial-null evidence resolves the receptor/myelin/gradient family as a negative/control result under the current support rule.",
         "required_for_stronger_claim": [
-          "Re-extract empirical LSD-placebo dynamic features at a higher-resolution cortical parcellation rather than only the 8-module presentation layer.",
-          "Project receptor, myelin, functional-gradient, and AHBA maps into the same parcellation.",
-          "Run spatial-autocorrelation-aware nulls with neuromaps or equivalent surface/parcellation nulls.",
-          "Retain q-value, FDR-significance, CI-overlap, and external-dataset replication gates before strengthening claims."
+          "Do not promote receptor/myelin/gradient mechanism claims from the current evidence.",
+          "Future promotion would require new independent evidence with FDR support and confidence intervals excluding zero under the same spatial-null support rule."
         ],
-        "claim_boundary": "The dashboard may say these maps are plausible anatomical/molecular priors. It should not say they prove receptor, myelin, or gradient mechanisms."
+        "claim_boundary": "The dashboard may show these maps as tested priors, but the resolved current claim is negative/control evidence rather than a supported biological mechanism."
       },
       "neuromaps_status": {
-        "analysis_status": "not_run_module_level_only",
+        "analysis_status": "implemented_schaefer100_full_map_family_moran_spatial_nulls",
         "recommended_next_step": "Project source maps and empirical LSD-placebo effects to a common cortical surface/parcellation and run neuromaps spatial nulls.",
-        "claim_guardrail": "This pass compares maps after aggregation to the 8-module thesis contract with exact label-permutation p-values. It is not a full neuromaps surface-level spatial-autocorrelation null analysis."
+        "claim_guardrail": "Schaefer100 spatial-null evidence is complete for the current map-prior family; it resolves the claim as negative/control evidence, not as a supported mechanism.",
+        "spatial_autocorrelation_nulls_complete": true,
+        "family_coverage_complete": true
       },
       "fdr_supported_count": 0,
       "best_alignment": {

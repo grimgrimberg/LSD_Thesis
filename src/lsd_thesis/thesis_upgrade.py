@@ -916,16 +916,59 @@ def _receptor_myelin_gradient_claim_gate(repo_root: Path) -> dict[str, Any]:
     falsification_path = repo_root / "results" / "cortical_maps" / "map_prior_falsification_status.json"
     payload = _read_json(path) or {}
     falsification = _read_json(falsification_path) or {}
-    claim_readiness = payload.get("claim_readiness", {}) if isinstance(payload.get("claim_readiness"), dict) else {}
-    neuromaps_status = payload.get("neuromaps_status", {}) if isinstance(payload.get("neuromaps_status"), dict) else {}
+    raw_claim_readiness = payload.get("claim_readiness", {})
+    claim_readiness = dict(raw_claim_readiness) if isinstance(raw_claim_readiness, dict) else {}
+    raw_neuromaps_status = payload.get("neuromaps_status", {})
+    neuromaps_status = dict(raw_neuromaps_status) if isinstance(raw_neuromaps_status, dict) else {}
     strong_claim_status = str(claim_readiness.get("strong_receptor_myelin_gradient_claim") or "not_supported_yet")
     fdr_supported_count = int(payload.get("fdr_supported_count") or 0)
     best = payload.get("best_alignment", {}) if isinstance(payload.get("best_alignment"), dict) else {}
     negative_result_ready = bool(falsification.get("negative_result_ready"))
     claim_resolution = falsification.get("claim_resolution", {}) if isinstance(falsification.get("claim_resolution"), dict) else {}
+    spatial_nulls = falsification.get("spatial_nulls", {}) if isinstance(falsification.get("spatial_nulls"), dict) else {}
     resolved_negative = negative_result_ready and str(falsification.get("claim_status")) == "resolved_negative_not_promoted"
     ready = (strong_claim_status not in {"not_supported_yet", "exploratory_not_supported_yet"} and fdr_supported_count > 0) or resolved_negative
     status = "supported" if ready and not resolved_negative else "resolved_negative_not_promoted" if resolved_negative else strong_claim_status
+    if resolved_negative:
+        claim_readiness.update(
+            {
+                "strong_receptor_myelin_gradient_claim": status,
+                "current_best_result": (
+                    "The completed module-level and Schaefer100 spatial-null evidence resolves the "
+                    "receptor/myelin/gradient family as a negative/control result under the current support rule."
+                ),
+                "required_for_stronger_claim": [
+                    "Do not promote receptor/myelin/gradient mechanism claims from the current evidence.",
+                    (
+                        "Future promotion would require new independent evidence with FDR support and "
+                        "confidence intervals excluding zero under the same spatial-null support rule."
+                    ),
+                ],
+                "claim_boundary": (
+                    "The dashboard may show these maps as tested priors, but the resolved current claim is "
+                    "negative/control evidence rather than a supported biological mechanism."
+                ),
+            }
+        )
+    spatial_nulls_complete = bool(
+        claim_resolution.get("spatial_autocorrelation_nulls_complete")
+        or spatial_nulls.get("spatial_autocorrelation_nulls_complete")
+    )
+    if resolved_negative and spatial_nulls_complete:
+        neuromaps_status.update(
+            {
+                "analysis_status": str(
+                    spatial_nulls.get("analysis_status")
+                    or "implemented_schaefer100_full_map_family_moran_spatial_nulls"
+                ),
+                "spatial_autocorrelation_nulls_complete": True,
+                "family_coverage_complete": bool(claim_resolution.get("family_coverage_complete")),
+                "claim_guardrail": (
+                    "Schaefer100 spatial-null evidence is complete for the current map-prior family; "
+                    "it resolves the claim as negative/control evidence, not as a supported mechanism."
+                ),
+            }
+        )
     blocker = (
         "At least one receptor/myelin/gradient alignment passes the configured uncertainty gates."
         if ready and not resolved_negative
@@ -944,7 +987,7 @@ def _receptor_myelin_gradient_claim_gate(repo_root: Path) -> dict[str, Any]:
             "Receptor/myelin/gradient claim",
             status,
             ready,
-            _rel(path, repo_root),
+            claim_evidence,
             blocker,
             1.0 if ready else 0.45 if payload else 0.1,
         ),

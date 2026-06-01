@@ -40,7 +40,16 @@ def test_thesis_upgrade_marks_map_prior_claim_complete_when_resolved_negative(tm
     (output_dir / "cortical_map_alignment_status.json").write_text(
         json.dumps(
             {
-                "claim_readiness": {"strong_receptor_myelin_gradient_claim": "not_supported_yet"},
+                "claim_readiness": {
+                    "strong_receptor_myelin_gradient_claim": "not_supported_yet",
+                    "required_for_stronger_claim": [
+                        "Re-extract empirical LSD-placebo dynamic features at a higher-resolution cortical parcellation."
+                    ],
+                },
+                "neuromaps_status": {
+                    "analysis_status": "not_run_module_level_only",
+                    "recommended_next_step": "Run spatial nulls.",
+                },
                 "fdr_supported_count": 0,
             }
         ),
@@ -51,8 +60,14 @@ def test_thesis_upgrade_marks_map_prior_claim_complete_when_resolved_negative(tm
             {
                 "negative_result_ready": True,
                 "claim_status": "resolved_negative_not_promoted",
+                "spatial_nulls": {
+                    "analysis_status": "implemented_schaefer100_full_map_family_moran_spatial_nulls",
+                    "spatial_autocorrelation_nulls_complete": True,
+                },
                 "claim_resolution": {
                     "joint_fdr_and_ci_support_count": 0,
+                    "family_coverage_complete": True,
+                    "spatial_autocorrelation_nulls_complete": True,
                     "strict_gate_resolved": True,
                 },
             }
@@ -68,6 +83,15 @@ def test_thesis_upgrade_marks_map_prior_claim_complete_when_resolved_negative(tm
     assert requirement["complete"] is True
     assert requirement["status"] == "resolved_negative_not_promoted"
     assert "negative/control result" in requirement["missing"]
+    component = status["components"]["receptor_myelin_gradient_claim"]
+    assert component["gate"]["evidence"] == (
+        "results/cortical_maps/cortical_map_alignment_status.json; "
+        "results/cortical_maps/map_prior_falsification_status.json"
+    )
+    assert component["claim_readiness"]["strong_receptor_myelin_gradient_claim"] == "resolved_negative_not_promoted"
+    assert "Re-extract" not in " ".join(component["claim_readiness"]["required_for_stronger_claim"])
+    assert component["neuromaps_status"]["analysis_status"] == "implemented_schaefer100_full_map_family_moran_spatial_nulls"
+    assert component["neuromaps_status"]["spatial_autocorrelation_nulls_complete"] is True
 
 
 def test_thesis_upgrade_marks_schaefer_yeo_complete_when_outputs_exist(tmp_path: Path) -> None:
