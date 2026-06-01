@@ -47,6 +47,30 @@ flowchart LR
 - `data/`: OpenNeuro ingestion, ds003059 extraction, target generation, and fallback interfaces
 - `training.py`: windowed export helpers for later cloud experiments
 
+## Dashboard And Reporting Map
+
+The local FastAPI dashboard is intentionally split into small modules so route handling, payload assembly, artifact policy, and empirical-viewer policy can evolve independently.
+
+```mermaid
+flowchart TD
+    APP["web/app.py\nFastAPI routes and dashboard payload orchestration"]
+    SIM["web/simulation_payload.py\nsimulation and graph payload adapters"]
+    STATUS["web/status_payload.py\nprovenance, model-selection, validation, and audit-status payloads"]
+    EMP["web/empirical_viewer.py\npaired empirical viewer and guarded run-02 policy"]
+    ART["web/artifacts.py\nallowlisted artifact links and artifact-path policy"]
+    TEMPLATE["templates/dashboard.html\nlocal interactive dashboard shell"]
+    REPORTS["reporting.py and publication modules\nmarkdown, figures, document artifacts"]
+
+    APP --> SIM
+    APP --> STATUS
+    APP --> EMP
+    APP --> ART
+    APP --> TEMPLATE
+    REPORTS --> ART
+```
+
+Keep `web/app.py` as the route module. New dashboard payload concerns should move behind a focused `web/*_payload.py` or policy module when they would otherwise add another large helper block to `web/app.py`.
+
 ## Rationale
 
 The design favors explicit state variables, visible configuration, and inspectable intermediate outputs. Most of the scientific uncertainty sits in the perturbation interpretation, so the implementation intentionally keeps the mathematics simple and the claims narrow.

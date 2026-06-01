@@ -122,3 +122,17 @@ def test_dynamic_robustness_uses_public_dynamic_stat_helpers() -> None:
         private_stat_imports.extend(alias.name for alias in node.names if alias.name.startswith("_"))
 
     assert private_stat_imports == []
+
+
+def test_dashboard_reporting_architecture_map_mentions_current_web_modules() -> None:
+    repo_root = Path(__file__).resolve().parents[1]
+    architecture = (repo_root / "docs" / "architecture.md").read_text(encoding="utf-8")
+
+    for expected in (
+        "web/app.py",
+        "web/artifacts.py",
+        "web/empirical_viewer.py",
+        "web/status_payload.py",
+        "web/simulation_payload.py",
+    ):
+        assert expected in architecture
