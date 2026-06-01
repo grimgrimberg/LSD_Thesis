@@ -19,14 +19,14 @@ Observed current results:
 
 - Ruff: all checks passed.
 - mypy: no issues found in 77 source files.
-- pytest: 369 passed, 4 warnings, total coverage 80.17%.
+- pytest: 370 passed, 4 warnings, total coverage 80.17%.
 - dashboard preview preflight: required files present, optional generated artifacts present, CV5 internal validation reported as 5/5 folds.
 
 Last completed hosted CI baseline when this section was written:
 
 - Branch: `codex/thesis-evidence-pages`.
-- Commit: `0541d2f` (`Fix receptor structural gate wording`).
-- CI Quality run: `26776116578`.
+- Commit: `df26739` (`Tighten fMRIPrep motion proof gate`).
+- CI Quality run: `26780820028`.
 - Result: success.
 
 Current thesis-upgrade status:

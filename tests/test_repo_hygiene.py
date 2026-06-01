@@ -185,16 +185,30 @@ def test_validation_doc_declares_current_quality_baseline_before_historical_note
     assert "Older pass notes below are retained as historical implementation evidence" in validation_doc
 
     for expected in (
-        "369 passed",
+        "370 passed",
         "80.17%",
         "77 source files",
-        "26776116578",
+        "26780820028",
         "motion_confound_control_result",
         "project_phase",
         "fMRIPrep FD/DVARS/censoring motion proof",
         "research_demo_ready_not_completed_thesis",
     ):
         assert expected in validation_doc
+
+
+def test_ci_quality_workflow_runs_documented_local_gates() -> None:
+    repo_root = Path(__file__).resolve().parents[1]
+    ci_workflow = (repo_root / ".github" / "workflows" / "ci.yml").read_text(encoding="utf-8")
+
+    for expected in (
+        "uv run ruff check .",
+        "uv run mypy src",
+        "uv run pytest",
+        "uv run python scripts/preview_dashboard.py --check-only --strict",
+        "npm test --prefix tools/pptx",
+    ):
+        assert expected in ci_workflow
 
 
 def test_thesis_readiness_gates_doc_matches_current_gate_status() -> None:

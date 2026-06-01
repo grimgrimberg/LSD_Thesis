@@ -20,7 +20,7 @@ The missing `project_phase` item is derived from the motion-proof blocker. It is
 
 ## Current High-Leverage Fixes Already Landed
 
-- Hosted CI now runs the quality gate and has passed repeatedly on this branch.
+- Hosted CI now runs the quality gate, including dashboard preflight, and has passed repeatedly on this branch.
 - Dashboard artifact policy was split out of `src/lsd_thesis/web/app.py` into `src/lsd_thesis/web/artifacts.py`.
 - Dashboard empirical-viewer and run-02 music-run policy was split out of `src/lsd_thesis/web/app.py` into `src/lsd_thesis/web/empirical_viewer.py`.
 - Dashboard provenance/model-selection/validation/audit-status payload policy was split out of `src/lsd_thesis/web/app.py` into `src/lsd_thesis/web/status_payload.py`.
@@ -69,7 +69,7 @@ Observed results:
 
 - Ruff: all checks passed.
 - mypy: no issues found in 77 source files.
-- pytest: 369 passed, 4 warnings, total coverage 80.17%.
+- pytest: 370 passed, 4 warnings, total coverage 80.17%.
 - dashboard preview preflight: required files present, optional generated artifacts present, CV5 internal validation reported as 5/5 folds.
 
 Hosted CI after the Node-24 action-major bump:
