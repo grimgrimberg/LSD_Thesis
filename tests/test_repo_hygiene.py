@@ -147,3 +147,27 @@ def test_dashboard_reporting_architecture_map_mentions_current_web_modules() -> 
         "web/thesis_payload.py",
     ):
         assert expected in architecture
+
+
+def test_parcellation_doc_matches_current_schaefer_gate_status() -> None:
+    repo_root = Path(__file__).resolve().parents[1]
+    parcellations_doc = (repo_root / "docs" / "parcellations.md").read_text(encoding="utf-8")
+
+    stale_phrases = (
+        "currently provides tested metadata and a dry-run plan",
+        "Full fMRI extraction is not run automatically",
+        "Full Extraction TODO",
+        "Do not claim Schaefer/Yeo results exist until extraction",
+    )
+    for phrase in stale_phrases:
+        assert phrase not in parcellations_doc
+
+    for expected in (
+        "results/stage_2/parcellations/schaefer_100_yeo_7/parcellation_extraction_summary.json",
+        "results/stage_2/parcellations/schaefer_100_yeo_7/empirical_viewer/group_overview.json",
+        "results/parcellation_sensitivity/schaefer_100_yeo_7/summary.json",
+        "schaefer_200_yeo_7",
+        "schaefer_100_yeo_17",
+        "schaefer_200_yeo_17",
+    ):
+        assert expected in parcellations_doc
