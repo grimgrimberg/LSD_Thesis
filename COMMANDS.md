@@ -226,6 +226,7 @@ Do not clean Tier A tracked evidence from `results/` or `docs/` without checking
 - `uv run pytest`: succeeded on 2026-06-01, 333 passed, 4 warnings, 79.70% coverage.
 - `uv run python scripts\preview_dashboard.py --check-only --strict`: succeeded on 2026-06-01; required dashboard files and optional generated artifacts were present, and CV5 internal validation was reported as 5/5 folds.
 - Hosted CI Quality: succeeded on 2026-06-01 for `a4d7d2b` (`Guard dashboard HTML sink cleanup`), run `26758675004`.
+- Workflow YAML parse plus Node 24 PPTX checks: succeeded locally on 2026-06-01 after opting CI/Pages workflows into Node 24 action runtime.
 - `uv pip check`: succeeded on 2026-05-31, all installed packages compatible.
 - `npm audit --prefix tools\pptx --audit-level=moderate`: succeeded on 2026-05-31, 0 vulnerabilities.
 - `npm test --prefix tools\pptx`: succeeded on 2026-05-31, `node --check build_defense_deck.mjs`.

@@ -49,9 +49,11 @@ Latest hosted CI:
 - CI Quality run `26758675004`
 - Result: success.
 
-Known hosted-CI annotation:
+Recent hosted-CI annotation addressed in this branch:
 
-- GitHub Actions warns that `actions/checkout@v4`, `actions/setup-node@v4`, and `actions/setup-python@v5` currently run on Node.js 20. This is not a test failure, but the workflow should be updated or explicitly tested before GitHub's Node 24 default switch on June 16, 2026.
+- Earlier runs warned that `actions/checkout@v4`, `actions/setup-node@v4`, and `actions/setup-python@v5` were running on Node.js 20.
+- `.github/workflows/ci.yml` and `.github/workflows/pages.yml` now set `FORCE_JAVASCRIPT_ACTIONS_TO_NODE24=true`; CI also installs Node 24 for the PPTX toolchain.
+- Confirm the next hosted run stays green after this workflow change.
 
 ## Remaining Real Blocker
 
@@ -79,9 +81,8 @@ Priority order:
 
 1. Split another large dashboard payload concern out of `src/lsd_thesis/web/app.py`.
 2. Extract public transition/dynamic summary helpers so `dynamic_robustness.py` stops importing private helpers from `dynamic_mechanism.py`.
-3. Update the GitHub Actions workflow for the Node 20 deprecation path.
-4. Add a compact dashboard/reporting architecture map.
-5. Continue reducing stale generated-run reports; only commit tracked docs and curated evidence.
+3. Add a compact dashboard/reporting architecture map.
+4. Continue reducing stale generated-run reports; only commit tracked docs and curated evidence.
 
 ## Claim Boundaries To Preserve
 
