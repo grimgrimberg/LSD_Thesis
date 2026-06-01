@@ -43,18 +43,19 @@ Observed results:
 - pytest: 333 passed, 4 warnings, total coverage 79.70%.
 - dashboard preview preflight: required files present, optional generated artifacts present, CV5 internal validation reported as 5/5 folds.
 
-Recent hosted CI baseline before the Node-24 action-major bump:
+Hosted CI after the Node-24 action-major bump:
 
-- `a4d7d2b` / `Guard dashboard HTML sink cleanup`
-- CI Quality run `26758675004`
+- `3d3370e` / `Bump actions to Node 24 majors`
+- CI Quality run `26759481922`
 - Result: success.
+- Node 20 action-runtime annotation: not present.
 
 Recent hosted-CI annotation addressed in this branch:
 
 - Earlier runs warned that `actions/checkout@v4`, `actions/setup-node@v4`, and `actions/setup-python@v5` were running on Node.js 20.
 - `.github/workflows/ci.yml` now uses `actions/checkout@v5`, `actions/setup-python@v6`, `actions/setup-node@v5`, and Node 24 for the PPTX toolchain.
 - `.github/workflows/pages.yml` now uses the same Node-24 action family plus `actions/upload-artifact@v7`.
-- Confirm the next hosted run stays green and no longer emits the Node 20 action-runtime annotation.
+- The first hosted run after the action-major bump stayed green and did not emit the Node 20 action-runtime annotation.
 
 ## Remaining Real Blocker
 
