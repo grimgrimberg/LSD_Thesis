@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 import re
 import shutil
-from collections.abc import Mapping
+from collections.abc import Mapping, Sequence
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
@@ -119,17 +119,19 @@ def _remote_snapshot_state(openneuro_files: tuple[dict[str, Any], ...]) -> dict[
 def build_fmriprep_motion_proof_plan(
     repo_root: str | Path = REPO_ROOT,
     *,
+    roots: Sequence[str | Path] | None = None,
     openneuro_files: list[dict[str, Any]] | tuple[dict[str, Any], ...] | None = None,
     fetch_remote: bool = False,
     runtime_availability: Mapping[str, bool] | None = None,
 ) -> dict[str, Any]:
     root = Path(repo_root).resolve()
+    motion_roots = tuple(Path(item) for item in roots) if roots is not None else None
     dataset_description_path = root / "data" / DS003059_DATASET_ID / "dataset_description.json"
     dataset_description = _read_json(dataset_description_path)
     dataset_type = str(dataset_description.get("DatasetType") or "unknown").lower()
     local_state = _local_nifti_state(root)
-    existing_motion_files = discover_motion_files(repo_root=root)
-    existing_motion_summary = build_motion_summary(repo_root=root)
+    existing_motion_files = discover_motion_files(repo_root=root, roots=motion_roots)
+    existing_motion_summary = build_motion_summary(repo_root=root, roots=motion_roots)
     runtime = _runtime_availability(runtime_availability)
     remote_error: str | None = None
     if openneuro_files is None and fetch_remote:
@@ -209,6 +211,7 @@ def build_fmriprep_motion_proof_plan(
             "motion_analysis_ready": has_structured_confounds,
             "motion_summary_status": existing_motion_summary.get("status"),
             "expected_confound_glob": expected_confound_glob,
+            "configured_motion_roots": [_rel(path, root) for path in motion_roots] if motion_roots else [],
         },
         "remote_openneuro_snapshot": remote_state,
         "runtime_availability": runtime,
@@ -263,11 +266,17 @@ def _markdown(payload: dict[str, Any]) -> str:
     return "\n".join(lines)
 
 
-def write_fmriprep_motion_proof_plan(repo_root: str | Path = REPO_ROOT, output_dir: str | Path | None = None, *, fetch_remote: bool = False) -> dict[str, Any]:
+def write_fmriprep_motion_proof_plan(
+    repo_root: str | Path = REPO_ROOT,
+    output_dir: str | Path | None = None,
+    *,
+    roots: Sequence[str | Path] | None = None,
+    fetch_remote: bool = False,
+) -> dict[str, Any]:
     root = Path(repo_root).resolve()
     out_dir = root / "results" / "confound_controls" if output_dir is None else Path(output_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
-    payload = build_fmriprep_motion_proof_plan(root, fetch_remote=fetch_remote)
+    payload = build_fmriprep_motion_proof_plan(root, roots=roots, fetch_remote=fetch_remote)
     status_path = out_dir / "fmriprep_motion_proof_plan.json"
     report_path = out_dir / "fmriprep_motion_proof_plan.md"
     status_path.write_text(json.dumps(payload, indent=2), encoding="utf-8")

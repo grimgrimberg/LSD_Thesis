@@ -11,8 +11,18 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Build the fMRIPrep motion-proof preflight artifact.")
     parser.add_argument("--repo-root", type=Path, default=REPO_ROOT)
     parser.add_argument("--fetch-remote", action="store_true", help="Query OpenNeuro snapshot metadata for ds003059 T1w/confound availability.")
+    parser.add_argument(
+        "--root",
+        action="append",
+        dest="roots",
+        help="Additional/local root to search for authorized fMRIPrep confounds. Can be supplied more than once.",
+    )
     args = parser.parse_args()
-    payload = write_fmriprep_motion_proof_plan(args.repo_root, fetch_remote=args.fetch_remote)
+    payload = write_fmriprep_motion_proof_plan(
+        args.repo_root,
+        roots=[Path(item) for item in args.roots] if args.roots else None,
+        fetch_remote=args.fetch_remote,
+    )
     print(
         json.dumps(
             {

@@ -60,6 +60,12 @@ uv run python scripts/build_motion_confound_controls.py
 uv run python scripts/build_thesis_upgrade_status.py --fetch-motion-remote
 ```
 
+If authorized fMRIPrep or author-provided confounds are supplied outside the repository, thread the same root through the gate refresh so the preflight, motion summary, confound-control result, and thesis status agree:
+
+```powershell
+uv run python scripts/build_thesis_upgrade_status.py --fetch-motion-remote --motion-root <path-to-authorized-fmriprep-or-confounds-root>
+```
+
 The preflight artifact is not motion proof. It may report that the current ds003059 snapshot is a derivative release with no subject-level confound tables; in that case, the strict gate requires author-provided confounds or original raw BIDS inputs processed through fMRIPrep/MRIQC.
 
 Files with FD/DVARS columns but no subject/session/run metadata remain unusable for the strict gate because they cannot be joined to the empirical dynamic deltas.

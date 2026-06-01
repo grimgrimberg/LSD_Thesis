@@ -29,6 +29,8 @@ The missing `project_phase` item is derived from the motion-proof blocker. It is
 - Generated-artifact policy is documented and tested through `.gitignore`, `docs/ARCHIVE_POLICY.md`, and `tests/test_repo_hygiene.py`.
 - fMRIPrep motion proof now has an explicit preflight artifact and fail-closed status instead of an implicit missing gate.
 - Motion-confound ingestion now rejects FD/DVARS files that cannot be joined by subject/session/run metadata.
+- Authorized external fMRIPrep/confound roots can now be threaded through `scripts/build_thesis_upgrade_status.py --motion-root ...`, so the preflight, motion summary, confound-control result, and strict thesis status refresh from the same evidence source.
+- The current OpenNeuro ds003059 snapshot check is recorded in `results/confound_controls/fmriprep_motion_proof_plan.json`: 250 snapshot files, 15 T1w files, and 0 confound-like files.
 
 ## Fresh Verification Evidence
 
@@ -45,7 +47,7 @@ Observed results:
 
 - Ruff: all checks passed.
 - mypy: no issues found in 75 source files.
-- pytest: 339 passed, 4 warnings, total coverage 79.78%.
+- pytest: 341 passed, 4 warnings, total coverage 79.80%.
 - dashboard preview preflight: required files present, optional generated artifacts present, CV5 internal validation reported as 5/5 folds.
 
 Hosted CI after the Node-24 action-major bump:
@@ -76,9 +78,7 @@ Correct next action:
 
 1. Obtain authorized subject/run motion confounds or the original raw BIDS inputs that preceded the derivative release.
 2. Run fMRIPrep/MRIQC in a supported container/HPC environment.
-3. Ingest `desc-confounds_timeseries.tsv` files with `scripts/run_setting_seed_motion_summary.py`.
-4. Rebuild `scripts/build_motion_confound_controls.py`.
-5. Rebuild `scripts/build_thesis_upgrade_status.py`.
+3. Ingest and rebuild the gate with `scripts/build_thesis_upgrade_status.py --fetch-motion-remote --motion-root <path-to-authorized-fmriprep-or-confounds-root>`.
 
 Do not mark the strict motion gate complete from raw-BOLD image QC, published aggregate FD context, design controls, or module-DVARS proxies. Those layers are useful controls, not full fMRIPrep motion proof.
 

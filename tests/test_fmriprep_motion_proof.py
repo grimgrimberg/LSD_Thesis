@@ -53,6 +53,26 @@ def test_fmriprep_motion_plan_detects_existing_structured_confounds(tmp_path: Pa
     assert payload["existing_motion_confounds"]["motion_analysis_ready"] is True
 
 
+def test_fmriprep_motion_plan_accepts_authorized_external_confound_roots(tmp_path: Path) -> None:
+    repo_root = tmp_path / "repo"
+    _write_dataset_description(repo_root, "derivative")
+    external_root = tmp_path / "author_confounds"
+    confound_dir = external_root / "sub-001" / "ses-LSD" / "func"
+    confound_dir.mkdir(parents=True)
+    pd.DataFrame({"framewise_displacement": [0.0, 0.1], "std_dvars": [1.0, 1.2]}).to_csv(
+        confound_dir / "sub-001_ses-LSD_task-rest_run-01_desc-confounds_timeseries.tsv",
+        sep="\t",
+        index=False,
+    )
+
+    payload = build_fmriprep_motion_proof_plan(repo_root, roots=[external_root])
+
+    assert payload["analysis_status"] == "structured_subject_level_confounds_available"
+    assert payload["fmriprep_motion_proof_ready"] is True
+    assert payload["existing_motion_confounds"]["motion_analysis_ready"] is True
+    assert payload["existing_motion_confounds"]["configured_motion_roots"]
+
+
 def test_fmriprep_motion_plan_can_be_preflight_ready_without_claiming_proof(tmp_path: Path) -> None:
     _write_dataset_description(tmp_path, "raw")
     bold_dir = tmp_path / "data" / "ds003059" / "sub-001" / "ses-LSD" / "func"
