@@ -171,3 +171,27 @@ def test_parcellation_doc_matches_current_schaefer_gate_status() -> None:
         "schaefer_200_yeo_17",
     ):
         assert expected in parcellations_doc
+
+
+def test_validation_doc_declares_current_quality_baseline_before_historical_notes() -> None:
+    repo_root = Path(__file__).resolve().parents[1]
+    validation_doc = (repo_root / "docs" / "VALIDATION.md").read_text(encoding="utf-8")
+
+    current_index = validation_doc.index("## Current Quality Baseline")
+    historical_index = validation_doc.index("## Historical Validation Log")
+    pass_2a_index = validation_doc.index("## PASS 2A Validation Commands")
+
+    assert current_index < historical_index < pass_2a_index
+    assert "Older pass notes below are retained as historical implementation evidence" in validation_doc
+
+    for expected in (
+        "363 passed",
+        "80.06%",
+        "77 source files",
+        "26774017427",
+        "motion_confound_control_result",
+        "project_phase",
+        "fMRIPrep FD/DVARS/censoring motion proof",
+        "research_demo_ready_not_completed_thesis",
+    ):
+        assert expected in validation_doc

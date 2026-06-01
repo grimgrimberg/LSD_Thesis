@@ -1,5 +1,46 @@
 # Validation Notes
 
+Current status date: 2026-06-01
+
+## Current Quality Baseline
+
+Use this section, `results/thesis_upgrade/thesis_upgrade_status.json`, and the completed hosted CI baseline noted below as the current validation baseline. Older pass notes below are retained as historical implementation evidence and should not be read as live gate status.
+
+Latest local checks:
+
+```powershell
+uv run ruff check .
+uv run mypy src
+uv run pytest
+uv run python scripts\preview_dashboard.py --check-only --strict
+```
+
+Observed current results:
+
+- Ruff: all checks passed.
+- mypy: no issues found in 77 source files.
+- pytest: 363 passed, 4 warnings, total coverage 80.06%.
+- dashboard preview preflight: required files present, optional generated artifacts present, CV5 internal validation reported as 5/5 folds.
+
+Last completed hosted CI baseline when this section was written:
+
+- Branch: `codex/thesis-evidence-pages`.
+- Commit: `c10243b` (`Refresh parcellation evidence docs`).
+- CI Quality run: `26774017427`.
+- Result: success.
+
+Current thesis-upgrade status:
+
+- Readiness gates: `8/8`.
+- Strict completion gates: `4/6`.
+- Missing strict requirements: `motion_confound_control_result`, `project_phase`.
+- Real remaining hard requirement: fMRIPrep FD/DVARS/censoring motion proof.
+- Project phase: `research_demo_ready_not_completed_thesis`.
+
+The missing `project_phase` item is derived from the motion-proof blocker. Do not mark the strict motion gate complete from raw-BOLD image QC, published aggregate FD context, design controls, or module-DVARS proxies; those are useful controls, not full fMRIPrep FD/DVARS/censoring proof.
+
+## Historical Validation Log
+
 Date: 2026-05-12
 
 ## PASS 2A Validation Commands
