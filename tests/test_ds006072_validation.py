@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import csv
+import json
 from pathlib import Path
 
 from lsd_thesis.ds006072_validation import (
@@ -232,6 +233,34 @@ def test_comparable_validation_scores_harmonized_pairs_with_locked_rule(tmp_path
     assert payload["pair_count"] == MIN_COMPARABLE_SUBJECTS
     assert payload["mechanism_ranking"]
     assert payload["stronger_external_validation_ready"] is False
+
+
+def test_comparable_validation_refreshes_stale_scoring_lock_only_when_requested(tmp_path: Path) -> None:
+    _write_scoring_targets(tmp_path)
+    _write_minimal_ds006072_metadata(tmp_path)
+    _write_external_viewer(tmp_path)
+
+    payload = build_ds006072_comparable_validation_status(tmp_path)
+
+    assert payload["analysis_status"] == "implemented_ds006072_unchanged_scoring_validation"
+    spec_path = tmp_path / "results" / "psilocybin_ds006072" / "unchanged_scoring_spec.json"
+    spec = json.loads(spec_path.read_text(encoding="utf-8"))
+    spec["scoring_code_files"]["dynamic_mechanism"]["sha256"] = "stale"
+    spec_path.write_text(json.dumps(spec, indent=2), encoding="utf-8")
+
+    blocked = build_ds006072_comparable_validation_status(tmp_path)
+
+    assert blocked["analysis_status"] == "blocked_scoring_lock_not_verified"
+    assert blocked["scoring_lock_verified"] is False
+    assert "scoring_code_files.dynamic_mechanism" in blocked["scoring_lock"]["missing_or_mismatched"]
+
+    refreshed = build_ds006072_comparable_validation_status(tmp_path, refresh_scoring_lock=True)
+
+    assert refreshed["analysis_status"] == "implemented_ds006072_unchanged_scoring_validation"
+    assert refreshed["scoring_lock_verified"] is True
+    assert refreshed["scoring_lock_refresh_requested"] is True
+    refreshed_spec = json.loads(spec_path.read_text(encoding="utf-8"))
+    assert refreshed_spec["scoring_code_files"]["dynamic_mechanism"]["sha256"] != "stale"
 
 
 def test_comparable_validation_prefers_schaefer100_viewer_when_ready(tmp_path: Path) -> None:

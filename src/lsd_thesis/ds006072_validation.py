@@ -420,7 +420,11 @@ def _build_comparable_markdown(payload: dict[str, Any]) -> str:
     return "\n".join(lines) + "\n"
 
 
-def build_ds006072_comparable_validation_status(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
+def build_ds006072_comparable_validation_status(
+    repo_root: Path = REPO_ROOT,
+    *,
+    refresh_scoring_lock: bool = False,
+) -> dict[str, Any]:
     repo_root = repo_root.resolve()
     output_dir = repo_root / "results" / "psilocybin_ds006072"
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -435,15 +439,19 @@ def build_ds006072_comparable_validation_status(repo_root: Path = REPO_ROOT) -> 
         else output_dir / "empirical_viewer"
     )
     subject_views_dir = viewer_root / "subject_views"
-    use_existing_lock = subject_views_dir.exists() and isinstance(existing_scoring_spec, dict)
-    readiness = build_ds006072_external_validation_readiness(repo_root)
-    scoring_spec = (
-        existing_scoring_spec
-        if use_existing_lock
-        else json.loads(scoring_spec_path.read_text(encoding="utf-8"))
-        if scoring_spec_path.exists()
-        else None
+    use_existing_lock = (
+        subject_views_dir.exists()
+        and isinstance(existing_scoring_spec, dict)
+        and not refresh_scoring_lock
     )
+    readiness = build_ds006072_external_validation_readiness(repo_root)
+    scoring_spec: dict[str, Any] | None
+    if refresh_scoring_lock:
+        scoring_spec = _write_scoring_spec(repo_root, output_dir)
+    elif use_existing_lock:
+        scoring_spec = existing_scoring_spec
+    else:
+        scoring_spec = json.loads(scoring_spec_path.read_text(encoding="utf-8")) if scoring_spec_path.exists() else None
     scoring_lock = _verify_locked_scoring_spec(repo_root, scoring_spec)
     subject_view_count = len(list(subject_views_dir.glob("*.json"))) if subject_views_dir.exists() else 0
     lsd_summary_path = repo_root / "results" / "dynamic_mechanism_ranking" / "summary.json"
@@ -464,6 +472,7 @@ def build_ds006072_comparable_validation_status(repo_root: Path = REPO_ROOT) -> 
         "unchanged_scoring_spec": "results/psilocybin_ds006072/unchanged_scoring_spec.json",
         "scoring_lock_verified": bool(scoring_lock["scoring_lock_verified"]),
         "scoring_lock": scoring_lock,
+        "scoring_lock_refresh_requested": bool(refresh_scoring_lock),
         "unchanged_scoring_applied": False,
         "pair_count": 0,
         "subject_count": 0,

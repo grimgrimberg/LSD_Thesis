@@ -60,11 +60,11 @@ External source plan:
 
 | Source | Planned role | Use in project |
 | --- | --- | --- |
-| Girn et al., Nature Medicine 2026 | planned comparison | Final external benchmark for C/D/E directionality: transmodal-unimodal coupling, subnetwork specificity, and striatal-unimodal effects. |
-| Dosenbach/Siegel group, Scientific Data 2025 | planned dataset | OpenNeuro `ds006072` is the first cross-drug psilocybin expansion after LSD robustness, using raw/minimally processed/fully processed imaging provenance. |
-| Markello et al., Nature Methods 2022 | planned biological prior | `neuromaps` replaces hand-built receptor proxies with documented receptor-map projection and spatial-null tooling. |
-| Human Connectome Project Young Adult | planned graph prior | HCP Young Adult is the normative diffusion/resting-fMRI source for structural-connectome graph and null sensitivity. |
-| Schaefer et al., Cerebral Cortex 2018 | planned parcellation | Schaefer/Yeo is the sensitivity layer for C/D/E beyond the 8-module proxy. |
+| Girn et al., Nature Medicine 2026 | implemented directional proxy benchmark | Final external benchmark for C/D/E directionality: transmodal-unimodal coupling, subnetwork specificity, and striatal-unimodal effects; current proxy alignment is `4/6` measurable checks and cannot test striatal effects. |
+| Dosenbach/Siegel group, Scientific Data 2025 | implemented external stress test | OpenNeuro `ds006072` is the first cross-drug psilocybin expansion after LSD robustness, using local Schaefer100/Yeo7 psilocybin/MTP records under unchanged scoring; current top-layer mismatch is negative/partial external evidence. |
+| Markello et al., Nature Methods 2022 | implemented PET receptor-prior sensitivity | `neuromaps` replaces hand-built receptor proxies with documented receptor-map projection and spatial-null tooling; current support remains negative/not promoted under spatial-null gates. |
+| Human Connectome Project Young Adult | implemented HCP structural graph sensitivity | HCP Young Adult is the normative diffusion/resting-fMRI source for structural-connectome graph and null sensitivity; current use is a sensitivity/control layer. |
+| Schaefer et al., Cerebral Cortex 2018 | implemented Schaefer/Yeo sensitivity | Schaefer/Yeo is the sensitivity layer for C/D/E beyond the 8-module proxy. |
 
 The thesis claim should therefore be:
 

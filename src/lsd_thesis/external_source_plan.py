@@ -126,6 +126,15 @@ EXTERNAL_SOURCE_PLAN: tuple[dict[str, str], ...] = (
 )
 
 
+IMPLEMENTED_SOURCE_STATUS_LABELS = {
+    "literature_benchmark": "implemented directional proxy benchmark",
+    "psilocybin_ds006072": "implemented external stress test",
+    "receptor_priors": "implemented PET receptor-prior sensitivity",
+    "structural_connectome": "implemented HCP structural graph sensitivity",
+    "parcellation_sensitivity": "implemented Schaefer/Yeo sensitivity",
+}
+
+
 def external_source_by_id(source_id: str) -> dict[str, str]:
     for row in EXTERNAL_SOURCE_PLAN:
         if row["source_id"] == source_id:
@@ -138,8 +147,11 @@ def external_source_plan_rows(component_statuses: dict[str, Any] | None = None) 
     for source in EXTERNAL_SOURCE_PLAN:
         row: dict[str, Any] = dict(source)
         component = row["component"]
-        row["current_component_status"] = (
+        current_component_status = (
             str(component_statuses.get(component) or "missing") if component_statuses else "unverified"
         )
+        row["current_component_status"] = current_component_status
+        if current_component_status.startswith("implemented"):
+            row["status"] = IMPLEMENTED_SOURCE_STATUS_LABELS.get(component, current_component_status)
         rows.append(row)
     return rows

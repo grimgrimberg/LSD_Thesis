@@ -1,6 +1,6 @@
 {
   "schema_version": "ds006072_external_validation.v1",
-  "generated_at_utc": "2026-06-01T11:53:18.721982+00:00",
+  "generated_at_utc": "2026-06-01T19:39:56.131228+00:00",
   "dataset_id": "ds006072",
   "primary_contrast": "psilocybin_vs_active_control_mtp",
   "viewer_root": "results/psilocybin_ds006072/parcellations/schaefer_100_yeo_7/empirical_viewer",
@@ -39,12 +39,13 @@
       "scoring_code_files.dynamic_mechanism": {
         "path": "src/lsd_thesis/dynamic_mechanism.py",
         "exists": true,
-        "expected_sha256": "2c15102a84d0fb491c672f85c5584039650c5dc360c531d331ce1952fe40f567",
-        "current_sha256": "2c15102a84d0fb491c672f85c5584039650c5dc360c531d331ce1952fe40f567",
+        "expected_sha256": "cbcbf941449121598f4e9196cb560fb1c22f141caf994df918e59fcd5d2d9c93",
+        "current_sha256": "cbcbf941449121598f4e9196cb560fb1c22f141caf994df918e59fcd5d2d9c93",
         "verified": true
       }
     }
   },
+  "scoring_lock_refresh_requested": false,
   "unchanged_scoring_applied": true,
   "pair_count": 3,
   "subject_count": 3,
@@ -120,7 +121,7 @@
   "summary": {
     "schema_version": 3,
     "analysis_status": "implemented_first_pass",
-    "generated_at_utc": "2026-06-01T11:53:28.952608+00:00",
+    "generated_at_utc": "2026-06-01T19:40:02.826722+00:00",
     "inference_metadata": {
       "metric_ci_alpha": 0.05,
       "metric_bootstrap_iterations": 1024,

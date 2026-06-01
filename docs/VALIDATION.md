@@ -19,14 +19,14 @@ Observed current results:
 
 - Ruff: all checks passed.
 - mypy: no issues found in 77 source files.
-- pytest: 365 passed, 4 warnings, total coverage 80.07%.
+- pytest: 367 passed, 4 warnings, total coverage 80.11%.
 - dashboard preview preflight: required files present, optional generated artifacts present, CV5 internal validation reported as 5/5 folds.
 
 Last completed hosted CI baseline when this section was written:
 
 - Branch: `codex/thesis-evidence-pages`.
-- Commit: `c10243b` (`Refresh parcellation evidence docs`).
-- CI Quality run: `26774017427`.
+- Commit: `0541d2f` (`Fix receptor structural gate wording`).
+- CI Quality run: `26776116578`.
 - Result: success.
 
 Current thesis-upgrade status:

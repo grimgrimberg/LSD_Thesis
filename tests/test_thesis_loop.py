@@ -2,7 +2,7 @@ import csv
 from pathlib import Path
 from uuid import uuid4
 
-from lsd_thesis.external_source_plan import EXTERNAL_SOURCE_PLAN_COLUMNS
+from lsd_thesis.external_source_plan import EXTERNAL_SOURCE_PLAN_COLUMNS, external_source_plan_rows
 from lsd_thesis.thesis_loop import build_thesis_evidence_loop
 from scripts.export_thesis_loop_tables import export_thesis_loop_tables
 
@@ -59,6 +59,28 @@ def test_thesis_evidence_loop_exports_requested_external_source_plan() -> None:
     assert by_source["hcp_young_adult"]["status"] == "planned graph prior"
     assert by_source["schaefer_2018_local_global"]["status"] == "planned parcellation"
     assert by_source["schaefer_2018_local_global"]["target_layers"] == "C/D/E"
+
+
+def test_external_source_plan_promotes_display_status_when_components_are_implemented() -> None:
+    rows = external_source_plan_rows(
+        {
+            "literature_benchmark": "implemented_directional_proxy_benchmark",
+            "psilocybin_ds006072": "implemented_ds006072_unchanged_scoring_validation",
+            "receptor_priors": "implemented_pet_receptor_prior_sensitivity",
+            "structural_connectome": "implemented_hcp_structural_graph_sensitivity",
+            "parcellation_sensitivity": "implemented_status_matrix",
+        }
+    )
+    by_source = {row["source_id"]: row for row in rows}
+
+    assert by_source["girn_2026_mega_analysis"]["status"] == "implemented directional proxy benchmark"
+    assert by_source["dosenbach_siegel_ds006072_2025"]["status"] == "implemented external stress test"
+    assert by_source["markello_neuromaps_2022"]["status"] == "implemented PET receptor-prior sensitivity"
+    assert by_source["hcp_young_adult"]["status"] == "implemented HCP structural graph sensitivity"
+    assert by_source["schaefer_2018_local_global"]["status"] == "implemented Schaefer/Yeo sensitivity"
+    assert by_source["markello_neuromaps_2022"]["current_component_status"] == (
+        "implemented_pet_receptor_prior_sensitivity"
+    )
 
 
 def test_thesis_evidence_loop_writes_hiring_readiness_claim_matrix() -> None:

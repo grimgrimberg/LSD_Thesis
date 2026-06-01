@@ -185,10 +185,10 @@ def test_validation_doc_declares_current_quality_baseline_before_historical_note
     assert "Older pass notes below are retained as historical implementation evidence" in validation_doc
 
     for expected in (
-        "365 passed",
-        "80.07%",
+        "367 passed",
+        "80.11%",
         "77 source files",
-        "26774017427",
+        "26776116578",
         "motion_confound_control_result",
         "project_phase",
         "fMRIPrep FD/DVARS/censoring motion proof",

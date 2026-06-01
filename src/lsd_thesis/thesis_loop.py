@@ -126,6 +126,22 @@ def _analysis_status(component: dict[str, Any], fallback: str = "missing") -> st
     return str(component.get("analysis_status") or fallback)
 
 
+def _external_source_component_status(name: str, component: dict[str, Any]) -> str:
+    status = _analysis_status(component)
+    if name == "parcellation_sensitivity":
+        rows = component.get("rows")
+        implemented_rows = []
+        if isinstance(rows, list):
+            implemented_rows = [
+                row
+                for row in rows
+                if isinstance(row, dict) and str(row.get("status")) == "implemented_mechanism_ranking"
+            ]
+        if not implemented_rows:
+            return "blocked_missing_parcellation_viewers"
+    return status
+
+
 def _parcellation_claim_status(component: dict[str, Any]) -> str:
     required = {
         "schaefer_100_yeo_7",
@@ -976,7 +992,7 @@ def build_thesis_evidence_loop(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
         ),
     }
     component_statuses = {
-        name: _analysis_status(component)
+        name: _external_source_component_status(name, component)
         for name, component in payload["components"].items()
         if isinstance(component, dict)
     }

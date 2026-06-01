@@ -18,9 +18,20 @@ def main() -> None:
         description="Build the fail-closed ds006072 comparable external-validation status artifact."
     )
     parser.add_argument("--repo-root", type=Path, default=REPO_ROOT)
+    parser.add_argument(
+        "--refresh-scoring-lock",
+        action="store_true",
+        help=(
+            "Rewrite the unchanged-scoring spec from current target/code hashes before comparable scoring. "
+            "Use only after reviewed scoring-code refactors."
+        ),
+    )
     args = parser.parse_args()
 
-    payload = build_ds006072_comparable_validation_status(args.repo_root)
+    payload = build_ds006072_comparable_validation_status(
+        args.repo_root,
+        refresh_scoring_lock=args.refresh_scoring_lock,
+    )
     print(json.dumps(payload, indent=2), flush=True)
 
 

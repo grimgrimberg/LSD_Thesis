@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at_utc": "2026-06-01T11:53:54.913200+00:00",
+  "generated_at_utc": "2026-06-01T19:40:27.410330+00:00",
   "analysis_status": "implemented_loop_status_artifacts",
   "status_rows": [
     {
@@ -60,7 +60,7 @@
     },
     "psilocybin_ds006072": {
       "schema_version": 1,
-      "generated_at_utc": "2026-06-01T11:53:17.061764+00:00",
+      "generated_at_utc": "2026-06-01T19:39:54.939496+00:00",
       "dataset_id": "ds006072",
       "source": "Dosenbach/Siegel group Scientific Data 2025; OpenNeuro ds006072 psilocybin precision functional mapping dataset with raw, minimally processed, and fully processed imaging",
       "source_reference": {
@@ -89,7 +89,7 @@
       "functional_manifest_processed_cifti_total_size_bytes": 113592893360,
       "external_validation_readiness": {
         "schema_version": "ds006072_external_validation.v1",
-        "generated_at_utc": "2026-06-01T11:37:03.428894+00:00",
+        "generated_at_utc": "2026-06-01T19:39:36.001263+00:00",
         "dataset_id": "ds006072",
         "analysis_status": "local_cifti_payloads_ready_for_comparable_extraction",
         "primary_contrast": "psilocybin_vs_active_control_mtp",
@@ -161,7 +161,7 @@
       "summary": {
         "schema_version": 3,
         "analysis_status": "implemented_first_pass",
-        "generated_at_utc": "2026-06-01T11:53:28.952608+00:00",
+        "generated_at_utc": "2026-06-01T19:40:02.826722+00:00",
         "inference_metadata": {
           "metric_ci_alpha": 0.05,
           "metric_bootstrap_iterations": 1024,
@@ -4289,7 +4289,7 @@
       },
       "comparable_empirical_validation": {
         "schema_version": "ds006072_external_validation.v1",
-        "generated_at_utc": "2026-06-01T11:53:18.721982+00:00",
+        "generated_at_utc": "2026-06-01T19:39:56.131228+00:00",
         "dataset_id": "ds006072",
         "primary_contrast": "psilocybin_vs_active_control_mtp",
         "viewer_root": "results/psilocybin_ds006072/parcellations/schaefer_100_yeo_7/empirical_viewer",
@@ -4328,12 +4328,13 @@
             "scoring_code_files.dynamic_mechanism": {
               "path": "src/lsd_thesis/dynamic_mechanism.py",
               "exists": true,
-              "expected_sha256": "2c15102a84d0fb491c672f85c5584039650c5dc360c531d331ce1952fe40f567",
-              "current_sha256": "2c15102a84d0fb491c672f85c5584039650c5dc360c531d331ce1952fe40f567",
+              "expected_sha256": "cbcbf941449121598f4e9196cb560fb1c22f141caf994df918e59fcd5d2d9c93",
+              "current_sha256": "cbcbf941449121598f4e9196cb560fb1c22f141caf994df918e59fcd5d2d9c93",
               "verified": true
             }
           }
         },
+        "scoring_lock_refresh_requested": false,
         "unchanged_scoring_applied": true,
         "pair_count": 3,
         "subject_count": 3,
@@ -4409,7 +4410,7 @@
         "summary": {
           "schema_version": 3,
           "analysis_status": "implemented_first_pass",
-          "generated_at_utc": "2026-06-01T11:53:28.952608+00:00",
+          "generated_at_utc": "2026-06-01T19:40:02.826722+00:00",
           "inference_metadata": {
             "metric_ci_alpha": 0.05,
             "metric_bootstrap_iterations": 1024,
@@ -8552,7 +8553,7 @@
     },
     "structural_connectome": {
       "schema_version": 1,
-      "generated_at_utc": "2026-06-01T11:53:30.648300+00:00",
+      "generated_at_utc": "2026-06-01T19:40:04.502794+00:00",
       "artifact_target": "results/structural_connectome",
       "source_reference": {
         "source_id": "hcp_young_adult",
@@ -12001,7 +12002,7 @@
     },
     "receptor_priors": {
       "schema_version": 1,
-      "generated_at_utc": "2026-06-01T11:53:32.909985+00:00",
+      "generated_at_utc": "2026-06-01T19:40:06.319796+00:00",
       "artifact_target": "results/receptor_priors",
       "source_reference": {
         "source_id": "markello_neuromaps_2022",
@@ -15450,7 +15451,7 @@
     },
     "parcellation_sensitivity": {
       "schema_version": 1,
-      "generated_at_utc": "2026-06-01T11:53:34.224872+00:00",
+      "generated_at_utc": "2026-06-01T19:40:08.242591+00:00",
       "analysis_status": "implemented_status_matrix",
       "source_reference": {
         "source_id": "schaefer_2018_local_global",
@@ -15648,7 +15649,7 @@
     },
     "literature_benchmark": {
       "schema_version": 1,
-      "generated_at_utc": "2026-06-01T11:53:54.907603+00:00",
+      "generated_at_utc": "2026-06-01T19:40:27.404387+00:00",
       "analysis_status": "implemented_directional_proxy_benchmark",
       "source_reference": {
         "source_id": "girn_2026_mega_analysis",
@@ -15780,7 +15781,7 @@
       "source_type": "external benchmark",
       "key_evidence": "Common psychedelic signature: increased transmodal-unimodal functional coupling with subnetwork specificity; striatal-unimodal effects are prominent.",
       "use_in_project": "Final external benchmark for C/D/E directionality.",
-      "status": "planned comparison",
+      "status": "implemented directional proxy benchmark",
       "component": "literature_benchmark",
       "target_layers": "C/D/E",
       "artifact_target": "results/literature_benchmark/",
@@ -15812,7 +15813,7 @@
       "source_type": "biological prior",
       "key_evidence": "neuromaps provides standardized brain-map comparison tools and receptor PET annotations.",
       "use_in_project": "Replace hand-built receptor proxies with documented receptor-map projections.",
-      "status": "planned biological prior",
+      "status": "implemented PET receptor-prior sensitivity",
       "component": "receptor_priors",
       "target_layers": "E",
       "artifact_target": "results/receptor_priors/",
@@ -15828,7 +15829,7 @@
       "source_type": "graph prior",
       "key_evidence": "Large normative dataset with diffusion and resting-state fMRI for healthy young adults.",
       "use_in_project": "Source for structural-connectome graph and null sensitivity.",
-      "status": "planned graph prior",
+      "status": "implemented HCP structural graph sensitivity",
       "component": "structural_connectome",
       "target_layers": "E",
       "artifact_target": "results/structural_connectome/",
@@ -15844,7 +15845,7 @@
       "source_type": "parcellation",
       "key_evidence": "Multiresolution local-global cortical parcellations support network neuroscience and graph analyses.",
       "use_in_project": "Sensitivity layer for C/D/E beyond the 8-module proxy.",
-      "status": "planned parcellation",
+      "status": "implemented Schaefer/Yeo sensitivity",
       "component": "parcellation_sensitivity",
       "target_layers": "C/D/E",
       "artifact_target": "results/parcellation_sensitivity/",
