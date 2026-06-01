@@ -10,12 +10,12 @@ from lsd_thesis.simulator import load_regime_config
 from lsd_thesis.web.app import (
     _augment_empirical_viewer_with_run02,
     _load_dashboard_empirical_detail,
-    _resolve_artifact_path,
     build_dashboard_payload,
     build_simulation_payload,
     load_empirical_viewer_detail,
     load_empirical_viewer_overview,
 )
+from lsd_thesis.web.artifacts import resolve_artifact_path as _resolve_artifact_path
 
 ROOT = Path(__file__).resolve().parents[1]
 
