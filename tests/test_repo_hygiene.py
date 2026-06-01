@@ -186,7 +186,7 @@ def test_validation_doc_declares_current_quality_baseline_before_historical_note
 
     for expected in (
         "383 passed",
-        "80.77%",
+        "80.79%",
         "77 source files",
         "26780820028",
         "motion_confound_control_result",
@@ -233,7 +233,9 @@ def test_thesis_readiness_gates_doc_matches_current_gate_status() -> None:
     for expected in (
         "Thesis readiness gates: `6/9`",
         "Strict completion gates: `4/6`",
+        "Package readiness gates: `1/2`",
         "Missing strict requirements: `motion_confound_control_result`, `project_phase`",
+        "Missing package requirements: `reproducible_archive_publication`",
         "fMRIPrep FD/DVARS/censoring motion proof",
         "research_demo_ready_not_completed_thesis",
         "small-subject ds006072 Schaefer100/Yeo7 unchanged-scoring external stress test",

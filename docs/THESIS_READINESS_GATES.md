@@ -16,11 +16,13 @@ Current generated status as of 2026-06-01:
 
 - Thesis readiness gates: `6/9`.
 - Strict completion gates: `4/6`.
+- Package readiness gates: `1/2`.
 - Missing strict requirements: `motion_confound_control_result`, `project_phase`.
+- Missing package requirements: `reproducible_archive_publication`.
 - Real remaining hard requirement: fMRIPrep FD/DVARS/censoring motion proof.
 - Project phase: `research_demo_ready_not_completed_thesis`.
 
-The missing `project_phase` item is derived from the motion-proof blocker. Do not treat raw-BOLD image QC, published aggregate FD context, design controls, module-DVARS proxies, archive manifests, or static dashboard publication as full thesis-readiness proof.
+The missing `project_phase` item is derived from the motion-proof blocker. The missing package requirement is the citable archive release/DOI. Do not treat raw-BOLD image QC, published aggregate FD context, design controls, module-DVARS proxies, archive manifests, or static dashboard publication as full thesis-readiness proof.
 
 ## Gates
 

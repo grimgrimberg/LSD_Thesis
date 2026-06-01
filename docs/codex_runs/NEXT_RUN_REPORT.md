@@ -12,11 +12,13 @@ Current thesis-upgrade status:
 
 - Thesis readiness gates: `6/9`.
 - Strict completion gates: `4/6`.
+- Package readiness gates: `1/2`.
 - Missing strict requirements: `motion_confound_control_result`, `project_phase`.
+- Missing package requirements: `reproducible_archive_publication`.
 - Real remaining hard requirement: fMRIPrep FD/DVARS/censoring motion proof.
 - Project phase: `research_demo_ready_not_completed_thesis`.
 
-The missing `project_phase` item is derived from the motion-proof blocker. It is not an independent science task. The archive gate is also no longer counted as ready from a manifest alone; it needs a citable release URL and Zenodo DOI. ROCKET is now represented as supporting internal signal rather than a ready thesis-strength gate until permutation-null, calibration, and MiniRocket/MultiRocket evidence exists. The public dashboard is now represented as its own presentation gate.
+The missing `project_phase` item is derived from the motion-proof blocker. It is not an independent science task. Archive publication is now tracked as a package-readiness requirement rather than being buried inside strict science completion; it needs a citable release URL and Zenodo DOI. ROCKET is represented as supporting internal signal rather than a ready thesis-strength gate until permutation-null, calibration, and MiniRocket/MultiRocket evidence exists. The public dashboard is represented as its own presentation gate and package requirement.
 
 ## Current High-Leverage Fixes Already Landed
 
@@ -70,7 +72,7 @@ Observed results:
 
 - Ruff: all checks passed.
 - mypy: no issues found in 77 source files.
-- pytest: 383 passed, 4 warnings, total coverage 80.77%.
+- pytest: 383 passed, 4 warnings, total coverage 80.79%.
 - dashboard preview preflight: required files present, optional generated artifacts present, CV5 internal validation reported as 5/5 folds.
 
 Hosted CI after the Node-24 action-major bump:

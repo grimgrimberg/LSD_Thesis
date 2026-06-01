@@ -8,6 +8,7 @@ def test_thesis_upgrade_strict_requirements_fail_closed(tmp_path: Path) -> None:
     status = build_thesis_upgrade_status(tmp_path)
 
     requirements = {row["requirement_id"]: row for row in status["strict_completion_requirements"]}
+    package_requirements = {row["requirement_id"]: row for row in status["package_readiness_requirements"]}
 
     assert set(requirements) == {
         "schaefer_yeo_high_resolution",
@@ -29,6 +30,14 @@ def test_thesis_upgrade_strict_requirements_fail_closed(tmp_path: Path) -> None:
     assert status["readiness_summary"]["remaining_hard_requirements"] == [
         "fMRIPrep FD/DVARS/censoring motion proof",
         "stronger parcellation-matched external validation",
+    ]
+    assert package_requirements["public_dashboard_static_snapshot"]["complete"] is False
+    assert package_requirements["reproducible_archive_publication"]["complete"] is False
+    assert status["readiness_summary"]["package_complete_gates"] == 0
+    assert status["readiness_summary"]["package_total_gates"] == 2
+    assert status["readiness_summary"]["package_missing_requirement_ids"] == [
+        "public_dashboard_static_snapshot",
+        "reproducible_archive_publication",
     ]
     assert status["components"]["neuromaps_spatial_nulls"]["gate"]["ready"] is False
     assert "not a full spatial-autocorrelation null model" in status["components"]["neuromaps_spatial_nulls"]["claim_guardrail"]
@@ -300,6 +309,17 @@ def test_thesis_upgrade_public_dashboard_gate_passes_when_static_snapshot_exists
     assert dashboard["manifest_entrypoints_ready"] is True
     assert dashboard["manifest_artifacts_ready"] is True
     assert dashboard["missing_required_paths"] == []
+    package_requirements = {row["requirement_id"]: row for row in status["package_readiness_requirements"]}
+    assert package_requirements["public_dashboard_static_snapshot"]["complete"] is True
+    assert package_requirements["reproducible_archive_publication"]["complete"] is False
+    assert status["readiness_summary"]["package_complete_gates"] == 1
+    assert status["readiness_summary"]["package_total_gates"] == 2
+    assert status["readiness_summary"]["package_missing_requirement_ids"] == [
+        "reproducible_archive_publication",
+    ]
+    assert status["readiness_summary"]["remaining_packaging_requirements"] == [
+        "Reproducible archive publication",
+    ]
 
 
 def test_thesis_upgrade_archive_gate_rejects_unvalidated_publication_strings(tmp_path: Path) -> None:

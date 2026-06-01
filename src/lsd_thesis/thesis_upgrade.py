@@ -18,6 +18,10 @@ STRICT_REQUIREMENT_IDS = (
     "receptor_myelin_gradient_claim",
     "project_phase",
 )
+PACKAGE_REQUIREMENT_IDS = (
+    "public_dashboard_static_snapshot",
+    "reproducible_archive_publication",
+)
 
 
 def _read_json(path: Path) -> dict[str, Any] | None:
@@ -60,6 +64,30 @@ def _requirement(
 ) -> dict[str, Any]:
     if requirement_id not in STRICT_REQUIREMENT_IDS:
         raise ValueError(f"Unknown strict requirement id: {requirement_id}")
+    return {
+        "requirement_id": requirement_id,
+        "label": label,
+        "status": status,
+        "complete": bool(complete),
+        "evidence": evidence,
+        "missing": missing,
+        "next_action": next_action,
+        "claim_effect": claim_effect,
+    }
+
+
+def _package_requirement(
+    requirement_id: str,
+    label: str,
+    status: str,
+    complete: bool,
+    evidence: str,
+    missing: str,
+    next_action: str,
+    claim_effect: str,
+) -> dict[str, Any]:
+    if requirement_id not in PACKAGE_REQUIREMENT_IDS:
+        raise ValueError(f"Unknown package requirement id: {requirement_id}")
     return {
         "requirement_id": requirement_id,
         "label": label,
@@ -1205,6 +1233,61 @@ def build_thesis_upgrade_status(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
         "reproducible_archive": _archive_gate(repo_root),
     }
     gates = [component["gate"] for component in components.values()]
+    public_dashboard = components["public_dashboard"]
+    public_dashboard_gate = public_dashboard["gate"]
+    reproducible_archive = components["reproducible_archive"]
+    reproducible_archive_gate = reproducible_archive["gate"]
+    package_requirements = [
+        _package_requirement(
+            "public_dashboard_static_snapshot",
+            "Public dashboard static snapshot",
+            str(public_dashboard_gate["status"]),
+            bool(public_dashboard_gate["ready"]),
+            str(public_dashboard_gate["evidence"]),
+            (
+                "None: static Pages snapshot contains the required dashboard and evidence artifacts."
+                if public_dashboard_gate["ready"]
+                else "Static Pages snapshot is missing required dashboard/evidence artifacts: {paths}.".format(
+                    paths=", ".join(str(item) for item in public_dashboard.get("missing_required_paths", [])) or "unknown"
+                )
+            ),
+            (
+                "Keep rebuilding the static site after gate/status artifact changes."
+                if public_dashboard_gate["ready"]
+                else "Run scripts/build_github_pages.py and verify _site/pages_manifest.json includes the dashboard and evidence artifacts."
+            ),
+            (
+                "The public dashboard is presentation-ready, but remains separate from citable archive publication."
+                if public_dashboard_gate["ready"]
+                else "Public presentation remains incomplete until the static dashboard snapshot is regenerated."
+            ),
+        ),
+        _package_requirement(
+            "reproducible_archive_publication",
+            "Reproducible archive publication",
+            str(reproducible_archive_gate["status"]),
+            bool(reproducible_archive.get("archive_publication_ready")),
+            str(reproducible_archive_gate["evidence"]),
+            (
+                "None: citable GitHub release URL and DOI are recorded in the archive manifest."
+                if reproducible_archive.get("archive_publication_ready")
+                else "Citable archive publication is missing a validated GitHub release URL and Zenodo DOI."
+            ),
+            (
+                "Keep the archive manifest synchronized with the release and DOI."
+                if reproducible_archive.get("archive_publication_ready")
+                else (
+                    "Create a GitHub release, mint a Zenodo DOI for that release, then rebuild "
+                    "scripts/build_reproducible_archive.py with --release-url and --doi."
+                )
+            ),
+            (
+                "The package has a citable derived-artifact archive."
+                if reproducible_archive.get("archive_publication_ready")
+                else "The package is not publication-archive-ready until the release and DOI are recorded."
+            ),
+        ),
+    ]
     strict_requirements = [
         components["canonical_parcellation"]["strict_requirement"],
         components["neuromaps_spatial_nulls"]["strict_requirement"],
@@ -1291,8 +1374,12 @@ def build_thesis_upgrade_status(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
     )
     ready_count = sum(1 for gate in gates if gate["ready"])
     strict_ready_count = sum(1 for requirement in strict_requirements if requirement["complete"])
+    package_ready_count = sum(1 for requirement in package_requirements if requirement["complete"])
     strict_missing_requirement_ids = [
         str(requirement["requirement_id"]) for requirement in strict_requirements if not requirement["complete"]
+    ]
+    package_missing_requirement_ids = [
+        str(requirement["requirement_id"]) for requirement in package_requirements if not requirement["complete"]
     ]
     completion_status = project_status
     return {
@@ -1307,12 +1394,21 @@ def build_thesis_upgrade_status(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
             "strict_completion_fraction": strict_ready_count / len(strict_requirements) if strict_requirements else 0.0,
             "strict_missing_gates": len(strict_missing_requirement_ids),
             "strict_missing_requirement_ids": strict_missing_requirement_ids,
+            "package_complete_gates": package_ready_count,
+            "package_total_gates": len(package_requirements),
+            "package_completion_fraction": package_ready_count / len(package_requirements) if package_requirements else 0.0,
+            "package_missing_gates": len(package_missing_requirement_ids),
+            "package_missing_requirement_ids": package_missing_requirement_ids,
             "remaining_hard_requirements": remaining_hard_requirements,
+            "remaining_packaging_requirements": [
+                requirement["label"] for requirement in package_requirements if not requirement["complete"]
+            ],
             "completion_status": completion_status,
             "thesis_status": completion_status,
         },
         "gates": gates,
         "strict_completion_requirements": strict_requirements,
+        "package_readiness_requirements": package_requirements,
         "components": components,
         "visualization_plan": {
             "dashboard_panels": [
@@ -1372,11 +1468,21 @@ def _markdown(status: dict[str, Any]) -> str:
             complete=status["readiness_summary"]["strict_complete_gates"],
             total=status["readiness_summary"]["strict_total_gates"],
         ),
+        "- Package readiness: {complete}/{total} gates complete.".format(
+            complete=status["readiness_summary"]["package_complete_gates"],
+            total=status["readiness_summary"]["package_total_gates"],
+        ),
         "- Missing strict requirement IDs: {missing}.".format(
             missing=", ".join(status["readiness_summary"]["strict_missing_requirement_ids"]) or "none",
         ),
+        "- Missing package requirement IDs: {missing}.".format(
+            missing=", ".join(status["readiness_summary"]["package_missing_requirement_ids"]) or "none",
+        ),
         "- Remaining hard requirements: {requirements}.".format(
             requirements=", ".join(status["readiness_summary"]["remaining_hard_requirements"]) or "none",
+        ),
+        "- Remaining packaging requirements: {requirements}.".format(
+            requirements=", ".join(status["readiness_summary"]["remaining_packaging_requirements"]) or "none",
         ),
         "",
         "| Gate | Status | Ready | Score | Blocker / next action |",
@@ -1390,6 +1496,25 @@ def _markdown(status: dict[str, Any]) -> str:
                 ready=str(gate["ready"]).lower(),
                 score=float(gate["score"]),
                 blocker=str(gate["blocker"]).replace("|", "/"),
+            )
+        )
+    lines.extend(
+        [
+            "",
+            "## Package Readiness Audit",
+            "",
+            "| Requirement | Status | Complete | Missing | Next action |",
+            "| --- | --- | ---: | --- | --- |",
+        ]
+    )
+    for requirement in status["package_readiness_requirements"]:
+        lines.append(
+            "| {label} | {status} | {complete} | {missing} | {next_action} |".format(
+                label=requirement["label"],
+                status=requirement["status"],
+                complete=str(requirement["complete"]).lower(),
+                missing=str(requirement["missing"]).replace("|", "/"),
+                next_action=str(requirement["next_action"]).replace("|", "/"),
             )
         )
     lines.extend(

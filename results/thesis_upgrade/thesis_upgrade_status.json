@@ -1,6 +1,6 @@
 {
   "schema_version": "thesis_upgrade_status.v1",
-  "generated_at_utc": "2026-06-01T22:04:08.310496+00:00",
+  "generated_at_utc": "2026-06-01T22:16:01.559723+00:00",
   "readiness_summary": {
     "ready_gates": 6,
     "total_gates": 9,
@@ -13,8 +13,18 @@
       "motion_confound_control_result",
       "project_phase"
     ],
+    "package_complete_gates": 1,
+    "package_total_gates": 2,
+    "package_completion_fraction": 0.5,
+    "package_missing_gates": 1,
+    "package_missing_requirement_ids": [
+      "reproducible_archive_publication"
+    ],
     "remaining_hard_requirements": [
       "fMRIPrep FD/DVARS/censoring motion proof"
+    ],
+    "remaining_packaging_requirements": [
+      "Reproducible archive publication"
     ],
     "completion_status": "research_demo_ready_not_completed_thesis",
     "thesis_status": "research_demo_ready_not_completed_thesis"
@@ -153,6 +163,28 @@
       "missing": "Proxy/stress-test evidence gates are visible, but completion still requires fMRIPrep FD/DVARS/censoring motion proof.",
       "next_action": "Keep this as a controlled research demo while upgrading fMRIPrep FD/DVARS/censoring motion proof.",
       "claim_effect": "This remains a controlled research demo/PI pitch until fMRIPrep FD/DVARS/censoring motion proof passes."
+    }
+  ],
+  "package_readiness_requirements": [
+    {
+      "requirement_id": "public_dashboard_static_snapshot",
+      "label": "Public dashboard static snapshot",
+      "status": "static_snapshot_ready",
+      "complete": true,
+      "evidence": "_site/pages_manifest.json; _site/index.html; _site/dashboard/dashboard-data.json; _site/artifacts/results/thesis_upgrade/thesis_upgrade_status.json; _site/artifacts/results/reproducible_archive/ARCHIVE_MANIFEST.json",
+      "missing": "None: static Pages snapshot contains the required dashboard and evidence artifacts.",
+      "next_action": "Keep rebuilding the static site after gate/status artifact changes.",
+      "claim_effect": "The public dashboard is presentation-ready, but remains separate from citable archive publication."
+    },
+    {
+      "requirement_id": "reproducible_archive_publication",
+      "label": "Reproducible archive publication",
+      "status": "manifest_ready_release_doi_missing",
+      "complete": false,
+      "evidence": "results/reproducible_archive/ARCHIVE_MANIFEST.json",
+      "missing": "Citable archive publication is missing a validated GitHub release URL and Zenodo DOI.",
+      "next_action": "Create a GitHub release, mint a Zenodo DOI for that release, then rebuild scripts/build_reproducible_archive.py with --release-url and --doi.",
+      "claim_effect": "The package is not publication-archive-ready until the release and DOI are recorded."
     }
   ],
   "components": {
