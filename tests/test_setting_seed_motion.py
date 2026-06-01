@@ -57,6 +57,45 @@ def test_motion_summary_rejects_confounds_without_pairing_metadata(tmp_path: Pat
     assert summary["summaries"][0]["reason"] == "missing_subject_session_or_run_metadata"
 
 
+def test_motion_summary_requires_paired_lsd_placebo_subject_run_coverage(tmp_path: Path) -> None:
+    for index in range(4):
+        subject = f"sub-{index + 1:03d}"
+        for session in ("ses-LSD", "ses-PLCB"):
+            path = tmp_path / subject / session / "func" / f"{subject}_{session}_task-rest_run-01_desc-confounds_timeseries.tsv"
+            path.parent.mkdir(parents=True, exist_ok=True)
+            pd.DataFrame(
+                {
+                    "framewise_displacement": [0.0, 0.1],
+                    "std_dvars": [1.0, 1.1],
+                    "motion_outlier00": [0, 1],
+                }
+            ).to_csv(path, sep="\t", index=False)
+
+    summary = build_motion_summary(roots=(tmp_path,))
+
+    assert summary["motion_analysis_ready"] is True
+    assert summary["motion_pairing_ready"] is True
+    assert summary["paired_subject_run_count"] == 4
+    assert len(summary["condition_coverage_by_subject_run"]) == 4
+
+
+def test_motion_summary_keeps_unpaired_confounds_below_strict_pairing_threshold(tmp_path: Path) -> None:
+    path = tmp_path / "sub-001" / "ses-LSD" / "func" / "sub-001_ses-LSD_task-rest_run-01_desc-confounds_timeseries.tsv"
+    path.parent.mkdir(parents=True)
+    pd.DataFrame({"framewise_displacement": [0.0, 0.1], "std_dvars": [1.0, 1.1]}).to_csv(
+        path,
+        sep="\t",
+        index=False,
+    )
+
+    summary = build_motion_summary(roots=(tmp_path,))
+
+    assert summary["motion_analysis_ready"] is True
+    assert summary["motion_pairing_ready"] is False
+    assert summary["paired_subject_run_count"] == 0
+    assert "Add paired LSD and placebo/PLCB confounds" in summary["next_action"]
+
+
 def test_summarize_motion_tsv_accepts_constant_pairing_columns(tmp_path: Path) -> None:
     path = tmp_path / "desc-confounds_timeseries.tsv"
     pd.DataFrame(

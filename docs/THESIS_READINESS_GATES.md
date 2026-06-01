@@ -50,6 +50,7 @@ The strict motion gate passes only after structured subject/session/run confound
 - `std_dvars` or `dvars`
 - motion outlier, censor, scrub, or non-steady-state columns where available
 - subject, session/condition, and run metadata in the path or an equivalent joinable subject/session/run record
+- at least four paired LSD and placebo/PLCB subject/run rows before the fMRIPrep preflight can treat parsed confounds as strict-gate-ready inputs
 
 Run:
 

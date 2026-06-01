@@ -1,6 +1,6 @@
 {
   "schema_version": "fmriprep_motion_proof_plan.v1",
-  "generated_at_utc": "2026-06-01T15:24:08.951362+00:00",
+  "generated_at_utc": "2026-06-01T15:38:01.366038+00:00",
   "analysis_status": "blocked_derivative_snapshot_not_valid_raw_fmriprep_input",
   "fmriprep_motion_proof_ready": false,
   "fmriprep_preflight_ready": false,
@@ -56,7 +56,11 @@
   "existing_motion_confounds": {
     "motion_file_count": 0,
     "motion_analysis_ready": false,
+    "motion_pairing_ready": false,
     "motion_summary_status": "unavailable_not_found",
+    "parsed_summary_count": 0,
+    "paired_subject_run_count": 0,
+    "minimum_paired_subject_run_count": 4,
     "expected_confound_glob": "data/ds003059/derivatives/fmriprep/sub-*/ses-*/func/*desc-confounds_timeseries.tsv",
     "configured_motion_roots": []
   },

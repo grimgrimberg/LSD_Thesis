@@ -3,12 +3,17 @@
   "status": "unavailable_not_found",
   "motion_files_present": false,
   "motion_analysis_ready": false,
+  "motion_pairing_ready": false,
   "motion_summary_schema_valid": false,
   "fd_threshold": 0.5,
   "motion_summary_files": [],
   "parsed_summary_count": 0,
   "unusable_file_count": 0,
   "coverage_by_run": {},
+  "condition_coverage_by_subject_run": [],
+  "paired_subject_run_count": 0,
+  "paired_subject_run_keys": [],
+  "minimum_paired_subject_run_count": 4,
   "input_contract": {
     "search_roots": [
       "data/ds003059",

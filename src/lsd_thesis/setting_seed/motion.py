@@ -38,6 +38,7 @@ MINIMUM_PAIRING_CONTRACT = (
     "one confound table per subject/session/run or an equivalent long-form table",
 )
 DEFAULT_FD_THRESHOLD = 0.5
+MINIMUM_PAIRED_SUBJECT_RUN_COUNT = 4
 
 
 def _default_repo_root() -> Path:
@@ -119,6 +120,42 @@ def _parse_subject_session_run(path: Path, frame: pd.DataFrame | None = None) ->
         "subject": _path_match_or_constant_column_value(subject, frame, SUBJECT_METADATA_COLUMNS),
         "session": _path_match_or_constant_column_value(session, frame, SESSION_METADATA_COLUMNS),
         "run": _path_match_or_constant_column_value(run, frame, RUN_METADATA_COLUMNS),
+    }
+
+
+def _condition_key(session: Any) -> str:
+    raw = str(session or "").lower()
+    if "lsd" in raw:
+        return "lsd"
+    if "plcb" in raw or "placebo" in raw:
+        return "placebo"
+    return "unknown"
+
+
+def _pairing_coverage(parsed: Sequence[dict[str, Any]]) -> dict[str, Any]:
+    by_subject_run: dict[tuple[str, str], set[str]] = {}
+    for summary in parsed:
+        subject = str(summary.get("subject") or "").strip()
+        run = str(summary.get("run") or "").strip()
+        if not subject or not run:
+            continue
+        by_subject_run.setdefault((subject, run), set()).add(_condition_key(summary.get("session")))
+
+    rows = [
+        {"subject": subject, "run": run, "conditions": sorted(conditions)}
+        for (subject, run), conditions in sorted(by_subject_run.items())
+    ]
+    paired = [
+        {"subject": subject, "run": run}
+        for (subject, run), conditions in sorted(by_subject_run.items())
+        if {"lsd", "placebo"}.issubset(conditions)
+    ]
+    return {
+        "condition_coverage_by_subject_run": rows,
+        "paired_subject_run_count": len(paired),
+        "paired_subject_run_keys": paired,
+        "minimum_paired_subject_run_count": MINIMUM_PAIRED_SUBJECT_RUN_COUNT,
+        "motion_pairing_ready": len(paired) >= MINIMUM_PAIRED_SUBJECT_RUN_COUNT,
     }
 
 
@@ -228,12 +265,17 @@ def build_motion_summary(
             "status": "unavailable_not_found",
             "motion_files_present": False,
             "motion_analysis_ready": False,
+            "motion_pairing_ready": False,
             "motion_summary_schema_valid": False,
             "fd_threshold": fd_threshold,
             "motion_summary_files": [],
             "parsed_summary_count": 0,
             "unusable_file_count": 0,
             "coverage_by_run": {},
+            "condition_coverage_by_subject_run": [],
+            "paired_subject_run_count": 0,
+            "paired_subject_run_keys": [],
+            "minimum_paired_subject_run_count": MINIMUM_PAIRED_SUBJECT_RUN_COUNT,
             "input_contract": input_contract,
             "next_action": (
                 "Place authorized fMRIPrep confounds TSV/CSV files under one configured "
@@ -253,24 +295,33 @@ def build_motion_summary(
     for summary in parsed:
         run = str(summary.get("run") or "unknown")
         coverage_by_run[run] = coverage_by_run.get(run, 0) + 1
+    pairing_coverage = _pairing_coverage(parsed)
     status = "available_parsed" if parsed else "found_unusable"
+    next_action = (
+        "Run scripts/build_motion_confound_controls.py to join these motion summaries with subject/run dynamic deltas."
+        if pairing_coverage["motion_pairing_ready"]
+        else (
+            "Add paired LSD and placebo/PLCB confounds for at least "
+            f"{MINIMUM_PAIRED_SUBJECT_RUN_COUNT} subject/run rows, then rerun scripts/run_setting_seed_motion_summary.py."
+        )
+        if parsed
+        else "Fix file format or add FD/DVARS/outlier columns, then rerun scripts/run_setting_seed_motion_summary.py."
+    )
     return {
         "schema_version": "setting_seed_motion_summary.v1",
         "status": status,
         "motion_files_present": True,
         "motion_analysis_ready": bool(parsed),
+        "motion_pairing_ready": bool(pairing_coverage["motion_pairing_ready"]),
         "motion_summary_schema_valid": bool(parsed),
         "fd_threshold": fd_threshold,
         "motion_summary_files": [_relative_path(path, root) for path in files],
         "parsed_summary_count": len(parsed),
         "unusable_file_count": len(summaries) - len(parsed),
         "coverage_by_run": coverage_by_run,
+        **pairing_coverage,
         "input_contract": input_contract,
-        "next_action": (
-            "Run scripts/build_motion_confound_controls.py to join these motion summaries with subject/run dynamic deltas."
-            if parsed
-            else "Fix file format or add FD/DVARS/outlier columns, then rerun scripts/run_setting_seed_motion_summary.py."
-        ),
+        "next_action": next_action,
         "summaries": summaries,
         "claim_guardrail": "Motion summaries are aggregate QC features only; raw traces and confound matrices are not embedded.",
     }
@@ -305,6 +356,7 @@ def motion_report_markdown(summary: dict[str, Any]) -> str:
                 f"Parsed summaries: {summary.get('parsed_summary_count', 0)}",
                 f"Unusable files: {summary.get('unusable_file_count', 0)}",
                 f"Coverage by run: {json.dumps(summary.get('coverage_by_run', {}), sort_keys=True)}",
+                f"Paired LSD/placebo subject-run rows: {summary.get('paired_subject_run_count', 0)}",
             ]
         )
     lines.extend(

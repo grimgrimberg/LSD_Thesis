@@ -143,7 +143,8 @@ def build_fmriprep_motion_proof_plan(
     remote_state = _remote_snapshot_state(tuple(openneuro_files or ()))
     remote_state["error"] = remote_error
 
-    has_structured_confounds = bool(existing_motion_summary.get("motion_analysis_ready"))
+    has_parsed_confounds = bool(existing_motion_summary.get("motion_analysis_ready"))
+    has_structured_confounds = bool(existing_motion_summary.get("motion_pairing_ready"))
     has_container_or_runtime = any(runtime.values())
     dataset_is_derivative = dataset_type == "derivative"
     local_t1w_complete = not local_state["missing_t1w_subjects_for_local_bold"] and local_state["local_t1w_subject_count"] > 0
@@ -154,6 +155,17 @@ def build_fmriprep_motion_proof_plan(
         blocker = ""
         preflight_ready = True
         next_action = "Run scripts/run_setting_seed_motion_summary.py, then scripts/build_motion_confound_controls.py."
+    elif has_parsed_confounds:
+        analysis_status = "structured_confounds_present_but_insufficient_pairing"
+        blocker = (
+            "Structured FD/DVARS/censoring confounds were found, but they do not yet cover enough paired "
+            "LSD and placebo/PLCB subject/run rows for the strict motion-control association test."
+        )
+        preflight_ready = False
+        next_action = str(
+            existing_motion_summary.get("next_action")
+            or "Supply paired LSD and placebo/PLCB subject/run confounds, then rerun the motion gate."
+        )
     elif dataset_is_derivative:
         analysis_status = "blocked_derivative_snapshot_not_valid_raw_fmriprep_input"
         blocker = (
@@ -208,8 +220,12 @@ def build_fmriprep_motion_proof_plan(
         "local_nifti_state": local_state,
         "existing_motion_confounds": {
             "motion_file_count": len(existing_motion_files),
-            "motion_analysis_ready": has_structured_confounds,
+            "motion_analysis_ready": has_parsed_confounds,
+            "motion_pairing_ready": has_structured_confounds,
             "motion_summary_status": existing_motion_summary.get("status"),
+            "parsed_summary_count": existing_motion_summary.get("parsed_summary_count", 0),
+            "paired_subject_run_count": existing_motion_summary.get("paired_subject_run_count", 0),
+            "minimum_paired_subject_run_count": existing_motion_summary.get("minimum_paired_subject_run_count"),
             "expected_confound_glob": expected_confound_glob,
             "configured_motion_roots": [_rel(path, root) for path in motion_roots] if motion_roots else [],
         },
@@ -238,6 +254,7 @@ def _markdown(payload: dict[str, Any]) -> str:
     local_state = payload.get("local_nifti_state", {}) if isinstance(payload.get("local_nifti_state"), dict) else {}
     remote_state = payload.get("remote_openneuro_snapshot", {}) if isinstance(payload.get("remote_openneuro_snapshot"), dict) else {}
     runtime = payload.get("runtime_availability", {}) if isinstance(payload.get("runtime_availability"), dict) else {}
+    existing_confounds = payload.get("existing_motion_confounds", {}) if isinstance(payload.get("existing_motion_confounds"), dict) else {}
     lines = [
         "# fMRIPrep Motion-Proof Preflight",
         "",
@@ -250,6 +267,8 @@ def _markdown(payload: dict[str, Any]) -> str:
         f"- Local BOLD runs: `{local_state.get('local_bold_run_count', 0)}`",
         f"- Local non-AppleDouble T1w subjects: `{local_state.get('local_t1w_subject_count', 0)}`",
         f"- Missing T1w subjects: `{', '.join(local_state.get('missing_t1w_subjects_for_local_bold', [])) or 'none'}`",
+        f"- Parsed local confound summaries: `{existing_confounds.get('parsed_summary_count', 0)}`",
+        f"- Paired LSD/placebo subject-run confound rows: `{existing_confounds.get('paired_subject_run_count', 0)}`",
         f"- OpenNeuro snapshot T1w files: `{remote_state.get('t1w_file_count', 0)}`",
         f"- OpenNeuro snapshot confound-like files: `{remote_state.get('confound_like_file_count', 0)}`",
         f"- Runtime availability: `{json.dumps(runtime, sort_keys=True)}`",
