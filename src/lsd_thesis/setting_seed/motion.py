@@ -229,6 +229,8 @@ def summarize_motion_tsv(path: str | Path, fd_threshold: float = DEFAULT_FD_THRE
         values = pd.to_numeric(frame[column], errors="coerce").fillna(0).to_numpy(dtype=float)
         scrub_count += int(np.count_nonzero(values > 0))
     volume_count = int(len(frame))
+    fd_spike_fraction = float(np.mean(fd_values > fd_threshold)) if len(fd_values) else None
+    scrubbed_volume_proportion = float(scrub_count / volume_count) if volume_count else None
     return {
         **parsed,
         "path": motion_path.as_posix(),
@@ -238,14 +240,16 @@ def summarize_motion_tsv(path: str | Path, fd_threshold: float = DEFAULT_FD_THRE
         "mean_fd": float(np.mean(fd_values)) if len(fd_values) else None,
         "median_fd": float(np.median(fd_values)) if len(fd_values) else None,
         "max_fd": float(np.max(fd_values)) if len(fd_values) else None,
-        "percent_fd_above_threshold": float(np.mean(fd_values > fd_threshold) * 100.0) if len(fd_values) else None,
+        "fd_spike_fraction": fd_spike_fraction,
+        "percent_fd_above_threshold": float(fd_spike_fraction * 100.0) if fd_spike_fraction is not None else None,
         "dvars_column": dvars_column,
         "mean_dvars": float(np.mean(dvars_values)) if len(dvars_values) else None,
         "median_dvars": float(np.median(dvars_values)) if len(dvars_values) else None,
         "max_dvars": float(np.max(dvars_values)) if len(dvars_values) else None,
         "scrub_columns": scrub_columns,
         "scrubbed_volume_count": scrub_count,
-        "scrubbed_volume_proportion": float(scrub_count / volume_count) if volume_count else None,
+        "scrubbed_volume_proportion": scrubbed_volume_proportion,
+        "motion_outlier_fraction": scrubbed_volume_proportion,
     }
 
 

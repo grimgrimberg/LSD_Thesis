@@ -24,9 +24,11 @@ def test_summarize_motion_tsv_parses_fd_dvars_and_scrub_columns(tmp_path: Path) 
     assert summary["run"] == "run-01"
     assert summary["mean_fd"] == 0.45
     assert summary["max_fd"] == 1.0
+    assert summary["fd_spike_fraction"] == 0.5
     assert summary["percent_fd_above_threshold"] == 50.0
     assert summary["mean_dvars"] == 2.5
     assert summary["scrubbed_volume_count"] == 1
+    assert summary["motion_outlier_fraction"] == 0.25
 
 
 def test_motion_summary_reports_unavailable_without_confounds(tmp_path: Path) -> None:

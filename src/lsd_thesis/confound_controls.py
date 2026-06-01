@@ -16,6 +16,7 @@ from lsd_thesis.setting_seed.motion import MINIMUM_PAIRED_SUBJECT_RUN_COUNT, bui
 REPO_ROOT = Path(__file__).resolve().parents[2]
 SCHEMA_VERSION = "motion_confound_control.v1"
 MIN_OVERLAP = 4
+REQUIRED_MOTION_FEATURE_FAMILIES = ("fd", "dvars", "censoring")
 CONFOUND_CONTROL_INPUT_CONTRACT = {
     "motion_summary_path": "results/setting_seed/motion/motion_summary.json",
     "dynamic_subject_views": "results/stage_2/empirical_viewer/subject_views/*.json",
@@ -32,10 +33,21 @@ CONFOUND_CONTROL_INPUT_CONTRACT = {
 MOTION_FEATURE_ALIASES: dict[str, tuple[str, ...]] = {
     "fd_mean": ("fd_mean", "mean_fd", "framewise_displacement_mean", "mean_framewise_displacement"),
     "fd_max": ("fd_max", "max_fd", "framewise_displacement_max", "max_framewise_displacement"),
-    "fd_spike_fraction": ("fd_spike_fraction", "fd_spike_rate", "framewise_displacement_spike_fraction"),
+    "fd_spike_fraction": (
+        "fd_spike_fraction",
+        "fd_spike_rate",
+        "framewise_displacement_spike_fraction",
+        "percent_fd_above_threshold",
+    ),
     "dvars_mean": ("dvars_mean", "std_dvars_mean", "mean_dvars", "mean_std_dvars"),
     "dvars_max": ("dvars_max", "std_dvars_max", "max_dvars", "max_std_dvars"),
-    "motion_outlier_fraction": ("motion_outlier_fraction", "outlier_fraction", "scrub_fraction", "censor_fraction"),
+    "motion_outlier_fraction": (
+        "motion_outlier_fraction",
+        "outlier_fraction",
+        "scrub_fraction",
+        "censor_fraction",
+        "scrubbed_volume_proportion",
+    ),
 }
 
 
@@ -173,6 +185,19 @@ def _merge_rows(dynamic_rows: list[dict[str, Any]], motion_rows: list[dict[str, 
     return merged
 
 
+def _motion_feature_family_coverage(rows: list[dict[str, Any]]) -> dict[str, bool]:
+    coverage = {family: False for family in REQUIRED_MOTION_FEATURE_FAMILIES}
+    for row in rows:
+        feature = str(row.get("motion_feature") or "").lower()
+        if "fd" in feature or "framewise_displacement" in feature:
+            coverage["fd"] = True
+        if "dvars" in feature:
+            coverage["dvars"] = True
+        if any(token in feature for token in ("motion_outlier", "outlier", "censor", "scrub", "non_steady_state")):
+            coverage["censoring"] = True
+    return coverage
+
+
 def _bh_q_values(p_values: list[float]) -> list[float]:
     if not p_values:
         return []
@@ -269,6 +294,10 @@ def _blocked_status(
         "source_availability": source_availability,
         "merged_subject_run_count": 0,
         "association_rows": [],
+        "motion_feature_family_coverage": {family: False for family in REQUIRED_MOTION_FEATURE_FAMILIES},
+        "required_motion_feature_families": list(REQUIRED_MOTION_FEATURE_FAMILIES),
+        "missing_motion_feature_families": list(REQUIRED_MOTION_FEATURE_FAMILIES),
+        "strict_fmriprep_motion_control_ready": False,
         "high_risk_motion_association_count": 0,
         "claim_status": "not_proven_motion_confound_control_missing",
         "claim_guardrail": (
@@ -372,12 +401,58 @@ def build_motion_confound_control_status(repo_root: Path = REPO_ROOT) -> dict[st
             motion_payload,
         )
     high_risk_count = sum(1 for row in rows if row["motion_sensitivity_flag"])
+    family_coverage = _motion_feature_family_coverage(rows)
+    missing_families = [family for family, covered in family_coverage.items() if not covered]
     motion_suffixes = ("_delta_lsd_minus_placebo", "_mean_abs", "_observed")
+    if missing_families:
+        incomplete_status = "blocked_incomplete_fd_dvars_censoring_family_coverage"
+        incomplete_blocker = (
+            "Motion associations were computed, but the dedicated fMRIPrep motion-control result is incomplete: "
+            f"missing {', '.join(missing_families)} association-row coverage."
+        )
+        status = _blocked_status(
+            repo_root,
+            incomplete_status,
+            incomplete_blocker,
+            motion_path,
+            view_root,
+            motion_payload,
+        )
+        status.update(
+            {
+                "analysis_status": incomplete_status,
+                "blocker": incomplete_blocker,
+                "motion_summary_status": motion_payload.get("status", "available_parsed"),
+                "motion_pairing_ready": bool(motion_payload.get("motion_pairing_ready", True)),
+                "paired_subject_run_count": int(
+                    motion_payload.get("paired_subject_run_count") or len(paired_motion_rows)
+                ),
+                "minimum_paired_subject_run_count": int(
+                    motion_payload.get("minimum_paired_subject_run_count") or MINIMUM_PAIRED_SUBJECT_RUN_COUNT
+                ),
+                "merged_subject_run_count": len(merged),
+                "motion_feature_count": len([key for key in merged[0] if key.endswith(motion_suffixes)]),
+                "dynamic_metric_count": len(
+                    [
+                        key
+                        for key in merged[0]
+                        if key not in {"subject", "run"} and not key.endswith(motion_suffixes)
+                    ]
+                ),
+                "association_rows": rows,
+                "motion_feature_family_coverage": family_coverage,
+                "missing_motion_feature_families": missing_families,
+                "high_risk_motion_association_count": high_risk_count,
+                "claim_status": "not_proven_incomplete_motion_feature_family_coverage",
+            }
+        )
+        return status
     return {
         "schema_version": SCHEMA_VERSION,
         "generated_at_utc": datetime.now(UTC).isoformat(),
         "analysis_status": "implemented_dedicated_motion_confound_control_result",
         "motion_confound_control_ready": True,
+        "strict_fmriprep_motion_control_ready": True,
         "source_paths": {
             "motion_summary": _rel(motion_path, repo_root),
             "subject_dynamic_views": _rel(view_root, repo_root),
@@ -408,6 +483,9 @@ def build_motion_confound_control_status(repo_root: Path = REPO_ROOT) -> dict[st
             ]
         ),
         "association_rows": rows,
+        "motion_feature_family_coverage": family_coverage,
+        "required_motion_feature_families": list(REQUIRED_MOTION_FEATURE_FAMILIES),
+        "missing_motion_feature_families": [],
         "high_risk_motion_association_count": high_risk_count,
         "claim_status": "motion_sensitive_downgrade_required" if high_risk_count else "no_fdr_motion_association_detected",
         "claim_guardrail": (

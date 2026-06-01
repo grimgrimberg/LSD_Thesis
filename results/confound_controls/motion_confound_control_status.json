@@ -1,6 +1,6 @@
 {
   "schema_version": "motion_confound_control.v1",
-  "generated_at_utc": "2026-06-01T12:50:45.781886+00:00",
+  "generated_at_utc": "2026-06-01T17:00:04.682538+00:00",
   "analysis_status": "blocked_absent_authorized_subject_level_motion_confounds",
   "motion_confound_control_ready": false,
   "source_paths": {
@@ -73,6 +73,22 @@
   },
   "merged_subject_run_count": 0,
   "association_rows": [],
+  "motion_feature_family_coverage": {
+    "fd": false,
+    "dvars": false,
+    "censoring": false
+  },
+  "required_motion_feature_families": [
+    "fd",
+    "dvars",
+    "censoring"
+  ],
+  "missing_motion_feature_families": [
+    "fd",
+    "dvars",
+    "censoring"
+  ],
+  "strict_fmriprep_motion_control_ready": false,
   "high_risk_motion_association_count": 0,
   "claim_status": "not_proven_motion_confound_control_missing",
   "claim_guardrail": "Motion/confound handling remains a limitation until this artifact contains implemented FD/DVARS/censoring sensitivity results. If source availability is false, the correct academic action is to downgrade motion-sensitive claims rather than infer safety from proxies."
