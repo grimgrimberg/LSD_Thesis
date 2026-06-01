@@ -38,6 +38,55 @@ def test_claim_status_payload_fails_closed_when_pitch_docs_are_missing(tmp_path:
     assert "without pretending to be a completed neuroscience" in payload["claim_guardrail"]
 
 
+def test_claim_status_payload_uses_current_thesis_upgrade_gate_statuses(tmp_path: Path) -> None:
+    repo_root = tmp_path / "repo"
+    status_dir = repo_root / "results" / "thesis_upgrade"
+    status_dir.mkdir(parents=True)
+    (repo_root / "CLAIM_LADDER.md").write_text("# claims\n", encoding="utf-8")
+    (repo_root / "PI_PITCH.md").write_text("# pitch\n", encoding="utf-8")
+    (status_dir / "thesis_upgrade_status.json").write_text(
+        json.dumps(
+            {
+                "components": {
+                    "external_validation": {
+                        "strict_requirement": {
+                            "status": "implemented_ds006072_unchanged_scoring_validation",
+                            "complete": True,
+                        }
+                    },
+                    "neuromaps_spatial_nulls": {
+                        "strict_requirement": {
+                            "status": "implemented_schaefer100_full_map_family_moran_spatial_nulls",
+                            "complete": True,
+                        }
+                    },
+                    "receptor_myelin_gradient_claim": {
+                        "strict_requirement": {
+                            "status": "resolved_negative_not_promoted",
+                            "complete": True,
+                        }
+                    },
+                }
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    payload = load_claim_status_payload(repo_root)
+    external_rows = {row["source"]: row for row in payload["external_validation_status"]}
+    null_rows = {row["control"]: row for row in payload["null_controls"]}
+    uncertainty_rows = {row["effect"]: row for row in payload["uncertainty_gate_rows"]}
+    tier_rows = {row["tier"]: row for row in payload["claim_tiers"]}
+
+    assert external_rows["ds006072 psilocybin"]["status"] == "implemented_ds006072_unchanged_scoring_validation"
+    assert null_rows["Schaefer/Yeo spatial nulls"]["status"] == "implemented_schaefer100_full_map_family_moran_spatial_nulls"
+    assert uncertainty_rows["High-resolution spatial-map claim"]["p"] == "Moran spatial-null p-values reported"
+    assert uncertainty_rows["High-resolution spatial-map claim"]["claim_status"] == "resolved_negative_not_promoted"
+    assert tier_rows["D"]["status"] == "resolved_negative_control"
+    assert tier_rows["E"]["status"] == "resolved_negative_not_promoted"
+    assert tier_rows["F"]["status"] == "implemented_ds006072_unchanged_scoring_validation"
+
+
 def test_thesis_loop_status_fails_closed_when_status_artifact_is_missing(tmp_path: Path) -> None:
     repo_root = tmp_path / "repo"
     repo_root.mkdir()

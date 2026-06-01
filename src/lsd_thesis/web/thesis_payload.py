@@ -7,6 +7,34 @@ from typing import Any, cast
 from lsd_thesis.external_source_plan import external_source_plan_rows
 
 
+def _load_json_object(path: Path) -> dict[str, Any]:
+    if not path.exists():
+        return {}
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return {}
+    return payload if isinstance(payload, dict) else {}
+
+
+def _thesis_upgrade_component(status: dict[str, Any], component_id: str) -> dict[str, Any]:
+    components = status.get("components", {}) if isinstance(status.get("components"), dict) else {}
+    component = components.get(component_id)
+    return component if isinstance(component, dict) else {}
+
+
+def _strict_requirement(component: dict[str, Any]) -> dict[str, Any]:
+    requirement = component.get("strict_requirement")
+    return requirement if isinstance(requirement, dict) else {}
+
+
+def _gate_status(component: dict[str, Any], default: str) -> str:
+    requirement = _strict_requirement(component)
+    raw_gate = component.get("gate")
+    gate = raw_gate if isinstance(raw_gate, dict) else {}
+    return str(requirement.get("status") or gate.get("status") or default)
+
+
 def load_thesis_loop_status(repo_root: Path) -> dict[str, Any]:
     payload_path = repo_root / "results" / "thesis_evidence_loop" / "thesis_evidence_loop_status.json"
     if not payload_path.exists():
@@ -24,6 +52,23 @@ def load_thesis_loop_status(repo_root: Path) -> dict[str, Any]:
 def load_claim_status_payload(repo_root: Path) -> dict[str, Any]:
     claim_ladder_path = repo_root / "CLAIM_LADDER.md"
     pi_pitch_path = repo_root / "PI_PITCH.md"
+    thesis_upgrade = _load_json_object(repo_root / "results" / "thesis_upgrade" / "thesis_upgrade_status.json")
+    external_component = _thesis_upgrade_component(thesis_upgrade, "external_validation")
+    neuromaps_component = _thesis_upgrade_component(thesis_upgrade, "neuromaps_spatial_nulls")
+    map_claim_component = _thesis_upgrade_component(thesis_upgrade, "receptor_myelin_gradient_claim")
+
+    external_status = _gate_status(external_component, "scored_when_comparable_viewer_present")
+    external_ready = bool(_strict_requirement(external_component).get("complete"))
+    external_boundary = (
+        "Schaefer100/Yeo7 unchanged scoring is implemented as an external stress test; "
+        "a top-layer mismatch remains negative/partial evidence, not LSD replication."
+        if external_ready
+        else "Schaefer100/Yeo7 unchanged scoring is planned as an external stress test; it is not LSD replication."
+    )
+    spatial_status = _gate_status(neuromaps_component, "next_required_upgrade")
+    spatial_ready = bool(_strict_requirement(neuromaps_component).get("complete"))
+    map_claim_status = _gate_status(map_claim_component, "do_not_strengthen_mechanism_claim")
+    map_claim_ready = bool(_strict_requirement(map_claim_component).get("complete"))
     return {
         "analysis_status": "pi_pitch_claim_ladder_ready" if claim_ladder_path.exists() and pi_pitch_path.exists() else "missing_pitch_or_claim_ladder",
         "source_path": claim_ladder_path.relative_to(repo_root).as_posix(),
@@ -60,11 +105,8 @@ def load_claim_status_payload(repo_root: Path) -> dict[str, Any]:
             {
                 "source": "ds006072 psilocybin",
                 "role": "external stress-test dataset",
-                "status": "scored_when_comparable_viewer_present",
-                "claim_boundary": (
-                    "Schaefer100/Yeo7 unchanged scoring is an external stress test; "
-                    "a top-layer mismatch is negative/partial evidence, not LSD replication."
-                ),
+                "status": external_status,
+                "claim_boundary": external_boundary,
             },
             {
                 "source": "Lyons et al. 2026 Nature Communications",
@@ -106,9 +148,9 @@ def load_claim_status_payload(repo_root: Path) -> dict[str, Any]:
                 "status": "must_remain_first_class_limitation",
             },
             {
-                "control": "future Schaefer/Yeo spatial nulls",
-                "purpose": "replace weak 8-label permutation with spatial-autocorrelation-aware inference",
-                "status": "next_required_upgrade",
+                "control": "Schaefer/Yeo spatial nulls",
+                "purpose": "test map-prior claims with spatial-autocorrelation-aware inference",
+                "status": spatial_status if spatial_ready else "next_required_upgrade",
             },
         ],
         "uncertainty_gate_rows": [
@@ -132,12 +174,12 @@ def load_claim_status_payload(repo_root: Path) -> dict[str, Any]:
             },
             {
                 "effect": "High-resolution spatial-map claim",
-                "ci": "not run",
-                "p": "not run",
-                "q": "not run",
+                "ci": "reported in spatial-null rows" if spatial_ready else "not run",
+                "p": "Moran spatial-null p-values reported" if spatial_ready else "not run",
+                "q": "no FDR support" if spatial_ready else "not run",
                 "fdr_pass": "no",
-                "ci_crosses_zero": "unknown",
-                "claim_status": "blocked_until_schaefer_yeo_neuromaps",
+                "ci_crosses_zero": "mixed" if spatial_ready else "unknown",
+                "claim_status": map_claim_status if spatial_ready else "blocked_until_schaefer_yeo_neuromaps",
             },
         ],
         "claim_tiers": [
@@ -165,24 +207,33 @@ def load_claim_status_payload(repo_root: Path) -> dict[str, Any]:
             {
                 "tier": "D",
                 "claim": "Receptor, DTI, myelin, gradient, and AHBA maps are useful priors",
-                "status": "exploratory",
+                "status": "resolved_negative_control" if map_claim_ready else "exploratory",
                 "evidence": "Module-level p/q/CI-gated alignments are displayed, but not significant enough for strong mechanism claims.",
                 "pi_framing": "Shows honesty: the system reports weak evidence instead of hiding it.",
             },
             {
                 "tier": "E",
                 "claim": "Strong receptor/myelin/gradient mechanism",
-                "status": "not_supported_yet",
-                "evidence": "Needs Schaefer/Yeo or Glasser parcel-level inference plus spatial nulls.",
+                "status": map_claim_status,
+                "evidence": (
+                    "Completed Schaefer/Yeo spatial-null evidence resolves this as a negative/control result."
+                    if map_claim_ready
+                    else "Needs Schaefer/Yeo or Glasser parcel-level inference plus spatial nulls."
+                ),
                 "pi_framing": "Clear Master's work package rather than overclaiming.",
             },
             {
                 "tier": "F",
                 "claim": "External psilocybin validation",
-                "status": "blocked_future_work",
+                "status": external_status if external_ready else "blocked_future_work",
                 "evidence": (
-                    "Lyons 2026 and PsiConnect 2026 are context/planning anchors until "
-                    "comparable data are ingested and scored unchanged."
+                    "ds006072 Schaefer100/Yeo7 unchanged scoring is implemented as a stress test; "
+                    "literature and future multimodal datasets remain context/planning anchors."
+                    if external_ready
+                    else (
+                        "External literature and future multimodal datasets are context/planning anchors until "
+                        "comparable data are ingested and scored unchanged."
+                    )
                 ),
                 "pi_framing": "A concrete future collaboration/data-access target.",
             },
@@ -204,7 +255,12 @@ def load_claim_status_payload(repo_root: Path) -> dict[str, Any]:
             },
             {
                 "topic": "External validation",
-                "message": "Current psilocybin papers are external context, not validation of this score until data are ingested and scored unchanged.",
+                "message": (
+                    "ds006072 unchanged scoring is implemented as an external stress test; "
+                    "literature-only psilocybin papers remain context, not validation of this score."
+                    if external_ready
+                    else "Current psilocybin papers are external context, not validation of this score until data are ingested and scored unchanged."
+                ),
                 "slide_takeaway": "The dashboard separates plausibility anchors from replication.",
             },
             {
@@ -215,11 +271,11 @@ def load_claim_status_payload(repo_root: Path) -> dict[str, Any]:
         ],
         "next_90_days": [
             "Freeze the 8-module layer as an interpretable macro-summary.",
-            "Add Schaefer-100/200 plus Yeo-7/Yeo-17 as the primary inference layer.",
-            "Project receptor, DTI/SC, myelin, gradient, and AHBA maps into the same parcel contract.",
-            "Run neuromaps-style spatial nulls and report q-values plus CI-zero gates.",
+            "Keep Schaefer-100/Yeo-7 as the primary inference layer and reserve Schaefer-200/Yeo-17 or Glasser for scoped sensitivity upgrades.",
+            "Keep receptor, DTI/SC, myelin, gradient, and AHBA maps in the same parcel contract before promoting any biological-prior claim.",
+            "Maintain the spatial-null/FDR/CI-zero gate as the map-prior promotion rule.",
             "Turn leak-proof ML benchmarks into a compact AI contribution slide.",
-            "Prepare authorized psilocybin external-scoring contracts without claiming validation early.",
+            "Resolve authorized fMRIPrep FD/DVARS/censoring confounds before calling the thesis complete.",
         ],
         "falsification_checks": [
             "Downgrade the mechanism claim if subject-disjoint CV collapses.",

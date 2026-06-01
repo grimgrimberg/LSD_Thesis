@@ -42,6 +42,7 @@ The missing `project_phase` item is derived from the motion-proof blocker. It is
 - Author-style long-form confound metadata values such as `001`, `LSD`, and `1` now normalize to the repo's join keys (`sub-001`, `ses-LSD`, `run-01`) before motion summaries are joined to subject/run dynamic deltas.
 - External motion roots are now threaded through the thesis-status refresh, source-availability check, and static Pages build so published/provenance artifacts can stay consistent with the same authorized confound root.
 - Motion source availability now reports parser readiness, pairing readiness, parsed summary count, and unusable file count; a discovered local motion-like TSV does not count as available confounds unless it parses with joinable metadata.
+- Dashboard PI-pitch claim rows now derive ds006072, Schaefer/Yeo spatial-null, and receptor/myelin/gradient resolution labels from the current thesis-upgrade artifact instead of keeping stale `future` or `blocked` labels for implemented gates.
 - The thesis-upgrade strict motion gate now rejects implemented-looking motion-control status strings unless the evidence also has explicit paired-control readiness, enough paired/merged rows, and FD, DVARS, plus censor/outlier association-row coverage.
 - The current OpenNeuro ds003059 snapshot check is recorded in `results/confound_controls/fmriprep_motion_proof_plan.json`: 250 snapshot files, 15 T1w files, and 0 confound-like files.
 
@@ -60,7 +61,7 @@ Observed results:
 
 - Ruff: all checks passed.
 - mypy: no issues found in 77 source files.
-- pytest: 360 passed, 4 warnings, total coverage 80.01%.
+- pytest: 361 passed, 4 warnings, total coverage 80.05%.
 - dashboard preview preflight: required files present, optional generated artifacts present, CV5 internal validation reported as 5/5 folds.
 
 Hosted CI after the Node-24 action-major bump:
