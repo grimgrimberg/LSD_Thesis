@@ -11,7 +11,7 @@ from typing import Any
 import numpy as np
 from scipy import stats
 
-from lsd_thesis.setting_seed.motion import build_motion_summary
+from lsd_thesis.setting_seed.motion import MINIMUM_PAIRED_SUBJECT_RUN_COUNT, build_motion_summary
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 SCHEMA_VERSION = "motion_confound_control.v1"
@@ -26,6 +26,7 @@ CONFOUND_CONTROL_INPUT_CONTRACT = {
         "motion outlier, scrub, or censor fraction where available",
     ],
     "required_pairing": "subject + run, with LSD and placebo/PLCB sessions paired before association testing",
+    "minimum_paired_subject_run_count": MINIMUM_PAIRED_SUBJECT_RUN_COUNT,
 }
 
 MOTION_FEATURE_ALIASES: dict[str, tuple[str, ...]] = {
@@ -131,6 +132,10 @@ def _load_motion_features(motion_payload: dict[str, Any]) -> list[dict[str, Any]
         if len(row) > 2:
             rows.append(row)
     return rows
+
+
+def _has_paired_motion_features(row: dict[str, Any]) -> bool:
+    return any(key.endswith(("_delta_lsd_minus_placebo", "_mean_abs")) for key in row if key not in {"subject", "run"})
 
 
 def _load_subject_dynamic_deltas(view_root: Path) -> list[dict[str, Any]]:
@@ -246,6 +251,11 @@ def _blocked_status(
         "motion_summary_status": payload.get("status", "missing"),
         "motion_files_present": bool(payload.get("motion_files_present")),
         "parsed_summary_count": int(payload.get("parsed_summary_count") or 0),
+        "paired_subject_run_count": int(payload.get("paired_subject_run_count") or 0),
+        "minimum_paired_subject_run_count": int(
+            payload.get("minimum_paired_subject_run_count") or MINIMUM_PAIRED_SUBJECT_RUN_COUNT
+        ),
+        "motion_pairing_ready": bool(payload.get("motion_pairing_ready")),
         "motion_summary_files": payload.get("motion_summary_files", []),
         "input_contract": {
             **CONFOUND_CONTROL_INPUT_CONTRACT,
@@ -290,12 +300,42 @@ def build_motion_confound_control_status(repo_root: Path = REPO_ROOT) -> dict[st
             motion_payload,
         )
 
+    if motion_payload.get("motion_pairing_ready") is False:
+        paired_count = int(motion_payload.get("paired_subject_run_count") or 0)
+        minimum_count = int(
+            motion_payload.get("minimum_paired_subject_run_count") or MINIMUM_PAIRED_SUBJECT_RUN_COUNT
+        )
+        return _blocked_status(
+            repo_root,
+            "blocked_insufficient_paired_motion_coverage",
+            (
+                f"Only {paired_count} paired LSD/placebo subject/run motion rows are available; "
+                f"need at least {minimum_count} before running strict FD/DVARS/censoring association controls."
+            ),
+            motion_path,
+            view_root,
+            motion_payload,
+        )
+
     motion_rows = _load_motion_features(motion_payload)
     if not motion_rows:
         return _blocked_status(
             repo_root,
             "blocked_missing_usable_motion_features",
             "Motion summary is marked ready but no FD/DVARS/outlier features could be joined by subject/run.",
+            motion_path,
+            view_root,
+            motion_payload,
+        )
+    paired_motion_rows = [row for row in motion_rows if _has_paired_motion_features(row)]
+    if len(paired_motion_rows) < MIN_OVERLAP:
+        return _blocked_status(
+            repo_root,
+            "blocked_missing_paired_lsd_placebo_motion_features",
+            (
+                f"Only {len(paired_motion_rows)} subject/run rows contain paired LSD-placebo motion features; "
+                f"need at least {MIN_OVERLAP} before testing motion associations."
+            ),
             motion_path,
             view_root,
             motion_payload,
@@ -310,7 +350,7 @@ def build_motion_confound_control_status(repo_root: Path = REPO_ROOT) -> dict[st
             view_root,
             motion_payload,
         )
-    merged = _merge_rows(dynamic_rows, motion_rows)
+    merged = _merge_rows(dynamic_rows, paired_motion_rows)
     if len(merged) < MIN_OVERLAP:
         return _blocked_status(
             repo_root,
@@ -344,6 +384,13 @@ def build_motion_confound_control_status(repo_root: Path = REPO_ROOT) -> dict[st
         },
         "motion_summary_status": motion_payload.get("status", "available_parsed"),
         "motion_files_present": bool(motion_payload.get("motion_files_present")),
+        "motion_pairing_ready": bool(motion_payload.get("motion_pairing_ready", True)),
+        "paired_subject_run_count": int(
+            motion_payload.get("paired_subject_run_count") or len(paired_motion_rows)
+        ),
+        "minimum_paired_subject_run_count": int(
+            motion_payload.get("minimum_paired_subject_run_count") or MINIMUM_PAIRED_SUBJECT_RUN_COUNT
+        ),
         "parsed_summary_count": int(
             motion_payload.get("parsed_summary_count") or len(motion_payload.get("summaries", []))
         ),
