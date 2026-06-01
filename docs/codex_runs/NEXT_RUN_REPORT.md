@@ -6,6 +6,8 @@ Date: 2026-06-01
 
 The branch `codex/thesis-evidence-pages` is synced with GitHub and the current quality baseline is green locally and in hosted CI.
 
+Current engineering health rating: `8.7/10`; release/thesis-submission readiness: `B`. The rating is higher because the dashboard HTML sink cleanup, generated-artifact policy, hosted CI gate, and several large-module splits are now landed. It is still capped by the missing external fMRIPrep FD/DVARS/censoring motion proof and residual large research modules.
+
 Current thesis-upgrade status:
 
 - Readiness gates: `8/8`.
