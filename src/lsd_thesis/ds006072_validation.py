@@ -10,6 +10,10 @@ from pathlib import Path
 from typing import Any
 from xml.etree import ElementTree as ET
 
+import lsd_thesis.dynamic_mechanism as dynamic_mechanism_module
+import lsd_thesis.dynamic_mechanism_priors as dynamic_mechanism_priors_module
+import lsd_thesis.dynamic_mechanism_stats as dynamic_mechanism_stats_module
+import lsd_thesis.dynamic_mechanism_transitions as dynamic_mechanism_transitions_module
 from lsd_thesis.dynamic_mechanism import build_dynamic_mechanism_summary, load_empirical_pairs
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
@@ -283,7 +287,12 @@ def _write_scoring_spec(repo_root: Path, output_dir: Path) -> dict[str, Any]:
         "lsd_perturbation_targets": repo_root / "results" / "stage_2" / "empirical_perturbation_targets.yaml",
         "literature_targets": repo_root / "configs" / "targets" / "empirical_lsd_signatures.yaml",
     }
-    scoring_code_paths = {"dynamic_mechanism": Path(build_dynamic_mechanism_summary.__code__.co_filename)}
+    scoring_code_paths = {
+        "dynamic_mechanism": Path(dynamic_mechanism_module.__file__ or ""),
+        "dynamic_mechanism_priors": Path(dynamic_mechanism_priors_module.__file__ or ""),
+        "dynamic_mechanism_stats": Path(dynamic_mechanism_stats_module.__file__ or ""),
+        "dynamic_mechanism_transitions": Path(dynamic_mechanism_transitions_module.__file__ or ""),
+    }
     spec = {
         "schema_version": SCHEMA_VERSION,
         "generated_at_utc": _now(),

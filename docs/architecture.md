@@ -75,6 +75,27 @@ flowchart TD
 
 Keep `web/app.py` as the route module. New dashboard payload concerns should move behind a focused `web/*_payload.py` or policy module when they would otherwise add another large helper block to `web/app.py`.
 
+## Dynamic Mechanism Map
+
+The dynamic-mechanism ranking code is being split around stable helper interfaces so mechanism summaries can be tested without adding more private helper imports across research modules.
+
+```mermaid
+flowchart TD
+    DYN["dynamic_mechanism.py\nsummary orchestration, DMDc, hierarchy/routing, repertoire, and control-energy ranking"]
+    PRIORS["dynamic_mechanism_priors.py\nmodule masks, prior vectors, and control-weight normalization"]
+    STATS["dynamic_mechanism_stats.py\npaired metric rows, bootstrap/FDR helpers, labels, and trajectory statistics"]
+    TRANS["dynamic_mechanism_transitions.py\ntransition-state proxy summary"]
+    ROBUST["dynamic_robustness.py\nsensitivity checks using public dynamic-mechanism helpers"]
+
+    DYN --> PRIORS
+    DYN --> STATS
+    DYN --> TRANS
+    ROBUST --> DYN
+    ROBUST --> STATS
+```
+
+Keep new mechanism-specific summaries behind focused public helper modules when they can be extracted without changing the summary schema. `dynamic_mechanism.py` should stay the orchestration layer for the combined ranking artifact.
+
 ## Rationale
 
 The design favors explicit state variables, visible configuration, and inspectable intermediate outputs. Most of the scientific uncertainty sits in the perturbation interpretation, so the implementation intentionally keeps the mathematics simple and the claims narrow.

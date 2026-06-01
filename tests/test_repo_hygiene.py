@@ -126,11 +126,16 @@ def test_dynamic_robustness_uses_public_dynamic_stat_helpers() -> None:
 
 def test_dynamic_mechanism_uses_public_paired_metric_collector() -> None:
     repo_root = Path(__file__).resolve().parents[1]
-    source = (repo_root / "src" / "lsd_thesis" / "dynamic_mechanism.py").read_text(encoding="utf-8")
+    dynamic_source = (repo_root / "src" / "lsd_thesis" / "dynamic_mechanism.py").read_text(encoding="utf-8")
+    transition_source = (repo_root / "src" / "lsd_thesis" / "dynamic_mechanism_transitions.py").read_text(
+        encoding="utf-8"
+    )
 
-    assert "collect_paired_metric_rows as _collect_paired_metric_rows" in source
-    assert "rows: list[dict[str, Any]] = []" not in source[source.index("def summarize_transition_proxy") : source.index("def _dynamic_samples")]
-    assert "metric_deltas: dict[str, list[float]] = {metric: [] for metric in metric_names}" not in source
+    assert "from lsd_thesis.dynamic_mechanism_transitions import summarize_transition_proxy" in dynamic_source
+    assert "def summarize_transition_proxy" not in dynamic_source
+    assert "collect_paired_metric_rows" in transition_source
+    assert "rows: list[dict[str, Any]] = []" not in transition_source
+    assert "metric_deltas: dict[str, list[float]] = {metric: [] for metric in metric_names}" not in transition_source
 
 
 def test_dashboard_reporting_architecture_map_mentions_current_web_modules() -> None:
@@ -145,6 +150,19 @@ def test_dashboard_reporting_architecture_map_mentions_current_web_modules() -> 
         "web/simulation_payload.py",
         "web/structural_dti.py",
         "web/thesis_payload.py",
+    ):
+        assert expected in architecture
+
+
+def test_architecture_map_mentions_current_dynamic_mechanism_modules() -> None:
+    repo_root = Path(__file__).resolve().parents[1]
+    architecture = (repo_root / "docs" / "architecture.md").read_text(encoding="utf-8")
+
+    for expected in (
+        "dynamic_mechanism.py",
+        "dynamic_mechanism_priors.py",
+        "dynamic_mechanism_stats.py",
+        "dynamic_mechanism_transitions.py",
     ):
         assert expected in architecture
 

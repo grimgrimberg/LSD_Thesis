@@ -1,6 +1,6 @@
 {
   "schema_version": "ds006072_external_validation.v1",
-  "generated_at_utc": "2026-06-01T20:07:52.066951+00:00",
+  "generated_at_utc": "2026-06-01T23:38:15.712907+00:00",
   "dataset_id": "ds006072",
   "primary_contrast": "psilocybin_vs_active_control_mtp",
   "viewer_root": "results/psilocybin_ds006072/parcellations/schaefer_100_yeo_7/empirical_viewer",
@@ -39,8 +39,29 @@
       "scoring_code_files.dynamic_mechanism": {
         "path": "src/lsd_thesis/dynamic_mechanism.py",
         "exists": true,
-        "expected_sha256": "cbcbf941449121598f4e9196cb560fb1c22f141caf994df918e59fcd5d2d9c93",
-        "current_sha256": "cbcbf941449121598f4e9196cb560fb1c22f141caf994df918e59fcd5d2d9c93",
+        "expected_sha256": "956214d70805f1caf36160562008ca034d0c7ca402e73ffec5f4188769ba73ed",
+        "current_sha256": "956214d70805f1caf36160562008ca034d0c7ca402e73ffec5f4188769ba73ed",
+        "verified": true
+      },
+      "scoring_code_files.dynamic_mechanism_priors": {
+        "path": "src/lsd_thesis/dynamic_mechanism_priors.py",
+        "exists": true,
+        "expected_sha256": "1783a63f324e8dc7f1d8e4b6dcd6747756f7c9c15e3e0be2034262d5ac601bf3",
+        "current_sha256": "1783a63f324e8dc7f1d8e4b6dcd6747756f7c9c15e3e0be2034262d5ac601bf3",
+        "verified": true
+      },
+      "scoring_code_files.dynamic_mechanism_stats": {
+        "path": "src/lsd_thesis/dynamic_mechanism_stats.py",
+        "exists": true,
+        "expected_sha256": "3a82bf05d2ecbb6108eb565cde8d8faf91f727b03872327fd8e0a95817c6d35b",
+        "current_sha256": "3a82bf05d2ecbb6108eb565cde8d8faf91f727b03872327fd8e0a95817c6d35b",
+        "verified": true
+      },
+      "scoring_code_files.dynamic_mechanism_transitions": {
+        "path": "src/lsd_thesis/dynamic_mechanism_transitions.py",
+        "exists": true,
+        "expected_sha256": "9912895059422095756d5fa428021f1b4dee8680ad396150eb90e574cd346393",
+        "current_sha256": "9912895059422095756d5fa428021f1b4dee8680ad396150eb90e574cd346393",
         "verified": true
       }
     }
@@ -121,7 +142,7 @@
   "summary": {
     "schema_version": 3,
     "analysis_status": "implemented_first_pass",
-    "generated_at_utc": "2026-06-01T20:08:00.006581+00:00",
+    "generated_at_utc": "2026-06-01T23:38:21.951794+00:00",
     "inference_metadata": {
       "metric_ci_alpha": 0.05,
       "metric_bootstrap_iterations": 1024,

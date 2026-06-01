@@ -263,6 +263,27 @@ def test_comparable_validation_refreshes_stale_scoring_lock_only_when_requested(
     assert refreshed_spec["scoring_code_files"]["dynamic_mechanism"]["sha256"] != "stale"
 
 
+def test_comparable_validation_scoring_lock_includes_extracted_dynamic_helpers(tmp_path: Path) -> None:
+    _write_scoring_targets(tmp_path)
+    _write_minimal_ds006072_metadata(tmp_path)
+    _write_external_viewer(tmp_path)
+
+    build_ds006072_comparable_validation_status(tmp_path, refresh_scoring_lock=True)
+
+    spec_path = tmp_path / "results" / "psilocybin_ds006072" / "unchanged_scoring_spec.json"
+    spec = json.loads(spec_path.read_text(encoding="utf-8"))
+    scoring_files = spec["scoring_code_files"]
+
+    for expected in (
+        "dynamic_mechanism",
+        "dynamic_mechanism_priors",
+        "dynamic_mechanism_stats",
+        "dynamic_mechanism_transitions",
+    ):
+        assert scoring_files[expected]["exists"] is True
+        assert scoring_files[expected]["sha256"]
+
+
 def test_comparable_validation_prefers_schaefer100_viewer_when_ready(tmp_path: Path) -> None:
     _write_scoring_targets(tmp_path)
     _write_minimal_ds006072_metadata(tmp_path)
