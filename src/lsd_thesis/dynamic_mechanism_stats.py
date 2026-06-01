@@ -12,7 +12,7 @@ MECHANISM_METRIC_BOOTSTRAP_ALPHA = 0.05
 MECHANISM_METRIC_BOOTSTRAP_SEED = 20260520
 
 
-def _finite_array(values: Any) -> np.ndarray:
+def finite_array(values: Any) -> np.ndarray:
     array = np.asarray(values, dtype=float)
     if array.ndim != 2 or array.shape[0] < 3 or array.shape[1] < 1:
         raise ValueError("Module time series must be shaped as [time, module] with at least three time points.")
@@ -43,7 +43,7 @@ def _state_scores_from_reference(reference: np.ndarray, time_series: np.ndarray,
     return centered_reference @ component, (target_array - np.mean(reference_array, axis=0, keepdims=True)) @ component
 
 
-def _state_labels_from_reference(
+def state_labels_from_reference(
     reference: np.ndarray,
     time_series: np.ndarray,
     *,
@@ -68,7 +68,7 @@ def _mean_dwell_time(labels: np.ndarray) -> float:
     return float(np.mean(np.diff(boundaries)))
 
 
-def _transition_metrics(labels: np.ndarray) -> dict[str, float]:
+def transition_metrics(labels: np.ndarray) -> dict[str, float]:
     return {
         "state_occupancy_entropy": state_occupancy_entropy(labels),
         "transition_entropy": transition_entropy(labels),
@@ -78,7 +78,7 @@ def _transition_metrics(labels: np.ndarray) -> dict[str, float]:
     }
 
 
-def _mean_std(values: list[float]) -> tuple[float, float]:
+def mean_std(values: list[float]) -> tuple[float, float]:
     if not values:
         return 0.0, 0.0
     array = np.asarray(values, dtype=float)
@@ -86,7 +86,7 @@ def _mean_std(values: list[float]) -> tuple[float, float]:
     return float(np.mean(array)), std
 
 
-def _bootstrap_ci(
+def bootstrap_ci(
     values: list[float],
     *,
     seed: int = MECHANISM_METRIC_BOOTSTRAP_SEED,
@@ -118,7 +118,7 @@ def _bootstrap_ci(
     }
 
 
-def _benjamini_hochberg(p_values: list[float]) -> list[float]:
+def benjamini_hochberg(p_values: list[float]) -> list[float]:
     if not p_values:
         return []
     p = np.asarray([float(value) for value in p_values], dtype=float)
@@ -162,7 +162,7 @@ def _sign_consistency(values: list[float], expected_sign: int) -> float:
     return float(np.mean(np.asarray(signed, dtype=float) > 0.0))
 
 
-def _aggregate_metric_deltas(
+def aggregate_metric_deltas(
     metric_deltas: dict[str, list[float]],
     expected_direction: dict[str, str],
     expected_sign: dict[str, int],
@@ -172,9 +172,9 @@ def _aggregate_metric_deltas(
     aggregate_rows: list[dict[str, Any]] = []
     for metric_index, (metric, values) in enumerate(metric_deltas.items()):
         sign = expected_sign.get(metric, 1)
-        mean_delta, std_delta = _mean_std(values)
+        mean_delta, std_delta = mean_std(values)
         effect = _effect_size(mean_delta, std_delta)
-        ci = _bootstrap_ci(values, seed=bootstrap_seed + metric_index)
+        ci = bootstrap_ci(values, seed=bootstrap_seed + metric_index)
         row = {
             "metric": metric,
             "mean_delta": mean_delta,
@@ -191,7 +191,7 @@ def _aggregate_metric_deltas(
             "ci_high": ci["ci_high"],
         }
         aggregate_rows.append(row)
-    fdr_values = _benjamini_hochberg([float(row["sign_flip_p_value"]) for row in aggregate_rows])
+    fdr_values = benjamini_hochberg([float(row["sign_flip_p_value"]) for row in aggregate_rows])
     for row, q_value in zip(aggregate_rows, fdr_values, strict=True):
         row["sign_flip_q_value"] = q_value
         row["significant_after_fdr_0_05"] = q_value < 0.05
@@ -199,7 +199,7 @@ def _aggregate_metric_deltas(
     return aggregate_rows
 
 
-def _run_metric_deltas(
+def run_metric_deltas(
     pair_rows: list[dict[str, Any]],
     metrics: list[str],
     expected_direction: dict[str, str],
@@ -215,12 +215,12 @@ def _run_metric_deltas(
 
     output: list[dict[str, Any]] = []
     for run, deltas in sorted(by_run.items()):
-        for row in _aggregate_metric_deltas(deltas, expected_direction, expected_sign):
+        for row in aggregate_metric_deltas(deltas, expected_direction, expected_sign):
             output.append({"run": run, **row})
     return output
 
 
-def _zscore_pair(placebo: np.ndarray, lsd: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
+def zscore_pair(placebo: np.ndarray, lsd: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
     stacked = np.vstack([placebo, lsd])
     mean = np.mean(stacked, axis=0, keepdims=True)
     std = np.std(stacked, axis=0, keepdims=True)
@@ -228,7 +228,7 @@ def _zscore_pair(placebo: np.ndarray, lsd: np.ndarray) -> tuple[np.ndarray, np.n
     return (placebo - mean) / std, (lsd - mean) / std
 
 
-def _mean_step_distance(time_series: np.ndarray) -> float:
+def mean_step_distance(time_series: np.ndarray) -> float:
     if len(time_series) < 2:
         return 0.0
     return float(np.mean(np.linalg.norm(np.diff(time_series, axis=0), axis=1)))

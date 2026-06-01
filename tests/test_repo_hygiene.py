@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import ast
 from pathlib import Path
 
 from lsd_thesis.repo_hygiene import find_ignored_source_paths
@@ -105,3 +106,19 @@ def test_dashboard_template_avoids_html_string_injection_sinks() -> None:
 
     for pattern in forbidden_patterns:
         assert pattern not in dashboard_template
+
+
+def test_dynamic_robustness_uses_public_dynamic_stat_helpers() -> None:
+    repo_root = Path(__file__).resolve().parents[1]
+    source_path = repo_root / "src" / "lsd_thesis" / "dynamic_robustness.py"
+    tree = ast.parse(source_path.read_text(encoding="utf-8"))
+
+    private_stat_imports: list[str] = []
+    for node in ast.walk(tree):
+        if not isinstance(node, ast.ImportFrom):
+            continue
+        if node.module not in {"lsd_thesis.dynamic_mechanism", "lsd_thesis.dynamic_mechanism_stats"}:
+            continue
+        private_stat_imports.extend(alias.name for alias in node.names if alias.name.startswith("_"))
+
+    assert private_stat_imports == []

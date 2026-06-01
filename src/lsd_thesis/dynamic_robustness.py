@@ -15,11 +15,11 @@ from lsd_thesis.dynamic_mechanism import (
     summarize_network_control_energy,
 )
 from lsd_thesis.dynamic_mechanism_stats import (
-    _aggregate_metric_deltas,
-    _mean_step_distance,
-    _state_labels_from_reference,
-    _transition_metrics,
-    _zscore_pair,
+    aggregate_metric_deltas,
+    mean_step_distance,
+    state_labels_from_reference,
+    transition_metrics,
+    zscore_pair,
 )
 
 BOOTSTRAP_ITERATIONS = 256
@@ -100,7 +100,7 @@ def _support_score_from_pair_rows(pair_rows: list[dict[str, Any]], metric_rows: 
         for metric in metric_values:
             if metric in deltas:
                 metric_values[metric].append(_finite_float(deltas[metric]))
-    aggregate_rows = _aggregate_metric_deltas(metric_values, expected_direction, expected_sign)
+    aggregate_rows = aggregate_metric_deltas(metric_values, expected_direction, expected_sign)
     components = [
         _finite_float(row.get("signed_effect_size"))
         for row in aggregate_rows
@@ -270,14 +270,14 @@ def _transition_summary_for_state_method(
     ]
     metric_deltas: dict[str, list[float]] = {metric: [] for metric in metric_names}
     for pair in pairs:
-        placebo_normalized, lsd_normalized = _zscore_pair(pair.placebo, pair.lsd)
+        placebo_normalized, lsd_normalized = zscore_pair(pair.placebo, pair.lsd)
         reference = np.vstack([placebo_normalized, lsd_normalized])
-        placebo_labels = _state_labels_from_reference(reference, placebo_normalized, state_bins=state_bins, score_mode=score_mode)
-        lsd_labels = _state_labels_from_reference(reference, lsd_normalized, state_bins=state_bins, score_mode=score_mode)
-        placebo_metrics = _transition_metrics(placebo_labels)
-        lsd_metrics = _transition_metrics(lsd_labels)
-        placebo_metrics["transition_step_distance_proxy"] = _mean_step_distance(placebo_normalized)
-        lsd_metrics["transition_step_distance_proxy"] = _mean_step_distance(lsd_normalized)
+        placebo_labels = state_labels_from_reference(reference, placebo_normalized, state_bins=state_bins, score_mode=score_mode)
+        lsd_labels = state_labels_from_reference(reference, lsd_normalized, state_bins=state_bins, score_mode=score_mode)
+        placebo_metrics = transition_metrics(placebo_labels)
+        lsd_metrics = transition_metrics(lsd_labels)
+        placebo_metrics["transition_step_distance_proxy"] = mean_step_distance(placebo_normalized)
+        lsd_metrics["transition_step_distance_proxy"] = mean_step_distance(lsd_normalized)
         for metric in metric_names:
             metric_deltas[metric].append(float(lsd_metrics[metric] - placebo_metrics[metric]))
 
@@ -297,7 +297,7 @@ def _transition_summary_for_state_method(
         "barrier_reduction_proxy": 1,
         "transition_step_distance_proxy": 1,
     }
-    metric_rows = _aggregate_metric_deltas(metric_deltas, expected_direction, expected_sign)
+    metric_rows = aggregate_metric_deltas(metric_deltas, expected_direction, expected_sign)
     score = float(np.mean([row["signed_effect_size"] for row in metric_rows if row["metric"] in SUPPORT_METRICS["A"]]))
     return {
         "state_method": state_method,

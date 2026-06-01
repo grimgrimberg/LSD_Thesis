@@ -3,12 +3,8 @@ from pathlib import Path
 
 import numpy as np
 
-from lsd_thesis.dynamic_mechanism import (
-    _benjamini_hochberg,
-    _bootstrap_ci,
-    build_dynamic_mechanism_summary,
-    write_dynamic_mechanism_summary,
-)
+from lsd_thesis.dynamic_mechanism import build_dynamic_mechanism_summary, write_dynamic_mechanism_summary
+from lsd_thesis.dynamic_mechanism_stats import benjamini_hochberg, bootstrap_ci
 
 
 def _viewer_fixture(root: Path) -> Path:
@@ -99,7 +95,7 @@ def test_dynamic_mechanism_summary_writer_persists_json(tmp_path: Path) -> None:
 
 
 def test_benjamini_hochberg_monotone_and_bounded() -> None:
-    q_values = _benjamini_hochberg([0.01, 0.04, 0.03, 0.20, 0.50])
+    q_values = benjamini_hochberg([0.01, 0.04, 0.03, 0.20, 0.50])
 
     assert len(q_values) == 5
     assert all(0.0 <= value <= 1.0 for value in q_values)
@@ -109,8 +105,8 @@ def test_benjamini_hochberg_monotone_and_bounded() -> None:
 
 def test_bootstrap_ci_is_deterministic() -> None:
     values = [1.0, 2.0, 3.0, 4.0, 5.0]
-    first = _bootstrap_ci(values, seed=20260520, n_bootstrap=128, alpha=0.05)
-    second = _bootstrap_ci(values, seed=20260520, n_bootstrap=128, alpha=0.05)
+    first = bootstrap_ci(values, seed=20260520, n_bootstrap=128, alpha=0.05)
+    second = bootstrap_ci(values, seed=20260520, n_bootstrap=128, alpha=0.05)
 
     assert first == second
     assert first["ci_low"] <= first["mean"] <= first["ci_high"]

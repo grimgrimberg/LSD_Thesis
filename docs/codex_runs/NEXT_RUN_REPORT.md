@@ -22,9 +22,11 @@ The missing `project_phase` item is derived from the motion-proof blocker. It is
 - Dashboard artifact policy was split out of `src/lsd_thesis/web/app.py` into `src/lsd_thesis/web/artifacts.py`.
 - Dashboard empirical-viewer and run-02 music-run policy was split out of `src/lsd_thesis/web/app.py` into `src/lsd_thesis/web/empirical_viewer.py`.
 - Dynamic mechanism prior/mask policy was split out of `src/lsd_thesis/dynamic_mechanism.py` into `src/lsd_thesis/dynamic_mechanism_priors.py`.
+- Dynamic robustness now uses the public `src/lsd_thesis/dynamic_mechanism_stats.py` helper interface instead of importing private stat helpers.
 - Dashboard string-HTML cleanup is guarded by a repo-hygiene test: the dashboard template must not contain `.innerHTML`, `.outerHTML`, `insertAdjacentHTML`, or `dangerouslySetInnerHTML`.
 - Generated-artifact policy is documented and tested through `.gitignore`, `docs/ARCHIVE_POLICY.md`, and `tests/test_repo_hygiene.py`.
 - fMRIPrep motion proof now has an explicit preflight artifact and fail-closed status instead of an implicit missing gate.
+- Motion-confound ingestion now rejects FD/DVARS files that cannot be joined by subject/session/run metadata.
 
 ## Fresh Verification Evidence
 
@@ -40,8 +42,8 @@ uv run python scripts\preview_dashboard.py --check-only --strict
 Observed results:
 
 - Ruff: all checks passed.
-- mypy: no issues found in 73 source files.
-- pytest: 333 passed, 4 warnings, total coverage 79.70%.
+- mypy: no issues found in 74 source files.
+- pytest: 337 passed, 4 warnings, total coverage 79.77%.
 - dashboard preview preflight: required files present, optional generated artifacts present, CV5 internal validation reported as 5/5 folds.
 
 Hosted CI after the Node-24 action-major bump:
@@ -83,8 +85,8 @@ Do not mark the strict motion gate complete from raw-BOLD image QC, published ag
 Priority order:
 
 1. Continue splitting remaining dashboard payload/status concerns out of `src/lsd_thesis/web/app.py`.
-2. Extract public transition/dynamic summary helpers so `dynamic_robustness.py` stops importing private helpers from `dynamic_mechanism.py`.
-3. Add a compact dashboard/reporting architecture map.
+2. Add a compact dashboard/reporting architecture map.
+3. Continue splitting large dynamic-mechanism summary concerns behind public helper interfaces.
 4. Continue reducing stale generated-run reports; only commit tracked docs and curated evidence.
 
 ## Claim Boundaries To Preserve
