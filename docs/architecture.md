@@ -57,6 +57,7 @@ flowchart TD
     SIM["web/simulation_payload.py\nsimulation and graph payload adapters"]
     STATUS["web/status_payload.py\nprovenance, model-selection, validation, and audit-status payloads"]
     EMP["web/empirical_viewer.py\npaired empirical viewer and guarded run-02 policy"]
+    DTI["web/structural_dti.py\nstructural-connectome dashboard graph payload"]
     ART["web/artifacts.py\nallowlisted artifact links and artifact-path policy"]
     TEMPLATE["templates/dashboard.html\nlocal interactive dashboard shell"]
     REPORTS["reporting.py and publication modules\nmarkdown, figures, document artifacts"]
@@ -64,6 +65,7 @@ flowchart TD
     APP --> SIM
     APP --> STATUS
     APP --> EMP
+    APP --> DTI
     APP --> ART
     APP --> TEMPLATE
     REPORTS --> ART

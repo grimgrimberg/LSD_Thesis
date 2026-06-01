@@ -124,6 +124,15 @@ def test_dynamic_robustness_uses_public_dynamic_stat_helpers() -> None:
     assert private_stat_imports == []
 
 
+def test_dynamic_mechanism_uses_public_paired_metric_collector() -> None:
+    repo_root = Path(__file__).resolve().parents[1]
+    source = (repo_root / "src" / "lsd_thesis" / "dynamic_mechanism.py").read_text(encoding="utf-8")
+
+    assert "collect_paired_metric_rows as _collect_paired_metric_rows" in source
+    assert "rows: list[dict[str, Any]] = []" not in source[source.index("def summarize_transition_proxy") : source.index("def _dynamic_samples")]
+    assert "metric_deltas: dict[str, list[float]] = {metric: [] for metric in metric_names}" not in source
+
+
 def test_dashboard_reporting_architecture_map_mentions_current_web_modules() -> None:
     repo_root = Path(__file__).resolve().parents[1]
     architecture = (repo_root / "docs" / "architecture.md").read_text(encoding="utf-8")
@@ -134,5 +143,6 @@ def test_dashboard_reporting_architecture_map_mentions_current_web_modules() -> 
         "web/empirical_viewer.py",
         "web/status_payload.py",
         "web/simulation_payload.py",
+        "web/structural_dti.py",
     ):
         assert expected in architecture

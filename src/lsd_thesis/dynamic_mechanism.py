@@ -31,6 +31,9 @@ from lsd_thesis.dynamic_mechanism_stats import (
     aggregate_metric_deltas as _aggregate_metric_deltas,
 )
 from lsd_thesis.dynamic_mechanism_stats import (
+    collect_paired_metric_rows as _collect_paired_metric_rows,
+)
+from lsd_thesis.dynamic_mechanism_stats import (
     finite_array as _finite_array,
 )
 from lsd_thesis.dynamic_mechanism_stats import (
@@ -148,16 +151,16 @@ def _safe_vector_correlation(first: np.ndarray, second: np.ndarray) -> float:
 
 
 def summarize_transition_proxy(pairs: list[EmpiricalPair]) -> dict[str, Any]:
-    rows: list[dict[str, Any]] = []
-    metric_deltas: dict[str, list[float]] = {
-        "state_occupancy_entropy": [],
-        "transition_entropy": [],
-        "transition_rate": [],
-        "mean_dwell_time": [],
-        "barrier_reduction_proxy": [],
-        "transition_step_distance_proxy": [],
-    }
-    for pair in pairs:
+    metric_names = [
+        "state_occupancy_entropy",
+        "transition_entropy",
+        "transition_rate",
+        "mean_dwell_time",
+        "barrier_reduction_proxy",
+        "transition_step_distance_proxy",
+    ]
+
+    def transition_metrics_for_pair(pair: EmpiricalPair) -> tuple[dict[str, float], dict[str, float]]:
         reference = np.vstack([pair.placebo, pair.lsd])
         placebo_labels = _state_labels_from_reference(reference, pair.placebo)
         lsd_labels = _state_labels_from_reference(reference, pair.lsd)
@@ -166,21 +169,9 @@ def summarize_transition_proxy(pairs: list[EmpiricalPair]) -> dict[str, Any]:
         placebo_normalized, lsd_normalized = _zscore_pair(pair.placebo, pair.lsd)
         placebo_metrics["transition_step_distance_proxy"] = _mean_step_distance(placebo_normalized)
         lsd_metrics["transition_step_distance_proxy"] = _mean_step_distance(lsd_normalized)
-        deltas = {
-            name: float(lsd_metrics[name] - placebo_metrics[name])
-            for name in placebo_metrics
-        }
-        for name, value in deltas.items():
-            metric_deltas[name].append(value)
-        rows.append(
-            {
-                "subject": pair.subject,
-                "run": pair.run,
-                "placebo": placebo_metrics,
-                "lsd": lsd_metrics,
-                "delta": deltas,
-            }
-        )
+        return placebo_metrics, lsd_metrics
+
+    rows, metric_deltas = _collect_paired_metric_rows(pairs, metric_names, transition_metrics_for_pair)
 
     expected_direction = {
         "state_occupancy_entropy": "positive means broader state occupancy under LSD",
@@ -215,7 +206,7 @@ def summarize_transition_proxy(pairs: list[EmpiricalPair]) -> dict[str, Any]:
         "method": "paired PCA-quantile macro-state labels plus paired-z trajectory step-distance proxy",
         "pair_count": len(rows),
         "metric_deltas": aggregate_rows,
-        "run_metric_deltas": _run_metric_deltas(rows, list(metric_deltas), expected_direction, expected_sign),
+        "run_metric_deltas": _run_metric_deltas(rows, metric_names, expected_direction, expected_sign),
         "pair_rows": rows,
         "support_score": float(np.mean(support_components)) if support_components else 0.0,
         "claim_guardrail": "Transition-state metrics are macro-state proxy summaries; they are not true biological energy barriers.",
@@ -562,7 +553,6 @@ def _hierarchy_routing_metrics(modules: tuple[str, ...], time_series: np.ndarray
 
 
 def summarize_hierarchy_routing(pairs: list[EmpiricalPair]) -> dict[str, Any]:
-    rows: list[dict[str, Any]] = []
     metric_names = [
         "sensory_transmodal_coupling",
         "sensory_global_coupling",
@@ -577,22 +567,14 @@ def summarize_hierarchy_routing(pairs: list[EmpiricalPair]) -> dict[str, Any]:
         "receptor_weighted_global_coupling",
         "receptor_global_coupling_alignment",
     ]
-    metric_deltas: dict[str, list[float]] = {metric: [] for metric in metric_names}
-    for pair in pairs:
-        placebo_metrics = _hierarchy_routing_metrics(pair.modules, pair.placebo)
-        lsd_metrics = _hierarchy_routing_metrics(pair.modules, pair.lsd)
-        deltas = {metric: float(lsd_metrics[metric] - placebo_metrics[metric]) for metric in metric_names}
-        for metric, value in deltas.items():
-            metric_deltas[metric].append(value)
-        rows.append(
-            {
-                "subject": pair.subject,
-                "run": pair.run,
-                "placebo": placebo_metrics,
-                "lsd": lsd_metrics,
-                "delta": deltas,
-            }
-        )
+    rows, metric_deltas = _collect_paired_metric_rows(
+        pairs,
+        metric_names,
+        lambda pair: (
+            _hierarchy_routing_metrics(pair.modules, pair.placebo),
+            _hierarchy_routing_metrics(pair.modules, pair.lsd),
+        ),
+    )
 
     expected_direction = {
         "sensory_transmodal_coupling": "positive means stronger sensory-to-transmodal coupling under LSD",
@@ -669,7 +651,6 @@ def _dynamic_repertoire_metrics(modules: tuple[str, ...], time_series: np.ndarra
 
 
 def summarize_dynamic_repertoire(pairs: list[EmpiricalPair], *, window_size: int | None = None) -> dict[str, Any]:
-    rows: list[dict[str, Any]] = []
     metric_names = [
         "global_mean_fc",
         "within_network_segregation",
@@ -683,23 +664,14 @@ def summarize_dynamic_repertoire(pairs: list[EmpiricalPair], *, window_size: int
         "mean_participation_coefficient",
         "global_efficiency",
     ]
-    metric_deltas: dict[str, list[float]] = {metric: [] for metric in metric_names}
-    for pair in pairs:
+    def repertoire_metrics_for_pair(pair: EmpiricalPair) -> tuple[dict[str, float], dict[str, float]]:
         placebo_normalized, lsd_normalized = _zscore_pair(pair.placebo, pair.lsd)
-        placebo_metrics = _dynamic_repertoire_metrics(pair.modules, placebo_normalized, window_size=window_size)
-        lsd_metrics = _dynamic_repertoire_metrics(pair.modules, lsd_normalized, window_size=window_size)
-        deltas = {metric: float(lsd_metrics[metric] - placebo_metrics[metric]) for metric in metric_names}
-        for metric, value in deltas.items():
-            metric_deltas[metric].append(value)
-        rows.append(
-            {
-                "subject": pair.subject,
-                "run": pair.run,
-                "placebo": placebo_metrics,
-                "lsd": lsd_metrics,
-                "delta": deltas,
-            }
+        return (
+            _dynamic_repertoire_metrics(pair.modules, placebo_normalized, window_size=window_size),
+            _dynamic_repertoire_metrics(pair.modules, lsd_normalized, window_size=window_size),
         )
+
+    rows, metric_deltas = _collect_paired_metric_rows(pairs, metric_names, repertoire_metrics_for_pair)
 
     expected_direction = {
         "global_mean_fc": "positive means globally stronger FC under LSD",

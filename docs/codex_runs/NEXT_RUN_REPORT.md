@@ -22,9 +22,11 @@ The missing `project_phase` item is derived from the motion-proof blocker. It is
 - Dashboard artifact policy was split out of `src/lsd_thesis/web/app.py` into `src/lsd_thesis/web/artifacts.py`.
 - Dashboard empirical-viewer and run-02 music-run policy was split out of `src/lsd_thesis/web/app.py` into `src/lsd_thesis/web/empirical_viewer.py`.
 - Dashboard provenance/model-selection/validation/audit-status payload policy was split out of `src/lsd_thesis/web/app.py` into `src/lsd_thesis/web/status_payload.py`.
+- Dashboard structural-connectome graph payload policy was split out of `src/lsd_thesis/web/app.py` into `src/lsd_thesis/web/structural_dti.py`.
 - `docs/architecture.md` now contains a compact dashboard/reporting map guarded by `tests/test_repo_hygiene.py`.
 - Dynamic mechanism prior/mask policy was split out of `src/lsd_thesis/dynamic_mechanism.py` into `src/lsd_thesis/dynamic_mechanism_priors.py`.
 - Dynamic robustness now uses the public `src/lsd_thesis/dynamic_mechanism_stats.py` helper interface instead of importing private stat helpers.
+- Dynamic mechanism transition, hierarchy/routing, and repertoire summaries now share the public `collect_paired_metric_rows` helper for paired LSD-placebo row/delta aggregation.
 - Dashboard string-HTML cleanup is guarded by a repo-hygiene test: the dashboard template must not contain `.innerHTML`, `.outerHTML`, `insertAdjacentHTML`, or `dangerouslySetInnerHTML`.
 - Generated-artifact policy is documented and tested through `.gitignore`, `docs/ARCHIVE_POLICY.md`, and `tests/test_repo_hygiene.py`.
 - fMRIPrep motion proof now has an explicit preflight artifact and fail-closed status instead of an implicit missing gate.
@@ -49,8 +51,8 @@ uv run python scripts\preview_dashboard.py --check-only --strict
 Observed results:
 
 - Ruff: all checks passed.
-- mypy: no issues found in 75 source files.
-- pytest: 347 passed, 4 warnings, total coverage 79.88%.
+- mypy: no issues found in 76 source files.
+- pytest: 351 passed, 4 warnings, total coverage 79.90%.
 - dashboard preview preflight: required files present, optional generated artifacts present, CV5 internal validation reported as 5/5 folds.
 
 Hosted CI after the Node-24 action-major bump:

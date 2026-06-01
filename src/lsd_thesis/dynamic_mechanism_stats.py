@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import math
+from collections.abc import Callable, Sequence
 from typing import Any
 
 import numpy as np
@@ -197,6 +198,30 @@ def aggregate_metric_deltas(
         row["significant_after_fdr_0_05"] = q_value < 0.05
         row["significant_after_fdr_0.05"] = q_value < 0.05
     return aggregate_rows
+
+
+def collect_paired_metric_rows(
+    pairs: Sequence[Any],
+    metric_names: Sequence[str],
+    metric_builder: Callable[[Any], tuple[dict[str, float], dict[str, float]]],
+) -> tuple[list[dict[str, Any]], dict[str, list[float]]]:
+    metric_deltas: dict[str, list[float]] = {metric: [] for metric in metric_names}
+    rows: list[dict[str, Any]] = []
+    for pair in pairs:
+        placebo_metrics, lsd_metrics = metric_builder(pair)
+        deltas = {metric: float(lsd_metrics[metric] - placebo_metrics[metric]) for metric in metric_names}
+        for metric, value in deltas.items():
+            metric_deltas[metric].append(value)
+        rows.append(
+            {
+                "subject": pair.subject,
+                "run": pair.run,
+                "placebo": placebo_metrics,
+                "lsd": lsd_metrics,
+                "delta": deltas,
+            }
+        )
+    return rows, metric_deltas
 
 
 def run_metric_deltas(
