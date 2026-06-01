@@ -38,6 +38,9 @@ def test_motion_source_availability_detects_local_confounds(tmp_path: Path) -> N
     assert payload["analysis_status"] == "authorized_subject_level_motion_confounds_available"
     assert payload["source_confounds_available"] is True
     assert payload["local_search"]["motion_file_count"] == 1
+    assert payload["local_search"]["motion_analysis_ready"] is True
+    assert payload["local_search"]["motion_pairing_ready"] is False
+    assert payload["local_search"]["parsed_summary_count"] == 1
 
 
 def test_motion_source_availability_detects_configured_external_confound_roots(tmp_path: Path) -> None:
@@ -56,3 +59,23 @@ def test_motion_source_availability_detects_configured_external_confound_roots(t
     assert payload["source_confounds_available"] is True
     assert payload["local_search"]["motion_file_count"] == 1
     assert payload["local_search"]["configured_motion_roots"] == [external_root.as_posix()]
+    assert payload["local_search"]["motion_analysis_ready"] is True
+
+
+def test_motion_source_availability_distinguishes_unusable_motion_like_files(tmp_path: Path) -> None:
+    confounds = tmp_path / "data" / "ds003059" / "derivatives" / "fmriprep"
+    confounds.mkdir(parents=True)
+    (confounds / "desc-confounds_timeseries.tsv").write_text(
+        "framewise_displacement\tstd_dvars\n0.0\t1.0\n",
+        encoding="utf-8",
+    )
+
+    payload = build_motion_source_availability(tmp_path)
+
+    assert payload["analysis_status"] == "authorized_subject_level_motion_confounds_available"
+    assert payload["source_confounds_available"] is True
+    assert payload["local_search"]["motion_file_count"] == 1
+    assert payload["local_search"]["motion_analysis_ready"] is False
+    assert payload["local_search"]["motion_pairing_ready"] is False
+    assert payload["local_search"]["parsed_summary_count"] == 0
+    assert payload["local_search"]["unusable_file_count"] == 1

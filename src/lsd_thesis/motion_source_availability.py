@@ -9,7 +9,7 @@ from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
-from lsd_thesis.setting_seed.motion import MOTION_FILE_PATTERN, discover_motion_files
+from lsd_thesis.setting_seed.motion import MOTION_FILE_PATTERN, build_motion_summary, discover_motion_files
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 SCHEMA_VERSION = "ds003059_motion_source_availability.v1"
@@ -86,6 +86,7 @@ def build_motion_source_availability(
     root = Path(repo_root).resolve()
     motion_roots = tuple(Path(item) for item in roots) if roots is not None else None
     local_files = discover_motion_files(repo_root=root, roots=motion_roots)
+    local_summary = build_motion_summary(repo_root=root, roots=motion_roots)
     remote_error: str | None = None
     if openneuro_files is None and fetch_remote:
         try:
@@ -139,6 +140,13 @@ def build_motion_source_availability(
             "motion_file_count": len(local_files),
             "motion_files": [_rel(path, root) for path in local_files],
             "configured_motion_roots": [_rel(path, root) for path in motion_roots] if motion_roots else [],
+            "motion_summary_status": local_summary.get("status"),
+            "motion_analysis_ready": bool(local_summary.get("motion_analysis_ready")),
+            "motion_pairing_ready": bool(local_summary.get("motion_pairing_ready")),
+            "parsed_summary_count": int(local_summary.get("parsed_summary_count") or 0),
+            "unusable_file_count": int(local_summary.get("unusable_file_count") or 0),
+            "paired_subject_run_count": int(local_summary.get("paired_subject_run_count") or 0),
+            "minimum_paired_subject_run_count": int(local_summary.get("minimum_paired_subject_run_count") or 0),
         },
         "openneuro_raw_snapshot": {
             "checked": raw_snapshot_checked,
