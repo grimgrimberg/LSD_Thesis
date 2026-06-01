@@ -89,6 +89,7 @@ Files with FD/DVARS columns but no subject/session/run metadata remain unusable 
 The source-availability artifact reports both discovered motion-like files and parser readiness. A local TSV only counts as available confounds after it parses with joinable subject/session/run metadata; a found but unusable TSV remains below the source-availability threshold.
 
 The dedicated motion-control artifact must also fail closed unless its association table spans all three strict motion families: FD, DVARS, and censoring/outlier burden. Parsed fMRIPrep confounds expose FD spike burden and scrub/censor/outlier proportions as joinable motion features, but the gate is still incomplete if any required family is absent from the joined association rows.
+The fMRIPrep preflight uses the same strict family contract: paired FD/DVARS files without any motion-outlier, censor, scrub, or non-steady-state columns are structured confounds, but they are not proof-ready inputs for this thesis gate.
 
 ## Canonical Parcellation Decision
 

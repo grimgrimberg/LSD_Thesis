@@ -69,7 +69,7 @@ Observed results:
 
 - Ruff: all checks passed.
 - mypy: no issues found in 77 source files.
-- pytest: 368 passed, 4 warnings, total coverage 80.14%.
+- pytest: 369 passed, 4 warnings, total coverage 80.17%.
 - dashboard preview preflight: required files present, optional generated artifacts present, CV5 internal validation reported as 5/5 folds.
 
 Hosted CI after the Node-24 action-major bump:

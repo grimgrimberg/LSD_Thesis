@@ -1,6 +1,6 @@
 {
   "schema_version": "fmriprep_motion_proof_plan.v1",
-  "generated_at_utc": "2026-06-01T19:40:52.729066+00:00",
+  "generated_at_utc": "2026-06-01T20:30:53.680335+00:00",
   "analysis_status": "blocked_derivative_snapshot_not_valid_raw_fmriprep_input",
   "fmriprep_motion_proof_ready": false,
   "fmriprep_preflight_ready": false,
@@ -57,6 +57,21 @@
     "motion_file_count": 0,
     "motion_analysis_ready": false,
     "motion_pairing_ready": false,
+    "motion_feature_family_coverage": {
+      "fd": false,
+      "dvars": false,
+      "censoring": false
+    },
+    "required_motion_feature_families": [
+      "fd",
+      "dvars",
+      "censoring"
+    ],
+    "missing_motion_feature_families": [
+      "fd",
+      "dvars",
+      "censoring"
+    ],
     "motion_summary_status": "unavailable_not_found",
     "parsed_summary_count": 0,
     "paired_subject_run_count": 0,
@@ -89,7 +104,7 @@
   "minimum_required_columns": [
     "framewise_displacement",
     "std_dvars or dvars",
-    "motion_outlier_* or censor/scrub/non_steady_state columns where available"
+    "motion_outlier_* or censor/scrub/non_steady_state columns for strict censoring/outlier coverage"
   ],
   "claim_guardrail": "This is a preprocessing/acquisition preflight, not a motion-safety result. The strict motion gate only passes after real subject/session/run confounds are parsed and joined to dynamic deltas."
 }

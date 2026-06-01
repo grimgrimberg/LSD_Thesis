@@ -141,6 +141,7 @@ uv run python scripts/build_thesis_upgrade_status.py --fetch-motion-remote
 ```
 
 The preflight artifact is `results/confound_controls/fmriprep_motion_proof_plan.json`. It does not complete the strict gate by itself; it records whether subject/run confounds already exist or whether original raw BIDS or author-provided confounds are still required.
+Proof-ready confounds must cover FD, DVARS, and censor/outlier feature families. Paired FD/DVARS-only tables remain below the strict motion gate until motion-outlier, censor, scrub, or non-steady-state columns are supplied.
 
 Export the current thesis evidence loop to CSV and Excel:
 

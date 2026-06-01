@@ -18,6 +18,7 @@ MOTION_LIKE_PATTERN = re.compile(
     r"(desc-confounds|confounds|framewise_displacement|std_dvars|dvars|motion_outlier|motion|fd|censor|scrub|regress)",
     re.IGNORECASE,
 )
+REQUIRED_MOTION_PROOF_FEATURE_FAMILIES = ("fd", "dvars", "censoring")
 
 
 def _read_json(path: Path) -> dict[str, Any]:
@@ -116,6 +117,24 @@ def _remote_snapshot_state(openneuro_files: tuple[dict[str, Any], ...]) -> dict[
     }
 
 
+def _motion_summary_feature_family_coverage(summary: Mapping[str, Any]) -> dict[str, bool]:
+    coverage = {family: False for family in REQUIRED_MOTION_PROOF_FEATURE_FAMILIES}
+    rows = summary.get("summaries")
+    if not isinstance(rows, list):
+        return coverage
+    for row in rows:
+        if not isinstance(row, Mapping) or row.get("status") != "available_parsed":
+            continue
+        if row.get("fd_column") or row.get("mean_fd") is not None or row.get("max_fd") is not None:
+            coverage["fd"] = True
+        if row.get("dvars_column") or row.get("mean_dvars") is not None or row.get("max_dvars") is not None:
+            coverage["dvars"] = True
+        scrub_columns = row.get("scrub_columns")
+        if isinstance(scrub_columns, list) and bool(scrub_columns):
+            coverage["censoring"] = True
+    return coverage
+
+
 def build_fmriprep_motion_proof_plan(
     repo_root: str | Path = REPO_ROOT,
     *,
@@ -145,16 +164,33 @@ def build_fmriprep_motion_proof_plan(
 
     has_parsed_confounds = bool(existing_motion_summary.get("motion_analysis_ready"))
     has_structured_confounds = bool(existing_motion_summary.get("motion_pairing_ready"))
+    motion_feature_family_coverage = _motion_summary_feature_family_coverage(existing_motion_summary)
+    missing_motion_feature_families = [
+        family for family, covered in motion_feature_family_coverage.items() if not covered
+    ]
+    has_required_motion_feature_families = not missing_motion_feature_families
+    motion_proof_ready = has_structured_confounds and has_required_motion_feature_families
     has_container_or_runtime = any(runtime.values())
     dataset_is_derivative = dataset_type == "derivative"
     local_t1w_complete = not local_state["missing_t1w_subjects_for_local_bold"] and local_state["local_t1w_subject_count"] > 0
     local_bold_present = local_state["local_bold_run_count"] > 0
 
-    if has_structured_confounds:
+    if motion_proof_ready:
         analysis_status = "structured_subject_level_confounds_available"
         blocker = ""
         preflight_ready = True
         next_action = "Run scripts/run_setting_seed_motion_summary.py, then scripts/build_motion_confound_controls.py."
+    elif has_structured_confounds:
+        analysis_status = "structured_confounds_present_but_incomplete_fd_dvars_censoring_coverage"
+        blocker = (
+            "Structured paired subject/run confounds were found, but strict fMRIPrep motion proof is missing "
+            f"required feature-family coverage: {', '.join(missing_motion_feature_families)}."
+        )
+        preflight_ready = False
+        next_action = (
+            "Supply authorized confounds that include framewise displacement, DVARS, and censor/outlier/scrub "
+            "features for paired LSD and placebo/PLCB subject/run rows, then rerun the motion gate."
+        )
     elif has_parsed_confounds:
         analysis_status = "structured_confounds_present_but_insufficient_pairing"
         blocker = (
@@ -209,7 +245,7 @@ def build_fmriprep_motion_proof_plan(
         "schema_version": SCHEMA_VERSION,
         "generated_at_utc": datetime.now(UTC).isoformat(),
         "analysis_status": analysis_status,
-        "fmriprep_motion_proof_ready": has_structured_confounds,
+        "fmriprep_motion_proof_ready": motion_proof_ready,
         "fmriprep_preflight_ready": preflight_ready,
         "dataset": {
             "id": DS003059_DATASET_ID,
@@ -222,6 +258,9 @@ def build_fmriprep_motion_proof_plan(
             "motion_file_count": len(existing_motion_files),
             "motion_analysis_ready": has_parsed_confounds,
             "motion_pairing_ready": has_structured_confounds,
+            "motion_feature_family_coverage": motion_feature_family_coverage,
+            "required_motion_feature_families": list(REQUIRED_MOTION_PROOF_FEATURE_FAMILIES),
+            "missing_motion_feature_families": missing_motion_feature_families,
             "motion_summary_status": existing_motion_summary.get("status"),
             "parsed_summary_count": existing_motion_summary.get("parsed_summary_count", 0),
             "paired_subject_run_count": existing_motion_summary.get("paired_subject_run_count", 0),
@@ -241,7 +280,7 @@ def build_fmriprep_motion_proof_plan(
         "minimum_required_columns": [
             "framewise_displacement",
             "std_dvars or dvars",
-            "motion_outlier_* or censor/scrub/non_steady_state columns where available",
+            "motion_outlier_* or censor/scrub/non_steady_state columns for strict censoring/outlier coverage",
         ],
         "claim_guardrail": (
             "This is a preprocessing/acquisition preflight, not a motion-safety result. The strict motion gate only passes after real "

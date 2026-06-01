@@ -17,13 +17,19 @@ def _write_dataset_description(root: Path, dataset_type: str) -> None:
     )
 
 
-def _write_paired_confounds(root: Path, subject_count: int = 4) -> None:
+def _write_paired_confounds(root: Path, subject_count: int = 4, *, include_censoring: bool = True) -> None:
     for index in range(subject_count):
         subject = f"sub-{index + 1:03d}"
         for session in ("ses-LSD", "ses-PLCB"):
             confound_dir = root / subject / session / "func"
             confound_dir.mkdir(parents=True, exist_ok=True)
-            pd.DataFrame({"framewise_displacement": [0.0, 0.1], "std_dvars": [1.0, 1.2]}).to_csv(
+            columns: dict[str, list[float | int]] = {
+                "framewise_displacement": [0.0, 0.1],
+                "std_dvars": [1.0, 1.2],
+            }
+            if include_censoring:
+                columns["motion_outlier00"] = [0, 1]
+            pd.DataFrame(columns).to_csv(
                 confound_dir / f"{subject}_{session}_task-rest_run-01_desc-confounds_timeseries.tsv",
                 sep="\t",
                 index=False,
@@ -59,7 +65,35 @@ def test_fmriprep_motion_plan_detects_existing_structured_confounds(tmp_path: Pa
     assert payload["fmriprep_motion_proof_ready"] is True
     assert payload["existing_motion_confounds"]["motion_analysis_ready"] is True
     assert payload["existing_motion_confounds"]["motion_pairing_ready"] is True
+    assert payload["existing_motion_confounds"]["motion_feature_family_coverage"] == {
+        "fd": True,
+        "dvars": True,
+        "censoring": True,
+    }
+    assert payload["existing_motion_confounds"]["missing_motion_feature_families"] == []
     assert payload["existing_motion_confounds"]["paired_subject_run_count"] == 4
+
+
+def test_fmriprep_motion_plan_rejects_paired_confounds_without_censoring_family(tmp_path: Path) -> None:
+    _write_dataset_description(tmp_path, "raw")
+    _write_paired_confounds(
+        tmp_path / "data" / "ds003059" / "derivatives" / "fmriprep",
+        include_censoring=False,
+    )
+
+    payload = build_fmriprep_motion_proof_plan(tmp_path)
+
+    assert payload["analysis_status"] == "structured_confounds_present_but_incomplete_fd_dvars_censoring_coverage"
+    assert payload["fmriprep_motion_proof_ready"] is False
+    assert payload["fmriprep_preflight_ready"] is False
+    assert payload["existing_motion_confounds"]["motion_pairing_ready"] is True
+    assert payload["existing_motion_confounds"]["motion_feature_family_coverage"] == {
+        "fd": True,
+        "dvars": True,
+        "censoring": False,
+    }
+    assert payload["existing_motion_confounds"]["missing_motion_feature_families"] == ["censoring"]
+    assert "censoring" in payload["blocker"]
 
 
 def test_fmriprep_motion_plan_keeps_partial_external_confound_root_below_proof_threshold(tmp_path: Path) -> None:
