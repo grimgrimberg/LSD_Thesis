@@ -10,15 +10,27 @@ The defensible thesis claim is:
 
 It is not a receptor model, subjective-experience model, clinical model, pharmacokinetic model, or proof of the biological mechanism of LSD.
 
+## Current Strict Completion Snapshot
+
+Current generated status as of 2026-06-01:
+
+- Readiness gates: `8/8`.
+- Strict completion gates: `4/6`.
+- Missing strict requirements: `motion_confound_control_result`, `project_phase`.
+- Real remaining hard requirement: fMRIPrep FD/DVARS/censoring motion proof.
+- Project phase: `research_demo_ready_not_completed_thesis`.
+
+The missing `project_phase` item is derived from the motion-proof blocker. Do not treat raw-BOLD image QC, published aggregate FD context, design controls, or module-DVARS proxies as full fMRIPrep FD/DVARS/censoring proof.
+
 ## Gates
 
-| Gate | Thesis-ready meaning | Current first-pass treatment |
+| Gate | Thesis-ready meaning | Current generated status |
 | --- | --- | --- |
-| Motion/confounds | Subject/session/run FD, DVARS, and censoring summaries exist and are used as sensitivity gates. | Explicit blocker if structured confounds are missing; `results/confound_controls/fmriprep_motion_proof_plan.json` records whether the current checkout can produce those inputs or needs original raw BIDS/author confounds. |
-| Canonical parcellation | Schaefer/Yeo extraction reproduces or falsifies the current 8-module conclusions. | `schaefer_100_yeo_7` is the named primary canonical target; 8-module remains proxy baseline. |
+| Motion/confounds | Subject/session/run FD, DVARS, and censoring summaries exist and are used as sensitivity gates. | Raw-BOLD image-derived motion/QC controls exist, but the strict gate remains incomplete until subject/run fMRIPrep FD, DVARS, and censoring proof is available. `results/confound_controls/fmriprep_motion_proof_plan.json` records whether the current checkout can produce those inputs or needs original raw BIDS/author confounds. |
+| Canonical parcellation | Schaefer/Yeo extraction reproduces or falsifies the current 8-module conclusions. | `schaefer_100_yeo_7` is the primary canonical layer, with extraction, empirical viewer, and mechanism-ranking summary present; 8-module remains proxy baseline. |
 | ROCKET strength | Subject-disjoint ROCKET/MiniRocket/MultiRocket beats permutation nulls with calibrated subject/run aggregation. | Current ROCKET remains supporting internal signal until null and calibration gates exist. |
-| External validation | The same scoring rules run on an independent psychedelic dataset. | `ds006072` is the target; metadata/manifest alone is not validation. |
-| Receptor/structural control | PET-derived receptor priors and structural-connectome graphs are projected to the active parcellation and tested against null controls. | E remains proxy-only until both layers exist. |
+| External validation | The same scoring rules run on an independent psychedelic dataset. | Implemented as a small-subject ds006072 Schaefer100/Yeo7 unchanged-scoring external stress test. The ds006072 top layer differs from the LSD reference top layer, so this is a negative/partial cross-drug stress test rather than population replication. |
+| Receptor/structural control | PET-derived receptor priors and structural-connectome graphs are projected to the active parcellation and tested against null controls. | Implemented HCP structural graph and PET receptor-prior sensitivity layers exist. The receptor/myelin/gradient mechanism claim remains resolved negative/not promoted because the map-prior tests do not support promotion. |
 | Reproducible archive | A GitHub release and Zenodo DOI cite a checksum-backed derived-artifact snapshot. | Archive manifest and metadata are scaffolded; DOI requires release workflow. |
 | Public dashboard | Static Pages exposes results and blockers without requiring local raw data. | Presentation layer only; not the citable archive. |
 

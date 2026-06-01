@@ -185,7 +185,7 @@ def test_validation_doc_declares_current_quality_baseline_before_historical_note
     assert "Older pass notes below are retained as historical implementation evidence" in validation_doc
 
     for expected in (
-        "363 passed",
+        "364 passed",
         "80.06%",
         "77 source files",
         "26774017427",
@@ -195,3 +195,45 @@ def test_validation_doc_declares_current_quality_baseline_before_historical_note
         "research_demo_ready_not_completed_thesis",
     ):
         assert expected in validation_doc
+
+
+def test_thesis_readiness_gates_doc_matches_current_gate_status() -> None:
+    repo_root = Path(__file__).resolve().parents[1]
+    gates_doc = (repo_root / "docs" / "THESIS_READINESS_GATES.md").read_text(encoding="utf-8")
+    cross_dataset_doc = (repo_root / "docs" / "research" / "cross_dataset_thesis_loop.md").read_text(
+        encoding="utf-8"
+    )
+
+    stale_phrases = (
+        "`ds006072` is the target; metadata/manifest alone is not validation.",
+        "E remains proxy-only until both layers exist.",
+        "Metadata plus functional/CIFTI manifest implemented; empirical viewer still blocked",
+        "HCP gate blocked; macro proxy graph controls and rewire nulls implemented",
+        "PET gate blocked; coarse receptor-prior null board implemented",
+        "ds006072 is ready for full ingestion. | Not yet.",
+    )
+    for phrase in stale_phrases:
+        assert phrase not in gates_doc
+        assert phrase not in cross_dataset_doc
+
+    for expected in (
+        "Readiness gates: `8/8`",
+        "Strict completion gates: `4/6`",
+        "Missing strict requirements: `motion_confound_control_result`, `project_phase`",
+        "fMRIPrep FD/DVARS/censoring motion proof",
+        "research_demo_ready_not_completed_thesis",
+        "small-subject ds006072 Schaefer100/Yeo7 unchanged-scoring external stress test",
+        "ds006072 top layer differs from the LSD reference top layer",
+        "Implemented HCP structural graph and PET receptor-prior sensitivity layers exist",
+        "receptor/myelin/gradient mechanism claim remains resolved negative/not promoted",
+    ):
+        assert expected in gates_doc
+
+    for expected in (
+        "Implemented Schaefer100/Yeo7 unchanged-scoring external stress test; top layer differs from LSD",
+        "Implemented HCP structural graph sensitivity; still a sensitivity/control layer, not biological proof",
+        "Implemented PET receptor-prior sensitivity and spatial-null map-prior checks",
+        "Three paired psilocybin/MTP subjects were extracted through Schaefer100/Yeo7",
+        "ds006072 top layer = E while LSD reference top layer = C",
+    ):
+        assert expected in cross_dataset_doc

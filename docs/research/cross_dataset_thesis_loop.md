@@ -15,9 +15,9 @@ Build a reproducible explainable AI framework that ranks transparent control-the
 | Order | Analysis | Dataset / Prior | Model Layer | Why It Matters | Status |
 | --- | --- | --- | --- | --- | --- |
 | 1 | LSD robustness | OpenNeuro `ds003059` cached LSD/placebo records | A/B/C/D/E | Tests whether current C/E claims survive skepticism. | Implemented first pass |
-| 2 | Psilocybin replication | OpenNeuro `ds006072` | A/C/D/E first, B optional | Tests cross-drug generalization under a richer psilocybin dataset. | Metadata plus functional/CIFTI manifest implemented; empirical viewer still blocked |
-| 3 | Structural graph | HCP Young Adult diffusion/connectome data | E | Replaces macro-module proxy graph with a defensible structural prior. | HCP gate blocked; macro proxy graph controls and rewire nulls implemented |
-| 4 | PET receptor priors | `neuromaps` / FS5ht receptor maps | C/E | Replaces hand-built receptor weights with documented receptor-map priors. | PET gate blocked; coarse receptor-prior null board implemented |
+| 2 | Psilocybin replication | OpenNeuro `ds006072` | A/C/D/E first, B optional | Tests cross-drug generalization under a richer psilocybin dataset. | Implemented Schaefer100/Yeo7 unchanged-scoring external stress test; top layer differs from LSD |
+| 3 | Structural graph | HCP Young Adult diffusion/connectome data | E | Replaces macro-module proxy graph with a defensible structural prior. | Implemented HCP structural graph sensitivity; still a sensitivity/control layer, not biological proof |
+| 4 | PET receptor priors | `neuromaps` / FS5ht receptor maps | C/E | Replaces hand-built receptor weights with documented receptor-map priors. | Implemented PET receptor-prior sensitivity and spatial-null map-prior checks; receptor/myelin/gradient claim remains negative/not promoted |
 | 5 | Atlas sensitivity | Schaefer 100/200 and Yeo 7/17 | C/D/E | Tests whether findings are artifacts of the current 8-module proxy. | Full Schaefer 100/200 by Yeo 7/17 matrix implemented |
 | 6 | Scholarly benchmark | 2026 psychedelic mega-analysis | C/D/E interpretation | Compares final patterns against transmodal-unimodal and striatal-unimodal literature targets. | Implemented directional proxy benchmark |
 
@@ -58,14 +58,14 @@ Current verdicts:
 | 2026 Nature Medicine transmodal-unimodal benchmark is directionally addressed. | Directionally aligned in the current proxy. | C sensory-transmodal mean delta = `0.0473`. |
 | 2026 Nature Medicine striatal/unimodal benchmark is addressed. | Not testable in current proxy. | No striatal parcel exists in the current 8-module representation. |
 | Schaefer/Yeo sensitivity exists for C/D/E. | Implemented first pass. | All four cells have 15 subjects and 30 paired records. Top layer = C in Schaefer 100/200 with Yeo 7/17. |
-| ds006072 is ready for full ingestion. | Not yet. | Metadata and file manifest exist; raw rest BOLD candidates total about 2.64 TB and processed CIFTI candidates total about 113.6 GB. |
+| ds006072 is implemented as an external stress test. | Yes, with limits. | Three paired psilocybin/MTP subjects were extracted through Schaefer100/Yeo7 and scored with the locked ds003059 rule; ds006072 top layer = E while LSD reference top layer = C. |
 
 ## What We Know
 
 - The current LSD A+B+C+D+E ranking has been implemented and exported.
 - Schaefer 100/200 by Yeo 7/17 parcellation sensitivity has been implemented for local `ds003059` run-01/run-03 records.
-- ds006072 metadata, raw functional manifest, and processed-CIFTI manifest have been implemented under `data/ds006072/`.
-- HCP and PET gates now include proxy/null support artifacts, but true structural-connectome and PET receptor-map claims remain blocked.
+- ds006072 metadata, raw functional manifest, processed-CIFTI manifest, Schaefer100/Yeo7 empirical viewer, and unchanged scoring summary have been implemented for a small-subject external stress test.
+- HCP structural graph sensitivity and PET receptor-prior sensitivity are implemented as control/sensitivity layers, while receptor/myelin/gradient mechanism promotion remains unsupported.
 - All new atlas/data roots are targeted under `D:\LSD_Thesis`; see `results/external_data/external_data_manifest.json`.
 - Current ranking is C first, E second, D third, A fourth, B fifth.
 - B is a negative predictive baseline and should remain visible.
@@ -85,16 +85,16 @@ Current verdicts:
 3. E horizon sensitivity.
 4. A/E state-labeling sensitivity.
 5. D window-size sensitivity.
-6. `ds006072` ingestion feasibility and comparable target extraction.
-7. HCP structural graph projection into the selected parcellation.
-8. neuromaps/FS5ht receptor projection and spatial nulls.
+6. Whether the small-subject `ds006072` top-layer mismatch survives broader extraction or should remain a negative/partial external stress test.
+7. Whether HCP structural graph sensitivity changes the E interpretation enough to downgrade the landscape-flattening proxy.
+8. Whether neuromaps/FS5ht receptor projection and spatial nulls continue to reject receptor/myelin/gradient mechanism promotion.
 9. Schaefer/Yeo sensitivity for C/D/E.
 10. Agreement or disagreement with the 2026 psychedelic mega-analysis.
 
 ## What Can Go Wrong
 
 - Robustness weakens C/E enough that the thesis becomes a falsification framework rather than a positive mechanism story.
-- `ds006072` is too large or differently structured for a quick comparable extraction, so the first download must target `data/ds006072/` and preserve a manifest.
+- `ds006072` may stay negative/partial even after broader extraction, especially because the current small-subject stress test ranks E above C while the LSD reference ranks C first.
 - HCP structural connectivity makes E weaker, not stronger.
 - PET receptor maps fail against spatial nulls.
 - Schaefer/Yeo changes the direction of C/D/E effects.
