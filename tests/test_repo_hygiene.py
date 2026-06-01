@@ -185,8 +185,8 @@ def test_validation_doc_declares_current_quality_baseline_before_historical_note
     assert "Older pass notes below are retained as historical implementation evidence" in validation_doc
 
     for expected in (
-        "371 passed",
-        "80.17%",
+        "375 passed",
+        "80.18%",
         "77 source files",
         "26780820028",
         "motion_confound_control_result",
@@ -231,7 +231,7 @@ def test_thesis_readiness_gates_doc_matches_current_gate_status() -> None:
         assert phrase not in cross_dataset_doc
 
     for expected in (
-        "Readiness gates: `8/8`",
+        "Thesis readiness gates: `6/8`",
         "Strict completion gates: `4/6`",
         "Missing strict requirements: `motion_confound_control_result`, `project_phase`",
         "fMRIPrep FD/DVARS/censoring motion proof",

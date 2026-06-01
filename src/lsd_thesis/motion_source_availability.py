@@ -107,13 +107,15 @@ def build_motion_source_availability(
     derivative_available = any(bool(item.get("available")) for item in derivative_repo_statuses)
     local_available = bool(local_summary.get("motion_analysis_ready"))
     raw_snapshot_checked = bool(openneuro_files) or remote_error is not None
-    raw_snapshot_has_confounds = bool(openneuro_motion_like)
-    source_confounds_available = local_available or raw_snapshot_has_confounds
+    remote_sources_checked = raw_snapshot_checked or bool(derivative_repo_statuses)
+    raw_snapshot_has_confound_candidates = bool(openneuro_motion_like)
+    raw_snapshot_confounds_verified = False
+    source_confounds_available = local_available
     analysis_status = (
         "authorized_subject_level_motion_confounds_available"
         if source_confounds_available
         else "no_authorized_subject_level_motion_confounds_found"
-        if raw_snapshot_checked and derivative_repo_statuses
+        if remote_sources_checked
         else "local_motion_confounds_not_found_remote_not_checked"
     )
     conclusion = (
@@ -121,10 +123,10 @@ def build_motion_source_availability(
         if source_confounds_available
         else (
             "Local repo search, OpenNeuro ds003059 snapshot metadata, and public "
-            "OpenNeuroDerivatives repo checks did not expose subject-level "
+            "OpenNeuroDerivatives repo checks did not verify subject-level "
             "FD/DVARS/censoring confounds."
         )
-        if raw_snapshot_checked and derivative_repo_statuses
+        if remote_sources_checked
         else (
             "Local repo search found no subject-level FD/DVARS/censoring confounds; "
             "remote source checks have not been executed."
@@ -155,9 +157,18 @@ def build_motion_source_availability(
             "file_count": len(openneuro_files),
             "confound_like_file_count": len(openneuro_motion_like),
             "confound_like_files": [str(item.get("filename") or "") for item in openneuro_motion_like[:50]],
+            "candidate_confound_like_file_count": len(openneuro_motion_like),
+            "candidate_confound_like_files": [str(item.get("filename") or "") for item in openneuro_motion_like[:50]],
+            "candidate_confound_like_files_present": raw_snapshot_has_confound_candidates,
+            "confound_files_verified": raw_snapshot_confounds_verified,
             "error": remote_error,
             "query": "snapshot.files(recursive=true)",
             "dataset_type_note": "ds003059 declares DatasetType=derivative locally; snapshot file presence is not original-raw-BIDS proof.",
+            "availability_note": (
+                "OpenNeuro snapshot filename matches are candidate leads only; they do not count as "
+                "available motion confounds until file-level FD/DVARS/censoring columns are verified "
+                "and parsed into joinable subject/session/run records."
+            ),
         },
         "public_derivative_repositories": {
             "checked": bool(derivative_repo_statuses),
@@ -186,6 +197,7 @@ def build_motion_source_availability(
         "claim_guardrail": (
             "This artifact proves source availability, not motion safety. Local motion-like files "
             "count as available only after they parse with joinable subject/session/run metadata; "
+            "OpenNeuro snapshot filename hits and reachable derivative repositories are candidate leads only; "
             "the motion-control gate can only pass after real subject/run FD, DVARS, and censoring "
             "values join to dynamic deltas."
         ),

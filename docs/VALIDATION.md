@@ -19,7 +19,7 @@ Observed current results:
 
 - Ruff: all checks passed.
 - mypy: no issues found in 77 source files.
-- pytest: 371 passed, 4 warnings, total coverage 80.17%.
+- pytest: 375 passed, 4 warnings, total coverage 80.18%.
 - dashboard preview preflight: required files present, optional generated artifacts present, CV5 internal validation reported as 5/5 folds.
 
 Last completed hosted CI baseline when this section was written:
@@ -31,13 +31,13 @@ Last completed hosted CI baseline when this section was written:
 
 Current thesis-upgrade status:
 
-- Readiness gates: `8/8`.
+- Thesis readiness gates: `6/8`.
 - Strict completion gates: `4/6`.
 - Missing strict requirements: `motion_confound_control_result`, `project_phase`.
 - Real remaining hard requirement: fMRIPrep FD/DVARS/censoring motion proof.
 - Project phase: `research_demo_ready_not_completed_thesis`.
 
-The missing `project_phase` item is derived from the motion-proof blocker. Do not mark the strict motion gate complete from raw-BOLD image QC, published aggregate FD context, design controls, or module-DVARS proxies; those are useful controls, not full fMRIPrep FD/DVARS/censoring proof.
+The missing `project_phase` item is derived from the motion-proof blocker. Do not mark the strict motion gate complete from raw-BOLD image QC, published aggregate FD context, design controls, module-DVARS proxies, OpenNeuro filename hits, reachable derivative repositories, or archive manifests; those are useful context, not full fMRIPrep FD/DVARS/censoring proof.
 
 ## Historical Validation Log
 

@@ -46,6 +46,8 @@ def test_build_preview_report_lists_dashboard_command_routes_and_data_state() ->
         "completed",
         "completed CV5 internal validation (5/5 folds; not external validation)",
     }
+    assert report.thesis_gate_contract_status == "passed"
+    assert report.thesis_gate_contract_violations == ()
 
 
 def test_preview_dashboard_check_only_prints_viewing_contract(monkeypatch, capsys) -> None:
@@ -70,4 +72,5 @@ def test_preview_dashboard_check_only_prints_viewing_contract(monkeypatch, capsy
     assert "http://127.0.0.1:8765/" in output
     assert "/api/dashboard-data" in output
     assert "Subject-disjoint held-out validation:" in output
+    assert "Thesis gate contract: passed" in output
     assert "Held-out empirical validation is not implied by this preview check." in output

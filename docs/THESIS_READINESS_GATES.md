@@ -14,13 +14,13 @@ It is not a receptor model, subjective-experience model, clinical model, pharmac
 
 Current generated status as of 2026-06-01:
 
-- Readiness gates: `8/8`.
+- Thesis readiness gates: `6/8`.
 - Strict completion gates: `4/6`.
 - Missing strict requirements: `motion_confound_control_result`, `project_phase`.
 - Real remaining hard requirement: fMRIPrep FD/DVARS/censoring motion proof.
 - Project phase: `research_demo_ready_not_completed_thesis`.
 
-The missing `project_phase` item is derived from the motion-proof blocker. Do not treat raw-BOLD image QC, published aggregate FD context, design controls, or module-DVARS proxies as full fMRIPrep FD/DVARS/censoring proof.
+The missing `project_phase` item is derived from the motion-proof blocker. Do not treat raw-BOLD image QC, published aggregate FD context, design controls, module-DVARS proxies, archive manifests, or static dashboard publication as full thesis-readiness proof.
 
 ## Gates
 
@@ -31,7 +31,7 @@ The missing `project_phase` item is derived from the motion-proof blocker. Do no
 | ROCKET strength | Subject-disjoint ROCKET/MiniRocket/MultiRocket beats permutation nulls with calibrated subject/run aggregation. | Current ROCKET remains supporting internal signal until null and calibration gates exist. |
 | External validation | The same scoring rules run on an independent psychedelic dataset. | Implemented as a small-subject ds006072 Schaefer100/Yeo7 unchanged-scoring external stress test. The ds006072 top layer differs from the LSD reference top layer, so this is a negative/partial cross-drug stress test rather than population replication. |
 | Receptor/structural control | PET-derived receptor priors and structural-connectome graphs are projected to the active parcellation and tested against null controls. | Implemented HCP structural graph and PET receptor-prior sensitivity layers exist. The receptor/myelin/gradient mechanism claim remains resolved negative/not promoted because the map-prior tests do not support promotion. |
-| Reproducible archive | A GitHub release and Zenodo DOI cite a checksum-backed derived-artifact snapshot. | Archive manifest and metadata are scaffolded; DOI requires release workflow. |
+| Reproducible archive | A GitHub release and Zenodo DOI cite a checksum-backed derived-artifact snapshot. | Archive manifest and metadata are scaffolded, but this gate is not ready until a citable release URL and Zenodo DOI are recorded. |
 | Public dashboard | Static Pages exposes results and blockers without requiring local raw data. | Presentation layer only; not the citable archive. |
 
 ## External Ingestion Contracts
@@ -88,6 +88,7 @@ The preflight artifact is not motion proof. It may report that the current ds003
 Files with FD/DVARS columns but no subject/session/run metadata remain unusable for the strict gate because they cannot be joined to the empirical dynamic deltas.
 The source-availability artifact reports both discovered motion-like files and parser readiness. A local TSV only counts as available confounds after it parses with joinable subject/session/run metadata; a found but unusable TSV remains below the source-availability threshold.
 Reachable public derivative repository URLs are only candidate leads. They do not count as available subject/run confounds unless file-level FD/DVARS/censoring evidence is verified or authorized local files parse successfully.
+OpenNeuro snapshot filename hits are also candidate leads. They do not count as available subject/run confounds until the actual files are verified for FD, DVARS, and censoring columns and parsed into joinable subject/session/run records.
 
 The dedicated motion-control artifact must also fail closed unless its association table spans all three strict motion families: FD, DVARS, and censoring/outlier burden. Parsed fMRIPrep confounds expose FD spike burden and scrub/censor/outlier proportions as joinable motion features, but the gate is still incomplete if any required family is absent from the joined association rows.
 The fMRIPrep preflight uses the same strict family contract: paired FD/DVARS files without any motion-outlier, censor, scrub, or non-steady-state columns are structured confounds, but they are not proof-ready inputs for this thesis gate.

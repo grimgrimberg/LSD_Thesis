@@ -28,7 +28,22 @@ ALLOWED_ARTIFACT_ROOTS: tuple[tuple[str, ...], ...] = (
 )
 TEMP_ARTIFACT_SUFFIXES = (".bak", ".log", ".old", ".part", ".tmp")
 SAFE_ARTIFACT_EXTENSIONS = frozenset(
-    {".csv", ".docx", ".html", ".json", ".md", ".pdf", ".pptx", ".svg", ".txt", ".xlsx", ".yaml", ".yml", ".png"}
+    {
+        ".csv",
+        ".docx",
+        ".html",
+        ".json",
+        ".md",
+        ".pdf",
+        ".pptx",
+        ".sha256",
+        ".svg",
+        ".txt",
+        ".xlsx",
+        ".yaml",
+        ".yml",
+        ".png",
+    }
 )
 
 
@@ -52,6 +67,8 @@ def is_allowed_artifact_relative_path(relative_path: Path) -> bool:
     if any(part.startswith(".") for part in parts):
         return False
     if relative_path.name.startswith("~$") or relative_path.suffix.lower() in TEMP_ARTIFACT_SUFFIXES:
+        return False
+    if relative_path.suffix.lower() not in SAFE_ARTIFACT_EXTENSIONS:
         return False
     return any(parts[: len(root)] == root for root in ALLOWED_ARTIFACT_ROOTS)
 

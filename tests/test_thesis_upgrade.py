@@ -181,12 +181,41 @@ def test_thesis_upgrade_keeps_strict_motion_incomplete_with_only_image_motion_qc
         "motion_confound_control_result"
     ]
 
-    assert motion["gate"]["ready"] is True
+    assert motion["gate"]["ready"] is False
     assert motion["image_motion_qc_ready"] is True
+    assert motion["proxy_control_layer_ready"] is True
     assert motion["fmriprep_motion_control_ready"] is False
     assert requirement["complete"] is False
     assert requirement["status"] == "blocked_missing_fmriprep_fd_dvars_censoring_motion_proof"
     assert "strict completion still requires fMRIPrep FD/DVARS/censoring motion proof" in requirement["missing"]
+
+
+def test_thesis_upgrade_archive_gate_requires_release_url_and_doi(tmp_path: Path) -> None:
+    archive_dir = tmp_path / "results" / "reproducible_archive"
+    archive_dir.mkdir(parents=True)
+    (archive_dir / "ARCHIVE_MANIFEST.json").write_text(
+        json.dumps(
+            {
+                "schema_version": "reproducible_archive_manifest.v1",
+                "artifact_count": 3,
+                "artifacts": [],
+                "recommended_publication": {
+                    "code": "GitHub public repository release",
+                    "doi": "Zenodo DOI minted from GitHub release",
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    status = build_thesis_upgrade_status(tmp_path)
+    archive = status["components"]["reproducible_archive"]
+
+    assert archive["archive_manifest_ready"] is True
+    assert archive["archive_publication_ready"] is False
+    assert archive["gate"]["ready"] is False
+    assert archive["gate"]["status"] == "manifest_ready_release_doi_missing"
+    assert "release and Zenodo DOI" in archive["gate"]["blocker"]
 
 
 def test_thesis_upgrade_rejects_implemented_motion_status_without_paired_control_readiness(

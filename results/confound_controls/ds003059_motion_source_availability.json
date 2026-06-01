@@ -1,6 +1,6 @@
 {
   "schema_version": "ds003059_motion_source_availability.v1",
-  "generated_at_utc": "2026-06-01T19:40:52.041662+00:00",
+  "generated_at_utc": "2026-06-01T21:26:20.037670+00:00",
   "analysis_status": "no_authorized_subject_level_motion_confounds_found",
   "motion_source_availability_ready": true,
   "dataset": {
@@ -26,9 +26,14 @@
     "file_count": 250,
     "confound_like_file_count": 0,
     "confound_like_files": [],
+    "candidate_confound_like_file_count": 0,
+    "candidate_confound_like_files": [],
+    "candidate_confound_like_files_present": false,
+    "confound_files_verified": false,
     "error": null,
     "query": "snapshot.files(recursive=true)",
-    "dataset_type_note": "ds003059 declares DatasetType=derivative locally; snapshot file presence is not original-raw-BIDS proof."
+    "dataset_type_note": "ds003059 declares DatasetType=derivative locally; snapshot file presence is not original-raw-BIDS proof.",
+    "availability_note": "OpenNeuro snapshot filename matches are candidate leads only; they do not count as available motion confounds until file-level FD/DVARS/censoring columns are verified and parsed into joinable subject/session/run records."
   },
   "public_derivative_repositories": {
     "checked": true,
@@ -50,7 +55,7 @@
     "availability_note": "Reachable derivative repository URLs are candidate leads only; they do not count as available motion confounds unless file-level FD/DVARS/censoring evidence is verified or local authorized confounds parse successfully."
   },
   "source_confounds_available": false,
-  "conclusion": "Local repo search, OpenNeuro ds003059 snapshot metadata, and public OpenNeuroDerivatives repo checks did not expose subject-level FD/DVARS/censoring confounds.",
+  "conclusion": "Local repo search, OpenNeuro ds003059 snapshot metadata, and public OpenNeuroDerivatives repo checks did not verify subject-level FD/DVARS/censoring confounds.",
   "next_action": "Supply authorized fMRIPrep desc-confounds_timeseries.tsv files or run fMRIPrep/MRIQC from ds003059 raw BOLD before claiming full subject-level motion control.",
-  "claim_guardrail": "This artifact proves source availability, not motion safety. Local motion-like files count as available only after they parse with joinable subject/session/run metadata; the motion-control gate can only pass after real subject/run FD, DVARS, and censoring values join to dynamic deltas."
+  "claim_guardrail": "This artifact proves source availability, not motion safety. Local motion-like files count as available only after they parse with joinable subject/session/run metadata; OpenNeuro snapshot filename hits and reachable derivative repositories are candidate leads only; the motion-control gate can only pass after real subject/run FD, DVARS, and censoring values join to dynamic deltas."
 }

@@ -219,6 +219,15 @@ def test_resolve_artifact_path_allows_report_and_figure_outputs(tmp_path: Path) 
     assert _resolve_artifact_path("results/dynamic_mechanism_ranking/figures/dmdc_fold_rmse.html", repo_root=repo_root) is not None
 
 
+def test_resolve_artifact_path_rejects_unsafe_artifact_extensions(tmp_path: Path) -> None:
+    repo_root = tmp_path
+    raw_path = repo_root / "results" / "confound_controls" / "raw_volume.nii.gz"
+    raw_path.parent.mkdir(parents=True)
+    raw_path.write_bytes(b"raw")
+
+    assert _resolve_artifact_path("results/confound_controls/raw_volume.nii.gz", repo_root=repo_root) is None
+
+
 def test_resolve_artifact_path_rejects_codex_archive(tmp_path: Path) -> None:
     repo_root = tmp_path / "repo"
     archived_file = repo_root / ".codex-archive" / "20260507_120000" / "dashboard_launch.log"

@@ -40,8 +40,10 @@ from lsd_thesis.setting_seed.motion import write_motion_outputs
 from lsd_thesis.thesis_loop import build_thesis_evidence_loop
 from lsd_thesis.thesis_upgrade import write_thesis_upgrade_status
 from lsd_thesis.web.app import build_dashboard_payload
+from lsd_thesis.web.artifacts import SAFE_ARTIFACT_EXTENSIONS, is_allowed_artifact_relative_path
 
 STATIC_FAVICON_TAG = '<link rel="icon" href="data:,">'
+PAGES_ARTIFACT_MAX_BYTES = 20 * 1024 * 1024
 
 
 def _remove_tree(path: Path) -> None:
@@ -78,6 +80,34 @@ def _copy_tree(source: Path, destination: Path) -> Path | None:
         _remove_tree(destination)
     shutil.copytree(source, destination)
     return destination
+
+
+def _is_publishable_artifact_file(path: Path) -> bool:
+    if path.suffix.lower() not in SAFE_ARTIFACT_EXTENSIONS:
+        return False
+    return path.stat().st_size <= PAGES_ARTIFACT_MAX_BYTES
+
+
+def _copy_curated_tree(repo_root: Path, source: Path, destination: Path) -> Path | None:
+    if not source.exists() or not source.is_dir():
+        return None
+    if destination.exists():
+        _remove_tree(destination)
+    copied_any = False
+    resolved_root = repo_root.resolve()
+    for child in source.rglob("*"):
+        if not child.is_file() or not _is_publishable_artifact_file(child):
+            continue
+        try:
+            repo_relative = child.resolve().relative_to(resolved_root)
+        except ValueError:
+            continue
+        if not is_allowed_artifact_relative_path(repo_relative):
+            continue
+        relative = child.relative_to(source)
+        copied = _copy_file(child, destination / relative)
+        copied_any = copied_any or copied is not None
+    return destination if copied_any else None
 
 
 def _with_static_favicon(html: str) -> str:
@@ -188,7 +218,7 @@ def _copy_dashboard_linked_artifacts(repo_root: Path, site: Path, dashboard_payl
         if resolved is None:
             continue
         source, relative = resolved
-        if not source.exists() or not source.is_file():
+        if not source.exists() or not source.is_file() or not _is_publishable_artifact_file(source):
             continue
         destination = site / "artifacts" / relative
         if _copy_file(source, destination) is not None:
@@ -306,21 +336,29 @@ def build_github_pages_site(
     figures = _copy_tree(repo_root / "output" / "doc" / "figures", site / "figures")
     if figures is not None:
         outputs["figures"] = figures
-    cortical_maps = _copy_tree(repo_root / "results" / "cortical_maps", site / "artifacts" / "results" / "cortical_maps")
+    cortical_maps = _copy_curated_tree(
+        repo_root, repo_root / "results" / "cortical_maps", site / "artifacts" / "results" / "cortical_maps"
+    )
     if cortical_maps is not None:
         outputs["cortical_maps"] = cortical_maps
-    confound_controls = _copy_tree(
-        repo_root / "results" / "confound_controls", site / "artifacts" / "results" / "confound_controls"
+    confound_controls = _copy_curated_tree(
+        repo_root,
+        repo_root / "results" / "confound_controls",
+        site / "artifacts" / "results" / "confound_controls",
     )
     if confound_controls is not None:
         outputs["confound_controls"] = confound_controls
-    thesis_upgrade = _copy_tree(
-        repo_root / "results" / "thesis_upgrade", site / "artifacts" / "results" / "thesis_upgrade"
+    thesis_upgrade = _copy_curated_tree(
+        repo_root,
+        repo_root / "results" / "thesis_upgrade",
+        site / "artifacts" / "results" / "thesis_upgrade",
     )
     if thesis_upgrade is not None:
         outputs["thesis_upgrade"] = thesis_upgrade
-    psilocybin_ds006072 = _copy_tree(
-        repo_root / "results" / "psilocybin_ds006072", site / "artifacts" / "results" / "psilocybin_ds006072"
+    psilocybin_ds006072 = _copy_curated_tree(
+        repo_root,
+        repo_root / "results" / "psilocybin_ds006072",
+        site / "artifacts" / "results" / "psilocybin_ds006072",
     )
     if psilocybin_ds006072 is not None:
         outputs["psilocybin_ds006072"] = psilocybin_ds006072

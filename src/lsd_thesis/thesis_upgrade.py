@@ -165,13 +165,14 @@ def _motion_gate(repo_root: Path) -> dict[str, Any]:
         and motion_confound_has_association_rows
         and motion_confound_required_feature_families_ready
     )
-    control_ready = fmriprep_control_ready or image_motion_ready
     strict_motion_status = (
         control_status
         if fmriprep_control_ready
         else "blocked_missing_fmriprep_fd_dvars_censoring_motion_proof"
     )
     partial_proxy_ready = design_ready and module_dvars_ready
+    proxy_control_ready = image_motion_ready or partial_proxy_ready or published_motion_ready or design_ready or module_dvars_ready
+    control_ready = fmriprep_control_ready
     files_present = bool(payload.get("motion_files_present"))
     source_availability_status = str(source_availability_payload.get("analysis_status") or "")
     source_availability_checked = bool(source_availability_payload.get("motion_source_availability_ready"))
@@ -338,6 +339,7 @@ def _motion_gate(repo_root: Path) -> dict[str, Any]:
         "motion_summary_paired_subject_run_count": motion_summary_paired_subject_run_count,
         "motion_summary_minimum_paired_subject_run_count": motion_summary_minimum_paired_subject_run_count,
         "control_layer_ready": control_ready,
+        "proxy_control_layer_ready": proxy_control_ready,
         "fmriprep_motion_control_ready": fmriprep_control_ready,
         "motion_confound_control_ready": motion_confound_control_ready,
         "motion_confound_pairing_ready": motion_confound_pairing_ready,
@@ -1056,16 +1058,38 @@ def _receptor_myelin_gradient_claim_gate(repo_root: Path) -> dict[str, Any]:
 def _archive_gate(repo_root: Path) -> dict[str, Any]:
     path = repo_root / "results" / "reproducible_archive" / "ARCHIVE_MANIFEST.json"
     payload = _read_json(path) or {}
-    ready = bool(payload.get("artifact_count"))
+    manifest_ready = bool(payload.get("artifact_count"))
+    release_url = str(payload.get("release_url") or "")
+    doi = str(payload.get("doi") or "")
+    publication_ready = release_url.startswith(("https://github.com/", "https://zenodo.org/")) and (
+        doi.startswith("10.") or doi.startswith("https://doi.org/")
+    )
+    status = (
+        "release_doi_ready"
+        if publication_ready
+        else "manifest_ready_release_doi_missing"
+        if manifest_ready
+        else "manifest_not_generated"
+    )
     return {
         "gate": _gate(
             "Reproducible archive",
-            "manifest_ready" if ready else "manifest_not_generated",
-            ready,
+            status,
+            publication_ready,
             _rel(path, repo_root),
-            "Generate the archive manifest, then publish a GitHub release and Zenodo DOI.",
-            0.75 if ready else 0.25,
+            (
+                "Checksum manifest exists, but thesis-readiness still requires a citable GitHub release and Zenodo DOI."
+                if manifest_ready and not publication_ready
+                else "Generate the archive manifest, then publish a GitHub release and Zenodo DOI."
+                if not publication_ready
+                else "Citable GitHub release and Zenodo DOI are recorded."
+            ),
+            1.0 if publication_ready else 0.55 if manifest_ready else 0.25,
         ),
+        "archive_manifest_ready": manifest_ready,
+        "archive_publication_ready": publication_ready,
+        "release_url": release_url or None,
+        "doi": doi or None,
         "recommended_publication_stack": ["GitHub repository", "GitHub Pages static snapshot", "GitHub release", "Zenodo DOI"],
         "raw_data_policy": "Do not bundle raw OpenNeuro imaging data; cite dataset IDs and archive derived aggregate artifacts only.",
         "claim_guardrail": "GitHub Pages is a presentation snapshot, not the citable reproducibility archive.",
@@ -1196,7 +1220,7 @@ def build_thesis_upgrade_status(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
         "components": components,
         "visualization_plan": {
             "dashboard_panels": [
-                "readiness gate bar",
+                "thesis gate bar",
                 "strict completion audit",
                 "ROCKET strength radar",
                 "motion/QC ribbon",

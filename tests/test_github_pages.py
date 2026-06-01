@@ -155,6 +155,27 @@ def test_build_github_pages_rejects_traversal_dashboard_artifact_links(tmp_path:
     assert not (site / "artifacts" / "secret.txt").exists()
 
 
+def test_build_github_pages_curated_tree_filters_raw_and_large_artifacts(tmp_path: Path) -> None:
+    module = _load_build_github_pages_module()
+    result_dir = tmp_path / "results" / "confound_controls"
+    result_dir.mkdir(parents=True)
+    (result_dir / "motion_confound_control_status.json").write_text("{}", encoding="utf-8")
+    (result_dir / "raw_volume.nii.gz").write_bytes(b"raw")
+    (result_dir / "too_large.json").write_text("12345", encoding="utf-8")
+    module.PAGES_ARTIFACT_MAX_BYTES = 4
+
+    copied = module._copy_curated_tree(
+        tmp_path,
+        result_dir,
+        tmp_path / "_site" / "artifacts" / "results" / "confound_controls",
+    )
+
+    assert copied == tmp_path / "_site" / "artifacts" / "results" / "confound_controls"
+    assert (copied / "motion_confound_control_status.json").exists()
+    assert not (copied / "raw_volume.nii.gz").exists()
+    assert not (copied / "too_large.json").exists()
+
+
 def test_build_github_pages_preserves_copied_ds006072_extraction_details(tmp_path: Path) -> None:
     module = _load_build_github_pages_module()
     output_dir = tmp_path / "output" / "doc"

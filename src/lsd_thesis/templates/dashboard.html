@@ -1299,7 +1299,7 @@
       </section>
       <section class="card card--span-2" aria-labelledby="thesis_upgrade_title">
         <h2 id="thesis_upgrade_title">Thesis Readiness Flight Deck</h2>
-        <p class="plot-caption">Evidence gates for motion/confounds, canonical parcellation, ROCKET strength, external validation, receptor/structural control, and reproducible archiving. Scores are readiness gates, not biological truth scores.</p>
+        <p class="plot-caption">Thesis gates for motion/confounds, canonical parcellation, ROCKET strength, external validation, receptor/structural control, and reproducible archiving. Scores show partial evidence strength; Ready means the thesis gate itself is complete.</p>
         <div id="thesis_upgrade_status" class="result-status" role="status" aria-live="polite">Loading thesis-upgrade gates...</div>
         <div id="thesis_upgrade_cards" class="summary-cards" aria-labelledby="thesis_upgrade_title"></div>
         <div id="thesis_upgrade_gate_plot" aria-labelledby="thesis_upgrade_title"></div>
@@ -2350,12 +2350,12 @@
       const requirements = Array.isArray(upgrade.strict_completion_requirements) ? upgrade.strict_completion_requirements : [];
       status.textContent =
         `Thesis status: ${summary.thesis_status || 'unknown'}; ` +
-        `${summary.ready_gates ?? 0}/${summary.total_gates ?? gates.length} readiness gates ready; ` +
+        `${summary.ready_gates ?? 0}/${summary.total_gates ?? gates.length} thesis gates ready; ` +
         `${summary.strict_complete_gates ?? 0}/${summary.strict_total_gates ?? requirements.length} strict completion requirements complete. ` +
         (upgrade.claim_guardrail || '');
 
       clearElement(cards);
-      addMetricCard(cards, 'Ready gates', `${summary.ready_gates ?? 0}/${summary.total_gates ?? gates.length}`, 'readiness, not truth');
+      addMetricCard(cards, 'Thesis gates', `${summary.ready_gates ?? 0}/${summary.total_gates ?? gates.length}`, 'ready means complete gate');
       addMetricCard(cards, 'Strict completion', `${summary.strict_complete_gates ?? 0}/${summary.strict_total_gates ?? requirements.length}`, summary.completion_status || 'not completed thesis');
       const canonical = upgrade.components?.canonical_parcellation || {};
       addMetricCard(cards, 'Canonical target', canonical.recommended_primary || 'schaefer_100_yeo_7', canonical.current_baseline || '8-module proxy baseline');
@@ -2419,9 +2419,9 @@
         y: gates.map((gate) => Number(gate.score || 0)),
         text: gates.map((gate) => gate.status || ''),
         marker: { color: colors },
-        hovertemplate: '%{x}<br>readiness score %{y:.2f}<br>%{text}<extra></extra>'
-      }], baseLayout('Thesis readiness gates', {
-        yaxis: { title: 'readiness score', range: [0, 1], zeroline: false },
+        hovertemplate: '%{x}<br>evidence score %{y:.2f}<br>%{text}<extra></extra>'
+      }], baseLayout('Thesis evidence and readiness gates', {
+        yaxis: { title: 'evidence score', range: [0, 1], zeroline: false },
         xaxis: { tickangle: -30, automargin: true },
         margin: { t: 44, r: 20, b: 110, l: 56 }
       }), plotConfig());

@@ -1,10 +1,10 @@
 {
   "schema_version": "thesis_upgrade_status.v1",
-  "generated_at_utc": "2026-06-01T19:40:53.134519+00:00",
+  "generated_at_utc": "2026-06-01T21:26:21.091447+00:00",
   "readiness_summary": {
-    "ready_gates": 8,
+    "ready_gates": 6,
     "total_gates": 8,
-    "readiness_fraction": 1.0,
+    "readiness_fraction": 0.75,
     "strict_complete_gates": 4,
     "strict_total_gates": 6,
     "strict_completion_fraction": 0.6666666666666666,
@@ -23,7 +23,7 @@
     {
       "label": "Motion and confounds",
       "status": "implemented_image_derived_motion_qc_control",
-      "ready": true,
+      "ready": false,
       "evidence": "results/setting_seed/motion/motion_summary.json; results/confound_controls/motion_confound_control_status.json; results/confound_controls/design_confound_control_status.json; results/confound_controls/module_dvars_control_status.json; results/confound_controls/published_motion_qc_status.json; results/confound_controls/ds003059_motion_source_availability.json; results/confound_controls/image_motion_qc_status.json; results/confound_controls/fmriprep_motion_proof_plan.json",
       "blocker": "Raw-BOLD image-derived motion/QC sensitivity is implemented; fMRIPrep FD/DVARS/censoring remains the preferred future gold-standard control.",
       "score": 0.82
@@ -78,11 +78,11 @@
     },
     {
       "label": "Reproducible archive",
-      "status": "manifest_ready",
-      "ready": true,
+      "status": "manifest_ready_release_doi_missing",
+      "ready": false,
       "evidence": "results/reproducible_archive/ARCHIVE_MANIFEST.json",
-      "blocker": "Generate the archive manifest, then publish a GitHub release and Zenodo DOI.",
-      "score": 0.75
+      "blocker": "Checksum manifest exists, but thesis-readiness still requires a citable GitHub release and Zenodo DOI.",
+      "score": 0.55
     }
   ],
   "strict_completion_requirements": [
@@ -152,7 +152,7 @@
       "gate": {
         "label": "Motion and confounds",
         "status": "implemented_image_derived_motion_qc_control",
-        "ready": true,
+        "ready": false,
         "evidence": "results/setting_seed/motion/motion_summary.json; results/confound_controls/motion_confound_control_status.json; results/confound_controls/design_confound_control_status.json; results/confound_controls/module_dvars_control_status.json; results/confound_controls/published_motion_qc_status.json; results/confound_controls/ds003059_motion_source_availability.json; results/confound_controls/image_motion_qc_status.json; results/confound_controls/fmriprep_motion_proof_plan.json",
         "blocker": "Raw-BOLD image-derived motion/QC sensitivity is implemented; fMRIPrep FD/DVARS/censoring remains the preferred future gold-standard control.",
         "score": 0.82
@@ -171,7 +171,8 @@
       "motion_summary_pairing_ready": false,
       "motion_summary_paired_subject_run_count": 0,
       "motion_summary_minimum_paired_subject_run_count": 4,
-      "control_layer_ready": true,
+      "control_layer_ready": false,
+      "proxy_control_layer_ready": true,
       "fmriprep_motion_control_ready": false,
       "motion_confound_control_ready": false,
       "motion_confound_pairing_ready": false,
@@ -1110,12 +1111,16 @@
     "reproducible_archive": {
       "gate": {
         "label": "Reproducible archive",
-        "status": "manifest_ready",
-        "ready": true,
+        "status": "manifest_ready_release_doi_missing",
+        "ready": false,
         "evidence": "results/reproducible_archive/ARCHIVE_MANIFEST.json",
-        "blocker": "Generate the archive manifest, then publish a GitHub release and Zenodo DOI.",
-        "score": 0.75
+        "blocker": "Checksum manifest exists, but thesis-readiness still requires a citable GitHub release and Zenodo DOI.",
+        "score": 0.55
       },
+      "archive_manifest_ready": true,
+      "archive_publication_ready": false,
+      "release_url": null,
+      "doi": null,
       "recommended_publication_stack": [
         "GitHub repository",
         "GitHub Pages static snapshot",
@@ -1128,7 +1133,7 @@
   },
   "visualization_plan": {
     "dashboard_panels": [
-      "readiness gate bar",
+      "thesis gate bar",
       "strict completion audit",
       "ROCKET strength radar",
       "motion/QC ribbon",
