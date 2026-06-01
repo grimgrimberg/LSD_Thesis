@@ -8,6 +8,8 @@ from typing import Any
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 SCHEMA_VERSION = "thesis_upgrade_status.v1"
+MINIMUM_PAIRED_MOTION_CONTROL_ROWS = 4
+REQUIRED_MOTION_CONTROL_FEATURE_FAMILIES = ("fd", "dvars", "censoring")
 STRICT_REQUIREMENT_IDS = (
     "schaefer_yeo_high_resolution",
     "neuromaps_spatial_autocorrelation_nulls",
@@ -74,6 +76,30 @@ def _status_is_implemented(status: str) -> bool:
     return status.startswith(("implemented", "validated", "passed", "complete"))
 
 
+def _int_payload_value(payload: dict[str, Any], key: str, default: int = 0) -> int:
+    try:
+        return int(payload.get(key) or default)
+    except (TypeError, ValueError):
+        return default
+
+
+def _motion_feature_family_coverage(rows: Any) -> dict[str, bool]:
+    coverage = {family: False for family in REQUIRED_MOTION_CONTROL_FEATURE_FAMILIES}
+    if not isinstance(rows, list):
+        return coverage
+    for row in rows:
+        if not isinstance(row, dict):
+            continue
+        feature = str(row.get("motion_feature") or "").lower()
+        if "fd" in feature or "framewise_displacement" in feature:
+            coverage["fd"] = True
+        if "dvars" in feature:
+            coverage["dvars"] = True
+        if any(token in feature for token in ("motion_outlier", "outlier", "censor", "scrub", "non_steady_state")):
+            coverage["censoring"] = True
+    return coverage
+
+
 def _motion_gate(repo_root: Path) -> dict[str, Any]:
     path = repo_root / "results" / "setting_seed" / "motion" / "motion_summary.json"
     control_path = repo_root / "results" / "confound_controls" / "motion_confound_control_status.json"
@@ -103,11 +129,46 @@ def _motion_gate(repo_root: Path) -> dict[str, Any]:
     )
     image_motion_status = str(image_motion_payload.get("analysis_status") or "")
     image_motion_ready = bool(image_motion_payload.get("image_motion_qc_ready")) and _status_is_implemented(image_motion_status)
-    fmriprep_control_ready = motion_ready and _status_is_implemented(control_status)
+    motion_summary_pairing_ready = bool(payload.get("motion_pairing_ready"))
+    motion_summary_paired_subject_run_count = _int_payload_value(payload, "paired_subject_run_count")
+    motion_summary_minimum_paired_subject_run_count = _int_payload_value(
+        payload,
+        "minimum_paired_subject_run_count",
+        MINIMUM_PAIRED_MOTION_CONTROL_ROWS,
+    )
+    motion_confound_control_ready = bool(control_payload.get("motion_confound_control_ready"))
+    motion_confound_pairing_ready = bool(control_payload.get("motion_pairing_ready"))
+    motion_confound_paired_subject_run_count = _int_payload_value(control_payload, "paired_subject_run_count")
+    motion_confound_minimum_paired_subject_run_count = _int_payload_value(
+        control_payload,
+        "minimum_paired_subject_run_count",
+        MINIMUM_PAIRED_MOTION_CONTROL_ROWS,
+    )
+    minimum_paired_motion_control_rows = max(
+        motion_summary_minimum_paired_subject_run_count,
+        motion_confound_minimum_paired_subject_run_count,
+    )
+    motion_confound_merged_subject_run_count = _int_payload_value(control_payload, "merged_subject_run_count")
+    association_rows = control_payload.get("association_rows")
+    motion_confound_has_association_rows = isinstance(association_rows, list) and len(association_rows) > 0
+    motion_confound_feature_family_coverage = _motion_feature_family_coverage(association_rows)
+    motion_confound_required_feature_families_ready = all(motion_confound_feature_family_coverage.values())
+    fmriprep_control_ready = (
+        motion_ready
+        and motion_summary_pairing_ready
+        and motion_summary_paired_subject_run_count >= minimum_paired_motion_control_rows
+        and _status_is_implemented(control_status)
+        and motion_confound_control_ready
+        and motion_confound_pairing_ready
+        and motion_confound_paired_subject_run_count >= minimum_paired_motion_control_rows
+        and motion_confound_merged_subject_run_count >= minimum_paired_motion_control_rows
+        and motion_confound_has_association_rows
+        and motion_confound_required_feature_families_ready
+    )
     control_ready = fmriprep_control_ready or image_motion_ready
     strict_motion_status = (
         control_status
-        if control_status
+        if fmriprep_control_ready
         else "blocked_missing_fmriprep_fd_dvars_censoring_motion_proof"
     )
     partial_proxy_ready = design_ready and module_dvars_ready
@@ -174,6 +235,15 @@ def _motion_gate(repo_root: Path) -> dict[str, Any]:
         fmriprep_plan_path,
     )
     strict_motion_missing = (
+        (
+            "Motion-control status is implemented-looking, but strict completion requires "
+            "motion_confound_control_ready=true, motion_pairing_ready=true, "
+            f"at least {minimum_paired_motion_control_rows} paired LSD/placebo subject/run rows, "
+            f"at least {minimum_paired_motion_control_rows} merged dynamic-motion rows, "
+            "and association rows spanning FD, DVARS, and censor/outlier feature families."
+        )
+        if control_status and _status_is_implemented(control_status) and motion_ready and not fmriprep_control_ready
+        else
         (
             "Raw-BOLD image-derived motion/QC sensitivity is implemented, but strict completion still requires "
             f"fMRIPrep FD/DVARS/censoring motion proof. fMRIPrep preflight status: {fmriprep_plan_status}."
@@ -264,8 +334,20 @@ def _motion_gate(repo_root: Path) -> dict[str, Any]:
             ),
         ),
         "motion_summary_ready": motion_ready,
+        "motion_summary_pairing_ready": motion_summary_pairing_ready,
+        "motion_summary_paired_subject_run_count": motion_summary_paired_subject_run_count,
+        "motion_summary_minimum_paired_subject_run_count": motion_summary_minimum_paired_subject_run_count,
         "control_layer_ready": control_ready,
         "fmriprep_motion_control_ready": fmriprep_control_ready,
+        "motion_confound_control_ready": motion_confound_control_ready,
+        "motion_confound_pairing_ready": motion_confound_pairing_ready,
+        "motion_confound_paired_subject_run_count": motion_confound_paired_subject_run_count,
+        "motion_confound_minimum_paired_subject_run_count": motion_confound_minimum_paired_subject_run_count,
+        "motion_confound_merged_subject_run_count": motion_confound_merged_subject_run_count,
+        "motion_confound_has_association_rows": motion_confound_has_association_rows,
+        "motion_confound_feature_family_coverage": motion_confound_feature_family_coverage,
+        "motion_confound_required_feature_families": list(REQUIRED_MOTION_CONTROL_FEATURE_FAMILIES),
+        "motion_confound_required_feature_families_ready": motion_confound_required_feature_families_ready,
         "control_layer_path": _rel(control_path, repo_root),
         "design_confound_control_ready": design_ready,
         "design_confound_control_path": _rel(design_path, repo_root),

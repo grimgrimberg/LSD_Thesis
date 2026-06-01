@@ -165,6 +165,101 @@ def test_thesis_upgrade_keeps_strict_motion_incomplete_with_only_image_motion_qc
     assert "strict completion still requires fMRIPrep FD/DVARS/censoring motion proof" in requirement["missing"]
 
 
+def test_thesis_upgrade_rejects_implemented_motion_status_without_paired_control_readiness(
+    tmp_path: Path,
+) -> None:
+    motion_dir = tmp_path / "results" / "setting_seed" / "motion"
+    confound_dir = tmp_path / "results" / "confound_controls"
+    motion_dir.mkdir(parents=True)
+    confound_dir.mkdir(parents=True)
+    (motion_dir / "motion_summary.json").write_text(
+        json.dumps(
+            {
+                "motion_analysis_ready": True,
+                "motion_pairing_ready": True,
+                "paired_subject_run_count": 4,
+                "minimum_paired_subject_run_count": 4,
+            }
+        ),
+        encoding="utf-8",
+    )
+    (confound_dir / "motion_confound_control_status.json").write_text(
+        json.dumps({"analysis_status": "implemented_fmriprep_fd_dvars_censoring_control"}),
+        encoding="utf-8",
+    )
+
+    status = build_thesis_upgrade_status(tmp_path)
+    motion = status["components"]["motion_confound"]
+    requirement = {row["requirement_id"]: row for row in status["strict_completion_requirements"]}[
+        "motion_confound_control_result"
+    ]
+
+    assert motion["motion_summary_pairing_ready"] is True
+    assert motion["motion_summary_paired_subject_run_count"] == 4
+    assert motion["motion_confound_control_ready"] is False
+    assert motion["motion_confound_pairing_ready"] is False
+    assert motion["motion_confound_has_association_rows"] is False
+    assert motion["fmriprep_motion_control_ready"] is False
+    assert requirement["complete"] is False
+    assert requirement["status"] == "blocked_missing_fmriprep_fd_dvars_censoring_motion_proof"
+    assert "implemented-looking" in requirement["missing"]
+    assert "FD, DVARS, and censor/outlier feature families" in requirement["missing"]
+
+
+def test_thesis_upgrade_requires_motion_control_feature_family_coverage(tmp_path: Path) -> None:
+    motion_dir = tmp_path / "results" / "setting_seed" / "motion"
+    confound_dir = tmp_path / "results" / "confound_controls"
+    motion_dir.mkdir(parents=True)
+    confound_dir.mkdir(parents=True)
+    (motion_dir / "motion_summary.json").write_text(
+        json.dumps(
+            {
+                "motion_analysis_ready": True,
+                "motion_pairing_ready": True,
+                "paired_subject_run_count": 4,
+                "minimum_paired_subject_run_count": 4,
+            }
+        ),
+        encoding="utf-8",
+    )
+    (confound_dir / "motion_confound_control_status.json").write_text(
+        json.dumps(
+            {
+                "analysis_status": "implemented_dedicated_motion_confound_control_result",
+                "motion_confound_control_ready": True,
+                "motion_pairing_ready": True,
+                "paired_subject_run_count": 4,
+                "minimum_paired_subject_run_count": 4,
+                "merged_subject_run_count": 4,
+                "association_rows": [
+                    {
+                        "motion_feature": "fd_mean_delta_lsd_minus_placebo",
+                        "dynamic_metric": "transition_entropy_delta",
+                        "n": 4,
+                    }
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    status = build_thesis_upgrade_status(tmp_path)
+    motion = status["components"]["motion_confound"]
+    requirement = {row["requirement_id"]: row for row in status["strict_completion_requirements"]}[
+        "motion_confound_control_result"
+    ]
+
+    assert motion["motion_confound_has_association_rows"] is True
+    assert motion["motion_confound_feature_family_coverage"] == {
+        "fd": True,
+        "dvars": False,
+        "censoring": False,
+    }
+    assert motion["motion_confound_required_feature_families_ready"] is False
+    assert motion["fmriprep_motion_control_ready"] is False
+    assert requirement["complete"] is False
+
+
 def test_thesis_upgrade_surfaces_fmriprep_preflight_status(tmp_path: Path) -> None:
     confound_dir = tmp_path / "results" / "confound_controls"
     confound_dir.mkdir(parents=True)
@@ -297,11 +392,56 @@ def test_thesis_upgrade_project_phase_completes_only_with_hard_motion_and_strong
     motion_dir.mkdir(parents=True)
     confound_dir.mkdir(parents=True)
     (motion_dir / "motion_summary.json").write_text(
-        json.dumps({"motion_analysis_ready": True}),
+        json.dumps(
+            {
+                "motion_analysis_ready": True,
+                "motion_pairing_ready": True,
+                "paired_subject_run_count": 4,
+                "minimum_paired_subject_run_count": 4,
+            }
+        ),
         encoding="utf-8",
     )
     (confound_dir / "motion_confound_control_status.json").write_text(
-        json.dumps({"analysis_status": "implemented_fmriprep_fd_dvars_censoring_control"}),
+        json.dumps(
+            {
+                "analysis_status": "implemented_dedicated_motion_confound_control_result",
+                "motion_confound_control_ready": True,
+                "motion_pairing_ready": True,
+                "paired_subject_run_count": 4,
+                "minimum_paired_subject_run_count": 4,
+                "merged_subject_run_count": 4,
+                "association_rows": [
+                    {
+                        "motion_feature": "fd_mean_delta_lsd_minus_placebo",
+                        "dynamic_metric": "transition_entropy_delta",
+                        "n": 4,
+                        "pearson_r": 0.1,
+                        "pearson_p": 0.8,
+                        "pearson_q": 0.8,
+                        "motion_sensitivity_flag": False,
+                    },
+                    {
+                        "motion_feature": "dvars_mean_delta_lsd_minus_placebo",
+                        "dynamic_metric": "transition_entropy_delta",
+                        "n": 4,
+                        "pearson_r": 0.1,
+                        "pearson_p": 0.8,
+                        "pearson_q": 0.8,
+                        "motion_sensitivity_flag": False,
+                    },
+                    {
+                        "motion_feature": "motion_outlier_fraction_delta_lsd_minus_placebo",
+                        "dynamic_metric": "transition_entropy_delta",
+                        "n": 4,
+                        "pearson_r": 0.1,
+                        "pearson_p": 0.8,
+                        "pearson_q": 0.8,
+                        "motion_sensitivity_flag": False,
+                    }
+                ],
+            }
+        ),
         encoding="utf-8",
     )
 

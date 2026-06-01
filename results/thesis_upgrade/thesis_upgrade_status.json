@@ -1,6 +1,6 @@
 {
   "schema_version": "thesis_upgrade_status.v1",
-  "generated_at_utc": "2026-06-01T13:20:23.565702+00:00",
+  "generated_at_utc": "2026-06-01T16:04:10.835738+00:00",
   "readiness_summary": {
     "ready_gates": 8,
     "total_gates": 8,
@@ -119,7 +119,7 @@
     {
       "requirement_id": "motion_confound_control_result",
       "label": "Motion/confound control result",
-      "status": "blocked_absent_authorized_subject_level_motion_confounds",
+      "status": "blocked_missing_fmriprep_fd_dvars_censoring_motion_proof",
       "complete": false,
       "evidence": "results/setting_seed/motion/motion_summary.json; results/confound_controls/motion_confound_control_status.json; results/confound_controls/design_confound_control_status.json; results/confound_controls/module_dvars_control_status.json; results/confound_controls/published_motion_qc_status.json; results/confound_controls/ds003059_motion_source_availability.json; results/confound_controls/image_motion_qc_status.json; results/confound_controls/fmriprep_motion_proof_plan.json",
       "missing": "Raw-BOLD image-derived motion/QC sensitivity is implemented, but strict completion still requires fMRIPrep FD/DVARS/censoring motion proof. fMRIPrep preflight status: blocked_derivative_snapshot_not_valid_raw_fmriprep_input.",
@@ -160,7 +160,7 @@
       "strict_requirement": {
         "requirement_id": "motion_confound_control_result",
         "label": "Motion/confound control result",
-        "status": "blocked_absent_authorized_subject_level_motion_confounds",
+        "status": "blocked_missing_fmriprep_fd_dvars_censoring_motion_proof",
         "complete": false,
         "evidence": "results/setting_seed/motion/motion_summary.json; results/confound_controls/motion_confound_control_status.json; results/confound_controls/design_confound_control_status.json; results/confound_controls/module_dvars_control_status.json; results/confound_controls/published_motion_qc_status.json; results/confound_controls/ds003059_motion_source_availability.json; results/confound_controls/image_motion_qc_status.json; results/confound_controls/fmriprep_motion_proof_plan.json",
         "missing": "Raw-BOLD image-derived motion/QC sensitivity is implemented, but strict completion still requires fMRIPrep FD/DVARS/censoring motion proof. fMRIPrep preflight status: blocked_derivative_snapshot_not_valid_raw_fmriprep_input.",
@@ -168,8 +168,28 @@
         "claim_effect": "Motion/confound handling has an image-derived QC proxy layer, but strict thesis completion still fails without fMRIPrep FD/DVARS/censoring proof."
       },
       "motion_summary_ready": false,
+      "motion_summary_pairing_ready": false,
+      "motion_summary_paired_subject_run_count": 0,
+      "motion_summary_minimum_paired_subject_run_count": 4,
       "control_layer_ready": true,
       "fmriprep_motion_control_ready": false,
+      "motion_confound_control_ready": false,
+      "motion_confound_pairing_ready": false,
+      "motion_confound_paired_subject_run_count": 0,
+      "motion_confound_minimum_paired_subject_run_count": 4,
+      "motion_confound_merged_subject_run_count": 0,
+      "motion_confound_has_association_rows": false,
+      "motion_confound_feature_family_coverage": {
+        "fd": false,
+        "dvars": false,
+        "censoring": false
+      },
+      "motion_confound_required_feature_families": [
+        "fd",
+        "dvars",
+        "censoring"
+      ],
+      "motion_confound_required_feature_families_ready": false,
       "control_layer_path": "results/confound_controls/motion_confound_control_status.json",
       "design_confound_control_ready": true,
       "design_confound_control_path": "results/confound_controls/design_confound_control_status.json",
