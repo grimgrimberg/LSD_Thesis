@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at_utc": "2026-06-01T19:40:27.404387+00:00",
+  "generated_at_utc": "2026-06-01T20:08:23.911658+00:00",
   "analysis_status": "implemented_directional_proxy_benchmark",
   "source_reference": {
     "source_id": "girn_2026_mega_analysis",
@@ -8,14 +8,16 @@
     "source_type": "external benchmark",
     "key_evidence": "Common psychedelic signature: increased transmodal-unimodal functional coupling with subnetwork specificity; striatal-unimodal effects are prominent.",
     "use_in_project": "Final external benchmark for C/D/E directionality.",
-    "status": "planned comparison",
+    "status": "implemented directional proxy benchmark",
     "component": "literature_benchmark",
     "target_layers": "C/D/E",
     "artifact_target": "results/literature_benchmark/",
     "next_artifact": "results/literature_benchmark/literature_benchmark_status.json",
     "claim_boundary": "Directionality benchmark only; it is not a reproduction of the mega-analysis and the current 8-module proxy cannot test striatal effects.",
     "url": "https://www.nature.com/articles/s41591-026-04287-9",
-    "doi": "10.1038/s41591-026-04287-9"
+    "doi": "10.1038/s41591-026-04287-9",
+    "base_plan_status": "planned comparison",
+    "current_component_status": "implemented_directional_proxy_benchmark"
   },
   "aligned_count": 4,
   "measurable_count": 6,

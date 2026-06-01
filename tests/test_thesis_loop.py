@@ -2,7 +2,11 @@ import csv
 from pathlib import Path
 from uuid import uuid4
 
-from lsd_thesis.external_source_plan import EXTERNAL_SOURCE_PLAN_COLUMNS, external_source_plan_rows
+from lsd_thesis.external_source_plan import (
+    EXTERNAL_SOURCE_PLAN_COLUMNS,
+    external_source_plan_rows,
+    external_source_reference_by_id,
+)
 from lsd_thesis.thesis_loop import build_thesis_evidence_loop
 from scripts.export_thesis_loop_tables import export_thesis_loop_tables
 
@@ -60,6 +64,18 @@ def test_thesis_evidence_loop_exports_requested_external_source_plan() -> None:
     assert by_source["schaefer_2018_local_global"]["status"] == "blocked_missing_parcellation_viewers"
     assert by_source["schaefer_2018_local_global"]["target_layers"] == "C/D/E"
 
+    component_refs = {
+        name: component["source_reference"]
+        for name, component in payload["components"].items()
+        if isinstance(component, dict) and isinstance(component.get("source_reference"), dict)
+    }
+    assert component_refs["psilocybin_ds006072"]["status"] == "blocked_missing_local_ds006072_empirical_viewer"
+    assert component_refs["structural_connectome"]["status"] == "blocked_missing_hcp_structural_graph"
+    assert component_refs["receptor_priors"]["status"] == "blocked_missing_pet_receptor_prior"
+    assert component_refs["parcellation_sensitivity"]["status"] == "blocked_missing_parcellation_viewers"
+    assert component_refs["literature_benchmark"]["status"] == "blocked_missing_dynamic_summary"
+    assert component_refs["literature_benchmark"]["base_plan_status"] == "planned comparison"
+
 
 def test_external_source_plan_promotes_display_status_when_components_are_implemented() -> None:
     rows = external_source_plan_rows(
@@ -81,6 +97,23 @@ def test_external_source_plan_promotes_display_status_when_components_are_implem
     assert by_source["markello_neuromaps_2022"]["current_component_status"] == (
         "implemented_pet_receptor_prior_sensitivity"
     )
+
+
+def test_external_source_reference_uses_current_component_status_without_losing_base_plan() -> None:
+    row = external_source_reference_by_id("markello_neuromaps_2022", "blocked_missing_pet_receptor_prior")
+
+    assert row["status"] == "blocked_missing_pet_receptor_prior"
+    assert row["current_component_status"] == "blocked_missing_pet_receptor_prior"
+    assert row["base_plan_status"] == "planned biological prior"
+    assert "receptor PET annotations" in row["key_evidence"]
+
+    implemented = external_source_reference_by_id(
+        "hcp_young_adult",
+        "implemented_hcp_structural_graph_sensitivity",
+    )
+    assert implemented["status"] == "implemented HCP structural graph sensitivity"
+    assert implemented["current_component_status"] == "implemented_hcp_structural_graph_sensitivity"
+    assert implemented["base_plan_status"] == "planned graph prior"
 
 
 def test_thesis_evidence_loop_writes_hiring_readiness_claim_matrix() -> None:

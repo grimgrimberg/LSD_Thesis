@@ -150,6 +150,20 @@ def external_source_by_id(source_id: str) -> dict[str, str]:
     raise KeyError(f"Unknown external source id: {source_id}")
 
 
+def external_source_reference_by_id(
+    source_id: str,
+    current_component_status: Any | None = None,
+) -> dict[str, Any]:
+    row: dict[str, Any] = external_source_by_id(source_id)
+    if current_component_status is None:
+        return row
+    status = str(current_component_status or "missing")
+    row["base_plan_status"] = row["status"]
+    row["current_component_status"] = status
+    row["status"] = _source_display_status(str(row["component"]), status, str(row["status"]))
+    return row
+
+
 def external_source_plan_rows(component_statuses: dict[str, Any] | None = None) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
     for source in EXTERNAL_SOURCE_PLAN:

@@ -20,6 +20,7 @@ from lsd_thesis.external_source_plan import (
     EXTERNAL_SOURCE_PLAN_COLUMNS,
     external_source_by_id,
     external_source_plan_rows,
+    external_source_reference_by_id,
 )
 from lsd_thesis.graph import load_graph_config
 
@@ -634,6 +635,10 @@ def build_psilocybin_status(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
                 ],
             }
         )
+    payload["source_reference"] = external_source_reference_by_id(
+        "dosenbach_siegel_ds006072_2025",
+        payload.get("analysis_status"),
+    )
     payload["source_path"] = _write_json(output_dir / "psilocybin_ds006072_status.json", payload)
     return payload
 
@@ -704,6 +709,10 @@ def build_structural_connectome_status(repo_root: Path = REPO_ROOT) -> dict[str,
             }
         )
         _write_csv(output_dir / "structural_network_control_metrics.csv", control.get("metric_deltas", []))
+    payload["source_reference"] = external_source_reference_by_id(
+        "hcp_young_adult",
+        payload.get("analysis_status"),
+    )
     payload["source_path"] = _write_json(output_dir / "structural_connectome_status.json", payload)
     return payload
 
@@ -772,6 +781,10 @@ def build_receptor_prior_status(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
             }
         )
         _write_csv(output_dir / "receptor_prior_network_control_metrics.csv", control.get("metric_deltas", []))
+    payload["source_reference"] = external_source_reference_by_id(
+        "markello_neuromaps_2022",
+        payload.get("analysis_status"),
+    )
     payload["source_path"] = _write_json(output_dir / "receptor_prior_status.json", payload)
     return payload
 
@@ -858,6 +871,10 @@ def build_parcellation_sensitivity_status(repo_root: Path = REPO_ROOT) -> dict[s
     _write_csv(output_dir / "parcellation_status.csv", rows)
     if comparisons:
         _write_csv(output_dir / "parcellation_ranking_comparison.csv", comparisons)
+    payload["source_reference"] = external_source_reference_by_id(
+        "schaefer_2018_local_global",
+        _external_source_component_status("parcellation_sensitivity", payload),
+    )
     payload["source_path"] = _write_json(output_dir / "parcellation_sensitivity_status.json", payload)
     return payload
 
@@ -889,6 +906,10 @@ def build_literature_benchmark_status(repo_root: Path = REPO_ROOT) -> dict[str, 
             "claim_guardrail": benchmark.get("claim_guardrail"),
         }
         _write_csv(output_dir / "literature_benchmark.csv", rows)
+    payload["source_reference"] = external_source_reference_by_id(
+        "girn_2026_mega_analysis",
+        payload.get("analysis_status"),
+    )
     payload["source_path"] = _write_json(output_dir / "literature_benchmark_status.json", payload)
     return payload
 

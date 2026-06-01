@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at_utc": "2026-06-01T19:40:27.410330+00:00",
+  "generated_at_utc": "2026-06-01T20:08:23.917719+00:00",
   "analysis_status": "implemented_loop_status_artifacts",
   "status_rows": [
     {
@@ -60,7 +60,7 @@
     },
     "psilocybin_ds006072": {
       "schema_version": 1,
-      "generated_at_utc": "2026-06-01T19:39:54.939496+00:00",
+      "generated_at_utc": "2026-06-01T20:07:50.633119+00:00",
       "dataset_id": "ds006072",
       "source": "Dosenbach/Siegel group Scientific Data 2025; OpenNeuro ds006072 psilocybin precision functional mapping dataset with raw, minimally processed, and fully processed imaging",
       "source_reference": {
@@ -76,7 +76,9 @@
         "next_artifact": "results/psilocybin_ds006072/psilocybin_ds006072_status.json",
         "claim_boundary": "Schaefer100/Yeo7 paired psilocybin/control scoring is external stress-test evidence, not replication when the top layer differs from the LSD reference.",
         "url": "https://www.nature.com/articles/s41597-025-05189-0",
-        "doi": "10.1038/s41597-025-05189-0"
+        "doi": "10.1038/s41597-025-05189-0",
+        "base_plan_status": "implemented external stress test",
+        "current_component_status": "implemented_ds006072_unchanged_scoring_validation"
       },
       "local_data_root": "data/ds006072",
       "viewer_root": "results/psilocybin_ds006072/empirical_viewer",
@@ -89,7 +91,7 @@
       "functional_manifest_processed_cifti_total_size_bytes": 113592893360,
       "external_validation_readiness": {
         "schema_version": "ds006072_external_validation.v1",
-        "generated_at_utc": "2026-06-01T19:39:36.001263+00:00",
+        "generated_at_utc": "2026-06-01T19:39:56.103846+00:00",
         "dataset_id": "ds006072",
         "analysis_status": "local_cifti_payloads_ready_for_comparable_extraction",
         "primary_contrast": "psilocybin_vs_active_control_mtp",
@@ -161,7 +163,7 @@
       "summary": {
         "schema_version": 3,
         "analysis_status": "implemented_first_pass",
-        "generated_at_utc": "2026-06-01T19:40:02.826722+00:00",
+        "generated_at_utc": "2026-06-01T20:08:00.006581+00:00",
         "inference_metadata": {
           "metric_ci_alpha": 0.05,
           "metric_bootstrap_iterations": 1024,
@@ -4289,7 +4291,7 @@
       },
       "comparable_empirical_validation": {
         "schema_version": "ds006072_external_validation.v1",
-        "generated_at_utc": "2026-06-01T19:39:56.131228+00:00",
+        "generated_at_utc": "2026-06-01T20:07:52.066951+00:00",
         "dataset_id": "ds006072",
         "primary_contrast": "psilocybin_vs_active_control_mtp",
         "viewer_root": "results/psilocybin_ds006072/parcellations/schaefer_100_yeo_7/empirical_viewer",
@@ -4410,7 +4412,7 @@
         "summary": {
           "schema_version": 3,
           "analysis_status": "implemented_first_pass",
-          "generated_at_utc": "2026-06-01T19:40:02.826722+00:00",
+          "generated_at_utc": "2026-06-01T20:08:00.006581+00:00",
           "inference_metadata": {
             "metric_ci_alpha": 0.05,
             "metric_bootstrap_iterations": 1024,
@@ -8553,7 +8555,7 @@
     },
     "structural_connectome": {
       "schema_version": 1,
-      "generated_at_utc": "2026-06-01T19:40:04.502794+00:00",
+      "generated_at_utc": "2026-06-01T20:08:01.811111+00:00",
       "artifact_target": "results/structural_connectome",
       "source_reference": {
         "source_id": "hcp_young_adult",
@@ -8561,14 +8563,16 @@
         "source_type": "graph prior",
         "key_evidence": "Large normative dataset with diffusion and resting-state fMRI for healthy young adults.",
         "use_in_project": "Source for structural-connectome graph and null sensitivity.",
-        "status": "planned graph prior",
+        "status": "implemented HCP structural graph sensitivity",
         "component": "structural_connectome",
         "target_layers": "E",
         "artifact_target": "results/structural_connectome/",
         "next_artifact": "results/structural_connectome/structural_connectome_status.json",
         "claim_boundary": "Proxy graph controls are not structural-connectome evidence; an HCP/normative module graph is required for the stronger E claim.",
         "url": "https://www.humanconnectome.org/study/hcp-young-adult/overview",
-        "doi": ""
+        "doi": "",
+        "base_plan_status": "planned graph prior",
+        "current_component_status": "implemented_hcp_structural_graph_sensitivity"
       },
       "expected_graph_files": [
         "results/structural_connectome/hcp_macro_modules.csv",
@@ -12002,7 +12006,7 @@
     },
     "receptor_priors": {
       "schema_version": 1,
-      "generated_at_utc": "2026-06-01T19:40:06.319796+00:00",
+      "generated_at_utc": "2026-06-01T20:08:03.815751+00:00",
       "artifact_target": "results/receptor_priors",
       "source_reference": {
         "source_id": "markello_neuromaps_2022",
@@ -12010,14 +12014,16 @@
         "source_type": "biological prior",
         "key_evidence": "neuromaps provides standardized brain-map comparison tools and receptor PET annotations.",
         "use_in_project": "Replace hand-built receptor proxies with documented receptor-map projections.",
-        "status": "planned biological prior",
+        "status": "implemented PET receptor-prior sensitivity",
         "component": "receptor_priors",
         "target_layers": "E",
         "artifact_target": "results/receptor_priors/",
         "next_artifact": "results/receptor_priors/receptor_prior_status.json",
         "claim_boundary": "Current coarse receptor weights are proxy-only; receptor claims need PET-derived maps and spatial-autocorrelation-preserving nulls.",
         "url": "https://www.nature.com/articles/s41592-022-01625-w",
-        "doi": "10.1038/s41592-022-01625-w"
+        "doi": "10.1038/s41592-022-01625-w",
+        "base_plan_status": "planned biological prior",
+        "current_component_status": "implemented_pet_receptor_prior_sensitivity"
       },
       "expected_prior_files": [
         "results/receptor_priors/fs5ht_5ht2a_macro_modules.csv",
@@ -15451,7 +15457,7 @@
     },
     "parcellation_sensitivity": {
       "schema_version": 1,
-      "generated_at_utc": "2026-06-01T19:40:08.242591+00:00",
+      "generated_at_utc": "2026-06-01T20:08:04.884101+00:00",
       "analysis_status": "implemented_status_matrix",
       "source_reference": {
         "source_id": "schaefer_2018_local_global",
@@ -15459,14 +15465,16 @@
         "source_type": "parcellation",
         "key_evidence": "Multiresolution local-global cortical parcellations support network neuroscience and graph analyses.",
         "use_in_project": "Sensitivity layer for C/D/E beyond the 8-module proxy.",
-        "status": "planned parcellation",
+        "status": "implemented Schaefer/Yeo sensitivity",
         "component": "parcellation_sensitivity",
         "target_layers": "C/D/E",
         "artifact_target": "results/parcellation_sensitivity/",
         "next_artifact": "results/parcellation_sensitivity/parcellation_sensitivity_status.json",
         "claim_boundary": "The 8-module layer stays a transparent summary; C/D/E claims need Schaefer/Yeo sensitivity rows before promotion.",
         "url": "https://academic.oup.com/cercor/article/28/9/3095/3978804",
-        "doi": "10.1093/cercor/bhx179"
+        "doi": "10.1093/cercor/bhx179",
+        "base_plan_status": "planned parcellation",
+        "current_component_status": "implemented_status_matrix"
       },
       "rows": [
         {
@@ -15649,7 +15657,7 @@
     },
     "literature_benchmark": {
       "schema_version": 1,
-      "generated_at_utc": "2026-06-01T19:40:27.404387+00:00",
+      "generated_at_utc": "2026-06-01T20:08:23.911658+00:00",
       "analysis_status": "implemented_directional_proxy_benchmark",
       "source_reference": {
         "source_id": "girn_2026_mega_analysis",
@@ -15657,14 +15665,16 @@
         "source_type": "external benchmark",
         "key_evidence": "Common psychedelic signature: increased transmodal-unimodal functional coupling with subnetwork specificity; striatal-unimodal effects are prominent.",
         "use_in_project": "Final external benchmark for C/D/E directionality.",
-        "status": "planned comparison",
+        "status": "implemented directional proxy benchmark",
         "component": "literature_benchmark",
         "target_layers": "C/D/E",
         "artifact_target": "results/literature_benchmark/",
         "next_artifact": "results/literature_benchmark/literature_benchmark_status.json",
         "claim_boundary": "Directionality benchmark only; it is not a reproduction of the mega-analysis and the current 8-module proxy cannot test striatal effects.",
         "url": "https://www.nature.com/articles/s41591-026-04287-9",
-        "doi": "10.1038/s41591-026-04287-9"
+        "doi": "10.1038/s41591-026-04287-9",
+        "base_plan_status": "planned comparison",
+        "current_component_status": "implemented_directional_proxy_benchmark"
       },
       "aligned_count": 4,
       "measurable_count": 6,

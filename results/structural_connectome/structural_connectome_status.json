@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at_utc": "2026-06-01T19:40:04.502794+00:00",
+  "generated_at_utc": "2026-06-01T20:08:01.811111+00:00",
   "artifact_target": "results/structural_connectome",
   "source_reference": {
     "source_id": "hcp_young_adult",
@@ -8,14 +8,16 @@
     "source_type": "graph prior",
     "key_evidence": "Large normative dataset with diffusion and resting-state fMRI for healthy young adults.",
     "use_in_project": "Source for structural-connectome graph and null sensitivity.",
-    "status": "planned graph prior",
+    "status": "implemented HCP structural graph sensitivity",
     "component": "structural_connectome",
     "target_layers": "E",
     "artifact_target": "results/structural_connectome/",
     "next_artifact": "results/structural_connectome/structural_connectome_status.json",
     "claim_boundary": "Proxy graph controls are not structural-connectome evidence; an HCP/normative module graph is required for the stronger E claim.",
     "url": "https://www.humanconnectome.org/study/hcp-young-adult/overview",
-    "doi": ""
+    "doi": "",
+    "base_plan_status": "planned graph prior",
+    "current_component_status": "implemented_hcp_structural_graph_sensitivity"
   },
   "expected_graph_files": [
     "results/structural_connectome/hcp_macro_modules.csv",
