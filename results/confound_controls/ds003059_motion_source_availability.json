@@ -1,6 +1,6 @@
 {
   "schema_version": "ds003059_motion_source_availability.v1",
-  "generated_at_utc": "2026-06-01T17:34:59.028564+00:00",
+  "generated_at_utc": "2026-06-01T17:43:53.951744+00:00",
   "analysis_status": "no_authorized_subject_level_motion_confounds_found",
   "motion_source_availability_ready": true,
   "dataset": {
@@ -11,6 +11,8 @@
     "motion_file_count": 0,
     "motion_files": [],
     "configured_motion_roots": [],
+    "motion_like_files_present": false,
+    "parseable_confounds_available": false,
     "motion_summary_status": "unavailable_not_found",
     "motion_analysis_ready": false,
     "motion_pairing_ready": false,
@@ -47,5 +49,5 @@
   "source_confounds_available": false,
   "conclusion": "Local repo search, OpenNeuro ds003059 snapshot metadata, and public OpenNeuroDerivatives repo checks did not expose subject-level FD/DVARS/censoring confounds.",
   "next_action": "Supply authorized fMRIPrep desc-confounds_timeseries.tsv files or run fMRIPrep/MRIQC from ds003059 raw BOLD before claiming full subject-level motion control.",
-  "claim_guardrail": "This artifact proves source availability, not motion safety. The motion-control gate can only pass after real subject/run FD, DVARS, and censoring values join to dynamic deltas."
+  "claim_guardrail": "This artifact proves source availability, not motion safety. Local motion-like files count as available only after they parse with joinable subject/session/run metadata; the motion-control gate can only pass after real subject/run FD, DVARS, and censoring values join to dynamic deltas."
 }

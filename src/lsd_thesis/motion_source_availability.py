@@ -105,7 +105,7 @@ def build_motion_source_availability(
         if _is_motion_like(str(item.get("filename") or "")) and not bool(item.get("directory"))
     ]
     derivative_available = any(bool(item.get("available")) for item in derivative_repo_statuses)
-    local_available = bool(local_files)
+    local_available = bool(local_summary.get("motion_analysis_ready"))
     raw_snapshot_checked = bool(openneuro_files) or remote_error is not None
     raw_snapshot_has_confounds = bool(openneuro_motion_like)
     source_confounds_available = local_available or raw_snapshot_has_confounds or derivative_available
@@ -140,6 +140,8 @@ def build_motion_source_availability(
             "motion_file_count": len(local_files),
             "motion_files": [_rel(path, root) for path in local_files],
             "configured_motion_roots": [_rel(path, root) for path in motion_roots] if motion_roots else [],
+            "motion_like_files_present": bool(local_files),
+            "parseable_confounds_available": local_available,
             "motion_summary_status": local_summary.get("status"),
             "motion_analysis_ready": bool(local_summary.get("motion_analysis_ready")),
             "motion_pairing_ready": bool(local_summary.get("motion_pairing_ready")),
@@ -175,9 +177,10 @@ def build_motion_source_availability(
             )
         ),
         "claim_guardrail": (
-            "This artifact proves source availability, not motion safety. The motion-control "
-            "gate can only pass after real subject/run FD, DVARS, and censoring values join "
-            "to dynamic deltas."
+            "This artifact proves source availability, not motion safety. Local motion-like files "
+            "count as available only after they parse with joinable subject/session/run metadata; "
+            "the motion-control gate can only pass after real subject/run FD, DVARS, and censoring "
+            "values join to dynamic deltas."
         ),
     }
 

@@ -41,7 +41,7 @@ The missing `project_phase` item is derived from the motion-proof blocker. It is
 - The dedicated motion-confound control artifact now fails closed unless association rows cover FD, DVARS, and censoring/outlier feature families.
 - Author-style long-form confound metadata values such as `001`, `LSD`, and `1` now normalize to the repo's join keys (`sub-001`, `ses-LSD`, `run-01`) before motion summaries are joined to subject/run dynamic deltas.
 - External motion roots are now threaded through the thesis-status refresh, source-availability check, and static Pages build so published/provenance artifacts can stay consistent with the same authorized confound root.
-- Motion source availability now reports parser readiness, pairing readiness, parsed summary count, and unusable file count; a discovered motion-like TSV is no longer the only provenance signal.
+- Motion source availability now reports parser readiness, pairing readiness, parsed summary count, and unusable file count; a discovered local motion-like TSV does not count as available confounds unless it parses with joinable metadata.
 - The thesis-upgrade strict motion gate now rejects implemented-looking motion-control status strings unless the evidence also has explicit paired-control readiness, enough paired/merged rows, and FD, DVARS, plus censor/outlier association-row coverage.
 - The current OpenNeuro ds003059 snapshot check is recorded in `results/confound_controls/fmriprep_motion_proof_plan.json`: 250 snapshot files, 15 T1w files, and 0 confound-like files.
 
