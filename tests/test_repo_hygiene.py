@@ -88,3 +88,20 @@ def test_artifact_policy_documents_and_ignores_generated_tiers() -> None:
         "results/stage_2/empirical_viewer/group_overview.json",
         "data/ds003059/dataset_description.json",
     ]
+
+
+def test_dashboard_template_avoids_html_string_injection_sinks() -> None:
+    repo_root = Path(__file__).resolve().parents[1]
+    dashboard_template = (repo_root / "src" / "lsd_thesis" / "templates" / "dashboard.html").read_text(
+        encoding="utf-8"
+    )
+
+    forbidden_patterns = (
+        ".innerHTML",
+        ".outerHTML",
+        "insertAdjacentHTML",
+        "dangerouslySetInnerHTML",
+    )
+
+    for pattern in forbidden_patterns:
+        assert pattern not in dashboard_template
