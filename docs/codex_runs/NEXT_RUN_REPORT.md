@@ -48,6 +48,7 @@ The missing `project_phase` item is derived from the motion-proof blocker. It is
 - `docs/VALIDATION.md` now declares the current 2026-06-01 quality baseline before its historical validation log, so old PASS 2A/PASS 2B counts are not mistaken for live gate status.
 - `docs/THESIS_READINESS_GATES.md` now includes the current 8/8 readiness, 4/6 strict-completion snapshot, implemented ds006072 stress-test status, and implemented receptor/structural sensitivity status instead of older target-only wording.
 - `docs/research/cross_dataset_thesis_loop.md` now describes ds006072, HCP structural, and PET receptor-prior layers as implemented stress-test/sensitivity layers with explicit negative/partial claim boundaries instead of blocked manifest-only gates.
+- The generated thesis-upgrade status now uses ready-language for the `fully_integrated` receptor/structural gate instead of saying the implemented HCP/PET sensitivity layers are still missing.
 - The thesis-upgrade strict motion gate now rejects implemented-looking motion-control status strings unless the evidence also has explicit paired-control readiness, enough paired/merged rows, and FD, DVARS, plus censor/outlier association-row coverage.
 - The current OpenNeuro ds003059 snapshot check is recorded in `results/confound_controls/fmriprep_motion_proof_plan.json`: 250 snapshot files, 15 T1w files, and 0 confound-like files.
 
@@ -66,7 +67,7 @@ Observed results:
 
 - Ruff: all checks passed.
 - mypy: no issues found in 77 source files.
-- pytest: 364 passed, 4 warnings, total coverage 80.06%.
+- pytest: 365 passed, 4 warnings, total coverage 80.07%.
 - dashboard preview preflight: required files present, optional generated artifacts present, CV5 internal validation reported as 5/5 folds.
 
 Hosted CI after the Node-24 action-major bump:

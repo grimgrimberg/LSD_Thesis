@@ -354,6 +354,44 @@ def test_thesis_upgrade_marks_external_validation_complete_only_with_locked_comp
     )
 
 
+def test_receptor_structural_gate_uses_ready_language_when_both_layers_exist(tmp_path: Path) -> None:
+    structural_dir = tmp_path / "results" / "structural_connectome"
+    receptor_dir = tmp_path / "results" / "receptor_priors"
+    ingestion_dir = tmp_path / "results" / "external_ingestion"
+    structural_dir.mkdir(parents=True)
+    receptor_dir.mkdir(parents=True)
+    ingestion_dir.mkdir(parents=True)
+    (structural_dir / "structural_connectome_status.json").write_text(
+        json.dumps({"analysis_status": "implemented_hcp_structural_graph_sensitivity"}),
+        encoding="utf-8",
+    )
+    (receptor_dir / "receptor_prior_status.json").write_text(
+        json.dumps({"analysis_status": "implemented_pet_receptor_prior_sensitivity"}),
+        encoding="utf-8",
+    )
+    (ingestion_dir / "external_ingestion_status.json").write_text(
+        json.dumps(
+            {
+                "analysis_status": {
+                    "structural_connectome": "ready",
+                    "receptor_prior": "ready",
+                }
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    status = build_thesis_upgrade_status(tmp_path)
+    receptor_structural = status["components"]["receptor_structural"]
+
+    assert receptor_structural["gate"]["ready"] is True
+    assert receptor_structural["gate"]["status"] == "fully_integrated"
+    assert "Documented structural-connectome graph sensitivity" in receptor_structural["gate"]["blocker"]
+    assert "Need both" not in receptor_structural["gate"]["blocker"]
+    assert "implemented sensitivity controls" in receptor_structural["claim_guardrail"]
+    assert "proxy-only until" not in receptor_structural["claim_guardrail"]
+
+
 def test_thesis_upgrade_project_phase_completes_only_with_hard_motion_and_stronger_external_validation(
     tmp_path: Path,
 ) -> None:

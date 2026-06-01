@@ -889,13 +889,30 @@ def _receptor_structural_gate(repo_root: Path) -> dict[str, Any]:
     structural_ingested = ingestion_status.get("structural_connectome") == "ready"
     receptor_ingested = ingestion_status.get("receptor_prior") == "ready"
     ready = structural_ready and receptor_ready
+    blocker = (
+        (
+            "Documented structural-connectome graph sensitivity and PET-derived receptor-prior "
+            "sensitivity are implemented with null/control context; keep biological mechanism "
+            "promotion governed by the separate receptor/myelin/gradient claim gate."
+        )
+        if ready
+        else "Need both a documented structural-connectome graph and PET-derived receptor prior with null controls."
+    )
+    claim_guardrail = (
+        (
+            "Structural and receptor-prior layers are implemented sensitivity controls, not receptor-level, "
+            "clinical, or subjective-experience proof."
+        )
+        if ready
+        else "E is proxy-only until structural and receptor priors are both implemented with null controls."
+    )
     return {
         "gate": _gate(
             "Receptor + structural control",
             "fully_integrated" if ready else "proxy_or_blocked",
             ready,
             f"{_rel(structural_path, repo_root)}; {_rel(receptor_path, repo_root)}; {_rel(ingestion_path, repo_root)}",
-            "Need both a documented structural-connectome graph and PET-derived receptor prior with null controls.",
+            blocker,
             0.35 * float(structural_ready)
             + 0.35 * float(receptor_ready)
             + 0.15 * float(structural_ingested)
@@ -907,7 +924,7 @@ def _receptor_structural_gate(repo_root: Path) -> dict[str, Any]:
         "required_structural_input": "CSV edge list or square matrix aligned to active parcellation nodes.",
         "required_receptor_input": "PET-derived 5-HT2A/FS5ht map projected to the active parcellation.",
         "null_controls": ["uniform", "degree", "random prior", "spatial/autocorrelation-preserving null"],
-        "claim_guardrail": "E is proxy-only until structural and receptor priors are both implemented with null controls.",
+        "claim_guardrail": claim_guardrail,
     }
 
 
