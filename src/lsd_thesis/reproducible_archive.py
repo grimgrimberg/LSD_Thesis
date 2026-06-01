@@ -4,6 +4,7 @@ import csv
 import hashlib
 import json
 import platform
+import re
 from collections.abc import Iterable
 from datetime import UTC, datetime
 from pathlib import Path
@@ -68,6 +69,21 @@ def _is_excluded(relative: str) -> bool:
     return any(pattern in normalized for pattern in EXCLUDED_PATTERNS)
 
 
+def _is_valid_release_url(url: str | None) -> bool:
+    if not url:
+        return False
+    return bool(re.match(r"^https://github\.com/[^/\s]+/[^/\s]+/releases/tag/[^/\s]+$", url.strip()))
+
+
+def _is_valid_doi(doi: str | None) -> bool:
+    if not doi:
+        return False
+    normalized = doi.strip()
+    if normalized.startswith("https://doi.org/"):
+        normalized = normalized.removeprefix("https://doi.org/")
+    return bool(re.match(r"^10\.\d{4,9}/[-._;()/:A-Za-z0-9]+$", normalized))
+
+
 def collect_archive_artifacts(repo_root: Path = REPO_ROOT, include_files: Iterable[str] = DEFAULT_INCLUDE_FILES) -> list[dict[str, Any]]:
     repo_root = repo_root.resolve()
     artifacts: list[dict[str, Any]] = []
@@ -87,8 +103,18 @@ def collect_archive_artifacts(repo_root: Path = REPO_ROOT, include_files: Iterab
     return artifacts
 
 
-def build_archive_manifest(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
+def build_archive_manifest(
+    repo_root: Path = REPO_ROOT,
+    *,
+    release_url: str | None = None,
+    doi: str | None = None,
+) -> dict[str, Any]:
     artifacts = collect_archive_artifacts(repo_root)
+    normalized_release_url = release_url.strip() if release_url else None
+    normalized_doi = doi.strip() if doi else None
+    release_url_valid = _is_valid_release_url(normalized_release_url)
+    doi_valid = _is_valid_doi(normalized_doi)
+    archive_publication_ready = release_url_valid and doi_valid
     return {
         "schema_version": SCHEMA_VERSION,
         "generated_at_utc": datetime.now(UTC).isoformat(),
@@ -96,6 +122,18 @@ def build_archive_manifest(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
         "platform": platform.platform(),
         "artifact_count": len(artifacts),
         "artifacts": artifacts,
+        "release_url": normalized_release_url,
+        "doi": normalized_doi,
+        "archive_publication_ready": archive_publication_ready,
+        "publication_metadata": {
+            "release_url": normalized_release_url,
+            "doi": normalized_doi,
+            "release_url_valid": release_url_valid,
+            "doi_valid": doi_valid,
+            "archive_publication_ready": archive_publication_ready,
+            "required_release_url_shape": "https://github.com/<owner>/<repo>/releases/tag/<tag>",
+            "required_doi_shape": "10.<prefix>/<suffix> or https://doi.org/10.<prefix>/<suffix>",
+        },
         "source_datasets": [
             {
                 "id": "OpenNeuro ds003059 v1.0.0",
@@ -126,11 +164,17 @@ def build_archive_manifest(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
     }
 
 
-def write_archive_manifest(repo_root: Path = REPO_ROOT, output_dir: Path | None = None) -> dict[str, Any]:
+def write_archive_manifest(
+    repo_root: Path = REPO_ROOT,
+    output_dir: Path | None = None,
+    *,
+    release_url: str | None = None,
+    doi: str | None = None,
+) -> dict[str, Any]:
     repo_root = repo_root.resolve()
     output_dir = output_dir or repo_root / "results" / "reproducible_archive"
     output_dir.mkdir(parents=True, exist_ok=True)
-    manifest = build_archive_manifest(repo_root)
+    manifest = build_archive_manifest(repo_root, release_url=release_url, doi=doi)
     manifest_path = output_dir / "ARCHIVE_MANIFEST.json"
     csv_path = output_dir / "ARCHIVE_ARTIFACTS.csv"
     checksum_path = output_dir / "CHECKSUMS.sha256"

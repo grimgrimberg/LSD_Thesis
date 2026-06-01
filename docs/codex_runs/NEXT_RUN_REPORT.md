@@ -53,6 +53,7 @@ The missing `project_phase` item is derived from the motion-proof blocker. It is
 - The current OpenNeuro ds003059 snapshot check is recorded in `results/confound_controls/fmriprep_motion_proof_plan.json`: 250 snapshot files, 15 T1w files, and 0 confound-like files.
 - The ds006072 unchanged-scoring lock now has an explicit `--refresh-scoring-lock` rebuild path for reviewed scoring-code refactors; stale scoring hashes still block by default.
 - The external source plan now derives implemented display labels from current component statuses instead of leaving HCP, PET receptor-prior, Schaefer/Yeo, and literature-benchmark rows as planned when their artifacts are present.
+- The reproducible archive manifest builder now accepts explicit `--release-url` and `--doi` metadata and records validity flags, so the archive gate has a real path to readiness without counting placeholders.
 
 ## Fresh Verification Evidence
 
@@ -69,7 +70,7 @@ Observed results:
 
 - Ruff: all checks passed.
 - mypy: no issues found in 77 source files.
-- pytest: 375 passed, 4 warnings, total coverage 80.18%.
+- pytest: 380 passed, 4 warnings, total coverage 80.72%.
 - dashboard preview preflight: required files present, optional generated artifacts present, CV5 internal validation reported as 5/5 folds.
 
 Hosted CI after the Node-24 action-major bump:

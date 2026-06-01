@@ -47,6 +47,15 @@ uv run python scripts/build_thesis_upgrade_status.py
 uv run python scripts/build_reproducible_archive.py
 ```
 
+After a real GitHub release exists and Zenodo has minted a DOI for that release, rebuild the manifest with citable publication metadata:
+
+```powershell
+uv run python scripts/build_reproducible_archive.py --release-url https://github.com/<owner>/<repo>/releases/tag/<tag> --doi 10.<prefix>/<suffix>
+uv run python -c "from pathlib import Path; from lsd_thesis.thesis_upgrade import write_thesis_upgrade_status; write_thesis_upgrade_status(Path.cwd())"
+```
+
+Do not use placeholders. The archive gate only counts as ready when the manifest records a GitHub release URL shaped like `https://github.com/<owner>/<repo>/releases/tag/<tag>` and a DOI shaped like `10.<prefix>/<suffix>` or `https://doi.org/10.<prefix>/<suffix>`.
+
 ## Claim Guardrail
 
 The archive improves reproducibility for code and derived aggregate artifacts. It does not create external validation, receptor-level validation, clinical evidence, or subjective-experience evidence.

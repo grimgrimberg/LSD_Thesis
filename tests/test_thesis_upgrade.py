@@ -218,6 +218,32 @@ def test_thesis_upgrade_archive_gate_requires_release_url_and_doi(tmp_path: Path
     assert "release and Zenodo DOI" in archive["gate"]["blocker"]
 
 
+def test_thesis_upgrade_archive_gate_passes_with_release_url_and_doi(tmp_path: Path) -> None:
+    archive_dir = tmp_path / "results" / "reproducible_archive"
+    archive_dir.mkdir(parents=True)
+    (archive_dir / "ARCHIVE_MANIFEST.json").write_text(
+        json.dumps(
+            {
+                "schema_version": "reproducible_archive_manifest.v1",
+                "artifact_count": 3,
+                "release_url": "https://github.com/grimgrimberg/LSD_Thesis/releases/tag/v1.0.0",
+                "doi": "10.5281/zenodo.1234567",
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    status = build_thesis_upgrade_status(tmp_path)
+    archive = status["components"]["reproducible_archive"]
+
+    assert archive["archive_manifest_ready"] is True
+    assert archive["archive_publication_ready"] is True
+    assert archive["release_url"] == "https://github.com/grimgrimberg/LSD_Thesis/releases/tag/v1.0.0"
+    assert archive["doi"] == "10.5281/zenodo.1234567"
+    assert archive["gate"]["ready"] is True
+    assert archive["gate"]["status"] == "release_doi_ready"
+
+
 def test_thesis_upgrade_rejects_implemented_motion_status_without_paired_control_readiness(
     tmp_path: Path,
 ) -> None:
