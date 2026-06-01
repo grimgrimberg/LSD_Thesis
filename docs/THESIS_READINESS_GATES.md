@@ -49,6 +49,7 @@ The strict motion gate passes only after structured subject/session/run confound
 - `framewise_displacement`
 - `std_dvars` or `dvars`
 - motion outlier, censor, scrub, or non-steady-state columns where available
+- subject, session/condition, and run metadata in the path or an equivalent joinable subject/session/run record
 
 Run:
 
@@ -60,6 +61,8 @@ uv run python scripts/build_thesis_upgrade_status.py --fetch-motion-remote
 ```
 
 The preflight artifact is not motion proof. It may report that the current ds003059 snapshot is a derivative release with no subject-level confound tables; in that case, the strict gate requires author-provided confounds or original raw BIDS inputs processed through fMRIPrep/MRIQC.
+
+Files with FD/DVARS columns but no subject/session/run metadata remain unusable for the strict gate because they cannot be joined to the empirical dynamic deltas.
 
 ## Canonical Parcellation Decision
 

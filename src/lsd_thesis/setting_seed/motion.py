@@ -11,6 +11,9 @@ import pandas as pd
 
 FD_COLUMNS = ("framewise_displacement", "fd", "FD", "FramewiseDisplacement")
 DVARS_COLUMNS = ("std_dvars", "dvars", "DVARS", "stdDVARS", "standardized_dvars")
+SUBJECT_METADATA_COLUMNS = ("subject", "participant_id", "participant", "sub")
+SESSION_METADATA_COLUMNS = ("session", "ses", "condition")
+RUN_METADATA_COLUMNS = ("run", "run_id")
 MOTION_FILE_PATTERN = re.compile(r"(confound|motion|fd|dvars|censor|scrub|desc-confounds|regress)", re.IGNORECASE)
 MOTION_FILE_GLOBS = (
     "*desc-confounds_timeseries.tsv",
@@ -58,6 +61,28 @@ def _first_existing_column(frame: pd.DataFrame, candidates: Sequence[str]) -> st
     return None
 
 
+def _constant_text_column_value(frame: pd.DataFrame, candidates: Sequence[str]) -> str | None:
+    column = _first_existing_column(frame, candidates)
+    if column is None:
+        return None
+    values = {str(value).strip() for value in frame[column].dropna().tolist() if str(value).strip()}
+    if len(values) != 1:
+        return None
+    return next(iter(values))
+
+
+def _path_match_or_constant_column_value(
+    match: re.Match[str] | None,
+    frame: pd.DataFrame | None,
+    candidates: Sequence[str],
+) -> str | None:
+    if match is not None:
+        return match.group(0)
+    if frame is None:
+        return None
+    return _constant_text_column_value(frame, candidates)
+
+
 def _default_search_roots(root: Path, stage_2_dir: str | Path | None) -> tuple[Path, ...]:
     candidates = (
         root / "data" / "ds003059",
@@ -85,15 +110,15 @@ def _motion_input_contract(root: Path, search_roots: Sequence[Path]) -> dict[str
     }
 
 
-def _parse_subject_session_run(path: Path) -> dict[str, str | None]:
+def _parse_subject_session_run(path: Path, frame: pd.DataFrame | None = None) -> dict[str, str | None]:
     text = path.as_posix()
     subject = re.search(r"sub-\d+", text)
     session = re.search(r"ses-[A-Za-z0-9]+", text)
     run = re.search(r"run-\d+", text)
     return {
-        "subject": subject.group(0) if subject else None,
-        "session": session.group(0) if session else None,
-        "run": run.group(0) if run else None,
+        "subject": _path_match_or_constant_column_value(subject, frame, SUBJECT_METADATA_COLUMNS),
+        "session": _path_match_or_constant_column_value(session, frame, SESSION_METADATA_COLUMNS),
+        "run": _path_match_or_constant_column_value(run, frame, RUN_METADATA_COLUMNS),
     }
 
 
@@ -138,13 +163,22 @@ def summarize_motion_tsv(path: str | Path, fd_threshold: float = DEFAULT_FD_THRE
     fd_column = _first_existing_column(frame, FD_COLUMNS)
     dvars_column = _first_existing_column(frame, DVARS_COLUMNS)
     scrub_columns = [column for column in frame.columns if re.search(r"(scrub|censor|motion_outlier|non_steady_state)", column, re.IGNORECASE)]
-    parsed = _parse_subject_session_run(motion_path)
+    parsed = _parse_subject_session_run(motion_path, frame)
     if fd_column is None and dvars_column is None and not scrub_columns:
         return {
             **parsed,
             "path": motion_path.as_posix(),
             "status": "found_unusable",
             "reason": "no_fd_dvars_or_scrub_columns",
+        }
+    missing_metadata = [key for key in ("subject", "session", "run") if parsed.get(key) is None]
+    if missing_metadata:
+        return {
+            **parsed,
+            "path": motion_path.as_posix(),
+            "status": "found_unusable",
+            "reason": "missing_subject_session_or_run_metadata",
+            "missing_pairing_metadata": missing_metadata,
         }
 
     fd_values = pd.to_numeric(frame[fd_column], errors="coerce").dropna().to_numpy(dtype=float) if fd_column is not None else np.asarray([], dtype=float)

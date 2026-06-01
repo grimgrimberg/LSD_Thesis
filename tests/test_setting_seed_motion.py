@@ -40,6 +40,43 @@ def test_motion_summary_reports_unavailable_without_confounds(tmp_path: Path) ->
     assert "subject id" in summary["input_contract"]["minimum_pairing_contract"]
 
 
+def test_motion_summary_rejects_confounds_without_pairing_metadata(tmp_path: Path) -> None:
+    pd.DataFrame({"framewise_displacement": [0.0, 0.1], "std_dvars": [1.0, 1.1]}).to_csv(
+        tmp_path / "desc-confounds_timeseries.tsv",
+        sep="\t",
+        index=False,
+    )
+
+    summary = build_motion_summary(roots=(tmp_path,))
+
+    assert summary["status"] == "found_unusable"
+    assert summary["motion_files_present"] is True
+    assert summary["motion_analysis_ready"] is False
+    assert summary["parsed_summary_count"] == 0
+    assert summary["unusable_file_count"] == 1
+    assert summary["summaries"][0]["reason"] == "missing_subject_session_or_run_metadata"
+
+
+def test_summarize_motion_tsv_accepts_constant_pairing_columns(tmp_path: Path) -> None:
+    path = tmp_path / "desc-confounds_timeseries.tsv"
+    pd.DataFrame(
+        {
+            "participant_id": ["sub-001", "sub-001"],
+            "condition": ["ses-LSD", "ses-LSD"],
+            "run": ["run-01", "run-01"],
+            "framewise_displacement": [0.0, 0.1],
+            "std_dvars": [1.0, 1.1],
+        }
+    ).to_csv(path, sep="\t", index=False)
+
+    summary = summarize_motion_tsv(path)
+
+    assert summary["status"] == "available_parsed"
+    assert summary["subject"] == "sub-001"
+    assert summary["session"] == "ses-LSD"
+    assert summary["run"] == "run-01"
+
+
 def test_write_motion_outputs_writes_explicit_unavailable_status(tmp_path: Path) -> None:
     output_dir = tmp_path / "motion"
 
