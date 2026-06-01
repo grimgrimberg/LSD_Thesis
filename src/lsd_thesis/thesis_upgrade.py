@@ -1250,11 +1250,28 @@ def _receptor_myelin_gradient_claim_gate(repo_root: Path) -> dict[str, Any]:
     strong_claim_status = str(claim_readiness.get("strong_receptor_myelin_gradient_claim") or "not_supported_yet")
     fdr_supported_count = int(payload.get("fdr_supported_count") or 0)
     best = payload.get("best_alignment", {}) if isinstance(payload.get("best_alignment"), dict) else {}
+    best_q_value = _optional_float(best.get("q_value"))
+    best_q = _optional_float(best.get("q"))
+    best_fdr_pass = bool(
+        best.get("fdr_pass")
+        or best.get("fdr_significant_0_05")
+        or (best_q_value is not None and best_q_value <= 0.05)
+        or (best_q is not None and best_q <= 0.05)
+    )
+    best_ci_crosses_zero = bool(best.get("ci_crosses_zero") or best.get("ci_overlaps_zero"))
+    best_ci_checked = best.get("ci_crosses_zero") is False or best.get("ci_overlaps_zero") is False
+    positive_claim_support_ready = (
+        strong_claim_status not in {"not_supported_yet", "exploratory_not_supported_yet"}
+        and fdr_supported_count > 0
+        and best_fdr_pass
+        and best_ci_checked
+        and not best_ci_crosses_zero
+    )
     negative_result_ready = bool(falsification.get("negative_result_ready"))
     claim_resolution = falsification.get("claim_resolution", {}) if isinstance(falsification.get("claim_resolution"), dict) else {}
     spatial_nulls = falsification.get("spatial_nulls", {}) if isinstance(falsification.get("spatial_nulls"), dict) else {}
     resolved_negative = negative_result_ready and str(falsification.get("claim_status")) == "resolved_negative_not_promoted"
-    ready = (strong_claim_status not in {"not_supported_yet", "exploratory_not_supported_yet"} and fdr_supported_count > 0) or resolved_negative
+    ready = positive_claim_support_ready or resolved_negative
     status = "supported" if ready and not resolved_negative else "resolved_negative_not_promoted" if resolved_negative else strong_claim_status
     if resolved_negative:
         claim_readiness.update(
@@ -1304,6 +1321,8 @@ def _receptor_myelin_gradient_claim_gate(repo_root: Path) -> dict[str, Any]:
             "receptor/myelin/gradient mechanism claims from this dataset."
         )
         if resolved_negative
+        else "Map-prior positive claim is not supported until FDR and CI-zero gates both pass."
+        if strong_claim_status not in {"not_supported_yet", "exploratory_not_supported_yet"} or fdr_supported_count > 0
         else "Map-prior negative result is formalized; the mechanism claim remains not_supported_yet."
         if negative_result_ready
         else "Current receptor/myelin/gradient alignments are exploratory priors; q-values do not pass FDR and CIs overlap zero."
@@ -1327,6 +1346,10 @@ def _receptor_myelin_gradient_claim_gate(repo_root: Path) -> dict[str, Any]:
             (
                 "None: the claim is resolved as a negative/control result and is not promoted as a mechanism claim."
                 if resolved_negative
+                else (
+                    "The map-prior positive claim has not met both FDR support and CI exclusion of zero."
+                )
+                if strong_claim_status not in {"not_supported_yet", "exploratory_not_supported_yet"} or fdr_supported_count > 0
                 else (
                     "The map-prior negative result is formalized: no module-level or "
                     "spatial-null family FDR support, and the best spatial-null CI crosses zero."
@@ -1355,6 +1378,10 @@ def _receptor_myelin_gradient_claim_gate(repo_root: Path) -> dict[str, Any]:
         "neuromaps_status": neuromaps_status,
         "fdr_supported_count": fdr_supported_count,
         "best_alignment": best,
+        "positive_claim_support_ready": positive_claim_support_ready,
+        "best_alignment_fdr_pass": best_fdr_pass,
+        "best_alignment_ci_checked": best_ci_checked,
+        "best_alignment_ci_crosses_zero": best_ci_crosses_zero,
         "negative_result_ready": negative_result_ready,
         "negative_result_path": _rel(falsification_path, repo_root),
         "negative_result_claim_effect": falsification.get("claim_effect"),

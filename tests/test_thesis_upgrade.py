@@ -144,6 +144,65 @@ def test_thesis_upgrade_marks_map_prior_claim_complete_when_resolved_negative(tm
     assert component["neuromaps_status"]["spatial_autocorrelation_nulls_complete"] is True
 
 
+def test_thesis_upgrade_rejects_positive_map_prior_claim_without_ci_support(tmp_path: Path) -> None:
+    output_dir = tmp_path / "results" / "cortical_maps"
+    output_dir.mkdir(parents=True)
+    (output_dir / "cortical_map_alignment_status.json").write_text(
+        json.dumps(
+            {
+                "claim_readiness": {
+                    "strong_receptor_myelin_gradient_claim": "supported",
+                },
+                "fdr_supported_count": 1,
+                "best_alignment": {
+                    "fdr_pass": True,
+                    "ci_crosses_zero": True,
+                    "q": 0.01,
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    status = build_thesis_upgrade_status(tmp_path)
+    component = status["components"]["receptor_myelin_gradient_claim"]
+    requirement = {row["requirement_id"]: row for row in status["strict_completion_requirements"]}[
+        "receptor_myelin_gradient_claim"
+    ]
+
+    assert component["gate"]["ready"] is False
+    assert requirement["complete"] is False
+    assert component["positive_claim_support_ready"] is False
+    assert "FDR support and CI" in requirement["missing"]
+
+
+def test_thesis_upgrade_rejects_positive_map_prior_claim_without_ci_field(tmp_path: Path) -> None:
+    output_dir = tmp_path / "results" / "cortical_maps"
+    output_dir.mkdir(parents=True)
+    (output_dir / "cortical_map_alignment_status.json").write_text(
+        json.dumps(
+            {
+                "claim_readiness": {
+                    "strong_receptor_myelin_gradient_claim": "supported",
+                },
+                "fdr_supported_count": 1,
+                "best_alignment": {
+                    "fdr_pass": True,
+                    "q": 0.01,
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    status = build_thesis_upgrade_status(tmp_path)
+    component = status["components"]["receptor_myelin_gradient_claim"]
+
+    assert component["gate"]["ready"] is False
+    assert component["positive_claim_support_ready"] is False
+    assert component["best_alignment_ci_checked"] is False
+
+
 def _write_valid_schaefer_yeo_outputs(tmp_path: Path) -> None:
     sensitivity_dir = tmp_path / "results" / "parcellation_sensitivity"
     canonical_dir = tmp_path / "results" / "stage_2" / "parcellations" / "schaefer_100_yeo_7"

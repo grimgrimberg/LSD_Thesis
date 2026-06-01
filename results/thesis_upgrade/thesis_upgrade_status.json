@@ -1,6 +1,6 @@
 {
   "schema_version": "thesis_upgrade_status.v1",
-  "generated_at_utc": "2026-06-01T23:09:46.488572+00:00",
+  "generated_at_utc": "2026-06-01T23:21:01.349317+00:00",
   "readiness_summary": {
     "ready_gates": 6,
     "total_gates": 9,
@@ -1067,6 +1067,10 @@
         "fdr_significant_0_05": false,
         "alignment_status": "exploratory_no_fdr_support"
       },
+      "positive_claim_support_ready": false,
+      "best_alignment_fdr_pass": false,
+      "best_alignment_ci_checked": false,
+      "best_alignment_ci_crosses_zero": true,
       "negative_result_ready": true,
       "negative_result_path": "results/cortical_maps/map_prior_falsification_status.json",
       "negative_result_claim_effect": "The receptor/myelin/gradient/gene-expression map-prior mechanism is formally downgraded: module-level permutation and Schaefer100 Moran spatial-null families contain no row with joint FDR support and a confidence interval excluding zero.",

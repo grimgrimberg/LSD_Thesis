@@ -60,6 +60,7 @@ The missing `project_phase` item is derived from the motion-proof blocker. It is
 - The ds006072 external-validation gate now rejects stale nested scoring-lock hash details even when a top-level `scoring_lock_verified` flag is true.
 - The ROCKET thesis-strength gate now requires balanced accuracy and ROC AUC to exceed the configured performance floor in addition to subject-disjoint CV, aggregation, calibration, permutation-null, and MiniRocket/MultiRocket structure.
 - The canonical Schaefer/Yeo parcellation gate now rejects empty extraction/viewer/ranking JSON placeholders and requires non-empty subject/run/module/ranking artifact content.
+- The receptor/myelin/gradient claim gate now rejects positive claim promotion unless the best alignment has explicit FDR support and an explicit CI check excluding zero; the current artifact remains a resolved negative/control result.
 
 ## Fresh Verification Evidence
 
@@ -76,7 +77,7 @@ Observed results:
 
 - Ruff: all checks passed.
 - mypy: no issues found in 77 source files.
-- pytest: 389 passed, 4 warnings, total coverage 80.90%.
+- pytest: 391 passed, 4 warnings, total coverage 80.91%.
 - dashboard preview preflight: required files present, optional generated artifacts present, CV5 internal validation reported as 5/5 folds.
 
 Hosted CI after the Node-24 action-major bump:
