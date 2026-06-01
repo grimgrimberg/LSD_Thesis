@@ -10,13 +10,13 @@ Current engineering health rating: `9.1/10`; release/thesis-submission readiness
 
 Current thesis-upgrade status:
 
-- Thesis readiness gates: `6/8`.
+- Thesis readiness gates: `6/9`.
 - Strict completion gates: `4/6`.
 - Missing strict requirements: `motion_confound_control_result`, `project_phase`.
 - Real remaining hard requirement: fMRIPrep FD/DVARS/censoring motion proof.
 - Project phase: `research_demo_ready_not_completed_thesis`.
 
-The missing `project_phase` item is derived from the motion-proof blocker. It is not an independent science task. The archive gate is also no longer counted as ready from a manifest alone; it needs a citable release URL and Zenodo DOI.
+The missing `project_phase` item is derived from the motion-proof blocker. It is not an independent science task. The archive gate is also no longer counted as ready from a manifest alone; it needs a citable release URL and Zenodo DOI. ROCKET is now represented as supporting internal signal rather than a ready thesis-strength gate until permutation-null, calibration, and MiniRocket/MultiRocket evidence exists. The public dashboard is now represented as its own presentation gate.
 
 ## Current High-Leverage Fixes Already Landed
 
@@ -46,7 +46,7 @@ The missing `project_phase` item is derived from the motion-proof blocker. It is
 - The thesis-upgrade map-prior component now normalizes nested claim-readiness and neuromaps-status fields from the resolved falsification artifact, so the status file no longer mixes a resolved negative gate with stale `not_run_module_level_only` wording.
 - `docs/parcellations.md` now matches the current Schaefer/Yeo evidence gate instead of describing `schaefer_100_yeo_7` as metadata/dry-run-only; repo hygiene guards the active doc against that stale wording.
 - `docs/VALIDATION.md` now declares the current 2026-06-01 quality baseline before its historical validation log, so old PASS 2A/PASS 2B counts are not mistaken for live gate status.
-- `docs/THESIS_READINESS_GATES.md` now includes the current 6/8 thesis-readiness, 4/6 strict-completion snapshot, implemented ds006072 stress-test status, and implemented receptor/structural sensitivity status instead of older target-only wording.
+- `docs/THESIS_READINESS_GATES.md` now includes the current 6/9 thesis-readiness, 4/6 strict-completion snapshot, implemented ds006072 stress-test status, explicit public-dashboard presentation status, and implemented receptor/structural sensitivity status instead of older target-only wording.
 - `docs/research/cross_dataset_thesis_loop.md` now describes ds006072, HCP structural, and PET receptor-prior layers as implemented stress-test/sensitivity layers with explicit negative/partial claim boundaries instead of blocked manifest-only gates.
 - The generated thesis-upgrade status now uses ready-language for the `fully_integrated` receptor/structural gate instead of saying the implemented HCP/PET sensitivity layers are still missing.
 - The thesis-upgrade strict motion gate now rejects implemented-looking motion-control status strings unless the evidence also has explicit paired-control readiness, enough paired/merged rows, and FD, DVARS, plus censor/outlier association-row coverage.
@@ -70,7 +70,7 @@ Observed results:
 
 - Ruff: all checks passed.
 - mypy: no issues found in 77 source files.
-- pytest: 380 passed, 4 warnings, total coverage 80.72%.
+- pytest: 383 passed, 4 warnings, total coverage 80.77%.
 - dashboard preview preflight: required files present, optional generated artifacts present, CV5 internal validation reported as 5/5 folds.
 
 Hosted CI after the Node-24 action-major bump:

@@ -1,10 +1,10 @@
 {
   "schema_version": "thesis_upgrade_status.v1",
-  "generated_at_utc": "2026-06-01T21:26:21.091447+00:00",
+  "generated_at_utc": "2026-06-01T22:04:08.310496+00:00",
   "readiness_summary": {
     "ready_gates": 6,
-    "total_gates": 8,
-    "readiness_fraction": 0.75,
+    "total_gates": 9,
+    "readiness_fraction": 0.6666666666666666,
     "strict_complete_gates": 4,
     "strict_total_gates": 6,
     "strict_completion_fraction": 0.6666666666666666,
@@ -47,9 +47,17 @@
     {
       "label": "ROCKET benchmark",
       "status": "supporting_internal_signal",
-      "ready": true,
+      "ready": false,
       "evidence": "results/training/rocket_condition_benchmark/comparison_summary.json",
       "blocker": "Add permutation-null, calibration, and MiniRocket/MultiRocket gates before treating this as strong ML evidence.",
+      "score": 0.85
+    },
+    {
+      "label": "Public dashboard",
+      "status": "static_snapshot_ready",
+      "ready": true,
+      "evidence": "_site/pages_manifest.json; _site/index.html; _site/dashboard/dashboard-data.json; _site/artifacts/results/thesis_upgrade/thesis_upgrade_status.json; _site/artifacts/results/reproducible_archive/ARCHIVE_MANIFEST.json",
+      "blocker": "Static GitHub Pages dashboard snapshot and key gate/archive artifacts are present. This is presentation evidence, not a citable archive.",
       "score": 1.0
     },
     {
@@ -806,10 +814,10 @@
       "gate": {
         "label": "ROCKET benchmark",
         "status": "supporting_internal_signal",
-        "ready": true,
+        "ready": false,
         "evidence": "results/training/rocket_condition_benchmark/comparison_summary.json",
         "blocker": "Add permutation-null, calibration, and MiniRocket/MultiRocket gates before treating this as strong ML evidence.",
-        "score": 1.0
+        "score": 0.85
       },
       "current_metrics": {
         "balanced_accuracy_mean": 0.6666666666666667,
@@ -821,6 +829,16 @@
         "n_kernels": 512,
         "feature_count": 1024
       },
+      "internal_integrity_ready": true,
+      "thesis_strength_ready": false,
+      "strengthening_coverage": {
+        "subject_disjoint_cv": true,
+        "subject_session_run_aggregation": true,
+        "no_window_random_reporting": true,
+        "permutation_null": false,
+        "calibration": false,
+        "minirocket_or_multirocket_variant": false
+      },
       "strengthening_requirements": [
         "MiniRocket or MultiRocket transform mode",
         "first-difference channels",
@@ -831,6 +849,28 @@
         "external ds006072 run without score retuning"
       ],
       "claim_guardrail": "ROCKET remains supporting internal proxy evidence until null, calibration, and external gates pass."
+    },
+    "public_dashboard": {
+      "gate": {
+        "label": "Public dashboard",
+        "status": "static_snapshot_ready",
+        "ready": true,
+        "evidence": "_site/pages_manifest.json; _site/index.html; _site/dashboard/dashboard-data.json; _site/artifacts/results/thesis_upgrade/thesis_upgrade_status.json; _site/artifacts/results/reproducible_archive/ARCHIVE_MANIFEST.json",
+        "blocker": "Static GitHub Pages dashboard snapshot and key gate/archive artifacts are present. This is presentation evidence, not a citable archive.",
+        "score": 1.0
+      },
+      "static_snapshot_ready": true,
+      "manifest_path": "_site/pages_manifest.json",
+      "required_paths_present": {
+        "_site/index.html": true,
+        "_site/dashboard/dashboard-data.json": true,
+        "_site/artifacts/results/thesis_upgrade/thesis_upgrade_status.json": true,
+        "_site/artifacts/results/reproducible_archive/ARCHIVE_MANIFEST.json": true
+      },
+      "missing_required_paths": [],
+      "manifest_entrypoints_ready": true,
+      "manifest_artifacts_ready": true,
+      "claim_guardrail": "The public dashboard is a static presentation layer and does not complete motion proof, external validation, or archive DOI gates."
     },
     "external_validation": {
       "gate": {
@@ -1119,6 +1159,11 @@
       },
       "archive_manifest_ready": true,
       "archive_publication_ready": false,
+      "archive_publication_metadata": {
+        "release_url_valid": false,
+        "doi_valid": false,
+        "archive_publication_ready": false
+      },
       "release_url": null,
       "doi": null,
       "recommended_publication_stack": [
@@ -1138,6 +1183,7 @@
       "ROCKET strength radar",
       "motion/QC ribbon",
       "parcellation proxy-vs-canonical board",
+      "public dashboard snapshot integrity gate",
       "external/receptor/structural/archive evidence matrix",
       "3D latent and control-landscape panels when source arrays are available"
     ]

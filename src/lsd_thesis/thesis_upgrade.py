@@ -645,20 +645,38 @@ def _rocket_gate(repo_root: Path) -> dict[str, Any]:
     has_subject_disjoint = "subject" in str(payload.get("cv_strategy", "")).lower()
     has_run_aggregation = str(payload.get("primary_evaluation_unit", "")) == "subject_session_run_aggregated_windows"
     has_no_window_random = payload.get("window_random_reporting") is False
+    has_permutation_null = isinstance(payload.get("permutation_null"), dict)
+    has_calibration = isinstance(payload.get("calibration"), dict)
+    has_transform_variant = any(
+        isinstance(payload.get(key), dict) for key in ("minirocket", "multirocket")
+    ) or "minirocket" in str(payload.get("model", "")).lower() or "multirocket" in str(payload.get("model", "")).lower()
     ba = aggregate.get("balanced_accuracy_mean")
     auc = aggregate.get("roc_auc_mean")
-    ready = bool(has_subject_disjoint and has_run_aggregation and has_no_window_random and ba is not None)
+    internal_integrity_ready = bool(has_subject_disjoint and has_run_aggregation and has_no_window_random and ba is not None)
+    thesis_strength_ready = bool(
+        internal_integrity_ready
+        and has_permutation_null
+        and has_calibration
+        and has_transform_variant
+    )
     score = (
         0.35 * float(has_subject_disjoint)
         + 0.25 * float(has_run_aggregation)
         + 0.15 * float(has_no_window_random)
-        + 0.25 * float((float(ba) if ba is not None else 0.5) > 0.6)
+        + 0.1 * float((float(ba) if ba is not None else 0.5) > 0.6)
+        + 0.05 * float(has_permutation_null)
+        + 0.05 * float(has_calibration)
+        + 0.05 * float(has_transform_variant)
     )
     return {
         "gate": _gate(
             "ROCKET benchmark",
-            "supporting_internal_signal" if ready else "blocked_or_not_run",
-            ready,
+            "strong_ml_evidence_ready"
+            if thesis_strength_ready
+            else "supporting_internal_signal"
+            if internal_integrity_ready
+            else "blocked_or_not_run",
+            thesis_strength_ready,
             _rel(path, repo_root),
             "Add permutation-null, calibration, and MiniRocket/MultiRocket gates before treating this as strong ML evidence.",
             score,
@@ -673,6 +691,16 @@ def _rocket_gate(repo_root: Path) -> dict[str, Any]:
             "n_kernels": rocket.get("n_kernels"),
             "feature_count": rocket.get("feature_count"),
         },
+        "internal_integrity_ready": internal_integrity_ready,
+        "thesis_strength_ready": thesis_strength_ready,
+        "strengthening_coverage": {
+            "subject_disjoint_cv": has_subject_disjoint,
+            "subject_session_run_aggregation": has_run_aggregation,
+            "no_window_random_reporting": has_no_window_random,
+            "permutation_null": has_permutation_null,
+            "calibration": has_calibration,
+            "minirocket_or_multirocket_variant": has_transform_variant,
+        },
         "strengthening_requirements": [
             "MiniRocket or MultiRocket transform mode",
             "first-difference channels",
@@ -683,6 +711,58 @@ def _rocket_gate(repo_root: Path) -> dict[str, Any]:
             "external ds006072 run without score retuning",
         ],
         "claim_guardrail": "ROCKET remains supporting internal proxy evidence until null, calibration, and external gates pass.",
+    }
+
+
+def _public_dashboard_gate(repo_root: Path) -> dict[str, Any]:
+    site_root = repo_root / "_site"
+    manifest_path = site_root / "pages_manifest.json"
+    index_path = site_root / "index.html"
+    dashboard_data_path = site_root / "dashboard" / "dashboard-data.json"
+    thesis_status_path = site_root / "artifacts" / "results" / "thesis_upgrade" / "thesis_upgrade_status.json"
+    archive_manifest_path = site_root / "artifacts" / "results" / "reproducible_archive" / "ARCHIVE_MANIFEST.json"
+    manifest = _read_json(manifest_path) or {}
+    raw_entrypoints = manifest.get("entrypoints")
+    entrypoints: dict[str, Any] = raw_entrypoints if isinstance(raw_entrypoints, dict) else {}
+    raw_artifacts = manifest.get("artifacts")
+    artifacts: list[Any] = raw_artifacts if isinstance(raw_artifacts, list) else []
+    required_paths = (
+        index_path,
+        dashboard_data_path,
+        thesis_status_path,
+        archive_manifest_path,
+    )
+    required_paths_present = {path.relative_to(repo_root).as_posix(): path.exists() for path in required_paths}
+    required_manifest_artifacts = (
+        "artifacts/results/thesis_upgrade/thesis_upgrade_status.json",
+        "artifacts/results/reproducible_archive/ARCHIVE_MANIFEST.json",
+    )
+    manifest_entrypoints_ready = entrypoints.get("index") == "index.html" and entrypoints.get("dashboard") == "dashboard/index.html"
+    manifest_artifacts_ready = all(path in artifacts for path in required_manifest_artifacts)
+    ready = bool(manifest and all(required_paths_present.values()) and manifest_entrypoints_ready and manifest_artifacts_ready)
+    missing_paths = [path for path, present in required_paths_present.items() if not present]
+    status = "static_snapshot_ready" if ready else "static_snapshot_missing_required_outputs"
+    blocker = (
+        "Static GitHub Pages dashboard snapshot and key gate/archive artifacts are present. This is presentation evidence, not a citable archive."
+        if ready
+        else "Build the static GitHub Pages snapshot with index, dashboard payload, thesis status, and archive manifest artifacts."
+    )
+    return {
+        "gate": _gate(
+            "Public dashboard",
+            status,
+            ready,
+            _evidence_paths(repo_root, manifest_path, *required_paths),
+            blocker,
+            1.0 if ready else 0.45 if manifest else 0.1,
+        ),
+        "static_snapshot_ready": ready,
+        "manifest_path": _rel(manifest_path, repo_root),
+        "required_paths_present": required_paths_present,
+        "missing_required_paths": missing_paths,
+        "manifest_entrypoints_ready": manifest_entrypoints_ready,
+        "manifest_artifacts_ready": manifest_artifacts_ready,
+        "claim_guardrail": "The public dashboard is a static presentation layer and does not complete motion proof, external validation, or archive DOI gates.",
     }
 
 
@@ -1061,8 +1141,18 @@ def _archive_gate(repo_root: Path) -> dict[str, Any]:
     manifest_ready = bool(payload.get("artifact_count"))
     release_url = str(payload.get("release_url") or "")
     doi = str(payload.get("doi") or "")
-    publication_ready = release_url.startswith(("https://github.com/", "https://zenodo.org/")) and (
-        doi.startswith("10.") or doi.startswith("https://doi.org/")
+    raw_publication_metadata = payload.get("publication_metadata")
+    publication_metadata: dict[str, Any] = (
+        raw_publication_metadata if isinstance(raw_publication_metadata, dict) else {}
+    )
+    release_url_valid = publication_metadata.get("release_url_valid") is True
+    doi_valid = publication_metadata.get("doi_valid") is True
+    metadata_publication_ready = publication_metadata.get("archive_publication_ready") is True
+    publication_ready = (
+        payload.get("archive_publication_ready") is True
+        and metadata_publication_ready
+        and release_url_valid
+        and doi_valid
     )
     status = (
         "release_doi_ready"
@@ -1088,6 +1178,11 @@ def _archive_gate(repo_root: Path) -> dict[str, Any]:
         ),
         "archive_manifest_ready": manifest_ready,
         "archive_publication_ready": publication_ready,
+        "archive_publication_metadata": {
+            "release_url_valid": release_url_valid,
+            "doi_valid": doi_valid,
+            "archive_publication_ready": metadata_publication_ready,
+        },
         "release_url": release_url or None,
         "doi": doi or None,
         "recommended_publication_stack": ["GitHub repository", "GitHub Pages static snapshot", "GitHub release", "Zenodo DOI"],
@@ -1103,6 +1198,7 @@ def build_thesis_upgrade_status(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
         "canonical_parcellation": _parcellation_gate(repo_root),
         "neuromaps_spatial_nulls": _neuromaps_spatial_null_gate(repo_root),
         "rocket_strengthening": _rocket_gate(repo_root),
+        "public_dashboard": _public_dashboard_gate(repo_root),
         "external_validation": _external_gate(repo_root),
         "receptor_structural": _receptor_structural_gate(repo_root),
         "receptor_myelin_gradient_claim": _receptor_myelin_gradient_claim_gate(repo_root),
@@ -1225,6 +1321,7 @@ def build_thesis_upgrade_status(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
                 "ROCKET strength radar",
                 "motion/QC ribbon",
                 "parcellation proxy-vs-canonical board",
+                "public dashboard snapshot integrity gate",
                 "external/receptor/structural/archive evidence matrix",
                 "3D latent and control-landscape panels when source arrays are available",
             ]

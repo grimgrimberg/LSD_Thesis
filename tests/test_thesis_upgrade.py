@@ -213,9 +213,122 @@ def test_thesis_upgrade_archive_gate_requires_release_url_and_doi(tmp_path: Path
 
     assert archive["archive_manifest_ready"] is True
     assert archive["archive_publication_ready"] is False
+    assert archive["archive_publication_metadata"] == {
+        "release_url_valid": False,
+        "doi_valid": False,
+        "archive_publication_ready": False,
+    }
     assert archive["gate"]["ready"] is False
     assert archive["gate"]["status"] == "manifest_ready_release_doi_missing"
     assert "release and Zenodo DOI" in archive["gate"]["blocker"]
+
+
+def test_thesis_upgrade_rocket_internal_signal_is_not_thesis_strength_ready(tmp_path: Path) -> None:
+    rocket_dir = tmp_path / "results" / "training" / "rocket_condition_benchmark"
+    rocket_dir.mkdir(parents=True)
+    (rocket_dir / "comparison_summary.json").write_text(
+        json.dumps(
+            {
+                "cv_strategy": "approved CV5 subject-disjoint manifest",
+                "primary_evaluation_unit": "subject_session_run_aggregated_windows",
+                "window_random_reporting": False,
+                "model": "rocket_random_convolution_features_logistic_regression",
+                "aggregate": {
+                    "balanced_accuracy_mean": 0.67,
+                    "roc_auc_mean": 0.71,
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    status = build_thesis_upgrade_status(tmp_path)
+    rocket = status["components"]["rocket_strengthening"]
+
+    assert rocket["internal_integrity_ready"] is True
+    assert rocket["thesis_strength_ready"] is False
+    assert rocket["strengthening_coverage"] == {
+        "subject_disjoint_cv": True,
+        "subject_session_run_aggregation": True,
+        "no_window_random_reporting": True,
+        "permutation_null": False,
+        "calibration": False,
+        "minirocket_or_multirocket_variant": False,
+    }
+    assert rocket["gate"]["status"] == "supporting_internal_signal"
+    assert rocket["gate"]["ready"] is False
+
+
+def test_thesis_upgrade_public_dashboard_gate_passes_when_static_snapshot_exists(tmp_path: Path) -> None:
+    site_root = tmp_path / "_site"
+    (site_root / "dashboard").mkdir(parents=True)
+    (site_root / "artifacts" / "results" / "thesis_upgrade").mkdir(parents=True)
+    (site_root / "artifacts" / "results" / "reproducible_archive").mkdir(parents=True)
+    (site_root / "index.html").write_text("<!doctype html>\n", encoding="utf-8")
+    (site_root / "dashboard" / "dashboard-data.json").write_text("{}", encoding="utf-8")
+    (site_root / "artifacts" / "results" / "thesis_upgrade" / "thesis_upgrade_status.json").write_text(
+        "{}",
+        encoding="utf-8",
+    )
+    (site_root / "artifacts" / "results" / "reproducible_archive" / "ARCHIVE_MANIFEST.json").write_text(
+        "{}",
+        encoding="utf-8",
+    )
+    (site_root / "pages_manifest.json").write_text(
+        json.dumps(
+            {
+                "entrypoints": {
+                    "index": "index.html",
+                    "dashboard": "dashboard/index.html",
+                },
+                "artifacts": [
+                    "artifacts/results/thesis_upgrade/thesis_upgrade_status.json",
+                    "artifacts/results/reproducible_archive/ARCHIVE_MANIFEST.json",
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    status = build_thesis_upgrade_status(tmp_path)
+    dashboard = status["components"]["public_dashboard"]
+
+    assert dashboard["gate"]["label"] == "Public dashboard"
+    assert dashboard["gate"]["status"] == "static_snapshot_ready"
+    assert dashboard["gate"]["ready"] is True
+    assert dashboard["static_snapshot_ready"] is True
+    assert dashboard["manifest_entrypoints_ready"] is True
+    assert dashboard["manifest_artifacts_ready"] is True
+    assert dashboard["missing_required_paths"] == []
+
+
+def test_thesis_upgrade_archive_gate_rejects_unvalidated_publication_strings(tmp_path: Path) -> None:
+    archive_dir = tmp_path / "results" / "reproducible_archive"
+    archive_dir.mkdir(parents=True)
+    (archive_dir / "ARCHIVE_MANIFEST.json").write_text(
+        json.dumps(
+            {
+                "schema_version": "reproducible_archive_manifest.v1",
+                "artifact_count": 3,
+                "release_url": "https://github.com/grimgrimberg/LSD_Thesis",
+                "doi": "10.not a valid DOI",
+                "archive_publication_ready": True,
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    status = build_thesis_upgrade_status(tmp_path)
+    archive = status["components"]["reproducible_archive"]
+
+    assert archive["archive_publication_ready"] is False
+    assert archive["archive_publication_metadata"] == {
+        "release_url_valid": False,
+        "doi_valid": False,
+        "archive_publication_ready": False,
+    }
+    assert archive["gate"]["ready"] is False
+    assert archive["gate"]["status"] == "manifest_ready_release_doi_missing"
 
 
 def test_thesis_upgrade_archive_gate_passes_with_release_url_and_doi(tmp_path: Path) -> None:
@@ -228,6 +341,14 @@ def test_thesis_upgrade_archive_gate_passes_with_release_url_and_doi(tmp_path: P
                 "artifact_count": 3,
                 "release_url": "https://github.com/grimgrimberg/LSD_Thesis/releases/tag/v1.0.0",
                 "doi": "10.5281/zenodo.1234567",
+                "archive_publication_ready": True,
+                "publication_metadata": {
+                    "release_url": "https://github.com/grimgrimberg/LSD_Thesis/releases/tag/v1.0.0",
+                    "doi": "10.5281/zenodo.1234567",
+                    "release_url_valid": True,
+                    "doi_valid": True,
+                    "archive_publication_ready": True,
+                },
             }
         ),
         encoding="utf-8",
@@ -238,6 +359,11 @@ def test_thesis_upgrade_archive_gate_passes_with_release_url_and_doi(tmp_path: P
 
     assert archive["archive_manifest_ready"] is True
     assert archive["archive_publication_ready"] is True
+    assert archive["archive_publication_metadata"] == {
+        "release_url_valid": True,
+        "doi_valid": True,
+        "archive_publication_ready": True,
+    }
     assert archive["release_url"] == "https://github.com/grimgrimberg/LSD_Thesis/releases/tag/v1.0.0"
     assert archive["doi"] == "10.5281/zenodo.1234567"
     assert archive["gate"]["ready"] is True
