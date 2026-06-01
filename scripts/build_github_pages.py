@@ -6,6 +6,7 @@ import os
 import shutil
 import stat
 import sys
+from collections.abc import Sequence
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
@@ -32,6 +33,7 @@ from lsd_thesis.fmriprep_motion_proof import write_fmriprep_motion_proof_plan
 from lsd_thesis.image_motion_qc import write_image_motion_qc_status
 from lsd_thesis.map_prior_falsification import write_map_prior_falsification_status
 from lsd_thesis.module_dvars_controls import write_module_dvars_control_status
+from lsd_thesis.motion_source_availability import write_motion_source_availability
 from lsd_thesis.neuromaps_spatial_nulls import write_neuromaps_spatial_null_status
 from lsd_thesis.published_motion_qc import write_published_motion_qc_status
 from lsd_thesis.setting_seed.motion import write_motion_outputs
@@ -239,15 +241,23 @@ def _write_static_dashboard(repo_root: Path, site: Path) -> dict[str, Path | lis
     }
 
 
-def build_github_pages_site(repo_root: Path = REPO_ROOT, site_dir: Path | None = None) -> dict[str, Path]:
+def build_github_pages_site(
+    repo_root: Path = REPO_ROOT,
+    site_dir: Path | None = None,
+    *,
+    motion_roots: Sequence[str | Path] | None = None,
+) -> dict[str, Path]:
     repo_root = repo_root.resolve()
     site = _prepare_site_dir(repo_root, site_dir or repo_root / "_site")
+    resolved_motion_roots = [Path(item) for item in motion_roots] if motion_roots else None
 
     build_thesis_evidence_loop(repo_root)
     export_thesis_loop_tables(repo_root, repo_root / "results" / "thesis_evidence_loop" / "exports")
     write_cortical_map_alignment_status(repo_root)
-    write_motion_outputs(repo_root=repo_root)
-    write_fmriprep_motion_proof_plan(repo_root)
+    write_motion_outputs(repo_root=repo_root, roots=resolved_motion_roots)
+    if resolved_motion_roots:
+        write_motion_source_availability(repo_root=repo_root, roots=resolved_motion_roots)
+    write_fmriprep_motion_proof_plan(repo_root, roots=resolved_motion_roots)
     write_motion_confound_control_status(repo_root)
     write_design_confound_control_status(repo_root)
     write_module_dvars_control_status(repo_root)
@@ -345,9 +355,19 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Build the static GitHub Pages site for the thesis repo.")
     parser.add_argument("--repo-root", type=Path, default=REPO_ROOT)
     parser.add_argument("--site-dir", type=Path, default=REPO_ROOT / "_site")
+    parser.add_argument(
+        "--motion-root",
+        action="append",
+        dest="motion_roots",
+        help="Additional/local root to search for authorized fMRIPrep confounds before publishing motion artifacts.",
+    )
     args = parser.parse_args()
 
-    outputs = build_github_pages_site(args.repo_root, args.site_dir)
+    outputs = build_github_pages_site(
+        args.repo_root,
+        args.site_dir,
+        motion_roots=[Path(item) for item in args.motion_roots] if args.motion_roots else None,
+    )
     print(json.dumps({name: path.as_posix() for name, path in outputs.items()}, indent=2), flush=True)
 
 

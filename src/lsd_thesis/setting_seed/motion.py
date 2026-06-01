@@ -72,6 +72,39 @@ def _constant_text_column_value(frame: pd.DataFrame, candidates: Sequence[str]) 
     return next(iter(values))
 
 
+def _normalize_subject_id(value: str | None) -> str | None:
+    if value is None:
+        return None
+    text = value.strip()
+    if not text:
+        return None
+    if text.lower().startswith("sub-"):
+        suffix = text[4:]
+        return f"sub-{suffix.zfill(3)}" if suffix.isdigit() else f"sub-{suffix}"
+    return f"sub-{text.zfill(3)}" if text.isdigit() else text
+
+
+def _normalize_session_id(value: str | None) -> str | None:
+    if value is None:
+        return None
+    text = value.strip()
+    if not text:
+        return None
+    return text if text.lower().startswith("ses-") else f"ses-{text}"
+
+
+def _normalize_run_id(value: str | None) -> str | None:
+    if value is None:
+        return None
+    text = value.strip()
+    if not text:
+        return None
+    if text.lower().startswith("run-"):
+        suffix = text[4:]
+        return f"run-{suffix.zfill(2)}" if suffix.isdigit() else f"run-{suffix}"
+    return f"run-{text.zfill(2)}" if text.isdigit() else text
+
+
 def _path_match_or_constant_column_value(
     match: re.Match[str] | None,
     frame: pd.DataFrame | None,
@@ -117,9 +150,9 @@ def _parse_subject_session_run(path: Path, frame: pd.DataFrame | None = None) ->
     session = re.search(r"ses-[A-Za-z0-9]+", text)
     run = re.search(r"run-\d+", text)
     return {
-        "subject": _path_match_or_constant_column_value(subject, frame, SUBJECT_METADATA_COLUMNS),
-        "session": _path_match_or_constant_column_value(session, frame, SESSION_METADATA_COLUMNS),
-        "run": _path_match_or_constant_column_value(run, frame, RUN_METADATA_COLUMNS),
+        "subject": _normalize_subject_id(_path_match_or_constant_column_value(subject, frame, SUBJECT_METADATA_COLUMNS)),
+        "session": _normalize_session_id(_path_match_or_constant_column_value(session, frame, SESSION_METADATA_COLUMNS)),
+        "run": _normalize_run_id(_path_match_or_constant_column_value(run, frame, RUN_METADATA_COLUMNS)),
     }
 
 

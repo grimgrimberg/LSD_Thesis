@@ -78,12 +78,14 @@ def query_url_status(url: str, timeout: float = 15.0) -> dict[str, Any]:
 def build_motion_source_availability(
     repo_root: str | Path = REPO_ROOT,
     *,
+    roots: Sequence[str | Path] | None = None,
     openneuro_files: Sequence[dict[str, Any]] | None = None,
     derivative_repo_statuses: Sequence[dict[str, Any]] | None = None,
     fetch_remote: bool = False,
 ) -> dict[str, Any]:
     root = Path(repo_root).resolve()
-    local_files = discover_motion_files(repo_root=root)
+    motion_roots = tuple(Path(item) for item in roots) if roots is not None else None
+    local_files = discover_motion_files(repo_root=root, roots=motion_roots)
     remote_error: str | None = None
     if openneuro_files is None and fetch_remote:
         try:
@@ -136,6 +138,7 @@ def build_motion_source_availability(
         "local_search": {
             "motion_file_count": len(local_files),
             "motion_files": [_rel(path, root) for path in local_files],
+            "configured_motion_roots": [_rel(path, root) for path in motion_roots] if motion_roots else [],
         },
         "openneuro_raw_snapshot": {
             "checked": raw_snapshot_checked,
@@ -175,12 +178,13 @@ def write_motion_source_availability(
     repo_root: str | Path = REPO_ROOT,
     output_dir: str | Path | None = None,
     *,
+    roots: Sequence[str | Path] | None = None,
     fetch_remote: bool = False,
 ) -> dict[str, Any]:
     root = Path(repo_root).resolve()
     out_dir = root / "results" / "confound_controls" if output_dir is None else Path(output_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
-    payload = build_motion_source_availability(root, fetch_remote=fetch_remote)
+    payload = build_motion_source_availability(root, roots=roots, fetch_remote=fetch_remote)
     path = out_dir / "ds003059_motion_source_availability.json"
     path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
     payload["source_path"] = _rel(path, root)

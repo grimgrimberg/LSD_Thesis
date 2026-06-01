@@ -52,6 +52,8 @@ The strict motion gate passes only after structured subject/session/run confound
 - subject, session/condition, and run metadata in the path or an equivalent joinable subject/session/run record
 - at least four paired LSD and placebo/PLCB subject/run rows before the fMRIPrep preflight can treat parsed confounds as strict-gate-ready inputs
 
+Author-provided long-form tables may use compact metadata values such as `001`, `LSD`, or `1`; the parser normalizes those to the dashboard join keys `sub-001`, `ses-LSD`, and `run-01`. Values that cannot be normalized or held constant per file remain unusable for strict joining.
+
 Run:
 
 ```powershell
@@ -65,6 +67,8 @@ If authorized fMRIPrep or author-provided confounds are supplied outside the rep
 
 ```powershell
 uv run python scripts/build_thesis_upgrade_status.py --fetch-motion-remote --motion-root <path-to-authorized-fmriprep-or-confounds-root>
+uv run python scripts/check_ds003059_motion_sources.py --root <path-to-authorized-fmriprep-or-confounds-root>
+uv run python scripts/build_github_pages.py --motion-root <path-to-authorized-fmriprep-or-confounds-root>
 ```
 
 The preflight artifact is not motion proof. It may report that the current ds003059 snapshot is a derivative release with no subject-level confound tables; in that case, the strict gate requires author-provided confounds or original raw BIDS inputs processed through fMRIPrep/MRIQC.

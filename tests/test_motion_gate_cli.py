@@ -51,6 +51,13 @@ def test_build_thesis_upgrade_status_threads_motion_roots_through_gate_refresh(
     )
     monkeypatch.setattr(
         MODULE,
+        "write_motion_source_availability",
+        lambda repo_root, roots, fetch_remote: events.append(
+            ("source", Path(repo_root), tuple(Path(item) for item in roots), fetch_remote)
+        ),
+    )
+    monkeypatch.setattr(
+        MODULE,
         "write_fmriprep_motion_proof_plan",
         lambda repo_root, roots, fetch_remote: events.append(
             ("preflight", Path(repo_root), tuple(Path(item) for item in roots), fetch_remote)
@@ -70,6 +77,7 @@ def test_build_thesis_upgrade_status_threads_motion_roots_through_gate_refresh(
 
     assert events == [
         ("motion", repo_root, (motion_root,), 0.25),
+        ("source", repo_root, (motion_root,), True),
         ("control", repo_root),
         ("preflight", repo_root, (motion_root,), True),
         ("status", repo_root),

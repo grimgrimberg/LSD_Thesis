@@ -70,14 +70,30 @@ def test_build_github_pages_site_makes_root_the_static_dashboard_and_links_thesi
         "claim_matrix_csv": (export_dir / "claim_evidence_matrix.csv").as_posix(),
     }
     module.get_plotlyjs = lambda: "window.Plotly={newPlot:function(){}};"
+    motion_root = tmp_path / "author_confounds"
+    motion_events = []
+    module.write_motion_outputs = lambda repo_root, roots=None: motion_events.append(
+        ("summary", Path(repo_root), tuple(Path(item) for item in roots or ()))
+    )
+    module.write_motion_source_availability = lambda repo_root, roots=None: motion_events.append(
+        ("source", Path(repo_root), tuple(Path(item) for item in roots or ()))
+    )
+    module.write_fmriprep_motion_proof_plan = lambda repo_root, roots=None: motion_events.append(
+        ("preflight", Path(repo_root), tuple(Path(item) for item in roots or ()))
+    )
     export_dir = claim_dir / "exports"
     export_dir.mkdir()
     (export_dir / "claim_evidence_matrix.csv").write_text("claim,status\nC,ready\n", encoding="utf-8")
     (export_dir / "thesis_evidence_loop_tables.xlsx").write_bytes(b"xlsx")
 
-    outputs = module.build_github_pages_site(tmp_path, tmp_path / "_site")
+    outputs = module.build_github_pages_site(tmp_path, tmp_path / "_site", motion_roots=(motion_root,))
 
     assert outputs["index"] == tmp_path / "_site" / "index.html"
+    assert motion_events == [
+        ("summary", tmp_path, (motion_root,)),
+        ("source", tmp_path, (motion_root,)),
+        ("preflight", tmp_path, (motion_root,)),
+    ]
     index_html = (tmp_path / "_site" / "index.html").read_text(encoding="utf-8")
     assert "fetchJson('dashboard/dashboard-data.json')" in index_html
     assert 'src="dashboard/assets/plotly.min.js"' in index_html

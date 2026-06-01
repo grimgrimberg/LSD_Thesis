@@ -118,6 +118,26 @@ def test_summarize_motion_tsv_accepts_constant_pairing_columns(tmp_path: Path) -
     assert summary["run"] == "run-01"
 
 
+def test_summarize_motion_tsv_normalizes_shorthand_pairing_columns(tmp_path: Path) -> None:
+    path = tmp_path / "author_motion_desc-confounds_timeseries.tsv"
+    pd.DataFrame(
+        {
+            "participant_id": ["1", "1"],
+            "condition": ["LSD", "LSD"],
+            "run": ["1", "1"],
+            "framewise_displacement": [0.0, 0.1],
+            "std_dvars": [1.0, 1.1],
+        }
+    ).to_csv(path, sep="\t", index=False)
+
+    summary = summarize_motion_tsv(path)
+
+    assert summary["status"] == "available_parsed"
+    assert summary["subject"] == "sub-001"
+    assert summary["session"] == "ses-LSD"
+    assert summary["run"] == "run-01"
+
+
 def test_write_motion_outputs_writes_explicit_unavailable_status(tmp_path: Path) -> None:
     output_dir = tmp_path / "motion"
 

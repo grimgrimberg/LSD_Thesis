@@ -6,7 +6,7 @@ Date: 2026-06-01
 
 The branch `codex/thesis-evidence-pages` is synced with GitHub and the current quality baseline is green locally and in hosted CI.
 
-Current engineering health rating: `8.9/10`; release/thesis-submission readiness: `B`. The rating is higher because the dashboard HTML sink cleanup, generated-artifact policy, hosted CI gate, large-module splits, and stricter motion-gate intake contract are now landed. It is still capped by the missing external fMRIPrep FD/DVARS/censoring motion proof and residual large research modules.
+Current engineering health rating: `9.0/10`; release/thesis-submission readiness: `B`. The rating is higher because the dashboard HTML sink cleanup, generated-artifact policy, hosted CI gate, large-module splits, and stricter motion-gate intake contract are now landed. It is still capped by the missing external fMRIPrep FD/DVARS/censoring motion proof and residual large research modules.
 
 Current thesis-upgrade status:
 
@@ -39,6 +39,8 @@ The missing `project_phase` item is derived from the motion-proof blocker. It is
 - The downstream motion-confound control result now rejects unpaired observed-only motion features; strict association tests require paired LSD-placebo motion features.
 - Parsed fMRIPrep FD spike burden and scrub/censor/outlier burden now flow into the joined motion-control association table under strict-gate feature names.
 - The dedicated motion-confound control artifact now fails closed unless association rows cover FD, DVARS, and censoring/outlier feature families.
+- Author-style long-form confound metadata values such as `001`, `LSD`, and `1` now normalize to the repo's join keys (`sub-001`, `ses-LSD`, `run-01`) before motion summaries are joined to subject/run dynamic deltas.
+- External motion roots are now threaded through the thesis-status refresh, source-availability check, and static Pages build so published/provenance artifacts can stay consistent with the same authorized confound root.
 - The thesis-upgrade strict motion gate now rejects implemented-looking motion-control status strings unless the evidence also has explicit paired-control readiness, enough paired/merged rows, and FD, DVARS, plus censor/outlier association-row coverage.
 - The current OpenNeuro ds003059 snapshot check is recorded in `results/confound_controls/fmriprep_motion_proof_plan.json`: 250 snapshot files, 15 T1w files, and 0 confound-like files.
 
@@ -57,7 +59,7 @@ Observed results:
 
 - Ruff: all checks passed.
 - mypy: no issues found in 77 source files.
-- pytest: 357 passed, 4 warnings, total coverage 79.97%.
+- pytest: 359 passed, 4 warnings, total coverage 80.01%.
 - dashboard preview preflight: required files present, optional generated artifacts present, CV5 internal validation reported as 5/5 folds.
 
 Hosted CI after the Node-24 action-major bump:

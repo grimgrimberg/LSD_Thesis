@@ -207,13 +207,7 @@ def test_motion_confound_control_uses_parsed_fmriprep_scrub_and_fd_spike_feature
             ("ses-PLCB", 0.0, 1),
             ("ses-LSD", index * 0.04, 1 + min(index, 3)),
         ):
-            path = (
-                confounds_root
-                / subject
-                / condition
-                / "func"
-                / f"{subject}_{condition}_task-rest_{run}_desc-confounds_timeseries.tsv"
-            )
+            path = confounds_root / f"author_table_{index + 1}_{condition}_desc-confounds_timeseries.tsv"
             path.parent.mkdir(parents=True, exist_ok=True)
             outlier_columns = {
                 f"motion_outlier{column_index:02d}": [1 if row_index == column_index else 0 for row_index in range(4)]
@@ -226,6 +220,9 @@ def test_motion_confound_control_uses_parsed_fmriprep_scrub_and_fd_spike_feature
             )
             pd.DataFrame(
                 {
+                    "participant_id": [str(index + 1)] * 4,
+                    "condition": [condition.replace("ses-", "")] * 4,
+                    "run": ["1"] * 4,
                     "framewise_displacement": fd_values,
                     "std_dvars": [1.0, 1.2 + dvars_offset, 1.5 + dvars_offset, 2.0 + dvars_offset],
                     **outlier_columns,

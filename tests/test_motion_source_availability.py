@@ -38,3 +38,21 @@ def test_motion_source_availability_detects_local_confounds(tmp_path: Path) -> N
     assert payload["analysis_status"] == "authorized_subject_level_motion_confounds_available"
     assert payload["source_confounds_available"] is True
     assert payload["local_search"]["motion_file_count"] == 1
+
+
+def test_motion_source_availability_detects_configured_external_confound_roots(tmp_path: Path) -> None:
+    repo_root = tmp_path / "repo"
+    external_root = tmp_path / "author_confounds"
+    confounds = external_root / "sub-001" / "ses-LSD" / "func"
+    confounds.mkdir(parents=True)
+    (confounds / "sub-001_ses-LSD_task-rest_run-01_desc-confounds_timeseries.tsv").write_text(
+        "framewise_displacement\tstd_dvars\n0.0\t1.0\n",
+        encoding="utf-8",
+    )
+
+    payload = build_motion_source_availability(repo_root, roots=(external_root,))
+
+    assert payload["analysis_status"] == "authorized_subject_level_motion_confounds_available"
+    assert payload["source_confounds_available"] is True
+    assert payload["local_search"]["motion_file_count"] == 1
+    assert payload["local_search"]["configured_motion_roots"] == [external_root.as_posix()]

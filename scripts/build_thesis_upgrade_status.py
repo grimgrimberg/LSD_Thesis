@@ -5,6 +5,7 @@ from pathlib import Path
 
 from lsd_thesis.confound_controls import write_motion_confound_control_status
 from lsd_thesis.fmriprep_motion_proof import write_fmriprep_motion_proof_plan
+from lsd_thesis.motion_source_availability import write_motion_source_availability
 from lsd_thesis.setting_seed.motion import DEFAULT_FD_THRESHOLD, write_motion_outputs
 from lsd_thesis.thesis_upgrade import REPO_ROOT, write_thesis_upgrade_status
 
@@ -28,6 +29,13 @@ def main() -> None:
             roots=motion_roots,
             fd_threshold=args.fd_threshold,
         )
+    if motion_roots or args.fetch_motion_remote:
+        write_motion_source_availability(
+            repo_root=args.repo_root,
+            roots=motion_roots,
+            fetch_remote=args.fetch_motion_remote,
+        )
+    if motion_roots:
         write_motion_confound_control_status(args.repo_root)
     write_fmriprep_motion_proof_plan(
         args.repo_root,
