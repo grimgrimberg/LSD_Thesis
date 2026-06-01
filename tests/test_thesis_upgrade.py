@@ -43,6 +43,47 @@ def test_thesis_upgrade_strict_requirements_fail_closed(tmp_path: Path) -> None:
     assert "not a full spatial-autocorrelation null model" in status["components"]["neuromaps_spatial_nulls"]["claim_guardrail"]
 
 
+def test_thesis_upgrade_neuromaps_gate_requires_full_family_coverage(tmp_path: Path) -> None:
+    cortical_dir = tmp_path / "results" / "cortical_maps"
+    cortical_dir.mkdir(parents=True)
+    (cortical_dir / "neuromaps_spatial_null_status.json").write_text(
+        json.dumps(
+            {
+                "analysis_status": "implemented_schaefer100_full_map_family_moran_spatial_nulls",
+                "spatial_autocorrelation_nulls_complete": True,
+                "receptor_spatial_nulls_complete": True,
+                "receptor_moran_nulls": {
+                    "family_coverage": {
+                        "receptor": True,
+                        "myelin": True,
+                        "functional_gradient": True,
+                        "gene_expression": False,
+                    }
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
+    (cortical_dir / "cortical_map_alignment_status.json").write_text("{}", encoding="utf-8")
+
+    status = build_thesis_upgrade_status(tmp_path)
+    neuromaps = status["components"]["neuromaps_spatial_nulls"]
+    requirement = {row["requirement_id"]: row for row in status["strict_completion_requirements"]}[
+        "neuromaps_spatial_autocorrelation_nulls"
+    ]
+
+    assert neuromaps["gate"]["ready"] is False
+    assert neuromaps["family_coverage_ready"] is False
+    assert neuromaps["required_map_families"] == [
+        "receptor",
+        "myelin",
+        "functional_gradient",
+        "gene_expression",
+    ]
+    assert requirement["complete"] is False
+    assert "map-family Moran spatial-null coverage is still incomplete" in requirement["missing"]
+
+
 def test_thesis_upgrade_marks_map_prior_claim_complete_when_resolved_negative(tmp_path: Path) -> None:
     output_dir = tmp_path / "results" / "cortical_maps"
     output_dir.mkdir(parents=True)
@@ -268,15 +309,74 @@ def test_thesis_upgrade_rocket_internal_signal_is_not_thesis_strength_ready(tmp_
     assert rocket["gate"]["ready"] is False
 
 
+def _public_dashboard_status_payload(completion_status: str = "research_demo_ready_not_completed_thesis") -> dict[str, object]:
+    return {
+        "schema_version": "thesis_upgrade_status.v1",
+        "generated_at_utc": "ignored-by-static-freshness-check",
+        "readiness_summary": {
+            "ready_gates": 6,
+            "total_gates": 9,
+            "strict_complete_gates": 4,
+            "strict_total_gates": 6,
+            "strict_missing_requirement_ids": ["motion_confound_control_result", "project_phase"],
+            "package_complete_gates": 1,
+            "package_total_gates": 2,
+            "package_missing_requirement_ids": ["reproducible_archive_publication"],
+            "remaining_hard_requirements": ["fMRIPrep FD/DVARS/censoring motion proof"],
+            "remaining_packaging_requirements": ["Reproducible archive publication"],
+            "completion_status": completion_status,
+            "thesis_status": completion_status,
+        },
+        "gates": [
+            {
+                "label": "Public dashboard",
+                "status": "static_snapshot_ready",
+                "ready": True,
+            }
+        ],
+        "strict_completion_requirements": [
+            {
+                "requirement_id": "motion_confound_control_result",
+                "status": "implemented_image_derived_motion_qc_control",
+                "complete": False,
+            },
+            {
+                "requirement_id": "project_phase",
+                "status": completion_status,
+                "complete": False,
+            },
+        ],
+        "package_readiness_requirements": [
+            {
+                "requirement_id": "public_dashboard_static_snapshot",
+                "status": "static_snapshot_ready",
+                "complete": True,
+            },
+            {
+                "requirement_id": "reproducible_archive_publication",
+                "status": "manifest_ready_release_doi_missing",
+                "complete": False,
+            },
+        ],
+    }
+
+
 def test_thesis_upgrade_public_dashboard_gate_passes_when_static_snapshot_exists(tmp_path: Path) -> None:
+    current_status = _public_dashboard_status_payload()
+    current_dir = tmp_path / "results" / "thesis_upgrade"
     site_root = tmp_path / "_site"
+    current_dir.mkdir(parents=True)
     (site_root / "dashboard").mkdir(parents=True)
     (site_root / "artifacts" / "results" / "thesis_upgrade").mkdir(parents=True)
     (site_root / "artifacts" / "results" / "reproducible_archive").mkdir(parents=True)
+    (current_dir / "thesis_upgrade_status.json").write_text(json.dumps(current_status), encoding="utf-8")
     (site_root / "index.html").write_text("<!doctype html>\n", encoding="utf-8")
-    (site_root / "dashboard" / "dashboard-data.json").write_text("{}", encoding="utf-8")
+    (site_root / "dashboard" / "dashboard-data.json").write_text(
+        json.dumps({"thesis_upgrade": current_status}),
+        encoding="utf-8",
+    )
     (site_root / "artifacts" / "results" / "thesis_upgrade" / "thesis_upgrade_status.json").write_text(
-        "{}",
+        json.dumps(current_status),
         encoding="utf-8",
     )
     (site_root / "artifacts" / "results" / "reproducible_archive" / "ARCHIVE_MANIFEST.json").write_text(
@@ -306,8 +406,12 @@ def test_thesis_upgrade_public_dashboard_gate_passes_when_static_snapshot_exists
     assert dashboard["gate"]["status"] == "static_snapshot_ready"
     assert dashboard["gate"]["ready"] is True
     assert dashboard["static_snapshot_ready"] is True
+    assert dashboard["static_snapshot_fresh"] is True
     assert dashboard["manifest_entrypoints_ready"] is True
     assert dashboard["manifest_artifacts_ready"] is True
+    assert dashboard["artifact_snapshot_current"] is True
+    assert dashboard["dashboard_snapshot_current"] is True
+    assert dashboard["snapshot_mismatches"] == []
     assert dashboard["missing_required_paths"] == []
     package_requirements = {row["requirement_id"]: row for row in status["package_readiness_requirements"]}
     assert package_requirements["public_dashboard_static_snapshot"]["complete"] is True
@@ -320,6 +424,62 @@ def test_thesis_upgrade_public_dashboard_gate_passes_when_static_snapshot_exists
     assert status["readiness_summary"]["remaining_packaging_requirements"] == [
         "Reproducible archive publication",
     ]
+
+
+def test_thesis_upgrade_public_dashboard_gate_rejects_stale_static_snapshot(tmp_path: Path) -> None:
+    current_status = _public_dashboard_status_payload("research_demo_ready_not_completed_thesis")
+    stale_status = _public_dashboard_status_payload("completed_neuroscience_thesis")
+    site_root = tmp_path / "_site"
+    current_dir = tmp_path / "results" / "thesis_upgrade"
+    current_dir.mkdir(parents=True)
+    (site_root / "dashboard").mkdir(parents=True)
+    (site_root / "artifacts" / "results" / "thesis_upgrade").mkdir(parents=True)
+    (site_root / "artifacts" / "results" / "reproducible_archive").mkdir(parents=True)
+    (current_dir / "thesis_upgrade_status.json").write_text(json.dumps(current_status), encoding="utf-8")
+    (site_root / "index.html").write_text("<!doctype html>\n", encoding="utf-8")
+    (site_root / "dashboard" / "dashboard-data.json").write_text(
+        json.dumps({"thesis_upgrade": stale_status}),
+        encoding="utf-8",
+    )
+    (site_root / "artifacts" / "results" / "thesis_upgrade" / "thesis_upgrade_status.json").write_text(
+        json.dumps(stale_status),
+        encoding="utf-8",
+    )
+    (site_root / "artifacts" / "results" / "reproducible_archive" / "ARCHIVE_MANIFEST.json").write_text(
+        "{}",
+        encoding="utf-8",
+    )
+    (site_root / "pages_manifest.json").write_text(
+        json.dumps(
+            {
+                "entrypoints": {
+                    "index": "index.html",
+                    "dashboard": "dashboard/index.html",
+                },
+                "artifacts": [
+                    "artifacts/results/thesis_upgrade/thesis_upgrade_status.json",
+                    "artifacts/results/reproducible_archive/ARCHIVE_MANIFEST.json",
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    status = build_thesis_upgrade_status(tmp_path)
+    dashboard = status["components"]["public_dashboard"]
+    package_requirements = {row["requirement_id"]: row for row in status["package_readiness_requirements"]}
+
+    assert dashboard["gate"]["status"] == "static_snapshot_stale"
+    assert dashboard["gate"]["ready"] is False
+    assert dashboard["static_snapshot_fresh"] is False
+    assert dashboard["artifact_snapshot_current"] is False
+    assert dashboard["dashboard_snapshot_current"] is False
+    assert dashboard["snapshot_mismatches"] == [
+        "published thesis status artifact is stale",
+        "dashboard embedded thesis status is stale",
+    ]
+    assert package_requirements["public_dashboard_static_snapshot"]["complete"] is False
+    assert "Static Pages snapshot is stale" in package_requirements["public_dashboard_static_snapshot"]["missing"]
 
 
 def test_thesis_upgrade_archive_gate_rejects_unvalidated_publication_strings(tmp_path: Path) -> None:
@@ -587,10 +747,36 @@ def test_receptor_structural_gate_uses_ready_language_when_both_layers_exist(tmp
 
     assert receptor_structural["gate"]["ready"] is True
     assert receptor_structural["gate"]["status"] == "fully_integrated"
+    assert receptor_structural["structural_ingested"] is True
+    assert receptor_structural["receptor_ingested"] is True
     assert "Documented structural-connectome graph sensitivity" in receptor_structural["gate"]["blocker"]
     assert "Need both" not in receptor_structural["gate"]["blocker"]
     assert "implemented sensitivity controls" in receptor_structural["claim_guardrail"]
     assert "proxy-only until" not in receptor_structural["claim_guardrail"]
+
+
+def test_receptor_structural_gate_requires_ingestion_readiness(tmp_path: Path) -> None:
+    structural_dir = tmp_path / "results" / "structural_connectome"
+    receptor_dir = tmp_path / "results" / "receptor_priors"
+    structural_dir.mkdir(parents=True)
+    receptor_dir.mkdir(parents=True)
+    (structural_dir / "structural_connectome_status.json").write_text(
+        json.dumps({"analysis_status": "implemented_hcp_structural_graph_sensitivity"}),
+        encoding="utf-8",
+    )
+    (receptor_dir / "receptor_prior_status.json").write_text(
+        json.dumps({"analysis_status": "implemented_pet_receptor_prior_sensitivity"}),
+        encoding="utf-8",
+    )
+
+    status = build_thesis_upgrade_status(tmp_path)
+    receptor_structural = status["components"]["receptor_structural"]
+
+    assert receptor_structural["gate"]["ready"] is False
+    assert receptor_structural["gate"]["status"] == "proxy_or_blocked"
+    assert receptor_structural["structural_ingested"] is False
+    assert receptor_structural["receptor_ingested"] is False
+    assert "implemented and ingested structural-connectome" in receptor_structural["gate"]["blocker"]
 
 
 def test_thesis_upgrade_project_phase_completes_only_with_hard_motion_and_stronger_external_validation(

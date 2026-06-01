@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import importlib.util
 import json
+from collections.abc import Iterable
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
@@ -10,6 +11,7 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 SCHEMA_VERSION = "thesis_upgrade_status.v1"
 MINIMUM_PAIRED_MOTION_CONTROL_ROWS = 4
 REQUIRED_MOTION_CONTROL_FEATURE_FAMILIES = ("fd", "dvars", "censoring")
+REQUIRED_NEUROMAPS_MAP_FAMILIES = ("receptor", "myelin", "functional_gradient", "gene_expression")
 STRICT_REQUIREMENT_IDS = (
     "schaefer_yeo_high_resolution",
     "neuromaps_spatial_autocorrelation_nulls",
@@ -22,6 +24,14 @@ PACKAGE_REQUIREMENT_IDS = (
     "public_dashboard_static_snapshot",
     "reproducible_archive_publication",
 )
+READINESS_SNAPSHOT_SUMMARY_KEYS = (
+    "strict_complete_gates",
+    "strict_total_gates",
+    "strict_missing_requirement_ids",
+    "remaining_hard_requirements",
+    "completion_status",
+    "thesis_status",
+)
 
 
 def _read_json(path: Path) -> dict[str, Any] | None:
@@ -31,6 +41,41 @@ def _read_json(path: Path) -> dict[str, Any] | None:
     if not isinstance(raw, dict):
         raise ValueError(f"Expected JSON object in {path}, got {type(raw).__name__}.")
     return raw
+
+
+def _readiness_snapshot(payload: dict[str, Any]) -> dict[str, Any]:
+    raw_summary = payload.get("readiness_summary")
+    summary = raw_summary if isinstance(raw_summary, dict) else {}
+
+    def _rows(key: str, fields: Iterable[str]) -> list[dict[str, Any]]:
+        raw_rows = payload.get(key)
+        rows = raw_rows if isinstance(raw_rows, list) else []
+        return [
+            {field: row.get(field) for field in fields}
+            for row in rows
+            if isinstance(row, dict)
+        ]
+
+    gates = [
+        row
+        for row in _rows("gates", ("label", "status", "ready"))
+        if row.get("label") != "Public dashboard"
+    ]
+    package_requirements = [
+        row
+        for row in _rows("package_readiness_requirements", ("requirement_id", "status", "complete"))
+        if row.get("requirement_id") != "public_dashboard_static_snapshot"
+    ]
+    return {
+        "schema_version": payload.get("schema_version"),
+        "readiness_summary": {key: summary.get(key) for key in READINESS_SNAPSHOT_SUMMARY_KEYS},
+        "gates": gates,
+        "strict_completion_requirements": _rows(
+            "strict_completion_requirements",
+            ("requirement_id", "status", "complete"),
+        ),
+        "package_readiness_requirements": package_requirements,
+    }
 
 
 def _rel(path: Path, repo_root: Path) -> str:
@@ -546,24 +591,27 @@ def _neuromaps_spatial_null_gate(repo_root: Path) -> dict[str, Any]:
             else "blocked_missing_neuromaps_dependency_and_surface_spatial_nulls"
         )
     )
-    ready = _status_is_implemented(status) and bool(payload.get("spatial_autocorrelation_nulls_complete"))
     receptor_ready = bool(payload.get("receptor_spatial_nulls_complete"))
     partial_ready = bool(payload.get("partial_spatial_autocorrelation_nulls_complete"))
     receptor_nulls = payload.get("receptor_moran_nulls", {}) if isinstance(payload.get("receptor_moran_nulls"), dict) else {}
     receptor_best = receptor_nulls.get("best_result", {}) if isinstance(receptor_nulls.get("best_result"), dict) else {}
     receptor_results = receptor_nulls.get("results", []) if isinstance(receptor_nulls.get("results"), list) else []
     family_coverage = receptor_nulls.get("family_coverage", {}) if isinstance(receptor_nulls.get("family_coverage"), dict) else {}
+    family_coverage_ready = all(
+        family_coverage.get(family) is True for family in REQUIRED_NEUROMAPS_MAP_FAMILIES
+    )
+    ready = (
+        _status_is_implemented(status)
+        and bool(payload.get("spatial_autocorrelation_nulls_complete"))
+        and family_coverage_ready
+    )
     rows = cortical_payload.get("alignment_rows", []) if isinstance(cortical_payload.get("alignment_rows"), list) else []
     first_row = rows[0] if rows and isinstance(rows[0], dict) else {}
     current_method = str(first_row.get("method") or "not_run")
     missing = (
         "None: full neuromaps spatial-autocorrelation null family coverage is complete."
         if ready
-        else (
-            "Schaefer100 receptor, myelin, and functional-gradient Moran spatial nulls "
-            "are executed, but gene-expression and surface-level family coverage is still "
-            "missing."
-        )
+        else "Required Schaefer100 map-family Moran spatial-null coverage is still incomplete."
         if receptor_ready
         else "neuromaps is installed and its null API imports, but the surface/high-resolution map input manifest and executed null results are missing."
         if null_api_importable
@@ -573,9 +621,9 @@ def _neuromaps_spatial_null_gate(repo_root: Path) -> dict[str, Any]:
         "Use the completed spatial-null family as the primary map-prior evidence layer."
         if ready
         else (
-            "Add gene-expression maps and surface-level null coverage in the active "
-            "high-resolution/surface space, then rerun the same Moran/spatial-null plus "
-            "FDR gate family."
+            "Complete receptor, myelin, functional-gradient, and gene-expression map-family "
+            "coverage in the active high-resolution/surface space, then rerun the same "
+            "Moran/spatial-null plus FDR gate family."
         )
         if receptor_ready
         else (
@@ -637,6 +685,8 @@ def _neuromaps_spatial_null_gate(repo_root: Path) -> dict[str, Any]:
         "null_api_importable": null_api_importable,
         "receptor_spatial_nulls_complete": receptor_ready,
         "partial_spatial_autocorrelation_nulls_complete": partial_ready,
+        "required_map_families": list(REQUIRED_NEUROMAPS_MAP_FAMILIES),
+        "family_coverage_ready": family_coverage_ready,
         "best_receptor_moran_result": receptor_best,
         "receptor_moran_summary": {
             "method": receptor_nulls.get("method"),
@@ -744,11 +794,17 @@ def _rocket_gate(repo_root: Path) -> dict[str, Any]:
 
 def _public_dashboard_gate(repo_root: Path) -> dict[str, Any]:
     site_root = repo_root / "_site"
+    current_status_path = repo_root / "results" / "thesis_upgrade" / "thesis_upgrade_status.json"
     manifest_path = site_root / "pages_manifest.json"
     index_path = site_root / "index.html"
     dashboard_data_path = site_root / "dashboard" / "dashboard-data.json"
     thesis_status_path = site_root / "artifacts" / "results" / "thesis_upgrade" / "thesis_upgrade_status.json"
     archive_manifest_path = site_root / "artifacts" / "results" / "reproducible_archive" / "ARCHIVE_MANIFEST.json"
+    current_status = _read_json(current_status_path) or {}
+    site_status = _read_json(thesis_status_path) or {}
+    dashboard_payload = _read_json(dashboard_data_path) or {}
+    raw_dashboard_status = dashboard_payload.get("thesis_upgrade") if isinstance(dashboard_payload, dict) else None
+    dashboard_status = raw_dashboard_status if isinstance(raw_dashboard_status, dict) else {}
     manifest = _read_json(manifest_path) or {}
     raw_entrypoints = manifest.get("entrypoints")
     entrypoints: dict[str, Any] = raw_entrypoints if isinstance(raw_entrypoints, dict) else {}
@@ -767,12 +823,42 @@ def _public_dashboard_gate(repo_root: Path) -> dict[str, Any]:
     )
     manifest_entrypoints_ready = entrypoints.get("index") == "index.html" and entrypoints.get("dashboard") == "dashboard/index.html"
     manifest_artifacts_ready = all(path in artifacts for path in required_manifest_artifacts)
-    ready = bool(manifest and all(required_paths_present.values()) and manifest_entrypoints_ready and manifest_artifacts_ready)
+    current_snapshot = _readiness_snapshot(current_status) if current_status else {}
+    site_snapshot = _readiness_snapshot(site_status) if site_status else {}
+    dashboard_snapshot = _readiness_snapshot(dashboard_status) if dashboard_status else {}
+    artifact_snapshot_current = bool(current_snapshot and site_snapshot == current_snapshot)
+    dashboard_snapshot_current = bool(current_snapshot and dashboard_snapshot == current_snapshot)
+    snapshot_fresh = artifact_snapshot_current and dashboard_snapshot_current
+    ready = bool(
+        manifest
+        and all(required_paths_present.values())
+        and manifest_entrypoints_ready
+        and manifest_artifacts_ready
+        and snapshot_fresh
+    )
     missing_paths = [path for path, present in required_paths_present.items() if not present]
-    status = "static_snapshot_ready" if ready else "static_snapshot_missing_required_outputs"
-    blocker = (
-        "Static GitHub Pages dashboard snapshot and key gate/archive artifacts are present. This is presentation evidence, not a citable archive."
+    snapshot_mismatches = []
+    if not current_status:
+        snapshot_mismatches.append("current thesis status artifact is missing")
+    if current_status and not artifact_snapshot_current:
+        snapshot_mismatches.append("published thesis status artifact is stale")
+    if current_status and not dashboard_snapshot_current:
+        snapshot_mismatches.append("dashboard embedded thesis status is stale")
+    status = (
+        "static_snapshot_ready"
         if ready
+        else "static_snapshot_stale"
+        if snapshot_mismatches and all(required_paths_present.values()) and manifest_entrypoints_ready and manifest_artifacts_ready
+        else "static_snapshot_missing_required_outputs"
+    )
+    blocker = (
+        (
+            "Static GitHub Pages dashboard snapshot and key gate/archive artifacts are present "
+            "and synchronized with the current readiness artifact. This is presentation evidence, not a citable archive."
+        )
+        if ready
+        else "Rebuild the static GitHub Pages snapshot so dashboard readiness data matches the current thesis status artifact."
+        if snapshot_mismatches
         else "Build the static GitHub Pages snapshot with index, dashboard payload, thesis status, and archive manifest artifacts."
     )
     return {
@@ -780,16 +866,21 @@ def _public_dashboard_gate(repo_root: Path) -> dict[str, Any]:
             "Public dashboard",
             status,
             ready,
-            _evidence_paths(repo_root, manifest_path, *required_paths),
+            _evidence_paths(repo_root, current_status_path, manifest_path, *required_paths),
             blocker,
-            1.0 if ready else 0.45 if manifest else 0.1,
+            1.0 if ready else 0.65 if manifest and all(required_paths_present.values()) else 0.45 if manifest else 0.1,
         ),
         "static_snapshot_ready": ready,
+        "static_snapshot_fresh": snapshot_fresh,
         "manifest_path": _rel(manifest_path, repo_root),
+        "current_status_path": _rel(current_status_path, repo_root),
         "required_paths_present": required_paths_present,
         "missing_required_paths": missing_paths,
         "manifest_entrypoints_ready": manifest_entrypoints_ready,
         "manifest_artifacts_ready": manifest_artifacts_ready,
+        "artifact_snapshot_current": artifact_snapshot_current,
+        "dashboard_snapshot_current": dashboard_snapshot_current,
+        "snapshot_mismatches": snapshot_mismatches,
         "claim_guardrail": "The public dashboard is a static presentation layer and does not complete motion proof, external validation, or archive DOI gates.",
     }
 
@@ -998,7 +1089,7 @@ def _receptor_structural_gate(repo_root: Path) -> dict[str, Any]:
     receptor_ready = receptor_status.startswith("implemented")
     structural_ingested = ingestion_status.get("structural_connectome") == "ready"
     receptor_ingested = ingestion_status.get("receptor_prior") == "ready"
-    ready = structural_ready and receptor_ready
+    ready = structural_ready and receptor_ready and structural_ingested and receptor_ingested
     blocker = (
         (
             "Documented structural-connectome graph sensitivity and PET-derived receptor-prior "
@@ -1006,7 +1097,10 @@ def _receptor_structural_gate(repo_root: Path) -> dict[str, Any]:
             "promotion governed by the separate receptor/myelin/gradient claim gate."
         )
         if ready
-        else "Need both a documented structural-connectome graph and PET-derived receptor prior with null controls."
+        else (
+            "Need implemented and ingested structural-connectome graph plus PET-derived receptor prior "
+            "with null controls."
+        )
     )
     claim_guardrail = (
         (
@@ -1031,6 +1125,8 @@ def _receptor_structural_gate(repo_root: Path) -> dict[str, Any]:
         "structural_status": structural_status,
         "receptor_status": receptor_status,
         "ingestion_status": ingestion_status,
+        "structural_ingested": structural_ingested,
+        "receptor_ingested": receptor_ingested,
         "required_structural_input": "CSV edge list or square matrix aligned to active parcellation nodes.",
         "required_receptor_input": "PET-derived 5-HT2A/FS5ht map projected to the active parcellation.",
         "null_controls": ["uniform", "degree", "random prior", "spatial/autocorrelation-preserving null"],
@@ -1247,6 +1343,11 @@ def build_thesis_upgrade_status(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
             (
                 "None: static Pages snapshot contains the required dashboard and evidence artifacts."
                 if public_dashboard_gate["ready"]
+                else "Static Pages snapshot is stale: {mismatches}.".format(
+                    mismatches=", ".join(str(item) for item in public_dashboard.get("snapshot_mismatches", []))
+                    or "readiness snapshot mismatch"
+                )
+                if public_dashboard.get("snapshot_mismatches")
                 else "Static Pages snapshot is missing required dashboard/evidence artifacts: {paths}.".format(
                     paths=", ".join(str(item) for item in public_dashboard.get("missing_required_paths", [])) or "unknown"
                 )
@@ -1254,6 +1355,11 @@ def build_thesis_upgrade_status(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
             (
                 "Keep rebuilding the static site after gate/status artifact changes."
                 if public_dashboard_gate["ready"]
+                else (
+                    "Run scripts/build_github_pages.py after regenerating results/thesis_upgrade/thesis_upgrade_status.json, "
+                    "then verify _site embeds the same readiness summary and requirement states."
+                )
+                if public_dashboard.get("snapshot_mismatches")
                 else "Run scripts/build_github_pages.py and verify _site/pages_manifest.json includes the dashboard and evidence artifacts."
             ),
             (

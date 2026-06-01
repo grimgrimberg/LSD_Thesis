@@ -25,6 +25,8 @@ Audience: thesis reviewer, potential MSc supervisor, or technical reviewer who n
 
 The generated site is written to `_site/`. `_site/` is a build artifact and should not be committed.
 
+Before the public-dashboard package gate can pass, `_site` must be fresh against the current thesis-readiness artifact. Rebuild `results/thesis_upgrade/thesis_upgrade_status.json` first, then rebuild `_site`; the gate compares the copied `_site/artifacts/results/thesis_upgrade/thesis_upgrade_status.json` and embedded `_site/dashboard/dashboard-data.json` thesis status against the current strict readiness summary, non-dashboard gate states, strict requirements, and non-dashboard package requirements. File existence alone is not enough.
+
 ## GitHub Setup
 
 1. Push this repo to GitHub.

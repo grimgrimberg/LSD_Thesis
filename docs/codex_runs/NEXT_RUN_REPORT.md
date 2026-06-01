@@ -18,7 +18,7 @@ Current thesis-upgrade status:
 - Real remaining hard requirement: fMRIPrep FD/DVARS/censoring motion proof.
 - Project phase: `research_demo_ready_not_completed_thesis`.
 
-The missing `project_phase` item is derived from the motion-proof blocker. It is not an independent science task. Archive publication is now tracked as a package-readiness requirement rather than being buried inside strict science completion; it needs a citable release URL and Zenodo DOI. ROCKET is represented as supporting internal signal rather than a ready thesis-strength gate until permutation-null, calibration, and MiniRocket/MultiRocket evidence exists. The public dashboard is represented as its own presentation gate and package requirement.
+The missing `project_phase` item is derived from the motion-proof blocker. It is not an independent science task. Archive publication is now tracked as a package-readiness requirement rather than being buried inside strict science completion; it needs a citable release URL and Zenodo DOI. ROCKET is represented as supporting internal signal rather than a ready thesis-strength gate until permutation-null, calibration, and MiniRocket/MultiRocket evidence exists. The public dashboard is represented as its own presentation gate and package requirement, and it must now prove that the static `_site` thesis-status artifact plus embedded dashboard payload match the current readiness snapshot.
 
 ## Current High-Leverage Fixes Already Landed
 
@@ -56,6 +56,7 @@ The missing `project_phase` item is derived from the motion-proof blocker. It is
 - The ds006072 unchanged-scoring lock now has an explicit `--refresh-scoring-lock` rebuild path for reviewed scoring-code refactors; stale scoring hashes still block by default.
 - The external source plan now derives implemented display labels from current component statuses instead of leaving HCP, PET receptor-prior, Schaefer/Yeo, and literature-benchmark rows as planned when their artifacts are present.
 - The reproducible archive manifest builder now accepts explicit `--release-url` and `--doi` metadata and records validity flags, so the archive gate has a real path to readiness without counting placeholders.
+- The public-dashboard package gate now rejects stale `_site` readiness snapshots instead of passing on file existence and manifest entries alone.
 
 ## Fresh Verification Evidence
 

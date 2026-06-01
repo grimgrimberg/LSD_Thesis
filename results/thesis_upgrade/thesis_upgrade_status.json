@@ -1,6 +1,6 @@
 {
   "schema_version": "thesis_upgrade_status.v1",
-  "generated_at_utc": "2026-06-01T22:16:01.559723+00:00",
+  "generated_at_utc": "2026-06-01T22:41:41.012741+00:00",
   "readiness_summary": {
     "ready_gates": 6,
     "total_gates": 9,
@@ -66,8 +66,8 @@
       "label": "Public dashboard",
       "status": "static_snapshot_ready",
       "ready": true,
-      "evidence": "_site/pages_manifest.json; _site/index.html; _site/dashboard/dashboard-data.json; _site/artifacts/results/thesis_upgrade/thesis_upgrade_status.json; _site/artifacts/results/reproducible_archive/ARCHIVE_MANIFEST.json",
-      "blocker": "Static GitHub Pages dashboard snapshot and key gate/archive artifacts are present. This is presentation evidence, not a citable archive.",
+      "evidence": "results/thesis_upgrade/thesis_upgrade_status.json; _site/pages_manifest.json; _site/index.html; _site/dashboard/dashboard-data.json; _site/artifacts/results/thesis_upgrade/thesis_upgrade_status.json; _site/artifacts/results/reproducible_archive/ARCHIVE_MANIFEST.json",
+      "blocker": "Static GitHub Pages dashboard snapshot and key gate/archive artifacts are present and synchronized with the current readiness artifact. This is presentation evidence, not a citable archive.",
       "score": 1.0
     },
     {
@@ -171,7 +171,7 @@
       "label": "Public dashboard static snapshot",
       "status": "static_snapshot_ready",
       "complete": true,
-      "evidence": "_site/pages_manifest.json; _site/index.html; _site/dashboard/dashboard-data.json; _site/artifacts/results/thesis_upgrade/thesis_upgrade_status.json; _site/artifacts/results/reproducible_archive/ARCHIVE_MANIFEST.json",
+      "evidence": "results/thesis_upgrade/thesis_upgrade_status.json; _site/pages_manifest.json; _site/index.html; _site/dashboard/dashboard-data.json; _site/artifacts/results/thesis_upgrade/thesis_upgrade_status.json; _site/artifacts/results/reproducible_archive/ARCHIVE_MANIFEST.json",
       "missing": "None: static Pages snapshot contains the required dashboard and evidence artifacts.",
       "next_action": "Keep rebuilding the static site after gate/status artifact changes.",
       "claim_effect": "The public dashboard is presentation-ready, but remains separate from citable archive publication."
@@ -340,6 +340,13 @@
       "null_api_importable": true,
       "receptor_spatial_nulls_complete": true,
       "partial_spatial_autocorrelation_nulls_complete": true,
+      "required_map_families": [
+        "receptor",
+        "myelin",
+        "functional_gradient",
+        "gene_expression"
+      ],
+      "family_coverage_ready": true,
       "best_receptor_moran_result": {
         "map_id": "5ht2a_alt_hc19_savli",
         "map_label": "5-HT2A ALT/Savli PET, Schaefer100",
@@ -887,12 +894,14 @@
         "label": "Public dashboard",
         "status": "static_snapshot_ready",
         "ready": true,
-        "evidence": "_site/pages_manifest.json; _site/index.html; _site/dashboard/dashboard-data.json; _site/artifacts/results/thesis_upgrade/thesis_upgrade_status.json; _site/artifacts/results/reproducible_archive/ARCHIVE_MANIFEST.json",
-        "blocker": "Static GitHub Pages dashboard snapshot and key gate/archive artifacts are present. This is presentation evidence, not a citable archive.",
+        "evidence": "results/thesis_upgrade/thesis_upgrade_status.json; _site/pages_manifest.json; _site/index.html; _site/dashboard/dashboard-data.json; _site/artifacts/results/thesis_upgrade/thesis_upgrade_status.json; _site/artifacts/results/reproducible_archive/ARCHIVE_MANIFEST.json",
+        "blocker": "Static GitHub Pages dashboard snapshot and key gate/archive artifacts are present and synchronized with the current readiness artifact. This is presentation evidence, not a citable archive.",
         "score": 1.0
       },
       "static_snapshot_ready": true,
+      "static_snapshot_fresh": true,
       "manifest_path": "_site/pages_manifest.json",
+      "current_status_path": "results/thesis_upgrade/thesis_upgrade_status.json",
       "required_paths_present": {
         "_site/index.html": true,
         "_site/dashboard/dashboard-data.json": true,
@@ -902,6 +911,9 @@
       "missing_required_paths": [],
       "manifest_entrypoints_ready": true,
       "manifest_artifacts_ready": true,
+      "artifact_snapshot_current": true,
+      "dashboard_snapshot_current": true,
+      "snapshot_mismatches": [],
       "claim_guardrail": "The public dashboard is a static presentation layer and does not complete motion proof, external validation, or archive DOI gates."
     },
     "external_validation": {
@@ -971,6 +983,8 @@
         "structural_connectome": "ready",
         "receptor_prior": "ready"
       },
+      "structural_ingested": true,
+      "receptor_ingested": true,
       "required_structural_input": "CSV edge list or square matrix aligned to active parcellation nodes.",
       "required_receptor_input": "PET-derived 5-HT2A/FS5ht map projected to the active parcellation.",
       "null_controls": [
