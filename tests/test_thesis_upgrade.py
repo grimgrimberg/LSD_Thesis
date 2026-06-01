@@ -24,6 +24,12 @@ def test_thesis_upgrade_strict_requirements_fail_closed(tmp_path: Path) -> None:
     assert requirements["receptor_myelin_gradient_claim"]["complete"] is False
     assert requirements["project_phase"]["status"] == "pi_pitch_ready_research_proposal_not_completed_thesis"
     assert status["readiness_summary"]["completion_status"] == "pi_pitch_ready_research_proposal_not_completed_thesis"
+    assert status["readiness_summary"]["strict_missing_gates"] == 6
+    assert status["readiness_summary"]["strict_missing_requirement_ids"] == list(requirements)
+    assert status["readiness_summary"]["remaining_hard_requirements"] == [
+        "fMRIPrep FD/DVARS/censoring motion proof",
+        "stronger parcellation-matched external validation",
+    ]
     assert status["components"]["neuromaps_spatial_nulls"]["gate"]["ready"] is False
     assert "not a full spatial-autocorrelation null model" in status["components"]["neuromaps_spatial_nulls"]["claim_guardrail"]
 
@@ -431,6 +437,13 @@ def test_thesis_upgrade_project_phase_names_only_remaining_hard_requirements(tmp
     assert project["complete"] is False
     assert "fMRIPrep FD/DVARS/censoring motion proof" in project["missing"]
     assert "stronger parcellation-matched external validation" not in project["missing"]
+    assert status["readiness_summary"]["strict_missing_requirement_ids"] == [
+        "motion_confound_control_result",
+        "project_phase",
+    ]
+    assert status["readiness_summary"]["remaining_hard_requirements"] == [
+        "fMRIPrep FD/DVARS/censoring motion proof",
+    ]
 
 
 def test_write_thesis_upgrade_status_writes_strict_audit(tmp_path: Path) -> None:

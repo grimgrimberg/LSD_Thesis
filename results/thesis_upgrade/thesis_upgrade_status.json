@@ -1,6 +1,6 @@
 {
   "schema_version": "thesis_upgrade_status.v1",
-  "generated_at_utc": "2026-06-01T12:51:04.783875+00:00",
+  "generated_at_utc": "2026-06-01T13:20:23.565702+00:00",
   "readiness_summary": {
     "ready_gates": 8,
     "total_gates": 8,
@@ -8,6 +8,14 @@
     "strict_complete_gates": 4,
     "strict_total_gates": 6,
     "strict_completion_fraction": 0.6666666666666666,
+    "strict_missing_gates": 2,
+    "strict_missing_requirement_ids": [
+      "motion_confound_control_result",
+      "project_phase"
+    ],
+    "remaining_hard_requirements": [
+      "fMRIPrep FD/DVARS/censoring motion proof"
+    ],
     "completion_status": "research_demo_ready_not_completed_thesis",
     "thesis_status": "research_demo_ready_not_completed_thesis"
   },

@@ -1029,6 +1029,9 @@ def build_thesis_upgrade_status(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
     )
     ready_count = sum(1 for gate in gates if gate["ready"])
     strict_ready_count = sum(1 for requirement in strict_requirements if requirement["complete"])
+    strict_missing_requirement_ids = [
+        str(requirement["requirement_id"]) for requirement in strict_requirements if not requirement["complete"]
+    ]
     completion_status = project_status
     return {
         "schema_version": SCHEMA_VERSION,
@@ -1040,6 +1043,9 @@ def build_thesis_upgrade_status(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
             "strict_complete_gates": strict_ready_count,
             "strict_total_gates": len(strict_requirements),
             "strict_completion_fraction": strict_ready_count / len(strict_requirements) if strict_requirements else 0.0,
+            "strict_missing_gates": len(strict_missing_requirement_ids),
+            "strict_missing_requirement_ids": strict_missing_requirement_ids,
+            "remaining_hard_requirements": remaining_hard_requirements,
             "completion_status": completion_status,
             "thesis_status": completion_status,
         },
@@ -1098,6 +1104,17 @@ def _markdown(status: dict[str, Any]) -> str:
         status["claim_guardrail"],
         "",
         "## Gate Summary",
+        "",
+        "- Strict completion: {complete}/{total} gates complete.".format(
+            complete=status["readiness_summary"]["strict_complete_gates"],
+            total=status["readiness_summary"]["strict_total_gates"],
+        ),
+        "- Missing strict requirement IDs: {missing}.".format(
+            missing=", ".join(status["readiness_summary"]["strict_missing_requirement_ids"]) or "none",
+        ),
+        "- Remaining hard requirements: {requirements}.".format(
+            requirements=", ".join(status["readiness_summary"]["remaining_hard_requirements"]) or "none",
+        ),
         "",
         "| Gate | Status | Ready | Score | Blocker / next action |",
         "| --- | --- | ---: | ---: | --- |",
