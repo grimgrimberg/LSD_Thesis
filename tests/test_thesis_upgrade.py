@@ -159,6 +159,42 @@ def test_thesis_upgrade_keeps_strict_motion_incomplete_with_only_image_motion_qc
     assert "strict completion still requires fMRIPrep FD/DVARS/censoring motion proof" in requirement["missing"]
 
 
+def test_thesis_upgrade_surfaces_fmriprep_preflight_status(tmp_path: Path) -> None:
+    confound_dir = tmp_path / "results" / "confound_controls"
+    confound_dir.mkdir(parents=True)
+    (confound_dir / "image_motion_qc_status.json").write_text(
+        json.dumps(
+            {
+                "analysis_status": "implemented_image_derived_motion_qc_control",
+                "image_motion_qc_ready": True,
+            }
+        ),
+        encoding="utf-8",
+    )
+    (confound_dir / "fmriprep_motion_proof_plan.json").write_text(
+        json.dumps(
+            {
+                "analysis_status": "blocked_derivative_snapshot_not_valid_raw_fmriprep_input",
+                "fmriprep_motion_proof_ready": False,
+                "blocker": "DatasetType=derivative",
+                "next_action": "Obtain original raw BIDS or author confounds.",
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    status = build_thesis_upgrade_status(tmp_path)
+    motion = status["components"]["motion_confound"]
+    requirement = {row["requirement_id"]: row for row in status["strict_completion_requirements"]}[
+        "motion_confound_control_result"
+    ]
+
+    assert motion["fmriprep_motion_proof_plan_ready"] is False
+    assert motion["fmriprep_motion_proof_plan_status"] == "blocked_derivative_snapshot_not_valid_raw_fmriprep_input"
+    assert "blocked_derivative_snapshot_not_valid_raw_fmriprep_input" in requirement["missing"]
+    assert requirement["next_action"] == "Obtain original raw BIDS or author confounds."
+
+
 def test_thesis_upgrade_marks_external_validation_complete_only_with_locked_comparable_scoring(tmp_path: Path) -> None:
     result_dir = tmp_path / "results" / "psilocybin_ds006072"
     result_dir.mkdir(parents=True)

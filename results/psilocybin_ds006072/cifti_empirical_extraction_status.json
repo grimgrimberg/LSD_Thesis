@@ -1,6 +1,6 @@
 {
   "schema_version": "ds006072_cifti_empirical_extraction.v1",
-  "generated_at_utc": "2026-06-01T10:45:52.099172+00:00",
+  "generated_at_utc": "2026-06-01T12:51:04.516591+00:00",
   "analysis_status": "implemented_ds006072_schaefer100_parcellation_empirical_viewer",
   "cifti_empirical_viewer_ready": true,
   "schaefer100_empirical_viewer_ready": true,
@@ -35,7 +35,7 @@
   ],
   "claim_status": "schaefer100_empirical_viewer_ready_for_unchanged_scoring",
   "claim_guardrail": "This is real ds006072 CIFTI extraction into an empirical viewer, but it uses broad CIFTI structure families. It is stronger than manifest readiness and weaker than a surface/parcellation-matched replication unless schaefer100_empirical_viewer_ready is true.",
-  "execute_requested": true,
+  "execute_requested": false,
   "extraction_result": {
     "subjects_written": [
       "P1",
@@ -201,5 +201,7 @@
         "parcellation_id": "schaefer_100_yeo_7"
       }
     ]
-  }
+  },
+  "extraction_result_source": "existing_status_cache",
+  "schaefer100_extraction_result_source": "existing_status_cache"
 }

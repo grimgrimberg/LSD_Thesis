@@ -1,6 +1,6 @@
 {
   "schema_version": "motion_confound_control.v1",
-  "generated_at_utc": "2026-06-01T11:52:55.725638+00:00",
+  "generated_at_utc": "2026-06-01T12:50:45.781886+00:00",
   "analysis_status": "blocked_absent_authorized_subject_level_motion_confounds",
   "motion_confound_control_ready": false,
   "source_paths": {
@@ -56,7 +56,7 @@
     }
   },
   "next_action": "Place authorized fMRIPrep confounds TSV/CSV files under one configured search root, then rerun scripts/run_setting_seed_motion_summary.py.",
-  "blocker": "Local repo search, OpenNeuro raw snapshot metadata, and public OpenNeuroDerivatives repo checks did not expose subject-level FD/DVARS/censoring confounds.",
+  "blocker": "Local repo search, OpenNeuro ds003059 snapshot metadata, and public OpenNeuroDerivatives repo checks did not expose subject-level FD/DVARS/censoring confounds.",
   "source_availability": {
     "path": "results/confound_controls/ds003059_motion_source_availability.json",
     "analysis_status": "no_authorized_subject_level_motion_confounds_found",
@@ -64,7 +64,7 @@
     "local_motion_file_count": 0,
     "openneuro_confound_like_file_count": 0,
     "public_derivative_available_count": 0,
-    "conclusion": "Local repo search, OpenNeuro raw snapshot metadata, and public OpenNeuroDerivatives repo checks did not expose subject-level FD/DVARS/censoring confounds.",
+    "conclusion": "Local repo search, OpenNeuro ds003059 snapshot metadata, and public OpenNeuroDerivatives repo checks did not expose subject-level FD/DVARS/censoring confounds.",
     "next_action": "Supply authorized fMRIPrep desc-confounds_timeseries.tsv files or run fMRIPrep/MRIQC from ds003059 raw BOLD before claiming full subject-level motion control."
   },
   "merged_subject_run_count": 0,

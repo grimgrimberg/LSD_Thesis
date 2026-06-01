@@ -28,6 +28,7 @@ from lsd_thesis.cortical_maps import write_cortical_map_alignment_status
 from lsd_thesis.design_confound_controls import write_design_confound_control_status
 from lsd_thesis.ds006072_cifti_extraction import write_ds006072_cifti_extraction_status
 from lsd_thesis.ds006072_payload_plan import write_ds006072_payload_plan_status
+from lsd_thesis.fmriprep_motion_proof import write_fmriprep_motion_proof_plan
 from lsd_thesis.image_motion_qc import write_image_motion_qc_status
 from lsd_thesis.map_prior_falsification import write_map_prior_falsification_status
 from lsd_thesis.module_dvars_controls import write_module_dvars_control_status
@@ -246,6 +247,7 @@ def build_github_pages_site(repo_root: Path = REPO_ROOT, site_dir: Path | None =
     export_thesis_loop_tables(repo_root, repo_root / "results" / "thesis_evidence_loop" / "exports")
     write_cortical_map_alignment_status(repo_root)
     write_motion_outputs(repo_root=repo_root)
+    write_fmriprep_motion_proof_plan(repo_root)
     write_motion_confound_control_status(repo_root)
     write_design_confound_control_status(repo_root)
     write_module_dvars_control_status(repo_root)

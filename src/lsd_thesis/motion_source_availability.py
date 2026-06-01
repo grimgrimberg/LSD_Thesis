@@ -117,7 +117,7 @@ def build_motion_source_availability(
         "Subject-level FD/DVARS/censoring inputs are available from at least one checked source."
         if source_confounds_available
         else (
-            "Local repo search, OpenNeuro raw snapshot metadata, and public "
+            "Local repo search, OpenNeuro ds003059 snapshot metadata, and public "
             "OpenNeuroDerivatives repo checks did not expose subject-level "
             "FD/DVARS/censoring confounds."
         )
@@ -144,6 +144,7 @@ def build_motion_source_availability(
             "confound_like_files": [str(item.get("filename") or "") for item in openneuro_motion_like[:50]],
             "error": remote_error,
             "query": "snapshot.files(recursive=true)",
+            "dataset_type_note": "ds003059 declares DatasetType=derivative locally; snapshot file presence is not original-raw-BIDS proof.",
         },
         "public_derivative_repositories": {
             "checked": bool(derivative_repo_statuses),

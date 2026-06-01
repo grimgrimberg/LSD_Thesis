@@ -105,3 +105,46 @@ def test_write_cifti_extraction_status_writes_artifacts(tmp_path: Path) -> None:
     assert status["source_path"] == "results/psilocybin_ds006072/cifti_empirical_extraction_status.json"
     assert (tmp_path / status["source_path"]).exists()
     assert (tmp_path / status["report_path"]).exists()
+
+
+def test_write_cifti_extraction_status_preserves_executed_details_on_refresh(tmp_path: Path) -> None:
+    result_dir = tmp_path / "results" / "psilocybin_ds006072"
+    subject_views = result_dir / "empirical_viewer" / "subject_views"
+    schaefer_views = result_dir / "parcellations" / "schaefer_100_yeo_7" / "empirical_viewer" / "subject_views"
+    subject_views.mkdir(parents=True)
+    schaefer_views.mkdir(parents=True)
+    (result_dir / "minimum_payload_plan.json").write_text(
+        json.dumps(
+            {
+                "minimum_subjects_required": 3,
+                "minimum_payloads_local_ready": True,
+                "minimum_payload_plan_ready": True,
+            }
+        ),
+        encoding="utf-8",
+    )
+    for index in range(3):
+        (subject_views / f"P{index + 1}_run-01.json").write_text("{}", encoding="utf-8")
+        (schaefer_views / f"P{index + 1}_run-01.json").write_text("{}", encoding="utf-8")
+    status_path = result_dir / "cifti_empirical_extraction_status.json"
+    status_path.write_text(
+        json.dumps(
+            {
+                "execute_requested": True,
+                "extraction_result": {"subjects_written": ["P1", "P2", "P3"]},
+                "schaefer100_extraction_result": {
+                    "subjects_written": ["P1", "P2", "P3"],
+                    "parcellation_id": "schaefer_100_yeo_7",
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    status = write_ds006072_cifti_extraction_status(tmp_path)
+
+    assert status["execute_requested"] is False
+    assert status["extraction_result"] == {"subjects_written": ["P1", "P2", "P3"]}
+    assert status["schaefer100_extraction_result"]["parcellation_id"] == "schaefer_100_yeo_7"
+    assert status["extraction_result_source"] == "existing_status_cache"
+    assert status["schaefer100_extraction_result_source"] == "existing_status_cache"

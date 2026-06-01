@@ -137,3 +137,94 @@ def test_build_github_pages_rejects_traversal_dashboard_artifact_links(tmp_path:
     assert copied == ["artifacts/results/stage_2/figures/safe.html"]
     assert (site / "artifacts" / "results" / "stage_2" / "figures" / "safe.html").exists()
     assert not (site / "artifacts" / "secret.txt").exists()
+
+
+def test_build_github_pages_preserves_copied_ds006072_extraction_details(tmp_path: Path) -> None:
+    module = _load_build_github_pages_module()
+    output_dir = tmp_path / "output" / "doc"
+    output_dir.mkdir(parents=True)
+    (output_dir / "thesis_microsite.html").write_text("<html><title>Thesis</title></html>", encoding="utf-8")
+    (output_dir / "defense_presentation.html").write_text("<html><title>Defense</title></html>", encoding="utf-8")
+    (output_dir / "thesis_report_revised.md").write_text("# Report\n", encoding="utf-8")
+    claim_dir = tmp_path / "results" / "thesis_evidence_loop"
+    claim_dir.mkdir(parents=True)
+    (claim_dir / "claim_evidence_matrix.csv").write_text("claim,status\nC,ready\n", encoding="utf-8")
+    (claim_dir / "claim_evidence_matrix.md").write_text("| claim | status |\n| --- | --- |\n", encoding="utf-8")
+    export_dir = claim_dir / "exports"
+    export_dir.mkdir()
+    (export_dir / "claim_evidence_matrix.csv").write_text("claim,status\nC,ready\n", encoding="utf-8")
+    (export_dir / "thesis_evidence_loop_tables.xlsx").write_bytes(b"xlsx")
+    template_dir = tmp_path / "src" / "lsd_thesis" / "templates"
+    template_dir.mkdir(parents=True)
+    (template_dir / "dashboard.html").write_text(
+        '<html><head><script src="/assets/plotly.min.js"></script></head>'
+        "<script>"
+        "dashboardState = await fetchJson('/api/dashboard-data');"
+        "subjectDetail = await fetchJson(`/api/empirical-view?subject=${encodeURIComponent(subject)}&run=${encodeURIComponent(run)}`);"
+        "document.getElementById('simulate').addEventListener('click', async () => {"
+        "return `/artifacts/${path}`;"
+        "if (!href.startsWith('/artifacts/')) return;"
+        "</script></html>",
+        encoding="utf-8",
+    )
+    result_dir = tmp_path / "results" / "psilocybin_ds006072"
+    subject_views = result_dir / "empirical_viewer" / "subject_views"
+    schaefer_views = result_dir / "parcellations" / "schaefer_100_yeo_7" / "empirical_viewer" / "subject_views"
+    subject_views.mkdir(parents=True)
+    schaefer_views.mkdir(parents=True)
+    (result_dir / "minimum_payload_plan.json").write_text(
+        json.dumps(
+            {
+                "minimum_subjects_required": 3,
+                "minimum_payloads_local_ready": True,
+                "minimum_payload_plan_ready": True,
+            }
+        ),
+        encoding="utf-8",
+    )
+    for index in range(3):
+        (subject_views / f"P{index + 1}_run-01.json").write_text("{}", encoding="utf-8")
+        (schaefer_views / f"P{index + 1}_run-01.json").write_text("{}", encoding="utf-8")
+    (result_dir / "cifti_empirical_extraction_status.json").write_text(
+        json.dumps(
+            {
+                "execute_requested": True,
+                "extraction_result": {"subjects_written": ["P1", "P2", "P3"]},
+                "schaefer100_extraction_result": {
+                    "subjects_written": ["P1", "P2", "P3"],
+                    "parcellation_id": "schaefer_100_yeo_7",
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    module.build_publication_package = lambda repo_root: {
+        "thesis_microsite_html": output_dir / "thesis_microsite.html",
+        "defense_presentation_html": output_dir / "defense_presentation.html",
+        "thesis_report_markdown": output_dir / "thesis_report_revised.md",
+    }
+    module.build_thesis_evidence_loop = lambda repo_root: {}
+    module.build_dashboard_payload = lambda repo_root: {"artifact_links": {"reports": [], "figures": []}}
+    module.export_thesis_loop_tables = lambda repo_root, export_dir: {
+        "workbook_path": (export_dir / "thesis_evidence_loop_tables.xlsx").as_posix(),
+        "claim_matrix_csv": (export_dir / "claim_evidence_matrix.csv").as_posix(),
+    }
+    module.get_plotlyjs = lambda: "window.Plotly={newPlot:function(){}};"
+
+    module.build_github_pages_site(tmp_path, tmp_path / "_site")
+
+    copied_status = json.loads(
+        (
+            tmp_path
+            / "_site"
+            / "artifacts"
+            / "results"
+            / "psilocybin_ds006072"
+            / "cifti_empirical_extraction_status.json"
+        ).read_text(encoding="utf-8")
+    )
+    assert copied_status["extraction_result"] == {"subjects_written": ["P1", "P2", "P3"]}
+    assert copied_status["schaefer100_extraction_result"]["parcellation_id"] == "schaefer_100_yeo_7"
+    assert copied_status["extraction_result_source"] == "existing_status_cache"
+    assert copied_status["schaefer100_extraction_result_source"] == "existing_status_cache"

@@ -14,7 +14,7 @@ It is not a receptor model, subjective-experience model, clinical model, pharmac
 
 | Gate | Thesis-ready meaning | Current first-pass treatment |
 | --- | --- | --- |
-| Motion/confounds | Subject/session/run FD, DVARS, and censoring summaries exist and are used as sensitivity gates. | Explicit blocker if structured confounds are missing. |
+| Motion/confounds | Subject/session/run FD, DVARS, and censoring summaries exist and are used as sensitivity gates. | Explicit blocker if structured confounds are missing; `results/confound_controls/fmriprep_motion_proof_plan.json` records whether the current checkout can produce those inputs or needs original raw BIDS/author confounds. |
 | Canonical parcellation | Schaefer/Yeo extraction reproduces or falsifies the current 8-module conclusions. | `schaefer_100_yeo_7` is the named primary canonical target; 8-module remains proxy baseline. |
 | ROCKET strength | Subject-disjoint ROCKET/MiniRocket/MultiRocket beats permutation nulls with calibrated subject/run aggregation. | Current ROCKET remains supporting internal signal until null and calibration gates exist. |
 | External validation | The same scoring rules run on an independent psychedelic dataset. | `ds006072` is the target; metadata/manifest alone is not validation. |
@@ -40,6 +40,26 @@ uv run python scripts/run_thesis_evidence_loop.py
 ```
 
 The ingestion scripts validate schemas and provenance paths. They do not invent PET receptor maps or normative structural matrices.
+
+## Motion-Proof Contract
+
+The strict motion gate passes only after structured subject/session/run confounds are available and joined to dynamic deltas. The required local input shape is:
+
+- `data/ds003059/derivatives/fmriprep/sub-*/ses-*/func/*desc-confounds_timeseries.tsv`
+- `framewise_displacement`
+- `std_dvars` or `dvars`
+- motion outlier, censor, scrub, or non-steady-state columns where available
+
+Run:
+
+```powershell
+uv run python scripts/build_fmriprep_motion_proof_plan.py --fetch-remote
+uv run python scripts/run_setting_seed_motion_summary.py
+uv run python scripts/build_motion_confound_controls.py
+uv run python scripts/build_thesis_upgrade_status.py --fetch-motion-remote
+```
+
+The preflight artifact is not motion proof. It may report that the current ds003059 snapshot is a derivative release with no subject-level confound tables; in that case, the strict gate requires author-provided confounds or original raw BIDS inputs processed through fMRIPrep/MRIQC.
 
 ## Canonical Parcellation Decision
 

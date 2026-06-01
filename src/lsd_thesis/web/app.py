@@ -309,6 +309,8 @@ def _artifact_links(repo_root: Path) -> dict[str, list[dict[str, str]]]:
         ),
         ("Motion Confound Control Status", repo_root / "results" / "confound_controls" / "motion_confound_control_status.json"),
         ("Motion Confound Control Report", repo_root / "results" / "confound_controls" / "motion_confound_control_status.md"),
+        ("fMRIPrep Motion-Proof Preflight", repo_root / "results" / "confound_controls" / "fmriprep_motion_proof_plan.json"),
+        ("fMRIPrep Motion-Proof Preflight Report", repo_root / "results" / "confound_controls" / "fmriprep_motion_proof_plan.md"),
         ("Image-Derived Motion/QC Status", repo_root / "results" / "confound_controls" / "image_motion_qc_status.json"),
         ("Image-Derived Motion/QC Report", repo_root / "results" / "confound_controls" / "image_motion_qc_status.md"),
         ("Image-Derived Motion/QC Associations", repo_root / "results" / "confound_controls" / "image_motion_qc_dynamic_associations.csv"),

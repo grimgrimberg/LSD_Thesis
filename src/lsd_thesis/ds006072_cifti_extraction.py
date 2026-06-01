@@ -625,17 +625,33 @@ def write_ds006072_cifti_extraction_status(
     repo_root = repo_root.resolve()
     output_dir = output_dir or repo_root / "results" / "psilocybin_ds006072"
     output_dir.mkdir(parents=True, exist_ok=True)
+    status_path = output_dir / "cifti_empirical_extraction_status.json"
+    report_path = output_dir / "cifti_empirical_extraction_status.md"
+    existing_status = _read_json(status_path) if not execute else None
     extraction_result = None
     schaefer100_extraction_result = None
+    extraction_result_source = "not_available"
+    schaefer100_extraction_result_source = "not_available"
     if execute:
         extraction_result = write_ds006072_cifti_empirical_viewer(repo_root)
         schaefer100_extraction_result = write_ds006072_schaefer100_empirical_viewer(repo_root)
+        extraction_result_source = "executed_now"
+        schaefer100_extraction_result_source = "executed_now"
     status = build_ds006072_cifti_extraction_status(repo_root)
+    if existing_status is not None:
+        if status["cifti_empirical_viewer_ready"] and isinstance(existing_status.get("extraction_result"), dict):
+            extraction_result = existing_status["extraction_result"]
+            extraction_result_source = "existing_status_cache"
+        if status["schaefer100_empirical_viewer_ready"] and isinstance(
+            existing_status.get("schaefer100_extraction_result"), dict
+        ):
+            schaefer100_extraction_result = existing_status["schaefer100_extraction_result"]
+            schaefer100_extraction_result_source = "existing_status_cache"
     status["execute_requested"] = bool(execute)
     status["extraction_result"] = extraction_result
     status["schaefer100_extraction_result"] = schaefer100_extraction_result
-    status_path = output_dir / "cifti_empirical_extraction_status.json"
-    report_path = output_dir / "cifti_empirical_extraction_status.md"
+    status["extraction_result_source"] = extraction_result_source
+    status["schaefer100_extraction_result_source"] = schaefer100_extraction_result_source
     status_path.write_text(json.dumps(status, indent=2), encoding="utf-8")
     report_path.write_text(_markdown(status), encoding="utf-8")
     status["source_path"] = _rel(status_path, repo_root)

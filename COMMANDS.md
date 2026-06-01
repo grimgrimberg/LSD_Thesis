@@ -131,6 +131,17 @@ Outputs:
 - `data/ds006072/ds006072_func_manifest.csv`
 - `data/ds006072/ds006072_cifti_manifest.csv`
 
+Build the fMRIPrep motion-proof preflight artifact before claiming the strict motion gate:
+
+```bash
+uv run python scripts/build_fmriprep_motion_proof_plan.py --fetch-remote
+uv run python scripts/run_setting_seed_motion_summary.py
+uv run python scripts/build_motion_confound_controls.py
+uv run python scripts/build_thesis_upgrade_status.py --fetch-motion-remote
+```
+
+The preflight artifact is `results/confound_controls/fmriprep_motion_proof_plan.json`. It does not complete the strict gate by itself; it records whether subject/run confounds already exist or whether original raw BIDS or author-provided confounds are still required.
+
 Export the current thesis evidence loop to CSV and Excel:
 
 ```bash

@@ -1,6 +1,6 @@
 {
   "schema_version": "thesis_upgrade_status.v1",
-  "generated_at_utc": "2026-06-01T11:53:15.479368+00:00",
+  "generated_at_utc": "2026-06-01T12:51:04.783875+00:00",
   "readiness_summary": {
     "ready_gates": 8,
     "total_gates": 8,
@@ -16,7 +16,7 @@
       "label": "Motion and confounds",
       "status": "implemented_image_derived_motion_qc_control",
       "ready": true,
-      "evidence": "results/setting_seed/motion/motion_summary.json; results/confound_controls/motion_confound_control_status.json; results/confound_controls/design_confound_control_status.json; results/confound_controls/module_dvars_control_status.json; results/confound_controls/published_motion_qc_status.json; results/confound_controls/ds003059_motion_source_availability.json; results/confound_controls/image_motion_qc_status.json",
+      "evidence": "results/setting_seed/motion/motion_summary.json; results/confound_controls/motion_confound_control_status.json; results/confound_controls/design_confound_control_status.json; results/confound_controls/module_dvars_control_status.json; results/confound_controls/published_motion_qc_status.json; results/confound_controls/ds003059_motion_source_availability.json; results/confound_controls/image_motion_qc_status.json; results/confound_controls/fmriprep_motion_proof_plan.json",
       "blocker": "Raw-BOLD image-derived motion/QC sensitivity is implemented; fMRIPrep FD/DVARS/censoring remains the preferred future gold-standard control.",
       "score": 0.82
     },
@@ -113,9 +113,9 @@
       "label": "Motion/confound control result",
       "status": "blocked_absent_authorized_subject_level_motion_confounds",
       "complete": false,
-      "evidence": "results/setting_seed/motion/motion_summary.json; results/confound_controls/motion_confound_control_status.json; results/confound_controls/design_confound_control_status.json; results/confound_controls/module_dvars_control_status.json; results/confound_controls/published_motion_qc_status.json; results/confound_controls/ds003059_motion_source_availability.json; results/confound_controls/image_motion_qc_status.json",
-      "missing": "Raw-BOLD image-derived motion/QC sensitivity is implemented, but strict completion still requires fMRIPrep FD/DVARS/censoring motion proof.",
-      "next_action": "Use the image-derived QC result as the current motion/signal-quality proxy layer, but do not mark the strict motion gate complete until authorized fMRIPrep FD/DVARS/censoring proof exists.",
+      "evidence": "results/setting_seed/motion/motion_summary.json; results/confound_controls/motion_confound_control_status.json; results/confound_controls/design_confound_control_status.json; results/confound_controls/module_dvars_control_status.json; results/confound_controls/published_motion_qc_status.json; results/confound_controls/ds003059_motion_source_availability.json; results/confound_controls/image_motion_qc_status.json; results/confound_controls/fmriprep_motion_proof_plan.json",
+      "missing": "Raw-BOLD image-derived motion/QC sensitivity is implemented, but strict completion still requires fMRIPrep FD/DVARS/censoring motion proof. fMRIPrep preflight status: blocked_derivative_snapshot_not_valid_raw_fmriprep_input.",
+      "next_action": "Obtain author-provided subject/run motion confounds or the original raw BIDS inputs that preceded this derivative release; then run fMRIPrep/MRIQC in a container or HPC environment and ingest desc-confounds_timeseries.tsv files.",
       "claim_effect": "Motion/confound handling has an image-derived QC proxy layer, but strict thesis completion still fails without fMRIPrep FD/DVARS/censoring proof."
     },
     {
@@ -145,7 +145,7 @@
         "label": "Motion and confounds",
         "status": "implemented_image_derived_motion_qc_control",
         "ready": true,
-        "evidence": "results/setting_seed/motion/motion_summary.json; results/confound_controls/motion_confound_control_status.json; results/confound_controls/design_confound_control_status.json; results/confound_controls/module_dvars_control_status.json; results/confound_controls/published_motion_qc_status.json; results/confound_controls/ds003059_motion_source_availability.json; results/confound_controls/image_motion_qc_status.json",
+        "evidence": "results/setting_seed/motion/motion_summary.json; results/confound_controls/motion_confound_control_status.json; results/confound_controls/design_confound_control_status.json; results/confound_controls/module_dvars_control_status.json; results/confound_controls/published_motion_qc_status.json; results/confound_controls/ds003059_motion_source_availability.json; results/confound_controls/image_motion_qc_status.json; results/confound_controls/fmriprep_motion_proof_plan.json",
         "blocker": "Raw-BOLD image-derived motion/QC sensitivity is implemented; fMRIPrep FD/DVARS/censoring remains the preferred future gold-standard control.",
         "score": 0.82
       },
@@ -154,9 +154,9 @@
         "label": "Motion/confound control result",
         "status": "blocked_absent_authorized_subject_level_motion_confounds",
         "complete": false,
-        "evidence": "results/setting_seed/motion/motion_summary.json; results/confound_controls/motion_confound_control_status.json; results/confound_controls/design_confound_control_status.json; results/confound_controls/module_dvars_control_status.json; results/confound_controls/published_motion_qc_status.json; results/confound_controls/ds003059_motion_source_availability.json; results/confound_controls/image_motion_qc_status.json",
-        "missing": "Raw-BOLD image-derived motion/QC sensitivity is implemented, but strict completion still requires fMRIPrep FD/DVARS/censoring motion proof.",
-        "next_action": "Use the image-derived QC result as the current motion/signal-quality proxy layer, but do not mark the strict motion gate complete until authorized fMRIPrep FD/DVARS/censoring proof exists.",
+        "evidence": "results/setting_seed/motion/motion_summary.json; results/confound_controls/motion_confound_control_status.json; results/confound_controls/design_confound_control_status.json; results/confound_controls/module_dvars_control_status.json; results/confound_controls/published_motion_qc_status.json; results/confound_controls/ds003059_motion_source_availability.json; results/confound_controls/image_motion_qc_status.json; results/confound_controls/fmriprep_motion_proof_plan.json",
+        "missing": "Raw-BOLD image-derived motion/QC sensitivity is implemented, but strict completion still requires fMRIPrep FD/DVARS/censoring motion proof. fMRIPrep preflight status: blocked_derivative_snapshot_not_valid_raw_fmriprep_input.",
+        "next_action": "Obtain author-provided subject/run motion confounds or the original raw BIDS inputs that preceded this derivative release; then run fMRIPrep/MRIQC in a container or HPC environment and ingest desc-confounds_timeseries.tsv files.",
         "claim_effect": "Motion/confound handling has an image-derived QC proxy layer, but strict thesis completion still fails without fMRIPrep FD/DVARS/censoring proof."
       },
       "motion_summary_ready": false,
@@ -181,6 +181,10 @@
       "motion_source_availability_path": "results/confound_controls/ds003059_motion_source_availability.json",
       "motion_source_availability_status": "no_authorized_subject_level_motion_confounds_found",
       "motion_source_confounds_available": false,
+      "fmriprep_motion_proof_plan_ready": false,
+      "fmriprep_motion_proof_plan_path": "results/confound_controls/fmriprep_motion_proof_plan.json",
+      "fmriprep_motion_proof_plan_status": "blocked_derivative_snapshot_not_valid_raw_fmriprep_input",
+      "fmriprep_motion_proof_plan_blocker": "The local ds003059 dataset_description declares DatasetType=derivative and no subject/run FD, DVARS, or censoring tables are present. Do not run fMRIPrep on this derivative snapshot as if it were original raw BIDS.",
       "image_motion_qc_ready": true,
       "image_motion_qc_path": "results/confound_controls/image_motion_qc_status.json",
       "image_motion_qc_claim_status": "image_motion_qc_sensitive_downgrade_required",

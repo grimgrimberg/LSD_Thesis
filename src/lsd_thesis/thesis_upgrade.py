@@ -82,6 +82,7 @@ def _motion_gate(repo_root: Path) -> dict[str, Any]:
     published_motion_path = repo_root / "results" / "confound_controls" / "published_motion_qc_status.json"
     source_availability_path = repo_root / "results" / "confound_controls" / "ds003059_motion_source_availability.json"
     image_motion_path = repo_root / "results" / "confound_controls" / "image_motion_qc_status.json"
+    fmriprep_plan_path = repo_root / "results" / "confound_controls" / "fmriprep_motion_proof_plan.json"
     payload = _read_json(path) or {}
     control_payload = _read_json(control_path) or {}
     design_payload = _read_json(design_path) or {}
@@ -89,6 +90,7 @@ def _motion_gate(repo_root: Path) -> dict[str, Any]:
     published_motion_payload = _read_json(published_motion_path) or {}
     source_availability_payload = _read_json(source_availability_path) or {}
     image_motion_payload = _read_json(image_motion_path) or {}
+    fmriprep_plan_payload = _read_json(fmriprep_plan_path) or {}
     motion_ready = bool(payload.get("motion_analysis_ready"))
     control_status = str(control_payload.get("analysis_status") or "")
     design_status = str(design_payload.get("analysis_status") or "")
@@ -113,6 +115,8 @@ def _motion_gate(repo_root: Path) -> dict[str, Any]:
     source_availability_status = str(source_availability_payload.get("analysis_status") or "")
     source_availability_checked = bool(source_availability_payload.get("motion_source_availability_ready"))
     source_confounds_available = source_availability_payload.get("source_confounds_available")
+    fmriprep_plan_status = str(fmriprep_plan_payload.get("analysis_status") or "")
+    fmriprep_plan_ready = bool(fmriprep_plan_payload.get("fmriprep_motion_proof_ready"))
     motion_status = str(payload.get("status") or ("ready" if motion_ready else "blocked_missing_motion_summaries"))
     status = (
         control_status
@@ -167,6 +171,55 @@ def _motion_gate(repo_root: Path) -> dict[str, Any]:
         published_motion_path,
         source_availability_path,
         image_motion_path,
+        fmriprep_plan_path,
+    )
+    strict_motion_missing = (
+        (
+            "Raw-BOLD image-derived motion/QC sensitivity is implemented, but strict completion still requires "
+            f"fMRIPrep FD/DVARS/censoring motion proof. fMRIPrep preflight status: {fmriprep_plan_status}."
+        )
+        if image_motion_ready and not fmriprep_control_ready and fmriprep_plan_status
+        else (
+            "Raw-BOLD image-derived motion/QC sensitivity is implemented, but "
+            "strict completion still requires fMRIPrep FD/DVARS/censoring motion proof."
+        )
+        if image_motion_ready and not fmriprep_control_ready
+        else
+        (
+            "A source-availability check found no local/OpenNeuro snapshot/public derivative subject-level FD/DVARS/censoring confounds; "
+            "full motion proof requires authorized fMRIPrep outputs, author-provided confounds, or original raw BIDS plus preprocessing."
+        )
+        if source_availability_checked and source_confounds_available is False
+        else
+        (
+            "Published aggregate FD/scrubbing context, run/session controls, and "
+            "module-DVARS proxy controls exist, but a subject-level FD/DVARS/censoring "
+            "motion-control result is still missing."
+        )
+        if partial_proxy_ready and published_motion_ready
+        else "Run/session and module-DVARS proxy controls exist, but a dedicated fMRIPrep FD/DVARS/censoring motion-control result is still missing."
+        if partial_proxy_ready
+        else "Published aggregate FD/scrubbing context exists, but a subject-level FD/DVARS/censoring motion-control result is still missing."
+        if published_motion_ready
+        else "Module-DVARS proxy controls exist, but a dedicated fMRIPrep FD/DVARS/censoring motion-control result is still missing."
+        if module_dvars_ready
+        else "Run/session design controls exist, but a dedicated FD/DVARS/censoring motion-control result is still missing."
+        if design_ready
+        else "A dedicated confound-control result layer with motion/outlier sensitivity outcomes is missing."
+    )
+    strict_motion_next_action = (
+        str(fmriprep_plan_payload.get("next_action"))
+        if fmriprep_plan_status and not fmriprep_control_ready
+        else (
+            "Supply authorized fMRIPrep outputs or run preprocessing to create "
+            "desc-confounds_timeseries.tsv files, then report whether dynamic "
+            "effects survive FD, DVARS, censoring, and run/order controls."
+        )
+        if source_availability_checked and source_confounds_available is False
+        else (
+            "Parse confounds for every subject/session/run, then report whether dynamic effects "
+            "survive FD, DVARS, censoring, and run/order controls."
+        )
     )
     return {
         "gate": _gate(
@@ -201,53 +254,8 @@ def _motion_gate(repo_root: Path) -> dict[str, Any]:
             strict_motion_status,
             fmriprep_control_ready,
             motion_evidence,
-            (
-                "Raw-BOLD image-derived motion/QC sensitivity is implemented, but "
-                "strict completion still requires fMRIPrep FD/DVARS/censoring motion proof."
-                if image_motion_ready and not fmriprep_control_ready
-                else
-                (
-                    "A source-availability check found no local/OpenNeuro raw/public "
-                    "derivative subject-level FD/DVARS/censoring confounds; full motion "
-                    "proof requires authorized fMRIPrep outputs or a local preprocessing run."
-                )
-                if source_availability_checked and source_confounds_available is False
-                else
-                (
-                    "Published aggregate FD/scrubbing context, run/session controls, and "
-                    "module-DVARS proxy controls exist, but a subject-level FD/DVARS/censoring "
-                    "motion-control result is still missing."
-                )
-                if partial_proxy_ready and published_motion_ready
-                else "Run/session and module-DVARS proxy controls exist, but a dedicated fMRIPrep FD/DVARS/censoring motion-control result is still missing."
-                if partial_proxy_ready
-                else "Published aggregate FD/scrubbing context exists, but a subject-level FD/DVARS/censoring motion-control result is still missing."
-                if published_motion_ready
-                else "Module-DVARS proxy controls exist, but a dedicated fMRIPrep FD/DVARS/censoring motion-control result is still missing."
-                if module_dvars_ready
-                else "Run/session design controls exist, but a dedicated FD/DVARS/censoring motion-control result is still missing."
-                if design_ready
-                else "A dedicated confound-control result layer with motion/outlier sensitivity outcomes is missing."
-            ),
-            (
-                (
-                    "Use the image-derived QC result as the current motion/signal-quality "
-                    "proxy layer, but do not mark the strict motion gate complete until "
-                    "authorized fMRIPrep FD/DVARS/censoring proof exists."
-                )
-                if image_motion_ready and not fmriprep_control_ready
-                else
-                (
-                    "Supply authorized fMRIPrep outputs or run preprocessing to create "
-                    "desc-confounds_timeseries.tsv files, then report whether dynamic "
-                    "effects survive FD, DVARS, censoring, and run/order controls."
-                )
-                if source_availability_checked and source_confounds_available is False
-                else (
-                    "Parse confounds for every subject/session/run, then report whether dynamic effects "
-                    "survive FD, DVARS, censoring, and run/order controls."
-                )
-            ),
+            strict_motion_missing,
+            strict_motion_next_action,
             (
                 "Motion/confound handling has an image-derived QC proxy layer, but strict thesis "
                 "completion still fails without fMRIPrep FD/DVARS/censoring proof."
@@ -272,6 +280,10 @@ def _motion_gate(repo_root: Path) -> dict[str, Any]:
         "motion_source_availability_path": _rel(source_availability_path, repo_root),
         "motion_source_availability_status": source_availability_status,
         "motion_source_confounds_available": source_confounds_available,
+        "fmriprep_motion_proof_plan_ready": fmriprep_plan_ready,
+        "fmriprep_motion_proof_plan_path": _rel(fmriprep_plan_path, repo_root),
+        "fmriprep_motion_proof_plan_status": fmriprep_plan_status or None,
+        "fmriprep_motion_proof_plan_blocker": fmriprep_plan_payload.get("blocker"),
         "image_motion_qc_ready": image_motion_ready,
         "image_motion_qc_path": _rel(image_motion_path, repo_root),
         "image_motion_qc_claim_status": image_motion_payload.get("claim_status"),
