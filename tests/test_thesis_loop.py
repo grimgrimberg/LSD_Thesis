@@ -50,14 +50,14 @@ def test_thesis_evidence_loop_exports_requested_external_source_plan() -> None:
         "hcp_young_adult",
         "schaefer_2018_local_global",
     }
-    assert by_source["girn_2026_mega_analysis"]["status"] == "planned comparison"
+    assert by_source["girn_2026_mega_analysis"]["status"] == "blocked_missing_dynamic_summary"
     assert by_source["girn_2026_mega_analysis"]["use_in_project"] == "Final external benchmark for C/D/E directionality."
-    assert by_source["dosenbach_siegel_ds006072_2025"]["status"] == "implemented external stress test"
+    assert by_source["dosenbach_siegel_ds006072_2025"]["status"] == "blocked_missing_local_ds006072_empirical_viewer"
     assert by_source["dosenbach_siegel_ds006072_2025"]["component"] == "psilocybin_ds006072"
-    assert by_source["markello_neuromaps_2022"]["status"] == "planned biological prior"
+    assert by_source["markello_neuromaps_2022"]["status"] == "blocked_missing_pet_receptor_prior"
     assert "receptor PET annotations" in by_source["markello_neuromaps_2022"]["key_evidence"]
-    assert by_source["hcp_young_adult"]["status"] == "planned graph prior"
-    assert by_source["schaefer_2018_local_global"]["status"] == "planned parcellation"
+    assert by_source["hcp_young_adult"]["status"] == "blocked_missing_hcp_structural_graph"
+    assert by_source["schaefer_2018_local_global"]["status"] == "blocked_missing_parcellation_viewers"
     assert by_source["schaefer_2018_local_global"]["target_layers"] == "C/D/E"
 
 

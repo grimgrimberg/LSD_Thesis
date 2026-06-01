@@ -186,7 +186,7 @@ def test_validation_doc_declares_current_quality_baseline_before_historical_note
 
     for expected in (
         "367 passed",
-        "80.11%",
+        "80.12%",
         "77 source files",
         "26776116578",
         "motion_confound_control_result",

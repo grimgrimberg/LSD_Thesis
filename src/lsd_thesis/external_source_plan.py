@@ -135,6 +135,14 @@ IMPLEMENTED_SOURCE_STATUS_LABELS = {
 }
 
 
+def _source_display_status(component: str, current_component_status: str, fallback: str) -> str:
+    if current_component_status == "unverified":
+        return fallback
+    if current_component_status.startswith("implemented"):
+        return IMPLEMENTED_SOURCE_STATUS_LABELS.get(component, current_component_status)
+    return current_component_status
+
+
 def external_source_by_id(source_id: str) -> dict[str, str]:
     for row in EXTERNAL_SOURCE_PLAN:
         if row["source_id"] == source_id:
@@ -151,7 +159,6 @@ def external_source_plan_rows(component_statuses: dict[str, Any] | None = None) 
             str(component_statuses.get(component) or "missing") if component_statuses else "unverified"
         )
         row["current_component_status"] = current_component_status
-        if current_component_status.startswith("implemented"):
-            row["status"] = IMPLEMENTED_SOURCE_STATUS_LABELS.get(component, current_component_status)
+        row["status"] = _source_display_status(component, current_component_status, str(row["status"]))
         rows.append(row)
     return rows
