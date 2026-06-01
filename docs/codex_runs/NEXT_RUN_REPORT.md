@@ -6,7 +6,7 @@ Date: 2026-06-01
 
 The branch `codex/thesis-evidence-pages` is synced with GitHub and the current quality baseline is green locally and in hosted CI.
 
-Current engineering health rating: `8.7/10`; release/thesis-submission readiness: `B`. The rating is higher because the dashboard HTML sink cleanup, generated-artifact policy, hosted CI gate, and several large-module splits are now landed. It is still capped by the missing external fMRIPrep FD/DVARS/censoring motion proof and residual large research modules.
+Current engineering health rating: `8.8/10`; release/thesis-submission readiness: `B`. The rating is higher because the dashboard HTML sink cleanup, generated-artifact policy, hosted CI gate, and several large-module splits are now landed. It is still capped by the missing external fMRIPrep FD/DVARS/censoring motion proof and residual large research modules.
 
 Current thesis-upgrade status:
 
@@ -25,6 +25,7 @@ The missing `project_phase` item is derived from the motion-proof blocker. It is
 - Dashboard empirical-viewer and run-02 music-run policy was split out of `src/lsd_thesis/web/app.py` into `src/lsd_thesis/web/empirical_viewer.py`.
 - Dashboard provenance/model-selection/validation/audit-status payload policy was split out of `src/lsd_thesis/web/app.py` into `src/lsd_thesis/web/status_payload.py`.
 - Dashboard structural-connectome graph payload policy was split out of `src/lsd_thesis/web/app.py` into `src/lsd_thesis/web/structural_dti.py`.
+- Dashboard PI-pitch, claim-status, and thesis-loop expansion payload policy was split out of `src/lsd_thesis/web/app.py` into `src/lsd_thesis/web/thesis_payload.py`.
 - `docs/architecture.md` now contains a compact dashboard/reporting map guarded by `tests/test_repo_hygiene.py`.
 - Dynamic mechanism prior/mask policy was split out of `src/lsd_thesis/dynamic_mechanism.py` into `src/lsd_thesis/dynamic_mechanism_priors.py`.
 - Dynamic robustness now uses the public `src/lsd_thesis/dynamic_mechanism_stats.py` helper interface instead of importing private stat helpers.
@@ -53,8 +54,8 @@ uv run python scripts\preview_dashboard.py --check-only --strict
 Observed results:
 
 - Ruff: all checks passed.
-- mypy: no issues found in 76 source files.
-- pytest: 351 passed, 4 warnings, total coverage 79.90%.
+- mypy: no issues found in 77 source files.
+- pytest: 355 passed, 4 warnings, total coverage 79.91%.
 - dashboard preview preflight: required files present, optional generated artifacts present, CV5 internal validation reported as 5/5 folds.
 
 Hosted CI after the Node-24 action-major bump:

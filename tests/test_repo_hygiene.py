@@ -144,5 +144,6 @@ def test_dashboard_reporting_architecture_map_mentions_current_web_modules() -> 
         "web/status_payload.py",
         "web/simulation_payload.py",
         "web/structural_dti.py",
+        "web/thesis_payload.py",
     ):
         assert expected in architecture

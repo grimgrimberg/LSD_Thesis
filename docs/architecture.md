@@ -58,6 +58,7 @@ flowchart TD
     STATUS["web/status_payload.py\nprovenance, model-selection, validation, and audit-status payloads"]
     EMP["web/empirical_viewer.py\npaired empirical viewer and guarded run-02 policy"]
     DTI["web/structural_dti.py\nstructural-connectome dashboard graph payload"]
+    THESIS["web/thesis_payload.py\nPI-pitch, claim-status, and thesis-loop payloads"]
     ART["web/artifacts.py\nallowlisted artifact links and artifact-path policy"]
     TEMPLATE["templates/dashboard.html\nlocal interactive dashboard shell"]
     REPORTS["reporting.py and publication modules\nmarkdown, figures, document artifacts"]
@@ -66,6 +67,7 @@ flowchart TD
     APP --> STATUS
     APP --> EMP
     APP --> DTI
+    APP --> THESIS
     APP --> ART
     APP --> TEMPLATE
     REPORTS --> ART
