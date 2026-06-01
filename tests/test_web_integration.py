@@ -1,5 +1,6 @@
 """Integration tests for the FastAPI web endpoints."""
 
+from collections.abc import Generator
 from pathlib import Path
 
 import pytest
@@ -15,6 +16,24 @@ pytestmark = pytest.mark.integration
 @pytest.fixture(scope="module")
 def client() -> TestClient:
     return TestClient(app)
+
+
+@pytest.fixture(scope="module", autouse=True)
+def html_artifact_fixtures() -> Generator[None]:
+    paths = [
+        ROOT / "results" / "stage_2" / "figures" / "sober_fit_history.html",
+        ROOT / "output" / "doc" / "thesis_microsite.html",
+    ]
+    created: list[Path] = []
+    for path in paths:
+        if path.exists():
+            continue
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text("<html><body>fixture artifact</body></html>", encoding="utf-8")
+        created.append(path)
+    yield
+    for path in created:
+        path.unlink(missing_ok=True)
 
 
 def test_dashboard_page_returns_html(client: TestClient) -> None:
