@@ -1,6 +1,6 @@
 {
   "schema_version": "reproducible_archive_manifest.v1",
-  "generated_at_utc": "2026-06-02T00:15:20.231335+00:00",
+  "generated_at_utc": "2026-06-02T00:57:37.795986+00:00",
   "python_version": "3.13.13",
   "platform": "Windows-10-10.0.19045-SP0",
   "artifact_count": 21,
@@ -32,8 +32,8 @@
     },
     {
       "path": "docs/THESIS_READINESS_GATES.md",
-      "bytes": 10509,
-      "sha256": "f343f92b4175e42cfb87471687ddacd02f24f6c6003e2d67838e9339e3d07409"
+      "bytes": 11506,
+      "sha256": "b694d8ddf9ff5b3e80341d2da164320f7c81e614a1c09aefe0022264590559a0"
     },
     {
       "path": "docs/METHODS_RESEARCH.md",
@@ -87,8 +87,8 @@
     },
     {
       "path": "results/thesis_upgrade/thesis_upgrade_status.json",
-      "bytes": 71316,
-      "sha256": "81bfdb5d128666089820a9723a47ae99a90365cf67cc1b5f0fff1866005163bc"
+      "bytes": 72112,
+      "sha256": "5ab5d15909a55fa5811e5b6dce7945e8509cfbf44fb24032da5a87e8eba6e681"
     },
     {
       "path": "results/thesis_upgrade/thesis_upgrade_status.md",

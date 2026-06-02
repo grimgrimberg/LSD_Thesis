@@ -1,6 +1,6 @@
 # Validation Notes
 
-Current status date: 2026-06-01
+Current status date: 2026-06-02
 
 ## Current Quality Baseline
 
@@ -18,15 +18,15 @@ uv run python scripts\preview_dashboard.py --check-only --strict
 Observed current results:
 
 - Ruff: all checks passed.
-- mypy: no issues found in 77 source files.
-- pytest: 383 passed, 4 warnings, total coverage 80.79%.
+- mypy: no issues found in 81 source files.
+- pytest: 399 passed, 4 warnings, total coverage 80.81%.
 - dashboard preview preflight: required files present, optional generated artifacts present, CV5 internal validation reported as 5/5 folds.
 
 Last completed hosted CI baseline when this section was written:
 
 - Branch: `codex/thesis-evidence-pages`.
-- Commit: `df26739` (`Tighten fMRIPrep motion proof gate`).
-- CI Quality run: `26780820028`.
+- Commit: `4950b64` (`Split dynamic repertoire scoring helper`).
+- CI Quality run: `26790956569`.
 - Result: success.
 
 Current thesis-upgrade status:
@@ -40,6 +40,8 @@ Current thesis-upgrade status:
 - Project phase: `research_demo_ready_not_completed_thesis`.
 
 The missing `project_phase` item is derived from the motion-proof blocker. Do not mark the strict motion gate complete from raw-BOLD image QC, published aggregate FD context, design controls, module-DVARS proxies, OpenNeuro filename hits, reachable derivative repositories, or archive manifests; those are useful context, not full fMRIPrep FD/DVARS/censoring proof.
+
+Motion-gate completion requires the whole strict predicate, not just an implemented-looking status string: parsed motion analysis, paired motion summary rows, implemented dedicated motion-control status, paired/merged control rows at the configured minimum, non-empty association rows, and FD, DVARS, plus censoring/outlier family coverage.
 
 ## Historical Validation Log
 

@@ -2,11 +2,11 @@
 
 ## Current State
 
-Date: 2026-06-01
+Date: 2026-06-02
 
 The branch `codex/thesis-evidence-pages` is synced with GitHub and the current quality baseline is green locally and in hosted CI.
 
-Current engineering health rating: `9.1/10`; release/thesis-submission readiness: `B`. The rating is higher because the dashboard HTML sink cleanup, generated-artifact policy, hosted CI gate, large-module splits, stricter motion-gate intake contract, and stricter thesis-gate semantics are now landed. It is still capped by the missing external fMRIPrep FD/DVARS/censoring motion proof, missing citable archive release/DOI, and residual large research modules.
+Current engineering health rating: `9.15/10`; release/thesis-submission readiness: `B`. The rating is slightly higher because the dashboard HTML sink cleanup, generated-artifact policy, hosted CI gate, large-module splits, stricter motion-gate intake contract, stricter thesis-gate semantics, and explicit fMRIPrep preflight status aliases are now landed. It is still capped by the missing external fMRIPrep FD/DVARS/censoring motion proof, missing citable archive release/DOI, and residual large research modules.
 
 Current thesis-upgrade status:
 
@@ -33,6 +33,7 @@ The missing `project_phase` item is derived from the motion-proof blocker. It is
 - Dynamic mechanism transition-state proxy summary was split out of `src/lsd_thesis/dynamic_mechanism.py` into `src/lsd_thesis/dynamic_mechanism_transitions.py`.
 - Dynamic mechanism hierarchy/routing proxy summary was split out of `src/lsd_thesis/dynamic_mechanism.py` into `src/lsd_thesis/dynamic_mechanism_hierarchy.py`, backed by shared connectivity helpers in `src/lsd_thesis/dynamic_mechanism_connectivity.py`.
 - Dynamic mechanism repertoire proxy summary was split out of `src/lsd_thesis/dynamic_mechanism.py` into `src/lsd_thesis/dynamic_mechanism_repertoire.py`, using the same shared connectivity/stat helpers and ds006072 scoring-lock coverage.
+- The thesis-upgrade motion component now exposes reviewer-facing `fmriprep_motion_preflight_*` aliases alongside the existing proof-plan fields, so the generated status and docs use the same preflight vocabulary.
 - Dynamic robustness now uses the public `src/lsd_thesis/dynamic_mechanism_stats.py` helper interface instead of importing private stat helpers.
 - Dynamic mechanism transition, hierarchy/routing, and repertoire summaries now share the public `collect_paired_metric_rows` helper for paired LSD-placebo row/delta aggregation.
 - Dashboard string-HTML cleanup is guarded by a repo-hygiene test: the dashboard template must not contain `.innerHTML`, `.outerHTML`, `insertAdjacentHTML`, or `dangerouslySetInnerHTML`.
@@ -55,6 +56,7 @@ The missing `project_phase` item is derived from the motion-proof blocker. It is
 - `docs/research/cross_dataset_thesis_loop.md` now describes ds006072, HCP structural, and PET receptor-prior layers as implemented stress-test/sensitivity layers with explicit negative/partial claim boundaries instead of blocked manifest-only gates.
 - The generated thesis-upgrade status now uses ready-language for the `fully_integrated` receptor/structural gate instead of saying the implemented HCP/PET sensitivity layers are still missing.
 - The thesis-upgrade strict motion gate now rejects implemented-looking motion-control status strings unless the evidence also has explicit paired-control readiness, enough paired/merged rows, and FD, DVARS, plus censor/outlier association-row coverage.
+- Regression coverage now asserts that even a non-empty, all-family motion association table remains incomplete below the configured paired/merged row minimum.
 - The current OpenNeuro ds003059 snapshot check is recorded in `results/confound_controls/fmriprep_motion_proof_plan.json`: 250 snapshot files, 15 T1w files, and 0 confound-like files.
 - The ds006072 unchanged-scoring lock now has an explicit `--refresh-scoring-lock` rebuild path for reviewed scoring-code refactors; stale scoring hashes still block by default.
 - The external source plan now derives implemented display labels from current component statuses instead of leaving HCP, PET receptor-prior, Schaefer/Yeo, and literature-benchmark rows as planned when their artifacts are present.
@@ -81,15 +83,15 @@ Observed results:
 
 - Ruff: all checks passed.
 - mypy: no issues found in 81 source files.
-- pytest: 398 passed, 4 warnings, total coverage 80.81%.
+- pytest: 399 passed, 4 warnings, total coverage 80.81%.
 - dashboard preview preflight: required files present, optional generated artifacts present, CV5 internal validation reported as 5/5 folds.
 
-Hosted CI after the Node-24 action-major bump:
+Latest hosted CI baseline:
 
-- `3d3370e` / `Bump actions to Node 24 majors`
-- CI Quality run `26759481922`
+- `4950b64` / `Split dynamic repertoire scoring helper`
+- CI Quality run `26790956569`
 - Result: success.
-- Node 20 action-runtime annotation: not present.
+- Node 20 action-runtime annotation: not present in the latest checked action-major baseline.
 
 Recent hosted-CI annotation addressed in this branch:
 

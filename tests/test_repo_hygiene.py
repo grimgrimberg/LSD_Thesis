@@ -222,14 +222,16 @@ def test_validation_doc_declares_current_quality_baseline_before_historical_note
     assert "Older pass notes below are retained as historical implementation evidence" in validation_doc
 
     for expected in (
-        "383 passed",
-        "80.79%",
-        "77 source files",
-        "26780820028",
+        "399 passed",
+        "80.81%",
+        "81 source files",
+        "26790956569",
         "motion_confound_control_result",
         "project_phase",
         "fMRIPrep FD/DVARS/censoring motion proof",
         "research_demo_ready_not_completed_thesis",
+        "parsed motion analysis",
+        "FD, DVARS, plus censoring/outlier family coverage",
     ):
         assert expected in validation_doc
 
@@ -275,6 +277,8 @@ def test_thesis_readiness_gates_doc_matches_current_gate_status() -> None:
         "Missing package requirements: `reproducible_archive_publication`",
         "fMRIPrep FD/DVARS/censoring motion proof",
         "research_demo_ready_not_completed_thesis",
+        "The generated `motion_confound_control_result` strict requirement is complete only when all of these predicates are true at once",
+        "The motion-control artifact has at least the same minimum merged dynamic-motion row count",
         "small-subject ds006072 Schaefer100/Yeo7 unchanged-scoring external stress test",
         "ds006072 top layer differs from the LSD reference top layer",
         "Implemented HCP structural graph and PET receptor-prior sensitivity layers exist",

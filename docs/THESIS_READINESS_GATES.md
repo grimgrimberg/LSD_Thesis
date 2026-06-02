@@ -12,7 +12,7 @@ It is not a receptor model, subjective-experience model, clinical model, pharmac
 
 ## Current Strict Completion Snapshot
 
-Current generated status as of 2026-06-01:
+Current generated status as of 2026-06-02:
 
 - Thesis readiness gates: `6/9`.
 - Strict completion gates: `4/6`.
@@ -65,6 +65,19 @@ The strict motion gate passes only after structured subject/session/run confound
 - motion outlier, censor, scrub, or non-steady-state columns where available
 - subject, session/condition, and run metadata in the path or an equivalent joinable subject/session/run record
 - at least four paired LSD and placebo/PLCB subject/run rows before the fMRIPrep preflight can treat parsed confounds as strict-gate-ready inputs
+
+The generated `motion_confound_control_result` strict requirement is complete only when all of these predicates are true at once:
+
+- `results/setting_seed/motion/motion_summary.json` has `motion_analysis_ready=true`.
+- The motion summary has `motion_pairing_ready=true`.
+- The motion summary has at least four paired LSD/placebo subject/run rows, or a higher configured minimum if present.
+- `results/confound_controls/motion_confound_control_status.json` has an implemented dedicated motion-control status.
+- The motion-control artifact has `motion_confound_control_ready=true`.
+- The motion-control artifact has `motion_pairing_ready=true`.
+- The motion-control artifact has at least the same minimum paired subject/run row count.
+- The motion-control artifact has at least the same minimum merged dynamic-motion row count.
+- The motion-control artifact has non-empty association rows.
+- Those association rows cover all three required motion families: FD, DVARS, and censoring/outlier burden.
 
 Author-provided long-form tables may use compact metadata values such as `001`, `LSD`, or `1`; the parser normalizes those to the dashboard join keys `sub-001`, `ses-LSD`, and `run-01`. Values that cannot be normalized or held constant per file remain unusable for strict joining.
 
