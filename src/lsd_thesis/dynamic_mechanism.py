@@ -18,14 +18,12 @@ from lsd_thesis.dynamic_mechanism_priors import (
     CONTROL_WEIGHT_FLOOR,
 )
 from lsd_thesis.dynamic_mechanism_priors import (
-    module_masks as _module_masks,
-)
-from lsd_thesis.dynamic_mechanism_priors import (
     module_prior_vectors as _module_prior_vectors,
 )
 from lsd_thesis.dynamic_mechanism_priors import (
     normalise_control_weights as _normalise_control_weights,
 )
+from lsd_thesis.dynamic_mechanism_repertoire import summarize_dynamic_repertoire
 from lsd_thesis.dynamic_mechanism_stats import (
     MECHANISM_METRIC_BOOTSTRAP_ALPHA,
     MECHANISM_METRIC_BOOTSTRAP_ITERATIONS,
@@ -35,16 +33,10 @@ from lsd_thesis.dynamic_mechanism_stats import (
     aggregate_metric_deltas as _aggregate_metric_deltas,
 )
 from lsd_thesis.dynamic_mechanism_stats import (
-    collect_paired_metric_rows as _collect_paired_metric_rows,
-)
-from lsd_thesis.dynamic_mechanism_stats import (
     finite_array as _finite_array,
 )
 from lsd_thesis.dynamic_mechanism_stats import (
     mean_std as _mean_std,
-)
-from lsd_thesis.dynamic_mechanism_stats import (
-    mean_step_distance as _mean_step_distance,
 )
 from lsd_thesis.dynamic_mechanism_stats import (
     run_metric_deltas as _run_metric_deltas,
@@ -57,11 +49,7 @@ from lsd_thesis.dynamic_mechanism_stats import (
 )
 from lsd_thesis.dynamic_mechanism_transitions import summarize_transition_proxy
 from lsd_thesis.graph import load_graph_config
-from lsd_thesis.metrics_literature import (
-    dynamic_fc_variance,
-    safe_corrcoef,
-    upper_triangle_vector,
-)
+from lsd_thesis.metrics_literature import safe_corrcoef
 
 PLACEBO_SESSION = "ses-PLCB"
 LSD_SESSION = "ses-LSD"
@@ -331,213 +319,11 @@ def _finite_mean(values: list[float] | np.ndarray) -> float:
     return float(np.mean(array))
 
 
-def _mean_between(fc_matrix: np.ndarray, source_mask: np.ndarray, target_mask: np.ndarray) -> float:
-    source_indices = np.flatnonzero(source_mask)
-    target_indices = np.flatnonzero(target_mask)
-    if len(source_indices) == 0 or len(target_indices) == 0:
-        return 0.0
-    same_group = np.array_equal(source_mask, target_mask)
-    values: list[float] = []
-    for source in source_indices:
-        for target in target_indices:
-            if source == target:
-                continue
-            if same_group and target <= source:
-                continue
-            values.append(float(fc_matrix[source, target]))
-    return _finite_mean(values)
-
-
-def _mean_within(fc_matrix: np.ndarray, mask: np.ndarray) -> float:
-    return _mean_between(fc_matrix, mask, mask)
-
-
-def _mean_between_networks(fc_matrix: np.ndarray, masks: dict[str, np.ndarray]) -> float:
-    values = [
-        _mean_between(fc_matrix, masks["sensory"], masks["transmodal"]),
-        _mean_between(fc_matrix, masks["sensory"], masks["gateway"]),
-        _mean_between(fc_matrix, masks["transmodal"], masks["gateway"]),
-    ]
-    return _finite_mean(values)
-
-
-def _mean_within_networks(fc_matrix: np.ndarray, masks: dict[str, np.ndarray]) -> float:
-    values = [
-        _mean_within(fc_matrix, masks["sensory"]),
-        _mean_within(fc_matrix, masks["transmodal"]),
-    ]
-    return _finite_mean(values)
-
-
-def _fc_path_length(time_series: np.ndarray, window_size: int | None = None) -> float:
-    array = np.asarray(time_series, dtype=float)
-    if window_size is None:
-        window_size = max(8, min(40, len(array) // 4))
-    if len(array) < window_size * 2:
-        return 0.0
-    step = max(1, window_size // 2)
-    vectors: list[np.ndarray] = []
-    for start in range(0, len(array) - window_size + 1, step):
-        vectors.append(upper_triangle_vector(safe_corrcoef(array[start : start + window_size])))
-    if len(vectors) < 2:
-        return 0.0
-    stacked = np.vstack(vectors)
-    return float(np.mean(np.linalg.norm(np.diff(stacked, axis=0), axis=1)))
-
-
 def _positive_fc_graph(fc_matrix: np.ndarray) -> np.ndarray:
     matrix = np.maximum(np.asarray(fc_matrix, dtype=float), 0.0)
     matrix = (matrix + matrix.T) / 2.0
     np.fill_diagonal(matrix, 0.0)
     return cast(np.ndarray, matrix)
-
-
-def _community_labels(masks: dict[str, np.ndarray]) -> np.ndarray:
-    labels = np.full(len(masks["all"]), 3, dtype=int)
-    labels[masks["sensory"]] = 0
-    labels[masks["transmodal"]] = 1
-    labels[masks["gateway"]] = 2
-    return labels
-
-
-def _weighted_modularity(matrix: np.ndarray, community_labels: np.ndarray) -> float:
-    graph = _positive_fc_graph(matrix)
-    total_weight = float(np.sum(graph))
-    if total_weight <= 1e-12:
-        return 0.0
-    degree = np.sum(graph, axis=1)
-    expected = np.outer(degree, degree) / total_weight
-    same_community = community_labels[:, None] == community_labels[None, :]
-    return float(np.sum((graph - expected) * same_community) / total_weight)
-
-
-def _mean_participation_coefficient(matrix: np.ndarray, community_labels: np.ndarray) -> float:
-    graph = _positive_fc_graph(matrix)
-    degree = np.sum(graph, axis=1)
-    coefficients: list[float] = []
-    for node_index, node_degree in enumerate(degree):
-        if node_degree <= 1e-12:
-            coefficients.append(0.0)
-            continue
-        community_fractions = []
-        for community in sorted(set(community_labels.tolist())):
-            community_weight = float(np.sum(graph[node_index, community_labels == community]))
-            community_fractions.append((community_weight / node_degree) ** 2)
-        coefficients.append(1.0 - float(np.sum(community_fractions)))
-    return _finite_mean(coefficients)
-
-
-def _global_efficiency(matrix: np.ndarray) -> float:
-    graph = _positive_fc_graph(matrix)
-    n_nodes = graph.shape[0]
-    if n_nodes < 2 or float(np.sum(graph)) <= 1e-12:
-        return 0.0
-    distances = np.full((n_nodes, n_nodes), np.inf, dtype=float)
-    np.fill_diagonal(distances, 0.0)
-    positive_edges = graph > 1e-12
-    distances[positive_edges] = 1.0 / graph[positive_edges]
-    for pivot in range(n_nodes):
-        distances = np.minimum(distances, distances[:, [pivot]] + distances[[pivot], :])
-    finite_distances = distances[np.isfinite(distances) & (distances > 1e-12)]
-    if len(finite_distances) == 0:
-        return 0.0
-    return float(np.mean(1.0 / finite_distances))
-
-
-def _dynamic_repertoire_metrics(modules: tuple[str, ...], time_series: np.ndarray, window_size: int | None = None) -> dict[str, float]:
-    fc_matrix = safe_corrcoef(time_series)
-    masks = _module_masks(modules)
-    communities = _community_labels(masks)
-    within = _mean_within_networks(fc_matrix, masks)
-    between = _mean_between_networks(fc_matrix, masks)
-    modularity_q = _weighted_modularity(fc_matrix, communities)
-    return {
-        "global_mean_fc": _finite_mean(upper_triangle_vector(fc_matrix)),
-        "within_network_segregation": within,
-        "between_network_integration": between,
-        "integration_segregation_balance": between - within,
-        "dynamic_fc_variance": dynamic_fc_variance(time_series, window_size=window_size),
-        "dynamic_fc_path_length": _fc_path_length(time_series, window_size=window_size),
-        "trajectory_step_distance": _mean_step_distance(time_series),
-        "graph_modularity_q": modularity_q,
-        "graph_modularity_reduction_proxy": -modularity_q,
-        "mean_participation_coefficient": _mean_participation_coefficient(fc_matrix, communities),
-        "global_efficiency": _global_efficiency(fc_matrix),
-    }
-
-
-def summarize_dynamic_repertoire(pairs: list[EmpiricalPair], *, window_size: int | None = None) -> dict[str, Any]:
-    metric_names = [
-        "global_mean_fc",
-        "within_network_segregation",
-        "between_network_integration",
-        "integration_segregation_balance",
-        "dynamic_fc_variance",
-        "dynamic_fc_path_length",
-        "trajectory_step_distance",
-        "graph_modularity_q",
-        "graph_modularity_reduction_proxy",
-        "mean_participation_coefficient",
-        "global_efficiency",
-    ]
-    def repertoire_metrics_for_pair(pair: EmpiricalPair) -> tuple[dict[str, float], dict[str, float]]:
-        placebo_normalized, lsd_normalized = _zscore_pair(pair.placebo, pair.lsd)
-        return (
-            _dynamic_repertoire_metrics(pair.modules, placebo_normalized, window_size=window_size),
-            _dynamic_repertoire_metrics(pair.modules, lsd_normalized, window_size=window_size),
-        )
-
-    rows, metric_deltas = _collect_paired_metric_rows(pairs, metric_names, repertoire_metrics_for_pair)
-
-    expected_direction = {
-        "global_mean_fc": "positive means globally stronger FC under LSD",
-        "within_network_segregation": "negative means weaker within-network segregation under LSD",
-        "between_network_integration": "positive means stronger between-network integration under LSD",
-        "integration_segregation_balance": "positive means integration increases relative to segregation under LSD",
-        "dynamic_fc_variance": "positive means a broader time-varying FC repertoire under LSD",
-        "dynamic_fc_path_length": "positive means larger movement through FC-state space under LSD",
-        "trajectory_step_distance": "positive means larger macro-trajectory steps under LSD",
-        "graph_modularity_q": "negative means lower graph modularity under LSD",
-        "graph_modularity_reduction_proxy": "positive means reduced graph modularity under LSD",
-        "mean_participation_coefficient": "positive means nodes distribute connectivity across more communities under LSD",
-        "global_efficiency": "positive means stronger graph-theoretic integration under LSD",
-    }
-    expected_sign = {
-        "global_mean_fc": 1,
-        "within_network_segregation": -1,
-        "between_network_integration": 1,
-        "integration_segregation_balance": 1,
-        "dynamic_fc_variance": 1,
-        "dynamic_fc_path_length": 1,
-        "trajectory_step_distance": 1,
-        "graph_modularity_q": -1,
-        "graph_modularity_reduction_proxy": 1,
-        "mean_participation_coefficient": 1,
-        "global_efficiency": 1,
-    }
-    aggregate_rows = _aggregate_metric_deltas(metric_deltas, expected_direction, expected_sign)
-    support_metrics = {
-        "within_network_segregation",
-        "between_network_integration",
-        "integration_segregation_balance",
-        "dynamic_fc_variance",
-        "dynamic_fc_path_length",
-        "graph_modularity_reduction_proxy",
-        "mean_participation_coefficient",
-        "global_efficiency",
-    }
-    support_components = [row["signed_effect_size"] for row in aggregate_rows if row["metric"] in support_metrics]
-    return {
-        "status": "implemented_first_pass",
-        "method": "paired dynamic-FC and integration/segregation proxy summaries",
-        "window_size": window_size,
-        "pair_count": len(rows),
-        "metric_deltas": aggregate_rows,
-        "run_metric_deltas": _run_metric_deltas(rows, metric_names, expected_direction, expected_sign),
-        "pair_rows": rows,
-        "support_score": float(np.mean(support_components)) if support_components else 0.0,
-        "claim_guardrail": "Dynamic repertoire metrics are descriptive FC/time-series proxies; they are not direct measures of subjective richness.",
-    }
 
 
 def _control_graph_matrix(modules: tuple[str, ...], pairs: list[EmpiricalPair]) -> tuple[np.ndarray, str]:

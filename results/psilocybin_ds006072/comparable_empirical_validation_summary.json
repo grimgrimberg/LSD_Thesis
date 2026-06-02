@@ -1,6 +1,6 @@
 {
   "schema_version": "ds006072_external_validation.v1",
-  "generated_at_utc": "2026-06-01T23:59:47.557529+00:00",
+  "generated_at_utc": "2026-06-02T00:31:01.439777+00:00",
   "dataset_id": "ds006072",
   "primary_contrast": "psilocybin_vs_active_control_mtp",
   "viewer_root": "results/psilocybin_ds006072/parcellations/schaefer_100_yeo_7/empirical_viewer",
@@ -39,8 +39,8 @@
       "scoring_code_files.dynamic_mechanism": {
         "path": "src/lsd_thesis/dynamic_mechanism.py",
         "exists": true,
-        "expected_sha256": "e456349ea18fda5cd83167bb253e5665fa5bb2dbd4abbf0a7b11fd33ceb701bf",
-        "current_sha256": "e456349ea18fda5cd83167bb253e5665fa5bb2dbd4abbf0a7b11fd33ceb701bf",
+        "expected_sha256": "c3b8733f5c2b5638c1873b0d870d29cd697dc764b62a57af4fd0e992baaa26d4",
+        "current_sha256": "c3b8733f5c2b5638c1873b0d870d29cd697dc764b62a57af4fd0e992baaa26d4",
         "verified": true
       },
       "scoring_code_files.dynamic_mechanism_connectivity": {
@@ -62,6 +62,13 @@
         "exists": true,
         "expected_sha256": "1783a63f324e8dc7f1d8e4b6dcd6747756f7c9c15e3e0be2034262d5ac601bf3",
         "current_sha256": "1783a63f324e8dc7f1d8e4b6dcd6747756f7c9c15e3e0be2034262d5ac601bf3",
+        "verified": true
+      },
+      "scoring_code_files.dynamic_mechanism_repertoire": {
+        "path": "src/lsd_thesis/dynamic_mechanism_repertoire.py",
+        "exists": true,
+        "expected_sha256": "fe4788dbc06941c79db5199bed84b8ee8425591f7938dde5c2e5bf6328978150",
+        "current_sha256": "fe4788dbc06941c79db5199bed84b8ee8425591f7938dde5c2e5bf6328978150",
         "verified": true
       },
       "scoring_code_files.dynamic_mechanism_stats": {
@@ -156,7 +163,7 @@
   "summary": {
     "schema_version": 3,
     "analysis_status": "implemented_first_pass",
-    "generated_at_utc": "2026-06-01T23:59:53.864704+00:00",
+    "generated_at_utc": "2026-06-02T00:31:10.490140+00:00",
     "inference_metadata": {
       "metric_ci_alpha": 0.05,
       "metric_bootstrap_iterations": 1024,

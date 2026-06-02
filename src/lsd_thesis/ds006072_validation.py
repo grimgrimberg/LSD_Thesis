@@ -14,6 +14,7 @@ import lsd_thesis.dynamic_mechanism as dynamic_mechanism_module
 import lsd_thesis.dynamic_mechanism_connectivity as dynamic_mechanism_connectivity_module
 import lsd_thesis.dynamic_mechanism_hierarchy as dynamic_mechanism_hierarchy_module
 import lsd_thesis.dynamic_mechanism_priors as dynamic_mechanism_priors_module
+import lsd_thesis.dynamic_mechanism_repertoire as dynamic_mechanism_repertoire_module
 import lsd_thesis.dynamic_mechanism_stats as dynamic_mechanism_stats_module
 import lsd_thesis.dynamic_mechanism_transitions as dynamic_mechanism_transitions_module
 from lsd_thesis.dynamic_mechanism import build_dynamic_mechanism_summary, load_empirical_pairs
@@ -294,6 +295,7 @@ def _write_scoring_spec(repo_root: Path, output_dir: Path) -> dict[str, Any]:
         "dynamic_mechanism_connectivity": Path(dynamic_mechanism_connectivity_module.__file__ or ""),
         "dynamic_mechanism_hierarchy": Path(dynamic_mechanism_hierarchy_module.__file__ or ""),
         "dynamic_mechanism_priors": Path(dynamic_mechanism_priors_module.__file__ or ""),
+        "dynamic_mechanism_repertoire": Path(dynamic_mechanism_repertoire_module.__file__ or ""),
         "dynamic_mechanism_stats": Path(dynamic_mechanism_stats_module.__file__ or ""),
         "dynamic_mechanism_transitions": Path(dynamic_mechanism_transitions_module.__file__ or ""),
     }

@@ -130,19 +130,27 @@ def test_dynamic_mechanism_uses_public_paired_metric_collector() -> None:
     hierarchy_source = (repo_root / "src" / "lsd_thesis" / "dynamic_mechanism_hierarchy.py").read_text(
         encoding="utf-8"
     )
+    repertoire_source = (repo_root / "src" / "lsd_thesis" / "dynamic_mechanism_repertoire.py").read_text(
+        encoding="utf-8"
+    )
     transition_source = (repo_root / "src" / "lsd_thesis" / "dynamic_mechanism_transitions.py").read_text(
         encoding="utf-8"
     )
 
     assert "from lsd_thesis.dynamic_mechanism_transitions import summarize_transition_proxy" in dynamic_source
     assert "from lsd_thesis.dynamic_mechanism_hierarchy import summarize_hierarchy_routing" in dynamic_source
+    assert "from lsd_thesis.dynamic_mechanism_repertoire import summarize_dynamic_repertoire" in dynamic_source
     assert "def summarize_transition_proxy" not in dynamic_source
     assert "def summarize_hierarchy_routing" not in dynamic_source
+    assert "def summarize_dynamic_repertoire" not in dynamic_source
     assert "collect_paired_metric_rows" in hierarchy_source
+    assert "collect_paired_metric_rows" in repertoire_source
     assert "collect_paired_metric_rows" in transition_source
     assert "rows: list[dict[str, Any]] = []" not in hierarchy_source
+    assert "rows: list[dict[str, Any]] = []" not in repertoire_source
     assert "rows: list[dict[str, Any]] = []" not in transition_source
     assert "metric_deltas: dict[str, list[float]] = {metric: [] for metric in metric_names}" not in hierarchy_source
+    assert "metric_deltas: dict[str, list[float]] = {metric: [] for metric in metric_names}" not in repertoire_source
     assert "metric_deltas: dict[str, list[float]] = {metric: [] for metric in metric_names}" not in transition_source
 
 
@@ -171,6 +179,7 @@ def test_architecture_map_mentions_current_dynamic_mechanism_modules() -> None:
         "dynamic_mechanism_connectivity.py",
         "dynamic_mechanism_hierarchy.py",
         "dynamic_mechanism_priors.py",
+        "dynamic_mechanism_repertoire.py",
         "dynamic_mechanism_stats.py",
         "dynamic_mechanism_transitions.py",
     ):
