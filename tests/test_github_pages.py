@@ -95,23 +95,28 @@ def test_build_github_pages_site_makes_pitch_story_dashboard_methods_and_appendi
     module.write_motion_outputs = lambda repo_root, roots=None: motion_events.append(
         ("summary", Path(repo_root), tuple(Path(item) for item in roots or ()))
     )
-    module.write_motion_source_availability = lambda repo_root, roots=None: motion_events.append(
-        ("source", Path(repo_root), tuple(Path(item) for item in roots or ()))
+    module.write_motion_source_availability = lambda repo_root, roots=None, fetch_remote=False: motion_events.append(
+        ("source", Path(repo_root), tuple(Path(item) for item in roots or ()), fetch_remote)
     )
-    module.write_fmriprep_motion_proof_plan = lambda repo_root, roots=None: motion_events.append(
-        ("preflight", Path(repo_root), tuple(Path(item) for item in roots or ()))
+    module.write_fmriprep_motion_proof_plan = lambda repo_root, roots=None, fetch_remote=False: motion_events.append(
+        ("preflight", Path(repo_root), tuple(Path(item) for item in roots or ()), fetch_remote)
     )
     export_dir = claim_dir / "exports"
     export_dir.mkdir()
     (export_dir / "thesis_evidence_loop_tables.xlsx").write_bytes(b"xlsx")
 
-    outputs = module.build_github_pages_site(tmp_path, tmp_path / "_site", motion_roots=(motion_root,))
+    outputs = module.build_github_pages_site(
+        tmp_path,
+        tmp_path / "_site",
+        motion_roots=(motion_root,),
+        fetch_motion_remote=True,
+    )
 
     assert outputs["index"] == tmp_path / "_site" / "index.html"
     assert motion_events == [
         ("summary", tmp_path, (motion_root,)),
-        ("source", tmp_path, (motion_root,)),
-        ("preflight", tmp_path, (motion_root,)),
+        ("source", tmp_path, (motion_root,), True),
+        ("preflight", tmp_path, (motion_root,), True),
     ]
     assert outputs["thesis"] == tmp_path / "_site" / "thesis.html"
     assert outputs["dashboard"] == tmp_path / "_site" / "dashboard" / "index.html"

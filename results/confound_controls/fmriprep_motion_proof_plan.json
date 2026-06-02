@@ -1,6 +1,6 @@
 {
   "schema_version": "fmriprep_motion_proof_plan.v1",
-  "generated_at_utc": "2026-06-02T01:41:58.475992+00:00",
+  "generated_at_utc": "2026-06-02T01:58:20.911884+00:00",
   "analysis_status": "blocked_derivative_snapshot_not_valid_raw_fmriprep_input",
   "fmriprep_motion_proof_ready": false,
   "fmriprep_preflight_ready": false,
@@ -80,10 +80,10 @@
     "configured_motion_roots": []
   },
   "remote_openneuro_snapshot": {
-    "checked": false,
-    "file_count": 0,
-    "t1w_file_count": 0,
-    "t1w_subject_count": 0,
+    "checked": true,
+    "file_count": 250,
+    "t1w_file_count": 15,
+    "t1w_subject_count": 15,
     "confound_like_file_count": 0,
     "confound_like_files": [],
     "error": null

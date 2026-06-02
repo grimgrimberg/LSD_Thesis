@@ -382,6 +382,7 @@ def build_github_pages_site(
     site_dir: Path | None = None,
     *,
     motion_roots: Sequence[str | Path] | None = None,
+    fetch_motion_remote: bool = False,
 ) -> dict[str, Path]:
     repo_root = repo_root.resolve()
     site = _prepare_site_dir(repo_root, site_dir or repo_root / "_site")
@@ -391,9 +392,17 @@ def build_github_pages_site(
     export_thesis_loop_tables(repo_root, repo_root / "results" / "thesis_evidence_loop" / "exports")
     write_cortical_map_alignment_status(repo_root)
     write_motion_outputs(repo_root=repo_root, roots=resolved_motion_roots)
-    if resolved_motion_roots:
-        write_motion_source_availability(repo_root=repo_root, roots=resolved_motion_roots)
-    write_fmriprep_motion_proof_plan(repo_root, roots=resolved_motion_roots)
+    if resolved_motion_roots or fetch_motion_remote:
+        write_motion_source_availability(
+            repo_root=repo_root,
+            roots=resolved_motion_roots,
+            fetch_remote=fetch_motion_remote,
+        )
+    write_fmriprep_motion_proof_plan(
+        repo_root,
+        roots=resolved_motion_roots,
+        fetch_remote=fetch_motion_remote,
+    )
     write_motion_confound_control_status(repo_root)
     write_design_confound_control_status(repo_root)
     write_module_dvars_control_status(repo_root)
@@ -576,12 +585,18 @@ def main() -> None:
         dest="motion_roots",
         help="Additional/local root to search for authorized fMRIPrep confounds before publishing motion artifacts.",
     )
+    parser.add_argument(
+        "--fetch-motion-remote",
+        action="store_true",
+        help="Query OpenNeuro snapshot metadata before publishing motion-proof artifacts.",
+    )
     args = parser.parse_args()
 
     outputs = build_github_pages_site(
         args.repo_root,
         args.site_dir,
         motion_roots=[Path(item) for item in args.motion_roots] if args.motion_roots else None,
+        fetch_motion_remote=args.fetch_motion_remote,
     )
     print(json.dumps({name: path.as_posix() for name, path in outputs.items()}, indent=2), flush=True)
 
