@@ -220,7 +220,16 @@ def test_resolve_artifact_path_allows_report_and_figure_outputs(tmp_path: Path) 
     assert _resolve_artifact_path("output/doc/defense_presentation.pptx", repo_root=repo_root) is not None
     assert _resolve_artifact_path("output/doc/figures/stage1_metric_shift.png", repo_root=repo_root) is not None
     assert _resolve_artifact_path("results/stage_2/figures/group_metrics.html", repo_root=repo_root) is not None
+    assert _resolve_artifact_path("results/dynamic_mechanism_ranking/summary.json", repo_root=repo_root) is not None
     assert _resolve_artifact_path("results/dynamic_mechanism_ranking/figures/dmdc_fold_rmse.html", repo_root=repo_root) is not None
+    assert _resolve_artifact_path("results/cortical_maps/cortical_map_alignment_status.json", repo_root=repo_root) is not None
+    assert (
+        _resolve_artifact_path(
+            "results/cortical_maps/neuromaps_annotations/schaefer100_from_mni_space-fsLR_den-32k_hemi-L_label.gii",
+            repo_root=repo_root,
+        )
+        is not None
+    )
 
 
 def test_resolve_artifact_path_rejects_unsafe_artifact_extensions(tmp_path: Path) -> None:

@@ -1,6 +1,6 @@
 {
   "schema_version": "design_confound_control.v1",
-  "generated_at_utc": "2026-06-02T07:34:22.223335+00:00",
+  "generated_at_utc": "2026-06-02T07:51:33.581799+00:00",
   "analysis_status": "implemented_design_confound_control_result",
   "design_confound_control_ready": true,
   "source_paths": {
