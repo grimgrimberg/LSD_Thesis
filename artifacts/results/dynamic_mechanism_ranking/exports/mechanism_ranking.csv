@@ -1,0 +1,6 @@
+rank,layer,mechanism,status,score,evidence
+1,C,hierarchy_routing_layer,implemented_first_pass,0.3326057058836129,"sensory-transmodal, associative, thalamic-gateway, and hierarchy-flattening FC proxies"
+2,E,receptor_informed_network_control_energy,implemented_proxy_control_energy,0.17507846806066468,"finite-horizon control energy with receptor, hierarchy, transmodal, random, and degree-control profiles"
+3,D,dynamic_repertoire_layer,implemented_first_pass,0.1506187252761158,"integration, segregation, graph modularity, participation, dynamic-FC variance, and trajectory-step proxies"
+4,A,transition_state_proxy,implemented_first_pass,0.1489060941111875,"state occupancy, transition entropy, transition rate, dwell/barrier, and step-distance proxies"
+5,B,dmdc_condition_interaction,implemented_negative_control_baseline,-0.07406369817533776,"leave-one-subject-out one-step RMSE change; retained as a predictive baseline, not control-energy evidence"

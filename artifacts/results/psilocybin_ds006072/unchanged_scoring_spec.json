@@ -1,6 +1,6 @@
 {
   "schema_version": "ds006072_external_validation.v1",
-  "generated_at_utc": "2026-05-31T09:37:38.072958+00:00",
+  "generated_at_utc": "2026-06-02T08:07:47.811715+00:00",
   "source_dataset_id": "ds003059",
   "external_dataset_id": "ds006072",
   "fixed_rule": "Run lsd_thesis.dynamic_mechanism.build_dynamic_mechanism_summary on ds006072 empirical viewer records without changing mechanism weights, metric direction rules, target files, or ranking code after seeing psilocybin results.",
@@ -20,15 +20,51 @@
     "literature_targets": {
       "path": "configs/targets/empirical_lsd_signatures.yaml",
       "exists": true,
-      "sha256": "dbf1abab475f86726a51667ac754ed8a602ecabffaccc15c6e1cdb52919a9eb7"
+      "sha256": "d59c44c1c154be47c2d84d3ad8a273088bc5e6c5499a87c9262077612d4edcd0"
     }
   },
   "scoring_code_files": {
     "dynamic_mechanism": {
       "path": "src/lsd_thesis/dynamic_mechanism.py",
       "exists": true,
-      "sha256": "292ec98c8815e5fc0840fb9e6ae974e6636ccab4fbfe26108b32dee77e0a21c1",
+      "sha256": "c3b8733f5c2b5638c1873b0d870d29cd697dc764b62a57af4fd0e992baaa26d4",
       "entrypoint": "lsd_thesis.dynamic_mechanism.build_dynamic_mechanism_summary"
+    },
+    "dynamic_mechanism_connectivity": {
+      "path": "src/lsd_thesis/dynamic_mechanism_connectivity.py",
+      "exists": true,
+      "sha256": "c75c3b94ed39831f5b6754dc84d5a8863cc1c9d3c5dbe7a0d9c1a7b8928b8b8b",
+      "entrypoint": null
+    },
+    "dynamic_mechanism_hierarchy": {
+      "path": "src/lsd_thesis/dynamic_mechanism_hierarchy.py",
+      "exists": true,
+      "sha256": "3c4151740bb719a655671a80bc4e7246590fb27c52adad94b373ee8647a614f1",
+      "entrypoint": null
+    },
+    "dynamic_mechanism_priors": {
+      "path": "src/lsd_thesis/dynamic_mechanism_priors.py",
+      "exists": true,
+      "sha256": "1783a63f324e8dc7f1d8e4b6dcd6747756f7c9c15e3e0be2034262d5ac601bf3",
+      "entrypoint": null
+    },
+    "dynamic_mechanism_repertoire": {
+      "path": "src/lsd_thesis/dynamic_mechanism_repertoire.py",
+      "exists": true,
+      "sha256": "fe4788dbc06941c79db5199bed84b8ee8425591f7938dde5c2e5bf6328978150",
+      "entrypoint": null
+    },
+    "dynamic_mechanism_stats": {
+      "path": "src/lsd_thesis/dynamic_mechanism_stats.py",
+      "exists": true,
+      "sha256": "3a82bf05d2ecbb6108eb565cde8d8faf91f727b03872327fd8e0a95817c6d35b",
+      "entrypoint": null
+    },
+    "dynamic_mechanism_transitions": {
+      "path": "src/lsd_thesis/dynamic_mechanism_transitions.py",
+      "exists": true,
+      "sha256": "9912895059422095756d5fa428021f1b4dee8680ad396150eb90e574cd346393",
+      "entrypoint": null
     }
   },
   "claim_guardrail": "This locks the scoring rule. It is not an external validation result until paired ds006072 viewer records exist."

@@ -1,0 +1,9 @@
+module,receptor_weight,source,projection_status,source_classes,parcel_count
+visual,-0.508477621194961,Hansen et al. Schaefer-100 PET 5-HT2A maps; z-scored and sample-size weighted,direct_schaefer_yeo7_class,visual,15
+auditory,-0.06220768962652352,Hansen et al. Schaefer-100 PET 5-HT2A maps; z-scored and sample-size weighted,imputed_from_cortical_schaefer_yeo7_classes,somatomotor,15
+salience,0.09641827430412468,Hansen et al. Schaefer-100 PET 5-HT2A maps; z-scored and sample-size weighted,direct_schaefer_yeo7_class,salience_ventral_attention,14
+default_mode,0.4296754306995165,Hansen et al. Schaefer-100 PET 5-HT2A maps; z-scored and sample-size weighted,direct_schaefer_yeo7_class,default,14
+executive_frontoparietal,0.4078820387740456,Hansen et al. Schaefer-100 PET 5-HT2A maps; z-scored and sample-size weighted,direct_schaefer_yeo7_class,control,28
+limbic_affective,-0.7304092352430033,Hansen et al. Schaefer-100 PET 5-HT2A maps; z-scored and sample-size weighted,direct_schaefer_yeo7_class,limbic,14
+thalamic_gateway,-5.695444116327053e-16,Hansen et al. Schaefer-100 PET 5-HT2A maps; z-scored and sample-size weighted,imputed_from_cortical_schaefer_yeo7_classes,visual|somatomotor|salience_ventral_attention|default|control|limbic,100
+sensorimotor,-0.06220768962652352,Hansen et al. Schaefer-100 PET 5-HT2A maps; z-scored and sample-size weighted,direct_schaefer_yeo7_class,somatomotor,15

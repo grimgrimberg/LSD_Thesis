@@ -19,7 +19,7 @@ This project uses AI, control theory, and interactive visualization to study how
 | B | LSD-placebo differences can be summarized as macro-dynamic changes in transition, integration, and control-like metrics. | Supported as empirical proxy | The claim stays at module/dynamics level and does not claim subjective experience or receptor causality. |
 | C | AI/ML benchmarks can test whether dynamic windows carry condition information without window-random leakage. | Supported internally | Subject-disjoint CV and no window-random reporting are the required standard. |
 | D | Receptor, DTI, myelin, functional-gradient, and transcriptomic maps provide useful priors for interpretation. | Exploratory | Current alignments are shown with p/q/CI gates and are not presented as proof. |
-| E | A strong receptor/myelin/gradient mechanism is established. | Not supported yet | Requires higher-resolution Schaefer/Yeo or Glasser alignment, spatial nulls, and external replication. |
+| E | A strong receptor/myelin/gradient mechanism is established. | Not supported yet | Requires higher-resolution Schaefer/Yeo or Glasser alignment, spatial nulls, and external stress-test support. |
 | F | The project externally validates LSD dynamics in psilocybin datasets. | Blocked / future work | Requires authorized comparable data and unchanged scoring. Current Lyons/PsiConnect references are context, not validation. |
 
 ## What should be emphasized to a PI
@@ -35,7 +35,7 @@ This project uses AI, control theory, and interactive visualization to study how
 - Do not claim receptor, DTI, myelin, gradient, or AHBA alignment proves mechanism.
 - Do not claim the model simulates subjective psychedelic experience.
 - Do not claim clinical validation or therapeutic prediction.
-- Do not claim psilocybin replication until comparable data are ingested and scored unchanged.
+- Do not treat comparable psilocybin data as replication evidence by itself; unchanged scoring is an external stress test, and top-layer mismatches remain negative or partial evidence.
 
 ## Falsification standards
 

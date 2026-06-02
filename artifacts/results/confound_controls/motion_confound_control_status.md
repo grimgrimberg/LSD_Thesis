@@ -9,7 +9,7 @@ Motion/confound handling remains a limitation until this artifact contains imple
 
 ## Blocker
 
-Local repo search, OpenNeuro raw snapshot metadata, and public OpenNeuroDerivatives repo checks did not expose subject-level FD/DVARS/censoring confounds.
+Local repo search, OpenNeuro ds003059 snapshot metadata, and public OpenNeuroDerivatives repo checks did not verify subject-level FD/DVARS/censoring confounds.
 
 ## Required local input contract
 

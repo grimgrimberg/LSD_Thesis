@@ -1,0 +1,23 @@
+field,value
+export_generated_at_utc,2026-05-19T20:31:28.974334+00:00
+summary_generated_at_utc,2026-05-19T20:28:11.635225+00:00
+source_summary_path,results/dynamic_mechanism_ranking/summary.json
+dataset_scope,cached ds003059 paired placebo/LSD empirical viewer records
+source_viewer_root,results/stage_2/empirical_viewer
+paired_subject_run_records,30
+subject_count,15
+runs_used_for_ai_ml,"run-01, run-03"
+transition_proxy_support_score,0.1489060941111875
+hierarchy_routing_support_score,0.3326057058836129
+dynamic_repertoire_support_score,0.1506187252761158
+network_control_energy_support_score,0.17507846806066468
+network_control_graph_source,configs/graphs/macro_modules.yaml macro-module proxy graph; not a subject structural connectome
+network_control_receptor_prior_source,coarse module-level proxy prior from receptor-gradient model config; not a PET-derived receptor map
+dmdc_relative_improvement_pct_mean,-5.6614303662068334e-05
+dmdc_condition_interaction_relative_improvement_pct_mean,-0.07406369817533776
+validation_interpretation,"A/B/C/D are exploratory proxy layers; judge claims by held-out RMSE, signed effect sizes, sign consistency, and network-control null comparisons."
+claim_guardrail,"These are AI/ML surrogate results for ranking macro-dynamic mechanisms; they do not establish receptor-level, clinical, external-validity, or subjective-experience claims."
+limitation_1,Run-02 music is available in the fMRI explorer but is not part of the current A+B+C+D+E ranking summary.
+limitation_2,DMDc is not evidence for controlled dynamics unless the condition-interaction variant improves held-out prediction.
+limitation_3,"C and D are coarse FC proxy layers, not direct biological mechanism tests."
+limitation_4,E uses a proxy graph and proxy receptor priors until structural-connectome and PET receptor-map inputs are added.

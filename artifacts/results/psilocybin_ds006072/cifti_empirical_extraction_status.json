@@ -1,13 +1,18 @@
 {
   "schema_version": "ds006072_cifti_empirical_extraction.v1",
-  "generated_at_utc": "2026-05-31T09:39:32.906035+00:00",
-  "analysis_status": "implemented_ds006072_cifti_structure_family_empirical_viewer",
+  "generated_at_utc": "2026-06-02T08:09:25.521315+00:00",
+  "analysis_status": "implemented_ds006072_schaefer100_parcellation_empirical_viewer",
   "cifti_empirical_viewer_ready": true,
+  "schaefer100_empirical_viewer_ready": true,
+  "stronger_external_validation_ready": true,
   "minimum_subjects_required": 3,
-  "minimum_payloads_local_ready": false,
+  "minimum_payloads_local_ready": true,
   "subject_view_count": 3,
+  "schaefer100_subject_view_count": 3,
   "viewer_root": "results/psilocybin_ds006072/empirical_viewer",
   "subject_views_dir": "results/psilocybin_ds006072/empirical_viewer/subject_views",
+  "schaefer100_viewer_root": "results/psilocybin_ds006072/parcellations/schaefer_100_yeo_7/empirical_viewer",
+  "schaefer100_subject_views_dir": "results/psilocybin_ds006072/parcellations/schaefer_100_yeo_7/empirical_viewer/subject_views",
   "module_names": [
     "cortex_left",
     "cortex_right",
@@ -19,6 +24,8 @@
     "ventral_diencephalon"
   ],
   "module_contract": "CIFTI brain-structure-family 8-module external stress test",
+  "schaefer100_module_contract": "CIFTI fsLR cortex Schaefer100/Yeo7 parcel external validation",
+  "schaefer100_parcellation_id": "schaefer_100_yeo_7",
   "resampling_rule": "linear_resample_each_condition_to_within_subject_minimum_timepoint_count",
   "blocker": "",
   "next_commands": [
@@ -26,8 +33,27 @@
     ".\\.venv\\Scripts\\python.exe scripts\\build_ds006072_cifti_empirical_viewer.py --execute",
     ".\\.venv\\Scripts\\python.exe scripts\\build_ds006072_comparable_validation.py"
   ],
-  "claim_status": "empirical_viewer_ready_for_unchanged_scoring",
-  "claim_guardrail": "This is real ds006072 CIFTI extraction into an empirical viewer, but it uses broad CIFTI structure families. It is stronger than manifest readiness and weaker than a surface/parcellation-matched replication.",
+  "claim_status": "schaefer100_empirical_viewer_ready_for_unchanged_scoring",
+  "claim_guardrail": "This is real ds006072 CIFTI extraction into an empirical viewer, but it uses broad CIFTI structure families. It is stronger than manifest readiness and weaker than a surface/parcellation-matched stress test unless schaefer100_empirical_viewer_ready is true; it is not replication evidence by itself.",
   "execute_requested": false,
-  "extraction_result": null
+  "extraction_result": {
+    "subjects_written": [],
+    "subject_view_count": 0,
+    "condition_file_count": 0,
+    "viewer_root": "results/psilocybin_ds006072/empirical_viewer",
+    "subject_views_dir": "results/psilocybin_ds006072/empirical_viewer/subject_views",
+    "extraction_rows": []
+  },
+  "schaefer100_extraction_result": {
+    "subjects_written": [],
+    "subject_view_count": 0,
+    "condition_file_count": 0,
+    "viewer_root": "results/psilocybin_ds006072/parcellations/schaefer_100_yeo_7/empirical_viewer",
+    "subject_views_dir": "results/psilocybin_ds006072/parcellations/schaefer_100_yeo_7/empirical_viewer/subject_views",
+    "module_contract": "CIFTI fsLR cortex Schaefer100/Yeo7 parcel external validation",
+    "parcellation_id": "schaefer_100_yeo_7",
+    "extraction_rows": []
+  },
+  "extraction_result_source": "existing_status_cache",
+  "schaefer100_extraction_result_source": "existing_status_cache"
 }

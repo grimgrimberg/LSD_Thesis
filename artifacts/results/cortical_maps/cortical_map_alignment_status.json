@@ -1,6 +1,6 @@
 {
   "schema_version": "external_cortical_maps.v1",
-  "generated_at_utc": "2026-05-31T09:39:14.454956+00:00",
+  "generated_at_utc": "2026-06-02T08:08:46.715133+00:00",
   "analysis_status": "implemented_module_level_external_map_alignment",
   "module_contract": [
     "visual",
@@ -17,8 +17,8 @@
       "map_id": "pet_5ht2a_receptor_prior",
       "family": "receptor",
       "label": "PET 5-HT2A receptor prior",
-      "source_status": "reused_committed_derived_snapshot_missing_local_pet_csv",
-      "source_path": "results/cortical_maps/cortical_map_alignment_status.json",
+      "source_status": "local_hansen_pet_projection_loaded",
+      "source_path": "results/receptor_priors/fs5ht_5ht2a_macro_modules.csv",
       "values": {
         "visual": 0.19130639388956344,
         "auditory": 0.5759937746212638,
@@ -29,7 +29,7 @@
         "thalamic_gateway": 0.629617179406105,
         "sensorimotor": 0.5759937746212638
       },
-      "interpretation": "Derived PET prior snapshot reused because the local ignored CSV was not present.",
+      "interpretation": "Higher values approximate stronger projected 5-HT2A PET prior at the macro-module level.",
       "source_reference_ids": [
         "neuromaps"
       ]

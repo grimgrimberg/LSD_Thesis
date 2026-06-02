@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "analysis_status": "implemented_first_pass_robustness",
-  "generated_at_utc": "2026-05-20T07:15:23.124443+00:00",
+  "generated_at_utc": "2026-06-01T11:37:25.459604+00:00",
   "source_viewer_root": "results/stage_2/empirical_viewer",
   "pair_count": 30,
   "subject_count": 15,
@@ -7972,7 +7972,7 @@
     ],
     "claim_guardrail": "D window-size sensitivity only addresses dynamic-FC parameter dependence inside the current 8-module proxy space."
   },
-  "claim_guardrail": "These robustness checks are in-sample stress tests on the cached LSD data. They do not replace psilocybin replication, structural-connectome controls, PET receptor maps, or Schaefer/Yeo sensitivity.",
+  "claim_guardrail": "These robustness checks are in-sample stress tests on the cached LSD data. They do not replace the ds006072 cross-drug stress test, structural-connectome controls, PET receptor maps, or Schaefer/Yeo sensitivity.",
   "literature_benchmark": {
     "status": "implemented_metric_mapping",
     "rows": [

@@ -1,19 +1,19 @@
 {
   "schema_version": "reproducible_archive_manifest.v1",
-  "generated_at_utc": "2026-05-27T14:20:19.801945+00:00",
+  "generated_at_utc": "2026-06-02T08:09:41.385471+00:00",
   "python_version": "3.13.13",
   "platform": "Windows-10-10.0.19045-SP0",
   "artifact_count": 21,
   "artifacts": [
     {
       "path": "README.md",
-      "bytes": 20949,
-      "sha256": "3c9b6538cd068cb7149453f65cf946f618b4b9e21c145b21a468fbc24aeaae64"
+      "bytes": 26624,
+      "sha256": "f302f4aa672265fe4764f6b624ebcf8ace8fd970c43dd3ddde01d7841320a019"
     },
     {
       "path": "GOAL.md",
-      "bytes": 19812,
-      "sha256": "f82bbddde25c2035726d94cacad9b743bf433fb4e03547fd2ca8dfc7b87c0b82"
+      "bytes": 21715,
+      "sha256": "5b0a0a3ffecb1be67d3459e191dc33e19670b57f1266b201fdb7dbe109fc5bb0"
     },
     {
       "path": "THESIS_CONCEPT_AUDIT.md",
@@ -22,18 +22,18 @@
     },
     {
       "path": "COMMANDS.md",
-      "bytes": 6428,
-      "sha256": "d63695a3c6e5f6d0c75d8965687598d7789299ffc736a642b17e4800ac80e057"
+      "bytes": 7713,
+      "sha256": "5b766c32858c2c9f66b9a11baf962ea315bd71722f4e5bc885de2d52ad44a4a0"
     },
     {
       "path": "docs/GITHUB_PAGES.md",
-      "bytes": 2284,
-      "sha256": "aaa7054e58f55691e2195ca3913aa9deba3855e5b41e3e8a49caddf7c6afd7fe"
+      "bytes": 2826,
+      "sha256": "4a8712d07a1fa33d668b9aa4a691e6b5edfbc72a8b872610ad163f77b4c47cf7"
     },
     {
       "path": "docs/THESIS_READINESS_GATES.md",
-      "bytes": 3918,
-      "sha256": "ea929422677d6698c97d545375401b32919d3e2b63d401f194fa7b7cf87fdcb7"
+      "bytes": 11506,
+      "sha256": "b694d8ddf9ff5b3e80341d2da164320f7c81e614a1c09aefe0022264590559a0"
     },
     {
       "path": "docs/METHODS_RESEARCH.md",
@@ -42,8 +42,8 @@
     },
     {
       "path": "docs/ARCHIVE_POLICY.md",
-      "bytes": 1373,
-      "sha256": "5f0af392957460dd6a4ef674b1ac2b3e405d318e419ed139f36f0f61c16d76e1"
+      "bytes": 3336,
+      "sha256": "cd6ec996367fbcbfdf8c031d8cbe6ad008e980acb3aa84eed3775bc4340e7bf1"
     },
     {
       "path": "results/stage_2/stage_2_summary.json",
@@ -57,13 +57,13 @@
     },
     {
       "path": "results/dynamic_mechanism_ranking/summary.json",
-      "bytes": 560221,
-      "sha256": "09f3dd676bbfbc8d15812cfad3316958902022d37aa2a11b57a31845f3e86ede"
+      "bytes": 589206,
+      "sha256": "f7881202868ca752f7c58b544ca7be658c354b6cb4b06673d2328b4977a0eb61"
     },
     {
       "path": "results/dynamic_mechanism_ranking/robustness/robustness_summary.json",
-      "bytes": 180254,
-      "sha256": "da3d28dbcbb4cde6618d1804858e96131c806464ddae202f0c1f0e9b9cd0ad2f"
+      "bytes": 180267,
+      "sha256": "05a90d98f3873b7515ba1884c5a956635e2538ca35303b498de3f81b75b6a7f9"
     },
     {
       "path": "results/training/rocket_condition_benchmark/comparison_summary.json",
@@ -77,23 +77,23 @@
     },
     {
       "path": "results/thesis_evidence_loop/thesis_evidence_loop_status.json",
-      "bytes": 299819,
-      "sha256": "e4370bda1666a9c2874c990f4a91aed3fac1aeefda8d0f6c5142fa699ee7fc43"
+      "bytes": 729851,
+      "sha256": "dd9cd45eb5dbb2eaf61b2507577d80df613e8fc77221c976c7a38dfb725d0e69"
     },
     {
       "path": "results/thesis_evidence_loop/claim_evidence_matrix.md",
-      "bytes": 5043,
-      "sha256": "a4b0d2e502f4df54ba8c31545e3e8a61e1acdecce3a7b8d37f469fa26b0769bb"
+      "bytes": 5078,
+      "sha256": "f90f9ec22299c0f27436e74afa743f524d6d847963554b2e42b383de5973fc01"
     },
     {
       "path": "results/thesis_upgrade/thesis_upgrade_status.json",
-      "bytes": 10607,
-      "sha256": "9166f5f4fdb0621ffa7d4d7e3693c129b1478a3c025da3f2dc05d56d14e0ea84"
+      "bytes": 72112,
+      "sha256": "ad1fa0d6c1d46b36dda7229aa453c2236fcf09ebb614b85327ba953b0462e2e8"
     },
     {
       "path": "results/thesis_upgrade/thesis_upgrade_status.md",
-      "bytes": 1908,
-      "sha256": "14a14751333313d97c3da6caa5d1da09f24664b383767f1028aa5952c8abcc55"
+      "bytes": 6141,
+      "sha256": "587cc3c935591bb17eb7f89ce92b8fde6b0e988bd07cad2d08946a1b9445bcd4"
     },
     {
       "path": "results/external_ingestion/external_ingestion_status.json",
@@ -102,15 +102,32 @@
     },
     {
       "path": "output/doc/thesis_report_revised.md",
-      "bytes": 54914,
-      "sha256": "bfde041f64008c8f2b2a0a37c5ccbc93dae69efc9141330d2be217926eb44971"
+      "bytes": 54979,
+      "sha256": "6afe4d240546e5be9531fbfb9337a8ea989b9897bc5220b9721471479bcffd95"
     },
     {
       "path": "output/doc/thesis_microsite.html",
-      "bytes": 82851,
-      "sha256": "dcfb1ecb90b681c73d0278291d362434c8040c84452d3e9924381a7813b74f05"
+      "bytes": 82916,
+      "sha256": "f1dd6d0b1e63399ba920327265c12aea94093929ebebb8776eec22acecad2d58"
     }
   ],
+  "release_url": null,
+  "doi": null,
+  "archive_publication_ready": false,
+  "publication_metadata": {
+    "release_url": null,
+    "doi": null,
+    "release_url_valid": false,
+    "doi_valid": false,
+    "release_url_verified": false,
+    "doi_verified": false,
+    "release_url_verification_method": "missing",
+    "doi_verification_method": "missing",
+    "publication_verification_status": "not_verified",
+    "archive_publication_ready": false,
+    "required_release_url_shape": "https://github.com/<owner>/<repo>/releases/tag/<tag>",
+    "required_doi_shape": "10.<prefix>/<suffix> or https://doi.org/10.<prefix>/<suffix>"
+  },
   "source_datasets": [
     {
       "id": "OpenNeuro ds003059 v1.0.0",

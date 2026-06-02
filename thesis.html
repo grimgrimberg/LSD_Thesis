@@ -292,7 +292,7 @@
       </div>
       <aside class="panel">
         <span class="tag">Falsification rule</span>
-        <p>If the effect disappears under subject-disjoint CV, motion controls, Schaefer/Yeo spatial nulls, or comparable psilocybin replication, the mechanism claim is downgraded.</p>
+        <p>If the effect disappears under subject-disjoint CV, motion controls, Schaefer/Yeo spatial nulls, or comparable unchanged-scoring psilocybin stress tests, the mechanism claim is downgraded.</p>
       </aside>
     </section>
 
@@ -304,22 +304,18 @@
       <div class="status-grid">
         
         <article class="status-card">
-          <span class="tag">not_supported_yet</span>
+          <span class="tag">supported_now</span>
           <strong>Schaefer/Yeo high-resolution parcellation layer</strong>
           <small>q-value: not reported | FDR pass: not reported | CI: not reported | CI crosses zero: not reported</small>
-          <p>Anatomical claims remain explanatory/proxy-level until the Schaefer/Yeo layer is complete.</p>
-          
-          <small>Next action: The high-resolution layer is not fully dashboard-visible until extraction, viewer, and ranking outputs all exist.</small>
+          <p>The Schaefer/Yeo parcellation gate is implemented for ds003059; remaining anatomical upgrades now depend on spatial nulls and external validation.</p>
           
         </article>
         
         <article class="status-card">
-          <span class="tag">not_supported_yet</span>
+          <span class="tag">supported_now</span>
           <strong>Full neuromaps spatial-autocorrelation nulls</strong>
           <small>q-value: not reported | FDR pass: not reported | CI: not reported | CI crosses zero: not reported</small>
-          <p>Receptor/myelin/gradient alignment cannot be promoted beyond exploratory until this passes.</p>
-          
-          <small>Next action: neuromaps is installed and its null API imports, but the surface/high-resolution map input manifest and executed null results are missing.</small>
+          <p>Spatial-null family coverage is complete, but receptor/myelin/gradient alignment remains exploratory because no map-family result passes FDR and CI gates.</p>
           
         </article>
         
@@ -327,25 +323,25 @@
           <span class="tag">supported_now</span>
           <strong>ds006072 psilocybin external validation</strong>
           <small>q-value: not reported | FDR pass: not reported | CI: not reported | CI crosses zero: not reported</small>
-          <p>External validation is implemented as a ds006072 structure-family stress test with unchanged scoring.</p>
-          
-        </article>
-        
-        <article class="status-card">
-          <span class="tag">supported_now</span>
-          <strong>Motion/confound control result</strong>
-          <small>q-value: not reported | FDR pass: not reported | CI: not reported | CI crosses zero: not reported</small>
-          <p>Motion/confound handling now has a dedicated image-derived QC result layer; high-risk QC associations still downgrade affected claims.</p>
+          <p>External validation is implemented as a ds006072 Schaefer100/Yeo7 parcellation-matched stress test with unchanged scoring.</p>
           
         </article>
         
         <article class="status-card">
           <span class="tag">not_supported_yet</span>
+          <strong>Motion/confound control result</strong>
+          <small>q-value: not reported | FDR pass: not reported | CI: not reported | CI crosses zero: not reported</small>
+          <p>Motion/confound handling has an image-derived QC proxy layer, but strict thesis completion still fails without fMRIPrep FD/DVARS/censoring proof.</p>
+          
+          <small>Next action: Raw-BOLD image-derived motion/QC sensitivity is implemented, but strict completion still requires fMRIPrep FD/DVARS/censoring motion proof. fMRIPrep preflight status: blocked_derivative_snapshot_not_valid_raw_fmriprep_input.</small>
+          
+        </article>
+        
+        <article class="status-card">
+          <span class="tag">supported_now</span>
           <strong>Receptor/myelin/gradient claim resolution</strong>
           <small>q-value: not reported | FDR pass: not reported | CI: not reported | CI crosses zero: not reported</small>
-          <p>The dashboard must keep this as not_supported_yet until those gates pass.</p>
-          
-          <small>Next action: The strongest current map alignment remains exploratory: no FDR pass and CI overlap with zero.</small>
+          <p>The thesis no longer depends on an unsupported receptor/myelin/gradient claim; the result is a completed negative control.</p>
           
         </article>
         
@@ -353,9 +349,9 @@
           <span class="tag">not_supported_yet</span>
           <strong>Project phase</strong>
           <small>q-value: not reported | FDR pass: not reported | CI: not reported | CI crosses zero: not reported</small>
-          <p>This remains a strong PI pitch, not a completed neuroscience thesis, until all strict gates are true.</p>
+          <p>This remains a controlled research demo/PI pitch until fMRIPrep FD/DVARS/censoring motion proof passes.</p>
           
-          <small>Next action: One or more required scientific gates is still missing or fail-closed.</small>
+          <small>Next action: Proxy/stress-test evidence gates are visible, but completion still requires fMRIPrep FD/DVARS/censoring motion proof.</small>
           
         </article>
         
@@ -374,9 +370,13 @@
           <h3>The repo can defend a macro-dynamics surrogate, an empirical LSD anchor, uncertainty gates, and subject-disjoint benchmark framing.</h3>
           <ul>
             
+            <li>Schaefer/Yeo high-resolution parcellation layer</li>
+            
+            <li>Full neuromaps spatial-autocorrelation nulls</li>
+            
             <li>ds006072 psilocybin external validation</li>
             
-            <li>Motion/confound control result</li>
+            <li>Receptor/myelin/gradient claim resolution</li>
             
           </ul>
         </article>
@@ -411,14 +411,10 @@
         
         <article class="card claim-card" data-tier="blocked_future">
           <span class="tag">Blocked / future work</span>
-          <h3>A strong mechanism claim is downgraded if motion controls, Schaefer/Yeo spatial nulls, psilocybin replication, or subject-disjoint ML fail.</h3>
+          <h3>A strong mechanism claim is downgraded if motion controls, Schaefer/Yeo spatial nulls, unchanged-scoring psilocybin stress tests, or subject-disjoint ML fail.</h3>
           <ul>
             
-            <li>Schaefer/Yeo high-resolution parcellation layer</li>
-            
-            <li>Full neuromaps spatial-autocorrelation nulls</li>
-            
-            <li>Receptor/myelin/gradient claim resolution</li>
+            <li>Motion/confound control result</li>
             
             <li>Project phase</li>
             

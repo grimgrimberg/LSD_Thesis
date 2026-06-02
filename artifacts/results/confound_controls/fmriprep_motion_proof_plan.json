@@ -1,0 +1,110 @@
+{
+  "schema_version": "fmriprep_motion_proof_plan.v1",
+  "generated_at_utc": "2026-06-02T08:08:49.789958+00:00",
+  "analysis_status": "blocked_derivative_snapshot_not_valid_raw_fmriprep_input",
+  "fmriprep_motion_proof_ready": false,
+  "fmriprep_preflight_ready": false,
+  "dataset": {
+    "id": "ds003059",
+    "version": "1.0.0",
+    "dataset_type": "derivative",
+    "dataset_description_path": "data/ds003059/dataset_description.json"
+  },
+  "local_nifti_state": {
+    "dataset_root": "data/ds003059",
+    "local_bold_run_count": 90,
+    "local_bold_subject_count": 15,
+    "local_bold_subjects": [
+      "sub-001",
+      "sub-002",
+      "sub-003",
+      "sub-004",
+      "sub-006",
+      "sub-009",
+      "sub-010",
+      "sub-011",
+      "sub-012",
+      "sub-013",
+      "sub-015",
+      "sub-017",
+      "sub-018",
+      "sub-019",
+      "sub-020"
+    ],
+    "local_t1w_count": 0,
+    "local_t1w_subject_count": 0,
+    "local_t1w_subjects": [],
+    "appledouble_t1w_placeholder_count": 1,
+    "missing_t1w_subjects_for_local_bold": [
+      "sub-001",
+      "sub-002",
+      "sub-003",
+      "sub-004",
+      "sub-006",
+      "sub-009",
+      "sub-010",
+      "sub-011",
+      "sub-012",
+      "sub-013",
+      "sub-015",
+      "sub-017",
+      "sub-018",
+      "sub-019",
+      "sub-020"
+    ]
+  },
+  "existing_motion_confounds": {
+    "motion_file_count": 0,
+    "motion_analysis_ready": false,
+    "motion_pairing_ready": false,
+    "motion_feature_family_coverage": {
+      "fd": false,
+      "dvars": false,
+      "censoring": false
+    },
+    "required_motion_feature_families": [
+      "fd",
+      "dvars",
+      "censoring"
+    ],
+    "missing_motion_feature_families": [
+      "fd",
+      "dvars",
+      "censoring"
+    ],
+    "motion_summary_status": "unavailable_not_found",
+    "parsed_summary_count": 0,
+    "paired_subject_run_count": 0,
+    "minimum_paired_subject_run_count": 4,
+    "expected_confound_glob": "data/ds003059/derivatives/fmriprep/sub-*/ses-*/func/*desc-confounds_timeseries.tsv",
+    "configured_motion_roots": []
+  },
+  "remote_openneuro_snapshot": {
+    "checked": true,
+    "file_count": 250,
+    "t1w_file_count": 15,
+    "t1w_subject_count": 15,
+    "confound_like_file_count": 0,
+    "confound_like_files": [],
+    "error": null
+  },
+  "runtime_availability": {
+    "docker": false,
+    "apptainer": false,
+    "singularity": false,
+    "fmriprep": false
+  },
+  "blocker": "The local ds003059 dataset_description declares DatasetType=derivative and no subject/run FD, DVARS, or censoring tables are present. Do not run fMRIPrep on this derivative snapshot as if it were original raw BIDS.",
+  "next_action": "Obtain author-provided subject/run motion confounds or the original raw BIDS inputs that preceded this derivative release; then run fMRIPrep/MRIQC in a container or HPC environment and ingest desc-confounds_timeseries.tsv files.",
+  "required_outputs": [
+    "data/ds003059/derivatives/fmriprep/sub-*/ses-*/func/*desc-confounds_timeseries.tsv",
+    "results/setting_seed/motion/motion_summary.json",
+    "results/confound_controls/motion_confound_control_status.json"
+  ],
+  "minimum_required_columns": [
+    "framewise_displacement",
+    "std_dvars or dvars",
+    "motion_outlier_* or censor/scrub/non_steady_state columns for strict censoring/outlier coverage"
+  ],
+  "claim_guardrail": "This is a preprocessing/acquisition preflight, not a motion-safety result. The strict motion gate only passes after real subject/session/run confounds are parsed and joined to dynamic deltas."
+}

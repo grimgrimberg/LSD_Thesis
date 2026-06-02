@@ -1,0 +1,9 @@
+module,receptor_weight,raw_receptor_weight,source
+visual,0.19130639388956344,-0.508477621194961,Hansen et al. Schaefer-100 PET 5-HT2A maps; z-scored and sample-size weighted
+auditory,0.5759937746212638,-0.06220768962652352,Hansen et al. Schaefer-100 PET 5-HT2A maps; z-scored and sample-size weighted
+salience,0.7127303151407192,0.09641827430412468,Hansen et al. Schaefer-100 PET 5-HT2A maps; z-scored and sample-size weighted
+default_mode,1.0,0.4296754306995165,Hansen et al. Schaefer-100 PET 5-HT2A maps; z-scored and sample-size weighted
+executive_frontoparietal,0.9812139643206432,0.4078820387740456,Hansen et al. Schaefer-100 PET 5-HT2A maps; z-scored and sample-size weighted
+limbic_affective,0.0,-0.7304092352430033,Hansen et al. Schaefer-100 PET 5-HT2A maps; z-scored and sample-size weighted
+thalamic_gateway,0.629617179406105,-5.695444116327053e-16,Hansen et al. Schaefer-100 PET 5-HT2A maps; z-scored and sample-size weighted
+sensorimotor,0.5759937746212638,-0.06220768962652352,Hansen et al. Schaefer-100 PET 5-HT2A maps; z-scored and sample-size weighted

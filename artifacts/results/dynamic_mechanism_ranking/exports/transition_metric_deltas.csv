@@ -1,0 +1,7 @@
+metric,mean_delta,std_delta,effect_size,signed_effect_size,expected_sign,sign_consistency,sign_flip_p_value,expected_direction,support_direction
+state_occupancy_entropy,-0.0003525900449103836,0.0006852594466230952,-0.5145351102387857,-0.5145351102387857,1,0.27586206896551724,0.995934970676899,positive means broader state occupancy under LSD,opposes_expected_direction
+transition_entropy,0.00389023146585347,0.02270586555934057,0.17133156433462346,0.17133156433462346,1,0.6666666666666666,0.04936857335269451,positive means more diverse transitions under LSD,supports_expected_direction
+transition_rate,0.008487654320987659,0.05429175736930353,0.15633412385701417,0.15633412385701417,1,0.6206896551724138,0.132465448230505,positive means more frequent state switching under LSD,supports_expected_direction
+mean_dwell_time,-0.05822292474853654,0.3096563566179722,-0.1880243163241989,0.1880243163241989,-1,0.6206896551724138,0.132465448230505,negative means shorter dwell times under LSD,supports_expected_direction
+barrier_reduction_proxy,0.05822292474853654,0.3096563566179722,0.1880243163241989,0.1880243163241989,1,0.6206896551724138,0.132465448230505,positive means shorter dwell times under LSD,supports_expected_direction
+transition_step_distance_proxy,0.007018187057187264,0.08779936450152656,0.07993437192891344,0.07993437192891344,1,0.5,0.572232224047184,positive means larger one-step macro-state movement under LSD,supports_expected_direction

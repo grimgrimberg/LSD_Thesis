@@ -1,7 +1,13 @@
 {
   "schema_version": 3,
   "analysis_status": "implemented_first_pass",
-  "generated_at_utc": "2026-05-20T07:15:19.573379+00:00",
+  "generated_at_utc": "2026-06-01T11:37:06.566792+00:00",
+  "inference_metadata": {
+    "metric_ci_alpha": 0.05,
+    "metric_bootstrap_iterations": 1024,
+    "multiple_testing": "Benjamini-Hochberg FDR q-values on sign-flip familywise tests",
+    "metric_bootstrap_seed_base": 20260520
+  },
   "source_viewer_root": "results/stage_2/empirical_viewer",
   "dataset_scope": "cached ds003059 paired placebo/LSD empirical viewer records",
   "pair_count": 30,
@@ -50,7 +56,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.27586206896551724,
         "sign_flip_p_value": 0.995934970676899,
-        "expected_direction": "positive means broader state occupancy under LSD"
+        "expected_direction": "positive means broader state occupancy under LSD",
+        "n_pairs": 30,
+        "n_bootstrap": 1024,
+        "ci_low": -0.000583678227,
+        "ci_high": -9.4733385e-05,
+        "sign_flip_q_value": 0.995934970676899,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "metric": "transition_entropy",
@@ -61,7 +74,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.6666666666666666,
         "sign_flip_p_value": 0.04936857335269451,
-        "expected_direction": "positive means more diverse transitions under LSD"
+        "expected_direction": "positive means more diverse transitions under LSD",
+        "n_pairs": 30,
+        "n_bootstrap": 1024,
+        "ci_low": -0.003824534418,
+        "ci_high": 0.011612112201,
+        "sign_flip_q_value": 0.19869817234575748,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "metric": "transition_rate",
@@ -72,7 +92,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.6206896551724138,
         "sign_flip_p_value": 0.132465448230505,
-        "expected_direction": "positive means more frequent state switching under LSD"
+        "expected_direction": "positive means more frequent state switching under LSD",
+        "n_pairs": 30,
+        "n_bootstrap": 1024,
+        "ci_low": -0.010933641975,
+        "ci_high": 0.027843364198,
+        "sign_flip_q_value": 0.19869817234575748,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "metric": "mean_dwell_time",
@@ -83,7 +110,14 @@
         "expected_sign": -1,
         "sign_consistency": 0.6206896551724138,
         "sign_flip_p_value": 0.132465448230505,
-        "expected_direction": "negative means shorter dwell times under LSD"
+        "expected_direction": "negative means shorter dwell times under LSD",
+        "n_pairs": 30,
+        "n_bootstrap": 1024,
+        "ci_low": -0.160187041237,
+        "ci_high": 0.052622217176,
+        "sign_flip_q_value": 0.19869817234575748,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "metric": "barrier_reduction_proxy",
@@ -94,7 +128,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.6206896551724138,
         "sign_flip_p_value": 0.132465448230505,
-        "expected_direction": "positive means shorter dwell times under LSD"
+        "expected_direction": "positive means shorter dwell times under LSD",
+        "n_pairs": 30,
+        "n_bootstrap": 1024,
+        "ci_low": -0.055250134086,
+        "ci_high": 0.161648009527,
+        "sign_flip_q_value": 0.19869817234575748,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "metric": "transition_step_distance_proxy",
@@ -105,7 +146,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.5,
         "sign_flip_p_value": 0.572232224047184,
-        "expected_direction": "positive means larger one-step macro-state movement under LSD"
+        "expected_direction": "positive means larger one-step macro-state movement under LSD",
+        "n_pairs": 30,
+        "n_bootstrap": 1024,
+        "ci_low": -0.022913377072,
+        "ci_high": 0.037830570689,
+        "sign_flip_q_value": 0.6866786688566208,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       }
     ],
     "run_metric_deltas": [
@@ -119,7 +167,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.2857142857142857,
         "sign_flip_p_value": 0.9713134765625,
-        "expected_direction": "positive means broader state occupancy under LSD"
+        "expected_direction": "positive means broader state occupancy under LSD",
+        "n_pairs": 15,
+        "n_bootstrap": 1024,
+        "ci_low": -0.000862841617,
+        "ci_high": -8.356253e-06,
+        "sign_flip_q_value": 0.9713134765625,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "run": "run-01",
@@ -131,7 +186,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.6666666666666666,
         "sign_flip_p_value": 0.15087890625,
-        "expected_direction": "positive means more diverse transitions under LSD"
+        "expected_direction": "positive means more diverse transitions under LSD",
+        "n_pairs": 15,
+        "n_bootstrap": 1024,
+        "ci_low": -0.007204869284,
+        "ci_high": 0.017438755736,
+        "sign_flip_q_value": 0.4554290771484375,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "run": "run-01",
@@ -143,7 +205,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.6,
         "sign_flip_p_value": 0.303619384765625,
-        "expected_direction": "positive means more frequent state switching under LSD"
+        "expected_direction": "positive means more frequent state switching under LSD",
+        "n_pairs": 15,
+        "n_bootstrap": 1024,
+        "ci_low": -0.012476851852,
+        "ci_high": 0.04475308642,
+        "sign_flip_q_value": 0.4554290771484375,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "run": "run-01",
@@ -155,7 +224,14 @@
         "expected_sign": -1,
         "sign_consistency": 0.6,
         "sign_flip_p_value": 0.303619384765625,
-        "expected_direction": "negative means shorter dwell times under LSD"
+        "expected_direction": "negative means shorter dwell times under LSD",
+        "n_pairs": 15,
+        "n_bootstrap": 1024,
+        "ci_low": -0.256481252123,
+        "ci_high": 0.062637291639,
+        "sign_flip_q_value": 0.4554290771484375,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "run": "run-01",
@@ -167,7 +243,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.6,
         "sign_flip_p_value": 0.303619384765625,
-        "expected_direction": "positive means shorter dwell times under LSD"
+        "expected_direction": "positive means shorter dwell times under LSD",
+        "n_pairs": 15,
+        "n_bootstrap": 1024,
+        "ci_low": -0.061494925084,
+        "ci_high": 0.272796720389,
+        "sign_flip_q_value": 0.4554290771484375,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "run": "run-01",
@@ -179,7 +262,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.5333333333333333,
         "sign_flip_p_value": 0.5,
-        "expected_direction": "positive means larger one-step macro-state movement under LSD"
+        "expected_direction": "positive means larger one-step macro-state movement under LSD",
+        "n_pairs": 15,
+        "n_bootstrap": 1024,
+        "ci_low": -0.020578356315,
+        "ci_high": 0.04932131022,
+        "sign_flip_q_value": 0.6,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "run": "run-03",
@@ -191,7 +281,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.26666666666666666,
         "sign_flip_p_value": 0.982421875,
-        "expected_direction": "positive means broader state occupancy under LSD"
+        "expected_direction": "positive means broader state occupancy under LSD",
+        "n_pairs": 15,
+        "n_bootstrap": 1024,
+        "ci_low": -0.000421608208,
+        "ci_high": -0.000109523187,
+        "sign_flip_q_value": 0.982421875,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "run": "run-03",
@@ -203,7 +300,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.6666666666666666,
         "sign_flip_p_value": 0.15087890625,
-        "expected_direction": "positive means more diverse transitions under LSD"
+        "expected_direction": "positive means more diverse transitions under LSD",
+        "n_pairs": 15,
+        "n_bootstrap": 1024,
+        "ci_low": -0.006131717851,
+        "ci_high": 0.011630666379,
+        "sign_flip_q_value": 0.317962646484375,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "run": "run-03",
@@ -215,7 +319,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.6428571428571429,
         "sign_flip_p_value": 0.21197509765625,
-        "expected_direction": "positive means more frequent state switching under LSD"
+        "expected_direction": "positive means more frequent state switching under LSD",
+        "n_pairs": 15,
+        "n_bootstrap": 1024,
+        "ci_low": -0.023719135802,
+        "ci_high": 0.026983024691,
+        "sign_flip_q_value": 0.317962646484375,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "run": "run-03",
@@ -227,7 +338,14 @@
         "expected_sign": -1,
         "sign_consistency": 0.6428571428571429,
         "sign_flip_p_value": 0.21197509765625,
-        "expected_direction": "negative means shorter dwell times under LSD"
+        "expected_direction": "negative means shorter dwell times under LSD",
+        "n_pairs": 15,
+        "n_bootstrap": 1024,
+        "ci_low": -0.149391948926,
+        "ci_high": 0.126816234554,
+        "sign_flip_q_value": 0.317962646484375,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "run": "run-03",
@@ -239,7 +357,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.6428571428571429,
         "sign_flip_p_value": 0.21197509765625,
-        "expected_direction": "positive means shorter dwell times under LSD"
+        "expected_direction": "positive means shorter dwell times under LSD",
+        "n_pairs": 15,
+        "n_bootstrap": 1024,
+        "ci_low": -0.124365301647,
+        "ci_high": 0.151750721372,
+        "sign_flip_q_value": 0.317962646484375,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "run": "run-03",
@@ -251,7 +376,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.4666666666666667,
         "sign_flip_p_value": 0.696380615234375,
-        "expected_direction": "positive means larger one-step macro-state movement under LSD"
+        "expected_direction": "positive means larger one-step macro-state movement under LSD",
+        "n_pairs": 15,
+        "n_bootstrap": 1024,
+        "ci_low": -0.050045567325,
+        "ci_high": 0.050657747415,
+        "sign_flip_q_value": 0.83565673828125,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       }
     ],
     "pair_rows": [
@@ -1403,7 +1535,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.7333333333333333,
         "sign_flip_p_value": 0.008062400855123997,
-        "expected_direction": "positive means stronger sensory-to-transmodal coupling under LSD"
+        "expected_direction": "positive means stronger sensory-to-transmodal coupling under LSD",
+        "n_pairs": 30,
+        "n_bootstrap": 1024,
+        "ci_low": 0.012992338452,
+        "ci_high": 0.086294629836,
+        "sign_flip_q_value": 0.019349762052297593,
+        "significant_after_fdr_0_05": true,
+        "significant_after_fdr_0.05": true
       },
       {
         "metric": "sensory_global_coupling",
@@ -1414,7 +1553,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.7333333333333333,
         "sign_flip_p_value": 0.008062400855123997,
-        "expected_direction": "positive means stronger sensory/somatomotor global coupling under LSD"
+        "expected_direction": "positive means stronger sensory/somatomotor global coupling under LSD",
+        "n_pairs": 30,
+        "n_bootstrap": 1024,
+        "ci_low": 0.020153185075,
+        "ci_high": 0.09257078838,
+        "sign_flip_q_value": 0.019349762052297593,
+        "significant_after_fdr_0_05": true,
+        "significant_after_fdr_0.05": true
       },
       {
         "metric": "associative_global_coupling",
@@ -1425,7 +1571,14 @@
         "expected_sign": -1,
         "sign_consistency": 0.3,
         "sign_flip_p_value": 0.991937599144876,
-        "expected_direction": "negative means weaker associative-network global coupling under LSD"
+        "expected_direction": "negative means weaker associative-network global coupling under LSD",
+        "n_pairs": 30,
+        "n_bootstrap": 1024,
+        "ci_low": 0.035201898944,
+        "ci_high": 0.104103787544,
+        "sign_flip_q_value": 0.991937599144876,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "metric": "thalamic_global_coupling",
@@ -1436,7 +1589,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.7666666666666667,
         "sign_flip_p_value": 0.002611439675092697,
-        "expected_direction": "positive means stronger thalamic-gateway coupling with cortex under LSD"
+        "expected_direction": "positive means stronger thalamic-gateway coupling with cortex under LSD",
+        "n_pairs": 30,
+        "n_bootstrap": 1024,
+        "ci_low": 0.058189268511,
+        "ci_high": 0.190212530565,
+        "sign_flip_q_value": 0.010445758700370789,
+        "significant_after_fdr_0_05": true,
+        "significant_after_fdr_0.05": true
       },
       {
         "metric": "thalamic_sensory_coupling",
@@ -1447,7 +1607,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.6,
         "sign_flip_p_value": 0.1807973040267825,
-        "expected_direction": "positive means stronger thalamic-gateway coupling with sensory modules under LSD"
+        "expected_direction": "positive means stronger thalamic-gateway coupling with sensory modules under LSD",
+        "n_pairs": 30,
+        "n_bootstrap": 1024,
+        "ci_low": 0.012020123123,
+        "ci_high": 0.178791331682,
+        "sign_flip_q_value": 0.3099382354744843,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "metric": "thalamic_transmodal_coupling",
@@ -1458,7 +1625,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.8,
         "sign_flip_p_value": 0.000715453177690506,
-        "expected_direction": "positive means stronger thalamic-gateway coupling with transmodal modules under LSD"
+        "expected_direction": "positive means stronger thalamic-gateway coupling with transmodal modules under LSD",
+        "n_pairs": 30,
+        "n_bootstrap": 1024,
+        "ci_low": 0.072672704067,
+        "ci_high": 0.197258156767,
+        "sign_flip_q_value": 0.008585438132286072,
+        "significant_after_fdr_0_05": true,
+        "significant_after_fdr_0.05": true
       },
       {
         "metric": "hierarchy_differentiation",
@@ -1469,7 +1643,14 @@
         "expected_sign": -1,
         "sign_consistency": 0.5333333333333333,
         "sign_flip_p_value": 0.427767775952816,
-        "expected_direction": "negative means reduced within-vs-cross hierarchy separation under LSD"
+        "expected_direction": "negative means reduced within-vs-cross hierarchy separation under LSD",
+        "n_pairs": 30,
+        "n_bootstrap": 1024,
+        "ci_low": -0.034438557614,
+        "ci_high": 0.035907007292,
+        "sign_flip_q_value": 0.46665575558489014,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "metric": "hierarchy_flattening_proxy",
@@ -1480,7 +1661,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.5333333333333333,
         "sign_flip_p_value": 0.427767775952816,
-        "expected_direction": "positive means hierarchy differentiation is reduced under LSD"
+        "expected_direction": "positive means hierarchy differentiation is reduced under LSD",
+        "n_pairs": 30,
+        "n_bootstrap": 1024,
+        "ci_low": -0.034655220836,
+        "ci_high": 0.033638772703,
+        "sign_flip_q_value": 0.46665575558489014,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "metric": "hierarchy_coupling_gradient_magnitude",
@@ -1491,7 +1679,14 @@
         "expected_sign": -1,
         "sign_consistency": 0.5333333333333333,
         "sign_flip_p_value": 0.427767775952816,
-        "expected_direction": "negative means node global-coupling is less tied to the hierarchy proxy under LSD"
+        "expected_direction": "negative means node global-coupling is less tied to the hierarchy proxy under LSD",
+        "n_pairs": 30,
+        "n_bootstrap": 1024,
+        "ci_low": -0.162672641788,
+        "ci_high": 0.037772934299,
+        "sign_flip_q_value": 0.46665575558489014,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "metric": "hierarchy_gradient_flattening_proxy",
@@ -1502,7 +1697,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.5333333333333333,
         "sign_flip_p_value": 0.427767775952816,
-        "expected_direction": "positive means reduced hierarchy/global-coupling gradient strength under LSD"
+        "expected_direction": "positive means reduced hierarchy/global-coupling gradient strength under LSD",
+        "n_pairs": 30,
+        "n_bootstrap": 1024,
+        "ci_low": -0.033229734615,
+        "ci_high": 0.156913307047,
+        "sign_flip_q_value": 0.46665575558489014,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "metric": "receptor_weighted_global_coupling",
@@ -1513,7 +1715,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.7666666666666667,
         "sign_flip_p_value": 0.002611439675092697,
-        "expected_direction": "positive means stronger global coupling in high receptor-prior modules under LSD"
+        "expected_direction": "positive means stronger global coupling in high receptor-prior modules under LSD",
+        "n_pairs": 30,
+        "n_bootstrap": 1024,
+        "ci_low": 0.046617424337,
+        "ci_high": 0.11224838385,
+        "sign_flip_q_value": 0.010445758700370789,
+        "significant_after_fdr_0_05": true,
+        "significant_after_fdr_0.05": true
       },
       {
         "metric": "receptor_global_coupling_alignment",
@@ -1524,7 +1733,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.6666666666666666,
         "sign_flip_p_value": 0.04936857335269451,
-        "expected_direction": "positive means high receptor-prior modules align more with global coupling under LSD"
+        "expected_direction": "positive means high receptor-prior modules align more with global coupling under LSD",
+        "n_pairs": 30,
+        "n_bootstrap": 1024,
+        "ci_low": 0.118292643116,
+        "ci_high": 0.436637890598,
+        "sign_flip_q_value": 0.09873714670538902,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       }
     ],
     "run_metric_deltas": [
@@ -1538,7 +1754,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.8,
         "sign_flip_p_value": 0.017578125,
-        "expected_direction": "positive means stronger sensory-to-transmodal coupling under LSD"
+        "expected_direction": "positive means stronger sensory-to-transmodal coupling under LSD",
+        "n_pairs": 15,
+        "n_bootstrap": 1024,
+        "ci_low": 0.007167206747,
+        "ci_high": 0.093926780535,
+        "sign_flip_q_value": 0.052734375,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "run": "run-01",
@@ -1550,7 +1773,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.8,
         "sign_flip_p_value": 0.017578125,
-        "expected_direction": "positive means stronger sensory/somatomotor global coupling under LSD"
+        "expected_direction": "positive means stronger sensory/somatomotor global coupling under LSD",
+        "n_pairs": 15,
+        "n_bootstrap": 1024,
+        "ci_low": 0.015237988259,
+        "ci_high": 0.115593134523,
+        "sign_flip_q_value": 0.052734375,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "run": "run-01",
@@ -1562,7 +1792,14 @@
         "expected_sign": -1,
         "sign_consistency": 0.2,
         "sign_flip_p_value": 0.996307373046875,
-        "expected_direction": "negative means weaker associative-network global coupling under LSD"
+        "expected_direction": "negative means weaker associative-network global coupling under LSD",
+        "n_pairs": 15,
+        "n_bootstrap": 1024,
+        "ci_low": 0.026965105067,
+        "ci_high": 0.13024707113,
+        "sign_flip_q_value": 0.996307373046875,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "run": "run-01",
@@ -1574,7 +1811,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.7333333333333333,
         "sign_flip_p_value": 0.059234619140625,
-        "expected_direction": "positive means stronger thalamic-gateway coupling with cortex under LSD"
+        "expected_direction": "positive means stronger thalamic-gateway coupling with cortex under LSD",
+        "n_pairs": 15,
+        "n_bootstrap": 1024,
+        "ci_low": 0.054555417173,
+        "ci_high": 0.240510590301,
+        "sign_flip_q_value": 0.1421630859375,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "run": "run-01",
@@ -1586,7 +1830,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.6,
         "sign_flip_p_value": 0.303619384765625,
-        "expected_direction": "positive means stronger thalamic-gateway coupling with sensory modules under LSD"
+        "expected_direction": "positive means stronger thalamic-gateway coupling with sensory modules under LSD",
+        "n_pairs": 15,
+        "n_bootstrap": 1024,
+        "ci_low": 0.01487561912,
+        "ci_high": 0.229884915001,
+        "sign_flip_q_value": 0.40482584635416663,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "run": "run-01",
@@ -1598,7 +1849,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.8,
         "sign_flip_p_value": 0.017578125,
-        "expected_direction": "positive means stronger thalamic-gateway coupling with transmodal modules under LSD"
+        "expected_direction": "positive means stronger thalamic-gateway coupling with transmodal modules under LSD",
+        "n_pairs": 15,
+        "n_bootstrap": 1024,
+        "ci_low": 0.070741998708,
+        "ci_high": 0.24949274391,
+        "sign_flip_q_value": 0.052734375,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "run": "run-01",
@@ -1610,7 +1868,14 @@
         "expected_sign": -1,
         "sign_consistency": 0.5333333333333333,
         "sign_flip_p_value": 0.5,
-        "expected_direction": "negative means reduced within-vs-cross hierarchy separation under LSD"
+        "expected_direction": "negative means reduced within-vs-cross hierarchy separation under LSD",
+        "n_pairs": 15,
+        "n_bootstrap": 1024,
+        "ci_low": -0.032551118457,
+        "ci_high": 0.044964972176,
+        "sign_flip_q_value": 0.5454545454545454,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "run": "run-01",
@@ -1622,7 +1887,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.5333333333333333,
         "sign_flip_p_value": 0.5,
-        "expected_direction": "positive means hierarchy differentiation is reduced under LSD"
+        "expected_direction": "positive means hierarchy differentiation is reduced under LSD",
+        "n_pairs": 15,
+        "n_bootstrap": 1024,
+        "ci_low": -0.046028891385,
+        "ci_high": 0.030264679571,
+        "sign_flip_q_value": 0.5454545454545454,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "run": "run-01",
@@ -1634,7 +1906,14 @@
         "expected_sign": -1,
         "sign_consistency": 0.6,
         "sign_flip_p_value": 0.303619384765625,
-        "expected_direction": "negative means node global-coupling is less tied to the hierarchy proxy under LSD"
+        "expected_direction": "negative means node global-coupling is less tied to the hierarchy proxy under LSD",
+        "n_pairs": 15,
+        "n_bootstrap": 1024,
+        "ci_low": -0.175410674265,
+        "ci_high": 0.111010982581,
+        "sign_flip_q_value": 0.40482584635416663,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "run": "run-01",
@@ -1646,7 +1925,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.6,
         "sign_flip_p_value": 0.303619384765625,
-        "expected_direction": "positive means reduced hierarchy/global-coupling gradient strength under LSD"
+        "expected_direction": "positive means reduced hierarchy/global-coupling gradient strength under LSD",
+        "n_pairs": 15,
+        "n_bootstrap": 1024,
+        "ci_low": -0.10128104474,
+        "ci_high": 0.176605959348,
+        "sign_flip_q_value": 0.40482584635416663,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "run": "run-01",
@@ -1658,7 +1944,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.8,
         "sign_flip_p_value": 0.017578125,
-        "expected_direction": "positive means stronger global coupling in high receptor-prior modules under LSD"
+        "expected_direction": "positive means stronger global coupling in high receptor-prior modules under LSD",
+        "n_pairs": 15,
+        "n_bootstrap": 1024,
+        "ci_low": 0.036565137559,
+        "ci_high": 0.136882463951,
+        "sign_flip_q_value": 0.052734375,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "run": "run-01",
@@ -1670,7 +1963,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.6,
         "sign_flip_p_value": 0.303619384765625,
-        "expected_direction": "positive means high receptor-prior modules align more with global coupling under LSD"
+        "expected_direction": "positive means high receptor-prior modules align more with global coupling under LSD",
+        "n_pairs": 15,
+        "n_bootstrap": 1024,
+        "ci_low": 0.016173178322,
+        "ci_high": 0.47078797654,
+        "sign_flip_q_value": 0.40482584635416663,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "run": "run-03",
@@ -1682,7 +1982,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.6666666666666666,
         "sign_flip_p_value": 0.15087890625,
-        "expected_direction": "positive means stronger sensory-to-transmodal coupling under LSD"
+        "expected_direction": "positive means stronger sensory-to-transmodal coupling under LSD",
+        "n_pairs": 15,
+        "n_bootstrap": 1024,
+        "ci_low": -0.008443270768,
+        "ci_high": 0.096174833333,
+        "sign_flip_q_value": 0.3017578125,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "run": "run-03",
@@ -1694,7 +2001,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.6666666666666666,
         "sign_flip_p_value": 0.15087890625,
-        "expected_direction": "positive means stronger sensory/somatomotor global coupling under LSD"
+        "expected_direction": "positive means stronger sensory/somatomotor global coupling under LSD",
+        "n_pairs": 15,
+        "n_bootstrap": 1024,
+        "ci_low": -0.005754140883,
+        "ci_high": 0.09787681562,
+        "sign_flip_q_value": 0.3017578125,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "run": "run-03",
@@ -1706,7 +2020,14 @@
         "expected_sign": -1,
         "sign_consistency": 0.4,
         "sign_flip_p_value": 0.84912109375,
-        "expected_direction": "negative means weaker associative-network global coupling under LSD"
+        "expected_direction": "negative means weaker associative-network global coupling under LSD",
+        "n_pairs": 15,
+        "n_bootstrap": 1024,
+        "ci_low": 0.018989069197,
+        "ci_high": 0.108546864951,
+        "sign_flip_q_value": 0.84912109375,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "run": "run-03",
@@ -1718,7 +2039,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.8,
         "sign_flip_p_value": 0.017578125,
-        "expected_direction": "positive means stronger thalamic-gateway coupling with cortex under LSD"
+        "expected_direction": "positive means stronger thalamic-gateway coupling with cortex under LSD",
+        "n_pairs": 15,
+        "n_bootstrap": 1024,
+        "ci_low": 0.015375877396,
+        "ci_high": 0.178714489003,
+        "sign_flip_q_value": 0.10546875,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "run": "run-03",
@@ -1730,7 +2058,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.6,
         "sign_flip_p_value": 0.303619384765625,
-        "expected_direction": "positive means stronger thalamic-gateway coupling with sensory modules under LSD"
+        "expected_direction": "positive means stronger thalamic-gateway coupling with sensory modules under LSD",
+        "n_pairs": 15,
+        "n_bootstrap": 1024,
+        "ci_low": -0.051804610284,
+        "ci_high": 0.178565305844,
+        "sign_flip_q_value": 0.5204903738839285,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "run": "run-03",
@@ -1742,7 +2077,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.8,
         "sign_flip_p_value": 0.017578125,
-        "expected_direction": "positive means stronger thalamic-gateway coupling with transmodal modules under LSD"
+        "expected_direction": "positive means stronger thalamic-gateway coupling with transmodal modules under LSD",
+        "n_pairs": 15,
+        "n_bootstrap": 1024,
+        "ci_low": 0.021237481524,
+        "ci_high": 0.193277757831,
+        "sign_flip_q_value": 0.10546875,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "run": "run-03",
@@ -1754,7 +2096,14 @@
         "expected_sign": -1,
         "sign_consistency": 0.5333333333333333,
         "sign_flip_p_value": 0.5,
-        "expected_direction": "negative means reduced within-vs-cross hierarchy separation under LSD"
+        "expected_direction": "negative means reduced within-vs-cross hierarchy separation under LSD",
+        "n_pairs": 15,
+        "n_bootstrap": 1024,
+        "ci_low": -0.067726846449,
+        "ci_high": 0.054319911921,
+        "sign_flip_q_value": 0.6666666666666666,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "run": "run-03",
@@ -1766,7 +2115,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.5333333333333333,
         "sign_flip_p_value": 0.5,
-        "expected_direction": "positive means hierarchy differentiation is reduced under LSD"
+        "expected_direction": "positive means hierarchy differentiation is reduced under LSD",
+        "n_pairs": 15,
+        "n_bootstrap": 1024,
+        "ci_low": -0.050416402593,
+        "ci_high": 0.064688598438,
+        "sign_flip_q_value": 0.6666666666666666,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "run": "run-03",
@@ -1778,7 +2134,14 @@
         "expected_sign": -1,
         "sign_consistency": 0.4666666666666667,
         "sign_flip_p_value": 0.696380615234375,
-        "expected_direction": "negative means node global-coupling is less tied to the hierarchy proxy under LSD"
+        "expected_direction": "negative means node global-coupling is less tied to the hierarchy proxy under LSD",
+        "n_pairs": 15,
+        "n_bootstrap": 1024,
+        "ci_low": -0.22601975424,
+        "ci_high": 0.035773080537,
+        "sign_flip_q_value": 0.7596879438920454,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "run": "run-03",
@@ -1790,7 +2153,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.4666666666666667,
         "sign_flip_p_value": 0.696380615234375,
-        "expected_direction": "positive means reduced hierarchy/global-coupling gradient strength under LSD"
+        "expected_direction": "positive means reduced hierarchy/global-coupling gradient strength under LSD",
+        "n_pairs": 15,
+        "n_bootstrap": 1024,
+        "ci_low": -0.035068283418,
+        "ci_high": 0.216974077909,
+        "sign_flip_q_value": 0.7596879438920454,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "run": "run-03",
@@ -1802,7 +2172,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.7333333333333333,
         "sign_flip_p_value": 0.059234619140625,
-        "expected_direction": "positive means stronger global coupling in high receptor-prior modules under LSD"
+        "expected_direction": "positive means stronger global coupling in high receptor-prior modules under LSD",
+        "n_pairs": 15,
+        "n_bootstrap": 1024,
+        "ci_low": 0.027713032445,
+        "ci_high": 0.113539981131,
+        "sign_flip_q_value": 0.177703857421875,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "run": "run-03",
@@ -1814,7 +2191,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.7333333333333333,
         "sign_flip_p_value": 0.059234619140625,
-        "expected_direction": "positive means high receptor-prior modules align more with global coupling under LSD"
+        "expected_direction": "positive means high receptor-prior modules align more with global coupling under LSD",
+        "n_pairs": 15,
+        "n_bootstrap": 1024,
+        "ci_low": 0.093063383047,
+        "ci_high": 0.539127372934,
+        "sign_flip_q_value": 0.177703857421875,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       }
     ],
     "pair_rows": [
@@ -3217,7 +3601,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.7333333333333333,
         "sign_flip_p_value": 0.008062400855123997,
-        "expected_direction": "positive means globally stronger FC under LSD"
+        "expected_direction": "positive means globally stronger FC under LSD",
+        "n_pairs": 30,
+        "n_bootstrap": 1024,
+        "ci_low": 0.037788669332,
+        "ci_high": 0.107799730474,
+        "sign_flip_q_value": 0.029562136468787987,
+        "significant_after_fdr_0_05": true,
+        "significant_after_fdr_0.05": true
       },
       {
         "metric": "within_network_segregation",
@@ -3228,7 +3619,14 @@
         "expected_sign": -1,
         "sign_consistency": 0.4666666666666667,
         "sign_flip_p_value": 0.707667644135654,
-        "expected_direction": "negative means weaker within-network segregation under LSD"
+        "expected_direction": "negative means weaker within-network segregation under LSD",
+        "n_pairs": 30,
+        "n_bootstrap": 1024,
+        "ci_low": 0.000300383298,
+        "ci_high": 0.089871498709,
+        "sign_flip_q_value": 0.8649271206102438,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "metric": "between_network_integration",
@@ -3239,7 +3637,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.7333333333333333,
         "sign_flip_p_value": 0.008062400855123997,
-        "expected_direction": "positive means stronger between-network integration under LSD"
+        "expected_direction": "positive means stronger between-network integration under LSD",
+        "n_pairs": 30,
+        "n_bootstrap": 1024,
+        "ci_low": 0.047152982204,
+        "ci_high": 0.141828003307,
+        "sign_flip_q_value": 0.029562136468787987,
+        "significant_after_fdr_0_05": true,
+        "significant_after_fdr_0.05": true
       },
       {
         "metric": "integration_segregation_balance",
@@ -3250,7 +3655,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.5333333333333333,
         "sign_flip_p_value": 0.427767775952816,
-        "expected_direction": "positive means integration increases relative to segregation under LSD"
+        "expected_direction": "positive means integration increases relative to segregation under LSD",
+        "n_pairs": 30,
+        "n_bootstrap": 1024,
+        "ci_low": 0.000211159814,
+        "ci_high": 0.091658590319,
+        "sign_flip_q_value": 0.786819308064878,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "metric": "dynamic_fc_variance",
@@ -3261,7 +3673,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.43333333333333335,
         "sign_flip_p_value": 0.8192026959732175,
-        "expected_direction": "positive means a broader time-varying FC repertoire under LSD"
+        "expected_direction": "positive means a broader time-varying FC repertoire under LSD",
+        "n_pairs": 30,
+        "n_bootstrap": 1024,
+        "ci_low": -0.005094730851,
+        "ci_high": 0.002841193747,
+        "sign_flip_q_value": 0.9011229655705393,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "metric": "dynamic_fc_path_length",
@@ -3272,7 +3691,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.3333333333333333,
         "sign_flip_p_value": 0.9786130273714662,
-        "expected_direction": "positive means larger movement through FC-state space under LSD"
+        "expected_direction": "positive means larger movement through FC-state space under LSD",
+        "n_pairs": 30,
+        "n_bootstrap": 1024,
+        "ci_low": -0.147521204888,
+        "ci_high": -0.043053706985,
+        "sign_flip_q_value": 0.9786130273714662,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "metric": "trajectory_step_distance",
@@ -3283,7 +3709,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.5,
         "sign_flip_p_value": 0.572232224047184,
-        "expected_direction": "positive means larger macro-trajectory steps under LSD"
+        "expected_direction": "positive means larger macro-trajectory steps under LSD",
+        "n_pairs": 30,
+        "n_bootstrap": 1024,
+        "ci_low": -0.025713277466,
+        "ci_high": 0.037851357813,
+        "sign_flip_q_value": 0.786819308064878,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "metric": "graph_modularity_q",
@@ -3294,7 +3727,14 @@
         "expected_sign": -1,
         "sign_consistency": 0.5,
         "sign_flip_p_value": 0.572232224047184,
-        "expected_direction": "negative means lower graph modularity under LSD"
+        "expected_direction": "negative means lower graph modularity under LSD",
+        "n_pairs": 30,
+        "n_bootstrap": 1024,
+        "ci_low": -0.031812105515,
+        "ci_high": 0.011361312927,
+        "sign_flip_q_value": 0.786819308064878,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "metric": "graph_modularity_reduction_proxy",
@@ -3305,7 +3745,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.5,
         "sign_flip_p_value": 0.572232224047184,
-        "expected_direction": "positive means reduced graph modularity under LSD"
+        "expected_direction": "positive means reduced graph modularity under LSD",
+        "n_pairs": 30,
+        "n_bootstrap": 1024,
+        "ci_low": -0.012329403983,
+        "ci_high": 0.030929520407,
+        "sign_flip_q_value": 0.786819308064878,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "metric": "mean_participation_coefficient",
@@ -3316,7 +3763,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.5666666666666667,
         "sign_flip_p_value": 0.292332355864346,
-        "expected_direction": "positive means nodes distribute connectivity across more communities under LSD"
+        "expected_direction": "positive means nodes distribute connectivity across more communities under LSD",
+        "n_pairs": 30,
+        "n_bootstrap": 1024,
+        "ci_low": 0.003345755325,
+        "ci_high": 0.052282606877,
+        "sign_flip_q_value": 0.786819308064878,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "metric": "global_efficiency",
@@ -3327,7 +3781,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.7333333333333333,
         "sign_flip_p_value": 0.008062400855123997,
-        "expected_direction": "positive means stronger graph-theoretic integration under LSD"
+        "expected_direction": "positive means stronger graph-theoretic integration under LSD",
+        "n_pairs": 30,
+        "n_bootstrap": 1024,
+        "ci_low": 0.027344937581,
+        "ci_high": 0.08004363039,
+        "sign_flip_q_value": 0.029562136468787987,
+        "significant_after_fdr_0_05": true,
+        "significant_after_fdr_0.05": true
       }
     ],
     "run_metric_deltas": [
@@ -3341,7 +3802,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.8,
         "sign_flip_p_value": 0.017578125,
-        "expected_direction": "positive means globally stronger FC under LSD"
+        "expected_direction": "positive means globally stronger FC under LSD",
+        "n_pairs": 15,
+        "n_bootstrap": 1024,
+        "ci_low": 0.02867109109,
+        "ci_high": 0.127889529382,
+        "sign_flip_q_value": 0.064453125,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "run": "run-01",
@@ -3353,7 +3821,14 @@
         "expected_sign": -1,
         "sign_consistency": 0.3333333333333333,
         "sign_flip_p_value": 0.940765380859375,
-        "expected_direction": "negative means weaker within-network segregation under LSD"
+        "expected_direction": "negative means weaker within-network segregation under LSD",
+        "n_pairs": 15,
+        "n_bootstrap": 1024,
+        "ci_low": 0.001948191777,
+        "ci_high": 0.116242311661,
+        "sign_flip_q_value": 0.982421875,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "run": "run-01",
@@ -3365,7 +3840,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.8,
         "sign_flip_p_value": 0.017578125,
-        "expected_direction": "positive means stronger between-network integration under LSD"
+        "expected_direction": "positive means stronger between-network integration under LSD",
+        "n_pairs": 15,
+        "n_bootstrap": 1024,
+        "ci_low": 0.043412585753,
+        "ci_high": 0.183673859003,
+        "sign_flip_q_value": 0.064453125,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "run": "run-01",
@@ -3377,7 +3859,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.6,
         "sign_flip_p_value": 0.303619384765625,
-        "expected_direction": "positive means integration increases relative to segregation under LSD"
+        "expected_direction": "positive means integration increases relative to segregation under LSD",
+        "n_pairs": 15,
+        "n_bootstrap": 1024,
+        "ci_low": -0.00081594178,
+        "ci_high": 0.108403931011,
+        "sign_flip_q_value": 0.6679626464843751,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "run": "run-01",
@@ -3389,7 +3878,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.4,
         "sign_flip_p_value": 0.84912109375,
-        "expected_direction": "positive means a broader time-varying FC repertoire under LSD"
+        "expected_direction": "positive means a broader time-varying FC repertoire under LSD",
+        "n_pairs": 15,
+        "n_bootstrap": 1024,
+        "ci_low": -0.007415709113,
+        "ci_high": 0.004766138383,
+        "sign_flip_q_value": 0.982421875,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "run": "run-01",
@@ -3401,7 +3897,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.26666666666666666,
         "sign_flip_p_value": 0.982421875,
-        "expected_direction": "positive means larger movement through FC-state space under LSD"
+        "expected_direction": "positive means larger movement through FC-state space under LSD",
+        "n_pairs": 15,
+        "n_bootstrap": 1024,
+        "ci_low": -0.171843623215,
+        "ci_high": -0.027118713303,
+        "sign_flip_q_value": 0.982421875,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "run": "run-01",
@@ -3413,7 +3916,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.5333333333333333,
         "sign_flip_p_value": 0.5,
-        "expected_direction": "positive means larger macro-trajectory steps under LSD"
+        "expected_direction": "positive means larger macro-trajectory steps under LSD",
+        "n_pairs": 15,
+        "n_bootstrap": 1024,
+        "ci_low": -0.020614136777,
+        "ci_high": 0.048439942243,
+        "sign_flip_q_value": 0.9166666666666666,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "run": "run-01",
@@ -3425,7 +3935,14 @@
         "expected_sign": -1,
         "sign_consistency": 0.4666666666666667,
         "sign_flip_p_value": 0.696380615234375,
-        "expected_direction": "negative means lower graph modularity under LSD"
+        "expected_direction": "negative means lower graph modularity under LSD",
+        "n_pairs": 15,
+        "n_bootstrap": 1024,
+        "ci_low": -0.018542793804,
+        "ci_high": 0.021840149525,
+        "sign_flip_q_value": 0.9575233459472656,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "run": "run-01",
@@ -3437,7 +3954,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.4666666666666667,
         "sign_flip_p_value": 0.696380615234375,
-        "expected_direction": "positive means reduced graph modularity under LSD"
+        "expected_direction": "positive means reduced graph modularity under LSD",
+        "n_pairs": 15,
+        "n_bootstrap": 1024,
+        "ci_low": -0.022249066804,
+        "ci_high": 0.020131956004,
+        "sign_flip_q_value": 0.9575233459472656,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "run": "run-01",
@@ -3449,7 +3973,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.6666666666666666,
         "sign_flip_p_value": 0.15087890625,
-        "expected_direction": "positive means nodes distribute connectivity across more communities under LSD"
+        "expected_direction": "positive means nodes distribute connectivity across more communities under LSD",
+        "n_pairs": 15,
+        "n_bootstrap": 1024,
+        "ci_low": 0.009840344518,
+        "ci_high": 0.065380960418,
+        "sign_flip_q_value": 0.4149169921875,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "run": "run-01",
@@ -3461,7 +3992,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.8,
         "sign_flip_p_value": 0.017578125,
-        "expected_direction": "positive means stronger graph-theoretic integration under LSD"
+        "expected_direction": "positive means stronger graph-theoretic integration under LSD",
+        "n_pairs": 15,
+        "n_bootstrap": 1024,
+        "ci_low": 0.019387980649,
+        "ci_high": 0.101973724749,
+        "sign_flip_q_value": 0.064453125,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "run": "run-03",
@@ -3473,7 +4011,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.6666666666666666,
         "sign_flip_p_value": 0.15087890625,
-        "expected_direction": "positive means globally stronger FC under LSD"
+        "expected_direction": "positive means globally stronger FC under LSD",
+        "n_pairs": 15,
+        "n_bootstrap": 1024,
+        "ci_low": 0.018730148204,
+        "ci_high": 0.104880024075,
+        "sign_flip_q_value": 0.55322265625,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "run": "run-03",
@@ -3485,7 +4030,14 @@
         "expected_sign": -1,
         "sign_consistency": 0.6,
         "sign_flip_p_value": 0.303619384765625,
-        "expected_direction": "negative means weaker within-network segregation under LSD"
+        "expected_direction": "negative means weaker within-network segregation under LSD",
+        "n_pairs": 15,
+        "n_bootstrap": 1024,
+        "ci_low": -0.031844603979,
+        "ci_high": 0.107786852689,
+        "sign_flip_q_value": 0.7660186767578125,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "run": "run-03",
@@ -3497,7 +4049,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.6666666666666666,
         "sign_flip_p_value": 0.15087890625,
-        "expected_direction": "positive means stronger between-network integration under LSD"
+        "expected_direction": "positive means stronger between-network integration under LSD",
+        "n_pairs": 15,
+        "n_bootstrap": 1024,
+        "ci_low": 0.021136977226,
+        "ci_high": 0.14339890049,
+        "sign_flip_q_value": 0.55322265625,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "run": "run-03",
@@ -3509,7 +4068,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.4666666666666667,
         "sign_flip_p_value": 0.696380615234375,
-        "expected_direction": "positive means integration increases relative to segregation under LSD"
+        "expected_direction": "positive means integration increases relative to segregation under LSD",
+        "n_pairs": 15,
+        "n_bootstrap": 1024,
+        "ci_low": -0.028422598321,
+        "ci_high": 0.124820540565,
+        "sign_flip_q_value": 0.7660186767578125,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "run": "run-03",
@@ -3521,7 +4087,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.4666666666666667,
         "sign_flip_p_value": 0.696380615234375,
-        "expected_direction": "positive means a broader time-varying FC repertoire under LSD"
+        "expected_direction": "positive means a broader time-varying FC repertoire under LSD",
+        "n_pairs": 15,
+        "n_bootstrap": 1024,
+        "ci_low": -0.005956647211,
+        "ci_high": 0.00426716339,
+        "sign_flip_q_value": 0.7660186767578125,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "run": "run-03",
@@ -3533,7 +4106,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.4,
         "sign_flip_p_value": 0.84912109375,
-        "expected_direction": "positive means larger movement through FC-state space under LSD"
+        "expected_direction": "positive means larger movement through FC-state space under LSD",
+        "n_pairs": 15,
+        "n_bootstrap": 1024,
+        "ci_low": -0.171164132821,
+        "ci_high": -0.020357626082,
+        "sign_flip_q_value": 0.84912109375,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "run": "run-03",
@@ -3545,7 +4125,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.4666666666666667,
         "sign_flip_p_value": 0.696380615234375,
-        "expected_direction": "positive means larger macro-trajectory steps under LSD"
+        "expected_direction": "positive means larger macro-trajectory steps under LSD",
+        "n_pairs": 15,
+        "n_bootstrap": 1024,
+        "ci_low": -0.051715817682,
+        "ci_high": 0.048211620705,
+        "sign_flip_q_value": 0.7660186767578125,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "run": "run-03",
@@ -3557,7 +4144,14 @@
         "expected_sign": -1,
         "sign_consistency": 0.5333333333333333,
         "sign_flip_p_value": 0.5,
-        "expected_direction": "negative means lower graph modularity under LSD"
+        "expected_direction": "negative means lower graph modularity under LSD",
+        "n_pairs": 15,
+        "n_bootstrap": 1024,
+        "ci_low": -0.060721933077,
+        "ci_high": 0.014624745655,
+        "sign_flip_q_value": 0.7660186767578125,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "run": "run-03",
@@ -3569,7 +4163,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.5333333333333333,
         "sign_flip_p_value": 0.5,
-        "expected_direction": "positive means reduced graph modularity under LSD"
+        "expected_direction": "positive means reduced graph modularity under LSD",
+        "n_pairs": 15,
+        "n_bootstrap": 1024,
+        "ci_low": -0.015710526027,
+        "ci_high": 0.057017302773,
+        "sign_flip_q_value": 0.7660186767578125,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "run": "run-03",
@@ -3581,7 +4182,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.4666666666666667,
         "sign_flip_p_value": 0.696380615234375,
-        "expected_direction": "positive means nodes distribute connectivity across more communities under LSD"
+        "expected_direction": "positive means nodes distribute connectivity across more communities under LSD",
+        "n_pairs": 15,
+        "n_bootstrap": 1024,
+        "ci_low": -0.020749463945,
+        "ci_high": 0.057472556107,
+        "sign_flip_q_value": 0.7660186767578125,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "run": "run-03",
@@ -3593,7 +4201,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.6666666666666666,
         "sign_flip_p_value": 0.15087890625,
-        "expected_direction": "positive means stronger graph-theoretic integration under LSD"
+        "expected_direction": "positive means stronger graph-theoretic integration under LSD",
+        "n_pairs": 15,
+        "n_bootstrap": 1024,
+        "ci_low": 0.011891409009,
+        "ci_high": 0.076983285339,
+        "sign_flip_q_value": 0.55322265625,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       }
     ],
     "pair_rows": [
@@ -4914,7 +5529,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.6333333333333333,
         "sign_flip_p_value": 0.10024421103298664,
-        "expected_direction": "positive means LSD within-condition transitions need less receptor-profile control energy than placebo"
+        "expected_direction": "positive means LSD within-condition transitions need less receptor-profile control energy than placebo",
+        "n_pairs": 30,
+        "n_bootstrap": 1024,
+        "ci_low": 0.931332275222,
+        "ci_high": 9.203314077183,
+        "sign_flip_q_value": 0.23390315907696885,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "metric": "lsd_vs_placebo_uniform_transition_energy_reduction_pct",
@@ -4925,7 +5547,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.7666666666666667,
         "sign_flip_p_value": 0.002611439675092697,
-        "expected_direction": "positive means LSD within-condition transitions need less uniform-control energy than placebo"
+        "expected_direction": "positive means LSD within-condition transitions need less uniform-control energy than placebo",
+        "n_pairs": 30,
+        "n_bootstrap": 1024,
+        "ci_low": 3.568072317123,
+        "ci_high": 10.253570628134,
+        "sign_flip_q_value": 0.01828007772564888,
+        "significant_after_fdr_0_05": true,
+        "significant_after_fdr_0.05": true
       },
       {
         "metric": "receptor_vs_uniform_energy_reduction_pct",
@@ -4936,7 +5565,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.0,
         "sign_flip_p_value": 1.0,
-        "expected_direction": "positive means receptor-prior control needs less energy than uniform control"
+        "expected_direction": "positive means receptor-prior control needs less energy than uniform control",
+        "n_pairs": 30,
+        "n_bootstrap": 1024,
+        "ci_low": -43.043158347879,
+        "ci_high": -25.916595047017,
+        "sign_flip_q_value": 1.0,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "metric": "receptor_vs_random_energy_reduction_pct",
@@ -4947,7 +5583,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.26666666666666666,
         "sign_flip_p_value": 0.9973885603249073,
-        "expected_direction": "positive means receptor-prior control needs less energy than random receptor-prior permutations"
+        "expected_direction": "positive means receptor-prior control needs less energy than random receptor-prior permutations",
+        "n_pairs": 30,
+        "n_bootstrap": 1024,
+        "ci_low": -21.897254519021,
+        "ci_high": -8.856376131799,
+        "sign_flip_q_value": 1.0,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "metric": "hierarchy_vs_uniform_energy_reduction_pct",
@@ -4958,7 +5601,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.0,
         "sign_flip_p_value": 1.0,
-        "expected_direction": "positive means hierarchy-prior control needs less energy than uniform control"
+        "expected_direction": "positive means hierarchy-prior control needs less energy than uniform control",
+        "n_pairs": 30,
+        "n_bootstrap": 1024,
+        "ci_low": -349.17684261005,
+        "ci_high": -257.061746675894,
+        "sign_flip_q_value": 1.0,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "metric": "transmodal_vs_uniform_energy_reduction_pct",
@@ -4969,7 +5619,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.0,
         "sign_flip_p_value": 1.0,
-        "expected_direction": "positive means transmodal-prior control needs less energy than uniform control"
+        "expected_direction": "positive means transmodal-prior control needs less energy than uniform control",
+        "n_pairs": 30,
+        "n_bootstrap": 1024,
+        "ci_low": -796.788145281533,
+        "ci_high": -560.860437372047,
+        "sign_flip_q_value": 1.0,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "metric": "state_target_alignment_receptor",
@@ -4980,7 +5637,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.7,
         "sign_flip_p_value": 0.02138697262853384,
-        "expected_direction": "positive means modules with higher receptor prior align with larger LSD-minus-placebo state displacement"
+        "expected_direction": "positive means modules with higher receptor prior align with larger LSD-minus-placebo state displacement",
+        "n_pairs": 30,
+        "n_bootstrap": 1024,
+        "ci_low": 0.027319123531,
+        "ci_high": 0.230850932724,
+        "sign_flip_q_value": 0.07485440419986844,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       }
     ],
     "run_metric_deltas": [
@@ -4994,7 +5658,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.7333333333333333,
         "sign_flip_p_value": 0.059234619140625,
-        "expected_direction": "positive means LSD within-condition transitions need less receptor-profile control energy than placebo"
+        "expected_direction": "positive means LSD within-condition transitions need less receptor-profile control energy than placebo",
+        "n_pairs": 15,
+        "n_bootstrap": 1024,
+        "ci_low": -0.695054185747,
+        "ci_high": 11.720397794345,
+        "sign_flip_q_value": 0.138214111328125,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "run": "run-01",
@@ -5006,7 +5677,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.8666666666666667,
         "sign_flip_p_value": 0.003692626953125,
-        "expected_direction": "positive means LSD within-condition transitions need less uniform-control energy than placebo"
+        "expected_direction": "positive means LSD within-condition transitions need less uniform-control energy than placebo",
+        "n_pairs": 15,
+        "n_bootstrap": 1024,
+        "ci_low": 3.2345788302,
+        "ci_high": 13.10439917503,
+        "sign_flip_q_value": 0.025848388671875,
+        "significant_after_fdr_0_05": true,
+        "significant_after_fdr_0.05": true
       },
       {
         "run": "run-01",
@@ -5018,7 +5696,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.0,
         "sign_flip_p_value": 1.0,
-        "expected_direction": "positive means receptor-prior control needs less energy than uniform control"
+        "expected_direction": "positive means receptor-prior control needs less energy than uniform control",
+        "n_pairs": 15,
+        "n_bootstrap": 1024,
+        "ci_low": -42.249161618086,
+        "ci_high": -20.563271825717,
+        "sign_flip_q_value": 1.0,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "run": "run-01",
@@ -5030,7 +5715,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.3333333333333333,
         "sign_flip_p_value": 0.940765380859375,
-        "expected_direction": "positive means receptor-prior control needs less energy than random receptor-prior permutations"
+        "expected_direction": "positive means receptor-prior control needs less energy than random receptor-prior permutations",
+        "n_pairs": 15,
+        "n_bootstrap": 1024,
+        "ci_low": -22.900032064057,
+        "ci_high": -4.011004394208,
+        "sign_flip_q_value": 1.0,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "run": "run-01",
@@ -5042,7 +5734,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.0,
         "sign_flip_p_value": 1.0,
-        "expected_direction": "positive means hierarchy-prior control needs less energy than uniform control"
+        "expected_direction": "positive means hierarchy-prior control needs less energy than uniform control",
+        "n_pairs": 15,
+        "n_bootstrap": 1024,
+        "ci_low": -346.457664996521,
+        "ci_high": -230.048108712361,
+        "sign_flip_q_value": 1.0,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "run": "run-01",
@@ -5054,7 +5753,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.0,
         "sign_flip_p_value": 1.0,
-        "expected_direction": "positive means transmodal-prior control needs less energy than uniform control"
+        "expected_direction": "positive means transmodal-prior control needs less energy than uniform control",
+        "n_pairs": 15,
+        "n_bootstrap": 1024,
+        "ci_low": -809.431195842341,
+        "ci_high": -489.086253250732,
+        "sign_flip_q_value": 1.0,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "run": "run-01",
@@ -5066,7 +5772,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.8,
         "sign_flip_p_value": 0.017578125,
-        "expected_direction": "positive means modules with higher receptor prior align with larger LSD-minus-placebo state displacement"
+        "expected_direction": "positive means modules with higher receptor prior align with larger LSD-minus-placebo state displacement",
+        "n_pairs": 15,
+        "n_bootstrap": 1024,
+        "ci_low": 0.100788775245,
+        "ci_high": 0.339519748504,
+        "sign_flip_q_value": 0.0615234375,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "run": "run-03",
@@ -5078,7 +5791,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.5333333333333333,
         "sign_flip_p_value": 0.5,
-        "expected_direction": "positive means LSD within-condition transitions need less receptor-profile control energy than placebo"
+        "expected_direction": "positive means LSD within-condition transitions need less receptor-profile control energy than placebo",
+        "n_pairs": 15,
+        "n_bootstrap": 1024,
+        "ci_low": -1.993886676108,
+        "ci_high": 9.350363349597,
+        "sign_flip_q_value": 1.0,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "run": "run-03",
@@ -5090,7 +5810,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.6666666666666666,
         "sign_flip_p_value": 0.15087890625,
-        "expected_direction": "positive means LSD within-condition transitions need less uniform-control energy than placebo"
+        "expected_direction": "positive means LSD within-condition transitions need less uniform-control energy than placebo",
+        "n_pairs": 15,
+        "n_bootstrap": 1024,
+        "ci_low": 1.221427054073,
+        "ci_high": 10.454137703011,
+        "sign_flip_q_value": 1.0,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "run": "run-03",
@@ -5102,7 +5829,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.0,
         "sign_flip_p_value": 1.0,
-        "expected_direction": "positive means receptor-prior control needs less energy than uniform control"
+        "expected_direction": "positive means receptor-prior control needs less energy than uniform control",
+        "n_pairs": 15,
+        "n_bootstrap": 1024,
+        "ci_low": -49.444697156381,
+        "ci_high": -25.80654626616,
+        "sign_flip_q_value": 1.0,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "run": "run-03",
@@ -5114,7 +5848,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.2,
         "sign_flip_p_value": 0.996307373046875,
-        "expected_direction": "positive means receptor-prior control needs less energy than random receptor-prior permutations"
+        "expected_direction": "positive means receptor-prior control needs less energy than random receptor-prior permutations",
+        "n_pairs": 15,
+        "n_bootstrap": 1024,
+        "ci_low": -27.588056497176,
+        "ci_high": -8.693571713234,
+        "sign_flip_q_value": 1.0,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "run": "run-03",
@@ -5126,7 +5867,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.0,
         "sign_flip_p_value": 1.0,
-        "expected_direction": "positive means hierarchy-prior control needs less energy than uniform control"
+        "expected_direction": "positive means hierarchy-prior control needs less energy than uniform control",
+        "n_pairs": 15,
+        "n_bootstrap": 1024,
+        "ci_low": -383.295530708925,
+        "ci_high": -248.57692765739,
+        "sign_flip_q_value": 1.0,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "run": "run-03",
@@ -5138,7 +5886,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.0,
         "sign_flip_p_value": 1.0,
-        "expected_direction": "positive means transmodal-prior control needs less energy than uniform control"
+        "expected_direction": "positive means transmodal-prior control needs less energy than uniform control",
+        "n_pairs": 15,
+        "n_bootstrap": 1024,
+        "ci_low": -901.84862205217,
+        "ci_high": -562.576294125898,
+        "sign_flip_q_value": 1.0,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "run": "run-03",
@@ -5150,7 +5905,14 @@
         "expected_sign": 1,
         "sign_consistency": 0.6,
         "sign_flip_p_value": 0.303619384765625,
-        "expected_direction": "positive means modules with higher receptor prior align with larger LSD-minus-placebo state displacement"
+        "expected_direction": "positive means modules with higher receptor prior align with larger LSD-minus-placebo state displacement",
+        "n_pairs": 15,
+        "n_bootstrap": 1024,
+        "ci_low": -0.109790873289,
+        "ci_high": 0.192433861006,
+        "sign_flip_q_value": 1.0,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       }
     ],
     "pair_rows": [
@@ -8244,13 +9006,14 @@
     "C and D use coarse 8-module FC and graph proxies, not canonical network or thalamic-nucleus definitions.",
     "E currently uses a macro-module proxy graph and coarse receptor priors; it is not full structural-connectome/PET receptor-informed network control theory.",
     "Nulls include receptor-weight permutations and degree controls, but not yet degree-preserving structural graph rewires or spatial-autocorrelation-preserving receptor-map nulls.",
+    "Metric summaries now include bootstrap confidence intervals and BH-FDR correction for sign-consistency p-values; with small n these are uncertainty descriptors, not population claims.",
     "Run-02 music data are available in the fMRI explorer but are not part of this primary A+B+C+D+E ranking summary."
   ],
   "source_path": "results/dynamic_mechanism_ranking/summary.json",
   "robustness": {
     "schema_version": 1,
     "analysis_status": "implemented_first_pass_robustness",
-    "generated_at_utc": "2026-05-20T07:15:23.124443+00:00",
+    "generated_at_utc": "2026-06-01T11:37:25.459604+00:00",
     "source_viewer_root": "results/stage_2/empirical_viewer",
     "pair_count": 30,
     "subject_count": 15,
@@ -16221,7 +16984,7 @@
       ],
       "claim_guardrail": "D window-size sensitivity only addresses dynamic-FC parameter dependence inside the current 8-module proxy space."
     },
-    "claim_guardrail": "These robustness checks are in-sample stress tests on the cached LSD data. They do not replace psilocybin replication, structural-connectome controls, PET receptor maps, or Schaefer/Yeo sensitivity.",
+    "claim_guardrail": "These robustness checks are in-sample stress tests on the cached LSD data. They do not replace the ds006072 cross-drug stress test, structural-connectome controls, PET receptor maps, or Schaefer/Yeo sensitivity.",
     "literature_benchmark": {
       "status": "implemented_metric_mapping",
       "rows": [

@@ -1,1 +1,12 @@
 subject,primary_contrast,psilocybin_session_count,active_control_mtp_session_count,baseline_session_count,psilocybin_downloadable_cifti_count,active_control_mtp_downloadable_cifti_count,baseline_downloadable_cifti_count,psilocybin_local_cifti_count,active_control_mtp_local_cifti_count,baseline_local_cifti_count,primary_contrast_planned,primary_contrast_local_ready,secondary_baseline_contrast_planned,secondary_baseline_contrast_local_ready
+P1,psilocybin_vs_active_control_mtp,1,1,5,1,1,5,1,1,0,True,True,True,False
+P1R,psilocybin_vs_active_control_mtp,1,0,2,0,0,0,0,0,0,False,False,True,False
+P2,psilocybin_vs_active_control_mtp,1,2,9,1,1,9,1,1,0,True,True,True,False
+P3,psilocybin_vs_active_control_mtp,1,1,7,1,1,6,1,1,0,True,True,True,False
+P3R,psilocybin_vs_active_control_mtp,1,0,1,0,0,0,0,0,0,False,False,True,False
+P4,psilocybin_vs_active_control_mtp,1,1,5,1,1,5,0,0,0,True,False,True,False
+P4R,psilocybin_vs_active_control_mtp,1,0,1,0,0,0,0,0,0,False,False,True,False
+P5,psilocybin_vs_active_control_mtp,1,1,5,1,1,4,0,0,0,True,False,True,False
+P5R,psilocybin_vs_active_control_mtp,1,0,1,0,0,0,0,0,0,False,False,True,False
+P6,psilocybin_vs_active_control_mtp,1,1,4,1,1,4,0,0,0,True,False,True,False
+P7,psilocybin_vs_active_control_mtp,1,1,3,1,1,3,0,0,0,True,False,True,False

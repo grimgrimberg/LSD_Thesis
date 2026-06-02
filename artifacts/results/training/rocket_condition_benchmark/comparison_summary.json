@@ -1,0 +1,6902 @@
+{
+  "schema_version": "rocket_condition_benchmark.v1",
+  "task": "lsd_vs_placebo_condition_classification",
+  "model": "rocket_random_convolution_features_logistic_regression",
+  "cv_strategy": "approved CV5 subject-disjoint manifest",
+  "split_summary": {
+    "split_set_id": "thesis_subject_disjoint_cv5_v1_approved",
+    "strategy": "subject_disjoint_cv5",
+    "approval_status": "approved",
+    "approved_by": "Yuval Grimberg",
+    "approved_at": "2026-05-10T11:11:54Z",
+    "validation_claim_scope": "preliminary_internal_subject_disjoint_cv5",
+    "split_seed": 20260510,
+    "number_of_subjects": 15,
+    "number_of_folds": 5,
+    "selection_subjects_per_fold": 12,
+    "validation_subjects_per_fold": 3,
+    "held_out_validation_configured": true,
+    "held_out_validation_completed": false,
+    "validation_coverage_summary": {
+      "held_out_counts": {
+        "sub-001": 1,
+        "sub-002": 1,
+        "sub-003": 1,
+        "sub-004": 1,
+        "sub-006": 1,
+        "sub-009": 1,
+        "sub-010": 1,
+        "sub-011": 1,
+        "sub-012": 1,
+        "sub-013": 1,
+        "sub-015": 1,
+        "sub-017": 1,
+        "sub-018": 1,
+        "sub-019": 1,
+        "sub-020": 1
+      },
+      "every_subject_held_out_exactly_once": true
+    },
+    "fold_summaries": [
+      {
+        "fold_index": 1,
+        "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+        "file_path": "output/validation/cv5_subject_disjoint/approved/subject_split_fold_01_approved.json",
+        "selection_subject_count": 12,
+        "validation_subject_count": 3,
+        "overlap_count": 0,
+        "approval_status": "approved"
+      },
+      {
+        "fold_index": 2,
+        "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+        "file_path": "output/validation/cv5_subject_disjoint/approved/subject_split_fold_02_approved.json",
+        "selection_subject_count": 12,
+        "validation_subject_count": 3,
+        "overlap_count": 0,
+        "approval_status": "approved"
+      },
+      {
+        "fold_index": 3,
+        "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+        "file_path": "output/validation/cv5_subject_disjoint/approved/subject_split_fold_03_approved.json",
+        "selection_subject_count": 12,
+        "validation_subject_count": 3,
+        "overlap_count": 0,
+        "approval_status": "approved"
+      },
+      {
+        "fold_index": 4,
+        "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+        "file_path": "output/validation/cv5_subject_disjoint/approved/subject_split_fold_04_approved.json",
+        "selection_subject_count": 12,
+        "validation_subject_count": 3,
+        "overlap_count": 0,
+        "approval_status": "approved"
+      },
+      {
+        "fold_index": 5,
+        "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+        "file_path": "output/validation/cv5_subject_disjoint/approved/subject_split_fold_05_approved.json",
+        "selection_subject_count": 12,
+        "validation_subject_count": 3,
+        "overlap_count": 0,
+        "approval_status": "approved"
+      }
+    ],
+    "limitations": [
+      "Small n=15 subject universe with n=3 held out per fold limits precision and interpretability.",
+      "Cached QC does not include subject-level motion, FD/DVARS, confound-regression, or censoring strata.",
+      "This is internal subject-disjoint validation, not external cohort validation.",
+      "Candidate generation used cached complete paired subjects from empirical_data_quality.json.",
+      "n=15 complete paired subjects",
+      "n=3 held-out subjects per fold",
+      "No subject-level motion/FD/DVARS/confound/censoring stratification available",
+      "Internal validation only; not external validation",
+      "Interpret cautiously"
+    ]
+  },
+  "primary_evaluation_unit": "subject_session_run_aggregated_windows",
+  "primary_metric_source": "subject/session/run mean probability after subject-disjoint fold prediction",
+  "window_random_reporting": false,
+  "leakage_controls": [
+    "train/test splits are grouped by subject",
+    "normalization is fit only on training windows inside each fold",
+    "ROCKET kernels are generated from shape and seed only, not from labels or held-out values",
+    "reported primary metrics aggregate window probabilities to subject/session/run units"
+  ],
+  "dataset": {
+    "sample_count": 600,
+    "window_length": 64,
+    "module_count": 8,
+    "subject_count": 15,
+    "fold_count": 5,
+    "positive_rate": 0.5
+  },
+  "rocket": {
+    "n_kernels": 512,
+    "feature_count": 1024,
+    "features_per_kernel": [
+      "max",
+      "proportion_positive_values"
+    ],
+    "random_state": 11
+  },
+  "folds": [
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "held_out_subjects": [
+        "sub-011",
+        "sub-015",
+        "sub-020"
+      ],
+      "train_subject_count": 12,
+      "held_out_subject_count": 3,
+      "aggregation_unit_count": 12,
+      "accuracy": 0.6666666666666666,
+      "balanced_accuracy": 0.6666666666666666,
+      "roc_auc": 0.6666666666666666
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "held_out_subjects": [
+        "sub-002",
+        "sub-017",
+        "sub-018"
+      ],
+      "train_subject_count": 12,
+      "held_out_subject_count": 3,
+      "aggregation_unit_count": 12,
+      "accuracy": 0.6666666666666666,
+      "balanced_accuracy": 0.6666666666666667,
+      "roc_auc": 0.8055555555555556
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "held_out_subjects": [
+        "sub-001",
+        "sub-003",
+        "sub-012"
+      ],
+      "train_subject_count": 12,
+      "held_out_subject_count": 3,
+      "aggregation_unit_count": 12,
+      "accuracy": 0.6666666666666666,
+      "balanced_accuracy": 0.6666666666666666,
+      "roc_auc": 0.5833333333333334
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "held_out_subjects": [
+        "sub-004",
+        "sub-009",
+        "sub-019"
+      ],
+      "train_subject_count": 12,
+      "held_out_subject_count": 3,
+      "aggregation_unit_count": 12,
+      "accuracy": 0.75,
+      "balanced_accuracy": 0.75,
+      "roc_auc": 0.75
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "held_out_subjects": [
+        "sub-006",
+        "sub-010",
+        "sub-013"
+      ],
+      "train_subject_count": 12,
+      "held_out_subject_count": 3,
+      "aggregation_unit_count": 12,
+      "accuracy": 0.5833333333333334,
+      "balanced_accuracy": 0.5833333333333334,
+      "roc_auc": 0.75
+    }
+  ],
+  "aggregate": {
+    "accuracy_mean": 0.6666666666666667,
+    "accuracy_std": 0.05270462766947298,
+    "balanced_accuracy_mean": 0.6666666666666667,
+    "balanced_accuracy_std": 0.05270462766947298,
+    "roc_auc_mean": 0.7111111111111111,
+    "roc_auc_std": 0.07777777777777778
+  },
+  "subject_session_run_predictions": [
+    {
+      "fold": 1,
+      "subject": "sub-011",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "window_count": 10,
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.2104761138262825
+    },
+    {
+      "fold": 1,
+      "subject": "sub-011",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "window_count": 10,
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.30210481167209613
+    },
+    {
+      "fold": 1,
+      "subject": "sub-011",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "window_count": 10,
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.39626060811081987
+    },
+    {
+      "fold": 1,
+      "subject": "sub-011",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "window_count": 10,
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.42283802892367267
+    },
+    {
+      "fold": 1,
+      "subject": "sub-015",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "window_count": 10,
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.7117130093582575
+    },
+    {
+      "fold": 1,
+      "subject": "sub-015",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "window_count": 10,
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.7865853882139775
+    },
+    {
+      "fold": 1,
+      "subject": "sub-015",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "window_count": 10,
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.6983525412388132
+    },
+    {
+      "fold": 1,
+      "subject": "sub-015",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "window_count": 10,
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.8339667097117115
+    },
+    {
+      "fold": 1,
+      "subject": "sub-020",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "window_count": 10,
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.853068026572189
+    },
+    {
+      "fold": 1,
+      "subject": "sub-020",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "window_count": 10,
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.8902401583203228
+    },
+    {
+      "fold": 1,
+      "subject": "sub-020",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "window_count": 10,
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.174343808474903
+    },
+    {
+      "fold": 1,
+      "subject": "sub-020",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "window_count": 10,
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.47852328255181054
+    },
+    {
+      "fold": 2,
+      "subject": "sub-002",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "window_count": 10,
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.8463888205352623
+    },
+    {
+      "fold": 2,
+      "subject": "sub-002",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "window_count": 10,
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.5238403828688621
+    },
+    {
+      "fold": 2,
+      "subject": "sub-002",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "window_count": 10,
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.12012385835338908
+    },
+    {
+      "fold": 2,
+      "subject": "sub-002",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "window_count": 10,
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.18608010670900757
+    },
+    {
+      "fold": 2,
+      "subject": "sub-017",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "window_count": 10,
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.31710516658431864
+    },
+    {
+      "fold": 2,
+      "subject": "sub-017",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "window_count": 10,
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.2861293361701449
+    },
+    {
+      "fold": 2,
+      "subject": "sub-017",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "window_count": 10,
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.26221653298486125
+    },
+    {
+      "fold": 2,
+      "subject": "sub-017",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "window_count": 10,
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.06701858930538118
+    },
+    {
+      "fold": 2,
+      "subject": "sub-018",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "window_count": 10,
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.16014322025734312
+    },
+    {
+      "fold": 2,
+      "subject": "sub-018",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "window_count": 10,
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.7189063319900232
+    },
+    {
+      "fold": 2,
+      "subject": "sub-018",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "window_count": 10,
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.2529526448695756
+    },
+    {
+      "fold": 2,
+      "subject": "sub-018",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "window_count": 10,
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.6059927654815043
+    },
+    {
+      "fold": 3,
+      "subject": "sub-001",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "window_count": 10,
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.5058115427049634
+    },
+    {
+      "fold": 3,
+      "subject": "sub-001",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "window_count": 10,
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.2961805086249715
+    },
+    {
+      "fold": 3,
+      "subject": "sub-001",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "window_count": 10,
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.3897089410367519
+    },
+    {
+      "fold": 3,
+      "subject": "sub-001",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "window_count": 10,
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.28453953989517256
+    },
+    {
+      "fold": 3,
+      "subject": "sub-003",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "window_count": 10,
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.7521066434714687
+    },
+    {
+      "fold": 3,
+      "subject": "sub-003",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "window_count": 10,
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.34652076470797816
+    },
+    {
+      "fold": 3,
+      "subject": "sub-003",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "window_count": 10,
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.3379097719554006
+    },
+    {
+      "fold": 3,
+      "subject": "sub-003",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "window_count": 10,
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.9359814908229204
+    },
+    {
+      "fold": 3,
+      "subject": "sub-012",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "window_count": 10,
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.6775137630884593
+    },
+    {
+      "fold": 3,
+      "subject": "sub-012",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "window_count": 10,
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.6213899126998742
+    },
+    {
+      "fold": 3,
+      "subject": "sub-012",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "window_count": 10,
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.3586921170091845
+    },
+    {
+      "fold": 3,
+      "subject": "sub-012",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "window_count": 10,
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.6264234082412148
+    },
+    {
+      "fold": 4,
+      "subject": "sub-004",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "window_count": 10,
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.6549174769715724
+    },
+    {
+      "fold": 4,
+      "subject": "sub-004",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "window_count": 10,
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.5384310161510951
+    },
+    {
+      "fold": 4,
+      "subject": "sub-004",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "window_count": 10,
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.5751785619271302
+    },
+    {
+      "fold": 4,
+      "subject": "sub-004",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "window_count": 10,
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.8120796313288597
+    },
+    {
+      "fold": 4,
+      "subject": "sub-009",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "window_count": 10,
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.5618159463344173
+    },
+    {
+      "fold": 4,
+      "subject": "sub-009",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "window_count": 10,
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.5898876712715475
+    },
+    {
+      "fold": 4,
+      "subject": "sub-009",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "window_count": 10,
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.45762457924536043
+    },
+    {
+      "fold": 4,
+      "subject": "sub-009",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "window_count": 10,
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.35773043570886465
+    },
+    {
+      "fold": 4,
+      "subject": "sub-019",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "window_count": 10,
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9683449632010722
+    },
+    {
+      "fold": 4,
+      "subject": "sub-019",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "window_count": 10,
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.8827480160360602
+    },
+    {
+      "fold": 4,
+      "subject": "sub-019",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "window_count": 10,
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.11438488032681107
+    },
+    {
+      "fold": 4,
+      "subject": "sub-019",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "window_count": 10,
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.6370152524472741
+    },
+    {
+      "fold": 5,
+      "subject": "sub-006",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "window_count": 10,
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.8894276726787194
+    },
+    {
+      "fold": 5,
+      "subject": "sub-006",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "window_count": 10,
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.5049639933050242
+    },
+    {
+      "fold": 5,
+      "subject": "sub-006",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "window_count": 10,
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.47258389696452807
+    },
+    {
+      "fold": 5,
+      "subject": "sub-006",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "window_count": 10,
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.6958572684780238
+    },
+    {
+      "fold": 5,
+      "subject": "sub-010",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "window_count": 10,
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.7574665019965513
+    },
+    {
+      "fold": 5,
+      "subject": "sub-010",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "window_count": 10,
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.7883522223910227
+    },
+    {
+      "fold": 5,
+      "subject": "sub-010",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "window_count": 10,
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.5591741900861986
+    },
+    {
+      "fold": 5,
+      "subject": "sub-010",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "window_count": 10,
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.559306744317847
+    },
+    {
+      "fold": 5,
+      "subject": "sub-013",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "window_count": 10,
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.7671642958359276
+    },
+    {
+      "fold": 5,
+      "subject": "sub-013",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "window_count": 10,
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.3285365050385191
+    },
+    {
+      "fold": 5,
+      "subject": "sub-013",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "window_count": 10,
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.6921804642937449
+    },
+    {
+      "fold": 5,
+      "subject": "sub-013",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "window_count": 10,
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.30769863433629274
+    }
+  ],
+  "window_folds_secondary": [
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "held_out_subjects": [
+        "sub-011",
+        "sub-015",
+        "sub-020"
+      ],
+      "train_subject_count": 12,
+      "held_out_subject_count": 3,
+      "window_count": 120,
+      "accuracy": 0.55,
+      "balanced_accuracy": 0.55,
+      "roc_auc": 0.5933333333333334
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "held_out_subjects": [
+        "sub-002",
+        "sub-017",
+        "sub-018"
+      ],
+      "train_subject_count": 12,
+      "held_out_subject_count": 3,
+      "window_count": 120,
+      "accuracy": 0.6583333333333333,
+      "balanced_accuracy": 0.6583333333333333,
+      "roc_auc": 0.635
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "held_out_subjects": [
+        "sub-001",
+        "sub-003",
+        "sub-012"
+      ],
+      "train_subject_count": 12,
+      "held_out_subject_count": 3,
+      "window_count": 120,
+      "accuracy": 0.5416666666666666,
+      "balanced_accuracy": 0.5416666666666667,
+      "roc_auc": 0.5119444444444444
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "held_out_subjects": [
+        "sub-004",
+        "sub-009",
+        "sub-019"
+      ],
+      "train_subject_count": 12,
+      "held_out_subject_count": 3,
+      "window_count": 120,
+      "accuracy": 0.625,
+      "balanced_accuracy": 0.625,
+      "roc_auc": 0.6708333333333333
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "held_out_subjects": [
+        "sub-006",
+        "sub-010",
+        "sub-013"
+      ],
+      "train_subject_count": 12,
+      "held_out_subject_count": 3,
+      "window_count": 120,
+      "accuracy": 0.5916666666666667,
+      "balanced_accuracy": 0.5916666666666667,
+      "roc_auc": 0.5702777777777777
+    }
+  ],
+  "window_aggregate_secondary": {
+    "accuracy_mean": 0.5933333333333334,
+    "accuracy_std": 0.044221663871405324,
+    "balanced_accuracy_mean": 0.5933333333333334,
+    "balanced_accuracy_std": 0.0442216638714053,
+    "roc_auc_mean": 0.5962777777777778,
+    "roc_auc_std": 0.05450637067760469
+  },
+  "window_predictions_secondary": [
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-011",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9098849655687559
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-011",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9472969746184
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-011",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.0990107174164514
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-011",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.12271045479412027
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-011",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 2.473688406510892e-05
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-011",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.001066063473535916
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-011",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.010906209842619443
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-011",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.005034216043132104
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-011",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.0028197621839972384
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-011",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.00600703743774726
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-011",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9686948317880804
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-011",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.13815637884591528
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-011",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.06478578505694924
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-011",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.006212928616725023
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-011",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.14158249581067248
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-011",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.8348616592077023
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-011",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.46809413281348844
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-011",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.37067023200691734
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-011",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.027616359523817878
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-011",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.0003733130506925705
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-011",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.0968875022607643
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-011",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.8109336126494047
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-011",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.1229268443249518
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-011",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.01941996020656332
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-011",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.002740390484230655
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-011",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.09985758332626016
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-011",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.14143603343325387
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-011",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.8070314985120858
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-011",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.9500081668520651
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-011",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.911364489058619
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-011",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.19614259798241346
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-011",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.7354502580464229
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-011",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.9986681211493403
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-011",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.9861056705701942
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-011",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.0431360365772313
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-011",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.003258418642809185
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-011",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 7.805577849705332e-06
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-011",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.00023598974064479726
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-011",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.37185823489877323
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-011",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.893517156051047
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-015",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9999777521122027
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-015",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9992188913388449
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-015",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9750331144604244
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-015",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.12727717043285428
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-015",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.14458206223878856
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-015",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.45438250001981534
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-015",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9204124398959438
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-015",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.7249897120878976
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-015",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9579841174202745
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-015",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.8132723335755297
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-015",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9990059574735984
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-015",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9851591528313265
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-015",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.24413667497988317
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-015",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.03099911761465392
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-015",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9840432703562713
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-015",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9623567758432224
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-015",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.7352043028680127
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-015",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9261108760387207
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-015",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9993834957479385
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-015",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9994542583861471
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-015",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.9938138188293018
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-015",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.9996234385022155
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-015",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.9999138273184119
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-015",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.9990686365120579
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-015",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.9989958218752435
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-015",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.6169706387033658
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-015",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.999978933071683
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-015",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.28216164343329353
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-015",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.006535315420085093
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-015",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.08646333872247443
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-015",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.6781395817245658
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-015",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.8413565125689028
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-015",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.9742325631922412
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-015",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.9102857645813003
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-015",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.4280552140628754
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-015",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.9651401379221344
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-015",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.7128949361897763
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-015",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.996534702122568
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-015",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.9968714263604527
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-015",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.8361562583922992
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-020",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9994864871110001
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-020",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9846783929333822
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-020",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9090354418857428
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-020",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.7042069996691664
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-020",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9857552886460816
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-020",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9949455523220386
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-020",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9854873563062594
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-020",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.7411667562932893
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-020",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.28084459220119956
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-020",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9450733983537304
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-020",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9976136627115764
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-020",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9999969747895497
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-020",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9997317118267106
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-020",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.8435033517711292
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-020",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.8762906982001143
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-020",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.6801132509598252
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-020",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9361872148428406
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-020",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.966694078587379
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-020",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9448645109299079
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-020",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.6574061285841958
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-020",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.6822077853445705
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-020",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.7392063109221433
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-020",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.019444924976865313
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-020",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.0027334118838017825
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-020",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.03126261631472551
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-020",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.012779676186896445
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-020",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.0014272268138034057
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-020",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.004501175655166991
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-020",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.003413587901136914
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-020",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.24646136874991992
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-020",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.8993143654258775
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-020",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.6946534896287976
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-020",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.13034067462445478
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-020",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.07863874591528924
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-020",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.511865814084413
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-020",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.07025202525161493
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-020",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.9517042909134915
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-020",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.7279634952431034
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-020",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.6992822384421652
+    },
+    {
+      "fold": 1,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_01",
+      "subject": "sub-020",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.02121768598889865
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-002",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.4698758312732899
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-002",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.3684998004314678
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-002",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.7777171843427191
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-002",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9975091687477582
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-002",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9999261487822488
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-002",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9744308694611534
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-002",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.8985667610119816
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-002",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9814595450889135
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-002",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9965249761345375
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-002",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9993779200785534
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-002",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.00930313507326072
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-002",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.014698990068960277
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-002",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.8670529477025247
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-002",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.8739043679794667
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-002",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9416261940176645
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-002",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.782712248822829
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-002",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.17728705259742034
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-002",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9058181332196605
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-002",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.6568474810267725
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-002",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.009153278180062506
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-002",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.0689411951025958
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-002",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.2518163793561668
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-002",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.4122261357604445
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-002",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.05315712363232002
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-002",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.0003973083082030344
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-002",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.001969410264952832
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-002",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.0037924862258953496
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-002",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.32791707855030416
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-002",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.05912519024639219
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-002",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.02189627608661587
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-002",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.08686929886151634
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-002",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.08570183299570357
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-002",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.4865060506329083
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-002",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.3898222401808271
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-002",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.35062465906893003
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-002",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.058887356943104256
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-002",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.3031057727432971
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-002",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.022592059135372503
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-002",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.020755710706523038
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-002",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.05593608582189343
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-017",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.00011224283855431549
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-017",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.0030395556513920486
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-017",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.7193319147209546
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-017",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.0015672317215841744
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-017",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.09833370314918917
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-017",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.4474029410753647
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-017",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.919930827016629
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-017",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.35900385165582105
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-017",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.008547380596510846
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-017",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.6137820174171866
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-017",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.1240068610356229
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-017",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.0003925265833190248
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-017",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 2.1828252088961795e-05
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-017",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.0016991438017827977
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-017",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.06418900590410262
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-017",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.21360143921354632
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-017",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9772040251862865
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-017",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.7564283321411353
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-017",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.10834930987143951
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-017",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.6154008897121253
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-017",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.715885350486268
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-017",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.13260372206665963
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-017",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.06916183283851683
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-017",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.014637844808140519
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-017",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.4646786504992254
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-017",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.7975685697275314
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-017",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.015369605888051472
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-017",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.153227703086644
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-017",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.0857164645455435
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-017",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.17331558590203242
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-017",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.14520955971194133
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-017",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.0007772230303299605
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-017",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.04601628119902476
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-017",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.0032962985556916208
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-017",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.2704755527535676
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-017",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.06430359758402063
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-017",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.00034803555136325243
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-017",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.0007617684140254818
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-017",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.08580202220564956
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-017",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.05319555404819763
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-018",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.3370034579879106
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-018",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.09210116501756502
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-018",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.017919653153439616
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-018",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.00042180806909166026
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-018",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 4.341675616614716e-06
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-018",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.005748285311639931
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-018",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.8683850866372418
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-018",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.2566246593357
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-018",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.00645937935636228
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-018",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.016764366028863956
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-018",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.7112278992789398
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-018",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.8377609528523976
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-018",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.8392997627461243
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-018",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.5651258157086837
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-018",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9846819593255078
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-018",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.23147587443873308
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-018",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9086542004528504
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-018",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9610626139936013
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-018",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.27579208640552966
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-018",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.8739821546978638
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-018",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.2329359019482454
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-018",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.8752283433886973
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-018",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.42895470573196737
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-018",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.15362119544644567
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-018",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.2961624975458011
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-018",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.011054134091419214
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-018",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.0020543008477433285
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-018",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.002300696447667109
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-018",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.00415627779210725
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-018",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.5230583954556622
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-018",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.7404359077936098
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-018",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.9418940399723784
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-018",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.30554339850525314
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-018",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.00990623308345842
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-018",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.25096730421654107
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-018",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.8326848139772107
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-018",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.9926879972364517
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-018",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.9934867044849522
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-018",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.6140864254260612
+    },
+    {
+      "fold": 2,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_02",
+      "subject": "sub-018",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.37823483011912584
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-001",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.909812239182015
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-001",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.8666919629445661
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-001",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.1239081639839806
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-001",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.04753521132369442
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-001",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.1920981587911928
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-001",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.003917695115442577
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-001",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.0639503305338433
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-001",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.8859204032854556
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-001",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9662543821328057
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-001",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9980268797566381
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-001",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.12022379061948477
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-001",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.7001643338206787
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-001",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9145108999558526
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-001",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.4068673100069837
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-001",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.0008084750270455921
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-001",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.0038933752160768952
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-001",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.0029941365555067124
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-001",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.116550736219175
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-001",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.6314959469236426
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-001",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.06429608190526803
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-001",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.04275632868909355
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-001",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.957958952322157
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-001",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.7398483283706809
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-001",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.9322182054998172
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-001",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.7789210755367935
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-001",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.16669799368025798
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-001",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.16523396351544598
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-001",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.0027412178447408183
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-001",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.0002995925020409952
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-001",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.11041375240649158
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-001",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.2379210098960686
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-001",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.008071458495184274
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-001",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.13157803690838335
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-001",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.19705379362620215
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-001",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.9207046196836348
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-001",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.4066511051373631
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-001",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.037257704031080204
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-001",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.1273495124437979
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-001",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.042031494223207774
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-001",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.7367766645068029
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-003",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9658211962450113
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-003",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.6512752187823344
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-003",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9092305319576828
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-003",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.46912707784988655
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-003",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.8483257159456444
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-003",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9236867541004985
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-003",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.8891975729499146
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-003",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.6836670964309697
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-003",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.6193086406023235
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-003",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.5614266298504219
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-003",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.03577348767490086
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-003",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.00157511233673142
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-003",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.20190565707167335
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-003",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.018212154615797217
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-003",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.7147795248321477
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-003",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.8722073347337078
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-003",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.7556757398201894
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-003",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.8118495114877705
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-003",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.052857307438050206
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-003",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.00037181706881332476
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-003",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.6679140219961281
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-003",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.9975668403575895
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-003",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.4598650331920836
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-003",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.005625216088698034
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-003",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.024873679582550132
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-003",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.007137002370101838
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-003",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.09263068126541918
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-003",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.0008371663956920895
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-003",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.12293591203123325
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-003",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.9997121662745103
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-003",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.9991598623026527
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-003",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.9965254794201068
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-003",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.8185657310401206
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-003",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.9401597357019803
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-003",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.9642037846839487
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-003",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.9862151759349399
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-003",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.9152604760101803
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-003",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.8343815168415312
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-003",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.9655591291147936
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-003",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.9397840171789485
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-012",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9657691899838662
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-012",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.2294179443719607
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-012",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.01122975691387713
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-012",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.40423115330678544
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-012",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.8765438804005381
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-012",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.31151218800738445
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-012",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9911861036917481
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-012",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9902688829382823
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-012",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9951161106058084
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-012",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9998624206643424
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-012",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.4571301456660369
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-012",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9552049969335039
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-012",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.7308677506858295
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-012",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.4205695713957605
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-012",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.12752295734839478
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-012",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.005835014153474766
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-012",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9638822155124278
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-012",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.6919456518166243
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-012",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9908695124120054
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-012",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.8700713110746837
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-012",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.9365052162591411
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-012",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.011546071520213317
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-012",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.4626110253239818
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-012",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.765862766458188
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-012",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.4262368529616312
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-012",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.4884276637710956
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-012",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.21751314123275417
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-012",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.055852790985796284
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-012",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.04902123774158138
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-012",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.17334440383746222
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-012",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.9617348204887647
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-012",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.08151348901894354
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-012",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.1146363832073402
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-012",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.549769597556647
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-012",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.16695400888620834
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-012",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.8782524533085503
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-012",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.9229232991908999
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-012",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.9951353794621951
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-012",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.9947093846658941
+    },
+    {
+      "fold": 3,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_03",
+      "subject": "sub-012",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.5986052666267053
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-004",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9999113568826391
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-004",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9987394400713473
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-004",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.6350336150408535
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-004",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.5684727276106059
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-004",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.7526098716906954
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-004",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.6292895431716649
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-004",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.036624982485100474
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-004",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.06401916957596933
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-004",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9202184355143223
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-004",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9442556276725258
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-004",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.006213435955785011
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-004",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.036758833917061993
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-004",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.26527686977101683
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-004",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.04052176035280443
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-004",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.11423419465794567
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-004",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9526874519731853
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-004",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9940912744326925
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-004",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9990151376934789
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-004",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9808437119799923
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-004",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9946674907769887
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-004",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.0668273600433715
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-004",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.024924804416791166
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-004",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.07477651646252793
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-004",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.0001912845365741167
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-004",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.9157315592231531
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-004",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.9501497786484575
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-004",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.9576134144248888
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-004",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.9715096376736838
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-004",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.8473251154075602
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-004",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.9427361484342943
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-004",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.8055499062148818
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-004",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.9353956242302198
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-004",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.9287867504691607
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-004",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.4797356687362605
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-004",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.9146646323436673
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-004",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.9078970234034224
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-004",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.994144002831652
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-004",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.9994316792811297
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-004",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.8333789821318497
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-004",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.32181204364635313
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-009",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9936614919918222
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-009",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9881980813132893
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-009",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.1287538900011335
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-009",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9907033673747468
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-009",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.26131059615642205
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-009",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.00024275138301036746
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-009",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.00976690640587049
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-009",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9585989283541275
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-009",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.7657349339021455
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-009",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.5211885164616058
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-009",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.7018678506752857
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-009",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.33731058896716376
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-009",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.2747254951085086
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-009",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9972229554365993
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-009",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9209994859666679
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-009",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9596306658685039
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-009",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.0570859126721427
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-009",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.4425636809985127
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-009",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.8191401943488209
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-009",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.38832988267327007
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-009",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.042635732384172974
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-009",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.17463781759319105
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-009",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.94952050874518
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-009",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.9915492579790035
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-009",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.9382225707757506
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-009",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.6403468594835401
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-009",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.058037726505242936
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-009",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.0041883842922014304
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-009",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.06173523830878356
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-009",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.7153716963865377
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-009",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.3877917622359295
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-009",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.7183104346110625
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-009",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.9871755826618727
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-009",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.999749423458448
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-009",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.27844679042919995
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-009",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.0012471276591500655
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-009",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.0028404515354606124
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-009",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.12331730095222668
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-009",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.029583344030407056
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-009",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.04884213951488948
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-019",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9995809816569089
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-019",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9995744919138098
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-019",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9998178342422562
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-019",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9949034136547734
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-019",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9978506705052321
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-019",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9999805808100551
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-019",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9957355681910817
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-019",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.8704458253131928
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-019",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9442983827239797
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-019",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.8812618829994315
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-019",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.8725409950918018
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-019",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9972025691954166
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-019",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9998700641524585
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-019",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9999834718811313
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-019",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9952949717980457
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-019",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.8882080926409577
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-019",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9996215873183286
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-019",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.42620789192975406
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-019",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.7184266777302087
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-019",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9301238386224987
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-019",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.005303814713672146
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-019",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.4854106909979356
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-019",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.013750895354101077
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-019",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.30783805659236446
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-019",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.04901350726686736
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-019",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.006576056667989223
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-019",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.005734781403611557
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-019",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.023222632375716323
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-019",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.24526935491754015
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-019",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.0017290129783128414
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-019",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.742583316654382
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-019",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.17494653442692693
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-019",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.15287482488751714
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-019",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.14581809125480866
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-019",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.24460121859922584
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-019",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.9769540118861161
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-019",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.9952806472274659
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-019",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.9920095646185593
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-019",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.953863332791521
+    },
+    {
+      "fold": 4,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_04",
+      "subject": "sub-019",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.9912209821262179
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-006",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.7864915610261108
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-006",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.6492805792515973
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-006",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9959295067810199
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-006",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.994490842569456
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-006",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9917439174444732
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-006",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9979370596965429
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-006",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.6688146683811713
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-006",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.8401913913825656
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-006",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.992257332173252
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-006",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9771398680810051
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-006",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.8551227003566456
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-006",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.07497710041196985
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-006",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.008270798803129748
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-006",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9985572667376238
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-006",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.5450610376785021
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-006",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.2801675864703481
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-006",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.7471194628817952
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-006",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.2014423701335303
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-006",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.35121338761121673
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-006",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9877082219654805
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-006",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.935456792673191
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-006",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.06990912437856486
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-006",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.28752323749118947
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-006",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.027248567224020078
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-006",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.10306956957930333
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-006",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.2648578294444867
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-006",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.06725075961838536
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-006",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.9826593606495987
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-006",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.9882964126999122
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-006",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.9995673158866292
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-006",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.04189202965067782
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-006",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.9635110904746845
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-006",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.699413189112038
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-006",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.2223171315049923
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-006",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.6781637175380155
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-006",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.4554799266726536
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-006",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.9651493859553679
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-006",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.9941114277695174
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-006",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.9999693872937095
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-006",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.9385653988085827
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-010",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9899112341532531
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-010",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.7724818478701037
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-010",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9654978361435527
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-010",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.827918306374956
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-010",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.7463399529122527
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-010",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.7326240581580262
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-010",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9929973708662967
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-010",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.7316681776583128
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-010",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.25420275553687965
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-010",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.5610234802918795
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-010",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9752222586968355
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-010",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9976738424361088
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-010",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.39010215401800485
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-010",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.7618010179725971
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-010",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.8317926779227728
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-010",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9248284094867321
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-010",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9585748333892972
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-010",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.997669761169871
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-010",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9980116161242484
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-010",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.04784565269375867
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-010",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.8615724879377112
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-010",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.9806820590745621
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-010",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.8223409475173006
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-010",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.3337540239815166
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-010",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.8955933995097615
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-010",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.6233927939767819
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-010",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.835863202458715
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-010",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.1894129349989898
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-010",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.029002676072250055
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-010",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.02012737533439672
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-010",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.04665905524705216
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-010",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.5810091956678087
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-010",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.9570550523406328
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-010",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.9995892230652825
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-010",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.9999721520561488
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-010",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.9990199937662594
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-010",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.916227162711438
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-010",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.004924652767242827
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-010",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.04962234875845871
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-010",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.038988606798145656
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-013",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.8656025531060582
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-013",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.87417618293697
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-013",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.10724381957170959
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-013",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.6047279101119558
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-013",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.985678722813353
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-013",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9893426126638457
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-013",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9998895264888401
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-013",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9399262904534762
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-013",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9831952544260817
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-013",
+      "session": "ses-LSD",
+      "run": "run-01",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.3218600857869854
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-013",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.664553014447886
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-013",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.0017137696379484315
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-013",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.0049568672539327535
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-013",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.000209143521135092
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-013",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.018882219384944193
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-013",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.13126407434009466
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-013",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.9258018421087915
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-013",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.3914553942375703
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-013",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 1,
+      "probability_lsd": 0.8383861947865834
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-013",
+      "session": "ses-LSD",
+      "run": "run-03",
+      "y_true": 1,
+      "y_pred": 0,
+      "probability_lsd": 0.30814253066630526
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-013",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.9649267986302074
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-013",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.969222109222047
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-013",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.1868837291637518
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-013",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.4549293934121804
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-013",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.023591664792232403
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-013",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.35812349153749146
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-013",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.9999646080918001
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-013",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.9999841817178442
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-013",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.997727542408322
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-013",
+      "session": "ses-PLCB",
+      "run": "run-01",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.9664511239615717
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-013",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.6743093991694831
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-013",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.13695263346030115
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-013",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.7043045230007903
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-013",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.0033038927590873265
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-013",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.02680757423796374
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-013",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.4613965429954967
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-013",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.12031364858789317
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-013",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.025666828211907168
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-013",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 0,
+      "probability_lsd": 0.0009054513787424657
+    },
+    {
+      "fold": 5,
+      "split_id": "thesis_subject_disjoint_cv5_v1_approved_fold_05",
+      "subject": "sub-013",
+      "session": "ses-PLCB",
+      "run": "run-03",
+      "y_true": 0,
+      "y_pred": 1,
+      "probability_lsd": 0.9230258495612627
+    }
+  ],
+  "claim_guardrail": "ROCKET results are internal subject-disjoint proxy classification diagnostics. They are not receptor-level, clinical, subjective-experience, or external-validity evidence.",
+  "dataset_path": "D:\\LSD_Thesis\\results\\training\\ds003059_windows.npz",
+  "output_dir": "D:\\LSD_Thesis\\results\\training\\rocket_condition_benchmark"
+}
