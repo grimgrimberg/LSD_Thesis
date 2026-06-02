@@ -15,7 +15,7 @@ Build a reproducible explainable AI framework that ranks transparent control-the
 | Order | Analysis | Dataset / Prior | Model Layer | Why It Matters | Status |
 | --- | --- | --- | --- | --- | --- |
 | 1 | LSD robustness | OpenNeuro `ds003059` cached LSD/placebo records | A/B/C/D/E | Tests whether current C/E claims survive skepticism. | Implemented first pass |
-| 2 | Psilocybin replication | OpenNeuro `ds006072` | A/C/D/E first, B optional | Tests cross-drug generalization under a richer psilocybin dataset. | Implemented Schaefer100/Yeo7 unchanged-scoring external stress test; top layer differs from LSD |
+| 2 | Psilocybin external stress test | OpenNeuro `ds006072` | A/C/D/E first, B optional | Tests cross-drug generalization under a richer psilocybin dataset. | Implemented Schaefer100/Yeo7 unchanged-scoring external stress test; top layer differs from LSD |
 | 3 | Structural graph | HCP Young Adult diffusion/connectome data | E | Replaces macro-module proxy graph with a defensible structural prior. | Implemented HCP structural graph sensitivity; still a sensitivity/control layer, not biological proof |
 | 4 | PET receptor priors | `neuromaps` / FS5ht receptor maps | C/E | Replaces hand-built receptor weights with documented receptor-map priors. | Implemented PET receptor-prior sensitivity and spatial-null map-prior checks; receptor/myelin/gradient claim remains negative/not promoted |
 | 5 | Atlas sensitivity | Schaefer 100/200 and Yeo 7/17 | C/D/E | Tests whether findings are artifacts of the current 8-module proxy. | Full Schaefer 100/200 by Yeo 7/17 matrix implemented |
@@ -127,4 +127,4 @@ The dashboard should expose:
 
 ## Thesis-Ready Claim Template
 
-> We built a reproducible explainable mechanism-ranking framework for psychedelic fMRI macro-dynamics. In the current LSD anchor dataset, hierarchy/routing and network-control-energy proxies are most promising, while DMDc is a negative baseline. The final claim depends on robustness, psilocybin replication, structural-connectome sensitivity, receptor-map nulls, atlas sensitivity, and comparison to recent mega-analytic findings.
+> We built a reproducible explainable mechanism-ranking framework for psychedelic fMRI macro-dynamics. In the current LSD anchor dataset, hierarchy/routing and network-control-energy proxies are most promising, while DMDc is a negative baseline. The final claim depends on robustness, unchanged-scoring psilocybin stress tests, structural-connectome sensitivity, receptor-map nulls, atlas sensitivity, and comparison to recent mega-analytic findings.

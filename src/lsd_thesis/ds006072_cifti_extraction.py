@@ -344,7 +344,7 @@ def _write_schaefer100_group_overview(
             "claim_guardrail": (
                 "This uses ds006072 CIFTI cortical grayordinates projected to the same "
                 "Schaefer100/Yeo7 parcel contract used by the ds003059 sensitivity layer. "
-                "It is still a small-subject external stress test, not a population replication."
+                "It is still a small-subject external stress test, not population or replication evidence by itself."
             ),
         },
     }
@@ -575,8 +575,8 @@ def build_ds006072_cifti_extraction_status(repo_root: Path = REPO_ROOT) -> dict[
         ),
         "claim_guardrail": (
             "This is real ds006072 CIFTI extraction into an empirical viewer, but it uses broad CIFTI structure families. "
-            "It is stronger than manifest readiness and weaker than a surface/parcellation-matched replication unless "
-            "schaefer100_empirical_viewer_ready is true."
+            "It is stronger than manifest readiness and weaker than a surface/parcellation-matched stress test unless "
+            "schaefer100_empirical_viewer_ready is true; it is not replication evidence by itself."
         ),
     }
 

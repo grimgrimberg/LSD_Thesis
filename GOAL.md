@@ -93,7 +93,7 @@ Primary target: rank A/B/C/D/E mechanism layers by signed alignment with paired 
 Secondary target: compare the final ranked patterns against scholarly targets:
 
 - LSD internal robustness.
-- Psilocybin `ds006072` replication.
+- Psilocybin `ds006072` unchanged-scoring external stress test.
 - HCP structural-connectome control-energy sensitivity.
 - neuromaps/FS5ht receptor-prior sensitivity.
 - Schaefer 100/200 and Yeo 7/17 parcellation sensitivity.
@@ -119,7 +119,7 @@ Minimum thesis-ready success:
 
 Strong thesis-ready success:
 
-- `ds006072` psilocybin replication runs under the same scoring rules.
+- `ds006072` psilocybin/MTP stress-test scoring runs under the same scoring rules, with top-layer mismatches reported as negative or partial external evidence rather than replication.
 - E is rerun with a structural graph and PET receptor priors.
 - C/D/E are rerun under Schaefer/Yeo sensitivity.
 - Final results are compared to the 2026 Nature Medicine mega-analysis without overclaiming causality.

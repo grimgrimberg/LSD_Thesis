@@ -538,7 +538,11 @@ def build_psilocybin_status(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
         "external_validation_readiness_path": (
             readiness_path.relative_to(repo_root).as_posix() if readiness_path.exists() else None
         ),
-        "claim_guardrail": "No psilocybin replication claim is allowed unless comparable paired drug/control empirical viewer records exist.",
+        "claim_guardrail": (
+            "Comparable paired drug/control empirical viewer records only establish a cross-drug stress test; "
+            "a replication interpretation would require the unchanged-scoring result itself to support that "
+            "stronger claim."
+        ),
     }
     comparable_validation = build_ds006072_comparable_validation_status(repo_root)
     if comparable_validation.get("unchanged_scoring_applied"):

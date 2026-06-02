@@ -1,6 +1,6 @@
 {
   "schema_version": "ds006072_minimum_payload_plan.v1",
-  "generated_at_utc": "2026-06-02T01:42:24.239741+00:00",
+  "generated_at_utc": "2026-06-02T07:34:53.596961+00:00",
   "dataset_id": "ds006072",
   "analysis_status": "minimum_validation_payloads_local_ready_for_extraction",
   "minimum_subjects_required": 3,
@@ -137,7 +137,7 @@
     "Run the unchanged ds003059 dynamic-mechanism scoring code without retuning."
   ],
   "claim_status": "minimum_payloads_local_ready_not_yet_extracted",
-  "claim_guardrail": "This is a concrete acquisition bridge for external validation. It is not a psilocybin replication result until the selected payloads are local, empirical-viewer records are written, and unchanged scoring is applied.",
+  "claim_guardrail": "This is a concrete acquisition bridge for external validation. It is not a psilocybin stress-test result until the selected payloads are local, empirical-viewer records are written, and unchanged scoring is applied; top-layer mismatches remain negative/partial external evidence, not replication.",
   "download_execute_requested": false,
   "downloaded_files": []
 }

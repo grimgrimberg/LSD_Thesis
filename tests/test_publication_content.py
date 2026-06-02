@@ -284,7 +284,8 @@ def test_build_thesis_report_markdown_discloses_completed_cv5_internal_validatio
     assert "Approved preliminary five-fold subject-disjoint internal validation completed across 5/5 folds" in markdown
     assert "not external or clinical validation" in markdown
     assert "n=3 held-out subjects per fold" in markdown
-    assert "No subject-level motion/FD/DVARS/confound/censoring stratification was available" in markdown
+    assert "The split itself was not stratified by subject-level fMRIPrep FD/DVARS/confound/censoring" in markdown
+    assert "image-derived motion/QC sensitivity layer is reported separately" in markdown
     assert "the aggregate artifact is the authoritative completion record" in markdown
     assert "| Fold-averaged delta mismatch score | 0.4200 (fold SD 0.0300) |" in markdown
     assert "| Held-out score range | 0.2500 to 0.6200 |" in markdown

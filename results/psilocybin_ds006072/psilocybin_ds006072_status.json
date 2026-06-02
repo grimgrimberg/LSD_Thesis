@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at_utc": "2026-06-02T01:41:03.172633+00:00",
+  "generated_at_utc": "2026-06-02T07:33:04.608599+00:00",
   "dataset_id": "ds006072",
   "source": "Dosenbach/Siegel group Scientific Data 2025; OpenNeuro ds006072 psilocybin precision functional mapping dataset with raw, minimally processed, and fully processed imaging",
   "source_reference": {
@@ -31,7 +31,7 @@
   "functional_manifest_processed_cifti_total_size_bytes": 113592893360,
   "external_validation_readiness": {
     "schema_version": "ds006072_external_validation.v1",
-    "generated_at_utc": "2026-06-02T01:37:45.448214+00:00",
+    "generated_at_utc": "2026-06-02T07:29:46.586733+00:00",
     "dataset_id": "ds006072",
     "analysis_status": "local_cifti_payloads_ready_for_comparable_extraction",
     "primary_contrast": "psilocybin_vs_active_control_mtp",
@@ -103,7 +103,7 @@
   "summary": {
     "schema_version": 3,
     "analysis_status": "implemented_first_pass",
-    "generated_at_utc": "2026-06-02T01:41:10.515229+00:00",
+    "generated_at_utc": "2026-06-02T07:33:17.994493+00:00",
     "inference_metadata": {
       "metric_ci_alpha": 0.05,
       "metric_bootstrap_iterations": 1024,
@@ -4231,7 +4231,7 @@
   },
   "comparable_empirical_validation": {
     "schema_version": "ds006072_external_validation.v1",
-    "generated_at_utc": "2026-06-02T01:41:04.417051+00:00",
+    "generated_at_utc": "2026-06-02T07:33:05.670698+00:00",
     "dataset_id": "ds006072",
     "primary_contrast": "psilocybin_vs_active_control_mtp",
     "viewer_root": "results/psilocybin_ds006072/parcellations/schaefer_100_yeo_7/empirical_viewer",
@@ -4394,7 +4394,7 @@
     "summary": {
       "schema_version": 3,
       "analysis_status": "implemented_first_pass",
-      "generated_at_utc": "2026-06-02T01:41:10.515229+00:00",
+      "generated_at_utc": "2026-06-02T07:33:17.994493+00:00",
       "inference_metadata": {
         "metric_ci_alpha": 0.05,
         "metric_bootstrap_iterations": 1024,

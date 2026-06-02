@@ -1,6 +1,6 @@
 {
   "schema_version": "reproducible_archive_manifest.v1",
-  "generated_at_utc": "2026-06-02T01:18:29.343781+00:00",
+  "generated_at_utc": "2026-06-02T07:35:10.457483+00:00",
   "python_version": "3.13.13",
   "platform": "Windows-10-10.0.19045-SP0",
   "artifact_count": 21,
@@ -12,8 +12,8 @@
     },
     {
       "path": "GOAL.md",
-      "bytes": 21575,
-      "sha256": "f13c1f082d64b04fb26fedfc6d939ba848bdbb38750f7f72ed0647cbcf8955d7"
+      "bytes": 21715,
+      "sha256": "5b0a0a3ffecb1be67d3459e191dc33e19670b57f1266b201fdb7dbe109fc5bb0"
     },
     {
       "path": "THESIS_CONCEPT_AUDIT.md",
@@ -77,8 +77,8 @@
     },
     {
       "path": "results/thesis_evidence_loop/thesis_evidence_loop_status.json",
-      "bytes": 472401,
-      "sha256": "79306f8569a76157676cf6f92990f7e1722f05273789a65ec4e13d0928a73ddc"
+      "bytes": 729851,
+      "sha256": "fc0a47d432b3140a092ec21ad79d67720bb4237efc24e91cbefb20f9c397855e"
     },
     {
       "path": "results/thesis_evidence_loop/claim_evidence_matrix.md",
@@ -87,8 +87,8 @@
     },
     {
       "path": "results/thesis_upgrade/thesis_upgrade_status.json",
-      "bytes": 45785,
-      "sha256": "f455e3ecc4edef4737e2a86f2288387f926c0c40c169f3a74cf0d7fdddcf1477"
+      "bytes": 72112,
+      "sha256": "ae2c129bd98993e76a25b85b40ee9a2cdd12399a93a398e17ac09ae8e8fb2ca7"
     },
     {
       "path": "results/thesis_upgrade/thesis_upgrade_status.md",
@@ -102,13 +102,13 @@
     },
     {
       "path": "output/doc/thesis_report_revised.md",
-      "bytes": 54914,
-      "sha256": "bfde041f64008c8f2b2a0a37c5ccbc93dae69efc9141330d2be217926eb44971"
+      "bytes": 54979,
+      "sha256": "6afe4d240546e5be9531fbfb9337a8ea989b9897bc5220b9721471479bcffd95"
     },
     {
       "path": "output/doc/thesis_microsite.html",
-      "bytes": 82851,
-      "sha256": "dcfb1ecb90b681c73d0278291d362434c8040c84452d3e9924381a7813b74f05"
+      "bytes": 82916,
+      "sha256": "f1dd6d0b1e63399ba920327265c12aea94093929ebebb8776eec22acecad2d58"
     }
   ],
   "release_url": null,

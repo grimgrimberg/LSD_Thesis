@@ -209,8 +209,9 @@ def build_ds006072_payload_plan_status(
             else "not_ready_for_external_validation"
         ),
         "claim_guardrail": (
-            "This is a concrete acquisition bridge for external validation. It is not a psilocybin replication result until "
-            "the selected payloads are local, empirical-viewer records are written, and unchanged scoring is applied."
+            "This is a concrete acquisition bridge for external validation. It is not a psilocybin stress-test result until "
+            "the selected payloads are local, empirical-viewer records are written, and unchanged scoring is applied; "
+            "top-layer mismatches remain negative/partial external evidence, not replication."
         ),
     }
 

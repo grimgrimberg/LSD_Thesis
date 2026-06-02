@@ -1,6 +1,6 @@
 {
   "schema_version": "ds006072_external_validation.v1",
-  "generated_at_utc": "2026-06-02T01:41:04.395034+00:00",
+  "generated_at_utc": "2026-06-02T07:33:05.647389+00:00",
   "dataset_id": "ds006072",
   "analysis_status": "local_cifti_payloads_ready_for_comparable_extraction",
   "primary_contrast": "psilocybin_vs_active_control_mtp",
@@ -15,7 +15,7 @@
   "condition_pairing_plan_csv": "results/psilocybin_ds006072/condition_pairing_plan.csv",
   "unchanged_scoring_spec": "results/psilocybin_ds006072/unchanged_scoring_spec.json",
   "blocker": "Run the ds006072 module time-series extraction and empirical-viewer writer, then rerun the thesis evidence loop.",
-  "claim_guardrail": "This is an extraction-and-scoring gate for true external validation. It does not claim psilocybin replication until paired psilocybin/MTP empirical viewer records are generated and scored unchanged.",
+  "claim_guardrail": "This is an extraction-and-scoring gate for external stress testing. Paired psilocybin/MTP empirical viewer records plus unchanged scoring are required before the stress test can run, and top-layer mismatches remain negative or partial external evidence.",
   "source": {
     "openneuro": "https://openneuro.org/datasets/ds006072",
     "scientific_data": "https://www.nature.com/articles/s41597-025-05189-0"

@@ -1,6 +1,6 @@
 {
   "schema_version": "ds006072_cifti_empirical_extraction.v1",
-  "generated_at_utc": "2026-06-02T01:42:24.478996+00:00",
+  "generated_at_utc": "2026-06-02T07:34:53.680776+00:00",
   "analysis_status": "implemented_ds006072_schaefer100_parcellation_empirical_viewer",
   "cifti_empirical_viewer_ready": true,
   "schaefer100_empirical_viewer_ready": true,
@@ -34,7 +34,7 @@
     ".\\.venv\\Scripts\\python.exe scripts\\build_ds006072_comparable_validation.py"
   ],
   "claim_status": "schaefer100_empirical_viewer_ready_for_unchanged_scoring",
-  "claim_guardrail": "This is real ds006072 CIFTI extraction into an empirical viewer, but it uses broad CIFTI structure families. It is stronger than manifest readiness and weaker than a surface/parcellation-matched replication unless schaefer100_empirical_viewer_ready is true.",
+  "claim_guardrail": "This is real ds006072 CIFTI extraction into an empirical viewer, but it uses broad CIFTI structure families. It is stronger than manifest readiness and weaker than a surface/parcellation-matched stress test unless schaefer100_empirical_viewer_ready is true; it is not replication evidence by itself.",
   "execute_requested": false,
   "extraction_result": {
     "subjects_written": [],

@@ -969,7 +969,7 @@
         <h2>How to Read This Dashboard</h2>
         <p>Read model, empirical, and literature-style deltas by direction, uncertainty, and missingness. Treat the plots as exploratory inspection panels, not proof surfaces.</p>
         <p>Validation badges distinguish seed-sampling robustness from subject-disjoint internal validation. Missing artifacts are reported as pending outputs, not as inferred results.</p>
-        <p>Current QC exposure is aggregate-only; it does not include subject-level motion, FD/DVARS, confound, or censoring strata.</p>
+        <p>Current QC exposure includes an image-derived motion/QC sensitivity layer, but the strict thesis gate still lacks subject-level fMRIPrep FD/DVARS/confound/censoring strata.</p>
       </section>
 
       <section class="control-section">
@@ -1120,7 +1120,7 @@
         <p>Plots that align with selected targets remain macro-dynamics surrogate/proxy evidence. They do not establish biological mechanism truth, clinical relevance, external validity, or subjective-state realism.</p>
         <ul>
           <li>n=15 complete paired subjects; n=3 held out per fold.</li>
-          <li>No subject-level motion/FD/DVARS/confound/censoring stratification was available.</li>
+          <li>Image-derived motion/QC sensitivity is available; subject-level fMRIPrep FD/DVARS/confound/censoring stratification is still missing.</li>
           <li>The current 8-module parcellation is a transparent proxy, not a canonical network definition.</li>
           <li>Selected perturbation family in proxy-objective space is not proof of a neural mechanism.</li>
         </ul>
@@ -3115,7 +3115,7 @@
         `Perturbation target: ${provenance.target_filenames?.perturbation || 'n/a'}\n` +
         `Cache fingerprint: ${provenance.cache_fingerprint || 'not recorded'}\n` +
         `Aggregate preprocessing QC records: ${provenance.preprocessing_qc?.output_record_count ?? 'n/a'}\n` +
-        `QC caveat: aggregate-only; no subject-level motion, FD/DVARS, confound, or censoring strata are available here.\n` +
+        `QC caveat: image-derived motion/QC sensitivity is available; subject-level fMRIPrep FD/DVARS/confound/censoring strata are still missing here.\n` +
         `Git branch: ${git.branch || 'n/a'}\n` +
         `HEAD present: ${headStatus}\n` +
         `Commit: ${commitLabel}`;

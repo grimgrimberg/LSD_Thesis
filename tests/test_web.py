@@ -764,7 +764,7 @@ def test_dashboard_template_contains_scholarly_sections_and_figure_links() -> No
         assert f'id="{container_id}"' in html
 
     assert "Uncertainty here is seed-sampling spread, not an external confidence interval." in html
-    assert "Current QC exposure is aggregate-only" in html
+    assert "Current QC exposure includes an image-derived motion/QC sensitivity layer" in html
     assert "Aggregate preprocessing QC records" in html
     assert "CV5 uncertainty: fold SD is descriptive across folds" in html
     assert "Dual-axis descriptive plot" in html

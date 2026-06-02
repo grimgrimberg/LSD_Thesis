@@ -742,8 +742,9 @@ def build_ds006072_external_validation_readiness(repo_root: Path = REPO_ROOT) ->
         "unchanged_scoring_spec": scoring_spec["source_path"],
         "blocker": blocker,
         "claim_guardrail": (
-            "This is an extraction-and-scoring gate for true external validation. It does not claim psilocybin "
-            "replication until paired psilocybin/MTP empirical viewer records are generated and scored unchanged."
+            "This is an extraction-and-scoring gate for external stress testing. Paired psilocybin/MTP empirical "
+            "viewer records plus unchanged scoring are required before the stress test can run, and top-layer "
+            "mismatches remain negative or partial external evidence."
         ),
         "source": {
             "openneuro": "https://openneuro.org/datasets/ds006072",

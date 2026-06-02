@@ -188,7 +188,7 @@ def _claim_tiers(requirement_cards: list[dict[str, Any]]) -> list[dict[str, Any]
             "title": "Blocked / future work",
             "claim": (
                 "A strong mechanism claim is downgraded if motion controls, Schaefer/Yeo spatial nulls, "
-                "psilocybin replication, or subject-disjoint ML fail."
+                "unchanged-scoring psilocybin stress tests, or subject-disjoint ML fail."
             ),
             "items": [card["title"] for card in blocked[:5]]
             or ["PET receptor priors, HCP structural priors, and full external validation still require authorized comparable data."],
@@ -250,7 +250,10 @@ def build_public_site_payload(
                 "Start with the one-sentence claim: altered transition/control dynamics versus generic noise, motion, or static connectivity.",
                 "Show the claim ladder so the PI sees what is supported now versus proxy, exploratory, or blocked.",
                 "Open the evidence dashboard and point to q-value, FDR, CI, and claim-status fields before interpreting any mechanism.",
-                "End with falsification: motion controls, Schaefer/Yeo spatial nulls, subject-disjoint CV, or psilocybin replication can downgrade the claim.",
+                (
+                    "End with falsification: motion controls, Schaefer/Yeo spatial nulls, subject-disjoint CV, "
+                    "or unchanged-scoring psilocybin stress tests can downgrade the claim."
+                ),
             ],
             "what_to_open": [
                 {"label": "Pitch homepage", "why": "sets the project frame and audience"},
@@ -306,7 +309,7 @@ def build_public_site_payload(
                     "title": "What would weaken the claim",
                     "body": (
                         "The mechanism claim is downgraded if effects vanish under subject-disjoint CV, "
-                        "motion controls, Schaefer/Yeo spatial nulls, or comparable psilocybin replication."
+                        "motion controls, Schaefer/Yeo spatial nulls, or comparable psilocybin stress tests."
                     ),
                 },
                 {

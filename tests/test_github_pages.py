@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import importlib.util
 import json
 from pathlib import Path
@@ -144,6 +145,25 @@ def test_build_github_pages_site_makes_pitch_story_dashboard_methods_and_appendi
         "appendix": "appendix.html",
     }
     assert "artifacts/results/training/rocket_condition_benchmark/benchmark_report.md" in manifest["artifacts"]
+    archive_manifest = json.loads(
+        (tmp_path / "results" / "reproducible_archive" / "ARCHIVE_MANIFEST.json").read_text(encoding="utf-8")
+    )
+    copied_archive_manifest = json.loads(
+        (
+            tmp_path
+            / "_site"
+            / "artifacts"
+            / "results"
+            / "reproducible_archive"
+            / "ARCHIVE_MANIFEST.json"
+        ).read_text(encoding="utf-8")
+    )
+    archive_rows = {row["path"]: row for row in archive_manifest["artifacts"]}
+    thesis_status_path = tmp_path / "results" / "thesis_upgrade" / "thesis_upgrade_status.json"
+    assert archive_rows["results/thesis_upgrade/thesis_upgrade_status.json"]["sha256"] == hashlib.sha256(
+        thesis_status_path.read_bytes()
+    ).hexdigest()
+    assert copied_archive_manifest == archive_manifest
 
 
 def test_build_github_pages_rejects_traversal_dashboard_artifact_links(tmp_path: Path) -> None:
