@@ -10,6 +10,10 @@ from typing import Any, cast
 import numpy as np
 
 from lsd_thesis.core import MODULE_NAMES
+from lsd_thesis.dynamic_mechanism_connectivity import (
+    safe_vector_correlation as _safe_vector_correlation,
+)
+from lsd_thesis.dynamic_mechanism_hierarchy import summarize_hierarchy_routing
 from lsd_thesis.dynamic_mechanism_priors import (
     CONTROL_WEIGHT_FLOOR,
 )
@@ -135,17 +139,6 @@ def load_empirical_pairs(viewer_root: Path) -> list[EmpiricalPair]:
             )
         )
     return pairs
-
-
-def _safe_vector_correlation(first: np.ndarray, second: np.ndarray) -> float:
-    left = np.asarray(first, dtype=float)
-    right = np.asarray(second, dtype=float)
-    if len(left) != len(right) or len(left) < 2:
-        return 0.0
-    if np.std(left) <= 1e-12 or np.std(right) <= 1e-12:
-        return 0.0
-    value = float(np.corrcoef(left, right)[0, 1])
-    return value if math.isfinite(value) else 0.0
 
 
 def _dynamic_samples(pairs: list[EmpiricalPair]) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray, list[str]]:
@@ -449,118 +442,6 @@ def _global_efficiency(matrix: np.ndarray) -> float:
     if len(finite_distances) == 0:
         return 0.0
     return float(np.mean(1.0 / finite_distances))
-
-
-def _hierarchy_routing_metrics(modules: tuple[str, ...], time_series: np.ndarray) -> dict[str, float]:
-    fc_matrix = safe_corrcoef(time_series)
-    masks = _module_masks(modules)
-    priors = _module_prior_vectors(modules)
-    node_global_coupling = np.asarray(
-        [_mean_between(fc_matrix, np.eye(len(modules), dtype=bool)[index], np.ones(len(modules), dtype=bool)) for index in range(len(modules))],
-        dtype=float,
-    )
-    hierarchy_values = priors["hierarchy"]
-    receptor_weights = priors["receptor"]
-    sensory_transmodal = _mean_between(fc_matrix, masks["sensory"], masks["transmodal"])
-    sensory_global = _mean_between(fc_matrix, masks["sensory"], ~masks["sensory"])
-    associative_global = _mean_between(fc_matrix, masks["transmodal"], ~masks["transmodal"])
-    thalamic_global = _mean_between(fc_matrix, masks["gateway"], masks["non_gateway"])
-    thalamic_sensory = _mean_between(fc_matrix, masks["gateway"], masks["sensory"])
-    thalamic_transmodal = _mean_between(fc_matrix, masks["gateway"], masks["transmodal"])
-    hierarchy_differentiation = _mean_within_networks(fc_matrix, masks) - sensory_transmodal
-    hierarchy_gradient_magnitude = abs(_safe_vector_correlation(hierarchy_values, node_global_coupling))
-    return {
-        "sensory_transmodal_coupling": sensory_transmodal,
-        "sensory_global_coupling": sensory_global,
-        "associative_global_coupling": associative_global,
-        "thalamic_global_coupling": thalamic_global,
-        "thalamic_sensory_coupling": thalamic_sensory,
-        "thalamic_transmodal_coupling": thalamic_transmodal,
-        "hierarchy_differentiation": hierarchy_differentiation,
-        "hierarchy_flattening_proxy": -hierarchy_differentiation,
-        "hierarchy_coupling_gradient_magnitude": hierarchy_gradient_magnitude,
-        "hierarchy_gradient_flattening_proxy": -hierarchy_gradient_magnitude,
-        "receptor_weighted_global_coupling": float(
-            np.average(node_global_coupling, weights=_normalise_control_weights(receptor_weights))
-        ),
-        "receptor_global_coupling_alignment": _safe_vector_correlation(receptor_weights, node_global_coupling),
-    }
-
-
-def summarize_hierarchy_routing(pairs: list[EmpiricalPair]) -> dict[str, Any]:
-    metric_names = [
-        "sensory_transmodal_coupling",
-        "sensory_global_coupling",
-        "associative_global_coupling",
-        "thalamic_global_coupling",
-        "thalamic_sensory_coupling",
-        "thalamic_transmodal_coupling",
-        "hierarchy_differentiation",
-        "hierarchy_flattening_proxy",
-        "hierarchy_coupling_gradient_magnitude",
-        "hierarchy_gradient_flattening_proxy",
-        "receptor_weighted_global_coupling",
-        "receptor_global_coupling_alignment",
-    ]
-    rows, metric_deltas = _collect_paired_metric_rows(
-        pairs,
-        metric_names,
-        lambda pair: (
-            _hierarchy_routing_metrics(pair.modules, pair.placebo),
-            _hierarchy_routing_metrics(pair.modules, pair.lsd),
-        ),
-    )
-
-    expected_direction = {
-        "sensory_transmodal_coupling": "positive means stronger sensory-to-transmodal coupling under LSD",
-        "sensory_global_coupling": "positive means stronger sensory/somatomotor global coupling under LSD",
-        "associative_global_coupling": "negative means weaker associative-network global coupling under LSD",
-        "thalamic_global_coupling": "positive means stronger thalamic-gateway coupling with cortex under LSD",
-        "thalamic_sensory_coupling": "positive means stronger thalamic-gateway coupling with sensory modules under LSD",
-        "thalamic_transmodal_coupling": "positive means stronger thalamic-gateway coupling with transmodal modules under LSD",
-        "hierarchy_differentiation": "negative means reduced within-vs-cross hierarchy separation under LSD",
-        "hierarchy_flattening_proxy": "positive means hierarchy differentiation is reduced under LSD",
-        "hierarchy_coupling_gradient_magnitude": "negative means node global-coupling is less tied to the hierarchy proxy under LSD",
-        "hierarchy_gradient_flattening_proxy": "positive means reduced hierarchy/global-coupling gradient strength under LSD",
-        "receptor_weighted_global_coupling": "positive means stronger global coupling in high receptor-prior modules under LSD",
-        "receptor_global_coupling_alignment": "positive means high receptor-prior modules align more with global coupling under LSD",
-    }
-    expected_sign = {
-        "sensory_transmodal_coupling": 1,
-        "sensory_global_coupling": 1,
-        "associative_global_coupling": -1,
-        "thalamic_global_coupling": 1,
-        "thalamic_sensory_coupling": 1,
-        "thalamic_transmodal_coupling": 1,
-        "hierarchy_differentiation": -1,
-        "hierarchy_flattening_proxy": 1,
-        "hierarchy_coupling_gradient_magnitude": -1,
-        "hierarchy_gradient_flattening_proxy": 1,
-        "receptor_weighted_global_coupling": 1,
-        "receptor_global_coupling_alignment": 1,
-    }
-    aggregate_rows = _aggregate_metric_deltas(metric_deltas, expected_direction, expected_sign)
-    support_metrics = {
-        "sensory_transmodal_coupling",
-        "sensory_global_coupling",
-        "associative_global_coupling",
-        "thalamic_global_coupling",
-        "hierarchy_flattening_proxy",
-        "hierarchy_gradient_flattening_proxy",
-        "receptor_weighted_global_coupling",
-        "receptor_global_coupling_alignment",
-    }
-    support_components = [row["signed_effect_size"] for row in aggregate_rows if row["metric"] in support_metrics]
-    return {
-        "status": "implemented_first_pass",
-        "method": "paired FC group metrics over sensory, transmodal/associative, and thalamic-gateway proxy modules",
-        "pair_count": len(rows),
-        "metric_deltas": aggregate_rows,
-        "run_metric_deltas": _run_metric_deltas(rows, metric_names, expected_direction, expected_sign),
-        "pair_rows": rows,
-        "support_score": float(np.mean(support_components)) if support_components else 0.0,
-        "claim_guardrail": "Hierarchy/routing metrics are coarse FC proxies; they do not prove REBUS, precision relaxation, or thalamic gating.",
-    }
 
 
 def _dynamic_repertoire_metrics(modules: tuple[str, ...], time_series: np.ndarray, window_size: int | None = None) -> dict[str, float]:

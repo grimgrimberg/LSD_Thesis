@@ -31,6 +31,7 @@ The missing `project_phase` item is derived from the motion-proof blocker. It is
 - `docs/architecture.md` now contains a compact dashboard/reporting map guarded by `tests/test_repo_hygiene.py`.
 - Dynamic mechanism prior/mask policy was split out of `src/lsd_thesis/dynamic_mechanism.py` into `src/lsd_thesis/dynamic_mechanism_priors.py`.
 - Dynamic mechanism transition-state proxy summary was split out of `src/lsd_thesis/dynamic_mechanism.py` into `src/lsd_thesis/dynamic_mechanism_transitions.py`.
+- Dynamic mechanism hierarchy/routing proxy summary was split out of `src/lsd_thesis/dynamic_mechanism.py` into `src/lsd_thesis/dynamic_mechanism_hierarchy.py`, backed by shared connectivity helpers in `src/lsd_thesis/dynamic_mechanism_connectivity.py`.
 - Dynamic robustness now uses the public `src/lsd_thesis/dynamic_mechanism_stats.py` helper interface instead of importing private stat helpers.
 - Dynamic mechanism transition, hierarchy/routing, and repertoire summaries now share the public `collect_paired_metric_rows` helper for paired LSD-placebo row/delta aggregation.
 - Dashboard string-HTML cleanup is guarded by a repo-hygiene test: the dashboard template must not contain `.innerHTML`, `.outerHTML`, `insertAdjacentHTML`, or `dangerouslySetInnerHTML`.
@@ -77,8 +78,8 @@ uv run python scripts\preview_dashboard.py --check-only --strict
 Observed results:
 
 - Ruff: all checks passed.
-- mypy: no issues found in 78 source files.
-- pytest: 394 passed, 4 warnings, total coverage 80.93%.
+- mypy: no issues found in 80 source files.
+- pytest: 395 passed, 4 warnings, total coverage 80.57%.
 - dashboard preview preflight: required files present, optional generated artifacts present, CV5 internal validation reported as 5/5 folds.
 
 Hosted CI after the Node-24 action-major bump:
@@ -119,7 +120,7 @@ Do not mark source availability complete from OpenNeuro filename hits or reachab
 Priority order:
 
 1. Continue splitting remaining dashboard payload concerns out of `src/lsd_thesis/web/app.py`.
-2. Continue splitting large dynamic-mechanism summary concerns behind public helper interfaces, with hierarchy/routing or repertoire as the next low-risk candidates.
+2. Continue splitting large dynamic-mechanism summary concerns behind public helper interfaces, with dynamic repertoire as the next low-risk candidate.
 3. Keep the dashboard/reporting architecture map current as new `web/` modules are extracted.
 4. Continue reducing stale generated-run reports; only commit tracked docs and curated evidence.
 

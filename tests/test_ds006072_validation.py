@@ -276,6 +276,8 @@ def test_comparable_validation_scoring_lock_includes_extracted_dynamic_helpers(t
 
     for expected in (
         "dynamic_mechanism",
+        "dynamic_mechanism_connectivity",
+        "dynamic_mechanism_hierarchy",
         "dynamic_mechanism_priors",
         "dynamic_mechanism_stats",
         "dynamic_mechanism_transitions",

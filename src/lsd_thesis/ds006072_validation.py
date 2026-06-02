@@ -11,6 +11,8 @@ from typing import Any
 from xml.etree import ElementTree as ET
 
 import lsd_thesis.dynamic_mechanism as dynamic_mechanism_module
+import lsd_thesis.dynamic_mechanism_connectivity as dynamic_mechanism_connectivity_module
+import lsd_thesis.dynamic_mechanism_hierarchy as dynamic_mechanism_hierarchy_module
 import lsd_thesis.dynamic_mechanism_priors as dynamic_mechanism_priors_module
 import lsd_thesis.dynamic_mechanism_stats as dynamic_mechanism_stats_module
 import lsd_thesis.dynamic_mechanism_transitions as dynamic_mechanism_transitions_module
@@ -289,6 +291,8 @@ def _write_scoring_spec(repo_root: Path, output_dir: Path) -> dict[str, Any]:
     }
     scoring_code_paths = {
         "dynamic_mechanism": Path(dynamic_mechanism_module.__file__ or ""),
+        "dynamic_mechanism_connectivity": Path(dynamic_mechanism_connectivity_module.__file__ or ""),
+        "dynamic_mechanism_hierarchy": Path(dynamic_mechanism_hierarchy_module.__file__ or ""),
         "dynamic_mechanism_priors": Path(dynamic_mechanism_priors_module.__file__ or ""),
         "dynamic_mechanism_stats": Path(dynamic_mechanism_stats_module.__file__ or ""),
         "dynamic_mechanism_transitions": Path(dynamic_mechanism_transitions_module.__file__ or ""),

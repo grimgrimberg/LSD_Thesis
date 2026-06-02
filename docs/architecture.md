@@ -81,15 +81,22 @@ The dynamic-mechanism ranking code is being split around stable helper interface
 
 ```mermaid
 flowchart TD
-    DYN["dynamic_mechanism.py\nsummary orchestration, DMDc, hierarchy/routing, repertoire, and control-energy ranking"]
+    DYN["dynamic_mechanism.py\nsummary orchestration, DMDc, repertoire, and control-energy ranking"]
+    CONN["dynamic_mechanism_connectivity.py\nFC graph, network, and vector-correlation helpers"]
+    HIER["dynamic_mechanism_hierarchy.py\nhierarchy/routing proxy summary"]
     PRIORS["dynamic_mechanism_priors.py\nmodule masks, prior vectors, and control-weight normalization"]
     STATS["dynamic_mechanism_stats.py\npaired metric rows, bootstrap/FDR helpers, labels, and trajectory statistics"]
     TRANS["dynamic_mechanism_transitions.py\ntransition-state proxy summary"]
     ROBUST["dynamic_robustness.py\nsensitivity checks using public dynamic-mechanism helpers"]
 
+    DYN --> CONN
+    DYN --> HIER
     DYN --> PRIORS
     DYN --> STATS
     DYN --> TRANS
+    HIER --> CONN
+    HIER --> PRIORS
+    HIER --> STATS
     ROBUST --> DYN
     ROBUST --> STATS
 ```
