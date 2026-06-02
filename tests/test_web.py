@@ -230,6 +230,21 @@ def test_resolve_artifact_path_allows_report_and_figure_outputs(tmp_path: Path) 
         )
         is not None
     )
+    assert _resolve_artifact_path("results/psilocybin_ds006072/empirical_viewer/group_overview.json", repo_root=repo_root) is not None
+    assert (
+        _resolve_artifact_path(
+            "results/psilocybin_ds006072/empirical_viewer/subject_views/P1_run-01.json",
+            repo_root=repo_root,
+        )
+        is None
+    )
+    assert (
+        _resolve_artifact_path(
+            "results/psilocybin_ds006072/parcellations/schaefer_100_yeo_7/empirical_viewer/subject_views/P1_run-01.json",
+            repo_root=repo_root,
+        )
+        is None
+    )
 
 
 def test_resolve_artifact_path_rejects_unsafe_artifact_extensions(tmp_path: Path) -> None:

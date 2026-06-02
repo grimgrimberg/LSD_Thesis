@@ -216,6 +216,39 @@ def test_build_github_pages_curated_tree_filters_raw_and_large_artifacts(tmp_pat
     assert not (copied / "too_large.json").exists()
 
 
+def test_build_github_pages_curated_tree_drops_subject_level_empirical_views(tmp_path: Path) -> None:
+    module = _load_build_github_pages_module()
+    result_dir = tmp_path / "results" / "psilocybin_ds006072"
+    viewer_dir = result_dir / "parcellations" / "schaefer_100_yeo_7" / "empirical_viewer"
+    subject_views = viewer_dir / "subject_views"
+    subject_views.mkdir(parents=True)
+    (viewer_dir / "group_overview.json").write_text("{}", encoding="utf-8")
+    (subject_views / "P1_run-01.json").write_text('{"module_time_series":[[1.0,2.0]]}', encoding="utf-8")
+
+    copied = module._copy_curated_tree(
+        tmp_path,
+        result_dir,
+        tmp_path / "_site" / "artifacts" / "results" / "psilocybin_ds006072",
+    )
+
+    assert copied == tmp_path / "_site" / "artifacts" / "results" / "psilocybin_ds006072"
+    assert (
+        copied
+        / "parcellations"
+        / "schaefer_100_yeo_7"
+        / "empirical_viewer"
+        / "group_overview.json"
+    ).exists()
+    assert not (
+        copied
+        / "parcellations"
+        / "schaefer_100_yeo_7"
+        / "empirical_viewer"
+        / "subject_views"
+        / "P1_run-01.json"
+    ).exists()
+
+
 def test_build_github_pages_preserves_copied_ds006072_extraction_details(tmp_path: Path) -> None:
     module = _load_build_github_pages_module()
     output_dir = tmp_path / "output" / "doc"
@@ -300,3 +333,25 @@ def test_build_github_pages_preserves_copied_ds006072_extraction_details(tmp_pat
     assert copied_status["schaefer100_extraction_result"]["parcellation_id"] == "schaefer_100_yeo_7"
     assert copied_status["extraction_result_source"] == "existing_status_cache"
     assert copied_status["schaefer100_extraction_result_source"] == "existing_status_cache"
+    assert not (
+        tmp_path
+        / "_site"
+        / "artifacts"
+        / "results"
+        / "psilocybin_ds006072"
+        / "empirical_viewer"
+        / "subject_views"
+        / "P1_run-01.json"
+    ).exists()
+    assert not (
+        tmp_path
+        / "_site"
+        / "artifacts"
+        / "results"
+        / "psilocybin_ds006072"
+        / "parcellations"
+        / "schaefer_100_yeo_7"
+        / "empirical_viewer"
+        / "subject_views"
+        / "P1_run-01.json"
+    ).exists()

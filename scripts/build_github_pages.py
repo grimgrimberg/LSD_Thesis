@@ -187,6 +187,8 @@ def _resolve_dashboard_artifact_source(repo_root: Path, raw_relative: str, allow
         return None
     if not canonical_relative.startswith(allowed_prefixes):
         return None
+    if not is_allowed_artifact_relative_path(Path(canonical_relative)):
+        return None
     return source, canonical_relative
 
 

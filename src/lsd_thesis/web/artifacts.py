@@ -26,9 +26,13 @@ ALLOWED_ARTIFACT_ROOTS: tuple[tuple[str, ...], ...] = (
     ("results", "structural_connectome"),
     ("results", "thesis_evidence_loop"),
     ("results", "thesis_upgrade"),
+    ("results", "training", "rocket_condition_benchmark"),
     ("results", "reproducible_archive"),
 )
 TEMP_ARTIFACT_SUFFIXES = (".bak", ".log", ".old", ".part", ".tmp")
+DENIED_ARTIFACT_SEGMENT_SEQUENCES: tuple[tuple[str, ...], ...] = (
+    ("empirical_viewer", "subject_views"),
+)
 SAFE_ARTIFACT_EXTENSIONS = frozenset(
     {
         ".csv",
@@ -50,6 +54,12 @@ SAFE_ARTIFACT_EXTENSIONS = frozenset(
 )
 
 
+def _contains_segment_sequence(parts: tuple[str, ...], sequence: tuple[str, ...]) -> bool:
+    if len(sequence) > len(parts):
+        return False
+    return any(parts[index : index + len(sequence)] == sequence for index in range(len(parts) - len(sequence) + 1))
+
+
 def resolve_artifact_path(artifact_path: str, repo_root: Path) -> Path | None:
     relative = Path(artifact_path)
     if not is_allowed_artifact_relative_path(relative):
@@ -68,6 +78,8 @@ def is_allowed_artifact_relative_path(relative_path: Path) -> bool:
     if not parts or relative_path.is_absolute():
         return False
     if any(part.startswith(".") for part in parts):
+        return False
+    if any(_contains_segment_sequence(parts, sequence) for sequence in DENIED_ARTIFACT_SEGMENT_SEQUENCES):
         return False
     if relative_path.name.startswith("~$") or relative_path.suffix.lower() in TEMP_ARTIFACT_SUFFIXES:
         return False
