@@ -22,6 +22,7 @@ DEFAULT_INCLUDE_FILES = (
     "COMMANDS.md",
     "docs/GITHUB_PAGES.md",
     "docs/THESIS_READINESS_GATES.md",
+    "docs/VALIDATION.md",
     "docs/METHODS_RESEARCH.md",
     "docs/ARCHIVE_POLICY.md",
     "results/stage_2/stage_2_summary.json",

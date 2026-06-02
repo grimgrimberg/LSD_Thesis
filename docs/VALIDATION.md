@@ -18,15 +18,16 @@ uv run python scripts\preview_dashboard.py --check-only --strict
 Observed current results:
 
 - Ruff: all checks passed.
-- mypy: no issues found in 81 source files.
-- pytest: 399 passed, 4 warnings, total coverage 80.81%.
+- mypy: no issues found in 82 source files.
+- pytest: 414 passed, 4 warnings, total coverage 80.94%.
 - dashboard preview preflight: required files present, optional generated artifacts present, CV5 internal validation reported as 5/5 folds.
 
 Last completed hosted CI baseline when this section was written:
 
 - Branch: `codex/thesis-evidence-pages`.
-- Commit: `4950b64` (`Split dynamic repertoire scoring helper`).
-- CI Quality run: `26790956569`.
+- Commit: `82afcc6` (`Block subject-level static artifacts`).
+- CI Quality runs: `26807387132`, `26807389126`.
+- GitGuardian Security Checks: success.
 - Result: success.
 
 Current thesis-upgrade status:

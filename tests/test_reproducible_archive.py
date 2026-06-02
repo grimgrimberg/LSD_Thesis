@@ -19,6 +19,20 @@ def test_archive_manifest_records_publication_not_ready_without_release_and_doi(
     assert manifest["publication_metadata"]["doi_valid"] is False
 
 
+def test_archive_manifest_includes_current_validation_baseline_when_present(tmp_path: Path) -> None:
+    (tmp_path / "README.md").write_text("# Thesis\n", encoding="utf-8")
+    validation_doc = tmp_path / "docs" / "VALIDATION.md"
+    validation_doc.parent.mkdir(parents=True)
+    validation_doc.write_text("# Validation Notes\n", encoding="utf-8")
+
+    manifest = build_archive_manifest(tmp_path)
+
+    assert {row["path"] for row in manifest["artifacts"]} == {
+        "README.md",
+        "docs/VALIDATION.md",
+    }
+
+
 def test_archive_manifest_keeps_unverified_release_url_and_zenodo_doi_below_publication_ready(tmp_path: Path) -> None:
     (tmp_path / "README.md").write_text("# Thesis\n", encoding="utf-8")
 
