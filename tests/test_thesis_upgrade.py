@@ -579,7 +579,7 @@ def test_thesis_upgrade_public_dashboard_gate_passes_when_static_snapshot_exists
     (current_dir / "thesis_upgrade_status.json").write_text(json.dumps(current_status), encoding="utf-8")
     (site_root / "index.html").write_text("<!doctype html>\n", encoding="utf-8")
     (site_root / "dashboard" / "dashboard-data.json").write_text(
-        json.dumps({"thesis_upgrade": current_status}),
+        json.dumps({"source_dashboard": {"thesis_upgrade": current_status}}),
         encoding="utf-8",
     )
     (site_root / "artifacts" / "results" / "thesis_upgrade" / "thesis_upgrade_status.json").write_text(
@@ -645,7 +645,7 @@ def test_thesis_upgrade_public_dashboard_gate_rejects_stale_static_snapshot(tmp_
     (current_dir / "thesis_upgrade_status.json").write_text(json.dumps(current_status), encoding="utf-8")
     (site_root / "index.html").write_text("<!doctype html>\n", encoding="utf-8")
     (site_root / "dashboard" / "dashboard-data.json").write_text(
-        json.dumps({"thesis_upgrade": stale_status}),
+        json.dumps({"source_dashboard": {"thesis_upgrade": stale_status}}),
         encoding="utf-8",
     )
     (site_root / "artifacts" / "results" / "thesis_upgrade" / "thesis_upgrade_status.json").write_text(
@@ -687,6 +687,48 @@ def test_thesis_upgrade_public_dashboard_gate_rejects_stale_static_snapshot(tmp_
     ]
     assert package_requirements["public_dashboard_static_snapshot"]["complete"] is False
     assert "Static Pages snapshot is stale" in package_requirements["public_dashboard_static_snapshot"]["missing"]
+
+
+def test_thesis_upgrade_public_dashboard_gate_fails_closed_on_corrupt_current_status(tmp_path: Path) -> None:
+    site_root = tmp_path / "_site"
+    current_dir = tmp_path / "results" / "thesis_upgrade"
+    current_dir.mkdir(parents=True)
+    (site_root / "dashboard").mkdir(parents=True)
+    (site_root / "artifacts" / "results" / "thesis_upgrade").mkdir(parents=True)
+    (site_root / "artifacts" / "results" / "reproducible_archive").mkdir(parents=True)
+    (current_dir / "thesis_upgrade_status.json").write_text("{\n<<<<<<< HEAD\n", encoding="utf-8")
+    (site_root / "index.html").write_text("<!doctype html>\n", encoding="utf-8")
+    (site_root / "dashboard" / "dashboard-data.json").write_text(
+        json.dumps({"source_dashboard": {"thesis_upgrade": _public_dashboard_status_payload()}}),
+        encoding="utf-8",
+    )
+    (site_root / "artifacts" / "results" / "thesis_upgrade" / "thesis_upgrade_status.json").write_text(
+        json.dumps(_public_dashboard_status_payload()),
+        encoding="utf-8",
+    )
+    (site_root / "artifacts" / "results" / "reproducible_archive" / "ARCHIVE_MANIFEST.json").write_text(
+        "{}",
+        encoding="utf-8",
+    )
+    (site_root / "pages_manifest.json").write_text(
+        json.dumps(
+            {
+                "entrypoints": {"index": "index.html", "dashboard": "dashboard/index.html"},
+                "artifacts": [
+                    "artifacts/results/thesis_upgrade/thesis_upgrade_status.json",
+                    "artifacts/results/reproducible_archive/ARCHIVE_MANIFEST.json",
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    status = build_thesis_upgrade_status(tmp_path)
+    dashboard = status["components"]["public_dashboard"]
+
+    assert dashboard["gate"]["status"] == "static_snapshot_stale"
+    assert dashboard["gate"]["ready"] is False
+    assert dashboard["snapshot_mismatches"] == ["current thesis status artifact is missing"]
 
 
 def test_thesis_upgrade_archive_gate_rejects_unvalidated_publication_strings(tmp_path: Path) -> None:

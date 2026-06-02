@@ -3686,10 +3686,18 @@
     }
 
     function artifactDisplayHref(href) {
-      if (typeof artifactHref === 'function') {
-        return artifactHref(href);
+      const value = String(href || '').trim();
+      if (!value) {
+        return '#';
       }
-      return href || '#';
+      if (value.startsWith('/artifacts/') || value.startsWith('#') || /^https?:\/\//.test(value)) {
+        return value;
+      }
+      if (typeof artifactHref === 'function') {
+        const converted = artifactHref(value);
+        return converted || '#';
+      }
+      return '#';
     }
 
     function hydrateRevampCommandCenter(state) {

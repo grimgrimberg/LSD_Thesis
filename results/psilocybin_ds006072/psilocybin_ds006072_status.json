@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at_utc": "2026-06-01T23:38:14.979882+00:00",
+  "generated_at_utc": "2026-06-02T01:41:03.172633+00:00",
   "dataset_id": "ds006072",
   "source": "Dosenbach/Siegel group Scientific Data 2025; OpenNeuro ds006072 psilocybin precision functional mapping dataset with raw, minimally processed, and fully processed imaging",
   "source_reference": {
@@ -31,7 +31,7 @@
   "functional_manifest_processed_cifti_total_size_bytes": 113592893360,
   "external_validation_readiness": {
     "schema_version": "ds006072_external_validation.v1",
-    "generated_at_utc": "2026-06-01T23:36:58.253555+00:00",
+    "generated_at_utc": "2026-06-02T01:37:45.448214+00:00",
     "dataset_id": "ds006072",
     "analysis_status": "local_cifti_payloads_ready_for_comparable_extraction",
     "primary_contrast": "psilocybin_vs_active_control_mtp",
@@ -103,7 +103,7 @@
   "summary": {
     "schema_version": 3,
     "analysis_status": "implemented_first_pass",
-    "generated_at_utc": "2026-06-01T23:38:21.951794+00:00",
+    "generated_at_utc": "2026-06-02T01:41:10.515229+00:00",
     "inference_metadata": {
       "metric_ci_alpha": 0.05,
       "metric_bootstrap_iterations": 1024,
@@ -4231,7 +4231,7 @@
   },
   "comparable_empirical_validation": {
     "schema_version": "ds006072_external_validation.v1",
-    "generated_at_utc": "2026-06-01T23:38:15.712907+00:00",
+    "generated_at_utc": "2026-06-02T01:41:04.417051+00:00",
     "dataset_id": "ds006072",
     "primary_contrast": "psilocybin_vs_active_control_mtp",
     "viewer_root": "results/psilocybin_ds006072/parcellations/schaefer_100_yeo_7/empirical_viewer",
@@ -4270,8 +4270,22 @@
         "scoring_code_files.dynamic_mechanism": {
           "path": "src/lsd_thesis/dynamic_mechanism.py",
           "exists": true,
-          "expected_sha256": "956214d70805f1caf36160562008ca034d0c7ca402e73ffec5f4188769ba73ed",
-          "current_sha256": "956214d70805f1caf36160562008ca034d0c7ca402e73ffec5f4188769ba73ed",
+          "expected_sha256": "c3b8733f5c2b5638c1873b0d870d29cd697dc764b62a57af4fd0e992baaa26d4",
+          "current_sha256": "c3b8733f5c2b5638c1873b0d870d29cd697dc764b62a57af4fd0e992baaa26d4",
+          "verified": true
+        },
+        "scoring_code_files.dynamic_mechanism_connectivity": {
+          "path": "src/lsd_thesis/dynamic_mechanism_connectivity.py",
+          "exists": true,
+          "expected_sha256": "c75c3b94ed39831f5b6754dc84d5a8863cc1c9d3c5dbe7a0d9c1a7b8928b8b8b",
+          "current_sha256": "c75c3b94ed39831f5b6754dc84d5a8863cc1c9d3c5dbe7a0d9c1a7b8928b8b8b",
+          "verified": true
+        },
+        "scoring_code_files.dynamic_mechanism_hierarchy": {
+          "path": "src/lsd_thesis/dynamic_mechanism_hierarchy.py",
+          "exists": true,
+          "expected_sha256": "3c4151740bb719a655671a80bc4e7246590fb27c52adad94b373ee8647a614f1",
+          "current_sha256": "3c4151740bb719a655671a80bc4e7246590fb27c52adad94b373ee8647a614f1",
           "verified": true
         },
         "scoring_code_files.dynamic_mechanism_priors": {
@@ -4279,6 +4293,13 @@
           "exists": true,
           "expected_sha256": "1783a63f324e8dc7f1d8e4b6dcd6747756f7c9c15e3e0be2034262d5ac601bf3",
           "current_sha256": "1783a63f324e8dc7f1d8e4b6dcd6747756f7c9c15e3e0be2034262d5ac601bf3",
+          "verified": true
+        },
+        "scoring_code_files.dynamic_mechanism_repertoire": {
+          "path": "src/lsd_thesis/dynamic_mechanism_repertoire.py",
+          "exists": true,
+          "expected_sha256": "fe4788dbc06941c79db5199bed84b8ee8425591f7938dde5c2e5bf6328978150",
+          "current_sha256": "fe4788dbc06941c79db5199bed84b8ee8425591f7938dde5c2e5bf6328978150",
           "verified": true
         },
         "scoring_code_files.dynamic_mechanism_stats": {
@@ -4373,7 +4394,7 @@
     "summary": {
       "schema_version": 3,
       "analysis_status": "implemented_first_pass",
-      "generated_at_utc": "2026-06-01T23:38:21.951794+00:00",
+      "generated_at_utc": "2026-06-02T01:41:10.515229+00:00",
       "inference_metadata": {
         "metric_ci_alpha": 0.05,
         "metric_bootstrap_iterations": 1024,

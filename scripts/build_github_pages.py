@@ -12,6 +12,8 @@ from pathlib import Path
 from typing import Any
 from urllib.parse import unquote
 
+from jinja2 import Environment, FileSystemLoader, select_autoescape
+
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SRC_ROOT = REPO_ROOT / "src"
 SCRIPTS_ROOT = REPO_ROOT / "scripts"
@@ -22,7 +24,6 @@ for path in (SRC_ROOT, SCRIPTS_ROOT):
 # ruff: noqa: E402
 from build_publication_package import build_publication_package
 from export_thesis_loop_tables import export_thesis_loop_tables
-from plotly.offline import get_plotlyjs
 
 from lsd_thesis.confound_controls import write_motion_confound_control_status
 from lsd_thesis.cortical_maps import write_cortical_map_alignment_status
@@ -39,11 +40,12 @@ from lsd_thesis.published_motion_qc import write_published_motion_qc_status
 from lsd_thesis.setting_seed.motion import write_motion_outputs
 from lsd_thesis.thesis_loop import build_thesis_evidence_loop
 from lsd_thesis.thesis_upgrade import write_thesis_upgrade_status
-from lsd_thesis.web.app import build_dashboard_payload
 from lsd_thesis.web.artifacts import SAFE_ARTIFACT_EXTENSIONS, is_allowed_artifact_relative_path
+from lsd_thesis.web.site_payload import build_public_site_payload, build_route_links
 
 STATIC_FAVICON_TAG = '<link rel="icon" href="data:,">'
 PAGES_ARTIFACT_MAX_BYTES = 20 * 1024 * 1024
+PUBLISH_TEMP_SUFFIXES = (".bak", ".log", ".old", ".part", ".tmp")
 
 
 def _remove_tree(path: Path) -> None:
@@ -78,7 +80,15 @@ def _copy_tree(source: Path, destination: Path) -> Path | None:
         return None
     if destination.exists():
         _remove_tree(destination)
-    shutil.copytree(source, destination)
+
+    def _ignore_publish_temp(_directory: str, names: list[str]) -> list[str]:
+        return [
+            name
+            for name in names
+            if name.startswith("~$") or name.lower().endswith(PUBLISH_TEMP_SUFFIXES)
+        ]
+
+    shutil.copytree(source, destination, ignore=_ignore_publish_temp)
     return destination
 
 
@@ -227,7 +237,7 @@ def _copy_dashboard_linked_artifacts(repo_root: Path, site: Path, dashboard_payl
 
 
 def _published_artifact_paths(outputs: dict[str, Path], site: Path) -> list[str]:
-    excluded = {"index", "dashboard", "dashboard_data", "dashboard_plotly"}
+    excluded = {"index", "thesis", "dashboard", "methods", "appendix", "dashboard_data"}
     paths: list[str] = []
     for key, path in outputs.items():
         if key in excluded:
@@ -239,36 +249,132 @@ def _published_artifact_paths(outputs: dict[str, Path], site: Path) -> list[str]
     return sorted(set(paths))
 
 
-def _write_static_dashboard(repo_root: Path, site: Path) -> dict[str, Path | list[str]]:
+def _template_environment(repo_root: Path) -> Environment:
+    return Environment(
+        loader=FileSystemLoader(str(repo_root / "src" / "lsd_thesis" / "templates")),
+        autoescape=select_autoescape(("html", "xml")),
+    )
+
+
+def _render_static_template(
+    environment: Environment,
+    template_name: str,
+    payload: dict[str, Any],
+    *,
+    depth: int,
+    artifact_prefix: str,
+    data_url: str = "dashboard/dashboard-data.json",
+) -> str:
+    html = environment.get_template(template_name).render(
+        payload=payload,
+        links=build_route_links(static=True, depth=depth),
+        artifact_prefix=artifact_prefix,
+        data_url=data_url,
+        deployment_mode="static",
+    )
+    return _with_static_favicon(html)
+
+
+def _write_static_public_site(
+    repo_root: Path,
+    site: Path,
+    *,
+    dashboard_payload: dict[str, Any] | None = None,
+) -> dict[str, Path | list[str]]:
     dashboard_dir = site / "dashboard"
     dashboard_dir.mkdir(parents=True, exist_ok=True)
-    payload = build_dashboard_payload(repo_root)
+    payload = build_public_site_payload(repo_root, dashboard_payload=dashboard_payload)
+    environment = _template_environment(repo_root)
+
     dashboard_data = dashboard_dir / "dashboard-data.json"
     dashboard_data.write_text(json.dumps(payload, indent=2), encoding="utf-8")
-    dashboard_html = dashboard_dir / "index.html"
-    template_path = repo_root / "src" / "lsd_thesis" / "templates" / "dashboard.html"
-    dashboard_html.write_text(_static_dashboard_html(template_path), encoding="utf-8")
+
     root_html = site / "index.html"
+    thesis_html = site / "thesis.html"
+    dashboard_html = dashboard_dir / "index.html"
+    methods_html = site / "methods.html"
+    appendix_html = site / "appendix.html"
+
     root_html.write_text(
-        _static_dashboard_html(
-            template_path,
-            plotly_src="dashboard/assets/plotly.min.js",
-            dashboard_data_src="dashboard/dashboard-data.json",
-            artifact_prefix="artifacts/",
+        _render_static_template(environment, "public_site.html", payload, depth=0, artifact_prefix="artifacts/"),
+        encoding="utf-8",
+    )
+    thesis_html.write_text(
+        _render_static_template(environment, "thesis_story.html", payload, depth=0, artifact_prefix="artifacts/"),
+        encoding="utf-8",
+    )
+    dashboard_html.write_text(
+        _render_static_template(
+            environment,
+            "evidence_dashboard.html",
+            payload,
+            depth=1,
+            artifact_prefix="../artifacts/",
+            data_url="dashboard-data.json",
         ),
         encoding="utf-8",
     )
-    plotly_asset = dashboard_dir / "assets" / "plotly.min.js"
-    plotly_asset.parent.mkdir(parents=True, exist_ok=True)
-    plotly_asset.write_text(get_plotlyjs(), encoding="utf-8")
+    methods_html.write_text(
+        _render_static_template(environment, "methods_reproducibility.html", payload, depth=0, artifact_prefix="artifacts/"),
+        encoding="utf-8",
+    )
+    appendix_html.write_text(
+        _render_static_template(environment, "appendix.html", payload, depth=0, artifact_prefix="artifacts/"),
+        encoding="utf-8",
+    )
+
     copied_artifacts = _copy_dashboard_linked_artifacts(repo_root, site, payload)
     return {
         "index": root_html,
+        "thesis": thesis_html,
         "dashboard": dashboard_html,
         "dashboard_data": dashboard_data,
-        "dashboard_plotly": plotly_asset,
+        "methods": methods_html,
+        "appendix": appendix_html,
         "dashboard_artifacts": copied_artifacts,
     }
+
+
+def _write_pages_manifest(site: Path, outputs: dict[str, Path], dashboard_artifacts: list[Any]) -> Path:
+    manifest = {
+        "generated_at_utc": datetime.now(UTC).isoformat(),
+        "claim_guardrail": (
+            "GitHub Pages is a static presentation and dashboard snapshot. Treat blocked rows in the claim matrix as unresolved thesis work, "
+            "not as completed scientific evidence. Interactive FastAPI-only controls are available only in the local dashboard."
+        ),
+        "entrypoints": {
+            "index": "index.html",
+            "thesis": "thesis.html",
+            "dashboard": "dashboard/index.html",
+            "methods": "methods.html",
+            "appendix": "appendix.html",
+        },
+        "artifacts": sorted(
+            set(_published_artifact_paths(outputs, site))
+            | set(dashboard_artifacts if isinstance(dashboard_artifacts, list) else [])
+        ),
+    }
+    manifest_path = site / "pages_manifest.json"
+    manifest_path.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
+    return manifest_path
+
+
+def _dashboard_payload_with_refreshed_thesis_status(
+    site: Path,
+    refreshed_status: dict[str, Any],
+) -> dict[str, Any] | None:
+    dashboard_data_path = site / "dashboard" / "dashboard-data.json"
+    if not dashboard_data_path.exists():
+        return None
+    public_payload = json.loads(dashboard_data_path.read_text(encoding="utf-8"))
+    if not isinstance(public_payload, dict):
+        return None
+    source_dashboard = public_payload.get("source_dashboard")
+    if not isinstance(source_dashboard, dict):
+        return None
+    dashboard_payload = dict(source_dashboard)
+    dashboard_payload["thesis_upgrade"] = refreshed_status
+    return dashboard_payload
 
 
 def build_github_pages_site(
@@ -301,10 +407,13 @@ def build_github_pages_site(
     write_thesis_upgrade_status(repo_root)
 
     outputs: dict[str, Path] = {}
+    nojekyll = site / ".nojekyll"
+    nojekyll.write_text("", encoding="utf-8")
+    outputs["nojekyll"] = nojekyll
 
     optional_files = {
-        "thesis": (Path(publication_outputs["thesis_microsite_html"]), site / "thesis.html"),
-        "defense": (Path(publication_outputs["defense_presentation_html"]), site / "defense.html"),
+        "thesis_microsite": (Path(publication_outputs["thesis_microsite_html"]), site / "artifacts" / "thesis_microsite.html"),
+        "defense": (Path(publication_outputs["defense_presentation_html"]), site / "artifacts" / "defense_presentation.html"),
         "report_markdown": (Path(publication_outputs["thesis_report_markdown"]), site / "artifacts" / "thesis_report_revised.md"),
         "claim_matrix_csv": (
             repo_root / "results" / "thesis_evidence_loop" / "claim_evidence_matrix.csv",
@@ -336,6 +445,23 @@ def build_github_pages_site(
     figures = _copy_tree(repo_root / "output" / "doc" / "figures", site / "figures")
     if figures is not None:
         outputs["figures"] = figures
+    doc_bundle = _copy_curated_tree(repo_root, repo_root / "output" / "doc", site / "artifacts" / "output" / "doc")
+    if doc_bundle is not None:
+        outputs["doc_bundle"] = doc_bundle
+    dynamic_mechanism = _copy_curated_tree(
+        repo_root,
+        repo_root / "results" / "dynamic_mechanism_ranking",
+        site / "artifacts" / "results" / "dynamic_mechanism_ranking",
+    )
+    if dynamic_mechanism is not None:
+        outputs["dynamic_mechanism"] = dynamic_mechanism
+    stage2_figures = _copy_curated_tree(
+        repo_root,
+        repo_root / "results" / "stage_2" / "figures",
+        site / "artifacts" / "results" / "stage_2" / "figures",
+    )
+    if stage2_figures is not None:
+        outputs["stage2_figures"] = stage2_figures
     cortical_maps = _copy_curated_tree(
         repo_root, repo_root / "results" / "cortical_maps", site / "artifacts" / "results" / "cortical_maps"
     )
@@ -362,30 +488,81 @@ def build_github_pages_site(
     )
     if psilocybin_ds006072 is not None:
         outputs["psilocybin_ds006072"] = psilocybin_ds006072
-    dashboard_outputs = _write_static_dashboard(repo_root, site)
-    outputs.update({key: value for key, value in dashboard_outputs.items() if isinstance(value, Path)})
-    dashboard_artifacts = dashboard_outputs.get("dashboard_artifacts", [])
+    receptor_priors = _copy_curated_tree(
+        repo_root,
+        repo_root / "results" / "receptor_priors",
+        site / "artifacts" / "results" / "receptor_priors",
+    )
+    if receptor_priors is not None:
+        outputs["receptor_priors"] = receptor_priors
+    structural_connectome = _copy_curated_tree(
+        repo_root,
+        repo_root / "results" / "structural_connectome",
+        site / "artifacts" / "results" / "structural_connectome",
+    )
+    if structural_connectome is not None:
+        outputs["structural_connectome"] = structural_connectome
+    parcellation_sensitivity = _copy_curated_tree(
+        repo_root,
+        repo_root / "results" / "parcellation_sensitivity",
+        site / "artifacts" / "results" / "parcellation_sensitivity",
+    )
+    if parcellation_sensitivity is not None:
+        outputs["parcellation_sensitivity"] = parcellation_sensitivity
+    literature_benchmark = _copy_curated_tree(
+        repo_root,
+        repo_root / "results" / "literature_benchmark",
+        site / "artifacts" / "results" / "literature_benchmark",
+    )
+    if literature_benchmark is not None:
+        outputs["literature_benchmark"] = literature_benchmark
+    reproducible_archive = _copy_curated_tree(
+        repo_root,
+        repo_root / "results" / "reproducible_archive",
+        site / "artifacts" / "results" / "reproducible_archive",
+    )
+    if reproducible_archive is not None:
+        outputs["reproducible_archive"] = reproducible_archive
+    public_site_outputs = _write_static_public_site(repo_root, site)
+    outputs.update({key: value for key, value in public_site_outputs.items() if isinstance(value, Path)})
+    dashboard_artifacts = public_site_outputs.get("dashboard_artifacts", [])
+    outputs["manifest"] = _write_pages_manifest(site, outputs, dashboard_artifacts if isinstance(dashboard_artifacts, list) else [])
 
-    manifest = {
-        "generated_at_utc": datetime.now(UTC).isoformat(),
-        "claim_guardrail": (
-            "GitHub Pages is a static presentation and dashboard snapshot. Treat blocked rows in the claim matrix as unresolved thesis work, "
-            "not as completed scientific evidence. Interactive FastAPI-only controls are available only in the local dashboard."
-        ),
-        "entrypoints": {
-            "index": "index.html",
-            "thesis": "thesis.html" if "thesis" in outputs else None,
-            "defense": "defense.html" if "defense" in outputs else None,
-            "dashboard": "dashboard/index.html",
-        },
-        "artifacts": sorted(
-            set(_published_artifact_paths(outputs, site))
-            | set(dashboard_artifacts if isinstance(dashboard_artifacts, list) else [])
-        ),
-    }
-    manifest_path = site / "pages_manifest.json"
-    manifest_path.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
-    outputs["manifest"] = manifest_path
+    refreshed_status = write_thesis_upgrade_status(repo_root)
+    thesis_upgrade = _copy_curated_tree(
+        repo_root,
+        repo_root / "results" / "thesis_upgrade",
+        site / "artifacts" / "results" / "thesis_upgrade",
+    )
+    if thesis_upgrade is not None:
+        outputs["thesis_upgrade"] = thesis_upgrade
+    refreshed_dashboard_payload = _dashboard_payload_with_refreshed_thesis_status(site, refreshed_status)
+    public_site_outputs = _write_static_public_site(
+        repo_root,
+        site,
+        dashboard_payload=refreshed_dashboard_payload,
+    )
+    outputs.update({key: value for key, value in public_site_outputs.items() if isinstance(value, Path)})
+    dashboard_artifacts = public_site_outputs.get("dashboard_artifacts", [])
+    outputs["manifest"] = _write_pages_manifest(site, outputs, dashboard_artifacts if isinstance(dashboard_artifacts, list) else [])
+
+    final_status = write_thesis_upgrade_status(repo_root)
+    thesis_upgrade = _copy_curated_tree(
+        repo_root,
+        repo_root / "results" / "thesis_upgrade",
+        site / "artifacts" / "results" / "thesis_upgrade",
+    )
+    if thesis_upgrade is not None:
+        outputs["thesis_upgrade"] = thesis_upgrade
+    final_dashboard_payload = _dashboard_payload_with_refreshed_thesis_status(site, final_status)
+    public_site_outputs = _write_static_public_site(
+        repo_root,
+        site,
+        dashboard_payload=final_dashboard_payload,
+    )
+    outputs.update({key: value for key, value in public_site_outputs.items() if isinstance(value, Path)})
+    dashboard_artifacts = public_site_outputs.get("dashboard_artifacts", [])
+    outputs["manifest"] = _write_pages_manifest(site, outputs, dashboard_artifacts if isinstance(dashboard_artifacts, list) else [])
     return outputs
 
 

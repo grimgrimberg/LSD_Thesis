@@ -1,6 +1,6 @@
 {
   "schema_version": "ds006072_external_validation.v1",
-  "generated_at_utc": "2026-06-02T00:31:01.439777+00:00",
+  "generated_at_utc": "2026-06-02T01:41:04.417051+00:00",
   "dataset_id": "ds006072",
   "primary_contrast": "psilocybin_vs_active_control_mtp",
   "viewer_root": "results/psilocybin_ds006072/parcellations/schaefer_100_yeo_7/empirical_viewer",
@@ -87,7 +87,7 @@
       }
     }
   },
-  "scoring_lock_refresh_requested": true,
+  "scoring_lock_refresh_requested": false,
   "unchanged_scoring_applied": true,
   "pair_count": 3,
   "subject_count": 3,
@@ -163,7 +163,7 @@
   "summary": {
     "schema_version": 3,
     "analysis_status": "implemented_first_pass",
-    "generated_at_utc": "2026-06-02T00:31:10.490140+00:00",
+    "generated_at_utc": "2026-06-02T01:41:10.515229+00:00",
     "inference_metadata": {
       "metric_ci_alpha": 0.05,
       "metric_bootstrap_iterations": 1024,

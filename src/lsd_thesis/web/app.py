@@ -18,6 +18,7 @@ from lsd_thesis.web.simulation_payload import (
     build_simulation_payload,
     graph_payload,
 )
+from lsd_thesis.web.site_payload import build_public_site_payload, build_route_links
 from lsd_thesis.web.structural_dti import load_structural_dti_payload
 from lsd_thesis.web.thesis_payload import build_thesis_expansion_payload, load_claim_status_payload
 
@@ -30,6 +31,52 @@ _empirical_selector_is_invalid = empirical_viewer.empirical_selector_is_invalid
 _load_dashboard_empirical_detail = empirical_viewer.load_dashboard_empirical_detail
 load_empirical_viewer_detail = empirical_viewer.load_empirical_viewer_detail
 load_empirical_viewer_overview = empirical_viewer.load_empirical_viewer_overview
+
+LOCAL_DASHBOARD_NOTICE = """
+<aside class="local-backend-mode" role="note" aria-label="Local backend mode">
+  <style>
+    .local-backend-mode {
+      background: #0f1c25;
+      border-bottom: 1px solid rgba(130, 219, 216, 0.35);
+      color: #eef8f7;
+      display: grid;
+      gap: 0.6rem;
+      padding: 1rem clamp(1rem, 3vw, 2rem);
+    }
+    .local-backend-mode strong {
+      color: #9ce0d9;
+      display: block;
+      font-size: 0.82rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .local-backend-mode p {
+      margin: 0;
+      max-width: 70rem;
+    }
+    .local-backend-mode a {
+      color: #f4c76f;
+      font-weight: 700;
+      margin-right: 1rem;
+    }
+  </style>
+  <p><strong>Local backend mode</strong>
+  This dense command center is the interactive FastAPI view. It can call
+  <code>/api/dashboard-data</code>, <code>/api/simulate</code>, and
+  <code>/api/empirical-view</code>; the public Pages site is the cleaner static pitch snapshot.</p>
+  <p>
+    <a href="/dashboard">Open clean evidence dashboard</a>
+    <a href="/methods">Review methods and limitations</a>
+  </p>
+</aside>
+"""
+
+
+def _local_dashboard_html() -> str:
+    html = (REPO_ROOT / "src" / "lsd_thesis" / "templates" / "dashboard.html").read_text(
+        encoding="utf-8"
+    )
+    return html.replace("<body>", f"<body>\n{LOCAL_DASHBOARD_NOTICE}", 1)
 
 
 def _load_set_setting_seed_payload(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
@@ -90,6 +137,7 @@ def _load_external_cortical_maps_payload(repo_root: Path = REPO_ROOT) -> dict[st
 
 
 _dashboard_cache: dict[str, Any] | None = None
+_public_site_cache: dict[str, Any] | None = None
 
 
 def build_dashboard_payload(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
@@ -202,6 +250,17 @@ def build_dashboard_payload(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
 def create_app() -> FastAPI:
     app = FastAPI(title="Whole-Brain Surrogate Dashboard")
 
+    def _public_site_html(template_name: str, *, data_url: str = "/api/public-site-data") -> HTMLResponse:
+        payload = build_public_site_payload(REPO_ROOT)
+        html = TEMPLATES.get_template(template_name).render(
+            payload=payload,
+            links=build_route_links(static=False),
+            artifact_prefix="/artifacts/",
+            data_url=data_url,
+            deployment_mode="local",
+        )
+        return HTMLResponse(html, headers=web_artifacts.dashboard_security_headers())
+
     @app.get("/assets/plotly.min.js")
     async def plotly_asset() -> Response:
         global _plotly_js_cache
@@ -220,10 +279,34 @@ def create_app() -> FastAPI:
 
     @app.get("/", response_class=HTMLResponse)
     async def index() -> HTMLResponse:
-        html = (REPO_ROOT / "src" / "lsd_thesis" / "templates" / "dashboard.html").read_text(
-            encoding="utf-8"
-        )
-        return HTMLResponse(html, headers=web_artifacts.dashboard_security_headers())
+        return _public_site_html("public_site.html")
+
+    @app.get("/thesis", response_class=HTMLResponse)
+    @app.get("/thesis.html", response_class=HTMLResponse)
+    async def thesis_story() -> HTMLResponse:
+        return _public_site_html("thesis_story.html")
+
+    @app.get("/dashboard", response_class=HTMLResponse)
+    @app.get("/dashboard/", response_class=HTMLResponse)
+    async def public_dashboard() -> HTMLResponse:
+        return _public_site_html("evidence_dashboard.html")
+
+    @app.get("/local-dashboard", response_class=HTMLResponse)
+    @app.get("/local-dashboard/", response_class=HTMLResponse)
+    @app.get("/dashboard/full", response_class=HTMLResponse)
+    @app.get("/dashboard/full/", response_class=HTMLResponse)
+    async def local_dashboard() -> HTMLResponse:
+        return HTMLResponse(_local_dashboard_html(), headers=web_artifacts.dashboard_security_headers())
+
+    @app.get("/methods", response_class=HTMLResponse)
+    @app.get("/methods.html", response_class=HTMLResponse)
+    async def methods() -> HTMLResponse:
+        return _public_site_html("methods_reproducibility.html")
+
+    @app.get("/appendix", response_class=HTMLResponse)
+    @app.get("/appendix.html", response_class=HTMLResponse)
+    async def appendix() -> HTMLResponse:
+        return _public_site_html("appendix.html")
 
     @app.get("/favicon.ico")
     async def favicon() -> Response:
@@ -246,6 +329,13 @@ def create_app() -> FastAPI:
         if _dashboard_cache is None:
             _dashboard_cache = build_dashboard_payload(REPO_ROOT)
         return _dashboard_cache
+
+    @app.get("/api/public-site-data")
+    async def public_site_data() -> dict[str, Any]:
+        global _public_site_cache
+        if _public_site_cache is None:
+            _public_site_cache = build_public_site_payload(REPO_ROOT)
+        return _public_site_cache
 
     @app.get("/api/empirical-view")
     async def empirical_view(subject: str, run: str) -> dict[str, Any]:

@@ -47,7 +47,7 @@ def load_empirical_viewer_overview(viewer_root: Path) -> dict[str, Any] | None:
     paired_run_index = paired_subject_run_index(viewer_root)
     if paired_run_index:
         paired_subjects = sorted(paired_run_index)
-        paired_runs = sorted({run for runs in paired_run_index.values() for run in runs})
+        paired_runs = _sorted_runs({run for runs in paired_run_index.values() for run in runs})
         overview["subjects"] = paired_subjects
         overview["runs"] = paired_runs
         overview["subject_index"] = paired_run_index
@@ -55,6 +55,10 @@ def load_empirical_viewer_overview(viewer_root: Path) -> dict[str, Any] | None:
         overview["available_pair_count"] = sum(len(runs) for runs in paired_run_index.values())
         if overview.get("default_subject") not in paired_run_index:
             overview["default_subject"] = paired_subjects[0]
+        default_subject = str(overview["default_subject"])
+        default_subject_runs = paired_run_index[default_subject]
+        if overview.get("default_run") not in default_subject_runs:
+            overview["default_run"] = default_subject_runs[0]
     overview.setdefault(
         "display_metadata",
         {
@@ -84,7 +88,7 @@ def paired_subject_run_index(viewer_root: Path) -> dict[str, list[str]]:
         if not (is_safe_empirical_selector(subject) and is_safe_empirical_selector(run)):
             continue
         subject_index.setdefault(subject, []).append(run)
-    return {subject: sorted(runs) for subject, runs in sorted(subject_index.items())}
+    return {subject: _sorted_runs(set(runs)) for subject, runs in sorted(subject_index.items())}
 
 
 def load_empirical_viewer_detail(

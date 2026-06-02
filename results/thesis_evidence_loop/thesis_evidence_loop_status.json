@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at_utc": "2026-06-01T20:08:23.917719+00:00",
+  "generated_at_utc": "2026-06-02T01:41:32.604760+00:00",
   "analysis_status": "implemented_loop_status_artifacts",
   "status_rows": [
     {
@@ -60,7 +60,7 @@
     },
     "psilocybin_ds006072": {
       "schema_version": 1,
-      "generated_at_utc": "2026-06-01T20:07:50.633119+00:00",
+      "generated_at_utc": "2026-06-02T01:41:03.172633+00:00",
       "dataset_id": "ds006072",
       "source": "Dosenbach/Siegel group Scientific Data 2025; OpenNeuro ds006072 psilocybin precision functional mapping dataset with raw, minimally processed, and fully processed imaging",
       "source_reference": {
@@ -91,7 +91,7 @@
       "functional_manifest_processed_cifti_total_size_bytes": 113592893360,
       "external_validation_readiness": {
         "schema_version": "ds006072_external_validation.v1",
-        "generated_at_utc": "2026-06-01T19:39:56.103846+00:00",
+        "generated_at_utc": "2026-06-02T01:37:45.448214+00:00",
         "dataset_id": "ds006072",
         "analysis_status": "local_cifti_payloads_ready_for_comparable_extraction",
         "primary_contrast": "psilocybin_vs_active_control_mtp",
@@ -163,7 +163,7 @@
       "summary": {
         "schema_version": 3,
         "analysis_status": "implemented_first_pass",
-        "generated_at_utc": "2026-06-01T20:08:00.006581+00:00",
+        "generated_at_utc": "2026-06-02T01:41:10.515229+00:00",
         "inference_metadata": {
           "metric_ci_alpha": 0.05,
           "metric_bootstrap_iterations": 1024,
@@ -4291,7 +4291,7 @@
       },
       "comparable_empirical_validation": {
         "schema_version": "ds006072_external_validation.v1",
-        "generated_at_utc": "2026-06-01T20:07:52.066951+00:00",
+        "generated_at_utc": "2026-06-02T01:41:04.417051+00:00",
         "dataset_id": "ds006072",
         "primary_contrast": "psilocybin_vs_active_control_mtp",
         "viewer_root": "results/psilocybin_ds006072/parcellations/schaefer_100_yeo_7/empirical_viewer",
@@ -4330,8 +4330,50 @@
             "scoring_code_files.dynamic_mechanism": {
               "path": "src/lsd_thesis/dynamic_mechanism.py",
               "exists": true,
-              "expected_sha256": "cbcbf941449121598f4e9196cb560fb1c22f141caf994df918e59fcd5d2d9c93",
-              "current_sha256": "cbcbf941449121598f4e9196cb560fb1c22f141caf994df918e59fcd5d2d9c93",
+              "expected_sha256": "c3b8733f5c2b5638c1873b0d870d29cd697dc764b62a57af4fd0e992baaa26d4",
+              "current_sha256": "c3b8733f5c2b5638c1873b0d870d29cd697dc764b62a57af4fd0e992baaa26d4",
+              "verified": true
+            },
+            "scoring_code_files.dynamic_mechanism_connectivity": {
+              "path": "src/lsd_thesis/dynamic_mechanism_connectivity.py",
+              "exists": true,
+              "expected_sha256": "c75c3b94ed39831f5b6754dc84d5a8863cc1c9d3c5dbe7a0d9c1a7b8928b8b8b",
+              "current_sha256": "c75c3b94ed39831f5b6754dc84d5a8863cc1c9d3c5dbe7a0d9c1a7b8928b8b8b",
+              "verified": true
+            },
+            "scoring_code_files.dynamic_mechanism_hierarchy": {
+              "path": "src/lsd_thesis/dynamic_mechanism_hierarchy.py",
+              "exists": true,
+              "expected_sha256": "3c4151740bb719a655671a80bc4e7246590fb27c52adad94b373ee8647a614f1",
+              "current_sha256": "3c4151740bb719a655671a80bc4e7246590fb27c52adad94b373ee8647a614f1",
+              "verified": true
+            },
+            "scoring_code_files.dynamic_mechanism_priors": {
+              "path": "src/lsd_thesis/dynamic_mechanism_priors.py",
+              "exists": true,
+              "expected_sha256": "1783a63f324e8dc7f1d8e4b6dcd6747756f7c9c15e3e0be2034262d5ac601bf3",
+              "current_sha256": "1783a63f324e8dc7f1d8e4b6dcd6747756f7c9c15e3e0be2034262d5ac601bf3",
+              "verified": true
+            },
+            "scoring_code_files.dynamic_mechanism_repertoire": {
+              "path": "src/lsd_thesis/dynamic_mechanism_repertoire.py",
+              "exists": true,
+              "expected_sha256": "fe4788dbc06941c79db5199bed84b8ee8425591f7938dde5c2e5bf6328978150",
+              "current_sha256": "fe4788dbc06941c79db5199bed84b8ee8425591f7938dde5c2e5bf6328978150",
+              "verified": true
+            },
+            "scoring_code_files.dynamic_mechanism_stats": {
+              "path": "src/lsd_thesis/dynamic_mechanism_stats.py",
+              "exists": true,
+              "expected_sha256": "3a82bf05d2ecbb6108eb565cde8d8faf91f727b03872327fd8e0a95817c6d35b",
+              "current_sha256": "3a82bf05d2ecbb6108eb565cde8d8faf91f727b03872327fd8e0a95817c6d35b",
+              "verified": true
+            },
+            "scoring_code_files.dynamic_mechanism_transitions": {
+              "path": "src/lsd_thesis/dynamic_mechanism_transitions.py",
+              "exists": true,
+              "expected_sha256": "9912895059422095756d5fa428021f1b4dee8680ad396150eb90e574cd346393",
+              "current_sha256": "9912895059422095756d5fa428021f1b4dee8680ad396150eb90e574cd346393",
               "verified": true
             }
           }
@@ -4412,7 +4454,7 @@
         "summary": {
           "schema_version": 3,
           "analysis_status": "implemented_first_pass",
-          "generated_at_utc": "2026-06-01T20:08:00.006581+00:00",
+          "generated_at_utc": "2026-06-02T01:41:10.515229+00:00",
           "inference_metadata": {
             "metric_ci_alpha": 0.05,
             "metric_bootstrap_iterations": 1024,
@@ -8555,7 +8597,7 @@
     },
     "structural_connectome": {
       "schema_version": 1,
-      "generated_at_utc": "2026-06-01T20:08:01.811111+00:00",
+      "generated_at_utc": "2026-06-02T01:41:11.568173+00:00",
       "artifact_target": "results/structural_connectome",
       "source_reference": {
         "source_id": "hcp_young_adult",
@@ -12006,7 +12048,7 @@
     },
     "receptor_priors": {
       "schema_version": 1,
-      "generated_at_utc": "2026-06-01T20:08:03.815751+00:00",
+      "generated_at_utc": "2026-06-02T01:41:13.732226+00:00",
       "artifact_target": "results/receptor_priors",
       "source_reference": {
         "source_id": "markello_neuromaps_2022",
@@ -15457,7 +15499,7 @@
     },
     "parcellation_sensitivity": {
       "schema_version": 1,
-      "generated_at_utc": "2026-06-01T20:08:04.884101+00:00",
+      "generated_at_utc": "2026-06-02T01:41:14.682871+00:00",
       "analysis_status": "implemented_status_matrix",
       "source_reference": {
         "source_id": "schaefer_2018_local_global",
@@ -15657,7 +15699,7 @@
     },
     "literature_benchmark": {
       "schema_version": 1,
-      "generated_at_utc": "2026-06-01T20:08:23.911658+00:00",
+      "generated_at_utc": "2026-06-02T01:41:32.599403+00:00",
       "analysis_status": "implemented_directional_proxy_benchmark",
       "source_reference": {
         "source_id": "girn_2026_mega_analysis",

@@ -39,7 +39,10 @@ READINESS_SNAPSHOT_SUMMARY_KEYS = (
 def _read_json(path: Path) -> dict[str, Any] | None:
     if not path.exists() or not path.is_file():
         return None
-    raw = json.loads(path.read_text(encoding="utf-8"))
+    try:
+        raw = json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return None
     if not isinstance(raw, dict):
         raise ValueError(f"Expected JSON object in {path}, got {type(raw).__name__}.")
     return raw
@@ -899,6 +902,10 @@ def _public_dashboard_gate(repo_root: Path) -> dict[str, Any]:
     site_status = _read_json(thesis_status_path) or {}
     dashboard_payload = _read_json(dashboard_data_path) or {}
     raw_dashboard_status = dashboard_payload.get("thesis_upgrade") if isinstance(dashboard_payload, dict) else None
+    if not isinstance(raw_dashboard_status, dict) and isinstance(dashboard_payload, dict):
+        raw_source_dashboard = dashboard_payload.get("source_dashboard")
+        if isinstance(raw_source_dashboard, dict):
+            raw_dashboard_status = raw_source_dashboard.get("thesis_upgrade")
     dashboard_status = raw_dashboard_status if isinstance(raw_dashboard_status, dict) else {}
     manifest = _read_json(manifest_path) or {}
     raw_entrypoints = manifest.get("entrypoints")

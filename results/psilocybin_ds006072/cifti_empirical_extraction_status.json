@@ -1,6 +1,6 @@
 {
   "schema_version": "ds006072_cifti_empirical_extraction.v1",
-  "generated_at_utc": "2026-06-01T12:51:04.516591+00:00",
+  "generated_at_utc": "2026-06-02T01:42:24.478996+00:00",
   "analysis_status": "implemented_ds006072_schaefer100_parcellation_empirical_viewer",
   "cifti_empirical_viewer_ready": true,
   "schaefer100_empirical_viewer_ready": true,
@@ -37,170 +37,22 @@
   "claim_guardrail": "This is real ds006072 CIFTI extraction into an empirical viewer, but it uses broad CIFTI structure families. It is stronger than manifest readiness and weaker than a surface/parcellation-matched replication unless schaefer100_empirical_viewer_ready is true.",
   "execute_requested": false,
   "extraction_result": {
-    "subjects_written": [
-      "P1",
-      "P2",
-      "P3"
-    ],
-    "subject_view_count": 3,
-    "condition_file_count": 6,
+    "subjects_written": [],
+    "subject_view_count": 0,
+    "condition_file_count": 0,
     "viewer_root": "results/psilocybin_ds006072/empirical_viewer",
     "subject_views_dir": "results/psilocybin_ds006072/empirical_viewer/subject_views",
-    "extraction_rows": [
-      {
-        "subject": "P1",
-        "session": "ses-LSD",
-        "condition": "psilocybin",
-        "source_path": "data/ds006072/NON_BIDS/ciftis/sub-1_Drug2_rsfMRI_uout_bpss_sr_noGSR_sm4.dtseries.nii",
-        "source_shape": [
-          1490,
-          91206
-        ],
-        "paired_timepoint_count": 1490
-      },
-      {
-        "subject": "P1",
-        "session": "ses-PLCB",
-        "condition": "active_control_mtp",
-        "source_path": "data/ds006072/NON_BIDS/ciftis/sub-1_Drug1_rsfMRI_uout_bpss_sr_noGSR_sm4.dtseries.nii",
-        "source_shape": [
-          1490,
-          91206
-        ],
-        "paired_timepoint_count": 1490
-      },
-      {
-        "subject": "P2",
-        "session": "ses-LSD",
-        "condition": "psilocybin",
-        "source_path": "data/ds006072/NON_BIDS/ciftis/sub-2_Drug1_rsfMRI_uout_bpss_sr_noGSR_sm4.dtseries.nii",
-        "source_shape": [
-          1490,
-          91206
-        ],
-        "paired_timepoint_count": 1490
-      },
-      {
-        "subject": "P2",
-        "session": "ses-PLCB",
-        "condition": "active_control_mtp",
-        "source_path": "data/ds006072/NON_BIDS/ciftis/sub-2_Drug2_rsfMRI_uout_bpss_sr_noGSR_sm4.dtseries.nii",
-        "source_shape": [
-          1490,
-          91206
-        ],
-        "paired_timepoint_count": 1490
-      },
-      {
-        "subject": "P3",
-        "session": "ses-LSD",
-        "condition": "psilocybin",
-        "source_path": "data/ds006072/NON_BIDS/ciftis/sub-3_Drug2_rsfMRI_uout_bpss_sr_noGSR_sm4.dtseries.nii",
-        "source_shape": [
-          1490,
-          91206
-        ],
-        "paired_timepoint_count": 977
-      },
-      {
-        "subject": "P3",
-        "session": "ses-PLCB",
-        "condition": "active_control_mtp",
-        "source_path": "data/ds006072/NON_BIDS/ciftis/sub-3_Drug1_rsfMRI_uout_bpss_sr_noGSR_sm4.dtseries.nii",
-        "source_shape": [
-          977,
-          91206
-        ],
-        "paired_timepoint_count": 977
-      }
-    ]
+    "extraction_rows": []
   },
   "schaefer100_extraction_result": {
-    "subjects_written": [
-      "P1",
-      "P2",
-      "P3"
-    ],
-    "subject_view_count": 3,
-    "condition_file_count": 6,
+    "subjects_written": [],
+    "subject_view_count": 0,
+    "condition_file_count": 0,
     "viewer_root": "results/psilocybin_ds006072/parcellations/schaefer_100_yeo_7/empirical_viewer",
     "subject_views_dir": "results/psilocybin_ds006072/parcellations/schaefer_100_yeo_7/empirical_viewer/subject_views",
     "module_contract": "CIFTI fsLR cortex Schaefer100/Yeo7 parcel external validation",
     "parcellation_id": "schaefer_100_yeo_7",
-    "extraction_rows": [
-      {
-        "subject": "P1",
-        "session": "ses-LSD",
-        "condition": "psilocybin",
-        "source_path": "data/ds006072/NON_BIDS/ciftis/sub-1_Drug2_rsfMRI_uout_bpss_sr_noGSR_sm4.dtseries.nii",
-        "source_shape": [
-          1490,
-          91206
-        ],
-        "paired_timepoint_count": 1490,
-        "parcellation_id": "schaefer_100_yeo_7"
-      },
-      {
-        "subject": "P1",
-        "session": "ses-PLCB",
-        "condition": "active_control_mtp",
-        "source_path": "data/ds006072/NON_BIDS/ciftis/sub-1_Drug1_rsfMRI_uout_bpss_sr_noGSR_sm4.dtseries.nii",
-        "source_shape": [
-          1490,
-          91206
-        ],
-        "paired_timepoint_count": 1490,
-        "parcellation_id": "schaefer_100_yeo_7"
-      },
-      {
-        "subject": "P2",
-        "session": "ses-LSD",
-        "condition": "psilocybin",
-        "source_path": "data/ds006072/NON_BIDS/ciftis/sub-2_Drug1_rsfMRI_uout_bpss_sr_noGSR_sm4.dtseries.nii",
-        "source_shape": [
-          1490,
-          91206
-        ],
-        "paired_timepoint_count": 1490,
-        "parcellation_id": "schaefer_100_yeo_7"
-      },
-      {
-        "subject": "P2",
-        "session": "ses-PLCB",
-        "condition": "active_control_mtp",
-        "source_path": "data/ds006072/NON_BIDS/ciftis/sub-2_Drug2_rsfMRI_uout_bpss_sr_noGSR_sm4.dtseries.nii",
-        "source_shape": [
-          1490,
-          91206
-        ],
-        "paired_timepoint_count": 1490,
-        "parcellation_id": "schaefer_100_yeo_7"
-      },
-      {
-        "subject": "P3",
-        "session": "ses-LSD",
-        "condition": "psilocybin",
-        "source_path": "data/ds006072/NON_BIDS/ciftis/sub-3_Drug2_rsfMRI_uout_bpss_sr_noGSR_sm4.dtseries.nii",
-        "source_shape": [
-          1490,
-          91206
-        ],
-        "paired_timepoint_count": 977,
-        "parcellation_id": "schaefer_100_yeo_7"
-      },
-      {
-        "subject": "P3",
-        "session": "ses-PLCB",
-        "condition": "active_control_mtp",
-        "source_path": "data/ds006072/NON_BIDS/ciftis/sub-3_Drug1_rsfMRI_uout_bpss_sr_noGSR_sm4.dtseries.nii",
-        "source_shape": [
-          977,
-          91206
-        ],
-        "paired_timepoint_count": 977,
-        "parcellation_id": "schaefer_100_yeo_7"
-      }
-    ]
+    "extraction_rows": []
   },
   "extraction_result_source": "existing_status_cache",
   "schaefer100_extraction_result_source": "existing_status_cache"
