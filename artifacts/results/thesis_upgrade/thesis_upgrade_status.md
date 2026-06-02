@@ -21,14 +21,14 @@ This status file upgrades evidence visibility and fails closed on missing scienc
 | External validation | implemented_ds006072_unchanged_scoring_validation | true | 1.00 | Schaefer100/Yeo7 ds006072 extraction and unchanged scoring are complete; ranking_differs_from_lsd_top_layer; ds006072 top=E, LSD reference top=C. |
 | Receptor + structural control | fully_integrated | true | 1.00 | Documented structural-connectome graph sensitivity and PET-derived receptor-prior sensitivity are implemented with null/control context; keep biological mechanism promotion governed by the separate receptor/myelin/gradient claim gate. |
 | Receptor/myelin/gradient claim | resolved_negative_not_promoted | true | 1.00 | The map-prior claim is resolved as a negative control: do not promote receptor/myelin/gradient mechanism claims from this dataset. |
-| Reproducible archive | manifest_ready_release_doi_missing | false | 0.55 | Checksum manifest exists, but thesis-readiness still requires a citable GitHub release and Zenodo DOI. |
+| Reproducible archive | manifest_ready_doi_missing | false | 0.55 | Checksum manifest exists, but thesis-readiness still requires verified Zenodo DOI. |
 
 ## Package Readiness Audit
 
 | Requirement | Status | Complete | Missing | Next action |
 | --- | --- | ---: | --- | --- |
 | Public dashboard static snapshot | static_snapshot_ready | true | None: static Pages snapshot contains the required dashboard and evidence artifacts. | Keep rebuilding the static site after gate/status artifact changes. |
-| Reproducible archive publication | manifest_ready_release_doi_missing | false | Citable archive publication is missing a validated GitHub release URL and Zenodo DOI. | Create a GitHub release, mint a Zenodo DOI for that release, then rebuild scripts/build_reproducible_archive.py with --release-url and --doi. |
+| Reproducible archive publication | manifest_ready_doi_missing | false | Citable archive publication is missing verified Zenodo DOI. | Mint a Zenodo DOI for the existing GitHub release, then rebuild scripts/build_reproducible_archive.py with --release-url and --doi. |
 
 ## Strict Completion Audit
 

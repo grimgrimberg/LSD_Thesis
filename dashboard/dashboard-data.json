@@ -1,6 +1,6 @@
 {
   "schema_version": "public_site.v1",
-  "generated_at_utc": "2026-06-02T08:37:27.473318+00:00",
+  "generated_at_utc": "2026-06-02T09:08:17.364807+00:00",
   "project": {
     "title": "LSD Thesis Macro-Dynamics Pitch",
     "subtitle": "A data-science and engineering proposal for psychedelic-inspired brain dynamics.",
@@ -122411,7 +122411,7 @@
     },
     "external_cortical_maps": {
       "schema_version": "external_cortical_maps.v1",
-      "generated_at_utc": "2026-06-02T08:35:58.963402+00:00",
+      "generated_at_utc": "2026-06-02T09:07:00.059586+00:00",
       "analysis_status": "implemented_module_level_external_map_alignment",
       "module_contract": [
         "visual",
@@ -123332,7 +123332,7 @@
       ],
       "loop_status": {
         "schema_version": 1,
-        "generated_at_utc": "2026-06-02T08:35:20.197062+00:00",
+        "generated_at_utc": "2026-06-02T09:06:04.235889+00:00",
         "analysis_status": "implemented_loop_status_artifacts",
         "status_rows": [
           {
@@ -123392,7 +123392,7 @@
           },
           "psilocybin_ds006072": {
             "schema_version": 1,
-            "generated_at_utc": "2026-06-02T08:34:04.015474+00:00",
+            "generated_at_utc": "2026-06-02T09:04:53.940477+00:00",
             "dataset_id": "ds006072",
             "source": "Dosenbach/Siegel group Scientific Data 2025; OpenNeuro ds006072 psilocybin precision functional mapping dataset with raw, minimally processed, and fully processed imaging",
             "source_reference": {
@@ -123423,7 +123423,7 @@
             "functional_manifest_processed_cifti_total_size_bytes": 113592893360,
             "external_validation_readiness": {
               "schema_version": "ds006072_external_validation.v1",
-              "generated_at_utc": "2026-06-02T08:24:36.795206+00:00",
+              "generated_at_utc": "2026-06-02T08:54:38.716039+00:00",
               "dataset_id": "ds006072",
               "analysis_status": "local_cifti_payloads_ready_for_comparable_extraction",
               "primary_contrast": "psilocybin_vs_active_control_mtp",
@@ -123495,7 +123495,7 @@
             "summary": {
               "schema_version": 3,
               "analysis_status": "implemented_first_pass",
-              "generated_at_utc": "2026-06-02T08:34:34.476309+00:00",
+              "generated_at_utc": "2026-06-02T09:05:12.061700+00:00",
               "inference_metadata": {
                 "metric_ci_alpha": 0.05,
                 "metric_bootstrap_iterations": 1024,
@@ -127623,7 +127623,7 @@
             },
             "comparable_empirical_validation": {
               "schema_version": "ds006072_external_validation.v1",
-              "generated_at_utc": "2026-06-02T08:34:07.158129+00:00",
+              "generated_at_utc": "2026-06-02T09:04:56.533551+00:00",
               "dataset_id": "ds006072",
               "primary_contrast": "psilocybin_vs_active_control_mtp",
               "viewer_root": "results/psilocybin_ds006072/parcellations/schaefer_100_yeo_7/empirical_viewer",
@@ -127786,7 +127786,7 @@
               "summary": {
                 "schema_version": 3,
                 "analysis_status": "implemented_first_pass",
-                "generated_at_utc": "2026-06-02T08:34:34.476309+00:00",
+                "generated_at_utc": "2026-06-02T09:05:12.061700+00:00",
                 "inference_metadata": {
                   "metric_ci_alpha": 0.05,
                   "metric_bootstrap_iterations": 1024,
@@ -131929,7 +131929,7 @@
           },
           "structural_connectome": {
             "schema_version": 1,
-            "generated_at_utc": "2026-06-02T08:34:37.094866+00:00",
+            "generated_at_utc": "2026-06-02T09:05:14.756489+00:00",
             "artifact_target": "results/structural_connectome",
             "source_reference": {
               "source_id": "hcp_young_adult",
@@ -135380,7 +135380,7 @@
           },
           "receptor_priors": {
             "schema_version": 1,
-            "generated_at_utc": "2026-06-02T08:34:40.057889+00:00",
+            "generated_at_utc": "2026-06-02T09:05:18.823496+00:00",
             "artifact_target": "results/receptor_priors",
             "source_reference": {
               "source_id": "markello_neuromaps_2022",
@@ -138831,7 +138831,7 @@
           },
           "parcellation_sensitivity": {
             "schema_version": 1,
-            "generated_at_utc": "2026-06-02T08:34:42.697296+00:00",
+            "generated_at_utc": "2026-06-02T09:05:22.507941+00:00",
             "analysis_status": "implemented_status_matrix",
             "source_reference": {
               "source_id": "schaefer_2018_local_global",
@@ -139031,7 +139031,7 @@
           },
           "literature_benchmark": {
             "schema_version": 1,
-            "generated_at_utc": "2026-06-02T08:35:20.189184+00:00",
+            "generated_at_utc": "2026-06-02T09:06:04.228421+00:00",
             "analysis_status": "implemented_directional_proxy_benchmark",
             "source_reference": {
               "source_id": "girn_2026_mega_analysis",
@@ -139359,7 +139359,7 @@
     },
     "thesis_upgrade": {
       "schema_version": "thesis_upgrade_status.v1",
-      "generated_at_utc": "2026-06-02T08:37:27.233060+00:00",
+      "generated_at_utc": "2026-06-02T09:08:17.117218+00:00",
       "readiness_summary": {
         "ready_gates": 6,
         "total_gates": 9,
@@ -139455,10 +139455,10 @@
         },
         {
           "label": "Reproducible archive",
-          "status": "manifest_ready_release_doi_missing",
+          "status": "manifest_ready_doi_missing",
           "ready": false,
           "evidence": "results/reproducible_archive/ARCHIVE_MANIFEST.json",
-          "blocker": "Checksum manifest exists, but thesis-readiness still requires a citable GitHub release and Zenodo DOI.",
+          "blocker": "Checksum manifest exists, but thesis-readiness still requires verified Zenodo DOI.",
           "score": 0.55
         }
       ],
@@ -139538,11 +139538,11 @@
         {
           "requirement_id": "reproducible_archive_publication",
           "label": "Reproducible archive publication",
-          "status": "manifest_ready_release_doi_missing",
+          "status": "manifest_ready_doi_missing",
           "complete": false,
           "evidence": "results/reproducible_archive/ARCHIVE_MANIFEST.json",
-          "missing": "Citable archive publication is missing a validated GitHub release URL and Zenodo DOI.",
-          "next_action": "Create a GitHub release, mint a Zenodo DOI for that release, then rebuild scripts/build_reproducible_archive.py with --release-url and --doi.",
+          "missing": "Citable archive publication is missing verified Zenodo DOI.",
+          "next_action": "Mint a Zenodo DOI for the existing GitHub release, then rebuild scripts/build_reproducible_archive.py with --release-url and --doi.",
           "claim_effect": "The package is not publication-archive-ready until the release and DOI are recorded."
         }
       ],
@@ -140583,23 +140583,28 @@
         "reproducible_archive": {
           "gate": {
             "label": "Reproducible archive",
-            "status": "manifest_ready_release_doi_missing",
+            "status": "manifest_ready_doi_missing",
             "ready": false,
             "evidence": "results/reproducible_archive/ARCHIVE_MANIFEST.json",
-            "blocker": "Checksum manifest exists, but thesis-readiness still requires a citable GitHub release and Zenodo DOI.",
+            "blocker": "Checksum manifest exists, but thesis-readiness still requires verified Zenodo DOI.",
             "score": 0.55
           },
           "archive_manifest_ready": true,
           "archive_publication_ready": false,
           "archive_publication_metadata": {
-            "release_url_valid": false,
+            "release_url_valid": true,
             "doi_valid": false,
-            "release_url_verified": false,
+            "release_url_verified": true,
             "doi_verified": false,
             "archive_publication_ready": false
           },
-          "release_url": null,
+          "release_url": "https://github.com/grimgrimberg/LSD_Thesis/releases/tag/thesis-evidence-2026-06-02",
           "doi": null,
+          "publication_release_ready": true,
+          "publication_doi_ready": false,
+          "missing_publication_requirements": [
+            "verified Zenodo DOI"
+          ],
           "recommended_publication_stack": [
             "GitHub repository",
             "GitHub Pages static snapshot",

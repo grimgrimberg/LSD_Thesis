@@ -1,14 +1,14 @@
 {
   "schema_version": "reproducible_archive_manifest.v1",
-  "generated_at_utc": "2026-06-02T08:37:29.150074+00:00",
+  "generated_at_utc": "2026-06-02T09:08:18.628553+00:00",
   "python_version": "3.13.13",
   "platform": "Windows-10-10.0.19045-SP0",
   "artifact_count": 22,
   "artifacts": [
     {
       "path": "README.md",
-      "bytes": 26624,
-      "sha256": "f302f4aa672265fe4764f6b624ebcf8ace8fd970c43dd3ddde01d7841320a019"
+      "bytes": 26817,
+      "sha256": "3620ac1d6ff6e385fb69ceb39f97523f18eff8fae99a88bc340619ec0904b777"
     },
     {
       "path": "GOAL.md",
@@ -32,13 +32,13 @@
     },
     {
       "path": "docs/THESIS_READINESS_GATES.md",
-      "bytes": 11506,
-      "sha256": "b694d8ddf9ff5b3e80341d2da164320f7c81e614a1c09aefe0022264590559a0"
+      "bytes": 12107,
+      "sha256": "9495c3d2de3650f56640a8f0e84e833887b141624dd392fa5b8038cb01a906e3"
     },
     {
       "path": "docs/VALIDATION.md",
-      "bytes": 13842,
-      "sha256": "1e946822485a6c982cca4b1bb1f3bc6f1a08fe8093e91c3d33c516738559614d"
+      "bytes": 14127,
+      "sha256": "83470c688ac389973deed121592e5b8ad11356ff24612ca7eec9c1f50e02b73d"
     },
     {
       "path": "docs/METHODS_RESEARCH.md",
@@ -83,7 +83,7 @@
     {
       "path": "results/thesis_evidence_loop/thesis_evidence_loop_status.json",
       "bytes": 729851,
-      "sha256": "273879bc48a38607ce351b0e59247b2f65e60fcbf4dbc0cad2ca796c312b9fd7"
+      "sha256": "c69b12b076564eb061601017be9b93875cf72ab5b5f28595fa30ae00777e66ba"
     },
     {
       "path": "results/thesis_evidence_loop/claim_evidence_matrix.md",
@@ -92,13 +92,13 @@
     },
     {
       "path": "results/thesis_upgrade/thesis_upgrade_status.json",
-      "bytes": 72112,
-      "sha256": "7ad787a8ec5939f55ffc55c9c75acfb94b218ec9670ad1506d6c66357ac42209"
+      "bytes": 72257,
+      "sha256": "05212bc72427f0f4641d479e66739500c65da67f843e984b2c7cdd1994187f50"
     },
     {
       "path": "results/thesis_upgrade/thesis_upgrade_status.md",
-      "bytes": 6141,
-      "sha256": "587cc3c935591bb17eb7f89ce92b8fde6b0e988bd07cad2d08946a1b9445bcd4"
+      "bytes": 6069,
+      "sha256": "a68140515dfb82c5c45c2c1fded6a668ba6f3c83812273438c9df808e8d1c5e1"
     },
     {
       "path": "results/external_ingestion/external_ingestion_status.json",
@@ -116,18 +116,18 @@
       "sha256": "f1dd6d0b1e63399ba920327265c12aea94093929ebebb8776eec22acecad2d58"
     }
   ],
-  "release_url": null,
+  "release_url": "https://github.com/grimgrimberg/LSD_Thesis/releases/tag/thesis-evidence-2026-06-02",
   "doi": null,
   "archive_publication_ready": false,
   "publication_metadata": {
-    "release_url": null,
+    "release_url": "https://github.com/grimgrimberg/LSD_Thesis/releases/tag/thesis-evidence-2026-06-02",
     "doi": null,
-    "release_url_valid": false,
+    "release_url_valid": true,
     "doi_valid": false,
-    "release_url_verified": false,
+    "release_url_verified": true,
     "doi_verified": false,
-    "release_url_verification_method": "missing",
-    "doi_verification_method": "missing",
+    "release_url_verification_method": "https_head_or_get",
+    "doi_verification_method": "shape_invalid",
     "publication_verification_status": "not_verified",
     "archive_publication_ready": false,
     "required_release_url_shape": "https://github.com/<owner>/<repo>/releases/tag/<tag>",

@@ -1,6 +1,6 @@
 {
   "schema_version": "thesis_upgrade_status.v1",
-  "generated_at_utc": "2026-06-02T08:37:27.233060+00:00",
+  "generated_at_utc": "2026-06-02T09:08:17.117218+00:00",
   "readiness_summary": {
     "ready_gates": 6,
     "total_gates": 9,
@@ -96,10 +96,10 @@
     },
     {
       "label": "Reproducible archive",
-      "status": "manifest_ready_release_doi_missing",
+      "status": "manifest_ready_doi_missing",
       "ready": false,
       "evidence": "results/reproducible_archive/ARCHIVE_MANIFEST.json",
-      "blocker": "Checksum manifest exists, but thesis-readiness still requires a citable GitHub release and Zenodo DOI.",
+      "blocker": "Checksum manifest exists, but thesis-readiness still requires verified Zenodo DOI.",
       "score": 0.55
     }
   ],
@@ -179,11 +179,11 @@
     {
       "requirement_id": "reproducible_archive_publication",
       "label": "Reproducible archive publication",
-      "status": "manifest_ready_release_doi_missing",
+      "status": "manifest_ready_doi_missing",
       "complete": false,
       "evidence": "results/reproducible_archive/ARCHIVE_MANIFEST.json",
-      "missing": "Citable archive publication is missing a validated GitHub release URL and Zenodo DOI.",
-      "next_action": "Create a GitHub release, mint a Zenodo DOI for that release, then rebuild scripts/build_reproducible_archive.py with --release-url and --doi.",
+      "missing": "Citable archive publication is missing verified Zenodo DOI.",
+      "next_action": "Mint a Zenodo DOI for the existing GitHub release, then rebuild scripts/build_reproducible_archive.py with --release-url and --doi.",
       "claim_effect": "The package is not publication-archive-ready until the release and DOI are recorded."
     }
   ],
@@ -1224,23 +1224,28 @@
     "reproducible_archive": {
       "gate": {
         "label": "Reproducible archive",
-        "status": "manifest_ready_release_doi_missing",
+        "status": "manifest_ready_doi_missing",
         "ready": false,
         "evidence": "results/reproducible_archive/ARCHIVE_MANIFEST.json",
-        "blocker": "Checksum manifest exists, but thesis-readiness still requires a citable GitHub release and Zenodo DOI.",
+        "blocker": "Checksum manifest exists, but thesis-readiness still requires verified Zenodo DOI.",
         "score": 0.55
       },
       "archive_manifest_ready": true,
       "archive_publication_ready": false,
       "archive_publication_metadata": {
-        "release_url_valid": false,
+        "release_url_valid": true,
         "doi_valid": false,
-        "release_url_verified": false,
+        "release_url_verified": true,
         "doi_verified": false,
         "archive_publication_ready": false
       },
-      "release_url": null,
+      "release_url": "https://github.com/grimgrimberg/LSD_Thesis/releases/tag/thesis-evidence-2026-06-02",
       "doi": null,
+      "publication_release_ready": true,
+      "publication_doi_ready": false,
+      "missing_publication_requirements": [
+        "verified Zenodo DOI"
+      ],
       "recommended_publication_stack": [
         "GitHub repository",
         "GitHub Pages static snapshot",
