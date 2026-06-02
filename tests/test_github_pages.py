@@ -105,6 +105,24 @@ def test_build_github_pages_site_makes_pitch_story_dashboard_methods_and_appendi
     export_dir = claim_dir / "exports"
     export_dir.mkdir()
     (export_dir / "thesis_evidence_loop_tables.xlsx").write_bytes(b"xlsx")
+    archive_dir = tmp_path / "results" / "reproducible_archive"
+    archive_dir.mkdir(parents=True)
+    (archive_dir / "ARCHIVE_MANIFEST.json").write_text(
+        json.dumps(
+            {
+                "release_url": "https://github.com/grimgrimberg/LSD_Thesis/releases/tag/thesis-evidence-2026-06-02",
+                "doi": None,
+                "publication_metadata": {
+                    "release_url_verified": True,
+                    "doi_verified": False,
+                    "release_url_verification_method": "https_head_or_get",
+                    "doi_verification_method": "missing",
+                    "publication_verification_status": "not_verified",
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
 
     outputs = module.build_github_pages_site(
         tmp_path,
@@ -163,6 +181,10 @@ def test_build_github_pages_site_makes_pitch_story_dashboard_methods_and_appendi
     assert archive_rows["results/thesis_upgrade/thesis_upgrade_status.json"]["sha256"] == hashlib.sha256(
         thesis_status_path.read_bytes()
     ).hexdigest()
+    assert archive_manifest["release_url"] == "https://github.com/grimgrimberg/LSD_Thesis/releases/tag/thesis-evidence-2026-06-02"
+    assert archive_manifest["publication_metadata"]["release_url_verified"] is True
+    assert archive_manifest["doi"] is None
+    assert archive_manifest["archive_publication_ready"] is False
     assert copied_archive_manifest == archive_manifest
 
 

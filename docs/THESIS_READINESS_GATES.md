@@ -22,7 +22,7 @@ Current generated status as of 2026-06-02:
 - Real remaining hard requirement: fMRIPrep FD/DVARS/censoring motion proof.
 - Project phase: `research_demo_ready_not_completed_thesis`.
 
-The missing `project_phase` item is derived from the motion-proof blocker. The missing package requirement is the citable archive release/DOI. Do not treat raw-BOLD image QC, published aggregate FD context, design controls, module-DVARS proxies, archive manifests, or static dashboard publication as full thesis-readiness proof.
+The missing `project_phase` item is derived from the motion-proof blocker. The missing package requirement is the citable archive DOI: the GitHub release URL is recorded and verified, but the archive gate is not complete until a Zenodo DOI for that release is recorded and verified. Do not treat raw-BOLD image QC, published aggregate FD context, design controls, module-DVARS proxies, archive manifests, GitHub release publication, or static dashboard publication as full thesis-readiness proof.
 
 ## Gates
 
@@ -33,7 +33,7 @@ The missing `project_phase` item is derived from the motion-proof blocker. The m
 | ROCKET strength | Subject-disjoint ROCKET/MiniRocket/MultiRocket beats permutation nulls with calibrated subject/run aggregation. | Current ROCKET is an internal subject-disjoint signal, but the generated gate is not ready until permutation-null, calibration, MiniRocket/MultiRocket evidence, and balanced-accuracy/ROC-AUC performance floors all pass. |
 | External validation | The same scoring rules run on an independent psychedelic dataset. | Implemented as a small-subject ds006072 Schaefer100/Yeo7 unchanged-scoring external stress test with nested scoring-lock hash verification. The ds006072 top layer differs from the LSD reference top layer, so this is a negative/partial cross-drug stress test rather than population replication. |
 | Receptor/structural control | PET-derived receptor priors and structural-connectome graphs are projected to the active parcellation and tested against null controls. | Implemented HCP structural graph and PET receptor-prior sensitivity layers exist. The receptor/myelin/gradient mechanism claim remains resolved negative/not promoted because positive promotion now requires both FDR support and explicit CI exclusion of zero. |
-| Reproducible archive | A GitHub release and Zenodo DOI cite a checksum-backed derived-artifact snapshot. | Archive manifest and metadata are scaffolded, but this gate is not ready until a citable release URL and Zenodo DOI are recorded. |
+| Reproducible archive | A GitHub release and Zenodo DOI cite a checksum-backed derived-artifact snapshot. | Verified GitHub prerelease `thesis-evidence-2026-06-02` is recorded in the archive manifest; the gate is not ready until a Zenodo DOI for that release is recorded and verified. |
 | Public dashboard | Static Pages exposes results and blockers without requiring local raw data. | Static snapshot gate is ready when `_site` contains the index, dashboard payload, thesis status artifact, archive manifest artifact, matching pages manifest entries, and a copied/embedded thesis-readiness snapshot that matches the current `results/thesis_upgrade/thesis_upgrade_status.json`; this remains presentation-only, not the citable archive. |
 
 ## External Ingestion Contracts
@@ -116,6 +116,14 @@ The archive manifest is a checksum ledger, not the citable archive by itself. Th
 - `doi`: `10.<prefix>/<suffix>` or `https://doi.org/10.<prefix>/<suffix>`
 - `publication_metadata.release_url_verified`: `true`
 - `publication_metadata.doi_verified`: `true`
+
+Current release URL:
+
+```text
+https://github.com/grimgrimberg/LSD_Thesis/releases/tag/thesis-evidence-2026-06-02
+```
+
+This release is a prerelease evidence snapshot and does not by itself complete the archive gate. The remaining package action is to mint a Zenodo DOI for that release and rebuild the archive manifest with the same release URL plus `--doi` and `--verify-publication`.
 
 Run:
 

@@ -37,7 +37,7 @@ from lsd_thesis.module_dvars_controls import write_module_dvars_control_status
 from lsd_thesis.motion_source_availability import write_motion_source_availability
 from lsd_thesis.neuromaps_spatial_nulls import write_neuromaps_spatial_null_status
 from lsd_thesis.published_motion_qc import write_published_motion_qc_status
-from lsd_thesis.reproducible_archive import write_archive_manifest
+from lsd_thesis.reproducible_archive import existing_publication_metadata_args, write_archive_manifest
 from lsd_thesis.setting_seed.motion import write_motion_outputs
 from lsd_thesis.thesis_loop import build_thesis_evidence_loop
 from lsd_thesis.thesis_upgrade import write_thesis_upgrade_status
@@ -574,7 +574,7 @@ def build_github_pages_site(
     )
     outputs.update({key: value for key, value in public_site_outputs.items() if isinstance(value, Path)})
     dashboard_artifacts = public_site_outputs.get("dashboard_artifacts", [])
-    write_archive_manifest(repo_root)
+    write_archive_manifest(repo_root, **existing_publication_metadata_args(repo_root))
     reproducible_archive = _copy_curated_tree(
         repo_root,
         repo_root / "results" / "reproducible_archive",

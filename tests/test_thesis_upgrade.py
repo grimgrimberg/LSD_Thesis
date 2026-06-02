@@ -409,7 +409,7 @@ def test_thesis_upgrade_archive_gate_requires_release_url_and_doi(tmp_path: Path
     }
     assert archive["gate"]["ready"] is False
     assert archive["gate"]["status"] == "manifest_ready_release_doi_missing"
-    assert "release and Zenodo DOI" in archive["gate"]["blocker"]
+    assert "verified GitHub release URL and verified Zenodo DOI" in archive["gate"]["blocker"]
 
 
 def test_thesis_upgrade_archive_gate_requires_verified_release_and_doi(tmp_path: Path) -> None:
@@ -447,6 +447,51 @@ def test_thesis_upgrade_archive_gate_requires_verified_release_and_doi(tmp_path:
     assert archive["archive_publication_metadata"]["doi_verified"] is False
     assert archive["gate"]["ready"] is False
     assert archive["gate"]["status"] == "manifest_ready_release_doi_missing"
+
+
+def test_thesis_upgrade_archive_gate_reports_verified_release_with_missing_doi(tmp_path: Path) -> None:
+    archive_dir = tmp_path / "results" / "reproducible_archive"
+    archive_dir.mkdir(parents=True)
+    release_url = "https://github.com/grimgrimberg/LSD_Thesis/releases/tag/thesis-evidence-2026-06-02"
+    (archive_dir / "ARCHIVE_MANIFEST.json").write_text(
+        json.dumps(
+            {
+                "schema_version": "reproducible_archive_manifest.v1",
+                "artifact_count": 3,
+                "artifacts": [],
+                "release_url": release_url,
+                "doi": None,
+                "archive_publication_ready": False,
+                "publication_metadata": {
+                    "release_url": release_url,
+                    "doi": None,
+                    "release_url_valid": True,
+                    "doi_valid": False,
+                    "release_url_verified": True,
+                    "doi_verified": False,
+                    "archive_publication_ready": False,
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    status = build_thesis_upgrade_status(tmp_path)
+    archive = status["components"]["reproducible_archive"]
+    package = {row["requirement_id"]: row for row in status["package_readiness_requirements"]}[
+        "reproducible_archive_publication"
+    ]
+
+    assert archive["archive_manifest_ready"] is True
+    assert archive["archive_publication_ready"] is False
+    assert archive["publication_release_ready"] is True
+    assert archive["publication_doi_ready"] is False
+    assert archive["missing_publication_requirements"] == ["verified Zenodo DOI"]
+    assert archive["gate"]["status"] == "manifest_ready_doi_missing"
+    assert "verified Zenodo DOI" in archive["gate"]["blocker"]
+    assert package["status"] == "manifest_ready_doi_missing"
+    assert package["missing"] == "Citable archive publication is missing verified Zenodo DOI."
+    assert package["next_action"].startswith("Mint a Zenodo DOI for the existing GitHub release")
 
 
 def test_thesis_upgrade_rocket_internal_signal_is_not_thesis_strength_ready(tmp_path: Path) -> None:

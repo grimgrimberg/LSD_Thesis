@@ -10,7 +10,11 @@ SRC_ROOT = REPO_ROOT / "src"
 if str(SRC_ROOT) not in sys.path:
     sys.path.insert(0, str(SRC_ROOT))
 
-from lsd_thesis.reproducible_archive import verify_publication_metadata, write_archive_manifest  # noqa: E402
+from lsd_thesis.reproducible_archive import (  # noqa: E402
+    existing_publication_metadata_args,
+    verify_publication_metadata,
+    write_archive_manifest,
+)
 
 
 def main() -> None:
@@ -37,20 +41,23 @@ def main() -> None:
         help="Timeout for release and DOI URL verification when --verify-publication is set.",
     )
     args = parser.parse_args()
+    existing_args = existing_publication_metadata_args(args.repo_root) if not args.release_url and not args.doi else {}
+    release_url = args.release_url or existing_args.get("release_url")
+    doi = args.doi or existing_args.get("doi")
     publication_verification = (
         verify_publication_metadata(
-            release_url=args.release_url,
-            doi=args.doi,
+            release_url=release_url,
+            doi=doi,
             timeout_seconds=args.verification_timeout_seconds,
         )
         if args.verify_publication
-        else None
+        else existing_args.get("publication_verification")
     )
     manifest = write_archive_manifest(
         args.repo_root,
         args.output_dir,
-        release_url=args.release_url,
-        doi=args.doi,
+        release_url=release_url,
+        doi=doi,
         publication_verification=publication_verification,
     )
     print(

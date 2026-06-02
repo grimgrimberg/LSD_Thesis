@@ -14,6 +14,13 @@ from typing import Any
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 SCHEMA_VERSION = "reproducible_archive_manifest.v1"
+PUBLICATION_VERIFICATION_KEYS = (
+    "release_url_verified",
+    "doi_verified",
+    "release_url_verification_method",
+    "doi_verification_method",
+    "publication_verification_status",
+)
 
 DEFAULT_INCLUDE_FILES = (
     "README.md",
@@ -142,6 +149,38 @@ def verify_publication_metadata(
         "doi_verification_method": "doi_org_https_head_or_get" if doi_shape_valid else "shape_invalid",
         "publication_verification_status": "verified" if release_url_verified and doi_verified else "not_verified",
     }
+
+
+def existing_publication_metadata_args(
+    repo_root: Path = REPO_ROOT,
+    manifest_path: Path | None = None,
+) -> dict[str, Any]:
+    path = manifest_path or repo_root / "results" / "reproducible_archive" / "ARCHIVE_MANIFEST.json"
+    if not path.exists():
+        return {}
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return {}
+    if not isinstance(payload, dict):
+        return {}
+    raw_metadata = payload.get("publication_metadata")
+    publication_metadata = raw_metadata if isinstance(raw_metadata, dict) else {}
+    release_url = payload.get("release_url") or publication_metadata.get("release_url")
+    doi = payload.get("doi") or publication_metadata.get("doi")
+    verification = {
+        key: publication_metadata[key]
+        for key in PUBLICATION_VERIFICATION_KEYS
+        if key in publication_metadata
+    }
+    args: dict[str, Any] = {}
+    if isinstance(release_url, str) and release_url.strip():
+        args["release_url"] = release_url.strip()
+    if isinstance(doi, str) and doi.strip():
+        args["doi"] = doi.strip()
+    if verification:
+        args["publication_verification"] = verification
+    return args
 
 
 def collect_archive_artifacts(repo_root: Path = REPO_ROOT, include_files: Iterable[str] = DEFAULT_INCLUDE_FILES) -> list[dict[str, Any]]:

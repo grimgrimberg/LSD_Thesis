@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from lsd_thesis.reproducible_archive import build_archive_manifest, write_archive_manifest
+from lsd_thesis.reproducible_archive import build_archive_manifest, existing_publication_metadata_args, write_archive_manifest
 
 
 def test_archive_manifest_records_publication_not_ready_without_release_and_doi(tmp_path: Path) -> None:
@@ -69,6 +69,38 @@ def test_archive_manifest_accepts_verified_citable_release_url_and_zenodo_doi(tm
     assert manifest["publication_metadata"]["doi_valid"] is True
     assert manifest["publication_metadata"]["release_url_verified"] is True
     assert manifest["publication_metadata"]["doi_verified"] is True
+
+
+def test_existing_publication_metadata_args_preserves_release_verification(tmp_path: Path) -> None:
+    archive_dir = tmp_path / "results" / "reproducible_archive"
+    archive_dir.mkdir(parents=True)
+    (archive_dir / "ARCHIVE_MANIFEST.json").write_text(
+        json.dumps(
+            {
+                "release_url": "https://github.com/grimgrimberg/LSD_Thesis/releases/tag/thesis-evidence-2026-06-02",
+                "doi": None,
+                "publication_metadata": {
+                    "release_url_verified": True,
+                    "doi_verified": False,
+                    "release_url_verification_method": "https_head_or_get",
+                    "doi_verification_method": "missing",
+                    "publication_verification_status": "not_verified",
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    assert existing_publication_metadata_args(tmp_path) == {
+        "release_url": "https://github.com/grimgrimberg/LSD_Thesis/releases/tag/thesis-evidence-2026-06-02",
+        "publication_verification": {
+            "release_url_verified": True,
+            "doi_verified": False,
+            "release_url_verification_method": "https_head_or_get",
+            "doi_verification_method": "missing",
+            "publication_verification_status": "not_verified",
+        },
+    }
 
 
 def test_archive_manifest_rejects_placeholder_publication_metadata(tmp_path: Path) -> None:

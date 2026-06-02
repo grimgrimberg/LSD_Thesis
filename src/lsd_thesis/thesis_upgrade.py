@@ -1416,18 +1416,33 @@ def _archive_gate(repo_root: Path) -> dict[str, Any]:
     doi_valid = publication_metadata.get("doi_valid") is True
     release_url_verified = publication_metadata.get("release_url_verified") is True
     doi_verified = publication_metadata.get("doi_verified") is True
+    release_ready = release_url_valid and release_url_verified
+    doi_ready = doi_valid and doi_verified
     metadata_publication_ready = publication_metadata.get("archive_publication_ready") is True
     publication_ready = (
         payload.get("archive_publication_ready") is True
         and metadata_publication_ready
-        and release_url_valid
-        and doi_valid
-        and release_url_verified
-        and doi_verified
+        and release_ready
+        and doi_ready
+    )
+    missing_publication_requirements = []
+    if not release_ready:
+        missing_publication_requirements.append("verified GitHub release URL")
+    if not doi_ready:
+        missing_publication_requirements.append("verified Zenodo DOI")
+    missing_publication_text = " and ".join(missing_publication_requirements)
+    archive_blocker = (
+        "Citable GitHub release and Zenodo DOI are recorded and verified."
+        if publication_ready
+        else f"Checksum manifest exists, but thesis-readiness still requires {missing_publication_text}."
+        if manifest_ready and missing_publication_text
+        else "Generate the archive manifest, then publish a GitHub release and Zenodo DOI."
     )
     status = (
         "release_doi_ready"
         if publication_ready
+        else "manifest_ready_doi_missing"
+        if manifest_ready and release_ready and not doi_ready
         else "manifest_ready_release_doi_missing"
         if manifest_ready
         else "manifest_not_generated"
@@ -1438,13 +1453,7 @@ def _archive_gate(repo_root: Path) -> dict[str, Any]:
             status,
             publication_ready,
             _rel(path, repo_root),
-            (
-                "Checksum manifest exists, but thesis-readiness still requires a citable GitHub release and Zenodo DOI."
-                if manifest_ready and not publication_ready
-                else "Generate the archive manifest, then publish a GitHub release and Zenodo DOI."
-                if not publication_ready
-                else "Citable GitHub release and Zenodo DOI are recorded and verified."
-            ),
+            archive_blocker,
             1.0 if publication_ready else 0.55 if manifest_ready else 0.25,
         ),
         "archive_manifest_ready": manifest_ready,
@@ -1458,6 +1467,9 @@ def _archive_gate(repo_root: Path) -> dict[str, Any]:
         },
         "release_url": release_url or None,
         "doi": doi or None,
+        "publication_release_ready": release_ready,
+        "publication_doi_ready": doi_ready,
+        "missing_publication_requirements": missing_publication_requirements,
         "recommended_publication_stack": ["GitHub repository", "GitHub Pages static snapshot", "GitHub release", "Zenodo DOI"],
         "raw_data_policy": "Do not bundle raw OpenNeuro imaging data; cite dataset IDs and archive derived aggregate artifacts only.",
         "claim_guardrail": "GitHub Pages is a presentation snapshot, not the citable reproducibility archive.",
@@ -1526,11 +1538,21 @@ def build_thesis_upgrade_status(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
             (
                 "None: citable GitHub release URL and DOI are recorded in the archive manifest."
                 if reproducible_archive.get("archive_publication_ready")
-                else "Citable archive publication is missing a validated GitHub release URL and Zenodo DOI."
+                else "Citable archive publication is missing {requirements}.".format(
+                    requirements=" and ".join(
+                        str(item) for item in reproducible_archive.get("missing_publication_requirements", [])
+                    )
+                    or "verified release/DOI metadata"
+                )
             ),
             (
                 "Keep the archive manifest synchronized with the release and DOI."
                 if reproducible_archive.get("archive_publication_ready")
+                else (
+                    "Mint a Zenodo DOI for the existing GitHub release, then rebuild "
+                    "scripts/build_reproducible_archive.py with --release-url and --doi."
+                )
+                if reproducible_archive.get("publication_release_ready")
                 else (
                     "Create a GitHub release, mint a Zenodo DOI for that release, then rebuild "
                     "scripts/build_reproducible_archive.py with --release-url and --doi."

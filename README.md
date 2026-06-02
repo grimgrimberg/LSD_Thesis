@@ -604,7 +604,7 @@ uv run python scripts/build_external_ingestion_status.py
 uv run python scripts/build_reproducible_archive.py
 ```
 
-After a GitHub release and Zenodo DOI exist for a citable snapshot, rebuild the archive with `--release-url`, `--doi`, and `--verify-publication` so the package gate records that both external identifiers resolve.
+After a GitHub release and Zenodo DOI exist for a citable snapshot, rebuild the archive with `--release-url`, `--doi`, and `--verify-publication` so the package gate records that both external identifiers resolve. Current evidence snapshot release: `https://github.com/grimgrimberg/LSD_Thesis/releases/tag/thesis-evidence-2026-06-02`; the remaining archive-publication step is a Zenodo DOI for that release.
 
 Read:
 - `docs/THESIS_READINESS_GATES.md`
