@@ -50,11 +50,11 @@ uv run python scripts/build_reproducible_archive.py
 After a real GitHub release exists and Zenodo has minted a DOI for that release, rebuild the manifest with citable publication metadata:
 
 ```powershell
-uv run python scripts/build_reproducible_archive.py --release-url https://github.com/<owner>/<repo>/releases/tag/<tag> --doi 10.<prefix>/<suffix>
+uv run python scripts/build_reproducible_archive.py --release-url https://github.com/<owner>/<repo>/releases/tag/<tag> --doi 10.<prefix>/<suffix> --verify-publication
 uv run python -c "from pathlib import Path; from lsd_thesis.thesis_upgrade import write_thesis_upgrade_status; write_thesis_upgrade_status(Path.cwd())"
 ```
 
-Do not use placeholders. The archive gate only counts as ready when the manifest records a GitHub release URL shaped like `https://github.com/<owner>/<repo>/releases/tag/<tag>` and a DOI shaped like `10.<prefix>/<suffix>` or `https://doi.org/10.<prefix>/<suffix>`.
+Do not use placeholders. The archive gate only counts as ready when the manifest records a GitHub release URL shaped like `https://github.com/<owner>/<repo>/releases/tag/<tag>`, a DOI shaped like `10.<prefix>/<suffix>` or `https://doi.org/10.<prefix>/<suffix>`, and `--verify-publication` confirms the release URL exists and the DOI resolves.
 
 ## Claim Guardrail
 

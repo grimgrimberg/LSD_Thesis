@@ -1402,12 +1402,16 @@ def _archive_gate(repo_root: Path) -> dict[str, Any]:
     )
     release_url_valid = publication_metadata.get("release_url_valid") is True
     doi_valid = publication_metadata.get("doi_valid") is True
+    release_url_verified = publication_metadata.get("release_url_verified") is True
+    doi_verified = publication_metadata.get("doi_verified") is True
     metadata_publication_ready = publication_metadata.get("archive_publication_ready") is True
     publication_ready = (
         payload.get("archive_publication_ready") is True
         and metadata_publication_ready
         and release_url_valid
         and doi_valid
+        and release_url_verified
+        and doi_verified
     )
     status = (
         "release_doi_ready"
@@ -1427,7 +1431,7 @@ def _archive_gate(repo_root: Path) -> dict[str, Any]:
                 if manifest_ready and not publication_ready
                 else "Generate the archive manifest, then publish a GitHub release and Zenodo DOI."
                 if not publication_ready
-                else "Citable GitHub release and Zenodo DOI are recorded."
+                else "Citable GitHub release and Zenodo DOI are recorded and verified."
             ),
             1.0 if publication_ready else 0.55 if manifest_ready else 0.25,
         ),
@@ -1436,6 +1440,8 @@ def _archive_gate(repo_root: Path) -> dict[str, Any]:
         "archive_publication_metadata": {
             "release_url_valid": release_url_valid,
             "doi_valid": doi_valid,
+            "release_url_verified": release_url_verified,
+            "doi_verified": doi_verified,
             "archive_publication_ready": metadata_publication_ready,
         },
         "release_url": release_url or None,

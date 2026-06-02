@@ -5,6 +5,8 @@ import hashlib
 import json
 import platform
 import re
+import urllib.error
+import urllib.request
 from collections.abc import Iterable
 from datetime import UTC, datetime
 from pathlib import Path
@@ -84,6 +86,63 @@ def _is_valid_doi(doi: str | None) -> bool:
     return bool(re.match(r"^10\.\d{4,9}/[-._;()/:A-Za-z0-9]+$", normalized))
 
 
+def _doi_url(doi: str | None) -> str | None:
+    if not doi:
+        return None
+    normalized = doi.strip()
+    if normalized.startswith("https://doi.org/"):
+        return normalized
+    return f"https://doi.org/{normalized}"
+
+
+def _url_resolves(url: str | None, *, timeout_seconds: float) -> bool:
+    if not url:
+        return False
+    request = urllib.request.Request(
+        url.strip(),
+        method="HEAD",
+        headers={"User-Agent": "LSD-Thesis-archive-verifier/1.0"},
+    )
+    try:
+        with urllib.request.urlopen(request, timeout=timeout_seconds) as response:
+            return 200 <= int(response.status) < 400
+    except urllib.error.HTTPError as exc:
+        if exc.code != 405:
+            return 200 <= int(exc.code) < 400
+    except (OSError, TimeoutError, urllib.error.URLError):
+        return False
+
+    get_request = urllib.request.Request(
+        url.strip(),
+        method="GET",
+        headers={"User-Agent": "LSD-Thesis-archive-verifier/1.0"},
+    )
+    try:
+        with urllib.request.urlopen(get_request, timeout=timeout_seconds) as response:
+            return 200 <= int(response.status) < 400
+    except (OSError, TimeoutError, urllib.error.URLError):
+        return False
+
+
+def verify_publication_metadata(
+    *,
+    release_url: str | None,
+    doi: str | None,
+    timeout_seconds: float = 10.0,
+) -> dict[str, Any]:
+    release_url_shape_valid = _is_valid_release_url(release_url)
+    doi_shape_valid = _is_valid_doi(doi)
+    release_url_verified = _url_resolves(release_url, timeout_seconds=timeout_seconds) if release_url_shape_valid else False
+    doi_verified = _url_resolves(_doi_url(doi), timeout_seconds=timeout_seconds) if doi_shape_valid else False
+    return {
+        "release_url_verified": release_url_verified,
+        "doi_verified": doi_verified,
+        "release_url_verification_method": "https_head_or_get" if release_url_shape_valid else "shape_invalid",
+        "doi_verification_method": "doi_org_https_head_or_get" if doi_shape_valid else "shape_invalid",
+        "publication_verification_status": "verified" if release_url_verified and doi_verified else "not_verified",
+    }
+
+
 def collect_archive_artifacts(repo_root: Path = REPO_ROOT, include_files: Iterable[str] = DEFAULT_INCLUDE_FILES) -> list[dict[str, Any]]:
     repo_root = repo_root.resolve()
     artifacts: list[dict[str, Any]] = []
@@ -108,13 +167,17 @@ def build_archive_manifest(
     *,
     release_url: str | None = None,
     doi: str | None = None,
+    publication_verification: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     artifacts = collect_archive_artifacts(repo_root)
     normalized_release_url = release_url.strip() if release_url else None
     normalized_doi = doi.strip() if doi else None
     release_url_valid = _is_valid_release_url(normalized_release_url)
     doi_valid = _is_valid_doi(normalized_doi)
-    archive_publication_ready = release_url_valid and doi_valid
+    verification = publication_verification or {}
+    release_url_verified = verification.get("release_url_verified") is True
+    doi_verified = verification.get("doi_verified") is True
+    archive_publication_ready = release_url_valid and doi_valid and release_url_verified and doi_verified
     return {
         "schema_version": SCHEMA_VERSION,
         "generated_at_utc": datetime.now(UTC).isoformat(),
@@ -130,6 +193,14 @@ def build_archive_manifest(
             "doi": normalized_doi,
             "release_url_valid": release_url_valid,
             "doi_valid": doi_valid,
+            "release_url_verified": release_url_verified,
+            "doi_verified": doi_verified,
+            "release_url_verification_method": verification.get("release_url_verification_method")
+            or ("not_requested" if normalized_release_url else "missing"),
+            "doi_verification_method": verification.get("doi_verification_method")
+            or ("not_requested" if normalized_doi else "missing"),
+            "publication_verification_status": verification.get("publication_verification_status")
+            or ("verified" if archive_publication_ready else "not_verified"),
             "archive_publication_ready": archive_publication_ready,
             "required_release_url_shape": "https://github.com/<owner>/<repo>/releases/tag/<tag>",
             "required_doi_shape": "10.<prefix>/<suffix> or https://doi.org/10.<prefix>/<suffix>",
@@ -170,11 +241,17 @@ def write_archive_manifest(
     *,
     release_url: str | None = None,
     doi: str | None = None,
+    publication_verification: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     repo_root = repo_root.resolve()
     output_dir = output_dir or repo_root / "results" / "reproducible_archive"
     output_dir.mkdir(parents=True, exist_ok=True)
-    manifest = build_archive_manifest(repo_root, release_url=release_url, doi=doi)
+    manifest = build_archive_manifest(
+        repo_root,
+        release_url=release_url,
+        doi=doi,
+        publication_verification=publication_verification,
+    )
     manifest_path = output_dir / "ARCHIVE_MANIFEST.json"
     csv_path = output_dir / "ARCHIVE_ARTIFACTS.csv"
     checksum_path = output_dir / "CHECKSUMS.sha256"

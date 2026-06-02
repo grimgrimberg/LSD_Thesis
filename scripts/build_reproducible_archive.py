@@ -10,7 +10,7 @@ SRC_ROOT = REPO_ROOT / "src"
 if str(SRC_ROOT) not in sys.path:
     sys.path.insert(0, str(SRC_ROOT))
 
-from lsd_thesis.reproducible_archive import write_archive_manifest  # noqa: E402
+from lsd_thesis.reproducible_archive import verify_publication_metadata, write_archive_manifest  # noqa: E402
 
 
 def main() -> None:
@@ -25,12 +25,33 @@ def main() -> None:
         "--doi",
         help="Zenodo DOI minted from the release, e.g. 10.5281/zenodo.1234567 or https://doi.org/10.5281/zenodo.1234567.",
     )
+    parser.add_argument(
+        "--verify-publication",
+        action="store_true",
+        help="Verify that the GitHub release URL exists and the DOI resolves before marking archive publication ready.",
+    )
+    parser.add_argument(
+        "--verification-timeout-seconds",
+        type=float,
+        default=10.0,
+        help="Timeout for release and DOI URL verification when --verify-publication is set.",
+    )
     args = parser.parse_args()
+    publication_verification = (
+        verify_publication_metadata(
+            release_url=args.release_url,
+            doi=args.doi,
+            timeout_seconds=args.verification_timeout_seconds,
+        )
+        if args.verify_publication
+        else None
+    )
     manifest = write_archive_manifest(
         args.repo_root,
         args.output_dir,
         release_url=args.release_url,
         doi=args.doi,
+        publication_verification=publication_verification,
     )
     print(
         json.dumps(

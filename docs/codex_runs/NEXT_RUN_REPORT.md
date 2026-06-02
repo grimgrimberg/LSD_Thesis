@@ -58,6 +58,7 @@ The missing `project_phase` item is derived from the motion-proof blocker. It is
 - The ds006072 unchanged-scoring lock now has an explicit `--refresh-scoring-lock` rebuild path for reviewed scoring-code refactors; stale scoring hashes still block by default.
 - The external source plan now derives implemented display labels from current component statuses instead of leaving HCP, PET receptor-prior, Schaefer/Yeo, and literature-benchmark rows as planned when their artifacts are present.
 - The reproducible archive manifest builder now accepts explicit `--release-url` and `--doi` metadata and records validity flags, so the archive gate has a real path to readiness without counting placeholders.
+- The reproducible archive gate now separates valid-looking release/DOI strings from verified publication evidence; `--verify-publication` must confirm the GitHub release URL exists and the DOI resolves before the package gate can pass.
 - The public-dashboard package gate now rejects stale `_site` readiness snapshots instead of passing on file existence and manifest entries alone.
 - The ds006072 external-validation gate now rejects stale nested scoring-lock hash details even when a top-level `scoring_lock_verified` flag is true.
 - The ROCKET thesis-strength gate now requires balanced accuracy and ROC AUC to exceed the configured performance floor in addition to subject-disjoint CV, aggregation, calibration, permutation-null, and MiniRocket/MultiRocket structure.
@@ -79,7 +80,7 @@ Observed results:
 
 - Ruff: all checks passed.
 - mypy: no issues found in 80 source files.
-- pytest: 395 passed, 4 warnings, total coverage 80.57%.
+- pytest: 397 passed, 4 warnings, total coverage 80.39%.
 - dashboard preview preflight: required files present, optional generated artifacts present, CV5 internal validation reported as 5/5 folds.
 
 Hosted CI after the Node-24 action-major bump:

@@ -1,14 +1,14 @@
 {
   "schema_version": "reproducible_archive_manifest.v1",
-  "generated_at_utc": "2026-06-01T21:42:01.112760+00:00",
+  "generated_at_utc": "2026-06-02T00:15:20.231335+00:00",
   "python_version": "3.13.13",
   "platform": "Windows-10-10.0.19045-SP0",
   "artifact_count": 21,
   "artifacts": [
     {
       "path": "README.md",
-      "bytes": 21800,
-      "sha256": "180005eec5dd23f508a157bbeb7061114b1a000f9184baf560064b05d9c12a17"
+      "bytes": 22015,
+      "sha256": "a064ce19cabf60486b0fd8a2f196a168241cfc6486706a60f2b122d663ebb829"
     },
     {
       "path": "GOAL.md",
@@ -27,13 +27,13 @@
     },
     {
       "path": "docs/GITHUB_PAGES.md",
-      "bytes": 2284,
-      "sha256": "aaa7054e58f55691e2195ca3913aa9deba3855e5b41e3e8a49caddf7c6afd7fe"
+      "bytes": 2826,
+      "sha256": "4a8712d07a1fa33d668b9aa4a691e6b5edfbc72a8b872610ad163f77b4c47cf7"
     },
     {
       "path": "docs/THESIS_READINESS_GATES.md",
-      "bytes": 9632,
-      "sha256": "dba7e816bf1182f311f62ca7ecad4c0e597095e754a9ce84aa07e50df2a0804a"
+      "bytes": 10509,
+      "sha256": "f343f92b4175e42cfb87471687ddacd02f24f6c6003e2d67838e9339e3d07409"
     },
     {
       "path": "docs/METHODS_RESEARCH.md",
@@ -42,8 +42,8 @@
     },
     {
       "path": "docs/ARCHIVE_POLICY.md",
-      "bytes": 3237,
-      "sha256": "0b5d282b9852cb0d3a92a7575c06d0613cc1a013bfb59fe9958647092c6824be"
+      "bytes": 3336,
+      "sha256": "cd6ec996367fbcbfdf8c031d8cbe6ad008e980acb3aa84eed3775bc4340e7bf1"
     },
     {
       "path": "results/stage_2/stage_2_summary.json",
@@ -87,13 +87,13 @@
     },
     {
       "path": "results/thesis_upgrade/thesis_upgrade_status.json",
-      "bytes": 65384,
-      "sha256": "b471d281cbeda7f1ab93b10a3e72e7245543415fa615cade4f04f63257606c7b"
+      "bytes": 71316,
+      "sha256": "81bfdb5d128666089820a9723a47ae99a90365cf67cc1b5f0fff1866005163bc"
     },
     {
       "path": "results/thesis_upgrade/thesis_upgrade_status.md",
-      "bytes": 5038,
-      "sha256": "a439826cb4053c6d380f733e8e2d2b77823187c995a6f1fbeadd02f9630ad69d"
+      "bytes": 6141,
+      "sha256": "587cc3c935591bb17eb7f89ce92b8fde6b0e988bd07cad2d08946a1b9445bcd4"
     },
     {
       "path": "results/external_ingestion/external_ingestion_status.json",
@@ -119,6 +119,11 @@
     "doi": null,
     "release_url_valid": false,
     "doi_valid": false,
+    "release_url_verified": false,
+    "doi_verified": false,
+    "release_url_verification_method": "missing",
+    "doi_verification_method": "missing",
+    "publication_verification_status": "not_verified",
     "archive_publication_ready": false,
     "required_release_url_shape": "https://github.com/<owner>/<repo>/releases/tag/<tag>",
     "required_doi_shape": "10.<prefix>/<suffix> or https://doi.org/10.<prefix>/<suffix>"

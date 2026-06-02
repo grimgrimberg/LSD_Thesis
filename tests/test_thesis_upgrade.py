@@ -403,11 +403,50 @@ def test_thesis_upgrade_archive_gate_requires_release_url_and_doi(tmp_path: Path
     assert archive["archive_publication_metadata"] == {
         "release_url_valid": False,
         "doi_valid": False,
+        "release_url_verified": False,
+        "doi_verified": False,
         "archive_publication_ready": False,
     }
     assert archive["gate"]["ready"] is False
     assert archive["gate"]["status"] == "manifest_ready_release_doi_missing"
     assert "release and Zenodo DOI" in archive["gate"]["blocker"]
+
+
+def test_thesis_upgrade_archive_gate_requires_verified_release_and_doi(tmp_path: Path) -> None:
+    archive_dir = tmp_path / "results" / "reproducible_archive"
+    archive_dir.mkdir(parents=True)
+    (archive_dir / "ARCHIVE_MANIFEST.json").write_text(
+        json.dumps(
+            {
+                "schema_version": "reproducible_archive_manifest.v1",
+                "artifact_count": 3,
+                "artifacts": [],
+                "release_url": "https://github.com/grimgrimberg/LSD_Thesis/releases/tag/v1.0.0",
+                "doi": "https://doi.org/10.5281/zenodo.1234567",
+                "archive_publication_ready": False,
+                "publication_metadata": {
+                    "release_url_valid": True,
+                    "doi_valid": True,
+                    "release_url_verified": False,
+                    "doi_verified": False,
+                    "archive_publication_ready": False,
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    status = build_thesis_upgrade_status(tmp_path)
+    archive = status["components"]["reproducible_archive"]
+
+    assert archive["archive_manifest_ready"] is True
+    assert archive["archive_publication_ready"] is False
+    assert archive["archive_publication_metadata"]["release_url_valid"] is True
+    assert archive["archive_publication_metadata"]["doi_valid"] is True
+    assert archive["archive_publication_metadata"]["release_url_verified"] is False
+    assert archive["archive_publication_metadata"]["doi_verified"] is False
+    assert archive["gate"]["ready"] is False
+    assert archive["gate"]["status"] == "manifest_ready_release_doi_missing"
 
 
 def test_thesis_upgrade_rocket_internal_signal_is_not_thesis_strength_ready(tmp_path: Path) -> None:
@@ -673,13 +712,15 @@ def test_thesis_upgrade_archive_gate_rejects_unvalidated_publication_strings(tmp
     assert archive["archive_publication_metadata"] == {
         "release_url_valid": False,
         "doi_valid": False,
+        "release_url_verified": False,
+        "doi_verified": False,
         "archive_publication_ready": False,
     }
     assert archive["gate"]["ready"] is False
     assert archive["gate"]["status"] == "manifest_ready_release_doi_missing"
 
 
-def test_thesis_upgrade_archive_gate_passes_with_release_url_and_doi(tmp_path: Path) -> None:
+def test_thesis_upgrade_archive_gate_passes_with_verified_release_url_and_doi(tmp_path: Path) -> None:
     archive_dir = tmp_path / "results" / "reproducible_archive"
     archive_dir.mkdir(parents=True)
     (archive_dir / "ARCHIVE_MANIFEST.json").write_text(
@@ -695,6 +736,8 @@ def test_thesis_upgrade_archive_gate_passes_with_release_url_and_doi(tmp_path: P
                     "doi": "10.5281/zenodo.1234567",
                     "release_url_valid": True,
                     "doi_valid": True,
+                    "release_url_verified": True,
+                    "doi_verified": True,
                     "archive_publication_ready": True,
                 },
             }
@@ -710,6 +753,8 @@ def test_thesis_upgrade_archive_gate_passes_with_release_url_and_doi(tmp_path: P
     assert archive["archive_publication_metadata"] == {
         "release_url_valid": True,
         "doi_valid": True,
+        "release_url_verified": True,
+        "doi_verified": True,
         "archive_publication_ready": True,
     }
     assert archive["release_url"] == "https://github.com/grimgrimberg/LSD_Thesis/releases/tag/v1.0.0"

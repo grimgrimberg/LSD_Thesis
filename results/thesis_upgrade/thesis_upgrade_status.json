@@ -1,6 +1,6 @@
 {
   "schema_version": "thesis_upgrade_status.v1",
-  "generated_at_utc": "2026-06-01T23:21:01.349317+00:00",
+  "generated_at_utc": "2026-06-02T00:14:39.992322+00:00",
   "readiness_summary": {
     "ready_gates": 6,
     "total_gates": 9,
@@ -1230,6 +1230,8 @@
       "archive_publication_metadata": {
         "release_url_valid": false,
         "doi_valid": false,
+        "release_url_verified": false,
+        "doi_verified": false,
         "archive_publication_ready": false
       },
       "release_url": null,

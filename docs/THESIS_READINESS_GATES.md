@@ -97,15 +97,17 @@ The fMRIPrep preflight uses the same strict family contract: paired FD/DVARS fil
 
 ## Archive Publication Contract
 
-The archive manifest is a checksum ledger, not the citable archive by itself. The reproducible-archive gate passes only after `results/reproducible_archive/ARCHIVE_MANIFEST.json` records both:
+The archive manifest is a checksum ledger, not the citable archive by itself. The reproducible-archive gate passes only after `results/reproducible_archive/ARCHIVE_MANIFEST.json` records and verifies all of:
 
 - `release_url`: `https://github.com/<owner>/<repo>/releases/tag/<tag>`
 - `doi`: `10.<prefix>/<suffix>` or `https://doi.org/10.<prefix>/<suffix>`
+- `publication_metadata.release_url_verified`: `true`
+- `publication_metadata.doi_verified`: `true`
 
 Run:
 
 ```powershell
-uv run python scripts/build_reproducible_archive.py --release-url https://github.com/<owner>/<repo>/releases/tag/<tag> --doi 10.<prefix>/<suffix>
+uv run python scripts/build_reproducible_archive.py --release-url https://github.com/<owner>/<repo>/releases/tag/<tag> --doi 10.<prefix>/<suffix> --verify-publication
 uv run python -c "from pathlib import Path; from lsd_thesis.thesis_upgrade import write_thesis_upgrade_status; write_thesis_upgrade_status(Path.cwd())"
 ```
 

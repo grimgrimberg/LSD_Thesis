@@ -19,7 +19,7 @@ def test_archive_manifest_records_publication_not_ready_without_release_and_doi(
     assert manifest["publication_metadata"]["doi_valid"] is False
 
 
-def test_archive_manifest_accepts_citable_release_url_and_zenodo_doi(tmp_path: Path) -> None:
+def test_archive_manifest_keeps_unverified_release_url_and_zenodo_doi_below_publication_ready(tmp_path: Path) -> None:
     (tmp_path / "README.md").write_text("# Thesis\n", encoding="utf-8")
 
     manifest = build_archive_manifest(
@@ -28,11 +28,33 @@ def test_archive_manifest_accepts_citable_release_url_and_zenodo_doi(tmp_path: P
         doi="https://doi.org/10.5281/zenodo.1234567",
     )
 
-    assert manifest["archive_publication_ready"] is True
+    assert manifest["archive_publication_ready"] is False
     assert manifest["release_url"] == "https://github.com/grimgrimberg/LSD_Thesis/releases/tag/v1.0.0"
     assert manifest["doi"] == "https://doi.org/10.5281/zenodo.1234567"
     assert manifest["publication_metadata"]["release_url_valid"] is True
     assert manifest["publication_metadata"]["doi_valid"] is True
+    assert manifest["publication_metadata"]["release_url_verified"] is False
+    assert manifest["publication_metadata"]["doi_verified"] is False
+
+
+def test_archive_manifest_accepts_verified_citable_release_url_and_zenodo_doi(tmp_path: Path) -> None:
+    (tmp_path / "README.md").write_text("# Thesis\n", encoding="utf-8")
+
+    manifest = build_archive_manifest(
+        tmp_path,
+        release_url="https://github.com/grimgrimberg/LSD_Thesis/releases/tag/v1.0.0",
+        doi="https://doi.org/10.5281/zenodo.1234567",
+        publication_verification={
+            "release_url_verified": True,
+            "doi_verified": True,
+        },
+    )
+
+    assert manifest["archive_publication_ready"] is True
+    assert manifest["publication_metadata"]["release_url_valid"] is True
+    assert manifest["publication_metadata"]["doi_valid"] is True
+    assert manifest["publication_metadata"]["release_url_verified"] is True
+    assert manifest["publication_metadata"]["doi_verified"] is True
 
 
 def test_archive_manifest_rejects_placeholder_publication_metadata(tmp_path: Path) -> None:
@@ -56,6 +78,10 @@ def test_write_archive_manifest_writes_publication_metadata(tmp_path: Path) -> N
         tmp_path,
         release_url="https://github.com/grimgrimberg/LSD_Thesis/releases/tag/v1.0.0",
         doi="10.5281/zenodo.1234567",
+        publication_verification={
+            "release_url_verified": True,
+            "doi_verified": True,
+        },
     )
 
     manifest_path = tmp_path / "results" / "reproducible_archive" / "ARCHIVE_MANIFEST.json"
