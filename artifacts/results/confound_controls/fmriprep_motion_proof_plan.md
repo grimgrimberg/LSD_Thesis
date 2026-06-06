@@ -11,7 +11,7 @@ This is a preprocessing/acquisition preflight, not a motion-safety result. The s
 - Missing T1w subjects: `sub-001, sub-002, sub-003, sub-004, sub-006, sub-009, sub-010, sub-011, sub-012, sub-013, sub-015, sub-017, sub-018, sub-019, sub-020`
 - Parsed local confound summaries: `0`
 - Paired LSD/placebo subject-run confound rows: `0`
-- OpenNeuro snapshot T1w files: `15`
+- OpenNeuro snapshot T1w files: `0`
 - OpenNeuro snapshot confound-like files: `0`
 - Runtime availability: `{"apptainer": false, "docker": false, "fmriprep": false, "singularity": false}`
 

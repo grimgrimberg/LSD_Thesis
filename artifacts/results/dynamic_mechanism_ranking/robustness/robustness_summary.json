@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "analysis_status": "implemented_first_pass_robustness",
-  "generated_at_utc": "2026-06-01T11:37:25.459604+00:00",
+  "generated_at_utc": "2026-06-02T09:44:53.806969+00:00",
   "source_viewer_root": "results/stage_2/empirical_viewer",
   "pair_count": 30,
   "subject_count": 15,

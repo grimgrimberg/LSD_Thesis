@@ -5,11 +5,11 @@ This status file upgrades evidence visibility and fails closed on missing scienc
 ## Gate Summary
 
 - Strict completion: 4/6 gates complete.
-- Package readiness: 1/2 gates complete.
+- Package readiness: 0/2 gates complete.
 - Missing strict requirement IDs: motion_confound_control_result, project_phase.
-- Missing package requirement IDs: reproducible_archive_publication.
+- Missing package requirement IDs: public_dashboard_static_snapshot, reproducible_archive_publication.
 - Remaining hard requirements: fMRIPrep FD/DVARS/censoring motion proof.
-- Remaining packaging requirements: Reproducible archive publication.
+- Remaining packaging requirements: Public dashboard static snapshot, Reproducible archive publication.
 
 | Gate | Status | Ready | Score | Blocker / next action |
 | --- | --- | ---: | ---: | --- |
@@ -17,7 +17,7 @@ This status file upgrades evidence visibility and fails closed on missing scienc
 | Canonical parcellation | implemented_mechanism_ranking | true | 1.00 | Canonical Schaefer/Yeo extraction, empirical viewer, and mechanism ranking are available. |
 | Neuromaps spatial nulls | implemented_schaefer100_full_map_family_moran_spatial_nulls | true | 1.00 | Schaefer100 map-family Moran spatial nulls are complete across receptor, myelin, functional-gradient, and gene-expression priors. |
 | ROCKET benchmark | supporting_internal_signal | false | 0.85 | Add permutation-null, calibration, and MiniRocket/MultiRocket gates before treating this as strong ML evidence. |
-| Public dashboard | static_snapshot_ready | true | 1.00 | Static GitHub Pages dashboard snapshot and key gate/archive artifacts are present and synchronized with the current readiness artifact. This is presentation evidence, not a citable archive. |
+| Public dashboard | static_snapshot_missing_required_outputs | false | 0.10 | Rebuild the static GitHub Pages snapshot so dashboard readiness data matches the current thesis status artifact. |
 | External validation | implemented_ds006072_unchanged_scoring_validation | true | 1.00 | Schaefer100/Yeo7 ds006072 extraction and unchanged scoring are complete; ranking_differs_from_lsd_top_layer; ds006072 top=E, LSD reference top=C. |
 | Receptor + structural control | fully_integrated | true | 1.00 | Documented structural-connectome graph sensitivity and PET-derived receptor-prior sensitivity are implemented with null/control context; keep biological mechanism promotion governed by the separate receptor/myelin/gradient claim gate. |
 | Receptor/myelin/gradient claim | resolved_negative_not_promoted | true | 1.00 | The map-prior claim is resolved as a negative control: do not promote receptor/myelin/gradient mechanism claims from this dataset. |
@@ -27,7 +27,7 @@ This status file upgrades evidence visibility and fails closed on missing scienc
 
 | Requirement | Status | Complete | Missing | Next action |
 | --- | --- | ---: | --- | --- |
-| Public dashboard static snapshot | static_snapshot_ready | true | None: static Pages snapshot contains the required dashboard and evidence artifacts. | Keep rebuilding the static site after gate/status artifact changes. |
+| Public dashboard static snapshot | static_snapshot_missing_required_outputs | false | Static Pages snapshot is stale: published thesis status artifact is stale, dashboard embedded thesis status is stale. | Run scripts/build_github_pages.py after regenerating results/thesis_upgrade/thesis_upgrade_status.json, then verify _site embeds the same readiness summary and requirement states. |
 | Reproducible archive publication | manifest_ready_doi_missing | false | Citable archive publication is missing verified Zenodo DOI. | Mint a Zenodo DOI for the existing GitHub release, then rebuild scripts/build_reproducible_archive.py with --release-url and --doi. |
 
 ## Strict Completion Audit

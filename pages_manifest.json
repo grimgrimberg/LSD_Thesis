@@ -1,21 +1,23 @@
 {
-  "generated_at_utc": "2026-06-02T09:08:18.751917+00:00",
+  "generated_at_utc": "2026-06-06T12:45:57.702503+00:00",
   "claim_guardrail": "GitHub Pages is a static presentation and dashboard snapshot. Treat blocked rows in the claim matrix as unresolved thesis work, not as completed scientific evidence. Interactive FastAPI-only controls are available only in the local dashboard.",
   "entrypoints": {
     "index": "index.html",
-    "thesis": "thesis.html",
     "dashboard": "dashboard/index.html",
-    "methods": "methods.html",
-    "appendix": "appendix.html"
+    "ranking": "ranking.html",
+    "robustness": "robustness.html",
+    "prior_art": "prior-art.html",
+    "empirical": "empirical.html",
+    "simulator": "simulator.html"
   },
   "artifacts": [
     ".nojekyll",
-    "artifacts/CLAIM_LADDER.md",
-    "artifacts/PI_PITCH.md",
     "artifacts/claim_evidence_matrix.csv",
     "artifacts/claim_evidence_matrix.md",
     "artifacts/defense_presentation.html",
+    "artifacts/docs/research/ds003059_prior_art_to_thesis_map.md",
     "artifacts/docs/stage_reports/dynamic_mechanism_ranking.md",
+    "artifacts/docs/stage_reports/dynamic_mechanism_robustness.md",
     "artifacts/docs/stage_reports/stage_2.md",
     "artifacts/docs/stage_reports/stage_3.md",
     "artifacts/docs/stage_reports/stage_4.md",
@@ -188,8 +190,11 @@
     "artifacts/thesis_evidence_loop_tables.xlsx",
     "artifacts/thesis_microsite.html",
     "artifacts/thesis_report_revised.md",
+    "assets/plotly.min.js",
     "figures/stage1_metric_shift.png",
     "figures/stage2_fit_robustness.png",
-    "pages_manifest.json"
+    "pages_manifest.json",
+    "static/dashboard.css",
+    "static/dashboard.js"
   ]
 }

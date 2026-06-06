@@ -1,6 +1,6 @@
 {
   "schema_version": "published_motion_qc.v1",
-  "generated_at_utc": "2026-06-02T09:07:12.347895+00:00",
+  "generated_at_utc": "2026-06-06T12:45:08.563880+00:00",
   "analysis_status": "implemented_published_ds003059_motion_qc_context",
   "published_motion_qc_ready": true,
   "source_path": "data/ds003059/README",

@@ -1,6 +1,6 @@
 {
   "schema_version": "motion_confound_control.v1",
-  "generated_at_utc": "2026-06-02T09:07:05.425350+00:00",
+  "generated_at_utc": "2026-06-06T12:45:06.103063+00:00",
   "analysis_status": "blocked_absent_authorized_subject_level_motion_confounds",
   "motion_confound_control_ready": false,
   "source_paths": {

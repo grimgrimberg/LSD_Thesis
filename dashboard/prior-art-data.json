@@ -1,0 +1,299 @@
+{
+  "schema_version": "prior_art.dashboard_payload.v1",
+  "generated_at_utc": "2026-06-06T12:45:56.176741+00:00",
+  "dataset": {
+    "accession": "ds003059",
+    "doi": "10.18112/openneuro.ds003059.v1.0.0",
+    "openneuro_url": "https://openneuro.org/datasets/ds003059/versions/1.0.0"
+  },
+  "summary": {
+    "family_count": 13,
+    "source_count": 13,
+    "github_repository_count": 11,
+    "non_clone_source_count": 2,
+    "checked_repository_count": 11
+  },
+  "families": [
+    {
+      "family": "cortical_gradients_brainspace",
+      "source_count": 1,
+      "runbook_path": "prior_art/runbooks/cortical_gradients_brainspace.md",
+      "claim_status": "proxy-supported",
+      "connection": "Gradient methods inform map-prior sensitivity, not completed external validation."
+    },
+    {
+      "family": "dlpfc_granger_causality",
+      "source_count": 0,
+      "runbook_path": "prior_art/runbooks/dlpfc_granger_causality.md",
+      "claim_status": "future",
+      "connection": "Causality analysis is future validation context, not part of the current evidence package."
+    },
+    {
+      "family": "dynamic_integration_segregation",
+      "source_count": 1,
+      "runbook_path": "prior_art/runbooks/dynamic_integration_segregation.md",
+      "claim_status": "proxy-supported",
+      "connection": "Integration/segregation metrics align with the macro-dynamics surrogate evidence layer."
+    },
+    {
+      "family": "energy_landscape_network_control",
+      "source_count": 1,
+      "runbook_path": "prior_art/runbooks/energy_landscape_network_control.md",
+      "claim_status": "mixed",
+      "connection": "Network-control language maps to model-level transition-energy proxies, not receptor-level proof."
+    },
+    {
+      "family": "entropy_copbet",
+      "source_count": 1,
+      "runbook_path": "prior_art/runbooks/entropy_copbet.md",
+      "claim_status": "future",
+      "connection": "Toolbox ergonomics can inform reproducibility demos, but no wrapped analysis is promoted as original evidence."
+    },
+    {
+      "family": "gnw_iit_consciousness",
+      "source_count": 1,
+      "runbook_path": "prior_art/runbooks/gnw_iit_consciousness.md",
+      "claim_status": "future",
+      "connection": "Consciousness-theory archives are context only; this repo does not settle GNW/IIT claims."
+    },
+    {
+      "family": "ising_temperature_and_algorithmic_complexity",
+      "source_count": 2,
+      "runbook_path": "prior_art/runbooks/ising_temperature_and_algorithmic_complexity.md",
+      "claim_status": "future",
+      "connection": "Entropy/temperature ideas are benchmark inspiration only unless independently implemented and tested."
+    },
+    {
+      "family": "lsd_music_brainstates",
+      "source_count": 1,
+      "runbook_path": "prior_art/runbooks/lsd_music_brainstates.md",
+      "claim_status": "blocked",
+      "connection": "Run-02/music analyses stay blocked for primary claims until motion/context controls pass."
+    },
+    {
+      "family": "mesoscale_reho",
+      "source_count": 0,
+      "runbook_path": "prior_art/runbooks/mesoscale_reho.md",
+      "claim_status": "future",
+      "connection": "Regional-homogeneity analyses are future sensitivity checks."
+    },
+    {
+      "family": "neuroreceptor_eigenmodes",
+      "source_count": 2,
+      "runbook_path": "prior_art/runbooks/neuroreceptor_eigenmodes.md",
+      "claim_status": "blocked",
+      "connection": "Receptor maps are prior layers and require null controls before claim promotion."
+    },
+    {
+      "family": "react_receptor_connectivity",
+      "source_count": 1,
+      "runbook_path": "prior_art/runbooks/react_receptor_connectivity.md",
+      "claim_status": "blocked",
+      "connection": "Receptor-enriched connectivity remains a biological-prior target behind spatial-null and external-data gates."
+    },
+    {
+      "family": "translational_neuromodeling_teaching",
+      "source_count": 1,
+      "runbook_path": null,
+      "claim_status": "future",
+      "connection": "Teaching resources are secondary context and not thesis evidence."
+    },
+    {
+      "family": "traveling_waves",
+      "source_count": 1,
+      "runbook_path": "prior_art/runbooks/traveling_waves.md",
+      "claim_status": "future",
+      "connection": "Traveling-wave framing is future work unless a dedicated local implementation exists."
+    }
+  ],
+  "sources": [
+    {
+      "family": "cortical_gradients_brainspace",
+      "name": "BrainSpace",
+      "role": "Gradient-analysis toolbox for Python and MATLAB",
+      "url": "https://github.com/MICA-MNI/BrainSpace",
+      "status": "existing",
+      "directory": "mica_brainspace",
+      "language": "Python / MATLAB",
+      "ds003059_support": "method dependency",
+      "commit_or_policy": "8730de88ae32c4f88eeaf16ef2a6e53c5c32dc34",
+      "readme_file": "README.rst",
+      "license_file": "LICENSE"
+    },
+    {
+      "family": "dynamic_integration_segregation",
+      "name": "integration",
+      "role": "Dynamic integration and segregation analysis code",
+      "url": "https://github.com/macshine/integration",
+      "status": "existing",
+      "directory": "shine_integration",
+      "language": "MATLAB",
+      "ds003059_support": "direct",
+      "commit_or_policy": "d00534027ab8855f7aec3a32c17f98c6c48431a6",
+      "readme_file": "README.md",
+      "license_file": null
+    },
+    {
+      "family": "energy_landscape_network_control",
+      "name": "energy_landscape",
+      "role": "Network-control energy-landscape analysis code",
+      "url": "https://github.com/singlesp/energy_landscape",
+      "status": "existing",
+      "directory": "singleton_energy_landscape",
+      "language": "MATLAB / R",
+      "ds003059_support": "direct",
+      "commit_or_policy": "47cd3d2347e7ec24eec7f274551a264070b5b997",
+      "readme_file": "README.md",
+      "license_file": null
+    },
+    {
+      "family": "entropy_copbet",
+      "name": "CopBET",
+      "role": "Entropy and complexity benchmark toolbox with LSD data examples",
+      "url": "https://github.com/anders-s-olsen/CopBET",
+      "status": "existing",
+      "directory": "olsen_copbet",
+      "language": "MATLAB / Python",
+      "ds003059_support": "direct",
+      "commit_or_policy": "8787820bbb95283de1806bf1cafd5095e2f0a1b6",
+      "readme_file": "README.md",
+      "license_file": null
+    },
+    {
+      "family": "gnw_iit_consciousness",
+      "name": "Zenodo record 14029241",
+      "role": "Archive source for the GNW/IIT consciousness analysis code and processed files",
+      "url": "https://zenodo.org/records/14029241",
+      "status": "documented_non_clone_source",
+      "directory": "prior_art/repositories/zenodo_14029241_code/Code/",
+      "language": "archive / documentation",
+      "ds003059_support": "Only the small Code.zip archive was downloaded; do not download Data.zip by default.",
+      "commit_or_policy": "Only the small Code.zip archive was downloaded; do not download Data.zip by default.",
+      "readme_file": null,
+      "license_file": null
+    },
+    {
+      "family": "ising_temperature_and_algorithmic_complexity",
+      "name": "LSD-paper-code-Ruffini-et-al.-2022",
+      "role": "Primary Ising thermodynamics and algorithmic-complexity analysis code",
+      "url": "https://github.com/giulioruffini/LSD-paper-code-Ruffini-et-al.-2022",
+      "status": "existing",
+      "directory": "ruffini_lsd_paper_code",
+      "language": "Python / Jupyter",
+      "ds003059_support": "direct",
+      "commit_or_policy": "50bb2958aa3a991933c2aada9f2330ddb750793f",
+      "readme_file": "README.md",
+      "license_file": null
+    },
+    {
+      "family": "ising_temperature_and_algorithmic_complexity",
+      "name": "StarLZW",
+      "role": "Companion Lempel-Ziv-Welch complexity package",
+      "url": "https://github.com/giulioruffini/StarLZW",
+      "status": "existing",
+      "directory": "ruffini_starlzw",
+      "language": "Python",
+      "ds003059_support": "supporting dependency",
+      "commit_or_policy": "4bf55f801f2b90c6121ae145af80cf5cf36d3023",
+      "readme_file": "README.md",
+      "license_file": "LICENSE"
+    },
+    {
+      "family": "lsd_music_brainstates",
+      "name": "LSD-music-brainstates",
+      "role": "LSD and music time-varying brain-state analysis code",
+      "url": "https://github.com/igaadamska/LSD-music-brainstates",
+      "status": "existing",
+      "directory": "adamska_lsd_music_brainstates",
+      "language": "Python",
+      "ds003059_support": "direct",
+      "commit_or_policy": "16428ebd0eb9026c4421f2514a73f3dc1f58c674",
+      "readme_file": null,
+      "license_file": "LICENSE"
+    },
+    {
+      "family": "neuroreceptor_eigenmodes",
+      "name": "corematrix",
+      "role": "Core-matrix thalamic mapping code and data",
+      "url": "https://github.com/macshine/corematrix",
+      "status": "existing",
+      "directory": "shine_corematrix",
+      "language": "MATLAB",
+      "ds003059_support": "supporting dependency",
+      "commit_or_policy": "6f0997526430e2f75b18c77ace667217160e536a",
+      "readme_file": "README.md",
+      "license_file": null
+    },
+    {
+      "family": "neuroreceptor_eigenmodes",
+      "name": "hansen_receptors",
+      "role": "Neurotransmitter receptor and transporter density maps",
+      "url": "https://github.com/netneurolab/hansen_receptors",
+      "status": "existing",
+      "directory": "hansen_receptors",
+      "language": "Python / MATLAB / data",
+      "ds003059_support": "supporting dependency",
+      "commit_or_policy": "f8b41da92a733f99368c1f39d4959731aa1316c1",
+      "readme_file": "README.md",
+      "license_file": "LICENSE.md"
+    },
+    {
+      "family": "react_receptor_connectivity",
+      "name": "react-fmri",
+      "role": "REACT receptor-enriched functional-connectivity toolbox",
+      "url": "https://github.com/ottaviadipasquale/react-fmri",
+      "status": "existing",
+      "directory": "dipasquale_react_fmri",
+      "language": "Python",
+      "ds003059_support": "method dependency",
+      "commit_or_policy": "48462c0a94e8cc0db9625742b3d9c4054bd8ab79",
+      "readme_file": "README.md",
+      "license_file": "LICENSE"
+    },
+    {
+      "family": "translational_neuromodeling_teaching",
+      "name": "TNM_project",
+      "role": "Secondary translational-neuromodeling teaching resource",
+      "url": "https://github.com/till-m/TNM_project",
+      "status": "existing",
+      "directory": "muehlbauer_tnm_project",
+      "language": "Python / MATLAB",
+      "ds003059_support": "secondary",
+      "commit_or_policy": "1d23c9a7b63c5efd385ff2e099ebbef9dd682281",
+      "readme_file": "README.md",
+      "license_file": null
+    },
+    {
+      "family": "traveling_waves",
+      "name": "neuromaps installation documentation",
+      "role": "Supporting dependency documentation; not the full traveling-wave analysis code",
+      "url": "https://netneurolab.github.io/neuromaps/installation.html",
+      "status": "documented_non_clone_source",
+      "directory": "",
+      "language": "archive / documentation",
+      "ds003059_support": "Document as dependency unless a dedicated analysis repository is verified.",
+      "commit_or_policy": "Document as dependency unless a dedicated analysis repository is verified.",
+      "readme_file": null,
+      "license_file": null
+    }
+  ],
+  "documents": [
+    {
+      "label": "Prior-art README",
+      "href": "/artifacts/prior_art/README.md"
+    },
+    {
+      "label": "Code inventory",
+      "href": "/artifacts/prior_art/code_inventory.md"
+    },
+    {
+      "label": "Reproducibility matrix",
+      "href": "/artifacts/prior_art/reproducibility_matrix.md"
+    },
+    {
+      "label": "Archive manifest",
+      "href": "/artifacts/prior_art/archive_manifest.md"
+    }
+  ],
+  "claim_guardrail": "Prior-art repositories are reproducibility context and inspiration. They are not copied into local analyses, and wrappers are not presented as original thesis evidence."
+}

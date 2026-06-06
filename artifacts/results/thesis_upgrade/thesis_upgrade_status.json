@@ -1,10 +1,10 @@
 {
   "schema_version": "thesis_upgrade_status.v1",
-  "generated_at_utc": "2026-06-02T09:08:17.117218+00:00",
+  "generated_at_utc": "2026-06-06T12:45:55.982420+00:00",
   "readiness_summary": {
-    "ready_gates": 6,
+    "ready_gates": 5,
     "total_gates": 9,
-    "readiness_fraction": 0.6666666666666666,
+    "readiness_fraction": 0.5555555555555556,
     "strict_complete_gates": 4,
     "strict_total_gates": 6,
     "strict_completion_fraction": 0.6666666666666666,
@@ -13,17 +13,19 @@
       "motion_confound_control_result",
       "project_phase"
     ],
-    "package_complete_gates": 1,
+    "package_complete_gates": 0,
     "package_total_gates": 2,
-    "package_completion_fraction": 0.5,
-    "package_missing_gates": 1,
+    "package_completion_fraction": 0.0,
+    "package_missing_gates": 2,
     "package_missing_requirement_ids": [
+      "public_dashboard_static_snapshot",
       "reproducible_archive_publication"
     ],
     "remaining_hard_requirements": [
       "fMRIPrep FD/DVARS/censoring motion proof"
     ],
     "remaining_packaging_requirements": [
+      "Public dashboard static snapshot",
       "Reproducible archive publication"
     ],
     "completion_status": "research_demo_ready_not_completed_thesis",
@@ -64,11 +66,11 @@
     },
     {
       "label": "Public dashboard",
-      "status": "static_snapshot_ready",
-      "ready": true,
+      "status": "static_snapshot_missing_required_outputs",
+      "ready": false,
       "evidence": "results/thesis_upgrade/thesis_upgrade_status.json; _site/pages_manifest.json; _site/index.html; _site/dashboard/dashboard-data.json; _site/artifacts/results/thesis_upgrade/thesis_upgrade_status.json; _site/artifacts/results/reproducible_archive/ARCHIVE_MANIFEST.json",
-      "blocker": "Static GitHub Pages dashboard snapshot and key gate/archive artifacts are present and synchronized with the current readiness artifact. This is presentation evidence, not a citable archive.",
-      "score": 1.0
+      "blocker": "Rebuild the static GitHub Pages snapshot so dashboard readiness data matches the current thesis status artifact.",
+      "score": 0.1
     },
     {
       "label": "External validation",
@@ -169,12 +171,12 @@
     {
       "requirement_id": "public_dashboard_static_snapshot",
       "label": "Public dashboard static snapshot",
-      "status": "static_snapshot_ready",
-      "complete": true,
+      "status": "static_snapshot_missing_required_outputs",
+      "complete": false,
       "evidence": "results/thesis_upgrade/thesis_upgrade_status.json; _site/pages_manifest.json; _site/index.html; _site/dashboard/dashboard-data.json; _site/artifacts/results/thesis_upgrade/thesis_upgrade_status.json; _site/artifacts/results/reproducible_archive/ARCHIVE_MANIFEST.json",
-      "missing": "None: static Pages snapshot contains the required dashboard and evidence artifacts.",
-      "next_action": "Keep rebuilding the static site after gate/status artifact changes.",
-      "claim_effect": "The public dashboard is presentation-ready, but remains separate from citable archive publication."
+      "missing": "Static Pages snapshot is stale: published thesis status artifact is stale, dashboard embedded thesis status is stale.",
+      "next_action": "Run scripts/build_github_pages.py after regenerating results/thesis_upgrade/thesis_upgrade_status.json, then verify _site embeds the same readiness summary and requirement states.",
+      "claim_effect": "Public presentation remains incomplete until the static dashboard snapshot is regenerated."
     },
     {
       "requirement_id": "reproducible_archive_publication",
@@ -912,28 +914,36 @@
     "public_dashboard": {
       "gate": {
         "label": "Public dashboard",
-        "status": "static_snapshot_ready",
-        "ready": true,
+        "status": "static_snapshot_missing_required_outputs",
+        "ready": false,
         "evidence": "results/thesis_upgrade/thesis_upgrade_status.json; _site/pages_manifest.json; _site/index.html; _site/dashboard/dashboard-data.json; _site/artifacts/results/thesis_upgrade/thesis_upgrade_status.json; _site/artifacts/results/reproducible_archive/ARCHIVE_MANIFEST.json",
-        "blocker": "Static GitHub Pages dashboard snapshot and key gate/archive artifacts are present and synchronized with the current readiness artifact. This is presentation evidence, not a citable archive.",
-        "score": 1.0
+        "blocker": "Rebuild the static GitHub Pages snapshot so dashboard readiness data matches the current thesis status artifact.",
+        "score": 0.1
       },
-      "static_snapshot_ready": true,
-      "static_snapshot_fresh": true,
+      "static_snapshot_ready": false,
+      "static_snapshot_fresh": false,
       "manifest_path": "_site/pages_manifest.json",
       "current_status_path": "results/thesis_upgrade/thesis_upgrade_status.json",
       "required_paths_present": {
-        "_site/index.html": true,
-        "_site/dashboard/dashboard-data.json": true,
-        "_site/artifacts/results/thesis_upgrade/thesis_upgrade_status.json": true,
-        "_site/artifacts/results/reproducible_archive/ARCHIVE_MANIFEST.json": true
+        "_site/index.html": false,
+        "_site/dashboard/dashboard-data.json": false,
+        "_site/artifacts/results/thesis_upgrade/thesis_upgrade_status.json": false,
+        "_site/artifacts/results/reproducible_archive/ARCHIVE_MANIFEST.json": false
       },
-      "missing_required_paths": [],
-      "manifest_entrypoints_ready": true,
-      "manifest_artifacts_ready": true,
-      "artifact_snapshot_current": true,
-      "dashboard_snapshot_current": true,
-      "snapshot_mismatches": [],
+      "missing_required_paths": [
+        "_site/index.html",
+        "_site/dashboard/dashboard-data.json",
+        "_site/artifacts/results/thesis_upgrade/thesis_upgrade_status.json",
+        "_site/artifacts/results/reproducible_archive/ARCHIVE_MANIFEST.json"
+      ],
+      "manifest_entrypoints_ready": false,
+      "manifest_artifacts_ready": false,
+      "artifact_snapshot_current": false,
+      "dashboard_snapshot_current": false,
+      "snapshot_mismatches": [
+        "published thesis status artifact is stale",
+        "dashboard embedded thesis status is stale"
+      ],
       "claim_guardrail": "The public dashboard is a static presentation layer and does not complete motion proof, external validation, or archive DOI gates."
     },
     "external_validation": {

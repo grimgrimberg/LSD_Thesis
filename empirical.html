@@ -4,13 +4,13 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="dark">
-  <title>Overview | LSD Thesis Dashboard</title>
+  <title>Empirical Viewer | LSD Thesis Dashboard</title>
   <link rel="icon" href="data:,">
-  <link rel="stylesheet" href="../static/dashboard.css">
-  <script src="../assets/plotly.min.js" defer></script>
-  <script src="../static/dashboard.js" defer></script>
+  <link rel="stylesheet" href="static/dashboard.css">
+  <script src="assets/plotly.min.js" defer></script>
+  <script src="static/dashboard.js" defer></script>
 </head>
-<body data-page="overview" data-dashboard-data-url="dashboard-data.json" data-prior-art-data-url="prior-art-data.json">
+<body data-page="empirical" data-dashboard-data-url="dashboard/dashboard-data.json" data-prior-art-data-url="dashboard/prior-art-data.json">
   <a class="skip-link" href="#main_content">Skip to dashboard content</a>
   <div class="app-shell">
     <aside class="sidebar" aria-label="Primary dashboard navigation">
@@ -23,7 +23,7 @@
   </a>
   <nav class="nav-list">
     
-      <a class="nav-link is-active" href="/" aria-current="page">
+      <a class="nav-link" href="/" >
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 13h7V4H4zM13 20h7V4h-7zM4 20h7v-5H4z"></path></svg>
         <span>Overview</span>
       </a>
@@ -43,7 +43,7 @@
         <span>Prior Art</span>
       </a>
     
-      <a class="nav-link" href="/empirical" >
+      <a class="nav-link is-active" href="/empirical" aria-current="page">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19c4 0 4-14 8-14s4 14 8 14M4 12h16"></path></svg>
         <span>Empirical</span>
       </a>
@@ -63,7 +63,7 @@
       <header class="topbar" aria-label="Dashboard status">
         <div>
           <p class="chrome-label">Macro-dynamics evidence console</p>
-          <h1>Overview</h1>
+          <h1>Empirical Viewer</h1>
         </div>
         <div class="topbar-actions">
           <a class="icon-button" href="/artifacts/results/thesis_upgrade/thesis_upgrade_status.json" title="Open strict audit JSON" aria-label="Open strict audit JSON">
@@ -76,39 +76,35 @@
       </header>
       <main id="main_content" class="page-surface" tabindex="-1">
         
-<section class="hero-grid" aria-labelledby="overview_title">
-  <div class="panel hero-panel">
-    <p class="chrome-label">Current thesis posture</p>
-    <h2 id="overview_title">Macro-dynamics, proxy evidence, explicit blockers.</h2>
-    <p>The dashboard reads the live repository artifacts and separates implemented evidence from proxy-supported, mixed, blocked, and future claims.</p>
-    <div class="metric-strip" id="overview_metric_strip" aria-live="polite"></div>
-  </div>
-  <div class="panel">
-    <div class="panel-heading">
-      <h2>Strict Gates</h2>
-      <span id="strict_gate_status" class="status-token">loading</span>
-    </div>
-    <div id="strict_gate_chart" class="chart chart-sm" role="img" aria-label="Strict completion gate chart"></div>
-  </div>
-</section>
-
-<section class="content-grid">
+<section class="content-grid content-grid--wide">
   <article class="panel">
     <div class="panel-heading">
-      <h2>Evidence Read Path</h2>
-      <span class="status-token status-token--teal">claim-safe</span>
+      <h2>Empirical Selector</h2>
+      <span id="empirical_status" class="status-token">loading</span>
     </div>
-    <ol class="timeline-list" id="read_path_list"></ol>
+    <div class="control-stack">
+      <label>Subject<select id="empirical_subject"></select></label>
+      <label>Run<select id="empirical_run"></select></label>
+      <button id="load_empirical" class="primary-button" type="button">Load View</button>
+    </div>
+    <p id="empirical_notice" class="microcopy" aria-live="polite"></p>
   </article>
-  <article class="panel">
+  <article class="panel panel--span-2">
     <div class="panel-heading">
-      <h2>Artifact Browser</h2>
-      <input id="artifact_filter" class="compact-input" type="search" placeholder="Filter artifacts" aria-label="Filter artifacts">
+      <h2>Group Metric Deltas</h2>
+      <span class="status-token status-token--amber">paired summary</span>
+    </div>
+    <div id="empirical_delta_chart" class="chart" role="img" aria-label="Empirical delta chart"></div>
+  </article>
+  <article class="panel panel--span-3">
+    <div class="panel-heading">
+      <h2>Subject Detail</h2>
+      <span class="status-token status-token--teal">local API</span>
     </div>
     <div class="table-frame">
       <table>
-        <thead><tr><th>Artifact</th><th>Kind</th><th>Open</th></tr></thead>
-        <tbody id="artifact_table"></tbody>
+        <thead><tr><th>Metric</th><th>Placebo</th><th>LSD</th><th>Delta</th></tr></thead>
+        <tbody id="empirical_detail_table"></tbody>
       </table>
     </div>
   </article>
