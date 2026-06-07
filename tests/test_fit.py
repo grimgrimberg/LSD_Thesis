@@ -300,6 +300,10 @@ def test_stage_2_summary_uses_empirical_provenance_and_writes_mvp_sidecar(
             "notes": ["test"],
         },
     )
+    monkeypatch.setattr(
+        "lsd_thesis.fit._save_figure",
+        lambda figure, path: Path(path).write_text("<html><body>test figure</body></html>\n", encoding="utf-8"),
+    )
 
     output_dir = tmp_path / "stage_2"
     report_path = tmp_path / "stage_2.md"

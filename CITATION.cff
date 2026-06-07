@@ -5,8 +5,9 @@ authors:
   - family-names: Grimberg
     given-names: Yuval
 repository-code: "https://github.com/grimgrimberg/LSD_Thesis"
-date-released: "2026-05-27"
-version: "pre-zenodo-thesis-archive"
+url: "https://grimgrimberg.github.io/LSD_Thesis/"
+date-released: "2026-06-02"
+version: "thesis-evidence-2026-06-02"
 keywords:
   - computational neuroscience
   - fMRI

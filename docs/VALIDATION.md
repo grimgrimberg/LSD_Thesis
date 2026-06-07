@@ -19,7 +19,7 @@ Observed current results:
 
 - Ruff: all checks passed.
 - mypy: no issues found in 82 source files.
-- pytest: 416 passed, 4 warnings, total coverage 80.96%.
+- pytest: 417 passed, 4 warnings, total coverage 80.97%.
 - dashboard preview preflight: required files present, optional generated artifacts present, CV5 internal validation reported as 5/5 folds.
 
 Last completed hosted CI baseline when this section was written:

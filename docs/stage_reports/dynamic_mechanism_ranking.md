@@ -1,6 +1,6 @@
 # Dynamic Mechanism Ranking: A+B+C+D+E Proxy-Control Pass
 
-Generated: `2026-06-01T11:37:06.566792+00:00`
+Generated: `2026-06-02T09:44:22.883624+00:00`
 
 ## Scope
 

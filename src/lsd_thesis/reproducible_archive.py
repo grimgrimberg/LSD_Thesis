@@ -23,6 +23,8 @@ PUBLICATION_VERIFICATION_KEYS = (
 )
 
 DEFAULT_INCLUDE_FILES = (
+    "CITATION.cff",
+    ".zenodo.json",
     "README.md",
     "GOAL.md",
     "THESIS_CONCEPT_AUDIT.md",
@@ -32,6 +34,8 @@ DEFAULT_INCLUDE_FILES = (
     "docs/VALIDATION.md",
     "docs/METHODS_RESEARCH.md",
     "docs/ARCHIVE_POLICY.md",
+    "docs/research/ds003059_prior_art_to_thesis_map.md",
+    "docs/stage_reports/dynamic_mechanism_robustness.md",
     "results/stage_2/stage_2_summary.json",
     "results/stage_2/empirical_perturbation_targets.yaml",
     "results/dynamic_mechanism_ranking/summary.json",
@@ -264,7 +268,8 @@ def build_archive_manifest(
         },
         "recommended_publication": {
             "code": "GitHub public repository release",
-            "doi": "Zenodo DOI minted from GitHub release",
+            "doi": normalized_doi,
+            "doi_status": "verified" if doi_verified else "pending_verified_zenodo_doi",
             "demo": "GitHub Pages static snapshot",
             "data": "Derived aggregate artifacts plus external source-dataset citations",
         },

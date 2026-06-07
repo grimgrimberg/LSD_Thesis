@@ -32,7 +32,7 @@ Use this order in a meeting:
 
 The shortest honest framing:
 
-> This is a conservative macro-dynamics surrogate project. It is strong as a PI pitch and thesis proposal because it has a real empirical anchor, leak-proof validation scaffolding, explicit claim gates, and visible negative results. It is not yet a completed neuroscience thesis or receptor-level mechanism proof.
+> This is a conservative macro-dynamics surrogate project. It is strong as a PI pitch and thesis proposal because it has a real empirical anchor, leak-aware validation scaffolding with explicit subject-disjoint and claim-gate checks where available, and visible negative results. It is not yet a completed neuroscience thesis or receptor-level mechanism proof.
 
 ## What Works Where
 
@@ -45,11 +45,11 @@ The shortest honest framing:
 
 If something interactive does not work on GitHub Pages, that is expected: GitHub Pages is a static host. The backend-only features are intentionally available only through the local FastAPI dashboard.
 
-## What Is Actually Proven Right Now
+## What Is Actually Verified Right Now
 
 - The public site is a static derived-artifact snapshot.
 - The local dashboard has a separate backend route for interactive features.
-- The project keeps receptor/myelin/gradient/structural-connectome layers as exploratory priors unless stronger gates pass.
+- Structural-connectome, PET receptor-prior, Schaefer/Yeo, psilocybin, and mega-analysis status artifacts now exist, but they remain sensitivity, stress-test, or directional-proxy evidence unless their claim gates pass.
 - Motion/confound handling, external psilocybin validation, high-resolution parcellation, and full spatial-null testing remain explicit thesis gates.
 - Negative or not-supported-yet results are part of the evidence story, not hidden failures.
 
@@ -173,7 +173,7 @@ uv run python scripts/run_everything_live.py --with-legacy-pipeline
 
 This still does not run run-02 extraction, downloads, or actual music-control analysis. Those remain approval-gated.
 
-After explicit user approval, the guarded run-02 extraction command is:
+After explicit user approval, or to refresh the existing non-legacy run-02 extraction, the guarded command is:
 
 ```bash
 uv run python scripts/run_pipeline.py stage2 --include-music --runs run-01 run-02 run-03 --stage2-output-dir results/setting_seed/run02_extraction/stage_2_music
@@ -533,7 +533,7 @@ This writes:
 - `results/training/condition_benchmark/benchmark_report.md`
 - `results/training/condition_benchmark/fold_predictions.csv`
 
-3. Run the leak-proof ROCKET-style condition benchmark:
+3. Run the subject-disjoint ROCKET-style condition benchmark:
 
 ```bash
 uv run python scripts/benchmark_rocket_condition_models.py --cv5-manifest output/validation/cv5_subject_disjoint/approved/subject_split_cv5_manifest_approved.json --n-kernels 128
@@ -610,8 +610,8 @@ Read:
 - `docs/THESIS_READINESS_GATES.md`
 - `docs/ARCHIVE_POLICY.md`
 
-Current canonical parcellation target:
-- `schaefer_100_yeo_7` as the first canonical network definition.
+Current parcellation sensitivity target:
+- `schaefer_100_yeo_7` as the first non-8-module sensitivity definition.
 - `schaefer_200_yeo_7`, `schaefer_100_yeo_17`, and `schaefer_200_yeo_17` as sensitivity targets.
 
 The current 8-module Harvard-Oxford extraction remains a transparent proxy baseline. It should not be presented as the canonical whole-brain network definition.

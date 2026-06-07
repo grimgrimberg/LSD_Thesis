@@ -196,8 +196,15 @@ def test_resolve_artifact_path_rejects_paths_outside_repo(tmp_path: Path) -> Non
     inside_path = repo_root / "docs" / "stage_reports" / "stage_2.md"
     inside_path.parent.mkdir(parents=True)
     inside_path.write_text("# stage 2\n", encoding="utf-8")
+    research_path = repo_root / "docs" / "research" / "ds003059_prior_art_to_thesis_map.md"
+    research_path.parent.mkdir(parents=True)
+    research_path.write_text("# prior art\n", encoding="utf-8")
 
     assert _resolve_artifact_path("docs/stage_reports/stage_2.md", repo_root=repo_root) == inside_path.resolve()
+    assert (
+        _resolve_artifact_path("docs/research/ds003059_prior_art_to_thesis_map.md", repo_root=repo_root)
+        == research_path.resolve()
+    )
     assert _resolve_artifact_path("../outside.md", repo_root=repo_root) is None
 
 
@@ -217,6 +224,7 @@ def test_resolve_artifact_path_allows_report_and_figure_outputs(tmp_path: Path) 
     repo_root.mkdir()
 
     assert _resolve_artifact_path("docs/stage_reports/stage_2.md", repo_root=repo_root) is not None
+    assert _resolve_artifact_path("docs/research/ds003059_prior_art_to_thesis_map.md", repo_root=repo_root) is not None
     assert _resolve_artifact_path("output/doc/defense_presentation.pptx", repo_root=repo_root) is not None
     assert _resolve_artifact_path("output/doc/figures/stage1_metric_shift.png", repo_root=repo_root) is not None
     assert _resolve_artifact_path("results/stage_2/figures/group_metrics.html", repo_root=repo_root) is not None
@@ -523,6 +531,15 @@ def test_dashboard_payload_includes_publication_outputs_in_report_links(
     (repo_root / "results" / "stage_2").mkdir(parents=True)
     (repo_root / "docs" / "stage_reports").mkdir(parents=True)
     (repo_root / "docs" / "stage_reports" / "stage_2.md").write_text("# stage 2\n", encoding="utf-8")
+    (repo_root / "docs" / "stage_reports" / "dynamic_mechanism_robustness.md").write_text(
+        "# robustness\n",
+        encoding="utf-8",
+    )
+    (repo_root / "docs" / "research").mkdir(parents=True)
+    (repo_root / "docs" / "research" / "ds003059_prior_art_to_thesis_map.md").write_text(
+        "# prior art\n",
+        encoding="utf-8",
+    )
     (repo_root / "output" / "doc").mkdir(parents=True)
     (repo_root / "output" / "doc" / "thesis_report_revised.md").write_text("# thesis\n", encoding="utf-8")
     (repo_root / "output" / "doc" / "thesis_report_revised.docx").write_bytes(b"docx")
@@ -588,6 +605,8 @@ def test_dashboard_payload_includes_publication_outputs_in_report_links(
     figure_hrefs = {item["href"] for item in figure_links}
 
     assert "/artifacts/docs/stage_reports/stage_2.md" in report_hrefs
+    assert "/artifacts/docs/stage_reports/dynamic_mechanism_robustness.md" in report_hrefs
+    assert "/artifacts/docs/research/ds003059_prior_art_to_thesis_map.md" in report_hrefs
     assert "/artifacts/output/doc/thesis_report_revised.md" in report_hrefs
     assert "/artifacts/output/doc/thesis_report_revised.docx" in report_hrefs
     assert "/artifacts/output/doc/defense_outline.md" in report_hrefs

@@ -1,6 +1,7 @@
 {
   "title": "Transparent Surrogate Modeling of Psychedelic-Like Macro-Dynamics",
   "upload_type": "software",
+  "version": "thesis-evidence-2026-06-02",
   "creators": [
     {
       "name": "Grimberg, Yuval"
@@ -26,7 +27,12 @@
       "identifier": "https://openneuro.org/datasets/ds006072",
       "relation": "references",
       "scheme": "url"
+    },
+    {
+      "identifier": "https://github.com/grimgrimberg/LSD_Thesis/releases/tag/thesis-evidence-2026-06-02",
+      "relation": "isSupplementTo",
+      "scheme": "url"
     }
   ],
-  "notes": "Do not upload raw OpenNeuro imaging data through this repository archive. Use this metadata with a GitHub release that contains source code, configs, derived aggregate artifacts, manifests, and checksums only."
+  "notes": "Do not upload raw OpenNeuro imaging data through this repository archive. Use this metadata with the thesis-evidence-2026-06-02 GitHub release, which contains source code, configs, derived aggregate artifacts, manifests, and checksums only. Add the Zenodo DOI to CITATION.cff and the reproducible archive manifest only after Zenodo publication."
 }

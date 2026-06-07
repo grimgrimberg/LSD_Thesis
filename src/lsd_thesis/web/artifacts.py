@@ -3,6 +3,7 @@ from __future__ import annotations
 from pathlib import Path
 
 ALLOWED_ARTIFACT_ROOTS: tuple[tuple[str, ...], ...] = (
+    ("docs", "research"),
     ("docs", "stage_reports"),
     ("output", "doc"),
     ("results", "stage_1", "figures"),
@@ -129,6 +130,8 @@ def artifact_links(repo_root: Path) -> dict[str, list[dict[str, str]]]:
         ("PI Claim Ladder", repo_root / "CLAIM_LADDER.md"),
         ("Stage 2", repo_root / "docs" / "stage_reports" / "stage_2.md"),
         ("Dynamic Mechanism Ranking", repo_root / "docs" / "stage_reports" / "dynamic_mechanism_ranking.md"),
+        ("Dynamic Mechanism Robustness", repo_root / "docs" / "stage_reports" / "dynamic_mechanism_robustness.md"),
+        ("ds003059 Prior-Art Thesis Map", repo_root / "docs" / "research" / "ds003059_prior_art_to_thesis_map.md"),
         ("Stage 3", repo_root / "docs" / "stage_reports" / "stage_3.md"),
         ("Stage 4", repo_root / "docs" / "stage_reports" / "stage_4.md"),
         ("Thesis Report Revised", repo_root / "output" / "doc" / "thesis_report_revised.md"),

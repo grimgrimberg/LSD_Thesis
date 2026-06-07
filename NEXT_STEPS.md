@@ -6,18 +6,18 @@ Date: 2026-05-20
 
 The next loop is now:
 
-1. Finish robustness on current LSD results.
-2. Add `ds006072` psilocybin as the first real cross-drug expansion.
-3. Upgrade E using HCP-derived structural connectivity.
-4. Replace receptor proxies with `neuromaps` / FS5ht receptor maps.
-5. Re-run C/D/E on Schaefer 100/200 and Yeo 7/17.
-6. Compare final patterns to the 2026 Nature Medicine psychedelic mega-analysis, especially transmodal-unimodal coupling and striatal-unimodal effects.
+1. Refresh and interpret robustness on current LSD results.
+2. Extend `ds006072` psilocybin only as a small-subject external stress test unless comparable evidence improves.
+3. Interpret the HCP-derived structural-connectivity sensitivity layer without promoting receptor/control claims.
+4. Interpret `neuromaps` / FS5ht receptor-map artifacts through null gates before any receptor-specific wording.
+5. Refresh C/D/E Schaefer 100/200 and Yeo 7/17 sensitivity as a parcellation stress test.
+6. Interpret final patterns against the 2026 Nature Medicine psychedelic mega-analysis as directional proxy context, especially noting untestable striatal-unimodal effects.
 
 The source plan for those steps is now exported through `results/thesis_evidence_loop/external_source_plan.csv` and `results/thesis_evidence_loop/external_source_plan.md`.
 
 Dashboard rule:
 
-> The dashboard must show implemented results, planned analyses, blocked analyses, scholarly anchors, export paths, and claim limitations in one evidence loop. It must not present planned psilocybin/HCP/receptor/Schaefer results as completed.
+> The dashboard must show implemented results, mixed or negative sensitivity results, blocked analyses, planned analyses, scholarly anchors, export paths, and claim limitations in one evidence loop. It must distinguish implemented status artifacts, mixed or negative sensitivity results, blocked analyses, and planned work.
 
 Hiring-readiness rule:
 
@@ -150,11 +150,11 @@ Acceptance criterion:
 
 ## Concrete Task To Complete Today
 
-Implement the robustness pass for current A+B+C+D+E before adding new data sources.
+Refresh and interpret the robustness pass for current A+B+C+D+E before adding new data sources.
 
 Suggested output:
 
-- `scripts/run_dynamic_mechanism_robustness.py`
+- `scripts/run_dynamic_mechanism_ranking.py`
 - `results/dynamic_mechanism_ranking/robustness/`
 - `docs/stage_reports/dynamic_mechanism_robustness.md`
 - Dashboard section for robustness checks.

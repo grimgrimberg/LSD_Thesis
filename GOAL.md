@@ -8,7 +8,7 @@ This section supersedes the LSD-only framing where the two disagree. The LSD A+B
 
 ### 2026-05-19 Implemented Loop Status
 
-The current loop is now more than a static concept board. `scripts/run_dynamic_mechanism_ranking.py` regenerates the A+B+C+D+E ranking, robustness checks, literature-benchmark mapping, figures, and CSV/XLSX exports.
+The current loop is now more than a static concept board. `scripts/run_dynamic_mechanism_ranking.py` regenerates the A+B+C+D+E ranking, robustness checks, literature-benchmark mapping, figures, and CSV outputs. `scripts/export_dynamic_mechanism_tables.py` owns the separate XLSX export package.
 
 Current LSD anchor result:
 
@@ -72,11 +72,11 @@ The thesis claim should therefore be:
 
 ### One-Sentence Thesis Goal
 
-Build a reproducible explainable AI framework that ranks transparent control-theoretic and graph-dynamic surrogate mechanisms across LSD and psilocybin fMRI, then tests whether the strongest claims survive robustness, structural-connectome, receptor-map, atlas, and literature-benchmark checks.
+Build a reproducible explainable AI framework that ranks transparent control-theoretic and graph-dynamic surrogate mechanisms for the LSD anchor, with ds006072 psilocybin currently treated as a small-subject external stress test, then tests whether the strongest claims survive robustness, structural-connectome, receptor-map, atlas, and literature-benchmark checks.
 
 ### Research Question
 
-Which interpretable macro-dynamic mechanisms best explain psychedelic drug-vs-control fMRI changes, and which claims fail under robustness, cross-dataset, and biological-prior tests?
+Which interpretable macro-dynamic mechanisms best align with drug-vs-control macro-dynamic proxy changes, and which claims fail under robustness, cross-dataset, and biological-prior tests?
 
 ### Hypotheses
 
@@ -84,7 +84,7 @@ Which interpretable macro-dynamic mechanisms best explain psychedelic drug-vs-co
 2. E network-control energy supports a landscape-flattening proxy only if lower drug-state transition energy survives horizon, state-label, graph, and null sensitivity.
 3. E receptor-specific control placement is supported only if PET-derived 5-HT2A priors beat uniform, degree, random, graph-rewire, and spatial nulls.
 4. D dynamic repertoire contributes supportive evidence only if integration/segregation effects survive window-size and parcellation sensitivity.
-5. LSD and psilocybin should show convergent transmodal-unimodal coupling if the framework is aligned with the 2026 psychedelic mega-analysis; striatal/unimodal effects are a secondary benchmark, not a current implemented result.
+5. LSD and psilocybin should show convergent transmodal-unimodal coupling if the framework is aligned with the 2026 psychedelic mega-analysis; striatal/unimodal effects are a secondary benchmark, not a current implemented result. Current ds006072 evidence is negative/partial and does not establish convergence.
 
 ### Prediction Target
 
@@ -119,10 +119,7 @@ Minimum thesis-ready success:
 
 Strong thesis-ready success:
 
-- `ds006072` psilocybin/MTP stress-test scoring runs under the same scoring rules, with top-layer mismatches reported as negative or partial external evidence rather than replication.
-- E is rerun with a structural graph and PET receptor priors.
-- C/D/E are rerun under Schaefer/Yeo sensitivity.
-- Final results are compared to the 2026 Nature Medicine mega-analysis without overclaiming causality.
+- Implemented sensitivity artifacts are interpreted through claim labels: ds006072 negative/partial, structural/PET mixed or not promoted, Schaefer/Yeo implemented first pass, and mega-analysis directional proxy only.
 
 ### Risks And Unknowns
 
@@ -160,9 +157,9 @@ LSD will show lower within-condition transition-control energy than placebo in a
 
 ### H3: Receptor-Specific Control Placement
 
-Receptor-prior control profiles should require less energy than uniform, random, or degree-control profiles if the receptor-informed control claim is locally supported.
+Receptor-prior control placement is locally supported only if PET-derived priors beat uniform, degree, random/permutation, graph-rewire, and spatial-null controls in the same graph/parcellation.
 
-Current status: this is not yet supported. E shows lower LSD transition energy, but receptor-prior control does not beat uniform/random controls.
+Current status: mixed control results; receptor-specific placement remains unsupported/not promoted. E shows lower LSD transition energy, but receptor-prior control does not beat the required null controls.
 
 ### H4: Dynamic Repertoire
 

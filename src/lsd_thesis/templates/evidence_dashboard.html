@@ -75,6 +75,14 @@
 
     <section class="section">
       <div class="section-head">
+        <h2>Prior-art inspiration gates</h2>
+        <p>Prior ds003059 reuse is mapped into safe current work versus gated future work.</p>
+      </div>
+      <div id="prior-art-grid" class="status-grid"></div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
         <h2>Artifact search</h2>
         <p>Search derived artifacts only. Raw datasets and private local caches are intentionally excluded.</p>
       </div>
@@ -96,22 +104,33 @@
     let activeArtifactFilter = 'all';
     let publicPayload = null;
 
-    function escapeText(value) {
-      return String(value ?? '').replace(/[&<>"']/g, character => ({
-        '&': '&amp;',
-        '<': '&lt;',
-        '>': '&gt;',
-        '"': '&quot;',
-        "'": '&#39;'
-      }[character]));
-    }
-
     function artifactHref(href) {
       if (!href) return '#';
-      if (href.startsWith('/artifacts/')) {
-        return `${ARTIFACT_PREFIX}${href.slice('/artifacts/'.length)}`;
+      const value = String(href);
+      if (value.startsWith('/artifacts/')) {
+        return `${ARTIFACT_PREFIX}${value.slice('/artifacts/'.length)}`;
       }
-      return href;
+      if (value.startsWith('artifacts/') || value.startsWith('http://') || value.startsWith('https://')) {
+        return value;
+      }
+      return '#';
+    }
+
+    function textElement(tagName, text, className) {
+      const node = document.createElement(tagName);
+      if (className) node.className = className;
+      node.textContent = String(text ?? '');
+      return node;
+    }
+
+    function emptyCard(title, detail) {
+      const node = document.createElement('article');
+      node.className = 'status-card';
+      node.append(
+        textElement('strong', title),
+        textElement('small', detail)
+      );
+      return node;
     }
 
     async function loadPayload() {
@@ -124,37 +143,70 @@
 
     function renderStatusCards(payload) {
       const grid = document.getElementById('status-grid');
-      grid.innerHTML = '';
+      grid.replaceChildren();
       (payload.dashboard?.status_cards || []).forEach(card => {
         const node = document.createElement('article');
         node.className = 'status-card';
-        node.innerHTML = `
-          <span class="tag">${escapeText(card.label)}</span>
-          <strong>${escapeText(card.value)}</strong>
-          <small>${escapeText(card.detail)}</small>
-        `;
+        node.append(
+          textElement('span', card.label, 'tag'),
+          textElement('strong', card.value),
+          textElement('small', card.detail)
+        );
         grid.appendChild(node);
       });
     }
 
     function renderClaimCards(payload) {
       const grid = document.getElementById('claim-grid');
-      grid.innerHTML = '';
+      grid.replaceChildren();
       const cards = payload.claim_ladder?.requirements || [];
       if (!cards.length) {
-        grid.innerHTML = '<article class="status-card"><strong>No strict requirement table found.</strong><small>Rebuild thesis-upgrade artifacts to populate this panel.</small></article>';
+        grid.appendChild(emptyCard(
+          'No strict requirement table found.',
+          'Rebuild thesis-upgrade artifacts to populate this panel.'
+        ));
         return;
       }
       cards.forEach(card => {
         const node = document.createElement('article');
         node.className = 'status-card';
-        node.innerHTML = `
-          <span class="tag">${escapeText(card.status)}</span>
-          <strong>${escapeText(card.title)}</strong>
-          <small>q-value: ${escapeText(card.q_value)} | FDR pass: ${escapeText(card.fdr_pass)} | CI: ${escapeText(card.ci)} | CI crosses zero: ${escapeText(card.ci_crosses_zero)}</small>
-          <p>${escapeText(card.evidence)}</p>
-          <small>Next action: ${escapeText(card.next_action)}</small>
-        `;
+        node.append(
+          textElement('span', card.status, 'tag'),
+          textElement('strong', card.title),
+          textElement(
+            'small',
+            `q-value: ${card.q_value ?? ''} | FDR pass: ${card.fdr_pass ?? ''} | CI: ${card.ci ?? ''} | CI crosses zero: ${card.ci_crosses_zero ?? ''}`
+          ),
+          textElement('p', card.evidence),
+          textElement('small', `Next action: ${card.next_action ?? ''}`)
+        );
+        grid.appendChild(node);
+      });
+    }
+
+    function renderPriorArtCards(payload) {
+      const grid = document.getElementById('prior-art-grid');
+      grid.replaceChildren();
+      const cards = payload.dashboard?.prior_art_cards || [];
+      if (!cards.length) {
+        grid.appendChild(emptyCard(
+          'No prior-art map found.',
+          'Create docs/research/ds003059_prior_art_to_thesis_map.md to populate this panel.'
+        ));
+        return;
+      }
+      cards.forEach(card => {
+        const node = document.createElement('article');
+        node.className = 'status-card';
+        node.append(
+          textElement('span', card.status, 'tag'),
+          textElement('strong', card.prior_art_family),
+          textElement('small', `Layers: ${card.maps_to_layers ?? ''}`),
+          textElement('p', card.safe_now),
+          textElement('small', `Gated future: ${card.gated_future ?? ''}`),
+          textElement('small', `Artifact: ${card.artifact_path ?? ''}`),
+          textElement('small', `Limitation: ${card.limitation ?? ''}`)
+        );
         grid.appendChild(node);
       });
     }
@@ -168,15 +220,17 @@
         const filterOk = activeArtifactFilter === 'all' || item.kind === activeArtifactFilter;
         return filterOk && (!query || haystack.includes(query));
       }).slice(0, 60);
-      list.innerHTML = '';
+      list.replaceChildren();
       if (!filtered.length) {
-        list.innerHTML = '<p>No matching derived artifact found.</p>';
+        list.appendChild(textElement('p', 'No matching derived artifact found.'));
         return;
       }
       filtered.forEach(item => {
         const row = document.createElement('div');
         row.className = 'artifact-row';
-        row.innerHTML = `<a href="${artifactHref(item.href)}">${escapeText(item.label)}</a><span>${escapeText(item.kind)}</span>`;
+        const link = textElement('a', item.label);
+        link.href = artifactHref(item.href);
+        row.append(link, textElement('span', item.kind));
         list.appendChild(row);
       });
     }
@@ -185,6 +239,7 @@
       const payload = await loadPayload();
       renderStatusCards(payload);
       renderClaimCards(payload);
+      renderPriorArtCards(payload);
       renderArtifacts(payload);
       document.getElementById('artifact-search').addEventListener('input', () => renderArtifacts(payload));
       document.querySelectorAll('[data-filter]').forEach(button => {
@@ -196,7 +251,9 @@
     }
 
     main().catch(error => {
-      document.getElementById('status-grid').innerHTML = `<article class="status-card"><strong>Dashboard data failed to load.</strong><small>${escapeText(error.message)}</small></article>`;
+      document.getElementById('status-grid').replaceChildren(
+        emptyCard('Dashboard data failed to load.', error.message)
+      );
     });
   </script>
 </body>

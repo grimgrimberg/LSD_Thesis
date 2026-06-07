@@ -149,6 +149,67 @@ def _status_cards(dashboard_payload: dict[str, Any]) -> list[dict[str, str]]:
     ]
 
 
+def _prior_art_cards(repo_root: Path) -> list[dict[str, str]]:
+    map_path = repo_root / "docs" / "research" / "ds003059_prior_art_to_thesis_map.md"
+    artifact_path = map_path.relative_to(repo_root).as_posix()
+    return [
+        {
+            "prior_art_family": "Music + K-means brain states",
+            "maps_to_layers": "A, C, D",
+            "status": "blocked",
+            "safe_now": "Run-02 extraction inventory exists, but music-control evidence remains blocked_missing_motion_review.",
+            "gated_future": "Music-qualified masks, technical-problem exclusions, motion/context checks, and explicit music-control approval.",
+            "artifact_path": artifact_path,
+            "limitation": "Music/run-02 is not primary evidence in the current ranking.",
+        },
+        {
+            "prior_art_family": "Receptor-informed network control energy",
+            "maps_to_layers": "E",
+            "status": "mixed",
+            "safe_now": "Use E as a split claim: lower transition-energy proxy versus unsupported receptor-specific placement.",
+            "gated_future": "Claim promotion requires graph-rewire/spatial-null gates and receptor/PET priors beating null controls.",
+            "artifact_path": artifact_path,
+            "limitation": "Current E is macro-module proxy evidence, not receptor-level network control theory.",
+        },
+        {
+            "prior_art_family": "Ising/LZW entropy-complexity",
+            "maps_to_layers": "A, D",
+            "status": "future",
+            "safe_now": "Plan a cached-only transparent LZW-style benchmark if module time series are present.",
+            "gated_future": "Ising-temperature claims require independent implementation, tests, metric cards, and no external code copying.",
+            "artifact_path": artifact_path,
+            "limitation": "Entropy and complexity outputs remain proxy metrics, not thermodynamic truth claims.",
+        },
+        {
+            "prior_art_family": "Entropy/toolbox reproducibility demos",
+            "maps_to_layers": "A, D, project-wide",
+            "status": "future",
+            "safe_now": "Use as documentation and demo ergonomics inspiration.",
+            "gated_future": "License review before any code reuse; prefer independent methods-level implementation.",
+            "artifact_path": artifact_path,
+            "limitation": "Toolbox-style demos are not validated local results unless implemented and tested here.",
+        },
+        {
+            "prior_art_family": "Cross-state altered-consciousness comparisons",
+            "maps_to_layers": "project-wide, C, D, E",
+            "status": "blocked",
+            "safe_now": "Keep as literature context while existing ds006072/HCP/PET/Schaefer artifacts remain stress-test or sensitivity evidence.",
+            "gated_future": "Comparable external datasets, unchanged scoring, and explicit claim-status labels.",
+            "artifact_path": artifact_path,
+            "limitation": "This repo does not prove or settle consciousness-theory claims.",
+        },
+        {
+            "prior_art_family": "Standardized derivative/evidence package",
+            "maps_to_layers": "project-wide",
+            "status": "implemented",
+            "safe_now": "Use the claim-gated derivative package as the thesis contribution spine.",
+            "gated_future": "Keep provenance, public/private artifact boundaries, and generated-output status current.",
+            "artifact_path": artifact_path,
+            "limitation": "Derived artifacts are reproducibility evidence, not biological ground truth.",
+        },
+    ]
+
+
 def _claim_tiers(requirement_cards: list[dict[str, Any]]) -> list[dict[str, Any]]:
     supported = [card for card in requirement_cards if card["tier"] == "supported_now"]
     blocked = [card for card in requirement_cards if card["tier"] == "blocked_future"]
@@ -280,6 +341,7 @@ def build_public_site_payload(
         },
         "dashboard": {
             "status_cards": _status_cards(dashboard_payload),
+            "prior_art_cards": _prior_art_cards(repo_root),
             "viewer_modes": [
                 {
                     "title": "Public/static dashboard",

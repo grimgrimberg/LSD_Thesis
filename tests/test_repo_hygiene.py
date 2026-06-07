@@ -1,7 +1,10 @@
 from __future__ import annotations
 
 import ast
+import json
 from pathlib import Path
+
+import yaml
 
 from lsd_thesis.repo_hygiene import find_ignored_source_paths
 
@@ -91,10 +94,36 @@ def test_artifact_policy_documents_and_ignores_generated_tiers() -> None:
     ]
 
 
-def test_dashboard_template_avoids_html_string_injection_sinks() -> None:
+def test_citation_and_zenodo_metadata_match_current_release_without_placeholder_doi() -> None:
     repo_root = Path(__file__).resolve().parents[1]
-    dashboard_template = (repo_root / "src" / "lsd_thesis" / "templates" / "dashboard.html").read_text(
-        encoding="utf-8"
+    release_tag = "thesis-evidence-2026-06-02"
+    release_url = f"https://github.com/grimgrimberg/LSD_Thesis/releases/tag/{release_tag}"
+
+    citation = yaml.safe_load((repo_root / "CITATION.cff").read_text(encoding="utf-8"))
+    zenodo = json.loads((repo_root / ".zenodo.json").read_text(encoding="utf-8"))
+
+    assert citation["title"] == zenodo["title"]
+    assert "Transparent Surrogate" in citation["title"]
+    assert citation["version"] == release_tag
+    assert citation["date-released"] == "2026-06-02"
+    assert citation["repository-code"] == "https://github.com/grimgrimberg/LSD_Thesis"
+    assert "doi" not in citation
+
+    assert zenodo["upload_type"] == "software"
+    assert zenodo["version"] == release_tag
+    related_identifiers = {(row["identifier"], row["relation"], row["scheme"]) for row in zenodo["related_identifiers"]}
+    assert ("https://openneuro.org/datasets/ds003059/versions/1.0.0", "isDerivedFrom", "url") in related_identifiers
+    assert ("https://openneuro.org/datasets/ds006072", "references", "url") in related_identifiers
+    assert (release_url, "isSupplementTo", "url") in related_identifiers
+    assert "raw OpenNeuro imaging data" in zenodo["notes"]
+    assert "Add the Zenodo DOI" in zenodo["notes"]
+
+
+def test_dashboard_templates_avoid_html_string_injection_sinks() -> None:
+    repo_root = Path(__file__).resolve().parents[1]
+    dashboard_templates = (
+        repo_root / "src" / "lsd_thesis" / "templates" / "dashboard.html",
+        repo_root / "src" / "lsd_thesis" / "templates" / "evidence_dashboard.html",
     )
 
     forbidden_patterns = (
@@ -104,8 +133,10 @@ def test_dashboard_template_avoids_html_string_injection_sinks() -> None:
         "dangerouslySetInnerHTML",
     )
 
-    for pattern in forbidden_patterns:
-        assert pattern not in dashboard_template
+    for template_path in dashboard_templates:
+        dashboard_template = template_path.read_text(encoding="utf-8")
+        for pattern in forbidden_patterns:
+            assert pattern not in dashboard_template
 
 
 def test_dynamic_robustness_uses_public_dynamic_stat_helpers() -> None:
@@ -222,8 +253,8 @@ def test_validation_doc_declares_current_quality_baseline_before_historical_note
     assert "Older pass notes below are retained as historical implementation evidence" in validation_doc
 
     for expected in (
-        "416 passed",
-        "80.96%",
+        "417 passed",
+        "80.97%",
         "82 source files",
         "82afcc6",
         "26807389126",
