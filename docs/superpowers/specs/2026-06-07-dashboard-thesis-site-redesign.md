@@ -140,7 +140,9 @@ Keep the multi-page dashboard shell, but revise labels and content hierarchy:
 
 ## Plot Inventory
 
-Use Plotly for existing heatmaps and fast implementation where it already fits. Add small D3/SVG islands only when direct labeling, compact custom geometry, or paper-inspired comparative layouts are more readable than Plotly.
+Use Plotly for existing heatmaps and fast implementation where it already fits. Add small SVG islands only when direct labeling, compact custom geometry, or paper-inspired comparative layouts are more readable than Plotly.
+
+Do not load D3 from a CDN in the first implementation pass. "SVG island" means vanilla JavaScript creating inline SVG elements with the browser DOM APIs. If a later pass needs D3, vendor the exact minified D3 bundle locally under `src/lsd_thesis/static/vendor/`, serve it through the same static asset path as `dashboard.js`, and keep the CSP self-only. Do not add a build step, npm package, or external script tag.
 
 Required plots:
 
@@ -163,6 +165,20 @@ Paper-inspired recreation board:
 - Literature benchmark alignment from local metric mapping: feasible.
 - Receptor, PET, exact Nature Medicine atlas plots, striatal-unimodal plots, music/run-02 analyses, and external ds006072 reproductions: status-labeled as blocked/future/missing inputs unless current artifacts prove support.
 
+Named first-pass paper targets:
+
+| Source | Target figure or panel | Local recreation target | Status |
+|---|---|---|---|
+| Preller et al. 2018 eLife, Figure 1 | LSD effects on global brain connectivity, including hyper/hypo-connectivity maps, distributions, and subject-level relationship plots | Use current module-level LSD-minus-placebo FC/GBC-style proxy deltas and distributions; do not mimic cortex maps without voxel/surface data | proxy-supported |
+| Girn et al. 2026 Nature Medicine, Figure 1 | All-drug mean network FC change matrix plus within-network and between-network integration summaries | Use current 8-module FC delta heatmaps, between-network integration proxy, and literature benchmark alignment rows | proxy-supported |
+| Girn et al. 2026 Nature Medicine, Figure 2 | Drug-specific inter-regional/inter-network FC changes, especially LSD and psilocybin panels | Use LSD-only local stage-2 and dynamic-mechanism summaries; psilocybin rows remain readiness/static-status unless current comparable ds006072 artifacts are present | mixed |
+| Girn et al. 2026 Nature Medicine, Figure 3 | Bayesian posterior distributions for between-network effects | Show as not recreated in first pass; current repo has directional proxy/effect rows, not the Bayesian posterior model | future |
+| Singleton et al. 2022 Nature Communications, Figure 1 | Network-control energy landscape schematic and state transition framing | Use local transition-state and network-control proxy charts; label as schematic/proxy, not full structural-connectome NCT | proxy-supported |
+| Singleton et al. 2022 Nature Communications, Figures 4-5 | Psychedelic transition-energy reduction and receptor-informed control input comparisons | Use local E horizon sensitivity, lower transition-energy proxy, and receptor-vs-random energy result; block receptor-specific claims when local result is negative | mixed |
+| Singleton et al. 2022 Nature Communications, Figure 6 | Relationship between landscape flattening and entropy/temporal diversity | Use local transition entropy, state occupancy, and dynamic repertoire rows if present; otherwise mark missing required metric | proxy-supported / future |
+
+Other papers in the prior-art inventory, including Deco-style whole-brain model or receptor/transcriptomic modeling papers, are second-pass targets unless the current dashboard payload already exposes the required metric, figure, or artifact. The board must state the missing input instead of using generic filler plots.
+
 ## Raw Data Viewer Contract
 
 Local mode:
@@ -174,6 +190,7 @@ Local mode:
 - Heatmap renders the selected window FC delta matrix.
 - Metric table renders selected window metrics.
 - Raw view shows compact JSON for selected subject/run/window with copy/download affordance if simple to implement.
+- Every fetch and heatmap redraw must set a visible loading state before work starts and clear it after success or failure.
 
 Static mode:
 
@@ -193,6 +210,31 @@ Pages must remain derived/static only:
 - `pages_manifest.json` lists the new thesis entrypoint and selected static artifacts.
 - Plotly asset remains local in `assets/plotly.min.js`.
 - External fonts/scripts are not required.
+
+Base URL and pathing:
+
+- Local FastAPI routes render with root-relative paths: `/static/`, `/assets/plotly.min.js`, `/api/dashboard-data`, `/api/prior-art-data`, and `/artifacts/`.
+- Static rendering must inject depth-aware prefixes through the existing template context: `static_prefix`, `plotly_src`, `data_url`, `prior_art_data_url`, `artifact_prefix`, `home_href`, and static nav links.
+- Static root pages use relative paths such as `static/dashboard.css`, `assets/plotly.min.js`, and `dashboard/dashboard-data.json`.
+- Static nested pages such as `dashboard/index.html` use `../static/`, `../assets/plotly.min.js`, and local `dashboard-data.json`.
+- No static template or JavaScript path may assume a leading `/` except for local deployment mode.
+- The Pages builder must be the path-prefix authority; do not hard-code the repository name `LSD_Thesis` into templates.
+- Verification must search the generated `_site` HTML for accidental `href="/static`, `src="/static`, `fetch('/api`, `fetch("/api`, and root-relative `/artifacts/` links.
+
+Loading states:
+
+- Chart containers start with a short `Loading...` label or skeleton line.
+- Async actions set `aria-busy="true"` on the affected panel and add an `.is-loading` class that dims stale content without hiding it.
+- Simulator runs show `running` in the status token and disable the run button until the response returns.
+- Empirical subject/run loads show `loading subject/run` in the notice region and keep the previous heatmap visible at reduced opacity.
+- Errors replace the loading text with the exact failed action, while preserving any previously rendered evidence.
+
+Export and download affordances:
+
+- Plotly charts that are user-facing evidence must enable the modebar camera export button.
+- Tables backed by local CSV artifacts should include an "Open CSV" or "Download CSV" link when an artifact path exists in the payload.
+- The raw empirical JSON viewer should provide "Copy JSON" and "Open source artifact" where the source path is available.
+- Static Pages can link to copied CSV/HTML artifacts but must not promise live export generation.
 
 ## Architecture And Data Flow
 
@@ -214,6 +256,7 @@ Add only small helper modules if a file would otherwise become tangled. The firs
 - If Plotly is unavailable, leave text fallback in each chart container.
 - If subject-level detail fails, preserve the group view and show the failing subject/run message.
 - If a literature recreation target is unsupported, render its blocker and missing inputs.
+- Loading, empty, stale, and error states are distinct: loading means work is in progress, empty means the current artifact does not contain rows, stale means previous content is still visible during a refresh, and error means a fetch/render operation failed.
 
 ## Accessibility And Mobile
 
@@ -223,6 +266,11 @@ Add only small helper modules if a file would otherwise become tangled. The firs
 - Hover-only interaction must have click/tap equivalents.
 - Use high contrast and redundant text labels for status colors.
 - Respect reduced motion by avoiding ornamental motion in the dashboard.
+- Dense heatmaps and matrices must sit inside horizontally scrollable plot frames on narrow screens, with sticky row/column context where practical.
+- Long mechanism and benchmark labels must wrap to multiple lines or move into direct annotations below the plot on mobile; do not rely on rotated tick labels at 390 px width.
+- FC heatmaps below 520 px viewport width should use a square minimum plotting area and allow horizontal pan rather than shrinking text to unreadable sizes.
+- If a plot cannot be made readable on mobile without misrepresenting it, show a compact summary plus a "Use a wider screen for full matrix" notice, while still exposing the source table/link.
+- Mobile QA must include 390 x 844 and desktop QA must include at least 1440 x 900.
 
 ## Verification Plan
 
@@ -243,6 +291,8 @@ Manual/browser checks:
 - Build static Pages with `uv run python scripts/build_github_pages.py --site-dir _site`.
 - Open static `index.html`, `empirical.html`, and `thesis.html`.
 - Verify static empirical page does not call local-only APIs.
+- Search generated `_site` HTML for root-relative static/API/artifact paths that would break under `https://grimgrimberg.github.io/LSD_Thesis/`.
+- On mobile, verify mechanism labels, FC heatmaps, and benchmark rows remain readable or expose the approved wider-screen fallback.
 
 ## Risks
 
@@ -263,4 +313,3 @@ Manual/browser checks:
 ## Approval Notes
 
 The user approved the direction after the design summary. This spec turns that direction into implementation constraints and verification gates.
-
