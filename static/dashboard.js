@@ -1,6 +1,7 @@
 const pageId = document.body.dataset.page || "overview";
 const dashboardDataUrl = document.body.dataset.dashboardDataUrl || "/api/dashboard-data";
 const priorArtDataUrl = document.body.dataset.priorArtDataUrl || "/api/prior-art-data";
+const artifactPrefix = document.body.dataset.artifactPrefix || "/artifacts/";
 
 const chartLayout = {
   paper_bgcolor: "rgba(0,0,0,0)",
@@ -55,6 +56,14 @@ async function fetchJson(url) {
     throw new Error(`${url} returned ${response.status}`);
   }
   return response.json();
+}
+
+function displayHref(href) {
+  const value = text(href, "");
+  if (value.startsWith("/artifacts/")) {
+    return `${artifactPrefix}${value.slice("/artifacts/".length)}`;
+  }
+  return value;
 }
 
 function plot(targetId, traces, layout = {}) {
@@ -152,7 +161,7 @@ function tdText(value) {
 
 function tdLink(label, href) {
   const td = document.createElement("td");
-  td.append(el("a", { text: label, href }));
+  td.append(el("a", { text: label, href: displayHref(href) }));
   return td;
 }
 
@@ -190,7 +199,7 @@ function renderRanking(payload) {
   fillTable("ranking_gate_table", gateRows, [(row) => tdText(row[0]), (row) => tdText(row[1]), (row) => tdText(row[2])]);
 
   const figures = records(payload.artifact_links?.figures).filter((item) => text(item.href).includes("dynamic_mechanism"));
-  byId("dynamic_figure_links")?.replaceChildren(...figures.slice(0, 8).map((item) => el("a", { text: item.label || item.href, href: item.href })));
+  byId("dynamic_figure_links")?.replaceChildren(...figures.slice(0, 8).map((item) => el("a", { text: item.label || item.href, href: displayHref(item.href) })));
 }
 
 function renderRobustness(payload) {

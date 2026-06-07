@@ -87909,7 +87909,7 @@
   },
   "external_cortical_maps": {
     "schema_version": "external_cortical_maps.v1",
-    "generated_at_utc": "2026-06-06T12:45:05.293097+00:00",
+    "generated_at_utc": "2026-06-07T07:51:58.589959+00:00",
     "analysis_status": "implemented_module_level_external_map_alignment",
     "module_contract": [
       "visual",
@@ -88830,7 +88830,7 @@
     ],
     "loop_status": {
       "schema_version": 1,
-      "generated_at_utc": "2026-06-06T12:44:33.991709+00:00",
+      "generated_at_utc": "2026-06-07T07:50:58.685747+00:00",
       "analysis_status": "implemented_loop_status_artifacts",
       "status_rows": [
         {
@@ -88890,7 +88890,7 @@
         },
         "psilocybin_ds006072": {
           "schema_version": 1,
-          "generated_at_utc": "2026-06-06T12:43:31.077389+00:00",
+          "generated_at_utc": "2026-06-07T07:49:59.304457+00:00",
           "dataset_id": "ds006072",
           "source": "Dosenbach/Siegel group Scientific Data 2025; OpenNeuro ds006072 psilocybin precision functional mapping dataset with raw, minimally processed, and fully processed imaging",
           "source_reference": {
@@ -88921,7 +88921,7 @@
           "functional_manifest_processed_cifti_total_size_bytes": 113592893360,
           "external_validation_readiness": {
             "schema_version": "ds006072_external_validation.v1",
-            "generated_at_utc": "2026-06-06T11:22:34.754900+00:00",
+            "generated_at_utc": "2026-06-06T12:43:33.327617+00:00",
             "dataset_id": "ds006072",
             "analysis_status": "local_cifti_payloads_ready_for_comparable_extraction",
             "primary_contrast": "psilocybin_vs_active_control_mtp",
@@ -88993,7 +88993,7 @@
           "summary": {
             "schema_version": 3,
             "analysis_status": "implemented_first_pass",
-            "generated_at_utc": "2026-06-06T12:44:01.475229+00:00",
+            "generated_at_utc": "2026-06-07T07:50:23.643232+00:00",
             "inference_metadata": {
               "metric_ci_alpha": 0.05,
               "metric_bootstrap_iterations": 1024,
@@ -93121,7 +93121,7 @@
           },
           "comparable_empirical_validation": {
             "schema_version": "ds006072_external_validation.v1",
-            "generated_at_utc": "2026-06-06T12:43:33.369631+00:00",
+            "generated_at_utc": "2026-06-07T07:50:02.909670+00:00",
             "dataset_id": "ds006072",
             "primary_contrast": "psilocybin_vs_active_control_mtp",
             "viewer_root": "results/psilocybin_ds006072/parcellations/schaefer_100_yeo_7/empirical_viewer",
@@ -93284,7 +93284,7 @@
             "summary": {
               "schema_version": 3,
               "analysis_status": "implemented_first_pass",
-              "generated_at_utc": "2026-06-06T12:44:01.475229+00:00",
+              "generated_at_utc": "2026-06-07T07:50:23.643232+00:00",
               "inference_metadata": {
                 "metric_ci_alpha": 0.05,
                 "metric_bootstrap_iterations": 1024,
@@ -97427,7 +97427,7 @@
         },
         "structural_connectome": {
           "schema_version": 1,
-          "generated_at_utc": "2026-06-06T12:44:03.980379+00:00",
+          "generated_at_utc": "2026-06-07T07:50:26.693277+00:00",
           "artifact_target": "results/structural_connectome",
           "source_reference": {
             "source_id": "hcp_young_adult",
@@ -100878,7 +100878,7 @@
         },
         "receptor_priors": {
           "schema_version": 1,
-          "generated_at_utc": "2026-06-06T12:44:06.815579+00:00",
+          "generated_at_utc": "2026-06-07T07:50:29.385930+00:00",
           "artifact_target": "results/receptor_priors",
           "source_reference": {
             "source_id": "markello_neuromaps_2022",
@@ -104329,7 +104329,7 @@
         },
         "parcellation_sensitivity": {
           "schema_version": 1,
-          "generated_at_utc": "2026-06-06T12:44:08.528438+00:00",
+          "generated_at_utc": "2026-06-07T07:50:30.935876+00:00",
           "analysis_status": "implemented_status_matrix",
           "source_reference": {
             "source_id": "schaefer_2018_local_global",
@@ -104529,7 +104529,7 @@
         },
         "literature_benchmark": {
           "schema_version": 1,
-          "generated_at_utc": "2026-06-06T12:44:33.985050+00:00",
+          "generated_at_utc": "2026-06-07T07:50:58.588890+00:00",
           "analysis_status": "implemented_directional_proxy_benchmark",
           "source_reference": {
             "source_id": "girn_2026_mega_analysis",
@@ -104857,7 +104857,7 @@
   },
   "thesis_upgrade": {
     "schema_version": "thesis_upgrade_status.v1",
-    "generated_at_utc": "2026-06-06T12:45:55.982420+00:00",
+    "generated_at_utc": "2026-06-07T07:52:43.725571+00:00",
     "readiness_summary": {
       "ready_gates": 5,
       "total_gates": 9,
