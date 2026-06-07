@@ -140,9 +140,11 @@ Keep the multi-page dashboard shell, but revise labels and content hierarchy:
 
 ## Plot Inventory
 
-Use Plotly for existing heatmaps and fast implementation where it already fits. Add small SVG islands only when direct labeling, compact custom geometry, or paper-inspired comparative layouts are more readable than Plotly.
+Use Plotly as the default renderer for all data-driven charts. Horizontal bars, grouped bars, dot matrices, distributions, line charts, heatmaps, and table-adjacent metric plots should use Plotly unless there is a specific reason Plotly cannot express the view cleanly.
 
-Do not load D3 from a CDN in the first implementation pass. "SVG island" means vanilla JavaScript creating inline SVG elements with the browser DOM APIs. If a later pass needs D3, vendor the exact minified D3 bundle locally under `src/lsd_thesis/static/vendor/`, serve it through the same static asset path as `dashboard.js`, and keep the CSP self-only. Do not add a build step, npm package, or external script tag.
+Small SVG islands are reserved for bespoke schematics only, such as the Singleton-style transition framing where fixed geometry and direct labels are clearer than a charting trace. Do not hand-build standard bars, grouped bars, dot matrices, or heatmaps with `document.createElementNS`.
+
+Do not load D3 from a CDN in the first implementation pass. If a later pass needs D3, vendor the exact minified D3 bundle locally under `src/lsd_thesis/static/vendor/`, serve it through the same static asset path as `dashboard.js`, and keep the CSP self-only. Do not add a build step, npm package, or external script tag.
 
 Required plots:
 
@@ -164,6 +166,9 @@ Paper-inspired recreation board:
 - Network control energy proxy from local E outputs: feasible with caveat.
 - Literature benchmark alignment from local metric mapping: feasible.
 - Receptor, PET, exact Nature Medicine atlas plots, striatal-unimodal plots, music/run-02 analyses, and external ds006072 reproductions: status-labeled as blocked/future/missing inputs unless current artifacts prove support.
+- The board must not eagerly render every paper-inspired Plotly panel on page load. Use tabs, an accordion, or an Intersection Observer so only the initially visible paper group is rendered immediately; render the remaining groups when opened or scrolled near view.
+- Collapsed prior-art groups should keep text summaries, status labels, and artifact links visible without initializing Plotly. If a chart has been rendered and then removed from the DOM, call `Plotly.purge` before discarding the node.
+- Avoid Plotly WebGL traces for these small scientific panels unless a measured performance issue proves they are needed; the first pass should favor standard Plotly traces and lazy rendering.
 
 Named first-pass paper targets:
 
@@ -191,6 +196,7 @@ Local mode:
 - Metric table renders selected window metrics.
 - Raw view shows compact JSON for selected subject/run/window with copy/download affordance if simple to implement.
 - Every fetch and heatmap redraw must set a visible loading state before work starts and clear it after success or failure.
+- Invalid numeric values must be handled explicitly. `NaN`, `Infinity`, `-Infinity`, and missing numeric values render as `N/A` in tables and as neutral gray/missing cells in heatmaps, with an invalid-value count shown near the affected plot when nonzero.
 
 Static mode:
 
@@ -250,6 +256,13 @@ Keep existing architecture:
 
 Add only small helper modules if a file would otherwise become tangled. The first implementation pass should avoid a new frontend framework, build system, or dependency.
 
+Use a small shared JavaScript sanitation layer before Plotly rendering:
+
+- Convert `NaN`, `Infinity`, `-Infinity`, and non-numeric values to `null` for Plotly arrays.
+- Keep a per-series or per-matrix invalid-value count for chart subtitles/notices.
+- Use `N/A` table text for invalid values instead of letting `NaN` leak into the UI.
+- Prefer strict JSON from Python payload builders. If a payload source can contain invalid floats, normalize them before serialization or document the renderer-side fallback.
+
 ## Error Handling
 
 - If a JSON payload is missing or malformed, show a local page-level status message rather than blank panels.
@@ -257,6 +270,7 @@ Add only small helper modules if a file would otherwise become tangled. The firs
 - If subject-level detail fails, preserve the group view and show the failing subject/run message.
 - If a literature recreation target is unsupported, render its blocker and missing inputs.
 - Loading, empty, stale, and error states are distinct: loading means work is in progress, empty means the current artifact does not contain rows, stale means previous content is still visible during a refresh, and error means a fetch/render operation failed.
+- Invalid numeric values are not generic malformed JSON. They are expected scientific edge cases and must render as missing values with visible `N/A`/invalid-count messaging rather than blank charts.
 
 ## Accessibility And Mobile
 
@@ -272,6 +286,17 @@ Add only small helper modules if a file would otherwise become tangled. The firs
 - If a plot cannot be made readable on mobile without misrepresenting it, show a compact summary plus a "Use a wider screen for full matrix" notice, while still exposing the source table/link.
 - Mobile QA must include 390 x 844 and desktop QA must include at least 1440 x 900.
 
+## Print And PDF
+
+Reviewers may save dashboard pages to PDF. Add explicit `@media print` rules:
+
+- Switch dark dashboard surfaces to white backgrounds with black text and visible borders.
+- Hide navigation chrome, buttons, hover-only controls, copy/export affordances, and live-only form controls.
+- Expand scrollable tables and raw-data panels to full height where possible so rows are not clipped.
+- Keep chart titles, subtitles, status labels, and caveats visible in print.
+- Avoid forcing fixed viewport heights in print; long sections should flow across pages.
+- If a Plotly chart cannot print reliably, expose the linked static HTML/CSV artifact and a compact print-safe summary next to it.
+
 ## Verification Plan
 
 Focused automated checks:
@@ -279,6 +304,9 @@ Focused automated checks:
 - Payload import/smoke tests for dashboard and prior-art payloads.
 - Static build smoke test for required entrypoints and manifest keys.
 - Template/HTML smoke tests for expected IDs used by the JS renderer.
+- Unit or smoke coverage for numeric sanitation helpers: `NaN`, `Infinity`, `-Infinity`, `null`, and non-numeric values.
+- Static/template check that prior-art paper panels are lazy-rendered rather than initializing every Plotly chart at load.
+- CSS smoke/readback check that `@media print` rules are present for dashboard print output.
 - Existing focused tests: `uv run pytest --no-cov tests/test_prior_art_payload.py tests/test_pipeline.py tests/test_dynamic_mechanism.py tests/test_metrics.py`.
 
 Manual/browser checks:
@@ -293,6 +321,7 @@ Manual/browser checks:
 - Verify static empirical page does not call local-only APIs.
 - Search generated `_site` HTML for root-relative static/API/artifact paths that would break under `https://grimgrimberg.github.io/LSD_Thesis/`.
 - On mobile, verify mechanism labels, FC heatmaps, and benchmark rows remain readable or expose the approved wider-screen fallback.
+- Use browser print preview or print emulation on one evidence-heavy page to confirm tables, caveats, and chart summaries are readable on a white background.
 
 ## Risks
 
