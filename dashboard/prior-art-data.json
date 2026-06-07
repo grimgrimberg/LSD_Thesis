@@ -1,6 +1,6 @@
 {
   "schema_version": "prior_art.dashboard_payload.v1",
-  "generated_at_utc": "2026-06-07T09:26:46.462060+00:00",
+  "generated_at_utc": "2026-06-07T11:01:34.911029+00:00",
   "dataset": {
     "accession": "ds003059",
     "doi": "10.18112/openneuro.ds003059.v1.0.0",
@@ -11,7 +11,9 @@
     "source_count": 13,
     "github_repository_count": 11,
     "non_clone_source_count": 2,
-    "checked_repository_count": 11
+    "checked_repository_count": 11,
+    "comparison_family_count": 13,
+    "ready_comparison_family_count": 13
   },
   "families": [
     {
@@ -277,6 +279,384 @@
       "license_file": null
     }
   ],
+  "input_status": [
+    {
+      "key": "bids_root",
+      "label": "ds003059 BIDS root",
+      "relative_path": "data/ds003059",
+      "exists": true,
+      "status": "present",
+      "purpose": "Raw or BIDS-compatible ds003059 tree for reconstruction paths."
+    },
+    {
+      "key": "derivatives_root",
+      "label": "Cached ds003059 derivatives",
+      "relative_path": "results/stage_2",
+      "exists": true,
+      "status": "present",
+      "purpose": "Local rest-run summaries, targets, and module time series used as the first comparison substrate."
+    },
+    {
+      "key": "parcellations_root",
+      "label": "Cached parcellations",
+      "relative_path": "results/stage_2/parcellations",
+      "exists": true,
+      "status": "present",
+      "purpose": "Generated atlas/parcellation outputs for methods that need ROI definitions or FC matrices."
+    },
+    {
+      "key": "receptor_maps_root",
+      "label": "Receptor/map priors",
+      "relative_path": "results/cortical_maps/neuromaps_annotations",
+      "exists": true,
+      "status": "present",
+      "purpose": "Public receptor, cortical-map, and spatial-null artifacts used as prior layers, not biological proof."
+    },
+    {
+      "key": "structural_connectome_root",
+      "label": "Structural connectome",
+      "relative_path": "results/structural_connectome",
+      "exists": true,
+      "status": "present",
+      "purpose": "HCP-derived or proxy structural graph artifacts for network-control comparisons."
+    }
+  ],
+  "comparison_plan": [
+    {
+      "family": "entropy_copbet",
+      "label": "CopBET entropy",
+      "reproduction_rank": 1,
+      "reproducibility_score": "5/5",
+      "source_count": 1,
+      "claim_status": "future",
+      "required_inputs": [
+        "derivatives_root",
+        "parcellations_root"
+      ],
+      "missing_inputs": [],
+      "readiness": "ready_to_test",
+      "output_target": "results/prior_art/entropy_copbet/",
+      "dry_run_command": "uv run python prior_art/scripts/dry_run_analysis_inputs.py entropy_copbet",
+      "strict_command": "uv run python prior_art/scripts/dry_run_analysis_inputs.py entropy_copbet --strict",
+      "comparison_target": "Compare entropy and complexity summaries against Stage 2 LSD-placebo target deltas and current macro-dynamics metrics.",
+      "extract_targets": [
+        "ROI or voxel data requirements",
+        "entropy/complexity metric names",
+        "atlas and run-inclusion assumptions",
+        "summary/statistical output tables"
+      ],
+      "extract_target_summary": "ROI or voxel data requirements; entropy/complexity metric names; atlas and run-inclusion assumptions; summary/statistical output tables",
+      "claim_boundary": "Toolbox reproduction context only; entropy metrics do not become original thesis evidence until independently run and documented."
+    },
+    {
+      "family": "cortical_gradients_brainspace",
+      "label": "Cortical gradients / BrainSpace",
+      "reproduction_rank": 2,
+      "reproducibility_score": "5/5",
+      "source_count": 1,
+      "claim_status": "proxy-supported",
+      "required_inputs": [
+        "derivatives_root",
+        "parcellations_root"
+      ],
+      "missing_inputs": [],
+      "readiness": "ready_to_test",
+      "output_target": "results/prior_art/cortical_gradients_brainspace/",
+      "dry_run_command": "uv run python prior_art/scripts/dry_run_analysis_inputs.py cortical_gradients_brainspace",
+      "strict_command": "uv run python prior_art/scripts/dry_run_analysis_inputs.py cortical_gradients_brainspace --strict",
+      "comparison_target": "Compare gradient shifts or aligned embeddings against local map-prior sensitivity and dynamic hierarchy evidence.",
+      "extract_targets": [
+        "FC matrices",
+        "gradient components",
+        "alignment method",
+        "spatial-null settings"
+      ],
+      "extract_target_summary": "FC matrices; gradient components; alignment method; spatial-null settings",
+      "claim_boundary": "Gradient tooling informs sensitivity checks; it is not completed external validation by itself."
+    },
+    {
+      "family": "neuroreceptor_eigenmodes",
+      "label": "Neuroreceptor priors / eigenmodes",
+      "reproduction_rank": 3,
+      "reproducibility_score": "4/5",
+      "source_count": 2,
+      "claim_status": "blocked",
+      "required_inputs": [
+        "receptor_maps_root",
+        "parcellations_root"
+      ],
+      "missing_inputs": [],
+      "readiness": "ready_to_test",
+      "output_target": "results/prior_art/neuroreceptor_eigenmodes/",
+      "dry_run_command": "uv run python prior_art/scripts/dry_run_analysis_inputs.py neuroreceptor_eigenmodes",
+      "strict_command": "uv run python prior_art/scripts/dry_run_analysis_inputs.py neuroreceptor_eigenmodes --strict",
+      "comparison_target": "Compare receptor-prior components against A+B+C+D+E mechanism layers without promoting receptor-level realism.",
+      "extract_targets": [
+        "Parcellated receptor matrices",
+        "principal/eigenmode components",
+        "map-source provenance",
+        "null-control requirements"
+      ],
+      "extract_target_summary": "Parcellated receptor matrices; principal/eigenmode components; map-source provenance; null-control requirements",
+      "claim_boundary": "Receptor maps are priors and require null controls before any claim promotion."
+    },
+    {
+      "family": "ising_temperature_and_algorithmic_complexity",
+      "label": "Ising thermodynamics and LZW complexity",
+      "reproduction_rank": 4,
+      "reproducibility_score": "4/5",
+      "source_count": 2,
+      "claim_status": "future",
+      "required_inputs": [
+        "derivatives_root"
+      ],
+      "missing_inputs": [],
+      "readiness": "ready_to_test",
+      "output_target": "results/prior_art/ising_temperature_and_algorithmic_complexity/",
+      "dry_run_command": "uv run python prior_art/scripts/dry_run_analysis_inputs.py ising_temperature_and_algorithmic_complexity",
+      "strict_command": "uv run python prior_art/scripts/dry_run_analysis_inputs.py ising_temperature_and_algorithmic_complexity --strict",
+      "comparison_target": "Compare temperature/complexity directionality against surrogate temperature, barrier, and repertoire proxies.",
+      "extract_targets": [
+        "Condition-specific time-series arrays",
+        "binarization rule",
+        "Ising temperature estimates",
+        "LZW complexity outputs"
+      ],
+      "extract_target_summary": "Condition-specific time-series arrays; binarization rule; Ising temperature estimates; LZW complexity outputs",
+      "claim_boundary": "Use as benchmark inspiration unless the local derivatives and independent implementation are verified."
+    },
+    {
+      "family": "lsd_music_brainstates",
+      "label": "LSD and music brain states",
+      "reproduction_rank": 5,
+      "reproducibility_score": "4/5",
+      "source_count": 1,
+      "claim_status": "blocked",
+      "required_inputs": [
+        "derivatives_root",
+        "parcellations_root"
+      ],
+      "missing_inputs": [],
+      "readiness": "ready_to_test",
+      "output_target": "results/prior_art/lsd_music_brainstates/",
+      "dry_run_command": "uv run python prior_art/scripts/dry_run_analysis_inputs.py lsd_music_brainstates",
+      "strict_command": "uv run python prior_art/scripts/dry_run_analysis_inputs.py lsd_music_brainstates --strict",
+      "comparison_target": "Compare occupancy, transition, and dwell summaries against dynamic repertoire and hierarchy-routing layers.",
+      "extract_targets": [
+        "Run-02/music inclusion policy",
+        "K-means state definitions",
+        "occupancy/dwell outputs",
+        "transition matrices"
+      ],
+      "extract_target_summary": "Run-02/music inclusion policy; K-means state definitions; occupancy/dwell outputs; transition matrices",
+      "claim_boundary": "Run-02/music claims remain blocked until local exclusion, motion, and context controls pass."
+    },
+    {
+      "family": "energy_landscape_network_control",
+      "label": "Energy landscape / network control",
+      "reproduction_rank": 6,
+      "reproducibility_score": "3/5",
+      "source_count": 1,
+      "claim_status": "mixed",
+      "required_inputs": [
+        "derivatives_root",
+        "structural_connectome_root"
+      ],
+      "missing_inputs": [],
+      "readiness": "ready_to_test",
+      "output_target": "results/prior_art/energy_landscape_network_control/",
+      "dry_run_command": "uv run python prior_art/scripts/dry_run_analysis_inputs.py energy_landscape_network_control",
+      "strict_command": "uv run python prior_art/scripts/dry_run_analysis_inputs.py energy_landscape_network_control --strict",
+      "comparison_target": "Compare state transition-energy summaries against local transition-barrier and control-energy proxies.",
+      "extract_targets": [
+        "State centroids",
+        "transition probabilities",
+        "structural-connectome provenance",
+        "control-energy metrics",
+        "spin-null requirements"
+      ],
+      "extract_target_summary": "State centroids; transition probabilities; structural-connectome provenance; control-energy metrics; spin-null requirements",
+      "claim_boundary": "Network-control language stays model-level unless structural and receptor provenance is explicit."
+    },
+    {
+      "family": "react_receptor_connectivity",
+      "label": "REACT receptor connectivity",
+      "reproduction_rank": 7,
+      "reproducibility_score": "3/5",
+      "source_count": 1,
+      "claim_status": "blocked",
+      "required_inputs": [
+        "derivatives_root",
+        "receptor_maps_root"
+      ],
+      "missing_inputs": [],
+      "readiness": "ready_to_test",
+      "output_target": "results/prior_art/react_receptor_connectivity/",
+      "dry_run_command": "uv run python prior_art/scripts/dry_run_analysis_inputs.py react_receptor_connectivity",
+      "strict_command": "uv run python prior_art/scripts/dry_run_analysis_inputs.py react_receptor_connectivity --strict",
+      "comparison_target": "Compare receptor-enriched connectivity outputs against receptor-prior sensitivity gates.",
+      "extract_targets": [
+        "PET template requirements",
+        "grey-matter mask requirements",
+        "stage-1 receptor time series",
+        "stage-2 enriched FC maps"
+      ],
+      "extract_target_summary": "PET template requirements; grey-matter mask requirements; stage-1 receptor time series; stage-2 enriched FC maps",
+      "claim_boundary": "General toolbox context; not ds003059-specific biological validation without local aligned inputs."
+    },
+    {
+      "family": "dynamic_integration_segregation",
+      "label": "Dynamic integration / segregation",
+      "reproduction_rank": 8,
+      "reproducibility_score": "3/5",
+      "source_count": 1,
+      "claim_status": "proxy-supported",
+      "required_inputs": [
+        "derivatives_root"
+      ],
+      "missing_inputs": [],
+      "readiness": "ready_to_test",
+      "output_target": "results/prior_art/dynamic_integration_segregation/",
+      "dry_run_command": "uv run python prior_art/scripts/dry_run_analysis_inputs.py dynamic_integration_segregation",
+      "strict_command": "uv run python prior_art/scripts/dry_run_analysis_inputs.py dynamic_integration_segregation --strict",
+      "comparison_target": "Compare integration/segregation state summaries against current macro-dynamics surrogate evidence.",
+      "extract_targets": [
+        "Time-varying FC windows",
+        "community/affinity settings",
+        "integration coefficients",
+        "state summaries"
+      ],
+      "extract_target_summary": "Time-varying FC windows; community/affinity settings; integration coefficients; state summaries",
+      "claim_boundary": "Public method code supports proxy comparison only; MATLAB upstream execution is not assumed."
+    },
+    {
+      "family": "gnw_iit_consciousness",
+      "label": "GNW/IIT consciousness archive",
+      "reproduction_rank": 9,
+      "reproducibility_score": "2/5",
+      "source_count": 1,
+      "claim_status": "future",
+      "required_inputs": [
+        "derivatives_root"
+      ],
+      "missing_inputs": [],
+      "readiness": "ready_to_test",
+      "output_target": "results/prior_art/gnw_iit_consciousness/",
+      "dry_run_command": "uv run python prior_art/scripts/dry_run_analysis_inputs.py gnw_iit_consciousness",
+      "strict_command": "uv run python prior_art/scripts/dry_run_analysis_inputs.py gnw_iit_consciousness --strict",
+      "comparison_target": "Compare anterior/posterior FC and integration summaries as context only, not as a consciousness-theory adjudication.",
+      "extract_targets": [
+        "Code.zip MATLAB scripts",
+        "processed data requirements",
+        "450-ROI FC matrices",
+        "integration effect-size outputs"
+      ],
+      "extract_target_summary": "Code.zip MATLAB scripts; processed data requirements; 450-ROI FC matrices; integration effect-size outputs",
+      "claim_boundary": "Context archive only; this repository does not settle GNW/IIT or cross-state consciousness claims."
+    },
+    {
+      "family": "traveling_waves",
+      "label": "Traveling waves",
+      "reproduction_rank": 10,
+      "reproducibility_score": "2/5",
+      "source_count": 1,
+      "claim_status": "future",
+      "required_inputs": [
+        "derivatives_root"
+      ],
+      "missing_inputs": [],
+      "readiness": "ready_to_test",
+      "output_target": "results/prior_art/traveling_waves/",
+      "dry_run_command": "uv run python prior_art/scripts/dry_run_analysis_inputs.py traveling_waves",
+      "strict_command": "uv run python prior_art/scripts/dry_run_analysis_inputs.py traveling_waves --strict",
+      "comparison_target": "Compare wave-propagation summaries only after a dedicated local CPC implementation exists.",
+      "extract_targets": [
+        "CPC settings",
+        "surface/time-series requirements",
+        "wave direction/speed summaries",
+        "spatial-null requirements"
+      ],
+      "extract_target_summary": "CPC settings; surface/time-series requirements; wave direction/speed summaries; spatial-null requirements",
+      "claim_boundary": "Supporting dependency only until a dedicated analysis implementation is verified."
+    },
+    {
+      "family": "mesoscale_reho",
+      "label": "Mesoscale ReHo",
+      "reproduction_rank": 11,
+      "reproducibility_score": "1/5",
+      "source_count": 0,
+      "claim_status": "future",
+      "required_inputs": [
+        "bids_root",
+        "derivatives_root"
+      ],
+      "missing_inputs": [],
+      "readiness": "ready_to_test",
+      "output_target": "results/prior_art/mesoscale_reho/",
+      "dry_run_command": "uv run python prior_art/scripts/dry_run_analysis_inputs.py mesoscale_reho",
+      "strict_command": "uv run python prior_art/scripts/dry_run_analysis_inputs.py mesoscale_reho --strict",
+      "comparison_target": "Compare local synchrony summaries against surrogate regional-stability proxies after independent reconstruction.",
+      "extract_targets": [
+        "Voxelwise ReHo map requirements",
+        "AFNI/JASP/MATLAB settings",
+        "local synchrony contrasts",
+        "statistical design"
+      ],
+      "extract_target_summary": "Voxelwise ReHo map requirements; AFNI/JASP/MATLAB settings; local synchrony contrasts; statistical design",
+      "claim_boundary": "No verified public code; reconstruction stays future work unless scripts are found or authored independently."
+    },
+    {
+      "family": "dlpfc_granger_causality",
+      "label": "DLPFC Granger causality",
+      "reproduction_rank": 12,
+      "reproducibility_score": "1/5",
+      "source_count": 0,
+      "claim_status": "future",
+      "required_inputs": [
+        "derivatives_root"
+      ],
+      "missing_inputs": [],
+      "readiness": "ready_to_test",
+      "output_target": "results/prior_art/dlpfc_granger_causality/",
+      "dry_run_command": "uv run python prior_art/scripts/dry_run_analysis_inputs.py dlpfc_granger_causality",
+      "strict_command": "uv run python prior_art/scripts/dry_run_analysis_inputs.py dlpfc_granger_causality --strict",
+      "comparison_target": "Compare directional-flow summaries only after code or a defensible independent reconstruction is available.",
+      "extract_targets": [
+        "fMRI/MEG derivative requirements",
+        "model-order choices",
+        "DLPFC/thalamus flow matrices",
+        "behavioral correlation inputs"
+      ],
+      "extract_target_summary": "fMRI/MEG derivative requirements; model-order choices; DLPFC/thalamus flow matrices; behavioral correlation inputs",
+      "claim_boundary": "Author-only code; manual contact or independent reconstruction required before testing."
+    },
+    {
+      "family": "translational_neuromodeling_teaching",
+      "label": "Translational neuromodeling teaching resource",
+      "reproduction_rank": 13,
+      "reproducibility_score": "secondary",
+      "source_count": 1,
+      "claim_status": "future",
+      "required_inputs": [
+        "bids_root"
+      ],
+      "missing_inputs": [],
+      "readiness": "ready_to_test",
+      "output_target": "results/prior_art/translational_neuromodeling_teaching/",
+      "dry_run_command": "uv run python prior_art/scripts/dry_run_analysis_inputs.py translational_neuromodeling_teaching",
+      "strict_command": "uv run python prior_art/scripts/dry_run_analysis_inputs.py translational_neuromodeling_teaching --strict",
+      "comparison_target": "Use as setup and DCM workflow reference, not as a primary ds003059 prior-art claim.",
+      "extract_targets": [
+        "setup conventions",
+        "DCM workflow prerequisites",
+        "LSD/placebo analysis matrices",
+        "teaching-resource limitations"
+      ],
+      "extract_target_summary": "setup conventions; DCM workflow prerequisites; LSD/placebo analysis matrices; teaching-resource limitations",
+      "claim_boundary": "Secondary/pedagogical source; do not treat as a primary reproducibility target."
+    }
+  ],
+  "comparison_guardrail": "Dry-run and compare/extract planning only. Do not execute upstream analysis code, download large archives, or copy external implementations into production modules.",
   "documents": [
     {
       "label": "Prior-art README",
@@ -289,6 +669,10 @@
     {
       "label": "Reproducibility matrix",
       "href": "/artifacts/prior_art/reproducibility_matrix.md"
+    },
+    {
+      "label": "Comparison/extraction plan",
+      "href": "/artifacts/prior_art/comparison_extraction_plan.json"
     },
     {
       "label": "Archive manifest",

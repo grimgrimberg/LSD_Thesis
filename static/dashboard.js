@@ -8,10 +8,10 @@ const isStaticDeployment = deploymentMode === "static";
 const chartLayout = {
   paper_bgcolor: "rgba(0,0,0,0)",
   plot_bgcolor: "rgba(0,0,0,0)",
-  font: { color: "#edf4f1", family: "Inter, system-ui, sans-serif" },
+  font: { color: "#f0f6f4", family: "'Inter', system-ui, sans-serif" },
   margin: { t: 24, r: 18, b: 46, l: 54 },
-  xaxis: { gridcolor: "rgba(160,188,186,0.14)", zerolinecolor: "rgba(160,188,186,0.24)" },
-  yaxis: { gridcolor: "rgba(160,188,186,0.14)", zerolinecolor: "rgba(160,188,186,0.24)" },
+  xaxis: { gridcolor: "rgba(160,188,186,0.12)", zerolinecolor: "rgba(160,188,186,0.24)" },
+  yaxis: { gridcolor: "rgba(160,188,186,0.12)", zerolinecolor: "rgba(160,188,186,0.24)" },
 };
 
 function byId(id) {
@@ -91,6 +91,10 @@ function records(items) {
   return Array.isArray(items) ? items.filter((item) => item && typeof item === "object") : [];
 }
 
+function stringList(items) {
+  return Array.isArray(items) ? items.map((item) => text(item, "")).filter(Boolean) : [];
+}
+
 function renderMetricStrip(payload) {
   const summary = payload.thesis_upgrade?.readiness_summary || {};
   const audit = payload.audit_status || {};
@@ -117,7 +121,7 @@ function renderGateChart(payload) {
     type: "bar",
     x: requirements.map((item) => text(item.label)),
     y: requirements.map((item) => item.complete ? 1 : 0),
-    marker: { color: requirements.map((item) => item.complete ? "#91c46c" : "#d88094") },
+    marker: { color: requirements.map((item) => item.complete ? "#a1d674" : "#f08da5") },
     hovertemplate: "%{x}<br>%{y}<extra></extra>",
   }], { yaxis: { ...chartLayout.yaxis, range: [0, 1.1], tickvals: [0, 1], ticktext: ["blocked", "complete"] } });
 }
@@ -168,6 +172,12 @@ function tdText(value) {
   return el("td", { text: value });
 }
 
+function tdCode(value) {
+  const td = document.createElement("td");
+  td.append(el("code", { text: value }));
+  return td;
+}
+
 function tdLink(label, href) {
   const td = document.createElement("td");
   td.append(el("a", { text: label, href: displayHref(href) }));
@@ -204,7 +214,7 @@ function renderRanking(payload) {
     orientation: "h",
     x: scores,
     y: labels,
-    marker: { color: ["#56d5c2", "#91c46c", "#e8bd6a", "#d88094", "#9a7be0"] },
+    marker: { color: ["#42dfc5", "#a1d674", "#f2c94c", "#f08da5", "#9a7be0"] },
     hovertemplate: "%{y}<br>support %{x:.3f}<extra></extra>",
   }], {
     xaxis: { ...chartLayout.xaxis, title: "proxy support score" },
@@ -246,7 +256,7 @@ function renderRobustness(payload) {
     x: layerSummary.map((row) => text(row.layer)),
     y: layerSummary.map((row) => Number(row.rank_1_fraction ?? 0)),
     customdata: layerSummary.map((row) => [Number(row.score_mean ?? 0), Number(row.score_std ?? 0)]),
-    marker: { color: ["#56d5c2", "#d88094", "#91c46c", "#e8bd6a", "#9a7be0"] },
+    marker: { color: ["#42dfc5", "#f08da5", "#a1d674", "#f2c94c", "#9a7be0"] },
     hovertemplate: "Layer %{x}<br>rank-1 %{y:.3f}<br>score mean %{customdata[0]:.3f}<br>score sd %{customdata[1]:.3f}<extra></extra>",
   }], { yaxis: { ...chartLayout.yaxis, title: "bootstrap rank-1 fraction", range: [0, 1] } });
 
@@ -262,6 +272,23 @@ function priorArtRows(payload, filter = "") {
   const lowered = filter.toLowerCase();
   return records(payload.sources).filter((row) => {
     const haystack = `${row.family} ${row.name} ${row.status} ${row.role}`.toLowerCase();
+    return !lowered || haystack.includes(lowered);
+  });
+}
+
+function priorArtComparisonRows(payload, filter = "") {
+  const lowered = filter.toLowerCase();
+  return records(payload.comparison_plan).filter((row) => {
+    const haystack = [
+      row.family,
+      row.label,
+      row.readiness,
+      row.dry_run_command,
+      row.comparison_target,
+      row.extract_target_summary,
+      stringList(row.missing_inputs).join(" "),
+      row.claim_status,
+    ].join(" ").toLowerCase();
     return !lowered || haystack.includes(lowered);
   });
 }
@@ -283,6 +310,28 @@ function renderPriorArt(payload) {
   ]);
   input?.addEventListener("input", draw);
   draw();
+
+  const inputCards = records(payload.input_status).map((item) => el("div", { className: "data-record" }, [
+    el("span", { text: item.label }),
+    el("strong", { text: item.status }),
+    el("p", { text: item.relative_path }),
+  ]));
+  byId("prior_art_input_cards")?.replaceChildren(...inputCards);
+
+  const comparisonRows = records(payload.comparison_plan);
+  const readyCount = comparisonRows.filter((row) => row.readiness === "ready_to_test").length;
+  setText("prior_art_test_status", `${readyCount}/${comparisonRows.length} ready`);
+  const comparisonInput = byId("prior_art_comparison_filter");
+  const drawComparison = () => fillTable("prior_art_comparison_table", priorArtComparisonRows(payload, comparisonInput?.value || ""), [
+    (row) => tdText(row.label || row.family),
+    (row) => tdText(`${row.readiness} / ${row.claim_status}`),
+    (row) => tdCode(row.dry_run_command),
+    (row) => tdText(row.comparison_target),
+    (row) => tdText(row.extract_target_summary),
+    (row) => tdText(stringList(row.missing_inputs).join(", ") || "none"),
+  ]);
+  comparisonInput?.addEventListener("input", drawComparison);
+  drawComparison();
 }
 
 function renderEmpirical(payload) {
@@ -303,7 +352,7 @@ function renderEmpirical(payload) {
     type: "bar",
     x: Object.keys(deltas),
     y: Object.values(deltas),
-    marker: { color: Object.values(deltas).map((value) => Number(value) >= 0 ? "#56d5c2" : "#d88094") },
+    marker: { color: Object.values(deltas).map((value) => Number(value) >= 0 ? "#42dfc5" : "#f08da5") },
     hovertemplate: "%{x}<br>delta %{y:.3f}<extra></extra>",
   }], { yaxis: { ...chartLayout.yaxis, title: "LSD minus placebo proxy delta" } });
 }
@@ -347,7 +396,7 @@ function renderSimulationPayload(payload) {
     x: modules,
     y: modules,
     z: payload.fc_matrix || [],
-    colorscale: [[0, "#d88094"], [0.5, "#151d22"], [1, "#56d5c2"]],
+    colorscale: [[0, "#f08da5"], [0.5, "#151d22"], [1, "#42dfc5"]],
     zmid: 0,
   }], { xaxis: { ...chartLayout.xaxis, side: "top" } });
 }
@@ -386,6 +435,10 @@ async function runSimulation(dashboard = {}) {
 }
 
 async function main() {
+  if (pageId === "prior_art") {
+    renderPriorArt(await fetchJson(priorArtDataUrl));
+    return;
+  }
   const dashboard = await fetchJson(dashboardDataUrl);
   if (pageId === "overview") {
     renderMetricStrip(dashboard);
@@ -396,8 +449,6 @@ async function main() {
     renderRanking(dashboard);
   } else if (pageId === "robustness") {
     renderRobustness(dashboard);
-  } else if (pageId === "prior_art") {
-    renderPriorArt(await fetchJson(priorArtDataUrl));
   } else if (pageId === "empirical") {
     renderEmpirical(dashboard);
     byId("load_empirical")?.addEventListener("click", loadEmpiricalDetail);

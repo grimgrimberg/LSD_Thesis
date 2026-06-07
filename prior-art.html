@@ -8,7 +8,7 @@
   <link rel="icon" href="data:,">
   <link rel="stylesheet" href="static/dashboard.css">
   <script src="assets/plotly.min.js" defer></script>
-  <script src="static/dashboard.js?v=plot-audit-20260607" defer></script>
+  <script src="static/dashboard.js?v=prior-art-compare-20260607" defer></script>
 </head>
 <body
   data-page="prior_art"
@@ -99,6 +99,23 @@
       <table>
         <thead><tr><th>Family</th><th>Repository / source</th><th>Status</th><th>Commit / policy</th></tr></thead>
         <tbody id="prior_art_table"></tbody>
+      </table>
+    </div>
+  </article>
+  <article class="panel panel--span-3">
+    <div class="panel-heading">
+      <h2>Test, Compare, Extract</h2>
+      <span id="prior_art_test_status" class="status-token">loading</span>
+    </div>
+    <div id="prior_art_input_cards" class="card-grid card-grid--dense"></div>
+    <div class="panel-heading panel-heading--subsection">
+      <h3>Family Execution Plan</h3>
+      <input id="prior_art_comparison_filter" class="compact-input" type="search" placeholder="Filter family, command, blocker" aria-label="Filter prior-art comparison table">
+    </div>
+    <div class="table-frame">
+      <table>
+        <thead><tr><th>Family</th><th>Readiness</th><th>Dry-run test</th><th>Compare against</th><th>Extract</th><th>Missing inputs</th></tr></thead>
+        <tbody id="prior_art_comparison_table"></tbody>
       </table>
     </div>
   </article>
