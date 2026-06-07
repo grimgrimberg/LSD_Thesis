@@ -2,20 +2,15 @@
 
 This artifact is the ds006072 external-validation gate. It only passes when paired local psilocybin/control empirical-viewer records exist and are scored with the locked ds003059 rule. A Schaefer100/Yeo7 validation scope is stronger than the CIFTI structure-family stress test, but still remains a small-subject cross-drug stress test rather than a population replication.
 
-- Status: `implemented_ds006072_unchanged_scoring_validation`
-- Unchanged scoring applied: `true`
-- Scoring lock verified: `true`
-- Pair count: `3`
-- Subject count: `3`
+- Status: `blocked_scoring_lock_not_verified`
+- Unchanged scoring applied: `false`
+- Scoring lock verified: `false`
+- Pair count: `0`
+- Subject count: `0`
 - Required subject count: `3`
-- Replication status: `ranking_differs_from_lsd_top_layer`
+- Replication status: `not_scored`
 
-## Mechanism ranking
+## Blocker
 
-| Rank | Layer | Score | Status |
-| ---: | --- | ---: | --- |
-| 1 | E | 3.067 | implemented_proxy_control_energy |
-| 2 | C | 0.474 | implemented_first_pass |
-| 3 | D | 0.112 | implemented_first_pass |
-| 4 | A | -0.526 | implemented_first_pass |
-| 5 | B | -5.122 | implemented_negative_control_baseline |
+The unchanged-scoring lock is missing or its target/code hashes no longer match: scoring_code_files.dynamic_mechanism, scoring_code_files.dynamic_mechanism_connectivity, scoring_code_files.dynamic_mechanism_hierarchy, scoring_code_files.dynamic_mechanism_priors, scoring_code_files.dynamic_mechanism_repertoire, scoring_code_files.dynamic_mechanism_stats, scoring_code_files.dynamic_mechanism_transitions
+

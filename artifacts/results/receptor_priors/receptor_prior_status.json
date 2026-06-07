@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at_utc": "2026-06-07T07:50:29.385930+00:00",
+  "generated_at_utc": "2026-06-07T09:24:21.187689+00:00",
   "artifact_target": "results/receptor_priors",
   "source_reference": {
     "source_id": "markello_neuromaps_2022",
@@ -37,115 +37,115 @@
     "state_score_mode": "pca",
     "control_weight_floor": 0.1,
     "random_null_count": 128,
-    "graph_source": "configs/graphs/macro_modules.yaml macro-module proxy graph; not a subject structural connectome",
+    "graph_source": "mean positive placebo FC proxy graph; not a structural connectome",
     "graph_is_structural_connectome": false,
     "receptor_prior_source": "PET-derived prior from Hansen et al. Schaefer-100 PET 5-HT2A maps; z-scored and sample-size weighted",
     "pair_count": 30,
     "metric_deltas": [
       {
         "metric": "lsd_vs_placebo_receptor_transition_energy_reduction_pct",
-        "mean_delta": 3.5376480007951625,
-        "std_delta": 16.538077521745244,
-        "effect_size": 0.21390926461335386,
-        "signed_effect_size": 0.21390926461335386,
+        "mean_delta": -0.24035546340494368,
+        "std_delta": 21.483337581793933,
+        "effect_size": -0.011187994532499133,
+        "signed_effect_size": -0.011187994532499133,
         "expected_sign": 1,
-        "sign_consistency": 0.6,
-        "sign_flip_p_value": 0.1807973040267825,
+        "sign_consistency": 0.5666666666666667,
+        "sign_flip_p_value": 0.292332355864346,
         "expected_direction": "positive means LSD within-condition transitions need less receptor-profile control energy than placebo",
         "n_pairs": 30,
         "n_bootstrap": 1024,
-        "ci_low": -2.008588512833,
-        "ci_high": 8.944885891385,
-        "sign_flip_q_value": 0.3163952820468694,
+        "ci_low": -8.219196666949,
+        "ci_high": 6.763270562234,
+        "sign_flip_q_value": 0.5115816227626055,
         "significant_after_fdr_0_05": false,
         "significant_after_fdr_0.05": false
       },
       {
         "metric": "lsd_vs_placebo_uniform_transition_energy_reduction_pct",
-        "mean_delta": 6.935892752544529,
-        "std_delta": 9.577090626236936,
-        "effect_size": 0.7242170950688606,
-        "signed_effect_size": 0.7242170950688606,
+        "mean_delta": 5.071116917956426,
+        "std_delta": 9.032787084366566,
+        "effect_size": 0.5614122054015008,
+        "signed_effect_size": 0.5614122054015008,
         "expected_sign": 1,
-        "sign_consistency": 0.7666666666666667,
-        "sign_flip_p_value": 0.002611439675092697,
+        "sign_consistency": 0.7,
+        "sign_flip_p_value": 0.02138697262853384,
         "expected_direction": "positive means LSD within-condition transitions need less uniform-control energy than placebo",
         "n_pairs": 30,
         "n_bootstrap": 1024,
-        "ci_low": 3.568072317123,
-        "ci_high": 10.253570628134,
-        "sign_flip_q_value": 0.00914003886282444,
+        "ci_low": 1.945953522964,
+        "ci_high": 8.320923951774,
+        "sign_flip_q_value": 0.04990293613324563,
         "significant_after_fdr_0_05": true,
         "significant_after_fdr_0.05": true
       },
       {
         "metric": "receptor_vs_uniform_energy_reduction_pct",
-        "mean_delta": -60.32883386595687,
-        "std_delta": 33.61907280386315,
-        "effect_size": -1.7944823826023102,
-        "signed_effect_size": -1.7944823826023102,
+        "mean_delta": -88.39079143899333,
+        "std_delta": 51.54001879004592,
+        "effect_size": -1.7149933879353672,
+        "signed_effect_size": -1.7149933879353672,
         "expected_sign": 1,
-        "sign_consistency": 0.03333333333333333,
-        "sign_flip_p_value": 0.9999999990686774,
+        "sign_consistency": 0.0,
+        "sign_flip_p_value": 1.0,
         "expected_direction": "positive means receptor-prior control needs less energy than uniform control",
         "n_pairs": 30,
         "n_bootstrap": 1024,
-        "ci_low": -72.097754927577,
-        "ci_high": -48.820977118085,
+        "ci_low": -106.395059346983,
+        "ci_high": -70.621352481384,
         "sign_flip_q_value": 1.0,
         "significant_after_fdr_0_05": false,
         "significant_after_fdr_0.05": false
       },
       {
         "metric": "receptor_vs_random_energy_reduction_pct",
-        "mean_delta": 16.085031327361644,
-        "std_delta": 22.922180633144333,
-        "effect_size": 0.7017234348159481,
-        "signed_effect_size": 0.7017234348159481,
+        "mean_delta": 6.8713636821441115,
+        "std_delta": 24.764149873844215,
+        "effect_size": 0.2774722216247615,
+        "signed_effect_size": 0.2774722216247615,
         "expected_sign": 1,
-        "sign_consistency": 0.7666666666666667,
-        "sign_flip_p_value": 0.002611439675092697,
+        "sign_consistency": 0.7,
+        "sign_flip_p_value": 0.02138697262853384,
         "expected_direction": "positive means receptor-prior control needs less energy than random receptor-prior permutations",
         "n_pairs": 30,
         "n_bootstrap": 1024,
-        "ci_low": 7.881266818348,
-        "ci_high": 23.738865131127,
-        "sign_flip_q_value": 0.00914003886282444,
+        "ci_low": -2.149222393582,
+        "ci_high": 15.897419182187,
+        "sign_flip_q_value": 0.04990293613324563,
         "significant_after_fdr_0_05": true,
         "significant_after_fdr_0.05": true
       },
       {
         "metric": "hierarchy_vs_uniform_energy_reduction_pct",
-        "mean_delta": -300.46956304822345,
-        "std_delta": 130.8107423714992,
-        "effect_size": -2.2969792663885165,
-        "signed_effect_size": -2.2969792663885165,
+        "mean_delta": -136.40900991274506,
+        "std_delta": 94.61313948596984,
+        "effect_size": -1.4417554544099356,
+        "signed_effect_size": -1.4417554544099356,
         "expected_sign": 1,
         "sign_consistency": 0.0,
         "sign_flip_p_value": 1.0,
         "expected_direction": "positive means hierarchy-prior control needs less energy than uniform control",
         "n_pairs": 30,
         "n_bootstrap": 1024,
-        "ci_low": -349.17684261005,
-        "ci_high": -257.061746675894,
+        "ci_low": -170.157706697976,
+        "ci_high": -106.568485331451,
         "sign_flip_q_value": 1.0,
         "significant_after_fdr_0_05": false,
         "significant_after_fdr_0.05": false
       },
       {
         "metric": "transmodal_vs_uniform_energy_reduction_pct",
-        "mean_delta": -674.315980973865,
-        "std_delta": 331.412656625716,
-        "effect_size": -2.0346717830255048,
-        "signed_effect_size": -2.0346717830255048,
+        "mean_delta": -288.48844098251374,
+        "std_delta": 191.24679910782675,
+        "effect_size": -1.5084615393738499,
+        "signed_effect_size": -1.5084615393738499,
         "expected_sign": 1,
         "sign_consistency": 0.0,
         "sign_flip_p_value": 1.0,
         "expected_direction": "positive means transmodal-prior control needs less energy than uniform control",
         "n_pairs": 30,
         "n_bootstrap": 1024,
-        "ci_low": -796.788145281533,
-        "ci_high": -560.860437372047,
+        "ci_low": -360.224911627899,
+        "ci_high": -224.677463849995,
         "sign_flip_q_value": 1.0,
         "significant_after_fdr_0_05": false,
         "significant_after_fdr_0.05": false
@@ -173,56 +173,56 @@
       {
         "run": "run-01",
         "metric": "lsd_vs_placebo_receptor_transition_energy_reduction_pct",
-        "mean_delta": 4.142082597299672,
-        "std_delta": 13.976829550761856,
-        "effect_size": 0.2963535172448242,
-        "signed_effect_size": 0.2963535172448242,
+        "mean_delta": -0.32407389788852137,
+        "std_delta": 16.430980839528818,
+        "effect_size": -0.01972334464105033,
+        "signed_effect_size": -0.01972334464105033,
         "expected_sign": 1,
-        "sign_consistency": 0.6,
-        "sign_flip_p_value": 0.303619384765625,
+        "sign_consistency": 0.4666666666666667,
+        "sign_flip_p_value": 0.696380615234375,
         "expected_direction": "positive means LSD within-condition transitions need less receptor-profile control energy than placebo",
         "n_pairs": 15,
         "n_bootstrap": 1024,
-        "ci_low": -2.528438951971,
-        "ci_high": 10.921113156186,
-        "sign_flip_q_value": 0.5313339233398438,
+        "ci_low": -8.230188922923,
+        "ci_high": 7.493676787701,
+        "sign_flip_q_value": 1.0,
         "significant_after_fdr_0_05": false,
         "significant_after_fdr_0.05": false
       },
       {
         "run": "run-01",
         "metric": "lsd_vs_placebo_uniform_transition_energy_reduction_pct",
-        "mean_delta": 8.266986809684616,
-        "std_delta": 10.094756148582604,
-        "effect_size": 0.8189387329425858,
-        "signed_effect_size": 0.8189387329425858,
+        "mean_delta": 6.139927636258853,
+        "std_delta": 9.476173775121365,
+        "effect_size": 0.6479332040510428,
+        "signed_effect_size": 0.6479332040510428,
         "expected_sign": 1,
-        "sign_consistency": 0.8666666666666667,
-        "sign_flip_p_value": 0.003692626953125,
+        "sign_consistency": 0.8,
+        "sign_flip_p_value": 0.017578125,
         "expected_direction": "positive means LSD within-condition transitions need less uniform-control energy than placebo",
         "n_pairs": 15,
         "n_bootstrap": 1024,
-        "ci_low": 3.2345788302,
-        "ci_high": 13.10439917503,
-        "sign_flip_q_value": 0.025848388671875,
-        "significant_after_fdr_0_05": true,
-        "significant_after_fdr_0.05": true
+        "ci_low": 1.450289019438,
+        "ci_high": 10.51679793626,
+        "sign_flip_q_value": 0.0615234375,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "run": "run-01",
         "metric": "receptor_vs_uniform_energy_reduction_pct",
-        "mean_delta": -58.5509090257726,
-        "std_delta": 29.784330987604957,
-        "effect_size": -1.9658292492834282,
-        "signed_effect_size": -1.9658292492834282,
+        "mean_delta": -77.18783118533771,
+        "std_delta": 44.15556881650087,
+        "effect_size": -1.7480882537400977,
+        "signed_effect_size": -1.7480882537400977,
         "expected_sign": 1,
         "sign_consistency": 0.0,
         "sign_flip_p_value": 1.0,
         "expected_direction": "positive means receptor-prior control needs less energy than uniform control",
         "n_pairs": 15,
         "n_bootstrap": 1024,
-        "ci_low": -73.646805828454,
-        "ci_high": -45.075853549371,
+        "ci_low": -98.567167985285,
+        "ci_high": -56.327866946492,
         "sign_flip_q_value": 1.0,
         "significant_after_fdr_0_05": false,
         "significant_after_fdr_0.05": false
@@ -230,37 +230,37 @@
       {
         "run": "run-01",
         "metric": "receptor_vs_random_energy_reduction_pct",
-        "mean_delta": 15.622490802382645,
-        "std_delta": 17.408089813521862,
-        "effect_size": 0.8974270566003032,
-        "signed_effect_size": 0.8974270566003032,
+        "mean_delta": 11.401792499466897,
+        "std_delta": 18.750417710584898,
+        "effect_size": 0.6080820531816958,
+        "signed_effect_size": 0.6080820531816958,
         "expected_sign": 1,
-        "sign_consistency": 0.8,
-        "sign_flip_p_value": 0.017578125,
+        "sign_consistency": 0.6666666666666666,
+        "sign_flip_p_value": 0.15087890625,
         "expected_direction": "positive means receptor-prior control needs less energy than random receptor-prior permutations",
         "n_pairs": 15,
         "n_bootstrap": 1024,
-        "ci_low": 6.913051884018,
-        "ci_high": 24.773025586911,
-        "sign_flip_q_value": 0.041015625,
-        "significant_after_fdr_0_05": true,
-        "significant_after_fdr_0.05": true
+        "ci_low": 2.581952178463,
+        "ci_high": 20.669605728485,
+        "sign_flip_q_value": 0.35205078125,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
       },
       {
         "run": "run-01",
         "metric": "hierarchy_vs_uniform_energy_reduction_pct",
-        "mean_delta": -288.2207163542973,
-        "std_delta": 121.52982228619409,
-        "effect_size": -2.3716048532973084,
-        "signed_effect_size": -2.3716048532973084,
+        "mean_delta": -139.73750350561497,
+        "std_delta": 95.9221102059277,
+        "effect_size": -1.4567809570246466,
+        "signed_effect_size": -1.4567809570246466,
         "expected_sign": 1,
         "sign_consistency": 0.0,
         "sign_flip_p_value": 1.0,
         "expected_direction": "positive means hierarchy-prior control needs less energy than uniform control",
         "n_pairs": 15,
         "n_bootstrap": 1024,
-        "ci_low": -346.457664996521,
-        "ci_high": -230.048108712361,
+        "ci_low": -188.651868714125,
+        "ci_high": -96.456534333968,
         "sign_flip_q_value": 1.0,
         "significant_after_fdr_0_05": false,
         "significant_after_fdr_0.05": false
@@ -268,18 +268,18 @@
       {
         "run": "run-01",
         "metric": "transmodal_vs_uniform_energy_reduction_pct",
-        "mean_delta": -632.2194847681008,
-        "std_delta": 331.4870898791148,
-        "effect_size": -1.9072220429418703,
-        "signed_effect_size": -1.9072220429418703,
+        "mean_delta": -309.2080732348121,
+        "std_delta": 169.2685331015647,
+        "effect_size": -1.826730979285327,
+        "signed_effect_size": -1.826730979285327,
         "expected_sign": 1,
         "sign_consistency": 0.0,
         "sign_flip_p_value": 1.0,
         "expected_direction": "positive means transmodal-prior control needs less energy than uniform control",
         "n_pairs": 15,
         "n_bootstrap": 1024,
-        "ci_low": -809.431195842341,
-        "ci_high": -489.086253250732,
+        "ci_low": -391.438368916209,
+        "ci_high": -234.337687599823,
         "sign_flip_q_value": 1.0,
         "significant_after_fdr_0_05": false,
         "significant_after_fdr_0.05": false
@@ -299,63 +299,63 @@
         "n_bootstrap": 1024,
         "ci_low": 0.024995217379,
         "ci_high": 0.35567821983,
-        "sign_flip_q_value": 0.041015625,
-        "significant_after_fdr_0_05": true,
-        "significant_after_fdr_0.05": true
-      },
-      {
-        "run": "run-03",
-        "metric": "lsd_vs_placebo_receptor_transition_energy_reduction_pct",
-        "mean_delta": 2.933213404290653,
-        "std_delta": 19.246237665402397,
-        "effect_size": 0.1524045091453632,
-        "signed_effect_size": 0.1524045091453632,
-        "expected_sign": 1,
-        "sign_consistency": 0.6,
-        "sign_flip_p_value": 0.303619384765625,
-        "expected_direction": "positive means LSD within-condition transitions need less receptor-profile control energy than placebo",
-        "n_pairs": 15,
-        "n_bootstrap": 1024,
-        "ci_low": -6.057677056663,
-        "ci_high": 11.893982231796,
-        "sign_flip_q_value": 0.5313339233398438,
+        "sign_flip_q_value": 0.0615234375,
         "significant_after_fdr_0_05": false,
         "significant_after_fdr_0.05": false
       },
       {
         "run": "run-03",
-        "metric": "lsd_vs_placebo_uniform_transition_energy_reduction_pct",
-        "mean_delta": 5.604798695404441,
-        "std_delta": 9.181065591640412,
-        "effect_size": 0.6104736579278717,
-        "signed_effect_size": 0.6104736579278717,
+        "metric": "lsd_vs_placebo_receptor_transition_energy_reduction_pct",
+        "mean_delta": -0.15663702892136833,
+        "std_delta": 26.19240608836927,
+        "effect_size": -0.005980245892374238,
+        "signed_effect_size": -0.005980245892374238,
         "expected_sign": 1,
         "sign_consistency": 0.6666666666666666,
         "sign_flip_p_value": 0.15087890625,
-        "expected_direction": "positive means LSD within-condition transitions need less uniform-control energy than placebo",
+        "expected_direction": "positive means LSD within-condition transitions need less receptor-profile control energy than placebo",
         "n_pairs": 15,
         "n_bootstrap": 1024,
-        "ci_low": 1.221427054073,
-        "ci_high": 10.454137703011,
+        "ci_low": -12.798442063157,
+        "ci_high": 11.385536586831,
         "sign_flip_q_value": 0.528076171875,
         "significant_after_fdr_0_05": false,
         "significant_after_fdr_0.05": false
       },
       {
         "run": "run-03",
-        "metric": "receptor_vs_uniform_energy_reduction_pct",
-        "mean_delta": -62.10675870614111,
-        "std_delta": 38.04386557845607,
-        "effect_size": -1.6325038941708294,
-        "signed_effect_size": -1.6325038941708294,
+        "metric": "lsd_vs_placebo_uniform_transition_energy_reduction_pct",
+        "mean_delta": 4.002306199653998,
+        "std_delta": 8.761544100942189,
+        "effect_size": 0.4568037498348725,
+        "signed_effect_size": 0.4568037498348725,
         "expected_sign": 1,
-        "sign_consistency": 0.06666666666666667,
-        "sign_flip_p_value": 0.999969482421875,
+        "sign_consistency": 0.6,
+        "sign_flip_p_value": 0.303619384765625,
+        "expected_direction": "positive means LSD within-condition transitions need less uniform-control energy than placebo",
+        "n_pairs": 15,
+        "n_bootstrap": 1024,
+        "ci_low": -0.282824212424,
+        "ci_high": 8.478249411426,
+        "sign_flip_q_value": 0.5313339233398438,
+        "significant_after_fdr_0_05": false,
+        "significant_after_fdr_0.05": false
+      },
+      {
+        "run": "run-03",
+        "metric": "receptor_vs_uniform_energy_reduction_pct",
+        "mean_delta": -99.59375169264895,
+        "std_delta": 57.30472643869929,
+        "effect_size": -1.737967492073932,
+        "signed_effect_size": -1.737967492073932,
+        "expected_sign": 1,
+        "sign_consistency": 0.0,
+        "sign_flip_p_value": 1.0,
         "expected_direction": "positive means receptor-prior control needs less energy than uniform control",
         "n_pairs": 15,
         "n_bootstrap": 1024,
-        "ci_low": -81.515896168137,
-        "ci_high": -43.689879839433,
+        "ci_low": -126.692099334575,
+        "ci_high": -71.488641627353,
         "sign_flip_q_value": 1.0,
         "significant_after_fdr_0_05": false,
         "significant_after_fdr_0.05": false
@@ -363,18 +363,18 @@
       {
         "run": "run-03",
         "metric": "receptor_vs_random_energy_reduction_pct",
-        "mean_delta": 16.547571852340646,
-        "std_delta": 28.015765968060574,
-        "effect_size": 0.5906521303470958,
-        "signed_effect_size": 0.5906521303470958,
+        "mean_delta": 2.3409348648213273,
+        "std_delta": 29.57652615514981,
+        "effect_size": 0.07914840480391332,
+        "signed_effect_size": 0.07914840480391332,
         "expected_sign": 1,
         "sign_consistency": 0.7333333333333333,
         "sign_flip_p_value": 0.059234619140625,
         "expected_direction": "positive means receptor-prior control needs less energy than random receptor-prior permutations",
         "n_pairs": 15,
         "n_bootstrap": 1024,
-        "ci_low": 2.023808087901,
-        "ci_high": 30.031112613789,
+        "ci_low": -12.421232692527,
+        "ci_high": 16.121073799471,
         "sign_flip_q_value": 0.414642333984375,
         "significant_after_fdr_0_05": false,
         "significant_after_fdr_0.05": false
@@ -382,18 +382,18 @@
       {
         "run": "run-03",
         "metric": "hierarchy_vs_uniform_energy_reduction_pct",
-        "mean_delta": -312.71840974214956,
-        "std_delta": 142.6679621771589,
-        "effect_size": -2.1919315659238854,
-        "signed_effect_size": -2.1919315659238854,
+        "mean_delta": -133.0805163198751,
+        "std_delta": 96.5292906995476,
+        "effect_size": -1.378654244275917,
+        "signed_effect_size": -1.378654244275917,
         "expected_sign": 1,
         "sign_consistency": 0.0,
         "sign_flip_p_value": 1.0,
         "expected_direction": "positive means hierarchy-prior control needs less energy than uniform control",
         "n_pairs": 15,
         "n_bootstrap": 1024,
-        "ci_low": -383.295530708925,
-        "ci_high": -248.57692765739,
+        "ci_low": -187.594439300143,
+        "ci_high": -88.911010358096,
         "sign_flip_q_value": 1.0,
         "significant_after_fdr_0_05": false,
         "significant_after_fdr_0.05": false
@@ -401,18 +401,18 @@
       {
         "run": "run-03",
         "metric": "transmodal_vs_uniform_energy_reduction_pct",
-        "mean_delta": -716.4124771796291,
-        "std_delta": 337.3913581546689,
-        "effect_size": -2.1233871581595376,
-        "signed_effect_size": -2.1233871581595376,
+        "mean_delta": -267.7688087302155,
+        "std_delta": 214.92191337845767,
+        "effect_size": -1.2458888185063721,
+        "signed_effect_size": -1.2458888185063721,
         "expected_sign": 1,
         "sign_consistency": 0.0,
         "sign_flip_p_value": 1.0,
         "expected_direction": "positive means transmodal-prior control needs less energy than uniform control",
         "n_pairs": 15,
         "n_bootstrap": 1024,
-        "ci_low": -901.84862205217,
-        "ci_high": -562.576294125898,
+        "ci_low": -388.88575084804,
+        "ci_high": -174.077878884064,
         "sign_flip_q_value": 1.0,
         "significant_after_fdr_0_05": false,
         "significant_after_fdr_0.05": false
@@ -443,29 +443,29 @@
         "run": "run-01",
         "matched_state_count": 4,
         "energies": {
-          "uniform": 0.8216604299632664,
-          "receptor": 1.3122379058944218,
-          "hierarchy": 3.4616592174493825,
-          "sensory": 3.4377744890864697,
-          "transmodal": 6.374105193986939,
-          "thalamic": 1.2928422125448817,
-          "degree": 0.8513595170568466,
-          "random_receptor_permutation_mean": 1.61570792052863,
-          "random_receptor_permutation_std": 0.4668500705472875
+          "uniform": 0.7779807842626297,
+          "receptor": 1.6673835427223211,
+          "hierarchy": 1.524724540638513,
+          "sensory": 3.0641890476421993,
+          "transmodal": 2.2403021154256666,
+          "thalamic": 1.1694343819281379,
+          "degree": 0.8119498032945198,
+          "random_receptor_permutation_mean": 1.4857709258074279,
+          "random_receptor_permutation_std": 0.3348565745948404
         },
         "condition_transition_energies": {
-          "placebo_receptor": 11.34469136206893,
-          "lsd_receptor": 13.116931846398904,
-          "placebo_uniform": 4.976720026687438,
-          "lsd_uniform": 4.3279946286750635
+          "placebo_receptor": 14.359111086018551,
+          "lsd_receptor": 18.85394734463263,
+          "placebo_uniform": 4.831920255675958,
+          "lsd_uniform": 4.274904056319653
         },
         "metrics": {
-          "lsd_vs_placebo_receptor_transition_energy_reduction_pct": -15.621760238057018,
-          "lsd_vs_placebo_uniform_transition_energy_reduction_pct": 13.035199780851924,
-          "receptor_vs_uniform_energy_reduction_pct": -59.705622668611106,
-          "receptor_vs_random_energy_reduction_pct": 18.78247985161318,
-          "hierarchy_vs_uniform_energy_reduction_pct": -321.30046564420064,
-          "transmodal_vs_uniform_energy_reduction_pct": -675.7590558756618,
+          "lsd_vs_placebo_receptor_transition_energy_reduction_pct": -31.303025874566117,
+          "lsd_vs_placebo_uniform_transition_energy_reduction_pct": 11.527843380734382,
+          "receptor_vs_uniform_energy_reduction_pct": -114.32194424990425,
+          "receptor_vs_random_energy_reduction_pct": -12.22346014182487,
+          "hierarchy_vs_uniform_energy_reduction_pct": -95.98485868563542,
+          "transmodal_vs_uniform_energy_reduction_pct": -187.96368248979635,
           "state_target_alignment_receptor": -0.3691156572768676
         },
         "target_displacement": {
@@ -484,29 +484,29 @@
         "run": "run-03",
         "matched_state_count": 4,
         "energies": {
-          "uniform": 0.8002888964754044,
-          "receptor": 1.1401797746122366,
-          "hierarchy": 4.54483646080759,
-          "sensory": 1.9425124907269364,
-          "transmodal": 9.116217001854135,
-          "thalamic": 1.8404304524867552,
-          "degree": 0.8758423897313783,
-          "random_receptor_permutation_mean": 1.7850598255196335,
-          "random_receptor_permutation_std": 0.8606935792589078
+          "uniform": 0.6889380243837542,
+          "receptor": 1.3235106088479651,
+          "hierarchy": 1.8826623961218236,
+          "sensory": 2.489920306552985,
+          "transmodal": 1.9628370944158968,
+          "thalamic": 1.5525388556705308,
+          "degree": 0.6362394335961157,
+          "random_receptor_permutation_mean": 1.3638343803673703,
+          "random_receptor_permutation_std": 0.357265813214393
         },
         "condition_transition_energies": {
-          "placebo_receptor": 12.425057574368465,
-          "lsd_receptor": 13.791883877246455,
-          "placebo_uniform": 5.651490003156557,
-          "lsd_uniform": 5.079198158969901
+          "placebo_receptor": 16.29957429018678,
+          "lsd_receptor": 20.078988033419453,
+          "placebo_uniform": 5.570561355991578,
+          "lsd_uniform": 5.088971335529505
         },
         "metrics": {
-          "lsd_vs_placebo_receptor_transition_energy_reduction_pct": -11.000563133788644,
-          "lsd_vs_placebo_uniform_transition_energy_reduction_pct": 10.126388684524088,
-          "receptor_vs_uniform_energy_reduction_pct": -42.471022606181855,
-          "receptor_vs_random_energy_reduction_pct": 36.126523138778914,
-          "hierarchy_vs_uniform_energy_reduction_pct": -467.89947740419126,
-          "transmodal_vs_uniform_energy_reduction_pct": -1039.1157670690372,
+          "lsd_vs_placebo_receptor_transition_energy_reduction_pct": -23.187192965573857,
+          "lsd_vs_placebo_uniform_transition_energy_reduction_pct": 8.645269115366347,
+          "receptor_vs_uniform_energy_reduction_pct": -92.1088054374452,
+          "receptor_vs_random_energy_reduction_pct": 2.956647236634649,
+          "hierarchy_vs_uniform_energy_reduction_pct": -173.2702114687079,
+          "transmodal_vs_uniform_energy_reduction_pct": -184.9076440760587,
           "state_target_alignment_receptor": -0.358713763825952
         },
         "target_displacement": {
@@ -525,29 +525,29 @@
         "run": "run-01",
         "matched_state_count": 4,
         "energies": {
-          "uniform": 0.6362323948632042,
-          "receptor": 0.7208022245265664,
-          "hierarchy": 2.5156993043102327,
-          "sensory": 1.7452027949106643,
-          "transmodal": 4.731320093779572,
-          "thalamic": 0.7300393615535132,
-          "degree": 0.6198670225095252,
-          "random_receptor_permutation_mean": 1.1488900150443357,
-          "random_receptor_permutation_std": 0.39895816072020257
+          "uniform": 0.567334110897721,
+          "receptor": 0.6511035114895535,
+          "hierarchy": 1.0520399993689127,
+          "sensory": 1.4710749234072549,
+          "transmodal": 1.452088141403268,
+          "thalamic": 0.7012121540363496,
+          "degree": 0.5140796707973767,
+          "random_receptor_permutation_mean": 0.9299017219632043,
+          "random_receptor_permutation_std": 0.2514554717499308
         },
         "condition_transition_energies": {
-          "placebo_receptor": 15.310076412014244,
-          "lsd_receptor": 12.578872024512306,
-          "placebo_uniform": 6.129398037024045,
-          "lsd_uniform": 4.63470472783432
+          "placebo_receptor": 20.948165087473946,
+          "lsd_receptor": 16.98746141859713,
+          "placebo_uniform": 5.988757442347502,
+          "lsd_uniform": 4.630458122922078
         },
         "metrics": {
-          "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 17.83926032765379,
-          "lsd_vs_placebo_uniform_transition_energy_reduction_pct": 24.3856460318154,
-          "receptor_vs_uniform_energy_reduction_pct": -13.292286017838737,
-          "receptor_vs_random_energy_reduction_pct": 37.260989730270175,
-          "hierarchy_vs_uniform_energy_reduction_pct": -295.4057235408662,
-          "transmodal_vs_uniform_energy_reduction_pct": -643.6465247571762,
+          "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 18.907162762647577,
+          "lsd_vs_placebo_uniform_transition_energy_reduction_pct": 22.680820395574276,
+          "receptor_vs_uniform_energy_reduction_pct": -14.765444027202943,
+          "receptor_vs_random_energy_reduction_pct": 29.981470502608957,
+          "hierarchy_vs_uniform_energy_reduction_pct": -85.43570343482739,
+          "transmodal_vs_uniform_energy_reduction_pct": -155.9493803581732,
           "state_target_alignment_receptor": 0.39632504756666526
         },
         "target_displacement": {
@@ -566,29 +566,29 @@
         "run": "run-03",
         "matched_state_count": 4,
         "energies": {
-          "uniform": 1.1412445550985861,
-          "receptor": 1.8974097077463543,
-          "hierarchy": 4.680850661522069,
-          "sensory": 6.819803399315208,
-          "transmodal": 10.161321480532438,
-          "thalamic": 3.742103490736133,
-          "degree": 1.4263666722165913,
-          "random_receptor_permutation_mean": 2.988233601438274,
-          "random_receptor_permutation_std": 1.5679275989534693
+          "uniform": 1.0409549438770673,
+          "receptor": 2.6507183303044206,
+          "hierarchy": 2.2325728365970967,
+          "sensory": 5.09869783393697,
+          "transmodal": 3.057578693190216,
+          "thalamic": 3.5908855251912706,
+          "degree": 1.259439516581842,
+          "random_receptor_permutation_mean": 2.8106334759090483,
+          "random_receptor_permutation_std": 1.7632966235966563
         },
         "condition_transition_energies": {
-          "placebo_receptor": 14.934926734602511,
-          "lsd_receptor": 12.795361032995398,
-          "placebo_uniform": 6.03413307041738,
-          "lsd_uniform": 4.975519589186244
+          "placebo_receptor": 19.494950963879756,
+          "lsd_receptor": 19.312969189029694,
+          "placebo_uniform": 5.953841105009645,
+          "lsd_uniform": 5.232883464641197
         },
         "metrics": {
-          "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 14.325920304985392,
-          "lsd_vs_placebo_uniform_transition_energy_reduction_pct": 17.543754320252535,
-          "receptor_vs_uniform_energy_reduction_pct": -66.25794175924433,
-          "receptor_vs_random_energy_reduction_pct": 36.50396987594586,
-          "hierarchy_vs_uniform_energy_reduction_pct": -310.1531648593683,
-          "transmodal_vs_uniform_energy_reduction_pct": -790.3719571003477,
+          "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 0.9334815726761132,
+          "lsd_vs_placebo_uniform_transition_energy_reduction_pct": 12.109117923248311,
+          "receptor_vs_uniform_energy_reduction_pct": -154.64294548923917,
+          "receptor_vs_random_energy_reduction_pct": 5.6896477956061515,
+          "hierarchy_vs_uniform_energy_reduction_pct": -114.47353218591897,
+          "transmodal_vs_uniform_energy_reduction_pct": -193.72824550908746,
           "state_target_alignment_receptor": 0.12896833396143573
         },
         "target_displacement": {
@@ -607,29 +607,29 @@
         "run": "run-01",
         "matched_state_count": 4,
         "energies": {
-          "uniform": 0.6481417755144325,
-          "receptor": 1.135002918106916,
-          "hierarchy": 1.9843006223322825,
-          "sensory": 3.5756020242730875,
-          "transmodal": 3.5391635132489565,
-          "thalamic": 0.6374334758110753,
-          "degree": 0.6330245392792382,
-          "random_receptor_permutation_mean": 1.0726972280002673,
-          "random_receptor_permutation_std": 0.3374499469154252
+          "uniform": 0.6559002943791052,
+          "receptor": 1.2556786314443649,
+          "hierarchy": 1.3673187681583738,
+          "sensory": 1.3501227767049482,
+          "transmodal": 1.7204334805683341,
+          "thalamic": 1.0633865280511219,
+          "degree": 0.6542239689785307,
+          "random_receptor_permutation_mean": 1.157872544803722,
+          "random_receptor_permutation_std": 0.518667294192256
         },
         "condition_transition_energies": {
-          "placebo_receptor": 11.780169068373493,
-          "lsd_receptor": 10.990030122026988,
-          "placebo_uniform": 5.177604221678518,
-          "lsd_uniform": 4.695973789804138
+          "placebo_receptor": 15.561517535607166,
+          "lsd_receptor": 15.479991815440338,
+          "placebo_uniform": 5.21539782229,
+          "lsd_uniform": 4.721619995508378
         },
         "metrics": {
-          "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 6.707365079061635,
-          "lsd_vs_placebo_uniform_transition_energy_reduction_pct": 9.30218709761174,
-          "receptor_vs_uniform_energy_reduction_pct": -75.11645769261823,
-          "receptor_vs_random_energy_reduction_pct": -5.808320230564912,
-          "hierarchy_vs_uniform_energy_reduction_pct": -206.15224898246,
-          "transmodal_vs_uniform_energy_reduction_pct": -446.04773939157207,
+          "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 0.523893122764441,
+          "lsd_vs_placebo_uniform_transition_energy_reduction_pct": 9.467692467701559,
+          "receptor_vs_uniform_energy_reduction_pct": -91.44352307891974,
+          "receptor_vs_random_energy_reduction_pct": -8.447051195710202,
+          "hierarchy_vs_uniform_energy_reduction_pct": -108.4644236137626,
+          "transmodal_vs_uniform_energy_reduction_pct": -162.30106851788315,
           "state_target_alignment_receptor": 0.5792298838738689
         },
         "target_displacement": {
@@ -648,29 +648,29 @@
         "run": "run-03",
         "matched_state_count": 4,
         "energies": {
-          "uniform": 0.5445729414644968,
-          "receptor": 0.8684808872356815,
-          "hierarchy": 1.877271608477286,
-          "sensory": 2.970511488762808,
-          "transmodal": 3.7279776402484868,
-          "thalamic": 0.5045571416602836,
-          "degree": 0.5623373536146563,
-          "random_receptor_permutation_mean": 0.9744848891667841,
-          "random_receptor_permutation_std": 0.27221809713955747
+          "uniform": 0.5127887394270269,
+          "receptor": 1.074346249563169,
+          "hierarchy": 0.8772751141212741,
+          "sensory": 1.3057716599053493,
+          "transmodal": 1.2455194932446494,
+          "thalamic": 0.6341386260995565,
+          "degree": 0.5762266516254614,
+          "random_receptor_permutation_mean": 0.9203102258149409,
+          "random_receptor_permutation_std": 0.29043782825579223
         },
         "condition_transition_energies": {
-          "placebo_receptor": 10.928794531372764,
-          "lsd_receptor": 11.75659802494122,
-          "placebo_uniform": 4.805913513823858,
-          "lsd_uniform": 4.9112837406778045
+          "placebo_receptor": 14.91115257482053,
+          "lsd_receptor": 16.009727476994748,
+          "placebo_uniform": 4.654116315171205,
+          "lsd_uniform": 4.966991731563484
         },
         "metrics": {
-          "lsd_vs_placebo_receptor_transition_energy_reduction_pct": -7.574517859148318,
-          "lsd_vs_placebo_uniform_transition_energy_reduction_pct": -2.1925119241296622,
-          "receptor_vs_uniform_energy_reduction_pct": -59.47925816881628,
-          "receptor_vs_random_energy_reduction_pct": 10.877952353036427,
-          "hierarchy_vs_uniform_energy_reduction_pct": -244.72362938724416,
-          "transmodal_vs_uniform_energy_reduction_pct": -584.569018472162,
+          "lsd_vs_placebo_receptor_transition_energy_reduction_pct": -7.367471405458673,
+          "lsd_vs_placebo_uniform_transition_energy_reduction_pct": -6.722552579366929,
+          "receptor_vs_uniform_energy_reduction_pct": -109.51049954092362,
+          "receptor_vs_random_energy_reduction_pct": -16.73740217455784,
+          "hierarchy_vs_uniform_energy_reduction_pct": -71.07924700170138,
+          "transmodal_vs_uniform_energy_reduction_pct": -142.89135027347746,
           "state_target_alignment_receptor": -0.2247376741120717
         },
         "target_displacement": {
@@ -689,29 +689,29 @@
         "run": "run-01",
         "matched_state_count": 4,
         "energies": {
-          "uniform": 0.4846901399260659,
-          "receptor": 0.8696789596142154,
-          "hierarchy": 0.8020146577555374,
-          "sensory": 2.4490695239153513,
-          "transmodal": 1.5480350443967779,
-          "thalamic": 0.5860627616775012,
-          "degree": 0.4767913051141195,
-          "random_receptor_permutation_mean": 0.8121954611496217,
-          "random_receptor_permutation_std": 0.18466178237437506
+          "uniform": 0.5988756172363039,
+          "receptor": 1.4879141309348018,
+          "hierarchy": 0.6918797268830772,
+          "sensory": 2.1081784319848786,
+          "transmodal": 3.082999940881697,
+          "thalamic": 0.8284589430998703,
+          "degree": 0.6974692167535573,
+          "random_receptor_permutation_mean": 1.3499121301159573,
+          "random_receptor_permutation_std": 0.560091158642916
         },
         "condition_transition_energies": {
-          "placebo_receptor": 12.456099373379411,
-          "lsd_receptor": 12.85066561797465,
-          "placebo_uniform": 5.205157701516146,
-          "lsd_uniform": 4.9795188293866754
+          "placebo_receptor": 17.74104650445835,
+          "lsd_receptor": 18.086689912486268,
+          "placebo_uniform": 5.2409820551202175,
+          "lsd_uniform": 5.131624812768398
         },
         "metrics": {
-          "lsd_vs_placebo_receptor_transition_energy_reduction_pct": -3.16765491963309,
-          "lsd_vs_placebo_uniform_transition_energy_reduction_pct": 4.334909431538401,
-          "receptor_vs_uniform_energy_reduction_pct": -79.42988478100158,
-          "receptor_vs_random_energy_reduction_pct": -7.077544903197152,
-          "hierarchy_vs_uniform_energy_reduction_pct": -65.46956327146985,
-          "transmodal_vs_uniform_energy_reduction_pct": -219.38653520637192,
+          "lsd_vs_placebo_receptor_transition_energy_reduction_pct": -1.9482695563706312,
+          "lsd_vs_placebo_uniform_transition_energy_reduction_pct": 2.0865792174385,
+          "receptor_vs_uniform_energy_reduction_pct": -148.4512790487681,
+          "receptor_vs_random_energy_reduction_pct": -10.223035836191068,
+          "hierarchy_vs_uniform_energy_reduction_pct": -15.529787316432989,
+          "transmodal_vs_uniform_energy_reduction_pct": -414.79804021896075,
           "state_target_alignment_receptor": 0.4989340998974406
         },
         "target_displacement": {
@@ -730,29 +730,29 @@
         "run": "run-03",
         "matched_state_count": 4,
         "energies": {
-          "uniform": 0.47457185863646456,
-          "receptor": 1.0021782523411356,
-          "hierarchy": 1.4152111562090284,
-          "sensory": 2.408622042999559,
-          "transmodal": 2.289766267584789,
-          "thalamic": 0.5160493679584134,
-          "degree": 0.462253206907341,
-          "random_receptor_permutation_mean": 0.8039077307040134,
-          "random_receptor_permutation_std": 0.20224217364392816
+          "uniform": 0.45919749424871253,
+          "receptor": 1.2821104729458659,
+          "hierarchy": 0.7329080236906407,
+          "sensory": 1.1212069861448821,
+          "transmodal": 0.9982671023722571,
+          "thalamic": 0.5989236371335465,
+          "degree": 0.4439928318751448,
+          "random_receptor_permutation_mean": 0.7909848163995019,
+          "random_receptor_permutation_std": 0.21365806582992986
         },
         "condition_transition_energies": {
-          "placebo_receptor": 11.918959066299387,
-          "lsd_receptor": 11.922797007896259,
-          "placebo_uniform": 5.030378428072583,
-          "lsd_uniform": 4.957164073812622
+          "placebo_receptor": 17.075105022288263,
+          "lsd_receptor": 17.02529148973047,
+          "placebo_uniform": 5.128672643983733,
+          "lsd_uniform": 5.009695176831995
         },
         "metrics": {
-          "lsd_vs_placebo_receptor_transition_energy_reduction_pct": -0.032200308563220446,
-          "lsd_vs_placebo_uniform_transition_energy_reduction_pct": 1.4554442634251974,
-          "receptor_vs_uniform_energy_reduction_pct": -111.1752380810326,
-          "receptor_vs_random_energy_reduction_pct": -24.66334307588868,
-          "hierarchy_vs_uniform_energy_reduction_pct": -198.20798061545406,
-          "transmodal_vs_uniform_energy_reduction_pct": -382.4909496664476,
+          "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 0.2917319248857913,
+          "lsd_vs_placebo_uniform_transition_energy_reduction_pct": 2.3198491190757937,
+          "receptor_vs_uniform_energy_reduction_pct": -179.20676593488633,
+          "receptor_vs_random_energy_reduction_pct": -62.090402541723584,
+          "hierarchy_vs_uniform_energy_reduction_pct": -59.60627679158891,
+          "transmodal_vs_uniform_energy_reduction_pct": -117.3938479358451,
           "state_target_alignment_receptor": 0.6815120088840639
         },
         "target_displacement": {
@@ -771,29 +771,29 @@
         "run": "run-01",
         "matched_state_count": 4,
         "energies": {
-          "uniform": 0.6383360721551484,
-          "receptor": 1.15468733413257,
-          "hierarchy": 3.329952265197642,
-          "sensory": 2.750742905415708,
-          "transmodal": 5.130239427789003,
-          "thalamic": 0.98747557588279,
-          "degree": 0.6516443851881986,
-          "random_receptor_permutation_mean": 1.1838096719088869,
-          "random_receptor_permutation_std": 0.4088491454385555
+          "uniform": 0.7592100814588754,
+          "receptor": 1.297322889077802,
+          "hierarchy": 3.0541838853881407,
+          "sensory": 2.1482587615018227,
+          "transmodal": 5.028156857714456,
+          "thalamic": 1.4346735183470694,
+          "degree": 0.8505671651179433,
+          "random_receptor_permutation_mean": 1.68531644435611,
+          "random_receptor_permutation_std": 0.6437550641736661
         },
         "condition_transition_energies": {
-          "placebo_receptor": 11.134321823929204,
-          "lsd_receptor": 11.698048531931548,
-          "placebo_uniform": 4.62744941463679,
-          "lsd_uniform": 4.819888167784041
+          "placebo_receptor": 15.090188577895848,
+          "lsd_receptor": 15.928410945946153,
+          "placebo_uniform": 4.7118095541206495,
+          "lsd_uniform": 4.964387154342644
         },
         "metrics": {
-          "lsd_vs_placebo_receptor_transition_energy_reduction_pct": -5.062964021668718,
-          "lsd_vs_placebo_uniform_transition_energy_reduction_pct": -4.158635479375738,
-          "receptor_vs_uniform_energy_reduction_pct": -80.89019005836816,
-          "receptor_vs_random_energy_reduction_pct": 2.460052360389755,
-          "hierarchy_vs_uniform_energy_reduction_pct": -421.66130200899767,
-          "transmodal_vs_uniform_energy_reduction_pct": -703.6894124545247,
+          "lsd_vs_placebo_receptor_transition_energy_reduction_pct": -5.554750782095165,
+          "lsd_vs_placebo_uniform_transition_energy_reduction_pct": -5.36052226476569,
+          "receptor_vs_uniform_energy_reduction_pct": -70.87798499526048,
+          "receptor_vs_random_energy_reduction_pct": 23.022000205222255,
+          "hierarchy_vs_uniform_energy_reduction_pct": -302.28442166090736,
+          "transmodal_vs_uniform_energy_reduction_pct": -562.2879464472468,
           "state_target_alignment_receptor": 0.4389561023720672
         },
         "target_displacement": {
@@ -812,29 +812,29 @@
         "run": "run-03",
         "matched_state_count": 4,
         "energies": {
-          "uniform": 0.7021050017003538,
-          "receptor": 1.5055210949506042,
-          "hierarchy": 4.864033133726721,
-          "sensory": 2.8893020945485053,
-          "transmodal": 7.079912119708711,
-          "thalamic": 1.550244963457559,
-          "degree": 0.7379644056769403,
-          "random_receptor_permutation_mean": 1.4596421646374385,
-          "random_receptor_permutation_std": 0.5858334020131155
+          "uniform": 0.891758675083982,
+          "receptor": 1.861944103079764,
+          "hierarchy": 4.382754519071803,
+          "sensory": 2.2152985281077244,
+          "transmodal": 7.226471154745049,
+          "thalamic": 2.103115224599314,
+          "degree": 1.0027218551474062,
+          "random_receptor_permutation_mean": 2.2603293652760494,
+          "random_receptor_permutation_std": 0.7770193234168736
         },
         "condition_transition_energies": {
-          "placebo_receptor": 13.077288201952078,
-          "lsd_receptor": 10.927215960250251,
-          "placebo_uniform": 5.098641221070598,
-          "lsd_uniform": 5.190937286802269
+          "placebo_receptor": 17.33233937893007,
+          "lsd_receptor": 13.88362736675773,
+          "placebo_uniform": 5.154547295414956,
+          "lsd_uniform": 5.359710331567351
         },
         "metrics": {
-          "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 16.441269845080573,
-          "lsd_vs_placebo_uniform_transition_energy_reduction_pct": -1.8102090680601148,
-          "receptor_vs_uniform_energy_reduction_pct": -114.4296211114494,
-          "receptor_vs_random_energy_reduction_pct": -3.1431628535177043,
-          "hierarchy_vs_uniform_energy_reduction_pct": -592.7785903742366,
-          "transmodal_vs_uniform_energy_reduction_pct": -908.3836609285819,
+          "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 19.897556450831672,
+          "lsd_vs_placebo_uniform_transition_energy_reduction_pct": -3.9802338477889414,
+          "receptor_vs_uniform_energy_reduction_pct": -108.79461620089249,
+          "receptor_vs_random_energy_reduction_pct": 17.62509784266026,
+          "hierarchy_vs_uniform_energy_reduction_pct": -391.47315765210294,
+          "transmodal_vs_uniform_energy_reduction_pct": -710.361744343501,
           "state_target_alignment_receptor": -0.3512093369808064
         },
         "target_displacement": {
@@ -853,29 +853,29 @@
         "run": "run-01",
         "matched_state_count": 4,
         "energies": {
-          "uniform": 0.4767752788934321,
-          "receptor": 1.06689836700802,
-          "hierarchy": 2.7215343123940863,
-          "sensory": 3.2454862216967975,
-          "transmodal": 4.824606951474577,
-          "thalamic": 1.7814351688202446,
-          "degree": 0.5363195938264085,
-          "random_receptor_permutation_mean": 1.1752130144572899,
-          "random_receptor_permutation_std": 0.5969191296134668
+          "uniform": 0.46870340628070073,
+          "receptor": 1.1580153933343231,
+          "hierarchy": 2.144850023341108,
+          "sensory": 3.3410129919603646,
+          "transmodal": 3.006828171339608,
+          "thalamic": 1.7811560764002494,
+          "degree": 0.4935449573928737,
+          "random_receptor_permutation_mean": 1.2785148941996551,
+          "random_receptor_permutation_std": 0.8810279734192115
         },
         "condition_transition_energies": {
-          "placebo_receptor": 13.244164136864915,
-          "lsd_receptor": 15.863422854540397,
-          "placebo_uniform": 5.700720152800073,
-          "lsd_uniform": 6.36190483254065
+          "placebo_receptor": 17.998904317632263,
+          "lsd_receptor": 22.2079851874748,
+          "placebo_uniform": 5.7581264126795135,
+          "lsd_uniform": 6.476438625518122
         },
         "metrics": {
-          "lsd_vs_placebo_receptor_transition_energy_reduction_pct": -19.776700821645797,
-          "lsd_vs_placebo_uniform_transition_energy_reduction_pct": -11.59826586849413,
-          "receptor_vs_uniform_energy_reduction_pct": -123.7738436196251,
-          "receptor_vs_random_energy_reduction_pct": 9.2165970012925,
-          "hierarchy_vs_uniform_energy_reduction_pct": -470.8211882777585,
-          "transmodal_vs_uniform_energy_reduction_pct": -911.9247295439083,
+          "lsd_vs_placebo_receptor_transition_energy_reduction_pct": -23.385206096791105,
+          "lsd_vs_placebo_uniform_transition_energy_reduction_pct": -12.474755872967112,
+          "receptor_vs_uniform_energy_reduction_pct": -147.06784243867898,
+          "receptor_vs_random_energy_reduction_pct": 9.424958708890458,
+          "hierarchy_vs_uniform_energy_reduction_pct": -357.6134917305431,
+          "transmodal_vs_uniform_energy_reduction_pct": -541.5204436425314,
           "state_target_alignment_receptor": 0.44564794961916204
         },
         "target_displacement": {
@@ -894,29 +894,29 @@
         "run": "run-03",
         "matched_state_count": 4,
         "energies": {
-          "uniform": 1.8019464629256488,
-          "receptor": 2.2100303278436724,
-          "hierarchy": 12.161579545125178,
-          "sensory": 5.3017957113124385,
-          "transmodal": 28.931652117505763,
-          "thalamic": 7.347060097919815,
-          "degree": 2.1407587402021724,
-          "random_receptor_permutation_mean": 5.469618043695643,
-          "random_receptor_permutation_std": 2.7175697110200434
+          "uniform": 2.028124076340743,
+          "receptor": 3.7508828438811954,
+          "hierarchy": 7.500729834801662,
+          "sensory": 4.6698831194048545,
+          "transmodal": 17.864050513571225,
+          "thalamic": 7.230747191219091,
+          "degree": 2.117981335697113,
+          "random_receptor_permutation_mean": 6.505215378129634,
+          "random_receptor_permutation_std": 2.857757438067022
         },
         "condition_transition_energies": {
-          "placebo_receptor": 15.85504745104619,
-          "lsd_receptor": 14.76015226787797,
-          "placebo_uniform": 6.051940963794793,
-          "lsd_uniform": 6.123354516385011
+          "placebo_receptor": 23.721888317175186,
+          "lsd_receptor": 20.83328318387558,
+          "placebo_uniform": 6.274820120659339,
+          "lsd_uniform": 6.390629676593329
         },
         "metrics": {
-          "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 6.905656930695424,
-          "lsd_vs_placebo_uniform_transition_energy_reduction_pct": -1.180010727425186,
-          "receptor_vs_uniform_energy_reduction_pct": -22.64683625813481,
-          "receptor_vs_random_energy_reduction_pct": 59.59443035714379,
-          "hierarchy_vs_uniform_energy_reduction_pct": -574.9134780275092,
-          "transmodal_vs_uniform_energy_reduction_pct": -1505.5777856203451,
+          "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 12.176961187394978,
+          "lsd_vs_placebo_uniform_transition_energy_reduction_pct": -1.8456235191937438,
+          "receptor_vs_uniform_energy_reduction_pct": -84.9434601974033,
+          "receptor_vs_random_energy_reduction_pct": 42.34037420972154,
+          "hierarchy_vs_uniform_energy_reduction_pct": -269.8358459574577,
+          "transmodal_vs_uniform_energy_reduction_pct": -780.8164511217954,
           "state_target_alignment_receptor": 0.22512377191894928
         },
         "target_displacement": {
@@ -935,29 +935,29 @@
         "run": "run-01",
         "matched_state_count": 4,
         "energies": {
-          "uniform": 0.6339754978557886,
-          "receptor": 0.9414436265341688,
-          "hierarchy": 1.7176327954983348,
-          "sensory": 3.6954331857646707,
-          "transmodal": 2.762249881413859,
-          "thalamic": 0.866416039143066,
-          "degree": 0.6856672992031048,
-          "random_receptor_permutation_mean": 1.1771774204752017,
-          "random_receptor_permutation_std": 0.492317131567288
+          "uniform": 0.7195599373143792,
+          "receptor": 1.0094260267603383,
+          "hierarchy": 1.3532353622510565,
+          "sensory": 3.7071813990301363,
+          "transmodal": 2.5723368542581717,
+          "thalamic": 1.0374600385016026,
+          "degree": 0.9095029234343928,
+          "random_receptor_permutation_mean": 1.5830269024603174,
+          "random_receptor_permutation_std": 0.7111300786777544
         },
         "condition_transition_energies": {
-          "placebo_receptor": 15.035432727014259,
-          "lsd_receptor": 14.030661010659346,
-          "placebo_uniform": 5.726383848599762,
-          "lsd_uniform": 4.9896448197161725
+          "placebo_receptor": 19.5815512401703,
+          "lsd_receptor": 20.530280219972965,
+          "placebo_uniform": 5.611488074989099,
+          "lsd_uniform": 5.133971629493521
         },
         "metrics": {
-          "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 6.68269237472383,
-          "lsd_vs_placebo_uniform_transition_energy_reduction_pct": 12.865694098793956,
-          "receptor_vs_uniform_energy_reduction_pct": -48.49842457922885,
-          "receptor_vs_random_energy_reduction_pct": 20.025341111781785,
-          "hierarchy_vs_uniform_energy_reduction_pct": -170.93046991684332,
-          "transmodal_vs_uniform_energy_reduction_pct": -335.70293974392564,
+          "lsd_vs_placebo_receptor_transition_energy_reduction_pct": -4.845014412629423,
+          "lsd_vs_placebo_uniform_transition_energy_reduction_pct": 8.50962238740043,
+          "receptor_vs_uniform_energy_reduction_pct": -40.28380047502773,
+          "receptor_vs_random_energy_reduction_pct": 36.23443637050621,
+          "hierarchy_vs_uniform_energy_reduction_pct": -88.06430042530585,
+          "transmodal_vs_uniform_energy_reduction_pct": -257.48750324523775,
           "state_target_alignment_receptor": 0.25648276328619857
         },
         "target_displacement": {
@@ -976,29 +976,29 @@
         "run": "run-03",
         "matched_state_count": 4,
         "energies": {
-          "uniform": 0.545239252684941,
-          "receptor": 0.827700601689,
-          "hierarchy": 1.8083393772585454,
-          "sensory": 2.6787733990949842,
-          "transmodal": 3.0133887910160624,
-          "thalamic": 0.7326409353367129,
-          "degree": 0.5188688080030579,
-          "random_receptor_permutation_mean": 0.9797184508675844,
-          "random_receptor_permutation_std": 0.2304904034984786
+          "uniform": 0.5632565303530561,
+          "receptor": 0.9206526245552256,
+          "hierarchy": 1.0260440996508484,
+          "sensory": 2.638548972101842,
+          "transmodal": 1.6834905989469875,
+          "thalamic": 0.7590444028556081,
+          "degree": 0.5691486723138509,
+          "random_receptor_permutation_mean": 1.0876867430191437,
+          "random_receptor_permutation_std": 0.29618217296054655
         },
         "condition_transition_energies": {
-          "placebo_receptor": 14.893534074375918,
-          "lsd_receptor": 14.127501097509453,
-          "placebo_uniform": 6.050753067159745,
-          "lsd_uniform": 5.194032828538958
+          "placebo_receptor": 19.287617120091134,
+          "lsd_receptor": 18.470128518625433,
+          "placebo_uniform": 6.013962810926768,
+          "lsd_uniform": 5.148971000859331
         },
         "metrics": {
-          "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 5.1433929183027915,
-          "lsd_vs_placebo_uniform_transition_energy_reduction_pct": 14.158902687181307,
-          "receptor_vs_uniform_energy_reduction_pct": -51.805028272107066,
-          "receptor_vs_random_energy_reduction_pct": 15.51648323495039,
-          "hierarchy_vs_uniform_energy_reduction_pct": -231.65979308233509,
-          "transmodal_vs_uniform_energy_reduction_pct": -452.67275350722184,
+          "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 4.238411600436407,
+          "lsd_vs_placebo_uniform_transition_energy_reduction_pct": 14.383058845921587,
+          "receptor_vs_uniform_energy_reduction_pct": -63.451744443717175,
+          "receptor_vs_random_energy_reduction_pct": 15.356822130632354,
+          "hierarchy_vs_uniform_energy_reduction_pct": -82.16284132697251,
+          "transmodal_vs_uniform_energy_reduction_pct": -198.88523403213006,
           "state_target_alignment_receptor": 0.13952968562312512
         },
         "target_displacement": {
@@ -1017,29 +1017,29 @@
         "run": "run-01",
         "matched_state_count": 4,
         "energies": {
-          "uniform": 0.7357460983642012,
-          "receptor": 0.8398942135429881,
-          "hierarchy": 4.2208518320926505,
-          "sensory": 4.38685287135875,
-          "transmodal": 10.29857177292083,
-          "thalamic": 1.1954635380731844,
-          "degree": 0.7023984084150035,
-          "random_receptor_permutation_mean": 1.7371312826188496,
-          "random_receptor_permutation_std": 0.8645860075500346
+          "uniform": 0.5264474315267924,
+          "receptor": 0.678711847988229,
+          "hierarchy": 1.7185785022977504,
+          "sensory": 2.222513610261735,
+          "transmodal": 2.9452243019027438,
+          "thalamic": 0.9656722017248663,
+          "degree": 0.41716353440539133,
+          "random_receptor_permutation_mean": 1.0200111603586888,
+          "random_receptor_permutation_std": 0.36926885912813506
         },
         "condition_transition_energies": {
-          "placebo_receptor": 13.69204780504997,
-          "lsd_receptor": 15.834690931202427,
-          "placebo_uniform": 5.6747849021568255,
-          "lsd_uniform": 5.563921926553439
+          "placebo_receptor": 17.55432884433228,
+          "lsd_receptor": 21.879972854358307,
+          "placebo_uniform": 5.4012232828313795,
+          "lsd_uniform": 5.357321405843283
         },
         "metrics": {
-          "lsd_vs_placebo_receptor_transition_energy_reduction_pct": -15.64881423626199,
-          "lsd_vs_placebo_uniform_transition_energy_reduction_pct": 1.9536066567254498,
-          "receptor_vs_uniform_energy_reduction_pct": -14.155442401983702,
-          "receptor_vs_random_energy_reduction_pct": 51.65050437196735,
-          "hierarchy_vs_uniform_energy_reduction_pct": -473.68320966661645,
-          "transmodal_vs_uniform_energy_reduction_pct": -1299.7453463657976,
+          "lsd_vs_placebo_receptor_transition_energy_reduction_pct": -24.6414662069102,
+          "lsd_vs_placebo_uniform_transition_energy_reduction_pct": 0.8128135922031814,
+          "receptor_vs_uniform_energy_reduction_pct": -28.92300490855134,
+          "receptor_vs_random_energy_reduction_pct": 33.460350791695376,
+          "hierarchy_vs_uniform_energy_reduction_pct": -226.4482642290728,
+          "transmodal_vs_uniform_energy_reduction_pct": -459.45268711085976,
           "state_target_alignment_receptor": 0.0764431823516777
         },
         "target_displacement": {
@@ -1058,29 +1058,29 @@
         "run": "run-03",
         "matched_state_count": 4,
         "energies": {
-          "uniform": 0.8393111064170864,
-          "receptor": 1.1476493999491886,
-          "hierarchy": 4.657982422683557,
-          "sensory": 5.478480036970996,
-          "transmodal": 9.502214897900831,
-          "thalamic": 2.05019651614019,
-          "degree": 0.9038716099057911,
-          "random_receptor_permutation_mean": 2.083586718737046,
-          "random_receptor_permutation_std": 0.9890325637935721
+          "uniform": 0.677248943987065,
+          "receptor": 1.2455475612295488,
+          "hierarchy": 2.2650821580533083,
+          "sensory": 3.5305810683863132,
+          "transmodal": 3.3228335919524508,
+          "thalamic": 1.9585572703632752,
+          "degree": 0.6656579184826099,
+          "random_receptor_permutation_mean": 1.5638134917449655,
+          "random_receptor_permutation_std": 0.6613225430897627
         },
         "condition_transition_energies": {
-          "placebo_receptor": 14.05431750359221,
-          "lsd_receptor": 15.114768166532425,
-          "placebo_uniform": 5.822563763912519,
-          "lsd_uniform": 5.631746500774626
+          "placebo_receptor": 18.672933127672948,
+          "lsd_receptor": 20.51053977138182,
+          "placebo_uniform": 5.5378589502753,
+          "lsd_uniform": 5.4517019618417
         },
         "metrics": {
-          "lsd_vs_placebo_receptor_transition_energy_reduction_pct": -7.545372891064745,
-          "lsd_vs_placebo_uniform_transition_energy_reduction_pct": 3.277203494456394,
-          "receptor_vs_uniform_energy_reduction_pct": -36.73706819493425,
-          "receptor_vs_random_energy_reduction_pct": 44.91952796450777,
-          "hierarchy_vs_uniform_energy_reduction_pct": -454.97685984019665,
-          "transmodal_vs_uniform_energy_reduction_pct": -1032.1445439301515,
+          "lsd_vs_placebo_receptor_transition_energy_reduction_pct": -9.841017643797858,
+          "lsd_vs_placebo_uniform_transition_energy_reduction_pct": 1.555781561199147,
+          "receptor_vs_uniform_energy_reduction_pct": -83.91280965265527,
+          "receptor_vs_random_energy_reduction_pct": 20.35191103002206,
+          "hierarchy_vs_uniform_energy_reduction_pct": -234.45340567361143,
+          "transmodal_vs_uniform_energy_reduction_pct": -390.63695432146955,
           "state_target_alignment_receptor": 0.00985043458594781
         },
         "target_displacement": {
@@ -1099,29 +1099,29 @@
         "run": "run-01",
         "matched_state_count": 4,
         "energies": {
-          "uniform": 0.6038053025524728,
-          "receptor": 0.9391944356465977,
-          "hierarchy": 1.8544898432740264,
-          "sensory": 2.094235340918133,
-          "transmodal": 3.2741973967915605,
-          "thalamic": 0.4415351793111463,
-          "degree": 0.5823408796487994,
-          "random_receptor_permutation_mean": 0.9541837412625723,
-          "random_receptor_permutation_std": 0.21616647478481554
+          "uniform": 0.5950993794386289,
+          "receptor": 1.0659547574315282,
+          "hierarchy": 0.9782342259035951,
+          "sensory": 0.9874624517936026,
+          "transmodal": 1.3721227251000916,
+          "thalamic": 0.600353312180634,
+          "degree": 0.583332226778,
+          "random_receptor_permutation_mean": 0.964849251559959,
+          "random_receptor_permutation_std": 0.19980008307188668
         },
         "condition_transition_energies": {
-          "placebo_receptor": 13.368032069501927,
-          "lsd_receptor": 10.059887159628037,
-          "placebo_uniform": 4.863674429553647,
-          "lsd_uniform": 4.324282490604884
+          "placebo_receptor": 17.593135717914517,
+          "lsd_receptor": 14.120451195498175,
+          "placebo_uniform": 4.746541926041846,
+          "lsd_uniform": 4.483200390006187
         },
         "metrics": {
-          "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 24.746685919621278,
-          "lsd_vs_placebo_uniform_transition_energy_reduction_pct": 11.09021474939195,
-          "receptor_vs_uniform_energy_reduction_pct": -55.545907211535024,
-          "receptor_vs_random_energy_reduction_pct": 1.5709034819793593,
-          "hierarchy_vs_uniform_energy_reduction_pct": -207.13374583404968,
-          "transmodal_vs_uniform_energy_reduction_pct": -442.26045762607754,
+          "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 19.738860531157165,
+          "lsd_vs_placebo_uniform_transition_energy_reduction_pct": 5.548071419970795,
+          "receptor_vs_uniform_energy_reduction_pct": -79.122142328071,
+          "receptor_vs_random_energy_reduction_pct": -10.478891464972666,
+          "hierarchy_vs_uniform_energy_reduction_pct": -64.38165787139388,
+          "transmodal_vs_uniform_energy_reduction_pct": -130.57035051766428,
           "state_target_alignment_receptor": 0.36442173965271923
         },
         "target_displacement": {
@@ -1140,29 +1140,29 @@
         "run": "run-03",
         "matched_state_count": 4,
         "energies": {
-          "uniform": 0.6507382856208047,
-          "receptor": 0.9186327433583626,
-          "hierarchy": 2.2979153935116843,
-          "sensory": 3.254575447625066,
-          "transmodal": 4.263025900795159,
-          "thalamic": 0.9056618579354775,
-          "degree": 0.650173005471369,
-          "random_receptor_permutation_mean": 1.214874444884229,
-          "random_receptor_permutation_std": 0.29888668098188337
+          "uniform": 0.5896840161733166,
+          "receptor": 0.8664494493346733,
+          "hierarchy": 1.1940449202400567,
+          "sensory": 1.8538236489849744,
+          "transmodal": 1.5137150625643971,
+          "thalamic": 1.000200427890021,
+          "degree": 0.5664614045641989,
+          "random_receptor_permutation_mean": 1.0543184155476502,
+          "random_receptor_permutation_std": 0.2488582230598839
         },
         "condition_transition_energies": {
-          "placebo_receptor": 12.992947355299108,
-          "lsd_receptor": 11.794507916605044,
-          "placebo_uniform": 5.533273986683883,
-          "lsd_uniform": 4.90383528627342
+          "placebo_receptor": 16.61982208073025,
+          "lsd_receptor": 15.95562170087171,
+          "placebo_uniform": 5.42786326248721,
+          "lsd_uniform": 4.903837821569537
         },
         "metrics": {
-          "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 9.2237689103334,
-          "lsd_vs_placebo_uniform_transition_energy_reduction_pct": 11.375520206034274,
-          "receptor_vs_uniform_energy_reduction_pct": -41.167772614144944,
-          "receptor_vs_random_energy_reduction_pct": 24.384552887199515,
-          "hierarchy_vs_uniform_energy_reduction_pct": -253.1243580235135,
-          "transmodal_vs_uniform_energy_reduction_pct": -555.1060533849226,
+          "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 3.9964349596055038,
+          "lsd_vs_placebo_uniform_transition_energy_reduction_pct": 9.654359654549381,
+          "receptor_vs_uniform_energy_reduction_pct": -46.934531981618335,
+          "receptor_vs_random_energy_reduction_pct": 17.81899694082372,
+          "hierarchy_vs_uniform_energy_reduction_pct": -102.48894110928552,
+          "transmodal_vs_uniform_energy_reduction_pct": -156.69935440805548,
           "state_target_alignment_receptor": -0.08589769323324759
         },
         "target_displacement": {
@@ -1181,29 +1181,29 @@
         "run": "run-01",
         "matched_state_count": 4,
         "energies": {
-          "uniform": 0.5973610763733167,
-          "receptor": 1.009507457457398,
-          "hierarchy": 2.786103603512647,
-          "sensory": 3.0194779957151456,
-          "transmodal": 5.686852142953985,
-          "thalamic": 1.3073755398110083,
-          "degree": 0.6302581581686941,
-          "random_receptor_permutation_mean": 1.3159928240601602,
-          "random_receptor_permutation_std": 0.33266870703066026
+          "uniform": 0.5012931061983361,
+          "receptor": 0.9264492312923189,
+          "hierarchy": 1.30951212999658,
+          "sensory": 2.074955652275374,
+          "transmodal": 1.6842345288249831,
+          "thalamic": 1.1241018277383508,
+          "degree": 0.46332647419804845,
+          "random_receptor_permutation_mean": 0.9852975926920007,
+          "random_receptor_permutation_std": 0.1400294578224894
         },
         "condition_transition_energies": {
-          "placebo_receptor": 15.449887136928055,
-          "lsd_receptor": 13.344088152485298,
-          "placebo_uniform": 5.6878254467876594,
-          "lsd_uniform": 5.393044306823065
+          "placebo_receptor": 21.459246239912858,
+          "lsd_receptor": 17.02766806025806,
+          "placebo_uniform": 5.729123024366608,
+          "lsd_uniform": 5.273024773507137
         },
         "metrics": {
-          "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 13.629866456496709,
-          "lsd_vs_placebo_uniform_transition_energy_reduction_pct": 5.182668538660571,
-          "receptor_vs_uniform_energy_reduction_pct": -68.99451560960311,
-          "receptor_vs_random_energy_reduction_pct": 23.28928858876144,
-          "hierarchy_vs_uniform_energy_reduction_pct": -366.4019323836042,
-          "transmodal_vs_uniform_energy_reduction_pct": -851.9957640159375,
+          "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 20.651136251991648,
+          "lsd_vs_placebo_uniform_transition_energy_reduction_pct": 7.961048295168972,
+          "receptor_vs_uniform_energy_reduction_pct": -84.81188347437002,
+          "receptor_vs_random_energy_reduction_pct": 5.9726484501903645,
+          "hierarchy_vs_uniform_energy_reduction_pct": -161.2268379127625,
+          "transmodal_vs_uniform_energy_reduction_pct": -235.97799530852066,
           "state_target_alignment_receptor": -0.4160227289978602
         },
         "target_displacement": {
@@ -1222,29 +1222,29 @@
         "run": "run-03",
         "matched_state_count": 4,
         "energies": {
-          "uniform": 0.5252469053089853,
-          "receptor": 0.5195687218396684,
-          "hierarchy": 1.3437193238893168,
-          "sensory": 3.338828508958997,
-          "transmodal": 3.4484622823603965,
-          "thalamic": 0.5653718473905296,
-          "degree": 0.5198781288845474,
-          "random_receptor_permutation_mean": 0.9608317323096072,
-          "random_receptor_permutation_std": 0.3390303210252402
+          "uniform": 0.5046964184074016,
+          "receptor": 0.5401261694749628,
+          "hierarchy": 0.6377758907009868,
+          "sensory": 1.7007187563255304,
+          "transmodal": 0.7616707502463573,
+          "thalamic": 0.6481868821360715,
+          "degree": 0.5295413673276825,
+          "random_receptor_permutation_mean": 0.9202606008377054,
+          "random_receptor_permutation_std": 0.3969776178213676
         },
         "condition_transition_energies": {
-          "placebo_receptor": 14.411834270693031,
-          "lsd_receptor": 13.228378671340748,
-          "placebo_uniform": 5.665306617312001,
-          "lsd_uniform": 5.348836189092198
+          "placebo_receptor": 19.665051554006684,
+          "lsd_receptor": 16.89929369994748,
+          "placebo_uniform": 5.687549883978789,
+          "lsd_uniform": 5.243482182236817
         },
         "metrics": {
-          "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 8.211693092800006,
-          "lsd_vs_placebo_uniform_transition_energy_reduction_pct": 5.586112978470302,
-          "receptor_vs_uniform_energy_reduction_pct": 1.0810503425958569,
-          "receptor_vs_random_energy_reduction_pct": 45.9251079696597,
-          "hierarchy_vs_uniform_energy_reduction_pct": -155.8262238782447,
-          "transmodal_vs_uniform_energy_reduction_pct": -556.5411899631813,
+          "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 14.064330553436507,
+          "lsd_vs_placebo_uniform_transition_energy_reduction_pct": 7.8077152869087305,
+          "receptor_vs_uniform_energy_reduction_pct": -7.020012382763046,
+          "receptor_vs_random_energy_reduction_pct": 41.30725916297074,
+          "hierarchy_vs_uniform_energy_reduction_pct": -26.368222051887162,
+          "transmodal_vs_uniform_energy_reduction_pct": -50.91661491275347,
           "state_target_alignment_receptor": 0.029474925185391933
         },
         "target_displacement": {
@@ -1263,29 +1263,29 @@
         "run": "run-01",
         "matched_state_count": 4,
         "energies": {
-          "uniform": 0.6303473639004815,
-          "receptor": 0.8846977149057293,
-          "hierarchy": 2.043844752642941,
-          "sensory": 2.5606585761986196,
-          "transmodal": 3.030222372695753,
-          "thalamic": 0.683600258371108,
-          "degree": 0.6099655819589025,
-          "random_receptor_permutation_mean": 1.0297914280503688,
-          "random_receptor_permutation_std": 0.23780134210872014
+          "uniform": 0.7350474257868469,
+          "receptor": 1.050371133695265,
+          "hierarchy": 1.7437084946638977,
+          "sensory": 2.3027356505404817,
+          "transmodal": 3.9078121255339298,
+          "thalamic": 1.0183070953625895,
+          "degree": 0.7870524371817595,
+          "random_receptor_permutation_mean": 1.4821476014667458,
+          "random_receptor_permutation_std": 0.5010516716565394
         },
         "condition_transition_energies": {
-          "placebo_receptor": 12.284472036553783,
-          "lsd_receptor": 10.637746985941636,
-          "placebo_uniform": 4.634833688188625,
-          "lsd_uniform": 4.446144403205723
+          "placebo_receptor": 17.423012302808825,
+          "lsd_receptor": 14.810163936183267,
+          "placebo_uniform": 4.644045044586569,
+          "lsd_uniform": 4.623816921372647
         },
         "metrics": {
-          "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 13.40493141025628,
-          "lsd_vs_placebo_uniform_transition_energy_reduction_pct": 4.0711123133448295,
-          "receptor_vs_uniform_energy_reduction_pct": -40.35082330341979,
-          "receptor_vs_random_energy_reduction_pct": 14.089621373071159,
-          "hierarchy_vs_uniform_energy_reduction_pct": -224.241024820978,
-          "transmodal_vs_uniform_energy_reduction_pct": -380.7226215630151,
+          "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 14.996536311946077,
+          "lsd_vs_placebo_uniform_transition_energy_reduction_pct": 0.43557121043650154,
+          "receptor_vs_uniform_energy_reduction_pct": -42.89841673424994,
+          "receptor_vs_random_energy_reduction_pct": 29.131813008649825,
+          "hierarchy_vs_uniform_energy_reduction_pct": -137.22394412813682,
+          "transmodal_vs_uniform_energy_reduction_pct": -431.64081506043374,
           "state_target_alignment_receptor": 0.0838280338952945
         },
         "target_displacement": {
@@ -1304,29 +1304,29 @@
         "run": "run-03",
         "matched_state_count": 4,
         "energies": {
-          "uniform": 0.6984260808921061,
-          "receptor": 1.1859187804754647,
-          "hierarchy": 2.176054151458652,
-          "sensory": 3.1864463274810806,
-          "transmodal": 3.2982050608843263,
-          "thalamic": 0.528014353332263,
-          "degree": 0.7047371054296334,
-          "random_receptor_permutation_mean": 1.0900426784035628,
-          "random_receptor_permutation_std": 0.2518927057196507
+          "uniform": 0.7521544206859311,
+          "receptor": 1.2792583733209675,
+          "hierarchy": 1.516886939966363,
+          "sensory": 1.6947650980090119,
+          "transmodal": 2.047038384546987,
+          "thalamic": 0.9094830439926347,
+          "degree": 0.8428413013066185,
+          "random_receptor_permutation_mean": 1.3593876221178993,
+          "random_receptor_permutation_std": 0.3748285578695185
         },
         "condition_transition_energies": {
-          "placebo_receptor": 13.911486701923332,
-          "lsd_receptor": 8.923670561325883,
-          "placebo_uniform": 4.664071567117797,
-          "lsd_uniform": 4.110800121317988
+          "placebo_receptor": 19.78187816191483,
+          "lsd_receptor": 12.086108338241237,
+          "placebo_uniform": 4.652792163389136,
+          "lsd_uniform": 4.210994050513975
         },
         "metrics": {
-          "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 35.853940326218755,
-          "lsd_vs_placebo_uniform_transition_energy_reduction_pct": 11.862413297866865,
-          "receptor_vs_uniform_energy_reduction_pct": -69.79875364343205,
-          "receptor_vs_random_energy_reduction_pct": -8.795628278731119,
-          "hierarchy_vs_uniform_energy_reduction_pct": -211.5654198765255,
-          "transmodal_vs_uniform_energy_reduction_pct": -372.2339487482338,
+          "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 38.903130232041946,
+          "lsd_vs_placebo_uniform_transition_energy_reduction_pct": 9.495333067990542,
+          "receptor_vs_uniform_energy_reduction_pct": -70.07922018916558,
+          "receptor_vs_random_energy_reduction_pct": 5.894510696815971,
+          "hierarchy_vs_uniform_energy_reduction_pct": -101.67227609764363,
+          "transmodal_vs_uniform_energy_reduction_pct": -172.15666467534416,
           "state_target_alignment_receptor": -0.5882240329902078
         },
         "target_displacement": {
@@ -1345,29 +1345,29 @@
         "run": "run-01",
         "matched_state_count": 4,
         "energies": {
-          "uniform": 0.6033149736693264,
-          "receptor": 0.9012422783853125,
-          "hierarchy": 2.0421366248263393,
-          "sensory": 2.3095211891209413,
-          "transmodal": 3.9978127527647516,
-          "thalamic": 0.471361775565119,
-          "degree": 0.5854079588893625,
-          "random_receptor_permutation_mean": 1.006433731297154,
-          "random_receptor_permutation_std": 0.22607988338869706
+          "uniform": 0.5621620471039858,
+          "receptor": 0.8743513725728373,
+          "hierarchy": 0.967804562949847,
+          "sensory": 1.146558660719318,
+          "transmodal": 1.0881643130069367,
+          "thalamic": 0.6349643782404126,
+          "degree": 0.5374247383319471,
+          "random_receptor_permutation_mean": 0.8833528035657946,
+          "random_receptor_permutation_std": 0.2146573531401771
         },
         "condition_transition_energies": {
-          "placebo_receptor": 12.082893598538126,
-          "lsd_receptor": 9.584091307839296,
-          "placebo_uniform": 4.9433461856173055,
-          "lsd_uniform": 3.9970608350472765
+          "placebo_receptor": 15.750211866468224,
+          "lsd_receptor": 13.812225660494843,
+          "placebo_uniform": 4.838350416989293,
+          "lsd_uniform": 4.054576934131521
         },
         "metrics": {
-          "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 20.68049569683501,
-          "lsd_vs_placebo_uniform_transition_energy_reduction_pct": 19.142607356192286,
-          "receptor_vs_uniform_energy_reduction_pct": -49.38171895585644,
-          "receptor_vs_random_energy_reduction_pct": 10.45190057136344,
-          "hierarchy_vs_uniform_energy_reduction_pct": -238.48598393077896,
-          "transmodal_vs_uniform_energy_reduction_pct": -562.6410626691871,
+          "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 12.304508805365986,
+          "lsd_vs_placebo_uniform_transition_energy_reduction_pct": 16.199188056029264,
+          "receptor_vs_uniform_energy_reduction_pct": -55.533689454333526,
+          "receptor_vs_random_energy_reduction_pct": 1.0190074630002346,
+          "hierarchy_vs_uniform_energy_reduction_pct": -72.15757768343752,
+          "transmodal_vs_uniform_energy_reduction_pct": -93.56772991216424,
           "state_target_alignment_receptor": 0.5490313551531475
         },
         "target_displacement": {
@@ -1386,29 +1386,29 @@
         "run": "run-03",
         "matched_state_count": 4,
         "energies": {
-          "uniform": 0.7470881690686209,
-          "receptor": 1.1024761361592839,
-          "hierarchy": 2.3275829721898607,
-          "sensory": 3.231698154675497,
-          "transmodal": 4.041478353201258,
-          "thalamic": 0.48473719824952677,
-          "degree": 0.7471190741941294,
-          "random_receptor_permutation_mean": 1.1921834730229766,
-          "random_receptor_permutation_std": 0.1861016565407768
+          "uniform": 0.7484366136262699,
+          "receptor": 1.114826748844032,
+          "hierarchy": 1.2735153094225637,
+          "sensory": 1.8134607039895627,
+          "transmodal": 1.4374805241972308,
+          "thalamic": 0.7423919446591549,
+          "degree": 0.8144756912677389,
+          "random_receptor_permutation_mean": 1.2580751009700506,
+          "random_receptor_permutation_std": 0.3113163395158591
         },
         "condition_transition_energies": {
-          "placebo_receptor": 12.303030119516464,
-          "lsd_receptor": 9.531469141380528,
-          "placebo_uniform": 5.081109005697461,
-          "lsd_uniform": 3.805880304050899
+          "placebo_receptor": 16.348982042206348,
+          "lsd_receptor": 14.022397833859937,
+          "placebo_uniform": 5.041500630385104,
+          "lsd_uniform": 3.9319088839753724
         },
         "metrics": {
-          "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 22.527466414467856,
-          "lsd_vs_placebo_uniform_transition_energy_reduction_pct": 25.09744821881689,
-          "receptor_vs_uniform_energy_reduction_pct": -47.56974903426964,
-          "receptor_vs_random_energy_reduction_pct": 7.524625101220792,
-          "hierarchy_vs_uniform_energy_reduction_pct": -211.55398633759782,
-          "transmodal_vs_uniform_energy_reduction_pct": -440.96404153203014,
+          "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 14.230758846881887,
+          "lsd_vs_placebo_uniform_transition_energy_reduction_pct": 22.009156157240696,
+          "receptor_vs_uniform_energy_reduction_pct": -48.954063516822835,
+          "receptor_vs_random_energy_reduction_pct": 11.386311676907495,
+          "hierarchy_vs_uniform_energy_reduction_pct": -70.15673555202241,
+          "transmodal_vs_uniform_energy_reduction_pct": -92.06443111226963,
           "state_target_alignment_receptor": 0.06406240894311967
         },
         "target_displacement": {
@@ -1427,29 +1427,29 @@
         "run": "run-01",
         "matched_state_count": 4,
         "energies": {
-          "uniform": 0.7504790610936665,
-          "receptor": 1.1871716486760415,
-          "hierarchy": 3.9797931221640153,
-          "sensory": 5.566313686081312,
-          "transmodal": 10.353948750770938,
-          "thalamic": 1.4306710117097141,
-          "degree": 0.787261157211053,
-          "random_receptor_permutation_mean": 1.9113182767551737,
-          "random_receptor_permutation_std": 0.7406238585701042
+          "uniform": 0.5786885572479059,
+          "receptor": 1.1949416771329973,
+          "hierarchy": 1.826413301870249,
+          "sensory": 3.858602412715312,
+          "transmodal": 3.844393470449574,
+          "thalamic": 1.2403389991108753,
+          "degree": 0.6566205636856755,
+          "random_receptor_permutation_mean": 1.3900567890241002,
+          "random_receptor_permutation_std": 0.4492787192571754
         },
         "condition_transition_energies": {
-          "placebo_receptor": 14.62907010676466,
-          "lsd_receptor": 14.80787625881571,
-          "placebo_uniform": 5.807889009091808,
-          "lsd_uniform": 5.768301354313799
+          "placebo_receptor": 19.539890449784068,
+          "lsd_receptor": 20.16293241841401,
+          "placebo_uniform": 5.662371172435358,
+          "lsd_uniform": 5.6788140350798315
         },
         "metrics": {
-          "lsd_vs_placebo_receptor_transition_energy_reduction_pct": -1.2222660138074568,
-          "lsd_vs_placebo_uniform_transition_energy_reduction_pct": 0.6816186520788755,
-          "receptor_vs_uniform_energy_reduction_pct": -58.18851054231771,
-          "receptor_vs_random_energy_reduction_pct": 37.88728632410238,
-          "hierarchy_vs_uniform_energy_reduction_pct": -430.30035459807476,
-          "transmodal_vs_uniform_energy_reduction_pct": -1279.6452542836066,
+          "lsd_vs_placebo_receptor_transition_energy_reduction_pct": -3.1885642871494526,
+          "lsd_vs_placebo_uniform_transition_energy_reduction_pct": -0.2903882868809129,
+          "receptor_vs_uniform_energy_reduction_pct": -106.49132632168032,
+          "receptor_vs_random_energy_reduction_pct": 14.036484943042147,
+          "hierarchy_vs_uniform_energy_reduction_pct": -215.61247911246102,
+          "transmodal_vs_uniform_energy_reduction_pct": -564.3285792158259,
           "state_target_alignment_receptor": 0.18432044820105017
         },
         "target_displacement": {
@@ -1468,29 +1468,29 @@
         "run": "run-03",
         "matched_state_count": 4,
         "energies": {
-          "uniform": 0.4484684580357169,
-          "receptor": 0.593156682092794,
-          "hierarchy": 1.9059338361944471,
-          "sensory": 2.4493338400861093,
-          "transmodal": 5.090694481228565,
-          "thalamic": 0.4657356201239922,
-          "degree": 0.4556147039914744,
-          "random_receptor_permutation_mean": 0.9474428083238842,
-          "random_receptor_permutation_std": 0.35896155193361556
+          "uniform": 0.35189665538380654,
+          "receptor": 0.5488584130992087,
+          "hierarchy": 0.6659301337230104,
+          "sensory": 1.24634191001812,
+          "transmodal": 1.2585181529603058,
+          "thalamic": 0.4092242789919709,
+          "degree": 0.3684804708908213,
+          "random_receptor_permutation_mean": 0.6202894823280253,
+          "random_receptor_permutation_std": 0.146659771249078
         },
         "condition_transition_energies": {
-          "placebo_receptor": 13.276298874754309,
-          "lsd_receptor": 13.905398177635217,
-          "placebo_uniform": 5.299158892954318,
-          "lsd_uniform": 5.777965726807805
+          "placebo_receptor": 18.080213754957715,
+          "lsd_receptor": 18.123396389457092,
+          "placebo_uniform": 5.263480858452524,
+          "lsd_uniform": 5.643014359512228
         },
         "metrics": {
-          "lsd_vs_placebo_receptor_transition_energy_reduction_pct": -4.738514165850685,
-          "lsd_vs_placebo_uniform_transition_energy_reduction_pct": -9.035525137585543,
-          "receptor_vs_uniform_energy_reduction_pct": -32.26274255514173,
-          "receptor_vs_random_energy_reduction_pct": 37.393932712187215,
-          "hierarchy_vs_uniform_energy_reduction_pct": -324.9872654461364,
-          "transmodal_vs_uniform_energy_reduction_pct": -1035.1287677010123,
+          "lsd_vs_placebo_receptor_transition_energy_reduction_pct": -0.23883918124328785,
+          "lsd_vs_placebo_uniform_transition_energy_reduction_pct": -7.2106940495512335,
+          "receptor_vs_uniform_energy_reduction_pct": -55.97147762049058,
+          "receptor_vs_random_energy_reduction_pct": 11.51576340787316,
+          "hierarchy_vs_uniform_energy_reduction_pct": -89.24025663065592,
+          "transmodal_vs_uniform_energy_reduction_pct": -257.6385662397574,
           "state_target_alignment_receptor": 0.11198528617602317
         },
         "target_displacement": {
@@ -1509,29 +1509,29 @@
         "run": "run-01",
         "matched_state_count": 4,
         "energies": {
-          "uniform": 0.6865830150207038,
-          "receptor": 0.8355196121220507,
-          "hierarchy": 2.1637335181613566,
-          "sensory": 2.5980637828022024,
-          "transmodal": 3.174348398740169,
-          "thalamic": 0.6186017205611518,
-          "degree": 0.6901019666314945,
-          "random_receptor_permutation_mean": 1.1104198053395014,
-          "random_receptor_permutation_std": 0.24810110451325781
+          "uniform": 0.7241179497409029,
+          "receptor": 0.8313151652564196,
+          "hierarchy": 1.2075723257330795,
+          "sensory": 2.325637369963831,
+          "transmodal": 1.8830625386399156,
+          "thalamic": 0.7888416221541118,
+          "degree": 0.8039627956717862,
+          "random_receptor_permutation_mean": 1.3166766561140468,
+          "random_receptor_permutation_std": 0.38593042729600496
         },
         "condition_transition_energies": {
-          "placebo_receptor": 12.52158670105162,
-          "lsd_receptor": 10.53266366772855,
-          "placebo_uniform": 5.39966127594352,
-          "lsd_uniform": 4.007892946393191
+          "placebo_receptor": 15.979112384505052,
+          "lsd_receptor": 15.18706604970162,
+          "placebo_uniform": 5.241091534161127,
+          "lsd_uniform": 4.125145033227592
         },
         "metrics": {
-          "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 15.88395369379211,
-          "lsd_vs_placebo_uniform_transition_energy_reduction_pct": 25.775104370915102,
-          "receptor_vs_uniform_energy_reduction_pct": -21.69243832762972,
-          "receptor_vs_random_energy_reduction_pct": 24.756420220134874,
-          "hierarchy_vs_uniform_energy_reduction_pct": -215.14521490108652,
-          "transmodal_vs_uniform_energy_reduction_pct": -362.3400709445815,
+          "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 4.956760524267165,
+          "lsd_vs_placebo_uniform_transition_energy_reduction_pct": 21.29225360137027,
+          "receptor_vs_uniform_energy_reduction_pct": -14.803833485121165,
+          "receptor_vs_random_energy_reduction_pct": 36.86261836600729,
+          "hierarchy_vs_uniform_energy_reduction_pct": -66.7645894104906,
+          "transmodal_vs_uniform_energy_reduction_pct": -160.0491452136624,
           "state_target_alignment_receptor": 0.23323810787534138
         },
         "target_displacement": {
@@ -1550,29 +1550,29 @@
         "run": "run-03",
         "matched_state_count": 4,
         "energies": {
-          "uniform": 0.8758159479799512,
-          "receptor": 1.7801053888690692,
-          "hierarchy": 3.379170751354804,
-          "sensory": 5.492857927025614,
-          "transmodal": 7.801207024311098,
-          "thalamic": 1.5665758835513848,
-          "degree": 0.9267624470940287,
-          "random_receptor_permutation_mean": 1.903192885665331,
-          "random_receptor_permutation_std": 0.5091632691263045
+          "uniform": 0.768980796099164,
+          "receptor": 2.2877004812844213,
+          "hierarchy": 1.512623713541859,
+          "sensory": 3.807587330551311,
+          "transmodal": 2.237782374126761,
+          "thalamic": 1.6398450626005188,
+          "degree": 0.8155320384100424,
+          "random_receptor_permutation_mean": 1.6147339363211843,
+          "random_receptor_permutation_std": 0.5653581495850514
         },
         "condition_transition_energies": {
-          "placebo_receptor": 8.557201443674463,
-          "lsd_receptor": 12.85307942941362,
-          "placebo_uniform": 4.487869358609729,
-          "lsd_uniform": 4.482975405042891
+          "placebo_receptor": 10.5011285226,
+          "lsd_receptor": 18.86200875613165,
+          "placebo_uniform": 4.343724306148381,
+          "lsd_uniform": 4.505717902536491
         },
         "metrics": {
-          "lsd_vs_placebo_receptor_transition_energy_reduction_pct": -50.20190320416842,
-          "lsd_vs_placebo_uniform_transition_energy_reduction_pct": 0.10904848550123662,
-          "receptor_vs_uniform_energy_reduction_pct": -103.25108180261392,
-          "receptor_vs_random_energy_reduction_pct": 6.46742102302637,
-          "hierarchy_vs_uniform_energy_reduction_pct": -285.8311508426835,
-          "transmodal_vs_uniform_energy_reduction_pct": -790.7358951734549,
+          "lsd_vs_placebo_receptor_transition_energy_reduction_pct": -79.61887349095657,
+          "lsd_vs_placebo_uniform_transition_energy_reduction_pct": -3.7293710413161683,
+          "receptor_vs_uniform_energy_reduction_pct": -197.49773894085783,
+          "receptor_vs_random_energy_reduction_pct": -41.676621134032956,
+          "hierarchy_vs_uniform_energy_reduction_pct": -96.70500501637993,
+          "transmodal_vs_uniform_energy_reduction_pct": -191.00627551148722,
           "state_target_alignment_receptor": -0.1001504398948801
         },
         "target_displacement": {
@@ -1591,29 +1591,29 @@
         "run": "run-01",
         "matched_state_count": 4,
         "energies": {
-          "uniform": 0.637106676442478,
-          "receptor": 1.205708901034726,
-          "hierarchy": 2.014393170489656,
-          "sensory": 2.933194246341778,
-          "transmodal": 2.980287918737993,
-          "thalamic": 0.9012849751978518,
-          "degree": 0.6081470399528315,
-          "random_receptor_permutation_mean": 1.156908667632811,
-          "random_receptor_permutation_std": 0.22301015132233193
+          "uniform": 0.6836527292585544,
+          "receptor": 1.4905089285096538,
+          "hierarchy": 1.3595816550529107,
+          "sensory": 3.810287434486618,
+          "transmodal": 2.5994235891243083,
+          "thalamic": 1.0809525096854167,
+          "degree": 0.6924359458614283,
+          "random_receptor_permutation_mean": 1.3963075600830475,
+          "random_receptor_permutation_std": 0.5038609302221371
         },
         "condition_transition_energies": {
-          "placebo_receptor": 14.264775254798623,
-          "lsd_receptor": 13.828822575179034,
-          "placebo_uniform": 5.270465406845724,
-          "lsd_uniform": 4.851930664580506
+          "placebo_receptor": 19.184940175745723,
+          "lsd_receptor": 19.582772440649588,
+          "placebo_uniform": 5.110152382998893,
+          "lsd_uniform": 4.92091950827686
         },
         "metrics": {
-          "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 3.0561482521285175,
-          "lsd_vs_placebo_uniform_transition_energy_reduction_pct": 7.941134415218631,
-          "receptor_vs_uniform_energy_reduction_pct": -89.24756961695172,
-          "receptor_vs_random_energy_reduction_pct": -4.218157817225678,
-          "hierarchy_vs_uniform_energy_reduction_pct": -216.17831753667517,
-          "transmodal_vs_uniform_energy_reduction_pct": -367.7847570801704,
+          "lsd_vs_placebo_receptor_transition_energy_reduction_pct": -2.0736695619557826,
+          "lsd_vs_placebo_uniform_transition_energy_reduction_pct": 3.7030769444683718,
+          "receptor_vs_uniform_energy_reduction_pct": -118.02135275992589,
+          "receptor_vs_random_energy_reduction_pct": -6.7464626791108655,
+          "hierarchy_vs_uniform_energy_reduction_pct": -98.87021536905517,
+          "transmodal_vs_uniform_energy_reduction_pct": -280.22573126322123,
           "state_target_alignment_receptor": -0.4105972253133258
         },
         "target_displacement": {
@@ -1632,29 +1632,29 @@
         "run": "run-03",
         "matched_state_count": 4,
         "energies": {
-          "uniform": 0.6059482356746769,
-          "receptor": 1.4156787828519914,
-          "hierarchy": 1.651661998420533,
-          "sensory": 2.801564280108586,
-          "transmodal": 2.424706863502899,
-          "thalamic": 0.7778190211353218,
-          "degree": 0.5948403871605021,
-          "random_receptor_permutation_mean": 1.0081831175107343,
-          "random_receptor_permutation_std": 0.2737252096663911
+          "uniform": 0.7285744601521487,
+          "receptor": 2.119259786317829,
+          "hierarchy": 1.5534795074752141,
+          "sensory": 1.9466711196928883,
+          "transmodal": 3.4711382113922338,
+          "thalamic": 1.2161563304525496,
+          "degree": 0.7779943265155852,
+          "random_receptor_permutation_mean": 1.5511520155699272,
+          "random_receptor_permutation_std": 0.5789837378079811
         },
         "condition_transition_energies": {
-          "placebo_receptor": 11.481224333259055,
-          "lsd_receptor": 10.739748049920653,
-          "placebo_uniform": 4.698300845948255,
-          "lsd_uniform": 4.80645570080137
+          "placebo_receptor": 15.508478887217608,
+          "lsd_receptor": 14.086189786538172,
+          "placebo_uniform": 4.7106834233326165,
+          "lsd_uniform": 4.920618454735483
         },
         "metrics": {
-          "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 6.458163884059627,
-          "lsd_vs_placebo_uniform_transition_energy_reduction_pct": -2.301999348261966,
-          "receptor_vs_uniform_energy_reduction_pct": -133.63031683320963,
-          "receptor_vs_random_energy_reduction_pct": -40.418814624409585,
-          "hierarchy_vs_uniform_energy_reduction_pct": -172.57476813700657,
-          "transmodal_vs_uniform_energy_reduction_pct": -300.15082489730725,
+          "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 9.171041925018928,
+          "lsd_vs_placebo_uniform_transition_energy_reduction_pct": -4.4565726994735355,
+          "receptor_vs_uniform_energy_reduction_pct": -190.8775838608538,
+          "receptor_vs_random_energy_reduction_pct": -36.62489330803381,
+          "hierarchy_vs_uniform_energy_reduction_pct": -113.22179028219024,
+          "transmodal_vs_uniform_energy_reduction_pct": -376.4287524802,
           "state_target_alignment_receptor": 0.28078744375894965
         },
         "target_displacement": {
@@ -1674,1680 +1674,1680 @@
         "subject": "sub-001",
         "run": "run-01",
         "profile": "uniform",
-        "mean_control_energy": 0.8216604299632664,
+        "mean_control_energy": 0.7779807842626297,
         "matched_state_count": 4
       },
       {
         "subject": "sub-001",
         "run": "run-01",
         "profile": "receptor",
-        "mean_control_energy": 1.3122379058944218,
+        "mean_control_energy": 1.6673835427223211,
         "matched_state_count": 4
       },
       {
         "subject": "sub-001",
         "run": "run-01",
         "profile": "hierarchy",
-        "mean_control_energy": 3.4616592174493825,
+        "mean_control_energy": 1.524724540638513,
         "matched_state_count": 4
       },
       {
         "subject": "sub-001",
         "run": "run-01",
         "profile": "sensory",
-        "mean_control_energy": 3.4377744890864697,
+        "mean_control_energy": 3.0641890476421993,
         "matched_state_count": 4
       },
       {
         "subject": "sub-001",
         "run": "run-01",
         "profile": "transmodal",
-        "mean_control_energy": 6.374105193986939,
+        "mean_control_energy": 2.2403021154256666,
         "matched_state_count": 4
       },
       {
         "subject": "sub-001",
         "run": "run-01",
         "profile": "thalamic",
-        "mean_control_energy": 1.2928422125448817,
+        "mean_control_energy": 1.1694343819281379,
         "matched_state_count": 4
       },
       {
         "subject": "sub-001",
         "run": "run-01",
         "profile": "degree",
-        "mean_control_energy": 0.8513595170568466,
+        "mean_control_energy": 0.8119498032945198,
         "matched_state_count": 4
       },
       {
         "subject": "sub-001",
         "run": "run-01",
         "profile": "random_receptor_permutation_mean",
-        "mean_control_energy": 1.61570792052863,
+        "mean_control_energy": 1.4857709258074279,
         "matched_state_count": 4
       },
       {
         "subject": "sub-001",
         "run": "run-03",
         "profile": "uniform",
-        "mean_control_energy": 0.8002888964754044,
+        "mean_control_energy": 0.6889380243837542,
         "matched_state_count": 4
       },
       {
         "subject": "sub-001",
         "run": "run-03",
         "profile": "receptor",
-        "mean_control_energy": 1.1401797746122366,
+        "mean_control_energy": 1.3235106088479651,
         "matched_state_count": 4
       },
       {
         "subject": "sub-001",
         "run": "run-03",
         "profile": "hierarchy",
-        "mean_control_energy": 4.54483646080759,
+        "mean_control_energy": 1.8826623961218236,
         "matched_state_count": 4
       },
       {
         "subject": "sub-001",
         "run": "run-03",
         "profile": "sensory",
-        "mean_control_energy": 1.9425124907269364,
+        "mean_control_energy": 2.489920306552985,
         "matched_state_count": 4
       },
       {
         "subject": "sub-001",
         "run": "run-03",
         "profile": "transmodal",
-        "mean_control_energy": 9.116217001854135,
+        "mean_control_energy": 1.9628370944158968,
         "matched_state_count": 4
       },
       {
         "subject": "sub-001",
         "run": "run-03",
         "profile": "thalamic",
-        "mean_control_energy": 1.8404304524867552,
+        "mean_control_energy": 1.5525388556705308,
         "matched_state_count": 4
       },
       {
         "subject": "sub-001",
         "run": "run-03",
         "profile": "degree",
-        "mean_control_energy": 0.8758423897313783,
+        "mean_control_energy": 0.6362394335961157,
         "matched_state_count": 4
       },
       {
         "subject": "sub-001",
         "run": "run-03",
         "profile": "random_receptor_permutation_mean",
-        "mean_control_energy": 1.7850598255196335,
+        "mean_control_energy": 1.3638343803673703,
         "matched_state_count": 4
       },
       {
         "subject": "sub-002",
         "run": "run-01",
         "profile": "uniform",
-        "mean_control_energy": 0.6362323948632042,
+        "mean_control_energy": 0.567334110897721,
         "matched_state_count": 4
       },
       {
         "subject": "sub-002",
         "run": "run-01",
         "profile": "receptor",
-        "mean_control_energy": 0.7208022245265664,
+        "mean_control_energy": 0.6511035114895535,
         "matched_state_count": 4
       },
       {
         "subject": "sub-002",
         "run": "run-01",
         "profile": "hierarchy",
-        "mean_control_energy": 2.5156993043102327,
+        "mean_control_energy": 1.0520399993689127,
         "matched_state_count": 4
       },
       {
         "subject": "sub-002",
         "run": "run-01",
         "profile": "sensory",
-        "mean_control_energy": 1.7452027949106643,
+        "mean_control_energy": 1.4710749234072549,
         "matched_state_count": 4
       },
       {
         "subject": "sub-002",
         "run": "run-01",
         "profile": "transmodal",
-        "mean_control_energy": 4.731320093779572,
+        "mean_control_energy": 1.452088141403268,
         "matched_state_count": 4
       },
       {
         "subject": "sub-002",
         "run": "run-01",
         "profile": "thalamic",
-        "mean_control_energy": 0.7300393615535132,
+        "mean_control_energy": 0.7012121540363496,
         "matched_state_count": 4
       },
       {
         "subject": "sub-002",
         "run": "run-01",
         "profile": "degree",
-        "mean_control_energy": 0.6198670225095252,
+        "mean_control_energy": 0.5140796707973767,
         "matched_state_count": 4
       },
       {
         "subject": "sub-002",
         "run": "run-01",
         "profile": "random_receptor_permutation_mean",
-        "mean_control_energy": 1.1488900150443357,
+        "mean_control_energy": 0.9299017219632043,
         "matched_state_count": 4
       },
       {
         "subject": "sub-002",
         "run": "run-03",
         "profile": "uniform",
-        "mean_control_energy": 1.1412445550985861,
+        "mean_control_energy": 1.0409549438770673,
         "matched_state_count": 4
       },
       {
         "subject": "sub-002",
         "run": "run-03",
         "profile": "receptor",
-        "mean_control_energy": 1.8974097077463543,
+        "mean_control_energy": 2.6507183303044206,
         "matched_state_count": 4
       },
       {
         "subject": "sub-002",
         "run": "run-03",
         "profile": "hierarchy",
-        "mean_control_energy": 4.680850661522069,
+        "mean_control_energy": 2.2325728365970967,
         "matched_state_count": 4
       },
       {
         "subject": "sub-002",
         "run": "run-03",
         "profile": "sensory",
-        "mean_control_energy": 6.819803399315208,
+        "mean_control_energy": 5.09869783393697,
         "matched_state_count": 4
       },
       {
         "subject": "sub-002",
         "run": "run-03",
         "profile": "transmodal",
-        "mean_control_energy": 10.161321480532438,
+        "mean_control_energy": 3.057578693190216,
         "matched_state_count": 4
       },
       {
         "subject": "sub-002",
         "run": "run-03",
         "profile": "thalamic",
-        "mean_control_energy": 3.742103490736133,
+        "mean_control_energy": 3.5908855251912706,
         "matched_state_count": 4
       },
       {
         "subject": "sub-002",
         "run": "run-03",
         "profile": "degree",
-        "mean_control_energy": 1.4263666722165913,
+        "mean_control_energy": 1.259439516581842,
         "matched_state_count": 4
       },
       {
         "subject": "sub-002",
         "run": "run-03",
         "profile": "random_receptor_permutation_mean",
-        "mean_control_energy": 2.988233601438274,
+        "mean_control_energy": 2.8106334759090483,
         "matched_state_count": 4
       },
       {
         "subject": "sub-003",
         "run": "run-01",
         "profile": "uniform",
-        "mean_control_energy": 0.6481417755144325,
+        "mean_control_energy": 0.6559002943791052,
         "matched_state_count": 4
       },
       {
         "subject": "sub-003",
         "run": "run-01",
         "profile": "receptor",
-        "mean_control_energy": 1.135002918106916,
+        "mean_control_energy": 1.2556786314443649,
         "matched_state_count": 4
       },
       {
         "subject": "sub-003",
         "run": "run-01",
         "profile": "hierarchy",
-        "mean_control_energy": 1.9843006223322825,
+        "mean_control_energy": 1.3673187681583738,
         "matched_state_count": 4
       },
       {
         "subject": "sub-003",
         "run": "run-01",
         "profile": "sensory",
-        "mean_control_energy": 3.5756020242730875,
+        "mean_control_energy": 1.3501227767049482,
         "matched_state_count": 4
       },
       {
         "subject": "sub-003",
         "run": "run-01",
         "profile": "transmodal",
-        "mean_control_energy": 3.5391635132489565,
+        "mean_control_energy": 1.7204334805683341,
         "matched_state_count": 4
       },
       {
         "subject": "sub-003",
         "run": "run-01",
         "profile": "thalamic",
-        "mean_control_energy": 0.6374334758110753,
+        "mean_control_energy": 1.0633865280511219,
         "matched_state_count": 4
       },
       {
         "subject": "sub-003",
         "run": "run-01",
         "profile": "degree",
-        "mean_control_energy": 0.6330245392792382,
+        "mean_control_energy": 0.6542239689785307,
         "matched_state_count": 4
       },
       {
         "subject": "sub-003",
         "run": "run-01",
         "profile": "random_receptor_permutation_mean",
-        "mean_control_energy": 1.0726972280002673,
+        "mean_control_energy": 1.157872544803722,
         "matched_state_count": 4
       },
       {
         "subject": "sub-003",
         "run": "run-03",
         "profile": "uniform",
-        "mean_control_energy": 0.5445729414644968,
+        "mean_control_energy": 0.5127887394270269,
         "matched_state_count": 4
       },
       {
         "subject": "sub-003",
         "run": "run-03",
         "profile": "receptor",
-        "mean_control_energy": 0.8684808872356815,
+        "mean_control_energy": 1.074346249563169,
         "matched_state_count": 4
       },
       {
         "subject": "sub-003",
         "run": "run-03",
         "profile": "hierarchy",
-        "mean_control_energy": 1.877271608477286,
+        "mean_control_energy": 0.8772751141212741,
         "matched_state_count": 4
       },
       {
         "subject": "sub-003",
         "run": "run-03",
         "profile": "sensory",
-        "mean_control_energy": 2.970511488762808,
+        "mean_control_energy": 1.3057716599053493,
         "matched_state_count": 4
       },
       {
         "subject": "sub-003",
         "run": "run-03",
         "profile": "transmodal",
-        "mean_control_energy": 3.7279776402484868,
+        "mean_control_energy": 1.2455194932446494,
         "matched_state_count": 4
       },
       {
         "subject": "sub-003",
         "run": "run-03",
         "profile": "thalamic",
-        "mean_control_energy": 0.5045571416602836,
+        "mean_control_energy": 0.6341386260995565,
         "matched_state_count": 4
       },
       {
         "subject": "sub-003",
         "run": "run-03",
         "profile": "degree",
-        "mean_control_energy": 0.5623373536146563,
+        "mean_control_energy": 0.5762266516254614,
         "matched_state_count": 4
       },
       {
         "subject": "sub-003",
         "run": "run-03",
         "profile": "random_receptor_permutation_mean",
-        "mean_control_energy": 0.9744848891667841,
+        "mean_control_energy": 0.9203102258149409,
         "matched_state_count": 4
       },
       {
         "subject": "sub-004",
         "run": "run-01",
         "profile": "uniform",
-        "mean_control_energy": 0.4846901399260659,
+        "mean_control_energy": 0.5988756172363039,
         "matched_state_count": 4
       },
       {
         "subject": "sub-004",
         "run": "run-01",
         "profile": "receptor",
-        "mean_control_energy": 0.8696789596142154,
+        "mean_control_energy": 1.4879141309348018,
         "matched_state_count": 4
       },
       {
         "subject": "sub-004",
         "run": "run-01",
         "profile": "hierarchy",
-        "mean_control_energy": 0.8020146577555374,
+        "mean_control_energy": 0.6918797268830772,
         "matched_state_count": 4
       },
       {
         "subject": "sub-004",
         "run": "run-01",
         "profile": "sensory",
-        "mean_control_energy": 2.4490695239153513,
+        "mean_control_energy": 2.1081784319848786,
         "matched_state_count": 4
       },
       {
         "subject": "sub-004",
         "run": "run-01",
         "profile": "transmodal",
-        "mean_control_energy": 1.5480350443967779,
+        "mean_control_energy": 3.082999940881697,
         "matched_state_count": 4
       },
       {
         "subject": "sub-004",
         "run": "run-01",
         "profile": "thalamic",
-        "mean_control_energy": 0.5860627616775012,
+        "mean_control_energy": 0.8284589430998703,
         "matched_state_count": 4
       },
       {
         "subject": "sub-004",
         "run": "run-01",
         "profile": "degree",
-        "mean_control_energy": 0.4767913051141195,
+        "mean_control_energy": 0.6974692167535573,
         "matched_state_count": 4
       },
       {
         "subject": "sub-004",
         "run": "run-01",
         "profile": "random_receptor_permutation_mean",
-        "mean_control_energy": 0.8121954611496217,
+        "mean_control_energy": 1.3499121301159573,
         "matched_state_count": 4
       },
       {
         "subject": "sub-004",
         "run": "run-03",
         "profile": "uniform",
-        "mean_control_energy": 0.47457185863646456,
+        "mean_control_energy": 0.45919749424871253,
         "matched_state_count": 4
       },
       {
         "subject": "sub-004",
         "run": "run-03",
         "profile": "receptor",
-        "mean_control_energy": 1.0021782523411356,
+        "mean_control_energy": 1.2821104729458659,
         "matched_state_count": 4
       },
       {
         "subject": "sub-004",
         "run": "run-03",
         "profile": "hierarchy",
-        "mean_control_energy": 1.4152111562090284,
+        "mean_control_energy": 0.7329080236906407,
         "matched_state_count": 4
       },
       {
         "subject": "sub-004",
         "run": "run-03",
         "profile": "sensory",
-        "mean_control_energy": 2.408622042999559,
+        "mean_control_energy": 1.1212069861448821,
         "matched_state_count": 4
       },
       {
         "subject": "sub-004",
         "run": "run-03",
         "profile": "transmodal",
-        "mean_control_energy": 2.289766267584789,
+        "mean_control_energy": 0.9982671023722571,
         "matched_state_count": 4
       },
       {
         "subject": "sub-004",
         "run": "run-03",
         "profile": "thalamic",
-        "mean_control_energy": 0.5160493679584134,
+        "mean_control_energy": 0.5989236371335465,
         "matched_state_count": 4
       },
       {
         "subject": "sub-004",
         "run": "run-03",
         "profile": "degree",
-        "mean_control_energy": 0.462253206907341,
+        "mean_control_energy": 0.4439928318751448,
         "matched_state_count": 4
       },
       {
         "subject": "sub-004",
         "run": "run-03",
         "profile": "random_receptor_permutation_mean",
-        "mean_control_energy": 0.8039077307040134,
+        "mean_control_energy": 0.7909848163995019,
         "matched_state_count": 4
       },
       {
         "subject": "sub-006",
         "run": "run-01",
         "profile": "uniform",
-        "mean_control_energy": 0.6383360721551484,
+        "mean_control_energy": 0.7592100814588754,
         "matched_state_count": 4
       },
       {
         "subject": "sub-006",
         "run": "run-01",
         "profile": "receptor",
-        "mean_control_energy": 1.15468733413257,
+        "mean_control_energy": 1.297322889077802,
         "matched_state_count": 4
       },
       {
         "subject": "sub-006",
         "run": "run-01",
         "profile": "hierarchy",
-        "mean_control_energy": 3.329952265197642,
+        "mean_control_energy": 3.0541838853881407,
         "matched_state_count": 4
       },
       {
         "subject": "sub-006",
         "run": "run-01",
         "profile": "sensory",
-        "mean_control_energy": 2.750742905415708,
+        "mean_control_energy": 2.1482587615018227,
         "matched_state_count": 4
       },
       {
         "subject": "sub-006",
         "run": "run-01",
         "profile": "transmodal",
-        "mean_control_energy": 5.130239427789003,
+        "mean_control_energy": 5.028156857714456,
         "matched_state_count": 4
       },
       {
         "subject": "sub-006",
         "run": "run-01",
         "profile": "thalamic",
-        "mean_control_energy": 0.98747557588279,
+        "mean_control_energy": 1.4346735183470694,
         "matched_state_count": 4
       },
       {
         "subject": "sub-006",
         "run": "run-01",
         "profile": "degree",
-        "mean_control_energy": 0.6516443851881986,
+        "mean_control_energy": 0.8505671651179433,
         "matched_state_count": 4
       },
       {
         "subject": "sub-006",
         "run": "run-01",
         "profile": "random_receptor_permutation_mean",
-        "mean_control_energy": 1.1838096719088869,
+        "mean_control_energy": 1.68531644435611,
         "matched_state_count": 4
       },
       {
         "subject": "sub-006",
         "run": "run-03",
         "profile": "uniform",
-        "mean_control_energy": 0.7021050017003538,
+        "mean_control_energy": 0.891758675083982,
         "matched_state_count": 4
       },
       {
         "subject": "sub-006",
         "run": "run-03",
         "profile": "receptor",
-        "mean_control_energy": 1.5055210949506042,
+        "mean_control_energy": 1.861944103079764,
         "matched_state_count": 4
       },
       {
         "subject": "sub-006",
         "run": "run-03",
         "profile": "hierarchy",
-        "mean_control_energy": 4.864033133726721,
+        "mean_control_energy": 4.382754519071803,
         "matched_state_count": 4
       },
       {
         "subject": "sub-006",
         "run": "run-03",
         "profile": "sensory",
-        "mean_control_energy": 2.8893020945485053,
+        "mean_control_energy": 2.2152985281077244,
         "matched_state_count": 4
       },
       {
         "subject": "sub-006",
         "run": "run-03",
         "profile": "transmodal",
-        "mean_control_energy": 7.079912119708711,
+        "mean_control_energy": 7.226471154745049,
         "matched_state_count": 4
       },
       {
         "subject": "sub-006",
         "run": "run-03",
         "profile": "thalamic",
-        "mean_control_energy": 1.550244963457559,
+        "mean_control_energy": 2.103115224599314,
         "matched_state_count": 4
       },
       {
         "subject": "sub-006",
         "run": "run-03",
         "profile": "degree",
-        "mean_control_energy": 0.7379644056769403,
+        "mean_control_energy": 1.0027218551474062,
         "matched_state_count": 4
       },
       {
         "subject": "sub-006",
         "run": "run-03",
         "profile": "random_receptor_permutation_mean",
-        "mean_control_energy": 1.4596421646374385,
+        "mean_control_energy": 2.2603293652760494,
         "matched_state_count": 4
       },
       {
         "subject": "sub-009",
         "run": "run-01",
         "profile": "uniform",
-        "mean_control_energy": 0.4767752788934321,
+        "mean_control_energy": 0.46870340628070073,
         "matched_state_count": 4
       },
       {
         "subject": "sub-009",
         "run": "run-01",
         "profile": "receptor",
-        "mean_control_energy": 1.06689836700802,
+        "mean_control_energy": 1.1580153933343231,
         "matched_state_count": 4
       },
       {
         "subject": "sub-009",
         "run": "run-01",
         "profile": "hierarchy",
-        "mean_control_energy": 2.7215343123940863,
+        "mean_control_energy": 2.144850023341108,
         "matched_state_count": 4
       },
       {
         "subject": "sub-009",
         "run": "run-01",
         "profile": "sensory",
-        "mean_control_energy": 3.2454862216967975,
+        "mean_control_energy": 3.3410129919603646,
         "matched_state_count": 4
       },
       {
         "subject": "sub-009",
         "run": "run-01",
         "profile": "transmodal",
-        "mean_control_energy": 4.824606951474577,
+        "mean_control_energy": 3.006828171339608,
         "matched_state_count": 4
       },
       {
         "subject": "sub-009",
         "run": "run-01",
         "profile": "thalamic",
-        "mean_control_energy": 1.7814351688202446,
+        "mean_control_energy": 1.7811560764002494,
         "matched_state_count": 4
       },
       {
         "subject": "sub-009",
         "run": "run-01",
         "profile": "degree",
-        "mean_control_energy": 0.5363195938264085,
+        "mean_control_energy": 0.4935449573928737,
         "matched_state_count": 4
       },
       {
         "subject": "sub-009",
         "run": "run-01",
         "profile": "random_receptor_permutation_mean",
-        "mean_control_energy": 1.1752130144572899,
+        "mean_control_energy": 1.2785148941996551,
         "matched_state_count": 4
       },
       {
         "subject": "sub-009",
         "run": "run-03",
         "profile": "uniform",
-        "mean_control_energy": 1.8019464629256488,
+        "mean_control_energy": 2.028124076340743,
         "matched_state_count": 4
       },
       {
         "subject": "sub-009",
         "run": "run-03",
         "profile": "receptor",
-        "mean_control_energy": 2.2100303278436724,
+        "mean_control_energy": 3.7508828438811954,
         "matched_state_count": 4
       },
       {
         "subject": "sub-009",
         "run": "run-03",
         "profile": "hierarchy",
-        "mean_control_energy": 12.161579545125178,
+        "mean_control_energy": 7.500729834801662,
         "matched_state_count": 4
       },
       {
         "subject": "sub-009",
         "run": "run-03",
         "profile": "sensory",
-        "mean_control_energy": 5.3017957113124385,
+        "mean_control_energy": 4.6698831194048545,
         "matched_state_count": 4
       },
       {
         "subject": "sub-009",
         "run": "run-03",
         "profile": "transmodal",
-        "mean_control_energy": 28.931652117505763,
+        "mean_control_energy": 17.864050513571225,
         "matched_state_count": 4
       },
       {
         "subject": "sub-009",
         "run": "run-03",
         "profile": "thalamic",
-        "mean_control_energy": 7.347060097919815,
+        "mean_control_energy": 7.230747191219091,
         "matched_state_count": 4
       },
       {
         "subject": "sub-009",
         "run": "run-03",
         "profile": "degree",
-        "mean_control_energy": 2.1407587402021724,
+        "mean_control_energy": 2.117981335697113,
         "matched_state_count": 4
       },
       {
         "subject": "sub-009",
         "run": "run-03",
         "profile": "random_receptor_permutation_mean",
-        "mean_control_energy": 5.469618043695643,
+        "mean_control_energy": 6.505215378129634,
         "matched_state_count": 4
       },
       {
         "subject": "sub-010",
         "run": "run-01",
         "profile": "uniform",
-        "mean_control_energy": 0.6339754978557886,
+        "mean_control_energy": 0.7195599373143792,
         "matched_state_count": 4
       },
       {
         "subject": "sub-010",
         "run": "run-01",
         "profile": "receptor",
-        "mean_control_energy": 0.9414436265341688,
+        "mean_control_energy": 1.0094260267603383,
         "matched_state_count": 4
       },
       {
         "subject": "sub-010",
         "run": "run-01",
         "profile": "hierarchy",
-        "mean_control_energy": 1.7176327954983348,
+        "mean_control_energy": 1.3532353622510565,
         "matched_state_count": 4
       },
       {
         "subject": "sub-010",
         "run": "run-01",
         "profile": "sensory",
-        "mean_control_energy": 3.6954331857646707,
+        "mean_control_energy": 3.7071813990301363,
         "matched_state_count": 4
       },
       {
         "subject": "sub-010",
         "run": "run-01",
         "profile": "transmodal",
-        "mean_control_energy": 2.762249881413859,
+        "mean_control_energy": 2.5723368542581717,
         "matched_state_count": 4
       },
       {
         "subject": "sub-010",
         "run": "run-01",
         "profile": "thalamic",
-        "mean_control_energy": 0.866416039143066,
+        "mean_control_energy": 1.0374600385016026,
         "matched_state_count": 4
       },
       {
         "subject": "sub-010",
         "run": "run-01",
         "profile": "degree",
-        "mean_control_energy": 0.6856672992031048,
+        "mean_control_energy": 0.9095029234343928,
         "matched_state_count": 4
       },
       {
         "subject": "sub-010",
         "run": "run-01",
         "profile": "random_receptor_permutation_mean",
-        "mean_control_energy": 1.1771774204752017,
+        "mean_control_energy": 1.5830269024603174,
         "matched_state_count": 4
       },
       {
         "subject": "sub-010",
         "run": "run-03",
         "profile": "uniform",
-        "mean_control_energy": 0.545239252684941,
+        "mean_control_energy": 0.5632565303530561,
         "matched_state_count": 4
       },
       {
         "subject": "sub-010",
         "run": "run-03",
         "profile": "receptor",
-        "mean_control_energy": 0.827700601689,
+        "mean_control_energy": 0.9206526245552256,
         "matched_state_count": 4
       },
       {
         "subject": "sub-010",
         "run": "run-03",
         "profile": "hierarchy",
-        "mean_control_energy": 1.8083393772585454,
+        "mean_control_energy": 1.0260440996508484,
         "matched_state_count": 4
       },
       {
         "subject": "sub-010",
         "run": "run-03",
         "profile": "sensory",
-        "mean_control_energy": 2.6787733990949842,
+        "mean_control_energy": 2.638548972101842,
         "matched_state_count": 4
       },
       {
         "subject": "sub-010",
         "run": "run-03",
         "profile": "transmodal",
-        "mean_control_energy": 3.0133887910160624,
+        "mean_control_energy": 1.6834905989469875,
         "matched_state_count": 4
       },
       {
         "subject": "sub-010",
         "run": "run-03",
         "profile": "thalamic",
-        "mean_control_energy": 0.7326409353367129,
+        "mean_control_energy": 0.7590444028556081,
         "matched_state_count": 4
       },
       {
         "subject": "sub-010",
         "run": "run-03",
         "profile": "degree",
-        "mean_control_energy": 0.5188688080030579,
+        "mean_control_energy": 0.5691486723138509,
         "matched_state_count": 4
       },
       {
         "subject": "sub-010",
         "run": "run-03",
         "profile": "random_receptor_permutation_mean",
-        "mean_control_energy": 0.9797184508675844,
+        "mean_control_energy": 1.0876867430191437,
         "matched_state_count": 4
       },
       {
         "subject": "sub-011",
         "run": "run-01",
         "profile": "uniform",
-        "mean_control_energy": 0.7357460983642012,
+        "mean_control_energy": 0.5264474315267924,
         "matched_state_count": 4
       },
       {
         "subject": "sub-011",
         "run": "run-01",
         "profile": "receptor",
-        "mean_control_energy": 0.8398942135429881,
+        "mean_control_energy": 0.678711847988229,
         "matched_state_count": 4
       },
       {
         "subject": "sub-011",
         "run": "run-01",
         "profile": "hierarchy",
-        "mean_control_energy": 4.2208518320926505,
+        "mean_control_energy": 1.7185785022977504,
         "matched_state_count": 4
       },
       {
         "subject": "sub-011",
         "run": "run-01",
         "profile": "sensory",
-        "mean_control_energy": 4.38685287135875,
+        "mean_control_energy": 2.222513610261735,
         "matched_state_count": 4
       },
       {
         "subject": "sub-011",
         "run": "run-01",
         "profile": "transmodal",
-        "mean_control_energy": 10.29857177292083,
+        "mean_control_energy": 2.9452243019027438,
         "matched_state_count": 4
       },
       {
         "subject": "sub-011",
         "run": "run-01",
         "profile": "thalamic",
-        "mean_control_energy": 1.1954635380731844,
+        "mean_control_energy": 0.9656722017248663,
         "matched_state_count": 4
       },
       {
         "subject": "sub-011",
         "run": "run-01",
         "profile": "degree",
-        "mean_control_energy": 0.7023984084150035,
+        "mean_control_energy": 0.41716353440539133,
         "matched_state_count": 4
       },
       {
         "subject": "sub-011",
         "run": "run-01",
         "profile": "random_receptor_permutation_mean",
-        "mean_control_energy": 1.7371312826188496,
+        "mean_control_energy": 1.0200111603586888,
         "matched_state_count": 4
       },
       {
         "subject": "sub-011",
         "run": "run-03",
         "profile": "uniform",
-        "mean_control_energy": 0.8393111064170864,
+        "mean_control_energy": 0.677248943987065,
         "matched_state_count": 4
       },
       {
         "subject": "sub-011",
         "run": "run-03",
         "profile": "receptor",
-        "mean_control_energy": 1.1476493999491886,
+        "mean_control_energy": 1.2455475612295488,
         "matched_state_count": 4
       },
       {
         "subject": "sub-011",
         "run": "run-03",
         "profile": "hierarchy",
-        "mean_control_energy": 4.657982422683557,
+        "mean_control_energy": 2.2650821580533083,
         "matched_state_count": 4
       },
       {
         "subject": "sub-011",
         "run": "run-03",
         "profile": "sensory",
-        "mean_control_energy": 5.478480036970996,
+        "mean_control_energy": 3.5305810683863132,
         "matched_state_count": 4
       },
       {
         "subject": "sub-011",
         "run": "run-03",
         "profile": "transmodal",
-        "mean_control_energy": 9.502214897900831,
+        "mean_control_energy": 3.3228335919524508,
         "matched_state_count": 4
       },
       {
         "subject": "sub-011",
         "run": "run-03",
         "profile": "thalamic",
-        "mean_control_energy": 2.05019651614019,
+        "mean_control_energy": 1.9585572703632752,
         "matched_state_count": 4
       },
       {
         "subject": "sub-011",
         "run": "run-03",
         "profile": "degree",
-        "mean_control_energy": 0.9038716099057911,
+        "mean_control_energy": 0.6656579184826099,
         "matched_state_count": 4
       },
       {
         "subject": "sub-011",
         "run": "run-03",
         "profile": "random_receptor_permutation_mean",
-        "mean_control_energy": 2.083586718737046,
+        "mean_control_energy": 1.5638134917449655,
         "matched_state_count": 4
       },
       {
         "subject": "sub-012",
         "run": "run-01",
         "profile": "uniform",
-        "mean_control_energy": 0.6038053025524728,
+        "mean_control_energy": 0.5950993794386289,
         "matched_state_count": 4
       },
       {
         "subject": "sub-012",
         "run": "run-01",
         "profile": "receptor",
-        "mean_control_energy": 0.9391944356465977,
+        "mean_control_energy": 1.0659547574315282,
         "matched_state_count": 4
       },
       {
         "subject": "sub-012",
         "run": "run-01",
         "profile": "hierarchy",
-        "mean_control_energy": 1.8544898432740264,
+        "mean_control_energy": 0.9782342259035951,
         "matched_state_count": 4
       },
       {
         "subject": "sub-012",
         "run": "run-01",
         "profile": "sensory",
-        "mean_control_energy": 2.094235340918133,
+        "mean_control_energy": 0.9874624517936026,
         "matched_state_count": 4
       },
       {
         "subject": "sub-012",
         "run": "run-01",
         "profile": "transmodal",
-        "mean_control_energy": 3.2741973967915605,
+        "mean_control_energy": 1.3721227251000916,
         "matched_state_count": 4
       },
       {
         "subject": "sub-012",
         "run": "run-01",
         "profile": "thalamic",
-        "mean_control_energy": 0.4415351793111463,
+        "mean_control_energy": 0.600353312180634,
         "matched_state_count": 4
       },
       {
         "subject": "sub-012",
         "run": "run-01",
         "profile": "degree",
-        "mean_control_energy": 0.5823408796487994,
+        "mean_control_energy": 0.583332226778,
         "matched_state_count": 4
       },
       {
         "subject": "sub-012",
         "run": "run-01",
         "profile": "random_receptor_permutation_mean",
-        "mean_control_energy": 0.9541837412625723,
+        "mean_control_energy": 0.964849251559959,
         "matched_state_count": 4
       },
       {
         "subject": "sub-012",
         "run": "run-03",
         "profile": "uniform",
-        "mean_control_energy": 0.6507382856208047,
+        "mean_control_energy": 0.5896840161733166,
         "matched_state_count": 4
       },
       {
         "subject": "sub-012",
         "run": "run-03",
         "profile": "receptor",
-        "mean_control_energy": 0.9186327433583626,
+        "mean_control_energy": 0.8664494493346733,
         "matched_state_count": 4
       },
       {
         "subject": "sub-012",
         "run": "run-03",
         "profile": "hierarchy",
-        "mean_control_energy": 2.2979153935116843,
+        "mean_control_energy": 1.1940449202400567,
         "matched_state_count": 4
       },
       {
         "subject": "sub-012",
         "run": "run-03",
         "profile": "sensory",
-        "mean_control_energy": 3.254575447625066,
+        "mean_control_energy": 1.8538236489849744,
         "matched_state_count": 4
       },
       {
         "subject": "sub-012",
         "run": "run-03",
         "profile": "transmodal",
-        "mean_control_energy": 4.263025900795159,
+        "mean_control_energy": 1.5137150625643971,
         "matched_state_count": 4
       },
       {
         "subject": "sub-012",
         "run": "run-03",
         "profile": "thalamic",
-        "mean_control_energy": 0.9056618579354775,
+        "mean_control_energy": 1.000200427890021,
         "matched_state_count": 4
       },
       {
         "subject": "sub-012",
         "run": "run-03",
         "profile": "degree",
-        "mean_control_energy": 0.650173005471369,
+        "mean_control_energy": 0.5664614045641989,
         "matched_state_count": 4
       },
       {
         "subject": "sub-012",
         "run": "run-03",
         "profile": "random_receptor_permutation_mean",
-        "mean_control_energy": 1.214874444884229,
+        "mean_control_energy": 1.0543184155476502,
         "matched_state_count": 4
       },
       {
         "subject": "sub-013",
         "run": "run-01",
         "profile": "uniform",
-        "mean_control_energy": 0.5973610763733167,
+        "mean_control_energy": 0.5012931061983361,
         "matched_state_count": 4
       },
       {
         "subject": "sub-013",
         "run": "run-01",
         "profile": "receptor",
-        "mean_control_energy": 1.009507457457398,
+        "mean_control_energy": 0.9264492312923189,
         "matched_state_count": 4
       },
       {
         "subject": "sub-013",
         "run": "run-01",
         "profile": "hierarchy",
-        "mean_control_energy": 2.786103603512647,
+        "mean_control_energy": 1.30951212999658,
         "matched_state_count": 4
       },
       {
         "subject": "sub-013",
         "run": "run-01",
         "profile": "sensory",
-        "mean_control_energy": 3.0194779957151456,
+        "mean_control_energy": 2.074955652275374,
         "matched_state_count": 4
       },
       {
         "subject": "sub-013",
         "run": "run-01",
         "profile": "transmodal",
-        "mean_control_energy": 5.686852142953985,
+        "mean_control_energy": 1.6842345288249831,
         "matched_state_count": 4
       },
       {
         "subject": "sub-013",
         "run": "run-01",
         "profile": "thalamic",
-        "mean_control_energy": 1.3073755398110083,
+        "mean_control_energy": 1.1241018277383508,
         "matched_state_count": 4
       },
       {
         "subject": "sub-013",
         "run": "run-01",
         "profile": "degree",
-        "mean_control_energy": 0.6302581581686941,
+        "mean_control_energy": 0.46332647419804845,
         "matched_state_count": 4
       },
       {
         "subject": "sub-013",
         "run": "run-01",
         "profile": "random_receptor_permutation_mean",
-        "mean_control_energy": 1.3159928240601602,
+        "mean_control_energy": 0.9852975926920007,
         "matched_state_count": 4
       },
       {
         "subject": "sub-013",
         "run": "run-03",
         "profile": "uniform",
-        "mean_control_energy": 0.5252469053089853,
+        "mean_control_energy": 0.5046964184074016,
         "matched_state_count": 4
       },
       {
         "subject": "sub-013",
         "run": "run-03",
         "profile": "receptor",
-        "mean_control_energy": 0.5195687218396684,
+        "mean_control_energy": 0.5401261694749628,
         "matched_state_count": 4
       },
       {
         "subject": "sub-013",
         "run": "run-03",
         "profile": "hierarchy",
-        "mean_control_energy": 1.3437193238893168,
+        "mean_control_energy": 0.6377758907009868,
         "matched_state_count": 4
       },
       {
         "subject": "sub-013",
         "run": "run-03",
         "profile": "sensory",
-        "mean_control_energy": 3.338828508958997,
+        "mean_control_energy": 1.7007187563255304,
         "matched_state_count": 4
       },
       {
         "subject": "sub-013",
         "run": "run-03",
         "profile": "transmodal",
-        "mean_control_energy": 3.4484622823603965,
+        "mean_control_energy": 0.7616707502463573,
         "matched_state_count": 4
       },
       {
         "subject": "sub-013",
         "run": "run-03",
         "profile": "thalamic",
-        "mean_control_energy": 0.5653718473905296,
+        "mean_control_energy": 0.6481868821360715,
         "matched_state_count": 4
       },
       {
         "subject": "sub-013",
         "run": "run-03",
         "profile": "degree",
-        "mean_control_energy": 0.5198781288845474,
+        "mean_control_energy": 0.5295413673276825,
         "matched_state_count": 4
       },
       {
         "subject": "sub-013",
         "run": "run-03",
         "profile": "random_receptor_permutation_mean",
-        "mean_control_energy": 0.9608317323096072,
+        "mean_control_energy": 0.9202606008377054,
         "matched_state_count": 4
       },
       {
         "subject": "sub-015",
         "run": "run-01",
         "profile": "uniform",
-        "mean_control_energy": 0.6303473639004815,
+        "mean_control_energy": 0.7350474257868469,
         "matched_state_count": 4
       },
       {
         "subject": "sub-015",
         "run": "run-01",
         "profile": "receptor",
-        "mean_control_energy": 0.8846977149057293,
+        "mean_control_energy": 1.050371133695265,
         "matched_state_count": 4
       },
       {
         "subject": "sub-015",
         "run": "run-01",
         "profile": "hierarchy",
-        "mean_control_energy": 2.043844752642941,
+        "mean_control_energy": 1.7437084946638977,
         "matched_state_count": 4
       },
       {
         "subject": "sub-015",
         "run": "run-01",
         "profile": "sensory",
-        "mean_control_energy": 2.5606585761986196,
+        "mean_control_energy": 2.3027356505404817,
         "matched_state_count": 4
       },
       {
         "subject": "sub-015",
         "run": "run-01",
         "profile": "transmodal",
-        "mean_control_energy": 3.030222372695753,
+        "mean_control_energy": 3.9078121255339298,
         "matched_state_count": 4
       },
       {
         "subject": "sub-015",
         "run": "run-01",
         "profile": "thalamic",
-        "mean_control_energy": 0.683600258371108,
+        "mean_control_energy": 1.0183070953625895,
         "matched_state_count": 4
       },
       {
         "subject": "sub-015",
         "run": "run-01",
         "profile": "degree",
-        "mean_control_energy": 0.6099655819589025,
+        "mean_control_energy": 0.7870524371817595,
         "matched_state_count": 4
       },
       {
         "subject": "sub-015",
         "run": "run-01",
         "profile": "random_receptor_permutation_mean",
-        "mean_control_energy": 1.0297914280503688,
+        "mean_control_energy": 1.4821476014667458,
         "matched_state_count": 4
       },
       {
         "subject": "sub-015",
         "run": "run-03",
         "profile": "uniform",
-        "mean_control_energy": 0.6984260808921061,
+        "mean_control_energy": 0.7521544206859311,
         "matched_state_count": 4
       },
       {
         "subject": "sub-015",
         "run": "run-03",
         "profile": "receptor",
-        "mean_control_energy": 1.1859187804754647,
+        "mean_control_energy": 1.2792583733209675,
         "matched_state_count": 4
       },
       {
         "subject": "sub-015",
         "run": "run-03",
         "profile": "hierarchy",
-        "mean_control_energy": 2.176054151458652,
+        "mean_control_energy": 1.516886939966363,
         "matched_state_count": 4
       },
       {
         "subject": "sub-015",
         "run": "run-03",
         "profile": "sensory",
-        "mean_control_energy": 3.1864463274810806,
+        "mean_control_energy": 1.6947650980090119,
         "matched_state_count": 4
       },
       {
         "subject": "sub-015",
         "run": "run-03",
         "profile": "transmodal",
-        "mean_control_energy": 3.2982050608843263,
+        "mean_control_energy": 2.047038384546987,
         "matched_state_count": 4
       },
       {
         "subject": "sub-015",
         "run": "run-03",
         "profile": "thalamic",
-        "mean_control_energy": 0.528014353332263,
+        "mean_control_energy": 0.9094830439926347,
         "matched_state_count": 4
       },
       {
         "subject": "sub-015",
         "run": "run-03",
         "profile": "degree",
-        "mean_control_energy": 0.7047371054296334,
+        "mean_control_energy": 0.8428413013066185,
         "matched_state_count": 4
       },
       {
         "subject": "sub-015",
         "run": "run-03",
         "profile": "random_receptor_permutation_mean",
-        "mean_control_energy": 1.0900426784035628,
+        "mean_control_energy": 1.3593876221178993,
         "matched_state_count": 4
       },
       {
         "subject": "sub-017",
         "run": "run-01",
         "profile": "uniform",
-        "mean_control_energy": 0.6033149736693264,
+        "mean_control_energy": 0.5621620471039858,
         "matched_state_count": 4
       },
       {
         "subject": "sub-017",
         "run": "run-01",
         "profile": "receptor",
-        "mean_control_energy": 0.9012422783853125,
+        "mean_control_energy": 0.8743513725728373,
         "matched_state_count": 4
       },
       {
         "subject": "sub-017",
         "run": "run-01",
         "profile": "hierarchy",
-        "mean_control_energy": 2.0421366248263393,
+        "mean_control_energy": 0.967804562949847,
         "matched_state_count": 4
       },
       {
         "subject": "sub-017",
         "run": "run-01",
         "profile": "sensory",
-        "mean_control_energy": 2.3095211891209413,
+        "mean_control_energy": 1.146558660719318,
         "matched_state_count": 4
       },
       {
         "subject": "sub-017",
         "run": "run-01",
         "profile": "transmodal",
-        "mean_control_energy": 3.9978127527647516,
+        "mean_control_energy": 1.0881643130069367,
         "matched_state_count": 4
       },
       {
         "subject": "sub-017",
         "run": "run-01",
         "profile": "thalamic",
-        "mean_control_energy": 0.471361775565119,
+        "mean_control_energy": 0.6349643782404126,
         "matched_state_count": 4
       },
       {
         "subject": "sub-017",
         "run": "run-01",
         "profile": "degree",
-        "mean_control_energy": 0.5854079588893625,
+        "mean_control_energy": 0.5374247383319471,
         "matched_state_count": 4
       },
       {
         "subject": "sub-017",
         "run": "run-01",
         "profile": "random_receptor_permutation_mean",
-        "mean_control_energy": 1.006433731297154,
+        "mean_control_energy": 0.8833528035657946,
         "matched_state_count": 4
       },
       {
         "subject": "sub-017",
         "run": "run-03",
         "profile": "uniform",
-        "mean_control_energy": 0.7470881690686209,
+        "mean_control_energy": 0.7484366136262699,
         "matched_state_count": 4
       },
       {
         "subject": "sub-017",
         "run": "run-03",
         "profile": "receptor",
-        "mean_control_energy": 1.1024761361592839,
+        "mean_control_energy": 1.114826748844032,
         "matched_state_count": 4
       },
       {
         "subject": "sub-017",
         "run": "run-03",
         "profile": "hierarchy",
-        "mean_control_energy": 2.3275829721898607,
+        "mean_control_energy": 1.2735153094225637,
         "matched_state_count": 4
       },
       {
         "subject": "sub-017",
         "run": "run-03",
         "profile": "sensory",
-        "mean_control_energy": 3.231698154675497,
+        "mean_control_energy": 1.8134607039895627,
         "matched_state_count": 4
       },
       {
         "subject": "sub-017",
         "run": "run-03",
         "profile": "transmodal",
-        "mean_control_energy": 4.041478353201258,
+        "mean_control_energy": 1.4374805241972308,
         "matched_state_count": 4
       },
       {
         "subject": "sub-017",
         "run": "run-03",
         "profile": "thalamic",
-        "mean_control_energy": 0.48473719824952677,
+        "mean_control_energy": 0.7423919446591549,
         "matched_state_count": 4
       },
       {
         "subject": "sub-017",
         "run": "run-03",
         "profile": "degree",
-        "mean_control_energy": 0.7471190741941294,
+        "mean_control_energy": 0.8144756912677389,
         "matched_state_count": 4
       },
       {
         "subject": "sub-017",
         "run": "run-03",
         "profile": "random_receptor_permutation_mean",
-        "mean_control_energy": 1.1921834730229766,
+        "mean_control_energy": 1.2580751009700506,
         "matched_state_count": 4
       },
       {
         "subject": "sub-018",
         "run": "run-01",
         "profile": "uniform",
-        "mean_control_energy": 0.7504790610936665,
+        "mean_control_energy": 0.5786885572479059,
         "matched_state_count": 4
       },
       {
         "subject": "sub-018",
         "run": "run-01",
         "profile": "receptor",
-        "mean_control_energy": 1.1871716486760415,
+        "mean_control_energy": 1.1949416771329973,
         "matched_state_count": 4
       },
       {
         "subject": "sub-018",
         "run": "run-01",
         "profile": "hierarchy",
-        "mean_control_energy": 3.9797931221640153,
+        "mean_control_energy": 1.826413301870249,
         "matched_state_count": 4
       },
       {
         "subject": "sub-018",
         "run": "run-01",
         "profile": "sensory",
-        "mean_control_energy": 5.566313686081312,
+        "mean_control_energy": 3.858602412715312,
         "matched_state_count": 4
       },
       {
         "subject": "sub-018",
         "run": "run-01",
         "profile": "transmodal",
-        "mean_control_energy": 10.353948750770938,
+        "mean_control_energy": 3.844393470449574,
         "matched_state_count": 4
       },
       {
         "subject": "sub-018",
         "run": "run-01",
         "profile": "thalamic",
-        "mean_control_energy": 1.4306710117097141,
+        "mean_control_energy": 1.2403389991108753,
         "matched_state_count": 4
       },
       {
         "subject": "sub-018",
         "run": "run-01",
         "profile": "degree",
-        "mean_control_energy": 0.787261157211053,
+        "mean_control_energy": 0.6566205636856755,
         "matched_state_count": 4
       },
       {
         "subject": "sub-018",
         "run": "run-01",
         "profile": "random_receptor_permutation_mean",
-        "mean_control_energy": 1.9113182767551737,
+        "mean_control_energy": 1.3900567890241002,
         "matched_state_count": 4
       },
       {
         "subject": "sub-018",
         "run": "run-03",
         "profile": "uniform",
-        "mean_control_energy": 0.4484684580357169,
+        "mean_control_energy": 0.35189665538380654,
         "matched_state_count": 4
       },
       {
         "subject": "sub-018",
         "run": "run-03",
         "profile": "receptor",
-        "mean_control_energy": 0.593156682092794,
+        "mean_control_energy": 0.5488584130992087,
         "matched_state_count": 4
       },
       {
         "subject": "sub-018",
         "run": "run-03",
         "profile": "hierarchy",
-        "mean_control_energy": 1.9059338361944471,
+        "mean_control_energy": 0.6659301337230104,
         "matched_state_count": 4
       },
       {
         "subject": "sub-018",
         "run": "run-03",
         "profile": "sensory",
-        "mean_control_energy": 2.4493338400861093,
+        "mean_control_energy": 1.24634191001812,
         "matched_state_count": 4
       },
       {
         "subject": "sub-018",
         "run": "run-03",
         "profile": "transmodal",
-        "mean_control_energy": 5.090694481228565,
+        "mean_control_energy": 1.2585181529603058,
         "matched_state_count": 4
       },
       {
         "subject": "sub-018",
         "run": "run-03",
         "profile": "thalamic",
-        "mean_control_energy": 0.4657356201239922,
+        "mean_control_energy": 0.4092242789919709,
         "matched_state_count": 4
       },
       {
         "subject": "sub-018",
         "run": "run-03",
         "profile": "degree",
-        "mean_control_energy": 0.4556147039914744,
+        "mean_control_energy": 0.3684804708908213,
         "matched_state_count": 4
       },
       {
         "subject": "sub-018",
         "run": "run-03",
         "profile": "random_receptor_permutation_mean",
-        "mean_control_energy": 0.9474428083238842,
+        "mean_control_energy": 0.6202894823280253,
         "matched_state_count": 4
       },
       {
         "subject": "sub-019",
         "run": "run-01",
         "profile": "uniform",
-        "mean_control_energy": 0.6865830150207038,
+        "mean_control_energy": 0.7241179497409029,
         "matched_state_count": 4
       },
       {
         "subject": "sub-019",
         "run": "run-01",
         "profile": "receptor",
-        "mean_control_energy": 0.8355196121220507,
+        "mean_control_energy": 0.8313151652564196,
         "matched_state_count": 4
       },
       {
         "subject": "sub-019",
         "run": "run-01",
         "profile": "hierarchy",
-        "mean_control_energy": 2.1637335181613566,
+        "mean_control_energy": 1.2075723257330795,
         "matched_state_count": 4
       },
       {
         "subject": "sub-019",
         "run": "run-01",
         "profile": "sensory",
-        "mean_control_energy": 2.5980637828022024,
+        "mean_control_energy": 2.325637369963831,
         "matched_state_count": 4
       },
       {
         "subject": "sub-019",
         "run": "run-01",
         "profile": "transmodal",
-        "mean_control_energy": 3.174348398740169,
+        "mean_control_energy": 1.8830625386399156,
         "matched_state_count": 4
       },
       {
         "subject": "sub-019",
         "run": "run-01",
         "profile": "thalamic",
-        "mean_control_energy": 0.6186017205611518,
+        "mean_control_energy": 0.7888416221541118,
         "matched_state_count": 4
       },
       {
         "subject": "sub-019",
         "run": "run-01",
         "profile": "degree",
-        "mean_control_energy": 0.6901019666314945,
+        "mean_control_energy": 0.8039627956717862,
         "matched_state_count": 4
       },
       {
         "subject": "sub-019",
         "run": "run-01",
         "profile": "random_receptor_permutation_mean",
-        "mean_control_energy": 1.1104198053395014,
+        "mean_control_energy": 1.3166766561140468,
         "matched_state_count": 4
       },
       {
         "subject": "sub-019",
         "run": "run-03",
         "profile": "uniform",
-        "mean_control_energy": 0.8758159479799512,
+        "mean_control_energy": 0.768980796099164,
         "matched_state_count": 4
       },
       {
         "subject": "sub-019",
         "run": "run-03",
         "profile": "receptor",
-        "mean_control_energy": 1.7801053888690692,
+        "mean_control_energy": 2.2877004812844213,
         "matched_state_count": 4
       },
       {
         "subject": "sub-019",
         "run": "run-03",
         "profile": "hierarchy",
-        "mean_control_energy": 3.379170751354804,
+        "mean_control_energy": 1.512623713541859,
         "matched_state_count": 4
       },
       {
         "subject": "sub-019",
         "run": "run-03",
         "profile": "sensory",
-        "mean_control_energy": 5.492857927025614,
+        "mean_control_energy": 3.807587330551311,
         "matched_state_count": 4
       },
       {
         "subject": "sub-019",
         "run": "run-03",
         "profile": "transmodal",
-        "mean_control_energy": 7.801207024311098,
+        "mean_control_energy": 2.237782374126761,
         "matched_state_count": 4
       },
       {
         "subject": "sub-019",
         "run": "run-03",
         "profile": "thalamic",
-        "mean_control_energy": 1.5665758835513848,
+        "mean_control_energy": 1.6398450626005188,
         "matched_state_count": 4
       },
       {
         "subject": "sub-019",
         "run": "run-03",
         "profile": "degree",
-        "mean_control_energy": 0.9267624470940287,
+        "mean_control_energy": 0.8155320384100424,
         "matched_state_count": 4
       },
       {
         "subject": "sub-019",
         "run": "run-03",
         "profile": "random_receptor_permutation_mean",
-        "mean_control_energy": 1.903192885665331,
+        "mean_control_energy": 1.6147339363211843,
         "matched_state_count": 4
       },
       {
         "subject": "sub-020",
         "run": "run-01",
         "profile": "uniform",
-        "mean_control_energy": 0.637106676442478,
+        "mean_control_energy": 0.6836527292585544,
         "matched_state_count": 4
       },
       {
         "subject": "sub-020",
         "run": "run-01",
         "profile": "receptor",
-        "mean_control_energy": 1.205708901034726,
+        "mean_control_energy": 1.4905089285096538,
         "matched_state_count": 4
       },
       {
         "subject": "sub-020",
         "run": "run-01",
         "profile": "hierarchy",
-        "mean_control_energy": 2.014393170489656,
+        "mean_control_energy": 1.3595816550529107,
         "matched_state_count": 4
       },
       {
         "subject": "sub-020",
         "run": "run-01",
         "profile": "sensory",
-        "mean_control_energy": 2.933194246341778,
+        "mean_control_energy": 3.810287434486618,
         "matched_state_count": 4
       },
       {
         "subject": "sub-020",
         "run": "run-01",
         "profile": "transmodal",
-        "mean_control_energy": 2.980287918737993,
+        "mean_control_energy": 2.5994235891243083,
         "matched_state_count": 4
       },
       {
         "subject": "sub-020",
         "run": "run-01",
         "profile": "thalamic",
-        "mean_control_energy": 0.9012849751978518,
+        "mean_control_energy": 1.0809525096854167,
         "matched_state_count": 4
       },
       {
         "subject": "sub-020",
         "run": "run-01",
         "profile": "degree",
-        "mean_control_energy": 0.6081470399528315,
+        "mean_control_energy": 0.6924359458614283,
         "matched_state_count": 4
       },
       {
         "subject": "sub-020",
         "run": "run-01",
         "profile": "random_receptor_permutation_mean",
-        "mean_control_energy": 1.156908667632811,
+        "mean_control_energy": 1.3963075600830475,
         "matched_state_count": 4
       },
       {
         "subject": "sub-020",
         "run": "run-03",
         "profile": "uniform",
-        "mean_control_energy": 0.6059482356746769,
+        "mean_control_energy": 0.7285744601521487,
         "matched_state_count": 4
       },
       {
         "subject": "sub-020",
         "run": "run-03",
         "profile": "receptor",
-        "mean_control_energy": 1.4156787828519914,
+        "mean_control_energy": 2.119259786317829,
         "matched_state_count": 4
       },
       {
         "subject": "sub-020",
         "run": "run-03",
         "profile": "hierarchy",
-        "mean_control_energy": 1.651661998420533,
+        "mean_control_energy": 1.5534795074752141,
         "matched_state_count": 4
       },
       {
         "subject": "sub-020",
         "run": "run-03",
         "profile": "sensory",
-        "mean_control_energy": 2.801564280108586,
+        "mean_control_energy": 1.9466711196928883,
         "matched_state_count": 4
       },
       {
         "subject": "sub-020",
         "run": "run-03",
         "profile": "transmodal",
-        "mean_control_energy": 2.424706863502899,
+        "mean_control_energy": 3.4711382113922338,
         "matched_state_count": 4
       },
       {
         "subject": "sub-020",
         "run": "run-03",
         "profile": "thalamic",
-        "mean_control_energy": 0.7778190211353218,
+        "mean_control_energy": 1.2161563304525496,
         "matched_state_count": 4
       },
       {
         "subject": "sub-020",
         "run": "run-03",
         "profile": "degree",
-        "mean_control_energy": 0.5948403871605021,
+        "mean_control_energy": 0.7779943265155852,
         "matched_state_count": 4
       },
       {
         "subject": "sub-020",
         "run": "run-03",
         "profile": "random_receptor_permutation_mean",
-        "mean_control_energy": 1.0081831175107343,
+        "mean_control_energy": 1.5511520155699272,
         "matched_state_count": 4
       }
     ],
@@ -3433,18 +3433,18 @@
       {
         "profile": "degree",
         "module_weights": {
-          "visual": 0.9743589743589743,
-          "auditory": 0.888888888888889,
-          "salience": 1.2478632478632479,
-          "default_mode": 0.7521367521367522,
-          "executive_frontoparietal": 0.9401709401709403,
-          "limbic_affective": 0.9059829059829061,
-          "thalamic_gateway": 1.3504273504273505,
-          "sensorimotor": 0.9401709401709403
+          "visual": 0.9859037158467776,
+          "auditory": 1.249360015725467,
+          "salience": 1.22708722724854,
+          "default_mode": 0.6670900949395044,
+          "executive_frontoparietal": 0.8939504299679413,
+          "limbic_affective": 0.9155083815308884,
+          "thalamic_gateway": 0.9008624200600518,
+          "sensorimotor": 1.1602377146808294
         }
       }
     ],
-    "support_score": 0.4814876389463203,
+    "support_score": 0.2784492984452205,
     "claim_guardrail": "E is a receptor/hierarchy-informed proxy-control test. It is not full receptor-informed network control theory until a structural connectome and PET-derived receptor map are added."
   }
 }

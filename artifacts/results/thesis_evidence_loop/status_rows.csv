@@ -1,6 +1,6 @@
 artifact_target,blocker,evidence,label,status,step
 results/dynamic_mechanism_ranking/robustness/,,C rank-1 fraction=0.84375,LSD robustness,implemented_lsd_robustness,1
-results/psilocybin_ds006072/,,"parcellation_matched_schaefer100_yeo7_external_validation; ranking_differs_from_lsd_top_layer; ds006072 top=E, LSD reference top=C.",Psilocybin ds006072,implemented_ds006072_unchanged_scoring_validation,2
+results/psilocybin_ds006072/,,"The unchanged-scoring lock is missing or its target/code hashes no longer match: scoring_code_files.dynamic_mechanism, scoring_code_files.dynamic_mechanism_connectivity, scoring_code_files.dynamic_mechanism_hierarchy, scoring_code_files.dynamic_mechanism_priors, scoring_code_files.dynamic_mechanism_repertoire, scoring_code_files.dynamic_mechanism_stats, scoring_code_files.dynamic_mechanism_transitions",Psilocybin ds006072,blocked_scoring_lock_not_verified,2
 results/structural_connectome/,,Structural graph sensitivity generated.,HCP structural graph,implemented_hcp_structural_graph_sensitivity,3
 results/receptor_priors/,,PET receptor sensitivity generated.,PET receptor priors,implemented_pet_receptor_prior_sensitivity,4
 results/parcellation_sensitivity/,,Status matrix generated; see per-parcellation rows.,Schaefer/Yeo sensitivity,implemented_status_matrix,5

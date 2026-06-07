@@ -1,6 +1,6 @@
 {
   "schema_version": "reproducible_archive_manifest.v1",
-  "generated_at_utc": "2026-06-07T07:52:47.523198+00:00",
+  "generated_at_utc": "2026-06-07T09:26:48.798318+00:00",
   "python_version": "3.13.13",
   "platform": "Windows-10-10.0.19045-SP0",
   "artifact_count": 23,
@@ -87,23 +87,23 @@
     },
     {
       "path": "results/thesis_evidence_loop/thesis_evidence_loop_status.json",
-      "bytes": 729851,
-      "sha256": "54356d1ce1eb1526a9c9bfb633825eca929d5995b8275ab0ffb218d8535ca263"
+      "bytes": 319308,
+      "sha256": "8b58fcbe2052873cf18d53258ba4213c19cb807b1121177a05d3f8c7d99cfbc7"
     },
     {
       "path": "results/thesis_evidence_loop/claim_evidence_matrix.md",
-      "bytes": 5078,
-      "sha256": "f90f9ec22299c0f27436e74afa743f524d6d847963554b2e42b383de5973fc01"
+      "bytes": 5062,
+      "sha256": "2593047727c3104c07c668bf37caeb4c827191502d9e7510b304c5dfc92d2e1a"
     },
     {
       "path": "results/thesis_upgrade/thesis_upgrade_status.json",
-      "bytes": 72753,
-      "sha256": "a12949b40e9ef930a7c07b2172621e827180ec527b821dce6f43bc87656cf779"
+      "bytes": 73065,
+      "sha256": "581c8f4a70ac00d272b25065f25735e3bdd4d1db5d88f462f2780bec72b317ae"
     },
     {
       "path": "results/thesis_upgrade/thesis_upgrade_status.md",
-      "bytes": 6246,
-      "sha256": "7bf1141e8eeae0df62130e1822595fb30637ddba5ec962fb551a8991e72eaf03"
+      "bytes": 6220,
+      "sha256": "8c1a1310a8f8997da593315f9aadcdac72f9f38033ee107507c021bed1fcaea2"
     },
     {
       "path": "results/external_ingestion/external_ingestion_status.json",
@@ -112,13 +112,13 @@
     },
     {
       "path": "output/doc/thesis_report_revised.md",
-      "bytes": 54979,
-      "sha256": "6afe4d240546e5be9531fbfb9337a8ea989b9897bc5220b9721471479bcffd95"
+      "bytes": 53454,
+      "sha256": "3efd3052166a4aaefb374a80c3e8b5069ec195b0c82d5b831bce219dc40234f5"
     },
     {
       "path": "output/doc/thesis_microsite.html",
-      "bytes": 82916,
-      "sha256": "f1dd6d0b1e63399ba920327265c12aea94093929ebebb8776eec22acecad2d58"
+      "bytes": 81110,
+      "sha256": "07c6c21e8ee15d7995149c16018a7e514fa822ea71a79b4ebc02d11407e01be4"
     }
   ],
   "release_url": "https://github.com/grimgrimberg/LSD_Thesis/releases/tag/thesis-evidence-2026-06-02",

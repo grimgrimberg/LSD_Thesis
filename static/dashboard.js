@@ -2,6 +2,8 @@ const pageId = document.body.dataset.page || "overview";
 const dashboardDataUrl = document.body.dataset.dashboardDataUrl || "/api/dashboard-data";
 const priorArtDataUrl = document.body.dataset.priorArtDataUrl || "/api/prior-art-data";
 const artifactPrefix = document.body.dataset.artifactPrefix || "/artifacts/";
+const deploymentMode = document.body.dataset.deploymentMode || "local";
+const isStaticDeployment = deploymentMode === "static";
 
 const chartLayout = {
   paper_bgcolor: "rgba(0,0,0,0)",
@@ -76,6 +78,13 @@ function plot(targetId, traces, layout = {}) {
     return;
   }
   window.Plotly.newPlot(target, traces, { ...chartLayout, ...layout }, { displayModeBar: false, responsive: true });
+}
+
+function emptyPlot(targetId, message) {
+  const target = byId(targetId);
+  if (target) {
+    target.textContent = message;
+  }
 }
 
 function records(items) {
@@ -179,17 +188,28 @@ function renderArtifacts(payload) {
 function renderRanking(payload) {
   const dynamic = payload.dynamic_mechanism || {};
   setText("ranking_status", dynamic.analysis_status || dynamic.status || "loaded");
-  const rows = records(dynamic.ranking_rows || dynamic.mechanism_rows || dynamic.families);
-  const labels = rows.length ? rows.map((row) => text(row.mechanism || row.family || row.label)) : ["less hierarchy", "cross-talk", "temperature", "barrier"];
-  const scores = rows.length ? rows.map((row) => Number(row.score ?? row.support_score ?? row.rank_score ?? 0)) : [0.82, 0.74, 0.54, 0.41];
+  const rows = records(dynamic.mechanism_ranking || dynamic.ranking_rows || dynamic.mechanism_rows || dynamic.families);
+  if (!rows.length) {
+    emptyPlot("ranking_chart", "No mechanism ranking rows are available in dashboard-data.json.");
+    return;
+  }
+  const sortedRows = [...rows].sort((left, right) => Number(left.rank ?? 999) - Number(right.rank ?? 999));
+  const labels = sortedRows.map((row) => {
+    const mechanism = text(row.mechanism || row.family || row.label);
+    return row.layer ? `${row.layer}: ${mechanism}` : mechanism;
+  });
+  const scores = sortedRows.map((row) => Number(row.score ?? row.support_score ?? row.rank_score ?? 0));
   plot("ranking_chart", [{
     type: "bar",
     orientation: "h",
     x: scores,
     y: labels,
-    marker: { color: ["#56d5c2", "#91c46c", "#e8bd6a", "#d88094"] },
+    marker: { color: ["#56d5c2", "#91c46c", "#e8bd6a", "#d88094", "#9a7be0"] },
     hovertemplate: "%{y}<br>support %{x:.3f}<extra></extra>",
-  }], { xaxis: { ...chartLayout.xaxis, title: "proxy support score" } });
+  }], {
+    xaxis: { ...chartLayout.xaxis, title: "proxy support score" },
+    yaxis: { ...chartLayout.yaxis, autorange: "reversed" },
+  });
 
   const gateRows = [
     ["Macro-dynamics", dynamic.analysis_status || "implemented", "Use for mechanism ranking only."],
@@ -205,30 +225,30 @@ function renderRanking(payload) {
 function renderRobustness(payload) {
   const summary = payload.dynamic_mechanism?.robustness || payload.stage_summaries?.stage_3 || payload.audit_status || {};
   setText("robustness_status", summary.analysis_status || "loaded");
+  const layerSummary = records(payload.dynamic_mechanism?.robustness?.subject_bootstrap?.layer_summary);
   const cardItems = [
-    ["Best mechanism", payload.audit_status?.stage3_best_mechanism],
-    ["Score mean", payload.audit_status?.stage3_score],
-    ["Score SD", payload.audit_status?.stage3_score_std],
+    ["Top layer", payload.dynamic_mechanism?.robustness?.subject_bootstrap?.top_layer_by_rank_1_fraction || payload.audit_status?.stage3_best_mechanism],
+    ["Bootstrap rows", layerSummary.length],
+    ["Run rows", records(payload.dynamic_mechanism?.robustness?.run_sensitivity?.run_rows).length],
     ["CV5 status", payload.cv5_validation?.analysis_status || payload.cv5_validation?.status],
   ];
   byId("robustness_cards")?.replaceChildren(...cardItems.map(([label, value]) => el("div", { className: "data-record" }, [
     el("span", { text: label }),
     el("strong", { text: text(value) }),
   ])));
-  const values = [
-    Number(payload.audit_status?.stage3_score || 0),
-    Number(payload.audit_status?.stage3_score_std || 0),
-    Number(payload.cv5_validation?.aggregate_metrics?.score_mean?.mean || 0),
-    Number(payload.cv5_validation?.aggregate_metrics?.sign_agreement_fraction?.mean || 0),
-  ];
+  if (!layerSummary.length) {
+    emptyPlot("robustness_chart", "No bootstrap layer summary is available in robustness_summary.json.");
+    return;
+  }
   plot("robustness_chart", [{
-    type: "scatter",
-    mode: "lines+markers",
-    x: ["stage score", "stage spread", "cv5 score", "sign agreement"],
-    y: values,
-    line: { color: "#56d5c2", width: 3 },
-    marker: { color: "#e8bd6a", size: 9 },
-  }]);
+    type: "bar",
+    name: "rank-1 fraction",
+    x: layerSummary.map((row) => text(row.layer)),
+    y: layerSummary.map((row) => Number(row.rank_1_fraction ?? 0)),
+    customdata: layerSummary.map((row) => [Number(row.score_mean ?? 0), Number(row.score_std ?? 0)]),
+    marker: { color: ["#56d5c2", "#d88094", "#91c46c", "#e8bd6a", "#9a7be0"] },
+    hovertemplate: "Layer %{x}<br>rank-1 %{y:.3f}<br>score mean %{customdata[0]:.3f}<br>score sd %{customdata[1]:.3f}<extra></extra>",
+  }], { yaxis: { ...chartLayout.yaxis, title: "bootstrap rank-1 fraction", range: [0, 1] } });
 
   const requirements = records(payload.thesis_upgrade?.strict_completion_requirements);
   fillTable("requirements_table", requirements, [
@@ -289,6 +309,10 @@ function renderEmpirical(payload) {
 }
 
 async function loadEmpiricalDetail() {
+  if (isStaticDeployment) {
+    setText("empirical_notice", "Static GitHub Pages shows the group delta plot; subject-level detail requires the local FastAPI dashboard.");
+    return;
+  }
   const subject = byId("empirical_subject")?.value;
   const run = byId("empirical_run")?.value;
   if (!subject || !run) {
@@ -307,26 +331,7 @@ async function loadEmpiricalDetail() {
   }
 }
 
-async function runSimulation() {
-  const body = {
-    regime: byId("sim_regime")?.value || "baseline",
-    within_group_scale: Number(byId("sim_within")?.value || 1),
-    cross_group_scale: Number(byId("sim_cross")?.value || 1),
-    constraint_scale: Number(byId("sim_constraint")?.value || 1),
-    temperature: Number(byId("sim_temperature")?.value || 0.1),
-  };
-  setText("simulator_status", "running");
-  const response = await fetch("/api/simulate", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(body),
-  });
-  if (!response.ok) {
-    setText("simulator_status", `error ${response.status}`);
-    return;
-  }
-  const payload = await response.json();
-  setText("simulator_status", "rendered");
+function renderSimulationPayload(payload) {
   const modules = payload.modules || [];
   const time = payload.time || [];
   const traces = modules.map((module, index) => ({
@@ -347,6 +352,39 @@ async function runSimulation() {
   }], { xaxis: { ...chartLayout.xaxis, side: "top" } });
 }
 
+async function runSimulation(dashboard = {}) {
+  const body = {
+    regime: byId("sim_regime")?.value || "baseline",
+    within_group_scale: Number(byId("sim_within")?.value || 1),
+    cross_group_scale: Number(byId("sim_cross")?.value || 1),
+    constraint_scale: Number(byId("sim_constraint")?.value || 1),
+    temperature: Number(byId("sim_temperature")?.value || 0.1),
+  };
+  if (isStaticDeployment) {
+    const payload = body.regime === "perturbed" ? dashboard.perturbed : dashboard.baseline;
+    if (!payload) {
+      setText("simulator_status", "static snapshot missing");
+      return;
+    }
+    renderSimulationPayload(payload);
+    setText("simulator_status", `static ${body.regime} snapshot`);
+    return;
+  }
+  setText("simulator_status", "running");
+  const response = await fetch("/api/simulate", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+  });
+  if (!response.ok) {
+    setText("simulator_status", `error ${response.status}`);
+    return;
+  }
+  const payload = await response.json();
+  setText("simulator_status", "rendered");
+  renderSimulationPayload(payload);
+}
+
 async function main() {
   const dashboard = await fetchJson(dashboardDataUrl);
   if (pageId === "overview") {
@@ -364,8 +402,21 @@ async function main() {
     renderEmpirical(dashboard);
     byId("load_empirical")?.addEventListener("click", loadEmpiricalDetail);
   } else if (pageId === "simulator") {
-    await runSimulation();
-    byId("run_simulation")?.addEventListener("click", runSimulation);
+    if (isStaticDeployment) {
+      ["sim_within", "sim_cross", "sim_constraint", "sim_temperature"].forEach((id) => {
+        const input = byId(id);
+        if (input) {
+          input.disabled = true;
+          input.title = "Static GitHub Pages uses cached baseline/perturbed snapshots; parameter sweeps require the local FastAPI dashboard.";
+        }
+      });
+      const button = byId("run_simulation");
+      if (button) {
+        button.textContent = "Render Cached Regime";
+      }
+    }
+    await runSimulation(dashboard);
+    byId("run_simulation")?.addEventListener("click", () => runSimulation(dashboard));
   }
 }
 

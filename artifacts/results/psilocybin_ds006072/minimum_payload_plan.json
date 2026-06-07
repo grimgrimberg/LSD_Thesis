@@ -1,6 +1,6 @@
 {
   "schema_version": "ds006072_minimum_payload_plan.v1",
-  "generated_at_utc": "2026-06-07T07:52:31.215686+00:00",
+  "generated_at_utc": "2026-06-07T09:26:34.016559+00:00",
   "dataset_id": "ds006072",
   "analysis_status": "minimum_validation_payloads_local_ready_for_extraction",
   "minimum_subjects_required": 3,

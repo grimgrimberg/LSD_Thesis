@@ -1,6 +1,6 @@
 {
   "schema_version": "ds006072_external_validation.v1",
-  "generated_at_utc": "2026-06-07T07:50:02.361159+00:00",
+  "generated_at_utc": "2026-06-07T09:24:10.093912+00:00",
   "source_dataset_id": "ds003059",
   "external_dataset_id": "ds006072",
   "fixed_rule": "Run lsd_thesis.dynamic_mechanism.build_dynamic_mechanism_summary on ds006072 empirical viewer records without changing mechanism weights, metric direction rules, target files, or ranking code after seeing psilocybin results.",
@@ -25,45 +25,45 @@
   },
   "scoring_code_files": {
     "dynamic_mechanism": {
-      "path": "src/lsd_thesis/dynamic_mechanism.py",
+      "path": "src/lsd_thesis/dynamic_mechanism/__init__.py",
       "exists": true,
-      "sha256": "c3b8733f5c2b5638c1873b0d870d29cd697dc764b62a57af4fd0e992baaa26d4",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "entrypoint": "lsd_thesis.dynamic_mechanism.build_dynamic_mechanism_summary"
     },
     "dynamic_mechanism_connectivity": {
-      "path": "src/lsd_thesis/dynamic_mechanism_connectivity.py",
+      "path": "src/lsd_thesis/dynamic_mechanism/connectivity.py",
       "exists": true,
       "sha256": "c75c3b94ed39831f5b6754dc84d5a8863cc1c9d3c5dbe7a0d9c1a7b8928b8b8b",
       "entrypoint": null
     },
     "dynamic_mechanism_hierarchy": {
-      "path": "src/lsd_thesis/dynamic_mechanism_hierarchy.py",
+      "path": "src/lsd_thesis/dynamic_mechanism/hierarchy.py",
       "exists": true,
-      "sha256": "3c4151740bb719a655671a80bc4e7246590fb27c52adad94b373ee8647a614f1",
+      "sha256": "7665d67b52ba839136e03e804629f5643af2ef3cb14b6a437dfaffc62dc88f82",
       "entrypoint": null
     },
     "dynamic_mechanism_priors": {
-      "path": "src/lsd_thesis/dynamic_mechanism_priors.py",
+      "path": "src/lsd_thesis/dynamic_mechanism/priors.py",
       "exists": true,
       "sha256": "1783a63f324e8dc7f1d8e4b6dcd6747756f7c9c15e3e0be2034262d5ac601bf3",
       "entrypoint": null
     },
     "dynamic_mechanism_repertoire": {
-      "path": "src/lsd_thesis/dynamic_mechanism_repertoire.py",
+      "path": "src/lsd_thesis/dynamic_mechanism/repertoire.py",
       "exists": true,
-      "sha256": "fe4788dbc06941c79db5199bed84b8ee8425591f7938dde5c2e5bf6328978150",
+      "sha256": "e5e063dab7ab86b31303c917129af8d92812c0b6c079b086be2de5bb204f4339",
       "entrypoint": null
     },
     "dynamic_mechanism_stats": {
-      "path": "src/lsd_thesis/dynamic_mechanism_stats.py",
+      "path": "src/lsd_thesis/dynamic_mechanism/stats.py",
       "exists": true,
       "sha256": "3a82bf05d2ecbb6108eb565cde8d8faf91f727b03872327fd8e0a95817c6d35b",
       "entrypoint": null
     },
     "dynamic_mechanism_transitions": {
-      "path": "src/lsd_thesis/dynamic_mechanism_transitions.py",
+      "path": "src/lsd_thesis/dynamic_mechanism/transitions.py",
       "exists": true,
-      "sha256": "9912895059422095756d5fa428021f1b4dee8680ad396150eb90e574cd346393",
+      "sha256": "ddf5681bc7bbee5e582ad91de8ddf7289ce45cb5e2cba4367184f6c502ca1715",
       "entrypoint": null
     }
   },

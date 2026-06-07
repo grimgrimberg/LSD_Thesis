@@ -251,21 +251,7 @@ However, a deeper reading of the same summary exposes an important weakness. The
 
 This is one of the most important scientific findings in the repository. The calibration objective can discover a good-looking run, but the implied parameterization is not yet robust enough to support strong claims of identified sober dynamics. For defense purposes, this should be stated plainly. Stage 2 establishes that empirical anchoring is feasible and that the sober regime can be better aligned with placebo targets, but it does not yet establish a stable calibrated model in the stronger inferential sense.
 
-Approved preliminary five-fold subject-disjoint internal validation completed across 5/5 folds under `preliminary_internal_subject_disjoint_cv5`, covering 15 complete paired subjects exactly once as held-out targets. This is internal validation, not external or clinical validation, and the n=3 held-out subjects per fold require cautious interpretation. The split itself was not stratified by subject-level fMRIPrep FD/DVARS/confound/censoring; the image-derived motion/QC sensitivity layer is reported separately. The approved manifest is the split-configuration record; the aggregate artifact is the authoritative completion record.
-
-| CV5 descriptive item | Value |
-| --- | --- |
-| Approved manifest | `output/validation/cv5_subject_disjoint/approved/subject_split_cv5_manifest_approved.json` |
-| Aggregate artifact | `output/validation/cv5_subject_disjoint/results/cv5_aggregate_validation.json` |
-| Fold-averaged delta mismatch score | 15.7128 (fold SD 10.2613) |
-| Held-out score range | 5.8745 to 29.5082 |
-| Fold-averaged target-sign agreement | 0.6750 (fold SD 0.1896) |
-| Target-sign agreement range | 0.5000 to 0.8750 |
-| Selected perturbation family counts | `more_cross_talk`=5 |
-| Selected strength counts | `0.1`=5 |
-| Reproduction command | `uv run python scripts/run_cv5_validation.py --manifest output/validation/cv5_subject_disjoint/approved/subject_split_cv5_manifest_approved.json --output-dir output/validation/cv5_subject_disjoint/results --fit-iterations 64 --seed 11` |
-
-These values are descriptive fold summaries. The fold standard deviation is not a confidence interval, and the result should not be interpreted as external predictive validity.
+Subject-disjoint held-out validation has not yet been configured or performed for Stage 2/3; the current evidence remains calibration plus stochastic diagnostics.
 
 ## 11. Stage 3: Perturbation Ranking Against Empirical LSD-minus-Placebo Deltas
 
