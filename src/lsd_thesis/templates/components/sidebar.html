@@ -1,0 +1,21 @@
+<aside class="sidebar" aria-label="Primary dashboard navigation">
+  <a class="brand" href="{{ home_href | default('/') }}" aria-label="Overview">
+    <span class="brand-mark" aria-hidden="true"></span>
+    <span>
+      <strong>LSD Thesis</strong>
+      <small>surrogate evidence</small>
+    </span>
+  </a>
+  <nav class="nav-list">
+    {% for item in nav_items %}
+      <a class="nav-link{% if item.id == active_page %} is-active{% endif %}" href="{{ item.href }}" {% if item.id == active_page %}aria-current="page"{% endif %}>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="{{ item.icon }}"></path></svg>
+        <span>{{ item.label }}</span>
+      </a>
+    {% endfor %}
+  </nav>
+  <div class="claim-note">
+    <strong>Claim guardrail</strong>
+    <p>Every page keeps receptor, subjective-experience, and external-validity claims gated unless the local evidence artifact says otherwise.</p>
+  </div>
+</aside>

@@ -11,13 +11,13 @@ from typing import Any
 from xml.etree import ElementTree as ET
 
 import lsd_thesis.dynamic_mechanism as dynamic_mechanism_module
-import lsd_thesis.dynamic_mechanism_connectivity as dynamic_mechanism_connectivity_module
-import lsd_thesis.dynamic_mechanism_hierarchy as dynamic_mechanism_hierarchy_module
-import lsd_thesis.dynamic_mechanism_priors as dynamic_mechanism_priors_module
-import lsd_thesis.dynamic_mechanism_repertoire as dynamic_mechanism_repertoire_module
-import lsd_thesis.dynamic_mechanism_stats as dynamic_mechanism_stats_module
-import lsd_thesis.dynamic_mechanism_transitions as dynamic_mechanism_transitions_module
-from lsd_thesis.dynamic_mechanism import build_dynamic_mechanism_summary, load_empirical_pairs
+import lsd_thesis.dynamic_mechanism.connectivity as dynamic_mechanism_connectivity_module
+import lsd_thesis.dynamic_mechanism.hierarchy as dynamic_mechanism_hierarchy_module
+import lsd_thesis.dynamic_mechanism.priors as dynamic_mechanism_priors_module
+import lsd_thesis.dynamic_mechanism.repertoire as dynamic_mechanism_repertoire_module
+import lsd_thesis.dynamic_mechanism.stats as dynamic_mechanism_stats_module
+import lsd_thesis.dynamic_mechanism.transitions as dynamic_mechanism_transitions_module
+from lsd_thesis.dynamic_mechanism.core import build_dynamic_mechanism_summary, load_empirical_pairs
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 SCHEMA_VERSION = "ds006072_external_validation.v1"

@@ -60,7 +60,7 @@ flowchart TD
     DTI["web/structural_dti.py\nstructural-connectome dashboard graph payload"]
     THESIS["web/thesis_payload.py\nPI-pitch, claim-status, and thesis-loop payloads"]
     ART["web/artifacts.py\nallowlisted artifact links and artifact-path policy"]
-    TEMPLATE["templates/dashboard.html\nlocal interactive dashboard shell"]
+    TEMPLATE["templates/base.html + templates/pages/*\nmultipage dashboard shell"]
     REPORTS["reporting.py and publication modules\nmarkdown, figures, document artifacts"]
 
     APP --> SIM

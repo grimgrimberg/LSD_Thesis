@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero-grid" aria-labelledby="overview_title">
+  <div class="panel hero-panel panel--span-2">
+    <p class="chrome-label">Current thesis posture</p>
+    <h2 id="overview_title">Macro-dynamics evidence with explicit claim gates.</h2>
+    <p>The dashboard reads repository artifacts and separates implemented evidence from proxy-supported, mixed, blocked, and future claims.</p>
+    <div class="metric-strip" id="overview_metric_strip" aria-live="polite"></div>
+  </div>
+  <div class="panel">
+    <div class="panel-heading">
+      <h2>Strict Gates</h2>
+      <span id="strict_gate_status" class="status-token">loading</span>
+    </div>
+    <div class="chart-frame">
+      <div id="strict_gate_chart" class="chart chart-sm" role="img" aria-label="Strict completion gate chart">Loading...</div>
+    </div>
+  </div>
+</section>
+
+<section class="content-grid content-grid--wide">
+  <article class="panel">
+    <div class="panel-heading">
+      <h2>Evidence Read Path</h2>
+      <span class="status-token status-token--teal">claim-safe</span>
+    </div>
+    <ol class="timeline-list" id="read_path_list"></ol>
+  </article>
+  <article class="panel panel--span-2">
+    <div class="panel-heading">
+      <h2>Literature Alignment Snapshot</h2>
+      <span id="overview_literature_status" class="status-token status-token--amber">loading</span>
+    </div>
+    <div class="chart-frame">
+      <div id="overview_literature_chart" class="chart chart-sm" role="img" aria-label="Literature alignment chart">Loading...</div>
+    </div>
+  </article>
+  <article class="panel panel--span-3">
+    <div class="panel-heading">
+      <h2>Claim Status Cards</h2>
+      <span class="status-token status-token--teal">from artifacts</span>
+    </div>
+    <div id="overview_claim_cards" class="card-grid card-grid--dense"></div>
+  </article>
+  <article class="panel panel--span-3">
+    <div class="panel-heading">
+      <h2>Artifact Browser</h2>
+      <input id="artifact_filter" class="compact-input" type="search" placeholder="Filter artifacts" aria-label="Filter artifacts">
+    </div>
+    <div class="table-frame">
+      <table>
+        <thead><tr><th>Artifact</th><th>Kind</th><th>Open</th></tr></thead>
+        <tbody id="artifact_table"></tbody>
+      </table>
+    </div>
+  </article>
+</section>
+{% endblock %}

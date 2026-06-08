@@ -371,8 +371,8 @@ def build_defense_presentation_slides(report_markdown: str) -> list[dict[str, An
 
 
 def render_thesis_microsite(title: str, sections: Sequence[Mapping[str, Any]]) -> str:
-    return _render("thesis_microsite.html", title=title, sections=list(sections))
+    return _render("publication_microsite.html", title=title, sections=list(sections))
 
 
 def render_defense_presentation(title: str, slides: Sequence[Mapping[str, Any]]) -> str:
-    return _render("defense_presentation.html", title=title, slides=list(slides))
+    return _render("publication_defense.html", title=title, slides=list(slides))

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at_utc": "2026-06-04T13:32:51.875559+00:00",
+  "generated_at_utc": "2026-06-08T15:11:37.215529+00:00",
   "analysis_status": "implemented_status_matrix",
   "source_reference": {
     "source_id": "schaefer_2018_local_global",
@@ -27,6 +27,14 @@
       "subject_count": 15,
       "top_layer": "C",
       "summary_path": "results/parcellation_sensitivity/schaefer_100_yeo_7/summary.json"
+    },
+    {
+      "parcellation_id": "schaefer_100_yeo_7_striatal",
+      "status": "implemented_mechanism_ranking",
+      "pair_count": 30,
+      "subject_count": 15,
+      "top_layer": "C",
+      "summary_path": "results/parcellation_sensitivity/schaefer_100_yeo_7_striatal/summary.json"
     },
     {
       "parcellation_id": "schaefer_200_yeo_7",
@@ -87,6 +95,41 @@
       "rank": 5,
       "layer": "B",
       "score": -1.5587841629062325,
+      "status": "implemented_negative_control_baseline"
+    },
+    {
+      "parcellation_id": "schaefer_100_yeo_7_striatal",
+      "rank": 1,
+      "layer": "C",
+      "score": 0.47213485004447986,
+      "status": "implemented_first_pass"
+    },
+    {
+      "parcellation_id": "schaefer_100_yeo_7_striatal",
+      "rank": 2,
+      "layer": "D",
+      "score": 0.42763493354223536,
+      "status": "implemented_first_pass"
+    },
+    {
+      "parcellation_id": "schaefer_100_yeo_7_striatal",
+      "rank": 3,
+      "layer": "A",
+      "score": 0.1883308443884962,
+      "status": "implemented_first_pass"
+    },
+    {
+      "parcellation_id": "schaefer_100_yeo_7_striatal",
+      "rank": 4,
+      "layer": "E",
+      "score": 0.1769569077988587,
+      "status": "implemented_proxy_control_energy"
+    },
+    {
+      "parcellation_id": "schaefer_100_yeo_7_striatal",
+      "rank": 5,
+      "layer": "B",
+      "score": -1.5955788116726106,
       "status": "implemented_negative_control_baseline"
     },
     {

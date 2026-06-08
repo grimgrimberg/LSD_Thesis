@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="thesis-story" aria-labelledby="thesis_title">
+  <article class="panel thesis-lede panel--span-3">
+    <p class="chrome-label">Thesis presentation</p>
+    <h2 id="thesis_title">A claim-gated macro-dynamics thesis for LSD-related fMRI evidence.</h2>
+    <p>The presentation condenses the dashboard into the claim, dataset, surrogate model, empirical anchor, mechanism ranking, robustness checks, prior-art landscape, and limitations.</p>
+    <div id="thesis_status_cards" class="metric-strip" aria-live="polite"></div>
+  </article>
+
+  <article class="panel panel--span-2">
+    <div class="panel-heading">
+      <h2>Mechanism Thesis</h2>
+      <span class="status-token status-token--teal">macro proxy</span>
+    </div>
+    <div class="chart-frame">
+      <div id="thesis_mechanism_chart" class="chart chart-sm" role="img" aria-label="Thesis mechanism ranking summary">Loading...</div>
+    </div>
+  </article>
+
+  <article class="panel">
+    <div class="panel-heading">
+      <h2>Claim Ladder</h2>
+      <span class="status-token status-token--amber">bounded</span>
+    </div>
+    <div id="thesis_claim_ladder" class="stacked-list"></div>
+  </article>
+
+  <article class="panel panel--span-3">
+    <div class="panel-heading">
+      <h2>Evidence Sequence</h2>
+      <span class="status-token status-token--moss">review path</span>
+    </div>
+    <div id="thesis_evidence_sequence" class="story-steps"></div>
+  </article>
+
+  <article class="panel panel--span-2">
+    <div class="panel-heading">
+      <h2>Prior-Art Landscape</h2>
+      <span class="status-token status-token--rose">not copied</span>
+    </div>
+    <div id="thesis_prior_art_summary" class="card-grid card-grid--dense"></div>
+  </article>
+
+  <article class="panel">
+    <div class="panel-heading">
+      <h2>Presentation Links</h2>
+      <span class="status-token status-token--teal">static-safe</span>
+    </div>
+    <div id="thesis_artifact_links" class="link-stack"></div>
+  </article>
+</section>
+{% endblock %}

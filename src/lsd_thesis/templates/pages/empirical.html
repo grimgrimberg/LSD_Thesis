@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="content-grid content-grid--wide">
+  <article class="panel">
+    <div class="panel-heading">
+      <h2>Empirical Selector</h2>
+      <span id="empirical_status" class="status-token">loading</span>
+    </div>
+    <div class="control-stack">
+      <label>Subject<select id="empirical_subject"></select></label>
+      <label>Run<select id="empirical_run"></select></label>
+      <button id="load_empirical" class="primary-button" type="button">Load View</button>
+      <label>Window
+        <input id="empirical_window" type="range" min="0" max="0" step="1" value="0" disabled>
+      </label>
+      <output id="empirical_window_label" class="microcopy" for="empirical_window">No window loaded</output>
+    </div>
+    <p id="empirical_notice" class="microcopy" aria-live="polite"></p>
+  </article>
+  <article class="panel panel--span-2">
+    <div class="panel-heading">
+      <h2>Group Metric Deltas</h2>
+      <span class="status-token status-token--amber">paired summary</span>
+    </div>
+    <div class="chart-frame">
+      <div id="empirical_delta_chart" class="chart" role="img" aria-label="Empirical delta chart">Loading...</div>
+    </div>
+  </article>
+  <article class="panel panel--span-2">
+    <div class="panel-heading">
+      <h2>Window FC Delta Matrix</h2>
+      <span id="empirical_matrix_status" class="status-token status-token--teal">local API</span>
+    </div>
+    <div class="chart-frame chart-frame--matrix">
+      <div id="empirical_fc_heatmap" class="chart matrix-chart" role="img" aria-label="Selected subject window FC delta heatmap">Load a subject view.</div>
+    </div>
+  </article>
+  <article class="panel">
+    <div class="panel-heading">
+      <h2>Window Metrics</h2>
+      <span id="empirical_detail_status" class="status-token status-token--amber">waiting</span>
+    </div>
+    <div class="table-frame">
+      <table>
+        <thead><tr><th>Metric</th><th>Delta</th></tr></thead>
+        <tbody id="empirical_detail_table"></tbody>
+      </table>
+    </div>
+  </article>
+  <article class="panel panel--span-3">
+    <div class="panel-heading">
+      <h2>Raw Cache Record</h2>
+      <div class="button-row">
+        <button id="copy_empirical_json" class="secondary-button" type="button" disabled>Copy JSON</button>
+        <a id="open_empirical_source" class="secondary-link" href="#" aria-disabled="true">Open source artifact</a>
+      </div>
+    </div>
+    <pre id="empirical_raw_json" class="raw-viewer">Load a subject/run/window to inspect the cached JSON record.</pre>
+  </article>
+</section>
+{% endblock %}

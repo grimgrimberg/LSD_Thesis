@@ -6,6 +6,7 @@ ALLOWED_ARTIFACT_ROOTS: tuple[tuple[str, ...], ...] = (
     ("docs", "research"),
     ("docs", "stage_reports"),
     ("output", "doc"),
+    ("prior_art",),
     ("results", "stage_1", "figures"),
     ("results", "stage_2", "figures"),
     ("results", "stage_3", "figures"),
@@ -288,7 +289,7 @@ def dashboard_security_headers() -> dict[str, str]:
         "Content-Security-Policy": (
             "default-src 'self'; "
             "script-src 'self' 'unsafe-inline'; "
-            "style-src 'unsafe-inline'; "
+            "style-src 'self' 'unsafe-inline'; "
             "img-src 'self' data: blob:; "
             "connect-src 'self'; "
             "object-src 'none'; "

@@ -25,6 +25,7 @@ from lsd_thesis.publication_html import (
 from lsd_thesis.publication_pptx import (
     build_defense_pptx_slides,
     build_defense_presentation_pptx,
+    write_defense_pptx_spec,
 )
 
 OUTPUT_DIR = REPO_ROOT / "output" / "doc"
@@ -71,11 +72,18 @@ def build_publication_package(repo_root: Path = REPO_ROOT) -> dict[str, Path]:
         output_dir / "defense_presentation.html",
         render_defense_presentation(title="Defense Presentation", slides=defense_slides),
     )
-    defense_presentation_pptx_path = build_defense_presentation_pptx(
-        repo_root,
+    defense_pptx_spec_path = write_defense_pptx_spec(
         defense_pptx_slides,
-        output_dir / "defense_presentation.pptx",
+        output_dir / "defense_presentation.json",
     )
+    try:
+        defense_presentation_pptx_path = build_defense_presentation_pptx(
+            repo_root,
+            defense_pptx_slides,
+            output_dir / "defense_presentation.pptx",
+        )
+    except FileNotFoundError:
+        defense_presentation_pptx_path = None
 
     outputs = {
         "thesis_report_markdown": thesis_markdown_path,
@@ -85,8 +93,10 @@ def build_publication_package(repo_root: Path = REPO_ROOT) -> dict[str, Path]:
         "defense_outline_docx": defense_docx_path,
         "thesis_microsite_html": thesis_microsite_path,
         "defense_presentation_html": defense_presentation_path,
-        "defense_presentation_pptx": defense_presentation_pptx_path,
+        "defense_presentation_pptx_spec": defense_pptx_spec_path,
     }
+    if defense_presentation_pptx_path is not None:
+        outputs["defense_presentation_pptx"] = defense_presentation_pptx_path
     outputs.update({figure.figure_id: figure.path for figure in figure_bundle.values()})
     return outputs
 

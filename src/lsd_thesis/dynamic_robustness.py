@@ -7,14 +7,14 @@ from typing import Any, cast
 
 import numpy as np
 
-from lsd_thesis.dynamic_mechanism import (
+from lsd_thesis.dynamic_mechanism.core import (
     CONTROL_HORIZON,
     EmpiricalPair,
     load_empirical_pairs,
     summarize_dynamic_repertoire,
     summarize_network_control_energy,
 )
-from lsd_thesis.dynamic_mechanism_stats import (
+from lsd_thesis.dynamic_mechanism.stats import (
     aggregate_metric_deltas,
     mean_step_distance,
     state_labels_from_reference,
@@ -577,21 +577,32 @@ def _literature_benchmark(summary: dict[str, Any]) -> dict[str, Any]:
             interpretation="Tests whether the coarse receptor prior beats random receptor-prior permutations.",
             caveat="A negative or weak result should block receptor-specific claims.",
         ),
-        {
-            "benchmark": "2026 Nature Medicine striatal-unimodal coupling",
-            "layer": "C/D",
-            "project_metric": "not_available_current_8_module_proxy",
-            "expected_sign": 1,
-            "observed_mean_delta": None,
-            "observed_signed_effect_size": None,
-            "sign_match": None,
-            "status": "missing_required_region",
-            "source": "Girn et al., Nature Medicine 2026",
-            "url": nature_medicine_url,
-            "interpretation": "Needs striatum/caudate/putamen parcels before this can be tested.",
-            "caveat": "Do not claim striatal support from the current Harvard-Oxford 8-module proxy.",
-        },
     ]
+    striatal_row = _benchmark_row(
+        summary,
+        benchmark="2026 Nature Medicine striatal-unimodal coupling",
+        layer="C/D",
+        section_key="hierarchy_routing",
+        metric="striatal_sensory_coupling",
+        expected_sign=1,
+        source="Girn et al., Nature Medicine 2026",
+        url=nature_medicine_url,
+        interpretation="Proxy check for stronger striatal coupling with sensory/unimodal systems.",
+        caveat=(
+            "Requires a dedicated striatal parcel; the Harvard-Oxford striatal target is still a bilateral "
+            "proxy, not a nucleus-level mega-analysis reproduction."
+        ),
+    )
+    if striatal_row["status"] == "missing":
+        striatal_row.update(
+            {
+                "project_metric": "not_available_current_proxy_without_striatal_parcel",
+                "status": "missing_required_region",
+                "interpretation": "Needs striatum/caudate/putamen parcels before this can be tested.",
+                "caveat": "Do not claim striatal support from cortical-only or current 8-module proxy rows.",
+            }
+        )
+    rows.append(striatal_row)
     aligned = sum(row.get("sign_match") is True for row in rows)
     measurable = sum(row.get("sign_match") is not None for row in rows)
     return {
@@ -605,6 +616,10 @@ def _literature_benchmark(summary: dict[str, Any]) -> dict[str, Any]:
             "it is not a reproduction of the cited studies."
         ),
     }
+
+
+def literature_benchmark_from_summary(summary: dict[str, Any]) -> dict[str, Any]:
+    return _literature_benchmark(summary)
 
 
 def _claim_verdicts(summary: dict[str, Any], robustness: dict[str, Any], literature: dict[str, Any]) -> list[dict[str, Any]]:
@@ -650,9 +665,23 @@ def _claim_verdicts(summary: dict[str, Any], robustness: dict[str, Any], literat
         },
         {
             "claim": "Current LSD patterns address striatal/unimodal effects.",
-            "verdict": "not_testable_current_proxy",
-            "evidence": str(striatal.get("project_metric", "missing striatum metric")),
-            "next_action": "Add striatal parcels before comparing this part of the Nature Medicine result.",
+            "verdict": (
+                "directionally_aligned_proxy"
+                if striatal.get("sign_match") is True
+                else "not_aligned_or_missing"
+                if striatal.get("observed_mean_delta") is not None
+                else "not_testable_current_proxy"
+            ),
+            "evidence": (
+                f"Striatal-sensory mean delta={_finite_float(striatal.get('observed_mean_delta')):.4f}."
+                if striatal.get("observed_mean_delta") is not None
+                else str(striatal.get("project_metric", "missing striatum metric"))
+            ),
+            "next_action": (
+                "Interpret as a proxy benchmark only; keep nucleus-level Nature Medicine claims out of final conclusions."
+                if striatal.get("observed_mean_delta") is not None
+                else "Add striatal parcels before comparing this part of the Nature Medicine result."
+            ),
         },
         {
             "claim": "B DMDc is the main control-theory result.",

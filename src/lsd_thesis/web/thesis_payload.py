@@ -351,6 +351,17 @@ def build_thesis_expansion_payload(repo_root: Path) -> dict[str, Any]:
             },
             {
                 "step": "2",
+                "label": "Motion-sensitive C gate",
+                "status": "blocked",
+                "artifact_target": "results/confound_controls/",
+                "scientific_question": (
+                    "Does C remain defensible after subject/run FD, DVARS, censoring/outlier, "
+                    "image-QC, and high-burden exclusion checks?"
+                ),
+                "dashboard_output": "Motion-sensitive exclusion gate with explicit blocker text.",
+            },
+            {
+                "step": "3",
                 "label": "Psilocybin ds006072",
                 "status": "planned",
                 "artifact_target": "results/psilocybin_ds006072/",
@@ -358,7 +369,7 @@ def build_thesis_expansion_payload(repo_root: Path) -> dict[str, Any]:
                 "dashboard_output": "LSD-vs-psilocybin mechanism ranking comparison with negative/partial outcomes retained.",
             },
             {
-                "step": "3",
+                "step": "4",
                 "label": "HCP structural graph",
                 "status": "planned",
                 "artifact_target": "results/structural_connectome/",
@@ -366,7 +377,7 @@ def build_thesis_expansion_payload(repo_root: Path) -> dict[str, Any]:
                 "dashboard_output": "Control-energy comparison across proxy, structural, uniform, degree, and graph-rewire controls.",
             },
             {
-                "step": "4",
+                "step": "5",
                 "label": "PET receptor priors",
                 "status": "planned",
                 "artifact_target": "results/receptor_priors/",
@@ -374,7 +385,7 @@ def build_thesis_expansion_payload(repo_root: Path) -> dict[str, Any]:
                 "dashboard_output": "Receptor-prior null board and claim-status split for E.",
             },
             {
-                "step": "5",
+                "step": "6",
                 "label": "Schaefer/Yeo sensitivity",
                 "status": "planned",
                 "artifact_target": "results/parcellation_sensitivity/",
@@ -382,7 +393,7 @@ def build_thesis_expansion_payload(repo_root: Path) -> dict[str, Any]:
                 "dashboard_output": "Schaefer 100/200 and Yeo 7/17 result matrix.",
             },
             {
-                "step": "6",
+                "step": "7",
                 "label": "Mega-analysis comparison",
                 "status": "planned",
                 "artifact_target": "results/literature_benchmark/",
@@ -431,11 +442,12 @@ def build_thesis_expansion_payload(repo_root: Path) -> dict[str, Any]:
             if isinstance(component, dict)
         }
         payload["status_summary"] = (
-            "The evidence-loop artifact contract is implemented. LSD robustness, Schaefer/Yeo sensitivity, "
-            "literature benchmarking, ds006072 Schaefer100/Yeo7 scoring, proxy graph nulls, and coarse receptor-prior nulls "
-            "are populated from current results. The ds006072 top-layer mismatch is negative/partial cross-drug "
-            "evidence rather than replication; HCP structural graph claims and PET receptor-map claims remain "
-            "blocked until their required local data artifacts exist. "
+            "The evidence-loop artifact contract is implemented. LSD robustness, motion-sensitive C gating, "
+            "Schaefer/Yeo sensitivity, literature benchmarking, ds006072 Schaefer100/Yeo7 scoring, HCP structural "
+            "graph rewires, PET 5-HT2A priors, and spatial-null claim gates are populated from current results. "
+            "The ds006072 top-layer mismatch is negative/partial cross-drug evidence rather than replication; "
+            "the motion-sensitive C gate remains blocked until authorized subject/run confounds exist; "
+            "the striatal-unimodal benchmark is now measurable only as a bilateral Harvard-Oxford proxy row. "
             f"Component statuses: {component_statuses}."
         )
         payload["claim_guardrail"] = loop_status.get("claim_guardrail", payload["claim_guardrail"])

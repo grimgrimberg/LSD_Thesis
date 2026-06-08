@@ -17,6 +17,7 @@
     "reproducible research"
   ],
   "access_right": "open",
+  "license": "mit",
   "related_identifiers": [
     {
       "identifier": "https://openneuro.org/datasets/ds003059/versions/1.0.0",

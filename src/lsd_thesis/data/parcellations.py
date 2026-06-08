@@ -15,7 +15,8 @@ from nilearn.maskers import NiftiLabelsMasker
 
 from lsd_thesis.core import MODULE_GROUPS, MODULE_NAMES
 from lsd_thesis.data.ds003059 import DS003059_SESSIONS, normalize_ds003059_runs
-from lsd_thesis.dynamic_mechanism import write_dynamic_mechanism_summary
+from lsd_thesis.data.ds003059.atlas import _load_cached_harvard_oxford_images
+from lsd_thesis.dynamic_mechanism.core import write_dynamic_mechanism_summary
 
 HARVARD_OXFORD_PROXY_RECEPTOR_WEIGHTS = {
     "visual": 0.65,
@@ -38,6 +39,11 @@ SCHAEFER_YEO_PROXY_RECEPTOR_WEIGHTS = {
 }
 PROXY_RECEPTOR_SOURCE = "coarse_literature_proxy_not_pet_map"
 SCHAEFER_ID_PATTERN = re.compile(r"^schaefer_(?P<n_rois>100|200)_yeo_(?P<yeo_networks>7|17)$")
+SCHAEFER_STRIATAL_ID_PATTERN = re.compile(
+    r"^schaefer_(?P<n_rois>100|200)_yeo_(?P<yeo_networks>7|17)_striatal$"
+)
+HARVARD_OXFORD_THALAMUS_LABELS = (4, 15)
+HARVARD_OXFORD_STRIATUM_LABELS = (5, 6, 7, 11, 16, 17, 18, 21)
 SCHAEFER_NETWORKS = {
     7: ("Visual", "SomMot", "DorsAttn", "SalVentAttn", "Limbic", "Cont", "Default"),
     17: (
@@ -250,9 +256,58 @@ def _schaefer_spec(n_rois: int, yeo_networks: int) -> ParcellationSpec:
     )
 
 
+def _schaefer_striatal_spec(n_rois: int, yeo_networks: int) -> ParcellationSpec:
+    base = _schaefer_spec(n_rois, yeo_networks)
+    nodes = list(base.node_metadata)
+    nodes.extend(
+        [
+            NodeMetadata(
+                node_label="HarvardOxford_thalamus_bilateral",
+                parcel_index=n_rois + 1,
+                yeo_network_label=None,
+                coarse_class="thalamic_gateway",
+                hierarchy_value=0.35,
+                receptor_weight=0.50,
+                receptor_weight_source=PROXY_RECEPTOR_SOURCE,
+                thalamus_weight=1.0,
+                metadata_source="harvard_oxford_subcortical_proxy",
+            ),
+            NodeMetadata(
+                node_label="HarvardOxford_striatum_bilateral",
+                parcel_index=n_rois + 2,
+                yeo_network_label=None,
+                coarse_class="striatal_basal_ganglia",
+                hierarchy_value=0.25,
+                receptor_weight=0.45,
+                receptor_weight_source=PROXY_RECEPTOR_SOURCE,
+                striatum_weight=1.0,
+                metadata_source="harvard_oxford_subcortical_proxy",
+            ),
+        ]
+    )
+    return ParcellationSpec(
+        parcellation_id=f"schaefer_{n_rois}_yeo_{yeo_networks}_striatal",
+        description=(
+            f"Schaefer 2018 {n_rois}-parcel cortical target space labeled by Yeo {yeo_networks} networks, "
+            "augmented with bilateral Harvard-Oxford thalamus and striatum proxy parcels."
+        ),
+        node_metadata=tuple(nodes),
+        atlas_metadata={
+            **base.atlas_metadata,
+            "node_count": len(nodes),
+            "subcortical_status": "implemented_harvard_oxford_thalamus_striatum_proxy_parcels",
+            "subcortical_atlas": "Harvard-Oxford subcortical maxprob thr25 2mm",
+            "thalamus_labels": list(HARVARD_OXFORD_THALAMUS_LABELS),
+            "striatum_labels": list(HARVARD_OXFORD_STRIATUM_LABELS),
+            "status": "metadata_ready_extraction_not_run",
+        },
+    )
+
+
 _PARCELLATION_BUILDERS = {
     "harvard_oxford_8": _legacy_harvard_oxford_8_spec,
     "schaefer_100_yeo_7": lambda: _schaefer_spec(100, 7),
+    "schaefer_100_yeo_7_striatal": lambda: _schaefer_striatal_spec(100, 7),
     "schaefer_200_yeo_7": lambda: _schaefer_spec(200, 7),
     "schaefer_100_yeo_17": lambda: _schaefer_spec(100, 17),
     "schaefer_200_yeo_17": lambda: _schaefer_spec(200, 17),
@@ -318,7 +373,7 @@ def prepare_parcellation_outputs(
         "notes": [
             "Dry run writes metadata only and does not overwrite legacy Stage 2 targets.",
             "Full Schaefer/Yeo extraction should be run only when atlas/data access and runtime are acceptable.",
-            "Subcortical thalamus/caudate/putamen additions remain a documented TODO.",
+            "The schaefer_100_yeo_7_striatal target adds bilateral Harvard-Oxford thalamus and striatum proxy parcels.",
         ],
     }
     (output_dir / "dry_run_plan.json").write_text(json.dumps(plan, indent=2), encoding="utf-8")
@@ -330,6 +385,16 @@ def _parse_schaefer_id(parcellation_id: str) -> tuple[int, int]:
     if not match:
         raise ValueError(f"Parcellation '{parcellation_id}' is not a supported Schaefer/Yeo extraction target.")
     return int(match.group("n_rois")), int(match.group("yeo_networks"))
+
+
+def _parse_schaefer_extraction_id(parcellation_id: str) -> tuple[int, int, bool]:
+    match = SCHAEFER_ID_PATTERN.match(parcellation_id)
+    if match:
+        return int(match.group("n_rois")), int(match.group("yeo_networks")), False
+    striatal_match = SCHAEFER_STRIATAL_ID_PATTERN.match(parcellation_id)
+    if striatal_match:
+        return int(striatal_match.group("n_rois")), int(striatal_match.group("yeo_networks")), True
+    raise ValueError(f"Parcellation '{parcellation_id}' is not a supported Schaefer/Yeo extraction target.")
 
 
 def _coerce_atlas_label(label: Any) -> str:
@@ -406,15 +471,82 @@ def _load_cached_schaefer_files(
     return None
 
 
+def _as_nifti_image(image_or_path: Any) -> nib.Nifti1Image:
+    if isinstance(image_or_path, nib.Nifti1Image):
+        return image_or_path
+    return cast(nib.Nifti1Image, nib.load(str(image_or_path)))
+
+
+def _load_harvard_oxford_subcortical_image(nilearn_data_dir: str | Path | None) -> tuple[nib.Nifti1Image, str]:
+    cached_images = _load_cached_harvard_oxford_images(nilearn_data_dir)
+    if cached_images is not None:
+        return cached_images[1], "loaded_from_existing_nilearn_cache_file"
+    fetch_data_dir = Path(nilearn_data_dir) if nilearn_data_dir is not None else None
+    atlas = datasets.fetch_atlas_harvard_oxford(
+        "sub-maxprob-thr25-2mm",
+        data_dir=str(fetch_data_dir) if fetch_data_dir is not None else None,
+    )
+    return _as_nifti_image(atlas.maps), "fetched_with_nilearn"
+
+
+def _augment_schaefer_with_subcortical_parcels(
+    labels_img: nib.Nifti1Image,
+    module_names: tuple[str, ...],
+    metadata: dict[str, Any],
+    *,
+    nilearn_data_dir: str | Path | None,
+) -> tuple[nib.Nifti1Image, tuple[str, ...], dict[str, Any]]:
+    n_rois = len(module_names)
+    subcortical_img, subcortical_cache_status = _load_harvard_oxford_subcortical_image(nilearn_data_dir)
+    schaefer_data = np.asarray(labels_img.dataobj, dtype=np.int16)
+    subcortical_data = np.asarray(subcortical_img.dataobj)
+    if schaefer_data.shape != subcortical_data.shape:
+        raise ValueError(
+            "Schaefer and Harvard-Oxford images have different shapes: "
+            f"{schaefer_data.shape} vs {subcortical_data.shape}."
+        )
+    if not np.allclose(labels_img.affine, subcortical_img.affine):
+        raise ValueError("Schaefer and Harvard-Oxford images have different affines.")
+
+    combined = schaefer_data.copy()
+    combined[np.isin(subcortical_data, HARVARD_OXFORD_THALAMUS_LABELS)] = n_rois + 1
+    combined[np.isin(subcortical_data, HARVARD_OXFORD_STRIATUM_LABELS)] = n_rois + 2
+    header = labels_img.header.copy()
+    header.set_data_dtype(np.int16)
+    combined_img = nib.Nifti1Image(combined, labels_img.affine, header)
+    augmented_names = module_names + (
+        "HarvardOxford_thalamus_bilateral",
+        "HarvardOxford_striatum_bilateral",
+    )
+    augmented_metadata = {
+        **metadata,
+        "labels_count": len(augmented_names),
+        "subcortical_status": "implemented_harvard_oxford_thalamus_striatum_proxy_parcels",
+        "subcortical_cache_status": subcortical_cache_status,
+        "thalamus_labels": list(HARVARD_OXFORD_THALAMUS_LABELS),
+        "striatum_labels": list(HARVARD_OXFORD_STRIATUM_LABELS),
+        "subcortical_guardrail": (
+            "Bilateral Harvard-Oxford thalamus and striatum parcels are proxy parcels for benchmark testing; "
+            "they are not nucleus-level or PET receptor-resolved regions."
+        ),
+    }
+    return combined_img, augmented_names, augmented_metadata
+
+
 def fetch_schaefer_labels_image(
     parcellation_id: str,
     *,
     nilearn_data_dir: str | Path | None = None,
 ) -> tuple[nib.Nifti1Image, tuple[str, ...], dict[str, Any]]:
-    n_rois, yeo_networks = _parse_schaefer_id(parcellation_id)
+    n_rois, yeo_networks, include_striatum = _parse_schaefer_extraction_id(parcellation_id)
     if nilearn_data_dir is not None:
         cached = _load_cached_schaefer_files(nilearn_data_dir, n_rois=n_rois, yeo_networks=yeo_networks)
         if cached is not None:
+            if include_striatum:
+                return _augment_schaefer_with_subcortical_parcels(
+                    *cached,
+                    nilearn_data_dir=nilearn_data_dir,
+                )
             return cached
     try:
         atlas = datasets.fetch_atlas_schaefer_2018(
@@ -430,13 +562,16 @@ def fetch_schaefer_labels_image(
             if cached is not None:
                 labels_img, module_names, metadata = cached
                 metadata["cache_status"] = "loaded_from_partial_nilearn_cache_after_fetch_error"
+                if include_striatum:
+                    return _augment_schaefer_with_subcortical_parcels(
+                        labels_img,
+                        module_names,
+                        metadata,
+                        nilearn_data_dir=nilearn_data_dir,
+                    )
                 return labels_img, module_names, metadata
         raise
-    labels_img = (
-        atlas.maps
-        if isinstance(atlas.maps, nib.Nifti1Image)
-        else cast(nib.Nifti1Image, nib.load(str(atlas.maps)))
-    )
+    labels_img = _as_nifti_image(atlas.maps)
     module_names = _atlas_module_names(atlas.labels, n_rois)
     metadata = {
         "atlas": "Schaefer 2018",
@@ -446,6 +581,13 @@ def fetch_schaefer_labels_image(
         "labels_count": len(module_names),
         "maps_path": str(atlas.maps),
     }
+    if include_striatum:
+        return _augment_schaefer_with_subcortical_parcels(
+            labels_img,
+            module_names,
+            metadata,
+            nilearn_data_dir=nilearn_data_dir,
+        )
     return labels_img, module_names, metadata
 
 
@@ -559,7 +701,7 @@ def extract_schaefer_empirical_viewer(
     control_null_count: int = 16,
 ) -> dict[str, Any]:
     spec = get_parcellation_spec(parcellation_id)
-    _parse_schaefer_id(parcellation_id)
+    _parse_schaefer_extraction_id(parcellation_id)
     dataset_root = Path(dataset_dir)
     if not dataset_root.exists():
         raise FileNotFoundError(f"Dataset directory not found: {dataset_root}")

@@ -1,0 +1,1096 @@
+const pageId = document.body.dataset.page || "overview";
+const dashboardDataUrl = document.body.dataset.dashboardDataUrl || "/api/dashboard-data";
+const priorArtDataUrl = document.body.dataset.priorArtDataUrl || "/api/prior-art-data";
+const artifactPrefix = document.body.dataset.artifactPrefix || "/artifacts/";
+const deploymentMode = document.body.dataset.deploymentMode || "local";
+const isStaticDeployment = deploymentMode === "static";
+
+const COLORS = {
+  bg: "#0b1014",
+  panel: "#101820",
+  grid: "rgba(172, 190, 186, 0.18)",
+  text: "#eef4f1",
+  muted: "#98aaa5",
+  teal: "#49d6c8",
+  amber: "#e3ba4f",
+  moss: "#93c66d",
+  rose: "#e47d93",
+  violet: "#9a8fd3",
+  gray: "#3b444b",
+};
+
+const layerColor = {
+  A: COLORS.violet,
+  B: COLORS.rose,
+  C: COLORS.teal,
+  D: COLORS.moss,
+  E: COLORS.amber,
+};
+
+const chartLayout = {
+  paper_bgcolor: "rgba(0,0,0,0)",
+  plot_bgcolor: "rgba(0,0,0,0)",
+  font: { color: COLORS.text, family: "system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" },
+  margin: { t: 28, r: 22, b: 54, l: 72 },
+  hoverlabel: { bgcolor: "#111a20", bordercolor: "rgba(255,255,255,0.18)", font: { color: COLORS.text } },
+  legend: { orientation: "h", y: -0.18, x: 0, font: { color: COLORS.muted } },
+  xaxis: { gridcolor: COLORS.grid, zerolinecolor: "rgba(255,255,255,0.28)", automargin: true },
+  yaxis: { gridcolor: COLORS.grid, zerolinecolor: "rgba(255,255,255,0.28)", automargin: true },
+};
+
+const chartConfig = {
+  displayModeBar: true,
+  displaylogo: false,
+  responsive: true,
+  modeBarButtonsToRemove: ["lasso2d", "select2d", "autoScale2d"],
+  toImageButtonOptions: {
+    format: "png",
+    filename: `lsd-thesis-${pageId}`,
+    scale: 2,
+  },
+};
+
+let dashboardPayload = null;
+let priorArtPayload = null;
+let empiricalDetailState = {
+  detail: null,
+  windows: [],
+  rawRecord: null,
+};
+
+function byId(id) {
+  return document.getElementById(id);
+}
+
+function text(value, fallback = "not reported") {
+  if (value === null || value === undefined || value === "") {
+    return fallback;
+  }
+  return String(value);
+}
+
+function titleText(value) {
+  return text(value, "")
+    .replace(/[_-]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim()
+    .replace(/\b\w/g, (letter) => letter.toUpperCase());
+}
+
+function asRecords(items) {
+  return Array.isArray(items) ? items.filter((item) => item && typeof item === "object") : [];
+}
+
+function asStringList(items) {
+  return Array.isArray(items) ? items.map((item) => text(item, "")).filter(Boolean) : [];
+}
+
+function finiteNumber(value) {
+  if (value === null || value === undefined || value === "") {
+    return null;
+  }
+  const number = Number(value);
+  return Number.isFinite(number) ? number : null;
+}
+
+function formatNumber(value, digits = 3) {
+  const number = finiteNumber(value);
+  if (number === null) {
+    return "N/A";
+  }
+  if (Math.abs(number) >= 100) {
+    return number.toFixed(1);
+  }
+  if (Math.abs(number) >= 10) {
+    return number.toFixed(2);
+  }
+  return number.toFixed(digits);
+}
+
+function sanitizeSeries(values) {
+  let invalidCount = 0;
+  const clean = (Array.isArray(values) ? values : []).map((value) => {
+    const number = finiteNumber(value);
+    if (number === null) {
+      invalidCount += 1;
+      return null;
+    }
+    return number;
+  });
+  return { values: clean, invalidCount };
+}
+
+function sanitizeMatrix(matrix) {
+  let invalidCount = 0;
+  const clean = (Array.isArray(matrix) ? matrix : []).map((row) => (
+    (Array.isArray(row) ? row : []).map((value) => {
+      const number = finiteNumber(value);
+      if (number === null) {
+        invalidCount += 1;
+        return null;
+      }
+      return number;
+    })
+  ));
+  return { values: clean, invalidCount };
+}
+
+function el(tag, options = {}, children = []) {
+  const node = document.createElement(tag);
+  if (options.className) node.className = options.className;
+  if (options.text !== undefined) node.textContent = text(options.text, "");
+  if (options.href) node.href = options.href;
+  if (options.title) node.title = options.title;
+  if (options.type) node.type = options.type;
+  if (options.role) node.setAttribute("role", options.role);
+  if (options.ariaSelected !== undefined) node.setAttribute("aria-selected", String(options.ariaSelected));
+  if (options.disabled) node.disabled = true;
+  for (const child of children) node.append(child);
+  return node;
+}
+
+function setText(id, value, fallback) {
+  const node = byId(id);
+  if (node) node.textContent = text(value, fallback);
+}
+
+async function fetchJson(url) {
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error(`${url} returned ${response.status}`);
+  }
+  return response.json();
+}
+
+function displayHref(href) {
+  const value = text(href, "");
+  if (value.startsWith("/artifacts/")) {
+    return `${artifactPrefix}${value.slice("/artifacts/".length)}`;
+  }
+  return value;
+}
+
+function setLoading(targetId, message = "Loading...") {
+  const target = byId(targetId);
+  if (!target) return;
+  target.textContent = message;
+  const frame = target.closest(".chart-frame");
+  const panel = target.closest(".panel");
+  frame?.classList.add("is-loading");
+  panel?.setAttribute("aria-busy", "true");
+}
+
+function clearLoading(target) {
+  const frame = target.closest(".chart-frame");
+  const panel = target.closest(".panel");
+  frame?.classList.remove("is-loading");
+  panel?.removeAttribute("aria-busy");
+}
+
+function invalidAnnotation(count) {
+  if (!count) return [];
+  return [{
+    x: 1,
+    y: 1.12,
+    xref: "paper",
+    yref: "paper",
+    xanchor: "right",
+    showarrow: false,
+    text: `${count} invalid values shown as N/A`,
+    font: { color: COLORS.amber, size: 11 },
+  }];
+}
+
+function plot(targetId, traces, layout = {}, options = {}) {
+  const target = byId(targetId);
+  if (!target) return;
+  if (!window.Plotly) {
+    target.textContent = "Plotly asset was not loaded. Use the linked source artifact or table.";
+    return;
+  }
+  const annotations = [
+    ...(layout.annotations || []),
+    ...invalidAnnotation(layout.invalidCount || 0),
+  ];
+  const nextLayout = {
+    ...chartLayout,
+    ...layout,
+    annotations,
+  };
+  delete nextLayout.invalidCount;
+  target.classList.remove("chart-empty");
+  clearLoading(target);
+  target.dataset.plotlyRendered = "true";
+  window.Plotly.react(target, traces, nextLayout, { ...chartConfig, ...(options.config || {}) });
+}
+
+function emptyPlot(targetId, message) {
+  const target = byId(targetId);
+  if (!target) return;
+  clearLoading(target);
+  target.classList.add("chart-empty");
+  target.textContent = message;
+}
+
+function purgeCharts(container) {
+  if (!container || !window.Plotly) return;
+  container.querySelectorAll(".chart").forEach((node) => {
+    if (node.dataset.plotlyRendered === "true") {
+      window.Plotly.purge(node);
+      delete node.dataset.plotlyRendered;
+    }
+  });
+}
+
+function statusClass(status) {
+  const value = text(status, "").toLowerCase();
+  if (value.includes("implement") || value.includes("support") || value.includes("aligned") || value.includes("complete")) {
+    return "status-token--teal";
+  }
+  if (value.includes("mixed") || value.includes("proxy") || value.includes("future") || value.includes("missing")) {
+    return "status-token--amber";
+  }
+  if (value.includes("block") || value.includes("reject") || value.includes("unsupported") || value.includes("not_")) {
+    return "status-token--rose";
+  }
+  return "status-token--moss";
+}
+
+function dataRecord(label, value, detail, status) {
+  return el("div", { className: "data-record" }, [
+    el("span", { text: label }),
+    el("strong", { text: value }),
+    detail ? el("p", { text: detail }) : document.createTextNode(""),
+    status ? el("span", { className: `mini-status ${statusClass(status)}`, text: status }) : document.createTextNode(""),
+  ]);
+}
+
+function tdText(value) {
+  return el("td", { text: value });
+}
+
+function tdNumber(value) {
+  return el("td", { text: formatNumber(value) });
+}
+
+function tdCode(value) {
+  const td = document.createElement("td");
+  td.append(el("code", { text: value }));
+  return td;
+}
+
+function tdLink(label, href) {
+  const td = document.createElement("td");
+  const normalized = displayHref(href);
+  if (!normalized) {
+    td.textContent = "N/A";
+    return td;
+  }
+  td.append(el("a", { text: label, href: normalized }));
+  return td;
+}
+
+function fillTable(tableId, rows, builders, emptyMessage = "No rows available.") {
+  const body = byId(tableId);
+  if (!body) return;
+  const cleanRows = Array.isArray(rows) ? rows : [];
+  if (!cleanRows.length) {
+    const tr = document.createElement("tr");
+    const td = el("td", { text: emptyMessage });
+    td.colSpan = builders.length || 1;
+    tr.append(td);
+    body.replaceChildren(tr);
+    return;
+  }
+  body.replaceChildren(...cleanRows.map((row) => {
+    const tr = document.createElement("tr");
+    builders.forEach((builder) => tr.append(builder(row)));
+    return tr;
+  }));
+}
+
+function artifactRows(payload, filter = "") {
+  const lowered = filter.toLowerCase();
+  const rows = [];
+  for (const [kind, bucket] of Object.entries(payload.artifact_links || {})) {
+    for (const item of asRecords(bucket)) {
+      const label = text(item.label || item.href);
+      const href = text(item.href);
+      const haystack = `${kind} ${label} ${href}`.toLowerCase();
+      if (!lowered || haystack.includes(lowered)) rows.push([label, kind, href]);
+    }
+  }
+  return rows.slice(0, 80);
+}
+
+function renderArtifacts(payload) {
+  const input = byId("artifact_filter");
+  const draw = () => fillTable("artifact_table", artifactRows(payload, input?.value || ""), [
+    (row) => tdText(row[0]),
+    (row) => tdText(row[1]),
+    (row) => tdLink("open", row[2]),
+  ]);
+  input?.addEventListener("input", draw);
+  draw();
+}
+
+function benchmarkRows(payload) {
+  return asRecords(payload.dynamic_mechanism?.literature_benchmark?.rows);
+}
+
+function renderMetricStrip(payload) {
+  const summary = payload.thesis_upgrade?.readiness_summary || {};
+  const audit = payload.audit_status || {};
+  const dynamic = payload.dynamic_mechanism || {};
+  const literature = dynamic.literature_benchmark || {};
+  const items = [
+    ["Strict gates", `${text(summary.strict_complete_gates, "0")}/${text(summary.strict_total_gates, "0")}`, summary.thesis_status],
+    ["Best layer", text(audit.stage3_best_mechanism || dynamic.mechanism_ranking?.[0]?.layer), "current proxy ranking"],
+    ["Benchmark match", `${text(literature.aligned_count, "0")}/${text(literature.measurable_count, "0")}`, "directional literature rows"],
+    ["Subjects", text(dynamic.subject_count || payload.empirical_viewer?.paired_subject_count), "paired cached records"],
+  ];
+  return items.map(([label, value, detail]) => dataRecord(label, value, detail));
+}
+
+function renderOverviewMetricStrip(payload) {
+  byId("overview_metric_strip")?.replaceChildren(...renderMetricStrip(payload));
+}
+
+function renderGateChart(payload) {
+  const requirements = asRecords(payload.thesis_upgrade?.strict_completion_requirements);
+  const complete = requirements.filter((item) => item.complete).length;
+  setText("strict_gate_status", `${complete}/${requirements.length} complete`);
+  if (!requirements.length) {
+    emptyPlot("strict_gate_chart", "No strict completion requirements are present.");
+    return;
+  }
+  const labels = requirements.map((item) => text(item.label || item.requirement_id));
+  plot("strict_gate_chart", [{
+    type: "bar",
+    orientation: "h",
+    x: requirements.map((item) => (item.complete ? 1 : 0)),
+    y: labels,
+    marker: { color: requirements.map((item) => (item.complete ? COLORS.moss : COLORS.rose)) },
+    text: requirements.map((item) => (item.complete ? "complete" : text(item.status, "blocked"))),
+    textposition: "auto",
+    hovertemplate: "%{y}<br>%{text}<extra></extra>",
+  }], {
+    margin: { t: 12, r: 18, b: 34, l: 180 },
+    xaxis: { ...chartLayout.xaxis, range: [0, 1.05], tickvals: [0, 1], ticktext: ["blocked", "complete"] },
+    yaxis: { ...chartLayout.yaxis, autorange: "reversed" },
+  });
+}
+
+function renderReadPath() {
+  const steps = [
+    ["Open strict gates", "Read requirement status before interpreting any mechanism panel."],
+    ["Check ranking", "Treat mechanism order as macro-dynamics proxy evidence."],
+    ["Inspect robustness", "Use seed, subject, run, E-horizon, and D-window spread as uncertainty."],
+    ["Audit prior art", "Keep literature wrappers separate from original local analysis."],
+    ["Use local-only tools carefully", "Subject-level fMRI previews and simulations require FastAPI."],
+  ];
+  byId("read_path_list")?.replaceChildren(...steps.map(([title, detail]) => el("li", {}, [
+    el("strong", { text: title }),
+    document.createTextNode(` - ${detail}`),
+  ])));
+}
+
+function renderOverviewLiterature(payload) {
+  const rows = benchmarkRows(payload);
+  setText("overview_literature_status", `${rows.filter((row) => row.status === "aligned").length}/${rows.length} aligned`);
+  if (!rows.length) {
+    emptyPlot("overview_literature_chart", "No literature benchmark rows are available.");
+    return;
+  }
+  const series = sanitizeSeries(rows.map((row) => row.observed_signed_effect_size));
+  plot("overview_literature_chart", [{
+    type: "bar",
+    orientation: "h",
+    x: series.values,
+    y: rows.map((row) => text(row.benchmark)),
+    marker: { color: rows.map((row) => row.status === "aligned" ? COLORS.teal : row.status === "missing_required_region" ? COLORS.gray : COLORS.rose) },
+    customdata: rows.map((row) => [text(row.status), text(row.source)]),
+    hovertemplate: "%{y}<br>%{customdata[0]}<br>%{customdata[1]}<br>signed effect %{x:.3f}<extra></extra>",
+  }], {
+    invalidCount: series.invalidCount,
+    margin: { t: 8, r: 22, b: 42, l: 210 },
+    xaxis: { ...chartLayout.xaxis, title: "signed proxy effect" },
+    yaxis: { ...chartLayout.yaxis, autorange: "reversed" },
+  });
+}
+
+function renderOverviewClaimCards(payload) {
+  const verdicts = asRecords(payload.dynamic_mechanism?.claim_verdicts);
+  const cards = verdicts.slice(0, 6).map((row) => dataRecord(row.claim, row.verdict, row.evidence, row.verdict));
+  byId("overview_claim_cards")?.replaceChildren(...cards);
+}
+
+function renderOverview(payload) {
+  renderOverviewMetricStrip(payload);
+  renderGateChart(payload);
+  renderReadPath();
+  renderOverviewLiterature(payload);
+  renderOverviewClaimCards(payload);
+  renderArtifacts(payload);
+}
+
+function renderRanking(payload) {
+  const dynamic = payload.dynamic_mechanism || {};
+  const rows = asRecords(dynamic.mechanism_ranking).sort((left, right) => Number(left.rank ?? 999) - Number(right.rank ?? 999));
+  setText("ranking_status", dynamic.analysis_status || dynamic.status || "loaded");
+  if (!rows.length) {
+    emptyPlot("ranking_chart", "No mechanism ranking rows are available in dashboard-data.json.");
+    return;
+  }
+  const labels = rows.map((row) => `${text(row.layer)}: ${titleText(row.mechanism)}`);
+  const scores = sanitizeSeries(rows.map((row) => row.score));
+  plot("ranking_chart", [{
+    type: "bar",
+    orientation: "h",
+    x: scores.values,
+    y: labels,
+    marker: { color: rows.map((row) => layerColor[text(row.layer, "")] || COLORS.teal) },
+    text: scores.values.map((value) => formatNumber(value)),
+    textposition: "auto",
+    customdata: rows.map((row) => [text(row.status), text(row.evidence)]),
+    hovertemplate: "%{y}<br>score %{x:.3f}<br>%{customdata[0]}<br>%{customdata[1]}<extra></extra>",
+  }], {
+    invalidCount: scores.invalidCount,
+    margin: { t: 12, r: 24, b: 46, l: 190 },
+    xaxis: { ...chartLayout.xaxis, title: "proxy support score" },
+    yaxis: { ...chartLayout.yaxis, autorange: "reversed" },
+  });
+  plot("ranking_distribution_chart", [{
+    type: "scatter",
+    mode: "lines+markers+text",
+    x: rows.map((row) => text(row.layer)),
+    y: scores.values,
+    text: rows.map((row) => `#${text(row.rank)}`),
+    textposition: "top center",
+    marker: { color: rows.map((row) => layerColor[text(row.layer, "")] || COLORS.teal), size: 12 },
+    line: { color: COLORS.grid },
+    hovertemplate: "Layer %{x}<br>score %{y:.3f}<extra></extra>",
+  }], {
+    invalidCount: scores.invalidCount,
+    yaxis: { ...chartLayout.yaxis, title: "support score" },
+  });
+  renderBenchmarkChart(payload, "benchmark_chart", "benchmark_status");
+  fillTable("claim_verdict_table", asRecords(dynamic.claim_verdicts), [
+    (row) => tdText(row.claim),
+    (row) => tdText(row.verdict),
+    (row) => tdText(row.evidence),
+    (row) => tdText(row.next_action),
+  ]);
+  fillTable("ranking_gate_table", rows, [
+    (row) => tdText(row.layer),
+    (row) => tdText(row.status),
+    (row) => tdText(row.evidence),
+  ]);
+  const figures = asRecords(payload.artifact_links?.figures).filter((item) => text(item.href).includes("dynamic_mechanism"));
+  byId("dynamic_figure_links")?.replaceChildren(...figures.slice(0, 12).map((item) => el("a", { text: item.label || item.href, href: displayHref(item.href) })));
+}
+
+function renderBenchmarkChart(payload, targetId, statusId) {
+  const rows = benchmarkRows(payload);
+  if (statusId) {
+    setText(statusId, `${rows.filter((row) => row.status === "aligned").length}/${rows.length} aligned`);
+  }
+  if (!rows.length) {
+    emptyPlot(targetId, "No literature benchmark rows are available.");
+    return;
+  }
+  const values = sanitizeSeries(rows.map((row) => row.observed_signed_effect_size));
+  plot(targetId, [{
+    type: "bar",
+    orientation: "h",
+    x: values.values,
+    y: rows.map((row) => text(row.benchmark)),
+    marker: { color: rows.map((row) => row.status === "aligned" ? COLORS.teal : row.status === "missing_required_region" ? COLORS.gray : COLORS.rose) },
+    customdata: rows.map((row) => [text(row.layer), text(row.status), text(row.caveat)]),
+    hovertemplate: "%{y}<br>layer %{customdata[0]}<br>%{customdata[1]}<br>%{customdata[2]}<extra></extra>",
+  }], {
+    invalidCount: values.invalidCount,
+    margin: { t: 12, r: 24, b: 48, l: 240 },
+    xaxis: { ...chartLayout.xaxis, title: "signed effect size" },
+    yaxis: { ...chartLayout.yaxis, autorange: "reversed" },
+  });
+}
+
+function renderRobustness(payload) {
+  const robustness = payload.dynamic_mechanism?.robustness || {};
+  const layerSummary = asRecords(robustness.subject_bootstrap?.layer_summary);
+  setText("robustness_status", robustness.analysis_status || payload.dynamic_mechanism?.analysis_status || "loaded");
+  const topLayer = robustness.subject_bootstrap?.top_layer_by_rank_1_fraction || layerSummary.slice().sort((a, b) => Number(b.rank_1_fraction || 0) - Number(a.rank_1_fraction || 0))[0]?.layer;
+  byId("robustness_cards")?.replaceChildren(
+    dataRecord("Top layer", topLayer, "rank-1 bootstrap fraction"),
+    dataRecord("Bootstrap rows", layerSummary.length, "subject-level resamples"),
+    dataRecord("Run rows", asRecords(robustness.run_sensitivity?.run_rows).length, "run sensitivity records"),
+    dataRecord("Claim guardrail", robustness.claim_guardrail || "proxy evidence only", "interpret before charts"),
+  );
+  if (!layerSummary.length) {
+    emptyPlot("robustness_chart", "No bootstrap layer summary is available in robustness_summary.json.");
+  } else {
+    const means = sanitizeSeries(layerSummary.map((row) => row.score_mean));
+    plot("robustness_chart", [{
+      type: "bar",
+      x: layerSummary.map((row) => text(row.layer)),
+      y: means.values,
+      error_y: {
+        type: "data",
+        array: layerSummary.map((row) => Math.abs(Number(row.score_ci_high ?? row.score_mean) - Number(row.score_mean ?? 0))),
+        arrayminus: layerSummary.map((row) => Math.abs(Number(row.score_mean ?? 0) - Number(row.score_ci_low ?? row.score_mean))),
+        color: "rgba(255,255,255,0.55)",
+      },
+      marker: { color: layerSummary.map((row) => layerColor[text(row.layer, "")] || COLORS.teal) },
+      customdata: layerSummary.map((row) => [formatNumber(row.rank_1_fraction), formatNumber(row.median_rank)]),
+      hovertemplate: "Layer %{x}<br>score mean %{y:.3f}<br>rank-1 %{customdata[0]}<br>median rank %{customdata[1]}<extra></extra>",
+    }], {
+      invalidCount: means.invalidCount,
+      yaxis: { ...chartLayout.yaxis, title: "bootstrap score mean" },
+    });
+  }
+  renderRunSensitivity(robustness);
+  renderEHorizon(robustness);
+  renderDWindow(robustness);
+  renderRobustnessExports();
+  fillTable("requirements_table", asRecords(payload.thesis_upgrade?.strict_completion_requirements), [
+    (row) => tdText(row.label),
+    (row) => tdText(row.status),
+    (row) => tdText(row.complete ? "complete" : row.missing || row.next_action),
+  ]);
+}
+
+function renderRunSensitivity(robustness) {
+  const rows = asRecords(robustness.run_sensitivity?.run_rows);
+  if (!rows.length) {
+    emptyPlot("run_sensitivity_chart", "No run sensitivity rows are available.");
+    return;
+  }
+  const layers = [...new Set(rows.map((row) => text(row.layer)))];
+  const runs = [...new Set(rows.map((row) => text(row.run)))];
+  const traces = runs.map((run) => {
+    const values = sanitizeSeries(layers.map((layer) => rows.find((row) => row.layer === layer && row.run === run)?.support_score));
+    return {
+      type: "bar",
+      name: run,
+      x: layers,
+      y: values.values,
+      marker: { color: run === "run-01" ? COLORS.teal : COLORS.amber },
+      hovertemplate: `${run}<br>Layer %{x}<br>support %{y:.3f}<extra></extra>`,
+    };
+  });
+  plot("run_sensitivity_chart", traces, {
+    barmode: "group",
+    yaxis: { ...chartLayout.yaxis, title: "support score" },
+  });
+}
+
+function renderEHorizon(robustness) {
+  const rows = asRecords(robustness.e_horizon_sensitivity?.rows);
+  if (!rows.length) {
+    emptyPlot("e_horizon_chart", "No E horizon sensitivity rows are available.");
+    return;
+  }
+  const support = sanitizeSeries(rows.map((row) => row.support_score));
+  const energy = sanitizeSeries(rows.map((row) => row.receptor_vs_random_energy_reduction_pct));
+  plot("e_horizon_chart", [
+    { type: "scatter", mode: "lines+markers", name: "support score", x: rows.map((row) => row.horizon), y: support.values, line: { color: COLORS.amber } },
+    { type: "scatter", mode: "lines+markers", name: "receptor vs random energy", x: rows.map((row) => row.horizon), y: energy.values, line: { color: COLORS.rose }, yaxis: "y2" },
+  ], {
+    invalidCount: support.invalidCount + energy.invalidCount,
+    xaxis: { ...chartLayout.xaxis, title: "finite horizon" },
+    yaxis: { ...chartLayout.yaxis, title: "support score" },
+    yaxis2: { overlaying: "y", side: "right", title: "energy reduction %", gridcolor: "rgba(0,0,0,0)" },
+  });
+}
+
+function renderDWindow(robustness) {
+  const rows = asRecords(robustness.d_window_sensitivity?.rows);
+  if (!rows.length) {
+    emptyPlot("d_window_chart", "No D window sensitivity rows are available.");
+    return;
+  }
+  const support = sanitizeSeries(rows.map((row) => row.support_score));
+  plot("d_window_chart", [{
+    type: "scatter",
+    mode: "lines+markers",
+    x: rows.map((row) => row.window_size),
+    y: support.values,
+    line: { color: COLORS.moss },
+    hovertemplate: "Window %{x}<br>support %{y:.3f}<extra></extra>",
+  }], {
+    invalidCount: support.invalidCount,
+    xaxis: { ...chartLayout.xaxis, title: "window size" },
+    yaxis: { ...chartLayout.yaxis, title: "support score" },
+  });
+}
+
+function renderRobustnessExports() {
+  const links = [
+    ["Mechanism ranking CSV", "/artifacts/results/dynamic_mechanism_ranking/exports/mechanism_ranking.csv"],
+    ["Claim verdicts CSV", "/artifacts/results/dynamic_mechanism_ranking/exports/claim_verdicts.csv"],
+    ["Literature benchmark CSV", "/artifacts/results/dynamic_mechanism_ranking/exports/literature_benchmark.csv"],
+    ["Robust bootstrap CSV", "/artifacts/results/dynamic_mechanism_ranking/exports/robust_bootstrap_summary.csv"],
+    ["Robust run sensitivity CSV", "/artifacts/results/dynamic_mechanism_ranking/exports/robust_run_sensitivity.csv"],
+    ["Robust E horizon CSV", "/artifacts/results/dynamic_mechanism_ranking/exports/robust_e_horizon.csv"],
+    ["Robust D windows CSV", "/artifacts/results/dynamic_mechanism_ranking/exports/robust_d_windows.csv"],
+    ["Dynamic results workbook", "/artifacts/results/dynamic_mechanism_ranking/exports/dynamic_mechanism_results.xlsx"],
+  ];
+  byId("robustness_export_links")?.replaceChildren(...links.map(([label, href]) => el("a", { text: label, href: displayHref(href) })));
+}
+
+function renderEmpirical(payload) {
+  const overview = payload.empirical_viewer || {};
+  const subjects = Array.isArray(overview.subjects) ? overview.subjects : [];
+  const subjectIndex = overview.paired_run_index || overview.subject_index || {};
+  const subjectSelect = byId("empirical_subject");
+  const runSelect = byId("empirical_run");
+  setText("empirical_status", subjects.length ? "viewer cache ready" : "viewer cache missing");
+  subjectSelect?.replaceChildren(...subjects.map((subject) => el("option", { text: subject })));
+  function setRunOptions(subject) {
+    const runs = Array.isArray(subjectIndex[subject]) ? subjectIndex[subject] : (Array.isArray(overview.runs) ? overview.runs : []);
+    runSelect?.replaceChildren(...runs.map((run) => el("option", { text: run })));
+  }
+  if (overview.default_subject && subjectSelect) subjectSelect.value = overview.default_subject;
+  setRunOptions(subjectSelect?.value || overview.default_subject || subjects[0]);
+  if (overview.default_run && runSelect) runSelect.value = overview.default_run;
+  subjectSelect?.addEventListener("change", () => setRunOptions(subjectSelect.value));
+  const deltas = overview.delta_metrics || payload.empirical?.target_deltas || {};
+  const labels = Object.keys(deltas);
+  const values = sanitizeSeries(Object.values(deltas));
+  if (!labels.length) {
+    emptyPlot("empirical_delta_chart", "No group delta metrics are available.");
+  } else {
+    plot("empirical_delta_chart", [{
+      type: "bar",
+      x: labels.map(titleText),
+      y: values.values,
+      marker: { color: values.values.map((value) => (Number(value) >= 0 ? COLORS.teal : COLORS.rose)) },
+      hovertemplate: "%{x}<br>delta %{y:.3f}<extra></extra>",
+    }], {
+      invalidCount: values.invalidCount,
+      margin: { t: 12, r: 18, b: 92, l: 64 },
+      yaxis: { ...chartLayout.yaxis, title: "LSD minus placebo delta" },
+    });
+  }
+  byId("load_empirical")?.addEventListener("click", loadEmpiricalDetail);
+  byId("empirical_window")?.addEventListener("input", (event) => renderEmpiricalWindow(Number(event.target.value || 0)));
+  byId("copy_empirical_json")?.addEventListener("click", copyEmpiricalJson);
+  if (!isStaticDeployment && subjects.length) {
+    loadEmpiricalDetail();
+  } else if (isStaticDeployment) {
+    setText("empirical_notice", "Static GitHub Pages shows group summaries only; subject-level cache records require the local FastAPI dashboard.");
+  }
+}
+
+async function loadEmpiricalDetail() {
+  if (isStaticDeployment) {
+    setText("empirical_notice", "Static GitHub Pages shows the group delta plot; subject-level detail requires the local FastAPI dashboard.");
+    return;
+  }
+  const subject = byId("empirical_subject")?.value;
+  const run = byId("empirical_run")?.value;
+  if (!subject || !run) {
+    setText("empirical_notice", "No empirical selector is available.");
+    return;
+  }
+  const button = byId("load_empirical");
+  button && (button.disabled = true);
+  setLoading("empirical_fc_heatmap", `Loading ${subject} ${run}...`);
+  setText("empirical_notice", `loading ${subject}/${run}`);
+  setText("empirical_detail_status", "loading");
+  try {
+    const detail = await fetchJson(`/api/empirical-view?subject=${encodeURIComponent(subject)}&run=${encodeURIComponent(run)}`);
+    empiricalDetailState.detail = detail;
+    empiricalDetailState.windows = asRecords(detail.window_deltas);
+    const slider = byId("empirical_window");
+    if (slider) {
+      slider.min = 0;
+      slider.max = Math.max(empiricalDetailState.windows.length - 1, 0);
+      slider.value = 0;
+      slider.disabled = !empiricalDetailState.windows.length;
+    }
+    setText("empirical_notice", detail.run_caveat || detail.viewer_source || `${subject}/${run} loaded`);
+    renderEmpiricalWindow(0);
+  } catch (error) {
+    emptyPlot("empirical_fc_heatmap", error.message);
+    setText("empirical_notice", error.message);
+    setText("empirical_detail_status", "error");
+  } finally {
+    button && (button.disabled = false);
+  }
+}
+
+function renderEmpiricalWindow(index) {
+  const detail = empiricalDetailState.detail;
+  const windows = empiricalDetailState.windows;
+  const selected = windows[index];
+  if (!detail || !selected) {
+    emptyPlot("empirical_fc_heatmap", "No selected empirical window is available.");
+    return;
+  }
+  const modules = dashboardPayload?.empirical_viewer?.module_names || dashboardPayload?.graph?.modules?.map((module) => module.name) || [];
+  const matrix = sanitizeMatrix(selected.fc_matrix);
+  setText("empirical_window_label", `Window ${Number(selected.index ?? index) + 1} of ${windows.length}`);
+  setText("empirical_matrix_status", `${matrix.invalidCount} invalid`);
+  const axisLabels = modules.length === matrix.values.length ? modules.map(titleText) : matrix.values.map((_, rowIndex) => `Module ${rowIndex + 1}`);
+  plot("empirical_fc_heatmap", [{
+    type: "heatmap",
+    x: axisLabels,
+    y: axisLabels,
+    z: matrix.values,
+    colorscale: [[0, COLORS.rose], [0.5, COLORS.gray], [1, COLORS.teal]],
+    zmid: 0,
+    hovertemplate: "%{y} -> %{x}<br>delta %{z:.3f}<extra></extra>",
+    colorbar: { title: "FC delta" },
+  }], {
+    invalidCount: matrix.invalidCount,
+    margin: { t: 16, r: 18, b: 88, l: 120 },
+    plot_bgcolor: "#2b3339",
+    xaxis: { ...chartLayout.xaxis, side: "top" },
+    yaxis: { ...chartLayout.yaxis, autorange: "reversed" },
+  });
+  const metricRows = Object.entries(selected.metrics || {}).map(([metric, value]) => ({ metric, value }));
+  fillTable("empirical_detail_table", metricRows, [
+    (row) => tdText(titleText(row.metric)),
+    (row) => tdNumber(row.value),
+  ]);
+  setText("empirical_detail_status", `${metricRows.length} metrics`);
+  empiricalDetailState.rawRecord = {
+    subject: detail.subject,
+    run: detail.run,
+    window_index: selected.index ?? index,
+    metrics: selected.metrics || {},
+    fc_matrix: selected.fc_matrix || [],
+  };
+  const raw = byId("empirical_raw_json");
+  if (raw) raw.textContent = JSON.stringify(empiricalDetailState.rawRecord, null, 2);
+  const copyButton = byId("copy_empirical_json");
+  if (copyButton) copyButton.disabled = false;
+  const sourceLink = byId("open_empirical_source");
+  if (sourceLink) {
+    sourceLink.textContent = "Source gated";
+    sourceLink.removeAttribute("href");
+    sourceLink.setAttribute("aria-disabled", "true");
+  }
+}
+
+async function copyEmpiricalJson() {
+  if (!empiricalDetailState.rawRecord) return;
+  const serialized = JSON.stringify(empiricalDetailState.rawRecord, null, 2);
+  await navigator.clipboard?.writeText(serialized);
+  setText("empirical_notice", "selected cache record copied");
+}
+
+function priorArtRows(payload, filter = "") {
+  const lowered = filter.toLowerCase();
+  return asRecords(payload.sources).filter((row) => {
+    const haystack = `${row.family} ${row.name} ${row.status} ${row.role}`.toLowerCase();
+    return !lowered || haystack.includes(lowered);
+  });
+}
+
+function priorArtComparisonRows(payload, filter = "") {
+  const lowered = filter.toLowerCase();
+  return asRecords(payload.comparison_plan).filter((row) => {
+    const haystack = [
+      row.family,
+      row.label,
+      row.readiness,
+      row.dry_run_command,
+      row.comparison_target,
+      row.extract_target_summary,
+      asStringList(row.missing_inputs).join(" "),
+      row.claim_status,
+    ].join(" ").toLowerCase();
+    return !lowered || haystack.includes(lowered);
+  });
+}
+
+function renderPriorArt(payload, dashboard) {
+  setText("prior_art_status", `${payload.summary?.family_count || 0} families`);
+  byId("prior_art_cards")?.replaceChildren(...asRecords(payload.families).map((item) => dataRecord(item.family, item.claim_status, item.connection, item.claim_status)));
+  const input = byId("prior_art_filter");
+  const draw = () => fillTable("prior_art_table", priorArtRows(payload, input?.value || ""), [
+    (row) => tdText(row.family),
+    (row) => tdText(row.name),
+    (row) => tdText(row.status),
+    (row) => tdText(row.commit_or_policy),
+  ]);
+  input?.addEventListener("input", draw);
+  draw();
+  byId("prior_art_input_cards")?.replaceChildren(...asRecords(payload.input_status).map((item) => dataRecord(item.label, item.status, item.relative_path, item.status)));
+  const comparisonRows = asRecords(payload.comparison_plan);
+  const readyCount = comparisonRows.filter((row) => row.readiness === "ready_to_test").length;
+  setText("prior_art_test_status", `${readyCount}/${comparisonRows.length} ready`);
+  const comparisonInput = byId("prior_art_comparison_filter");
+  const drawComparison = () => fillTable("prior_art_comparison_table", priorArtComparisonRows(payload, comparisonInput?.value || ""), [
+    (row) => tdText(row.label || row.family),
+    (row) => tdText(`${row.readiness} / ${row.claim_status}`),
+    (row) => tdCode(row.dry_run_command),
+    (row) => tdText(row.comparison_target),
+    (row) => tdText(row.extract_target_summary),
+    (row) => tdText(asStringList(row.missing_inputs).join(", ") || "none"),
+  ]);
+  comparisonInput?.addEventListener("input", drawComparison);
+  drawComparison();
+  renderPriorArtPaperBoard(payload, dashboard);
+}
+
+function paperTargets() {
+  return [
+    { id: "preller", label: "Preller 2018 Fig 1", status: "proxy-supported", title: "Global brain connectivity proxy", kind: "empirical" },
+    { id: "girn_fc", label: "Girn 2026 Figs 1-2", status: "mixed", title: "Network integration benchmarks", kind: "benchmark" },
+    { id: "girn_posterior", label: "Girn 2026 Fig 3", status: "future", title: "Bayesian posteriors not recreated", kind: "blocked" },
+    { id: "singleton_energy", label: "Singleton 2022 Figs 1,4-5", status: "mixed", title: "Network-control energy proxy", kind: "energy" },
+    { id: "singleton_entropy", label: "Singleton 2022 Fig 6", status: "proxy-supported", title: "Transition entropy and repertoire", kind: "entropy" },
+  ];
+}
+
+function renderPriorArtPaperBoard(priorPayload, dashboard) {
+  const tabs = byId("prior_art_paper_tabs");
+  const targets = paperTargets();
+  tabs?.replaceChildren(...targets.map((target, index) => {
+    const button = el("button", { text: target.label, type: "button", role: "tab", ariaSelected: index === 0 });
+    button.dataset.paperTarget = target.id;
+    button.addEventListener("click", () => {
+      tabs.querySelectorAll("button").forEach((item) => item.setAttribute("aria-selected", String(item === button)));
+      renderPaperTarget(target, priorPayload, dashboard);
+    });
+    return button;
+  }));
+  if (targets[0]) renderPaperTarget(targets[0], priorPayload, dashboard);
+}
+
+function renderPaperTarget(target, priorPayload, dashboard) {
+  const board = byId("prior_art_paper_board");
+  if (!board) return;
+  setText("prior_art_paper_status", target.status);
+  purgeCharts(board);
+  board.replaceChildren(
+    el("div", { className: "paper-target-summary" }, [
+      dataRecord(target.title, target.status, "Local recreation is constrained to current derived artifacts.", target.status),
+      dataRecord("Claim boundary", "proxy only", "Paper layout is inspiration; external analysis code is not copied.", "proxy-supported"),
+    ]),
+    el("div", { className: "chart-frame" }, [
+      el("div", { className: "chart chart-sm", text: "Loading..." }),
+    ]),
+  );
+  const chartNode = board.querySelector(".chart");
+  const chartId = `paper_target_${target.id}_chart`;
+  chartNode.id = chartId;
+  if (target.kind === "empirical") {
+    const deltas = dashboard.empirical_viewer?.delta_metrics || {};
+    const values = sanitizeSeries(Object.values(deltas));
+    plot(chartId, [{
+      type: "bar",
+      x: Object.keys(deltas).map(titleText),
+      y: values.values,
+      marker: { color: values.values.map((value) => Number(value) >= 0 ? COLORS.teal : COLORS.rose) },
+      hovertemplate: "%{x}<br>proxy delta %{y:.3f}<extra></extra>",
+    }], { invalidCount: values.invalidCount, margin: { t: 12, r: 16, b: 92, l: 58 } });
+  } else if (target.kind === "benchmark") {
+    renderBenchmarkChart(dashboard, chartId);
+  } else if (target.kind === "energy") {
+    const rows = asRecords(dashboard.dynamic_mechanism?.network_control_energy?.metric_deltas).filter((row) => text(row.metric).includes("energy"));
+    const values = sanitizeSeries(rows.map((row) => row.mean_delta));
+    plot(chartId, [{
+      type: "bar",
+      orientation: "h",
+      y: rows.map((row) => titleText(row.metric)),
+      x: values.values,
+      marker: { color: values.values.map((value) => Number(value) >= 0 ? COLORS.teal : COLORS.rose) },
+      hovertemplate: "%{y}<br>mean delta %{x:.3f}<extra></extra>",
+    }], { invalidCount: values.invalidCount, margin: { t: 12, r: 24, b: 46, l: 230 } });
+  } else if (target.kind === "entropy") {
+    const rows = asRecords(dashboard.dynamic_mechanism?.transition_proxy?.metric_deltas).slice(0, 8);
+    const values = sanitizeSeries(rows.map((row) => row.signed_effect_size));
+    plot(chartId, [{
+      type: "bar",
+      orientation: "h",
+      y: rows.map((row) => titleText(row.metric)),
+      x: values.values,
+      marker: { color: values.values.map((value) => Number(value) >= 0 ? COLORS.teal : COLORS.rose) },
+      hovertemplate: "%{y}<br>signed effect %{x:.3f}<extra></extra>",
+    }], { invalidCount: values.invalidCount, margin: { t: 12, r: 22, b: 46, l: 190 } });
+  } else {
+    emptyPlot(chartId, "Not recreated in the first pass. Current payload has directional proxy rows, not the Bayesian posterior model required for this figure.");
+  }
+}
+
+function renderSimulationPayload(payload) {
+  const modules = payload.modules || [];
+  const time = payload.time || [];
+  const traces = modules.map((module, index) => {
+    const values = sanitizeSeries((payload.time_series || []).map((row) => Array.isArray(row) ? row[index] : null));
+    return {
+      type: "scatter",
+      mode: "lines",
+      name: module,
+      x: time,
+      y: values.values,
+    };
+  });
+  plot("sim_time_chart", traces, {
+    margin: { t: 14, r: 20, b: 46, l: 60 },
+    yaxis: { ...chartLayout.yaxis, title: "z-scored model activity" },
+  });
+  const matrix = sanitizeMatrix(payload.fc_matrix || []);
+  plot("sim_fc_chart", [{
+    type: "heatmap",
+    x: modules,
+    y: modules,
+    z: matrix.values,
+    colorscale: [[0, COLORS.rose], [0.5, COLORS.gray], [1, COLORS.teal]],
+    zmid: 0,
+    hovertemplate: "%{y} -> %{x}<br>FC %{z:.3f}<extra></extra>",
+  }], {
+    invalidCount: matrix.invalidCount,
+    margin: { t: 16, r: 18, b: 82, l: 120 },
+    plot_bgcolor: "#2b3339",
+    xaxis: { ...chartLayout.xaxis, side: "top" },
+    yaxis: { ...chartLayout.yaxis, autorange: "reversed" },
+  });
+}
+
+async function runSimulation(dashboard = {}) {
+  const body = {
+    regime: byId("sim_regime")?.value || "baseline",
+    within_group_scale: Number(byId("sim_within")?.value || 1),
+    cross_group_scale: Number(byId("sim_cross")?.value || 1),
+    constraint_scale: Number(byId("sim_constraint")?.value || 1),
+    temperature: Number(byId("sim_temperature")?.value || 0.1),
+  };
+  const button = byId("run_simulation");
+  button && (button.disabled = true);
+  setText("simulator_status", "running");
+  setLoading("sim_time_chart", "Running simulator...");
+  setLoading("sim_fc_chart", "Running simulator...");
+  try {
+    if (isStaticDeployment) {
+      const payload = body.regime === "perturbed" ? dashboard.perturbed : dashboard.baseline;
+      if (!payload) {
+        setText("simulator_status", "static snapshot missing");
+        return;
+      }
+      renderSimulationPayload(payload);
+      setText("simulator_status", `static ${body.regime} snapshot`);
+      return;
+    }
+    const response = await fetch("/api/simulate", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    });
+    if (!response.ok) throw new Error(`/api/simulate returned ${response.status}`);
+    const payload = await response.json();
+    renderSimulationPayload(payload);
+    setText("simulator_status", "rendered");
+  } catch (error) {
+    emptyPlot("sim_time_chart", error.message);
+    emptyPlot("sim_fc_chart", error.message);
+    setText("simulator_status", "error");
+  } finally {
+    button && (button.disabled = false);
+  }
+}
+
+function renderThesis(payload, priorPayloadForPage) {
+  byId("thesis_status_cards")?.replaceChildren(...renderMetricStrip(payload));
+  const rows = asRecords(payload.dynamic_mechanism?.mechanism_ranking);
+  const scores = sanitizeSeries(rows.map((row) => row.score));
+  plot("thesis_mechanism_chart", [{
+    type: "bar",
+    orientation: "h",
+    y: rows.map((row) => `${row.layer}: ${titleText(row.mechanism)}`),
+    x: scores.values,
+    marker: { color: rows.map((row) => layerColor[text(row.layer, "")] || COLORS.teal) },
+    hovertemplate: "%{y}<br>score %{x:.3f}<extra></extra>",
+  }], {
+    invalidCount: scores.invalidCount,
+    margin: { t: 10, r: 20, b: 44, l: 190 },
+    yaxis: { ...chartLayout.yaxis, autorange: "reversed" },
+  });
+  const verdicts = asRecords(payload.dynamic_mechanism?.claim_verdicts);
+  byId("thesis_claim_ladder")?.replaceChildren(...verdicts.slice(0, 6).map((row) => dataRecord(row.claim, row.verdict, row.evidence, row.verdict)));
+  const loopSteps = asRecords(payload.thesis_expansion?.loop_steps);
+  const fallbackSteps = [
+    { label: "Dataset anchor", status: "implemented", implementation_evidence: "Use ds003059-derived paired LSD/placebo summaries as the empirical anchor." },
+    { label: "Transparent surrogate", status: "proxy-supported", implementation_evidence: "Rank macro-dynamic layers A-E rather than claiming receptor-level realism." },
+    { label: "Mechanism ranking", status: "implemented", implementation_evidence: "C is strongest in the current proxy score; E is split into landscape proxy and receptor-placement gates." },
+    { label: "Limitations", status: "blocked", implementation_evidence: "Motion and music/run-02 remain explicit gates; striatal evidence is limited to a bilateral proxy row, PET receptor promotion is blocked by spatial nulls, and external validation is negative/partial." },
+  ];
+  const steps = loopSteps.length ? loopSteps : fallbackSteps;
+  byId("thesis_evidence_sequence")?.replaceChildren(...steps.map((row, index) => el("section", { className: "story-step" }, [
+    el("span", { text: text(row.step, String(index + 1)) }),
+    el("div", {}, [
+      el("strong", { text: text(row.label, "Evidence step") }),
+      el("small", { className: statusClass(row.status), text: text(row.status, "status") }),
+      el("p", { text: text(row.implementation_evidence || row.scientific_question || row.dashboard_output, "Evidence pending.") }),
+      row.implementation_blocker ? el("p", { className: "muted", text: text(row.implementation_blocker) }) : "",
+    ]),
+  ])));
+  byId("thesis_prior_art_summary")?.replaceChildren(...asRecords(priorPayloadForPage?.families).slice(0, 6).map((row) => dataRecord(row.family, row.claim_status, row.connection, row.claim_status)));
+  const links = [
+    ["Dashboard", isStaticDeployment ? "dashboard/" : "/"],
+    ["Claim matrix", "/artifacts/results/thesis_evidence_loop/claim_evidence_matrix.csv"],
+    ["Thesis microsite artifact", "/artifacts/output/doc/thesis_microsite.html"],
+    ["Defense presentation artifact", "/artifacts/output/doc/defense_presentation.html"],
+  ];
+  byId("thesis_artifact_links")?.replaceChildren(...links.map(([label, href]) => el("a", { text: label, href: displayHref(href) })));
+}
+
+async function main() {
+  document.querySelectorAll(".chart").forEach((node) => {
+    if (!node.textContent.trim()) node.textContent = "Loading...";
+  });
+  if (pageId === "prior_art") {
+    const [prior, dashboard] = await Promise.all([fetchJson(priorArtDataUrl), fetchJson(dashboardDataUrl)]);
+    priorArtPayload = prior;
+    dashboardPayload = dashboard;
+    renderPriorArt(prior, dashboard);
+    return;
+  }
+  if (pageId === "thesis") {
+    const [dashboard, prior] = await Promise.all([fetchJson(dashboardDataUrl), fetchJson(priorArtDataUrl)]);
+    dashboardPayload = dashboard;
+    priorArtPayload = prior;
+    renderThesis(dashboard, prior);
+    return;
+  }
+  const dashboard = await fetchJson(dashboardDataUrl);
+  dashboardPayload = dashboard;
+  if (pageId === "overview") {
+    renderOverview(dashboard);
+  } else if (pageId === "mechanism_ranking") {
+    renderRanking(dashboard);
+  } else if (pageId === "robustness") {
+    renderRobustness(dashboard);
+  } else if (pageId === "empirical") {
+    renderEmpirical(dashboard);
+  } else if (pageId === "simulator") {
+    if (isStaticDeployment) {
+      ["sim_within", "sim_cross", "sim_constraint", "sim_temperature"].forEach((id) => {
+        const input = byId(id);
+        if (input) {
+          input.disabled = true;
+          input.title = "Static GitHub Pages uses cached baseline/perturbed snapshots; parameter sweeps require the local FastAPI dashboard.";
+        }
+      });
+      const button = byId("run_simulation");
+      if (button) button.textContent = "Render Cached Regime";
+    }
+    await runSimulation(dashboard);
+    byId("run_simulation")?.addEventListener("click", () => runSimulation(dashboard));
+  }
+}
+
+main().catch((error) => {
+  const target = byId(`${pageId}_status`) || byId("strict_gate_status") || byId("simulator_status");
+  if (target) target.textContent = error.message;
+  document.querySelectorAll(".chart").forEach((node) => {
+    if (node.textContent.trim() === "Loading...") {
+      emptyPlot(node.id, error.message);
+    }
+  });
+});

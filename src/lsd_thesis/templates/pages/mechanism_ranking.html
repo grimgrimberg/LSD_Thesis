@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="content-grid content-grid--wide">
+  <article class="panel panel--span-2">
+    <div class="panel-heading">
+      <h2>Mechanism Ranking</h2>
+      <span id="ranking_status" class="status-token">loading</span>
+    </div>
+    <div class="chart-frame">
+      <div id="ranking_chart" class="chart" role="img" aria-label="Mechanism ranking chart">Loading...</div>
+    </div>
+  </article>
+  <article class="panel">
+    <div class="panel-heading">
+      <h2>Inference Gate</h2>
+      <span class="status-token status-token--amber">proxy layer</span>
+    </div>
+    <div class="table-frame">
+      <table>
+        <thead><tr><th>Layer</th><th>Status</th><th>Interpretation</th></tr></thead>
+        <tbody id="ranking_gate_table"></tbody>
+      </table>
+    </div>
+  </article>
+  <article class="panel panel--span-2">
+    <div class="panel-heading">
+      <h2>Benchmark Alignment</h2>
+      <span id="benchmark_status" class="status-token status-token--amber">loading</span>
+    </div>
+    <div class="chart-frame">
+      <div id="benchmark_chart" class="chart" role="img" aria-label="Literature benchmark alignment chart">Loading...</div>
+    </div>
+  </article>
+  <article class="panel">
+    <div class="panel-heading">
+      <h2>Score Spread</h2>
+      <span class="status-token status-token--moss">ranked proxy</span>
+    </div>
+    <div class="chart-frame">
+      <div id="ranking_distribution_chart" class="chart chart-sm" role="img" aria-label="Mechanism score distribution">Loading...</div>
+    </div>
+  </article>
+  <article class="panel panel--span-3">
+    <div class="panel-heading">
+      <h2>Claim Verdicts</h2>
+      <span class="status-token status-token--rose">fail closed</span>
+    </div>
+    <div class="table-frame">
+      <table>
+        <thead><tr><th>Claim</th><th>Verdict</th><th>Evidence</th><th>Next action</th></tr></thead>
+        <tbody id="claim_verdict_table"></tbody>
+      </table>
+    </div>
+  </article>
+  <article class="panel panel--span-3">
+    <div class="panel-heading">
+      <h2>Dynamic Figures</h2>
+      <span class="status-token status-token--teal">derived only</span>
+    </div>
+    <div id="dynamic_figure_links" class="link-stack"></div>
+  </article>
+</section>
+{% endblock %}

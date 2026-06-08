@@ -1,4 +1,4 @@
-# Local environments and Python caches
+# === Python ===
 /.venv/
 __pycache__/
 .pytest_cache/
@@ -10,7 +10,7 @@ __pycache__/
 *.pyd
 *.log
 
-# Tier C: local secrets and credentials. Never commit these.
+# === Secrets (Tier C: never commit) ===
 .env
 .env.*
 *.pem
@@ -20,61 +20,63 @@ __pycache__/
 id_rsa
 id_ed25519
 
-# Tier C: local agent/tool state and machine-local caches.
+# === Artifact policy: Tier A tracked evidence ===
+# Source code, configs, curated documentation, selected manifests, and stage
+# reports may be tracked when reviewable.
+
+# === Agent/tool state (Tier C: raw data downloads/private local state) ===
 /.codex/
 /.codex-archive/
 /.superpowers/
 /.agents/
-/codex_logs/
-/_codex_skills_disabled_*/
 /.neuromaps-data/
 /.playwright-mcp/
 /.worktrees/
 /.deploy-gh-pages/
+/.uv-cache/
 /mypy_cache_*/
-
-# Tier C: raw data downloads. Keep root-anchored so src/lsd_thesis/data remains tracked.
-/data/
-
-# Tier B: generated artifacts and temporary review outputs.
-# Tier A tracked evidence is limited to curated source docs, configs, and selected summaries.
 /codex_prompt_pack/
 /codex_prompt_pack.zip
-/AGENT_STATUS.md
-/CONTEXT.md
-/IMPLEMENTATION_PLAN.md
-/RUN_ALL_PROMPTS_MASTER.md
-/RUN_NEXT_FULL_VALIDATION_PROMPT.md
-/TASKS.md
-/dashboard-*.md
-/docs/codex_runs/*repo-audit-roast.md
+
+# === Raw data (Tier C: raw data downloads; keep src/lsd_thesis/data/ tracked) ===
+/data/
+
+# === Prior-art cloned repositories (large, external) ===
+/prior_art/repositories/*
+!/prior_art/repositories/.gitkeep
+
+# === Generated outputs (Tier B: generated artifacts; regenerable) ===
 /output/
 /tmp/
 /tmp_*/
 /tmp*/
-/manual_temp_probe_root/
-/parcellation_pytest_tmp/
-/results/external_data/
-/results/nilearn_data/
-/results/pytest_tmp_*/
-/results/setting_seed/test_fixtures/
-/results/test_runs/
+/docs/codex_runs/
 results/**/*.html
 results/**/*.png
 results/**/*.svg
 results/**/*.npy
 results/**/*.npz
 results/**/*.csv
+results/**/*.xlsx
 results/**/*.md
 results/**/empirical_viewer/
+/results/external_data/
+/results/nilearn_data/
+/results/pytest_tmp_*/
+/results/test_runs/
+/results/setting_seed/test_fixtures/
+
+# === Root-level generated files ===
 /*.png
-/docs/codex_runs/**/*.png
+RUN_NEXT_FULL_VALIDATION_PROMPT.md
+dashboard-before-plot-cleanup.md
+dashboard-before-plot-cleanup-snapshot.md
+dashboard-desktop-snapshot.md
 ruff_output.txt
 
-# Build artifacts and Node dependencies
+# === Build artifacts ===
 dist/
 build/
 _site/
 *.egg-info/
 node_modules/
-tools/pptx/node_modules/

@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>{{ page_title }} | LSD Thesis Dashboard</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="{{ static_prefix }}dashboard.css?v=dashboard-redesign-20260607">
+  <script src="{{ plotly_src }}" defer></script>
+  <script src="{{ static_prefix }}dashboard.js?v=dashboard-redesign-20260607" defer></script>
+</head>
+<body
+  data-page="{{ active_page }}"
+  data-dashboard-data-url="{{ data_url }}"
+  data-prior-art-data-url="{{ prior_art_data_url }}"
+  data-artifact-prefix="{{ artifact_prefix | default('/artifacts/') }}"
+  data-deployment-mode="{{ deployment_mode | default('local') }}"
+>
+  <a class="skip-link" href="#main_content">Skip to dashboard content</a>
+  <div class="app-shell">
+    {% include "components/sidebar.html" %}
+    <div class="workspace">
+      <header class="topbar" aria-label="Dashboard status">
+        <div>
+          <p class="chrome-label">Macro-dynamics evidence console</p>
+          <h1>{{ page_title }}</h1>
+        </div>
+        <div class="topbar-actions">
+          <a class="icon-button" href="{{ artifact_prefix | default('/artifacts/') }}results/thesis_upgrade/thesis_upgrade_status.json" title="Open strict audit JSON" aria-label="Open strict audit JSON">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v6h5"/><path d="M10 13h6M10 17h6"/></svg>
+          </a>
+          <a class="icon-button" href="{{ artifact_prefix | default('/artifacts/') }}results/thesis_evidence_loop/claim_evidence_matrix.csv" title="Open claim evidence matrix" aria-label="Open claim evidence matrix">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v16H4z"/><path d="M4 10h16M4 15h16M10 5v16M16 5v16"/></svg>
+          </a>
+        </div>
+      </header>
+      <main id="main_content" class="page-surface" tabindex="-1">
+        {% block content %}{% endblock %}
+      </main>
+    </div>
+  </div>
+</body>
+</html>

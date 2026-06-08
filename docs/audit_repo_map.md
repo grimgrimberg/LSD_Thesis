@@ -23,7 +23,7 @@ The project is weakest if it claims to reproduce psychedelic brain mechanisms. T
 | `src/lsd_thesis/perturbation.py` | Perturbation operators | Four scalar operators; use as hypothesis toggles only. |
 | `src/lsd_thesis/data/ds003059.py` | OpenNeuro ds003059 extraction | Real-data bridge; Harvard-Oxford macro mapping is transparent but coarse and overlapping. |
 | `src/lsd_thesis/web/app.py` | FastAPI dashboard API | Local demo surface and artifact serving. |
-| `src/lsd_thesis/templates/dashboard.html` | Dashboard UI | Main professor-facing visual surface. |
+| `src/lsd_thesis/templates/base.html` and `src/lsd_thesis/templates/pages/` | Dashboard UI | Multipage professor-facing visual surface. |
 | `scripts/run_pipeline.py` | Stage runner | Primary staged workflow. |
 | `scripts/run_dashboard.py` | Dashboard runner | Local viewer entry point. |
 | `scripts/export_training_dataset.py` | Training-window export | Later benchmark/DNN bridge; not needed for Plan A. |

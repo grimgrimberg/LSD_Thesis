@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="content-grid content-grid--wide">
+  <article class="panel">
+    <div class="panel-heading">
+      <h2>Robustness Summary</h2>
+      <span id="robustness_status" class="status-token">loading</span>
+    </div>
+    <div id="robustness_cards" class="card-grid"></div>
+  </article>
+  <article class="panel panel--span-2">
+    <div class="panel-heading">
+      <h2>Seed and Fold Stability</h2>
+      <span class="status-token status-token--moss">descriptive</span>
+    </div>
+    <div class="chart-frame">
+      <div id="robustness_chart" class="chart" role="img" aria-label="Robustness chart">Loading...</div>
+    </div>
+  </article>
+  <article class="panel panel--span-3">
+    <div class="panel-heading">
+      <h2>Run Sensitivity</h2>
+      <span class="status-token status-token--amber">run-01 / run-03</span>
+    </div>
+    <div class="chart-frame">
+      <div id="run_sensitivity_chart" class="chart" role="img" aria-label="Run sensitivity grouped bar chart">Loading...</div>
+    </div>
+  </article>
+  <article class="panel panel--span-2">
+    <div class="panel-heading">
+      <h2>E Horizon Sensitivity</h2>
+      <span class="status-token status-token--amber">control proxy</span>
+    </div>
+    <div class="chart-frame">
+      <div id="e_horizon_chart" class="chart chart-sm" role="img" aria-label="E horizon sensitivity chart">Loading...</div>
+    </div>
+  </article>
+  <article class="panel">
+    <div class="panel-heading">
+      <h2>D Window Sensitivity</h2>
+      <span class="status-token status-token--teal">dynamic FC</span>
+    </div>
+    <div class="chart-frame">
+      <div id="d_window_chart" class="chart chart-sm" role="img" aria-label="D window sensitivity chart">Loading...</div>
+    </div>
+  </article>
+  <article class="panel panel--span-3">
+    <div class="panel-heading">
+      <h2>Robustness Exports</h2>
+      <span class="status-token status-token--teal">CSV / HTML</span>
+    </div>
+    <div id="robustness_export_links" class="link-stack link-stack--grid"></div>
+  </article>
+  <article class="panel panel--span-3">
+    <div class="panel-heading">
+      <h2>Completion Requirements</h2>
+      <span class="status-token status-token--rose">fail closed</span>
+    </div>
+    <div class="table-frame">
+      <table>
+        <thead><tr><th>Requirement</th><th>Status</th><th>Missing / next action</th></tr></thead>
+        <tbody id="requirements_table"></tbody>
+      </table>
+    </div>
+  </article>
+</section>
+{% endblock %}

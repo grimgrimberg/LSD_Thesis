@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at_utc": "2026-06-04T13:33:29.629998+00:00",
+  "generated_at_utc": "2026-06-08T15:12:53.744046+00:00",
   "analysis_status": "implemented_directional_proxy_benchmark",
   "source_reference": {
     "source_id": "girn_2026_mega_analysis",
@@ -19,9 +19,9 @@
     "base_plan_status": "planned comparison",
     "current_component_status": "implemented_directional_proxy_benchmark"
   },
-  "aligned_count": 4,
-  "measurable_count": 6,
-  "alignment_fraction": 0.6666666666666666,
+  "aligned_count": 5,
+  "measurable_count": 7,
+  "alignment_fraction": 0.7142857142857143,
   "rows": [
     {
       "benchmark": "2026 Nature Medicine transmodal-unimodal coupling",
@@ -110,17 +110,37 @@
     {
       "benchmark": "2026 Nature Medicine striatal-unimodal coupling",
       "layer": "C/D",
-      "project_metric": "not_available_current_8_module_proxy",
+      "project_metric": "striatal_sensory_coupling",
       "expected_sign": 1,
-      "observed_mean_delta": null,
-      "observed_signed_effect_size": null,
-      "sign_match": null,
-      "status": "missing_required_region",
+      "observed_mean_delta": 0.04115673348413175,
+      "observed_signed_effect_size": 0.25987141135575254,
+      "sign_match": true,
+      "status": "aligned",
       "source": "Girn et al., Nature Medicine 2026",
       "url": "https://www.nature.com/articles/s41591-026-04287-9",
-      "interpretation": "Needs striatum/caudate/putamen parcels before this can be tested.",
-      "caveat": "Do not claim striatal support from the current Harvard-Oxford 8-module proxy."
+      "interpretation": "Proxy check for stronger striatal coupling with sensory/unimodal systems.",
+      "caveat": "Requires a dedicated striatal parcel; the Harvard-Oxford striatal target is still a bilateral proxy, not a nucleus-level mega-analysis reproduction.",
+      "benchmark_context": "schaefer_100_yeo_7_striatal",
+      "summary_path": "results/parcellation_sensitivity/schaefer_100_yeo_7_striatal/summary.json"
     }
   ],
-  "claim_guardrail": "Literature benchmarking compares directionally mapped proxy metrics to published targets; it is not a reproduction of the cited studies."
+  "claim_guardrail": "Literature benchmarking compares directionally mapped proxy metrics to published targets; it is not a reproduction of the cited studies.",
+  "striatal_unimodal_gate": {
+    "analysis_status": "implemented_striatal_unimodal_proxy_benchmark",
+    "row_count": 1,
+    "parcellation_context": {
+      "parcellation_id": "schaefer_100_yeo_7_striatal",
+      "summary_path": "results/parcellation_sensitivity/schaefer_100_yeo_7_striatal/summary.json",
+      "row_statuses": [
+        "aligned"
+      ]
+    },
+    "required_regions": [
+      "caudate",
+      "putamen",
+      "nucleus_accumbens_or_striatum"
+    ],
+    "current_status": "A Schaefer100/Yeo7 + Harvard-Oxford striatal proxy benchmark row is measurable.",
+    "next_action": "Interpret the striatal row as a bilateral proxy benchmark, not a nucleus-level Nature Medicine reproduction."
+  }
 }

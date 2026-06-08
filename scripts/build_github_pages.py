@@ -13,6 +13,7 @@ from typing import Any
 from urllib.parse import unquote
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape
+from plotly.offline import get_plotlyjs
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SRC_ROOT = REPO_ROOT / "src"
@@ -41,8 +42,9 @@ from lsd_thesis.reproducible_archive import existing_publication_metadata_args, 
 from lsd_thesis.setting_seed.motion import write_motion_outputs
 from lsd_thesis.thesis_loop import build_thesis_evidence_loop
 from lsd_thesis.thesis_upgrade import write_thesis_upgrade_status
+from lsd_thesis.web.app import DASHBOARD_NAV, build_dashboard_payload
 from lsd_thesis.web.artifacts import SAFE_ARTIFACT_EXTENSIONS, is_allowed_artifact_relative_path
-from lsd_thesis.web.site_payload import build_public_site_payload, build_route_links
+from lsd_thesis.web.prior_art_payload import build_prior_art_payload
 
 STATIC_FAVICON_TAG = '<link rel="icon" href="data:,">'
 PAGES_ARTIFACT_MAX_BYTES = 20 * 1024 * 1024
@@ -239,8 +241,44 @@ def _copy_dashboard_linked_artifacts(repo_root: Path, site: Path, dashboard_payl
     return sorted(set(copied))
 
 
+def _copy_prior_art_documents(repo_root: Path, site: Path, prior_art_payload: dict[str, Any]) -> list[str]:
+    copied: list[str] = []
+    documents = prior_art_payload.get("documents", [])
+    if not isinstance(documents, list):
+        return copied
+    for document in documents:
+        if not isinstance(document, dict):
+            continue
+        raw_relative = _dashboard_artifact_path_from_href(str(document.get("href", "")))
+        if raw_relative is None:
+            continue
+        resolved = _resolve_dashboard_artifact_source(repo_root, raw_relative, ("prior_art/",))
+        if resolved is None:
+            continue
+        source, relative = resolved
+        if not source.exists() or not source.is_file() or not _is_publishable_artifact_file(source):
+            continue
+        destination = site / "artifacts" / relative
+        if _copy_file(source, destination) is not None:
+            copied.append(destination.relative_to(site).as_posix())
+    return sorted(set(copied))
+
+
 def _published_artifact_paths(outputs: dict[str, Path], site: Path) -> list[str]:
-    excluded = {"index", "thesis", "dashboard", "methods", "appendix", "dashboard_data"}
+    excluded = {
+        "index",
+        "ranking",
+        "robustness",
+        "prior_art",
+        "empirical",
+        "simulator",
+        "thesis",
+        "methods",
+        "appendix",
+        "dashboard",
+        "dashboard_data",
+        "prior_art_data",
+    }
     paths: list[str] = []
     for key, path in outputs.items():
         if key in excluded:
@@ -259,20 +297,41 @@ def _template_environment(repo_root: Path) -> Environment:
     )
 
 
+def _static_nav_items(depth: int) -> list[dict[str, str]]:
+    prefix = "../" * max(depth, 0)
+    href_by_id = {
+        "overview": f"{prefix}index.html",
+        "mechanism_ranking": f"{prefix}ranking.html",
+        "robustness": f"{prefix}robustness.html",
+        "prior_art": f"{prefix}prior-art.html",
+        "empirical": f"{prefix}empirical.html",
+        "simulator": f"{prefix}simulator.html",
+        "thesis": f"{prefix}thesis.html",
+    }
+    return [{**item, "href": href_by_id.get(str(item["id"]), str(item["href"]))} for item in DASHBOARD_NAV]
+
+
 def _render_static_template(
     environment: Environment,
     template_name: str,
-    payload: dict[str, Any],
     *,
+    page_id: str,
+    page_title: str,
     depth: int,
-    artifact_prefix: str,
-    data_url: str = "dashboard/dashboard-data.json",
+    data_url: str,
+    prior_art_data_url: str,
 ) -> str:
+    prefix = "../" * max(depth, 0)
     html = environment.get_template(template_name).render(
-        payload=payload,
-        links=build_route_links(static=True, depth=depth),
-        artifact_prefix=artifact_prefix,
+        page_title=page_title,
+        active_page=page_id,
+        nav_items=_static_nav_items(depth),
+        home_href=f"{prefix}index.html",
+        artifact_prefix=f"{prefix}artifacts/",
         data_url=data_url,
+        prior_art_data_url=prior_art_data_url,
+        static_prefix=f"{prefix}static/",
+        plotly_src=f"{prefix}assets/plotly.min.js",
         deployment_mode="static",
     )
     return _with_static_favicon(html)
@@ -286,54 +345,171 @@ def _write_static_public_site(
 ) -> dict[str, Path | list[str]]:
     dashboard_dir = site / "dashboard"
     dashboard_dir.mkdir(parents=True, exist_ok=True)
-    payload = build_public_site_payload(repo_root, dashboard_payload=dashboard_payload)
+    if dashboard_payload is None:
+        dashboard_payload = build_dashboard_payload(repo_root)
+    prior_art_payload = build_prior_art_payload(repo_root)
     environment = _template_environment(repo_root)
 
     dashboard_data = dashboard_dir / "dashboard-data.json"
-    dashboard_data.write_text(json.dumps(payload, indent=2), encoding="utf-8")
+    dashboard_data.write_text(json.dumps(dashboard_payload, indent=2), encoding="utf-8")
+    prior_art_data = dashboard_dir / "prior-art-data.json"
+    prior_art_data.write_text(json.dumps(prior_art_payload, indent=2), encoding="utf-8")
 
     root_html = site / "index.html"
+    ranking_html = site / "ranking.html"
+    robustness_html = site / "robustness.html"
+    prior_art_html = site / "prior-art.html"
+    empirical_html = site / "empirical.html"
+    simulator_html = site / "simulator.html"
     thesis_html = site / "thesis.html"
-    dashboard_html = dashboard_dir / "index.html"
     methods_html = site / "methods.html"
     appendix_html = site / "appendix.html"
+    dashboard_html = dashboard_dir / "index.html"
+
+    static_dir = _copy_tree(repo_root / "src" / "lsd_thesis" / "static", site / "static")
+    assets_dir = site / "assets"
+    assets_dir.mkdir(parents=True, exist_ok=True)
+    plotly_asset = assets_dir / "plotly.min.js"
+    plotly_asset.write_text(get_plotlyjs(), encoding="utf-8")
 
     root_html.write_text(
-        _render_static_template(environment, "public_site.html", payload, depth=0, artifact_prefix="artifacts/"),
+        _render_static_template(
+            environment,
+            "pages/overview.html",
+            page_id="overview",
+            page_title="Overview",
+            depth=0,
+            data_url="dashboard/dashboard-data.json",
+            prior_art_data_url="dashboard/prior-art-data.json",
+        ),
+        encoding="utf-8",
+    )
+    ranking_html.write_text(
+        _render_static_template(
+            environment,
+            "pages/mechanism_ranking.html",
+            page_id="mechanism_ranking",
+            page_title="Mechanism Ranking",
+            depth=0,
+            data_url="dashboard/dashboard-data.json",
+            prior_art_data_url="dashboard/prior-art-data.json",
+        ),
+        encoding="utf-8",
+    )
+    robustness_html.write_text(
+        _render_static_template(
+            environment,
+            "pages/robustness.html",
+            page_id="robustness",
+            page_title="Robustness",
+            depth=0,
+            data_url="dashboard/dashboard-data.json",
+            prior_art_data_url="dashboard/prior-art-data.json",
+        ),
+        encoding="utf-8",
+    )
+    prior_art_html.write_text(
+        _render_static_template(
+            environment,
+            "pages/prior_art.html",
+            page_id="prior_art",
+            page_title="Prior-Art Inventory",
+            depth=0,
+            data_url="dashboard/dashboard-data.json",
+            prior_art_data_url="dashboard/prior-art-data.json",
+        ),
+        encoding="utf-8",
+    )
+    empirical_html.write_text(
+        _render_static_template(
+            environment,
+            "pages/empirical.html",
+            page_id="empirical",
+            page_title="Empirical Viewer",
+            depth=0,
+            data_url="dashboard/dashboard-data.json",
+            prior_art_data_url="dashboard/prior-art-data.json",
+        ),
+        encoding="utf-8",
+    )
+    simulator_html.write_text(
+        _render_static_template(
+            environment,
+            "pages/simulator.html",
+            page_id="simulator",
+            page_title="Simulator",
+            depth=0,
+            data_url="dashboard/dashboard-data.json",
+            prior_art_data_url="dashboard/prior-art-data.json",
+        ),
         encoding="utf-8",
     )
     thesis_html.write_text(
-        _render_static_template(environment, "thesis_story.html", payload, depth=0, artifact_prefix="artifacts/"),
+        _render_static_template(
+            environment,
+            "pages/thesis.html",
+            page_id="thesis",
+            page_title="Thesis Presentation",
+            depth=0,
+            data_url="dashboard/dashboard-data.json",
+            prior_art_data_url="dashboard/prior-art-data.json",
+        ),
+        encoding="utf-8",
+    )
+    methods_html.write_text(
+        _render_static_template(
+            environment,
+            "pages/thesis.html",
+            page_id="thesis",
+            page_title="Thesis Presentation",
+            depth=0,
+            data_url="dashboard/dashboard-data.json",
+            prior_art_data_url="dashboard/prior-art-data.json",
+        ),
+        encoding="utf-8",
+    )
+    appendix_html.write_text(
+        _render_static_template(
+            environment,
+            "pages/thesis.html",
+            page_id="thesis",
+            page_title="Thesis Presentation",
+            depth=0,
+            data_url="dashboard/dashboard-data.json",
+            prior_art_data_url="dashboard/prior-art-data.json",
+        ),
         encoding="utf-8",
     )
     dashboard_html.write_text(
         _render_static_template(
             environment,
-            "evidence_dashboard.html",
-            payload,
+            "pages/overview.html",
+            page_id="overview",
+            page_title="Overview",
             depth=1,
-            artifact_prefix="../artifacts/",
             data_url="dashboard-data.json",
+            prior_art_data_url="prior-art-data.json",
         ),
         encoding="utf-8",
     )
-    methods_html.write_text(
-        _render_static_template(environment, "methods_reproducibility.html", payload, depth=0, artifact_prefix="artifacts/"),
-        encoding="utf-8",
-    )
-    appendix_html.write_text(
-        _render_static_template(environment, "appendix.html", payload, depth=0, artifact_prefix="artifacts/"),
-        encoding="utf-8",
-    )
 
-    copied_artifacts = _copy_dashboard_linked_artifacts(repo_root, site, payload)
+    copied_artifacts = _copy_dashboard_linked_artifacts(repo_root, site, dashboard_payload)
+    copied_artifacts.extend(_copy_prior_art_documents(repo_root, site, prior_art_payload))
     return {
         "index": root_html,
+        "ranking": ranking_html,
+        "robustness": robustness_html,
+        "prior_art": prior_art_html,
+        "empirical": empirical_html,
+        "simulator": simulator_html,
         "thesis": thesis_html,
-        "dashboard": dashboard_html,
-        "dashboard_data": dashboard_data,
         "methods": methods_html,
         "appendix": appendix_html,
+        "dashboard": dashboard_html,
+        "dashboard_data": dashboard_data,
+        "prior_art_data": prior_art_data,
+        "static": static_dir if static_dir is not None else site / "static",
+        "plotly": plotly_asset,
         "dashboard_artifacts": copied_artifacts,
     }
 
@@ -347,8 +523,13 @@ def _write_pages_manifest(site: Path, outputs: dict[str, Path], dashboard_artifa
         ),
         "entrypoints": {
             "index": "index.html",
-            "thesis": "thesis.html",
             "dashboard": "dashboard/index.html",
+            "ranking": "ranking.html",
+            "robustness": "robustness.html",
+            "prior_art": "prior-art.html",
+            "empirical": "empirical.html",
+            "simulator": "simulator.html",
+            "thesis": "thesis.html",
             "methods": "methods.html",
             "appendix": "appendix.html",
         },
@@ -369,13 +550,10 @@ def _dashboard_payload_with_refreshed_thesis_status(
     dashboard_data_path = site / "dashboard" / "dashboard-data.json"
     if not dashboard_data_path.exists():
         return None
-    public_payload = json.loads(dashboard_data_path.read_text(encoding="utf-8"))
-    if not isinstance(public_payload, dict):
+    dashboard_payload = json.loads(dashboard_data_path.read_text(encoding="utf-8"))
+    if not isinstance(dashboard_payload, dict):
         return None
-    source_dashboard = public_payload.get("source_dashboard")
-    if not isinstance(source_dashboard, dict):
-        return None
-    dashboard_payload = dict(source_dashboard)
+    dashboard_payload = dict(dashboard_payload)
     dashboard_payload["thesis_upgrade"] = refreshed_status
     return dashboard_payload
 

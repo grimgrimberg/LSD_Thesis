@@ -8,7 +8,7 @@ from typing import Any
 
 import plotly.graph_objects as go
 
-from lsd_thesis.dynamic_mechanism import write_dynamic_mechanism_summary
+from lsd_thesis.dynamic_mechanism.core import write_dynamic_mechanism_summary
 from lsd_thesis.dynamic_robustness import write_dynamic_robustness_summary
 
 

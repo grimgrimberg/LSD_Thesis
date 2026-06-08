@@ -1,0 +1,27 @@
+{
+  "parcellation_id": "schaefer_100_yeo_7_striatal",
+  "atlas": "Schaefer 2018",
+  "n_rois": 100,
+  "yeo_networks": 7,
+  "resolution_mm": 2,
+  "subcortical_status": "implemented_harvard_oxford_thalamus_striatum_proxy_parcels",
+  "legacy_extraction": false,
+  "status": "metadata_ready_extraction_not_run",
+  "fetch_function": "nilearn.datasets.fetch_atlas_schaefer_2018",
+  "node_count": 102,
+  "subcortical_atlas": "Harvard-Oxford subcortical maxprob thr25 2mm",
+  "thalamus_labels": [
+    4,
+    15
+  ],
+  "striatum_labels": [
+    5,
+    6,
+    7,
+    11,
+    16,
+    17,
+    18,
+    21
+  ]
+}

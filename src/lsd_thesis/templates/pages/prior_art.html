@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="content-grid content-grid--wide">
+  <article class="panel panel--span-3">
+    <div class="panel-heading">
+      <h2>Prior-Art Inventory</h2>
+      <span id="prior_art_status" class="status-token">loading</span>
+    </div>
+    <div id="prior_art_cards" class="card-grid card-grid--dense"></div>
+  </article>
+  <article class="panel panel--span-3">
+    <div class="panel-heading">
+      <h2>Repository Matrix</h2>
+      <input id="prior_art_filter" class="compact-input" type="search" placeholder="Filter family, repo, status" aria-label="Filter prior-art table">
+    </div>
+    <div class="table-frame">
+      <table>
+        <thead><tr><th>Family</th><th>Repository / source</th><th>Status</th><th>Commit / policy</th></tr></thead>
+        <tbody id="prior_art_table"></tbody>
+      </table>
+    </div>
+  </article>
+  <article class="panel panel--span-3">
+    <div class="panel-heading">
+      <h2>Test, Compare, Extract</h2>
+      <span id="prior_art_test_status" class="status-token">loading</span>
+    </div>
+    <div id="prior_art_input_cards" class="card-grid card-grid--dense"></div>
+    <div class="panel-heading panel-heading--subsection">
+      <h3>Family Execution Plan</h3>
+      <input id="prior_art_comparison_filter" class="compact-input" type="search" placeholder="Filter family, command, blocker" aria-label="Filter prior-art comparison table">
+    </div>
+    <div class="table-frame">
+      <table>
+        <thead><tr><th>Family</th><th>Readiness</th><th>Dry-run test</th><th>Compare against</th><th>Extract</th><th>Missing inputs</th></tr></thead>
+        <tbody id="prior_art_comparison_table"></tbody>
+      </table>
+    </div>
+  </article>
+  <article class="panel panel--span-3">
+    <div class="panel-heading">
+      <h2>Paper Plot Recreation Board</h2>
+      <span id="prior_art_paper_status" class="status-token status-token--amber">lazy</span>
+    </div>
+    <div id="prior_art_paper_tabs" class="segmented-control" role="tablist" aria-label="Paper recreation targets"></div>
+    <div id="prior_art_paper_board" class="paper-board" aria-live="polite">
+      <p class="microcopy">Select a paper target to render the proxy recreation. Collapsed targets keep text and blockers visible without initializing Plotly.</p>
+    </div>
+  </article>
+</section>
+{% endblock %}

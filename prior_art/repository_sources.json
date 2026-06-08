@@ -1,0 +1,136 @@
+{
+  "schema": "prior_art.repository_sources.v1",
+  "dataset": {
+    "accession": "ds003059",
+    "doi": "10.18112/openneuro.ds003059.v1.0.0",
+    "openneuro_url": "https://openneuro.org/datasets/ds003059/versions/1.0.0"
+  },
+  "notes": [
+    "Clone targets are public GitHub repositories named in the review prompt.",
+    "Supporting packages and archives that are not GitHub repositories are documented but not cloned by the clone script.",
+    "Cloned repositories must remain unmodified; generated manifests live in prior_art/."
+  ],
+  "repositories": [
+    {
+      "family": "ising_temperature_and_algorithmic_complexity",
+      "name": "LSD-paper-code-Ruffini-et-al.-2022",
+      "url": "https://github.com/giulioruffini/LSD-paper-code-Ruffini-et-al.-2022",
+      "directory": "ruffini_lsd_paper_code",
+      "role": "Primary Ising thermodynamics and algorithmic-complexity analysis code",
+      "expected_language": "Python / Jupyter",
+      "expected_ds003059_support": "direct"
+    },
+    {
+      "family": "ising_temperature_and_algorithmic_complexity",
+      "name": "StarLZW",
+      "url": "https://github.com/giulioruffini/StarLZW",
+      "directory": "ruffini_starlzw",
+      "role": "Companion Lempel-Ziv-Welch complexity package",
+      "expected_language": "Python",
+      "expected_ds003059_support": "supporting dependency"
+    },
+    {
+      "family": "entropy_copbet",
+      "name": "CopBET",
+      "url": "https://github.com/anders-s-olsen/CopBET",
+      "directory": "olsen_copbet",
+      "role": "Entropy and complexity benchmark toolbox with LSD data examples",
+      "expected_language": "MATLAB / Python",
+      "expected_ds003059_support": "direct"
+    },
+    {
+      "family": "energy_landscape_network_control",
+      "name": "energy_landscape",
+      "url": "https://github.com/singlesp/energy_landscape",
+      "directory": "singleton_energy_landscape",
+      "role": "Network-control energy-landscape analysis code",
+      "expected_language": "MATLAB / R",
+      "expected_ds003059_support": "direct"
+    },
+    {
+      "family": "react_receptor_connectivity",
+      "name": "react-fmri",
+      "url": "https://github.com/ottaviadipasquale/react-fmri",
+      "directory": "dipasquale_react_fmri",
+      "role": "REACT receptor-enriched functional-connectivity toolbox",
+      "expected_language": "Python",
+      "expected_ds003059_support": "method dependency"
+    },
+    {
+      "family": "neuroreceptor_eigenmodes",
+      "name": "hansen_receptors",
+      "url": "https://github.com/netneurolab/hansen_receptors",
+      "directory": "hansen_receptors",
+      "role": "Neurotransmitter receptor and transporter density maps",
+      "expected_language": "Python / MATLAB / data",
+      "expected_ds003059_support": "supporting dependency"
+    },
+    {
+      "family": "neuroreceptor_eigenmodes",
+      "name": "corematrix",
+      "url": "https://github.com/macshine/corematrix",
+      "directory": "shine_corematrix",
+      "role": "Core-matrix thalamic mapping code and data",
+      "expected_language": "MATLAB",
+      "expected_ds003059_support": "supporting dependency"
+    },
+    {
+      "family": "dynamic_integration_segregation",
+      "name": "integration",
+      "url": "https://github.com/macshine/integration",
+      "directory": "shine_integration",
+      "role": "Dynamic integration and segregation analysis code",
+      "expected_language": "MATLAB",
+      "expected_ds003059_support": "direct"
+    },
+    {
+      "family": "cortical_gradients_brainspace",
+      "name": "BrainSpace",
+      "url": "https://github.com/MICA-MNI/BrainSpace",
+      "directory": "mica_brainspace",
+      "role": "Gradient-analysis toolbox for Python and MATLAB",
+      "expected_language": "Python / MATLAB",
+      "expected_ds003059_support": "method dependency"
+    },
+    {
+      "family": "lsd_music_brainstates",
+      "name": "LSD-music-brainstates",
+      "url": "https://github.com/igaadamska/LSD-music-brainstates",
+      "directory": "adamska_lsd_music_brainstates",
+      "role": "LSD and music time-varying brain-state analysis code",
+      "expected_language": "Python",
+      "expected_ds003059_support": "direct"
+    },
+    {
+      "family": "translational_neuromodeling_teaching",
+      "name": "TNM_project",
+      "url": "https://github.com/till-m/TNM_project",
+      "directory": "muehlbauer_tnm_project",
+      "role": "Secondary translational-neuromodeling teaching resource",
+      "expected_language": "Python / MATLAB",
+      "expected_ds003059_support": "secondary"
+    }
+  ],
+  "non_clone_sources": [
+    {
+      "family": "gnw_iit_consciousness",
+      "name": "Zenodo record 14029241",
+      "url": "https://zenodo.org/records/14029241",
+      "role": "Archive source for the GNW/IIT consciousness analysis code and processed files",
+      "clone_policy": "Only the small Code.zip archive was downloaded; do not download Data.zip by default.",
+      "code_archive": "Code.zip",
+      "code_archive_size_bytes": 6473,
+      "code_archive_md5": "6487a260c9a3478eb0e791b2245e43ed",
+      "local_code_path": "prior_art/repositories/zenodo_14029241_code/Code/",
+      "data_archive": "Data.zip",
+      "data_archive_size_bytes": 435268809
+    },
+    {
+      "family": "traveling_waves",
+      "name": "neuromaps installation documentation",
+      "url": "https://netneurolab.github.io/neuromaps/installation.html",
+      "role": "Supporting dependency documentation; not the full traveling-wave analysis code",
+      "clone_policy": "Document as dependency unless a dedicated analysis repository is verified."
+    }
+  ]
+}
