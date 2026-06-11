@@ -1,6 +1,6 @@
 {
   "schema_version": "fmriprep_motion_proof_plan.v1",
-  "generated_at_utc": "2026-06-11T15:19:57.166830+00:00",
+  "generated_at_utc": "2026-06-11T15:47:44.378379+00:00",
   "analysis_status": "blocked_derivative_snapshot_not_valid_raw_fmriprep_input",
   "fmriprep_motion_proof_ready": false,
   "fmriprep_preflight_ready": false,

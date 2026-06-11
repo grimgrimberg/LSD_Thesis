@@ -943,6 +943,17 @@ a:focus {
   max-width: 900px;
 }
 
+.figure-deck-hero h2 span {
+  display: block;
+}
+
+.figure-deck-hero__support {
+  color: var(--text) !important;
+  font-size: 18px !important;
+  line-height: 1.45 !important;
+  margin: 12px 0 4px;
+}
+
 .figure-deck {
   display: grid;
   gap: 16px;
@@ -1140,6 +1151,12 @@ a:focus {
     max-width: 100%;
     overflow-x: auto;
     padding-bottom: 4px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .nav-list::-webkit-scrollbar {
+    display: none;
   }
 
   .nav-link {
@@ -1156,8 +1173,10 @@ a:focus {
   .figure-deck-hero h2 {
     font-size: 28px;
     line-height: 1.12;
-    overflow-wrap: anywhere;
+    overflow-wrap: normal;
+    text-wrap: wrap;
     white-space: normal;
+    word-break: normal;
   }
 
   .data-record strong {
@@ -1178,6 +1197,15 @@ a:focus {
     max-width: 100%;
     overflow-wrap: anywhere;
     white-space: normal;
+  }
+
+  .figure-deck-hero h2,
+  .figure-deck-hero p {
+    max-width: min(100%, 30ch);
+  }
+
+  .figure-deck-hero__support {
+    max-width: min(100%, 28ch);
   }
 
   .panel-heading {
@@ -1220,7 +1248,8 @@ a:focus {
   .hero-panel h2,
   .thesis-lede h2,
   .figure-deck-hero h2 {
-    font-size: 24px;
+    font-size: 23px;
+    line-height: 1.16;
   }
 
   .figure-deck-hero p {
