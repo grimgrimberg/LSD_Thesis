@@ -48,10 +48,12 @@ from .serialization import _to_plain_python
 
 nib = _extraction.nib
 NiftiLabelsMasker = _extraction.NiftiLabelsMasker
+_ORIGINAL_RUN_GRAPHQL_QUERY = _openneuro._run_graphql_query
+_ORIGINAL_DOWNLOAD_URL_TO_PATH = _openneuro._download_url_to_path
 
 
 def _run_graphql_query(query: str) -> dict[str, Any]:
-    return _openneuro._run_graphql_query(query)
+    return _ORIGINAL_RUN_GRAPHQL_QUERY(query)
 
 
 def query_snapshot_files(dataset_id: str, tag: str, tree: str | None = None) -> list[dict[str, Any]]:
@@ -73,7 +75,7 @@ def fetch_ds003059_rest_manifest(subjects: tuple[str, ...] | None = None, runs: 
 
 
 def _download_url_to_path(url: str, destination: Path, expected_size: int) -> Path:
-    return _openneuro._download_url_to_path(url, destination, expected_size)
+    return _ORIGINAL_DOWNLOAD_URL_TO_PATH(url, destination, expected_size)
 
 
 def download_ds003059_rest_runs(manifest: Ds003059RestManifest, target_dir: str | Path) -> tuple[Path, ...]:

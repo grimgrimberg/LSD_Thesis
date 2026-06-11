@@ -31,6 +31,32 @@ def test_next_action_gates_are_statused_without_overclaiming() -> None:
     assert "ds006072 top=E, LSD reference top=C" in rows["Psilocybin ds006072"]["evidence"]
 
 
+def test_ds006072_aggregates_embed_current_readiness_snapshot() -> None:
+    readiness = _load_json("results/psilocybin_ds006072/external_validation_readiness.json")
+    status = _load_json("results/psilocybin_ds006072/psilocybin_ds006072_status.json")
+    loop = _load_json("results/thesis_evidence_loop/thesis_evidence_loop_status.json")
+
+    assert status["external_validation_readiness"]["generated_at_utc"] == readiness["generated_at_utc"]
+    assert (
+        loop["components"]["psilocybin_ds006072"]["external_validation_readiness"]["generated_at_utc"]
+        == readiness["generated_at_utc"]
+    )
+
+
+def test_ds006072_scoring_lock_tracks_dynamic_mechanism_core() -> None:
+    from lsd_thesis.dynamic_mechanism import build_dynamic_mechanism_summary
+
+    scoring_spec = _load_json("results/psilocybin_ds006072/unchanged_scoring_spec.json")
+    scoring_files = scoring_spec["scoring_code_files"]
+    paths = {row["path"].replace("\\", "/") for row in scoring_files.values()}
+
+    assert callable(build_dynamic_mechanism_summary)
+    assert any(path.endswith("dynamic_mechanism/core.py") for path in paths)
+    assert scoring_files["dynamic_mechanism_core"]["entrypoint"] == (
+        "lsd_thesis.dynamic_mechanism.build_dynamic_mechanism_summary"
+    )
+
+
 def test_structural_rewire_and_receptor_spatial_null_outputs_exist() -> None:
     structural = _load_json("results/structural_connectome/structural_connectome_status.json")
     receptor = _load_json("results/receptor_priors/receptor_prior_status.json")

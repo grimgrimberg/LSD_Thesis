@@ -11,6 +11,12 @@ SRC_ROOT = REPO_ROOT / "src"
 if str(SRC_ROOT) not in sys.path:
     sys.path.insert(0, str(SRC_ROOT))
 
+from lsd_thesis.web.status_payload import (  # noqa: E402
+    CV5_AGGREGATE_RELATIVE_PATH,
+    CV5_APPROVED_MANIFEST_RELATIVE_PATH,
+    cv5_validation_integrity_errors,
+)
+
 
 class PreviewReport(NamedTuple):
     local_url: str
@@ -68,6 +74,7 @@ OPTIONAL_DATA_PATHS: tuple[str, ...] = (
     "results/stage_3/stage_3_summary.json",
     "results/stage_4/stage_4_summary.json",
     "results/stage_5/literature_weighted_fit_summary.json",
+    "output/validation/cv5_subject_disjoint/approved/subject_split_cv5_manifest_approved.json",
     "output/validation/cv5_subject_disjoint/results/cv5_aggregate_validation.json",
     "output/doc/defense_presentation.json",
 )
@@ -86,30 +93,33 @@ def _missing_paths(repo_root: Path, relative_paths: tuple[str, ...]) -> tuple[st
 
 
 def _held_out_validation_status(repo_root: Path) -> str:
-    cv5_aggregate_path = (
-        repo_root
-        / "output"
-        / "validation"
-        / "cv5_subject_disjoint"
-        / "results"
-        / "cv5_aggregate_validation.json"
-    )
+    cv5_aggregate_path = repo_root / CV5_AGGREGATE_RELATIVE_PATH
     if cv5_aggregate_path.exists():
-        try:
-            import json
-
-            cv5 = json.loads(cv5_aggregate_path.read_text(encoding="utf-8"))
-        except (OSError, ValueError):
-            cv5 = {}
-        if isinstance(cv5, dict) and cv5.get("held_out_validation_completed") is True:
+        cv5 = _read_json_object(cv5_aggregate_path) or {}
+        integrity_errors = cv5_validation_integrity_errors(cv5) if isinstance(cv5, dict) else ("invalid JSON",)
+        if isinstance(cv5, dict) and cv5.get("held_out_validation_completed") is True and not integrity_errors:
             return (
                 "completed CV5 internal validation "
                 f"({cv5.get('completed_folds', 0)}/{cv5.get('total_folds', 0)} folds; not external validation)"
             )
         if isinstance(cv5, dict):
+            integrity_label = "metadata needs review" if integrity_errors else "configured or partial"
             return (
-                "CV5 internal validation configured or partial "
+                f"CV5 internal validation {integrity_label} "
                 f"({cv5.get('completed_folds', 0)}/{cv5.get('total_folds', 0)} folds)"
+            )
+    approved_manifest_path = repo_root / CV5_APPROVED_MANIFEST_RELATIVE_PATH
+    if approved_manifest_path.exists():
+        try:
+            from lsd_thesis.subject_split import validate_cv5_subject_split_manifest
+
+            summary = validate_cv5_subject_split_manifest(approved_manifest_path, repo_root=repo_root)
+        except (OSError, ValueError):
+            summary = {}
+        if summary.get("approval_status") == "approved":
+            return (
+                "approved CV5 internal validation configured but not completed "
+                f"(0/{summary.get('number_of_folds', 0)} folds; not external validation)"
             )
     summary_path = repo_root / "results" / "stage_2" / "stage_2_summary.json"
     stage3_summary_path = repo_root / "results" / "stage_3" / "stage_3_summary.json"
@@ -124,11 +134,12 @@ def _held_out_validation_status(repo_root: Path) -> str:
         except (OSError, ValueError):
             stage3_summary = {}
         stage3_boundary = stage3_summary.get("empirical_validation_boundary")
-    if isinstance(stage3_boundary, dict) and (
-        stage3_boundary.get("held_out_validation_completed") is True
-        or stage3_boundary.get("held_out") is True
-    ):
-        return "completed"
+    if isinstance(stage3_boundary, dict) and stage3_boundary.get("held_out_validation_completed") is True:
+        approval = str(stage3_boundary.get("approval_status") or "")
+        overlap = int(stage3_boundary.get("overlap_count") or 0)
+        if approval == "approved" and overlap == 0:
+            return "completed"
+        return "blocked inconsistent stage 3 held-out metadata"
     if not summary_path.exists():
         return "not configured"
     try:
@@ -140,8 +151,12 @@ def _held_out_validation_status(repo_root: Path) -> str:
     boundary = summary.get("empirical_validation_boundary")
     if not isinstance(boundary, dict):
         return "not configured"
-    if boundary.get("held_out_validation_completed") is True or boundary.get("held_out") is True:
-        return "completed"
+    if boundary.get("held_out_validation_completed") is True:
+        approval = str(boundary.get("approval_status") or "")
+        overlap = int(boundary.get("overlap_count") or 0)
+        if approval == "approved" and overlap == 0:
+            return "completed"
+        return "blocked inconsistent Stage 2 held-out metadata"
     if boundary.get("held_out_validation_configured") is True:
         approval_status = str(boundary.get("approval_status") or "candidate")
         if approval_status == "candidate":

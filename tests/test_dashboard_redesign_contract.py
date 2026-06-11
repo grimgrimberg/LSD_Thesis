@@ -28,6 +28,10 @@ def test_dashboard_renderer_contracts_are_present() -> None:
 
     assert "function sanitizeSeries" in renderer
     assert "function sanitizeMatrix" in renderer
+    assert "autosize: true" in renderer
+    assert "compactLayoutForTarget" in renderer
+    assert "nextConfig.displayModeBar = false" in renderer
+    assert "window.Plotly.Plots?.resize?.(target)" in renderer
     assert "displayModeBar: true" in renderer
     assert "window.Plotly.purge" in renderer
     assert "isStaticDeployment" in renderer
@@ -42,6 +46,11 @@ def test_dashboard_css_removes_external_fonts_and_supports_print() -> None:
     assert "linear-gradient" not in css
     assert "letter-spacing: -" not in css
     assert "@media print" in css
+    assert '.chart[data-plotly-rendered="true"]' in css
+    assert ".chart .modebar" in css
+    assert "  .chart {\n    min-width: 560px" not in css
+    assert "  .matrix-chart {\n    min-width: 640px" not in css
+    assert ".matrix-chart {\n  min-height: 480px;\n  min-width: 660px" not in css
     assert ".modebar" in css
 
 

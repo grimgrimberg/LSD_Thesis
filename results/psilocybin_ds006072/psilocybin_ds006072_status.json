@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at_utc": "2026-06-08T15:10:34.014949+00:00",
+  "generated_at_utc": "2026-06-11T11:10:12.327842+00:00",
   "dataset_id": "ds006072",
   "source": "Dosenbach/Siegel group Scientific Data 2025; OpenNeuro ds006072 psilocybin precision functional mapping dataset with raw, minimally processed, and fully processed imaging",
   "source_reference": {
@@ -31,7 +31,7 @@
   "functional_manifest_processed_cifti_total_size_bytes": 113592893360,
   "external_validation_readiness": {
     "schema_version": "ds006072_external_validation.v1",
-    "generated_at_utc": "2026-06-08T12:34:13.889324+00:00",
+    "generated_at_utc": "2026-06-11T11:10:02.649519+00:00",
     "dataset_id": "ds006072",
     "analysis_status": "local_cifti_payloads_ready_for_comparable_extraction",
     "primary_contrast": "psilocybin_vs_active_control_mtp",
@@ -103,7 +103,7 @@
   "summary": {
     "schema_version": 3,
     "analysis_status": "implemented_first_pass",
-    "generated_at_utc": "2026-06-08T15:11:07.002446+00:00",
+    "generated_at_utc": "2026-06-11T11:10:12.280585+00:00",
     "inference_metadata": {
       "metric_ci_alpha": 0.05,
       "metric_bootstrap_iterations": 1024,
@@ -4237,7 +4237,7 @@
   },
   "comparable_empirical_validation": {
     "schema_version": "ds006072_external_validation.v1",
-    "generated_at_utc": "2026-06-08T15:10:38.917717+00:00",
+    "generated_at_utc": "2026-06-11T11:10:02.681866+00:00",
     "dataset_id": "ds006072",
     "primary_contrast": "psilocybin_vs_active_control_mtp",
     "viewer_root": "results/psilocybin_ds006072/parcellations/schaefer_100_yeo_7/empirical_viewer",
@@ -4276,8 +4276,15 @@
         "scoring_code_files.dynamic_mechanism": {
           "path": "src/lsd_thesis/dynamic_mechanism/__init__.py",
           "exists": true,
-          "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-          "current_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "expected_sha256": "762494888812971a747decf1f198e278efb7f9879fea04e3507fc0565bf1bf6d",
+          "current_sha256": "762494888812971a747decf1f198e278efb7f9879fea04e3507fc0565bf1bf6d",
+          "verified": true
+        },
+        "scoring_code_files.dynamic_mechanism_core": {
+          "path": "src/lsd_thesis/dynamic_mechanism/core.py",
+          "exists": true,
+          "expected_sha256": "fd4f728e146291ffa40dd72ebe0ff1a9489497f15572fea7550587bb7d7a77c5",
+          "current_sha256": "fd4f728e146291ffa40dd72ebe0ff1a9489497f15572fea7550587bb7d7a77c5",
           "verified": true
         },
         "scoring_code_files.dynamic_mechanism_connectivity": {
@@ -4400,7 +4407,7 @@
     "summary": {
       "schema_version": 3,
       "analysis_status": "implemented_first_pass",
-      "generated_at_utc": "2026-06-08T15:11:07.002446+00:00",
+      "generated_at_utc": "2026-06-11T11:10:12.280585+00:00",
       "inference_metadata": {
         "metric_ci_alpha": 0.05,
         "metric_bootstrap_iterations": 1024,

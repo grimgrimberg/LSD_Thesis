@@ -12,6 +12,7 @@ from xml.etree import ElementTree as ET
 
 import lsd_thesis.dynamic_mechanism as dynamic_mechanism_module
 import lsd_thesis.dynamic_mechanism.connectivity as dynamic_mechanism_connectivity_module
+import lsd_thesis.dynamic_mechanism.core as dynamic_mechanism_core_module
 import lsd_thesis.dynamic_mechanism.hierarchy as dynamic_mechanism_hierarchy_module
 import lsd_thesis.dynamic_mechanism.priors as dynamic_mechanism_priors_module
 import lsd_thesis.dynamic_mechanism.repertoire as dynamic_mechanism_repertoire_module
@@ -292,6 +293,7 @@ def _write_scoring_spec(repo_root: Path, output_dir: Path) -> dict[str, Any]:
     }
     scoring_code_paths = {
         "dynamic_mechanism": Path(dynamic_mechanism_module.__file__ or ""),
+        "dynamic_mechanism_core": Path(dynamic_mechanism_core_module.__file__ or ""),
         "dynamic_mechanism_connectivity": Path(dynamic_mechanism_connectivity_module.__file__ or ""),
         "dynamic_mechanism_hierarchy": Path(dynamic_mechanism_hierarchy_module.__file__ or ""),
         "dynamic_mechanism_priors": Path(dynamic_mechanism_priors_module.__file__ or ""),
@@ -325,7 +327,7 @@ def _write_scoring_spec(repo_root: Path, output_dir: Path) -> dict[str, Any]:
                 "exists": path.exists(),
                 "sha256": _sha256_file(path),
                 "entrypoint": "lsd_thesis.dynamic_mechanism.build_dynamic_mechanism_summary"
-                if name == "dynamic_mechanism"
+                if name == "dynamic_mechanism_core"
                 else None,
             }
             for name, path in scoring_code_paths.items()
@@ -443,6 +445,7 @@ def build_ds006072_comparable_validation_status(
     repo_root = repo_root.resolve()
     output_dir = repo_root / "results" / "psilocybin_ds006072"
     output_dir.mkdir(parents=True, exist_ok=True)
+    readiness = build_ds006072_external_validation_readiness(repo_root)
     scoring_spec_path = output_dir / "unchanged_scoring_spec.json"
     existing_scoring_spec = json.loads(scoring_spec_path.read_text(encoding="utf-8")) if scoring_spec_path.exists() else None
     extraction_status_path = output_dir / "cifti_empirical_extraction_status.json"
@@ -459,7 +462,6 @@ def build_ds006072_comparable_validation_status(
         and isinstance(existing_scoring_spec, dict)
         and not refresh_scoring_lock
     )
-    readiness = build_ds006072_external_validation_readiness(repo_root)
     scoring_spec: dict[str, Any] | None
     if refresh_scoring_lock:
         scoring_spec = _write_scoring_spec(repo_root, output_dir)

@@ -195,7 +195,7 @@ def build_prior_art_payload(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
         }
         for family in family_names
     ]
-    claim_status_by_family = {row["family"]: row["claim_status"] for row in families}
+    claim_status_by_family: dict[str, str] = {str(row["family"]): str(row["claim_status"]) for row in families}
     comparison_rows, input_rows, safety_policy = _comparison_rows(repo_root, families, family_counts, claim_status_by_family)
     ready_rows = [row for row in comparison_rows if row["readiness"] == "ready_to_test"]
 

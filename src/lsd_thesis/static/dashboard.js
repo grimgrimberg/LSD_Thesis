@@ -27,7 +27,17 @@ const layerColor = {
   E: COLORS.amber,
 };
 
+const JARGON_GLOSSARY = {
+  "finite-horizon discrete network-control energy": "Model-level control effort needed to move between coarse proxy states.",
+  "dmdc condition interaction": "Linear baseline: how much a condition term accounts for module-level activity.",
+  "dynamic repertoire": "How much module-level network patterns vary over time.",
+  "hierarchy routing": "How proxy module activity follows the hierarchy or constraint structure.",
+  "transition proxy": "How often coarse module-state labels change and how long they persist.",
+  "transition state proxy": "How often coarse module-state labels change and how long they persist."
+};
+
 const chartLayout = {
+  autosize: true,
   paper_bgcolor: "rgba(0,0,0,0)",
   plot_bgcolor: "rgba(0,0,0,0)",
   font: { color: COLORS.text, family: "system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" },
@@ -201,6 +211,31 @@ function invalidAnnotation(count) {
   }];
 }
 
+function compactLayoutForTarget(target, layout) {
+  const targetWidth = target.clientWidth || target.getBoundingClientRect().width || 0;
+  if (targetWidth >= 480) {
+    return {};
+  }
+  const baseMargin = layout.margin || chartLayout.margin;
+  const labelMargin = Math.min(
+    Math.max(baseMargin.l ?? chartLayout.margin.l, 104),
+    Math.floor(targetWidth * 0.42),
+  );
+  return {
+    margin: {
+      t: Math.min(baseMargin.t ?? chartLayout.margin.t, 20),
+      r: Math.min(baseMargin.r ?? chartLayout.margin.r, 12),
+      b: Math.max(baseMargin.b ?? chartLayout.margin.b, 58),
+      l: labelMargin,
+    },
+    legend: {
+      ...chartLayout.legend,
+      ...(layout.legend || {}),
+      y: Math.min((layout.legend || chartLayout.legend).y ?? chartLayout.legend.y, -0.28),
+    },
+  };
+}
+
 function plot(targetId, traces, layout = {}, options = {}) {
   const target = byId(targetId);
   if (!target) return;
@@ -215,13 +250,19 @@ function plot(targetId, traces, layout = {}, options = {}) {
   const nextLayout = {
     ...chartLayout,
     ...layout,
+    ...compactLayoutForTarget(target, layout),
     annotations,
   };
   delete nextLayout.invalidCount;
   target.classList.remove("chart-empty");
   clearLoading(target);
   target.dataset.plotlyRendered = "true";
-  window.Plotly.react(target, traces, nextLayout, { ...chartConfig, ...(options.config || {}) });
+  const nextConfig = { ...chartConfig, ...(options.config || {}) };
+  if ((target.clientWidth || target.getBoundingClientRect().width || 0) < 480 && options.config?.displayModeBar === undefined) {
+    nextConfig.displayModeBar = false;
+  }
+  window.Plotly.react(target, traces, nextLayout, nextConfig);
+  window.requestAnimationFrame(() => window.Plotly.Plots?.resize?.(target));
 }
 
 function emptyPlot(targetId, message) {
@@ -256,13 +297,29 @@ function statusClass(status) {
   return "status-token--moss";
 }
 
+function getJargonSubtitle(textContent) {
+  const t = text(textContent, "").toLowerCase();
+  for (const [key, explainer] of Object.entries(JARGON_GLOSSARY)) {
+    if (t.includes(key)) return explainer;
+  }
+  return null;
+}
+
 function dataRecord(label, value, detail, status) {
-  return el("div", { className: "data-record" }, [
+  const children = [
     el("span", { text: label }),
     el("strong", { text: value }),
-    detail ? el("p", { text: detail }) : document.createTextNode(""),
-    status ? el("span", { className: `mini-status ${statusClass(status)}`, text: status }) : document.createTextNode(""),
-  ]);
+  ];
+
+  const subtitle = getJargonSubtitle(label) || getJargonSubtitle(value);
+  if (subtitle) {
+    children.push(el("span", { className: "explainer-subtitle", text: subtitle }));
+  }
+
+  if (detail) children.push(el("p", { text: detail }));
+  if (status) children.push(el("span", { className: `mini-status ${statusClass(status)}`, text: status }));
+
+  return el("div", { className: "data-record" }, children);
 }
 
 function tdText(value) {
@@ -377,7 +434,7 @@ function renderGateChart(payload) {
   }], {
     margin: { t: 12, r: 18, b: 34, l: 180 },
     xaxis: { ...chartLayout.xaxis, range: [0, 1.05], tickvals: [0, 1], ticktext: ["blocked", "complete"] },
-    yaxis: { ...chartLayout.yaxis, autorange: "reversed" },
+    yaxis: { ...chartLayout.yaxis, autorange: "reversed", title: "Evidence gate" },
   });
 }
 
@@ -413,9 +470,10 @@ function renderOverviewLiterature(payload) {
     hovertemplate: "%{y}<br>%{customdata[0]}<br>%{customdata[1]}<br>signed effect %{x:.3f}<extra></extra>",
   }], {
     invalidCount: series.invalidCount,
+    showlegend: true,
     margin: { t: 8, r: 22, b: 42, l: 210 },
-    xaxis: { ...chartLayout.xaxis, title: "signed proxy effect" },
-    yaxis: { ...chartLayout.yaxis, autorange: "reversed" },
+    xaxis: { ...chartLayout.xaxis, title: "Signed Proxy Effect (unitless)" },
+    yaxis: { ...chartLayout.yaxis, autorange: "reversed", title: "Benchmark" },
   });
 }
 
@@ -457,8 +515,8 @@ function renderRanking(payload) {
   }], {
     invalidCount: scores.invalidCount,
     margin: { t: 12, r: 24, b: 46, l: 190 },
-    xaxis: { ...chartLayout.xaxis, title: "proxy support score" },
-    yaxis: { ...chartLayout.yaxis, autorange: "reversed" },
+    xaxis: { ...chartLayout.xaxis, title: "Proxy Support Score (unitless)" },
+    yaxis: { ...chartLayout.yaxis, autorange: "reversed", title: "Benchmark" },
   });
   plot("ranking_distribution_chart", [{
     type: "scatter",
@@ -511,8 +569,8 @@ function renderBenchmarkChart(payload, targetId, statusId) {
   }], {
     invalidCount: values.invalidCount,
     margin: { t: 12, r: 24, b: 48, l: 240 },
-    xaxis: { ...chartLayout.xaxis, title: "signed effect size" },
-    yaxis: { ...chartLayout.yaxis, autorange: "reversed" },
+    xaxis: { ...chartLayout.xaxis, title: "Signed Effect Size (unitless)" },
+    yaxis: { ...chartLayout.yaxis, autorange: "reversed", title: "Module" },
   });
 }
 
@@ -598,7 +656,7 @@ function renderEHorizon(robustness) {
     { type: "scatter", mode: "lines+markers", name: "receptor vs random energy", x: rows.map((row) => row.horizon), y: energy.values, line: { color: COLORS.rose }, yaxis: "y2" },
   ], {
     invalidCount: support.invalidCount + energy.invalidCount,
-    xaxis: { ...chartLayout.xaxis, title: "finite horizon" },
+    xaxis: { ...chartLayout.xaxis, title: "Finite Horizon (steps)" },
     yaxis: { ...chartLayout.yaxis, title: "support score" },
     yaxis2: { overlaying: "y", side: "right", title: "energy reduction %", gridcolor: "rgba(0,0,0,0)" },
   });
@@ -620,7 +678,7 @@ function renderDWindow(robustness) {
     hovertemplate: "Window %{x}<br>support %{y:.3f}<extra></extra>",
   }], {
     invalidCount: support.invalidCount,
-    xaxis: { ...chartLayout.xaxis, title: "window size" },
+    xaxis: { ...chartLayout.xaxis, title: "Window Size (TRs)" },
     yaxis: { ...chartLayout.yaxis, title: "support score" },
   });
 }
@@ -748,7 +806,7 @@ function renderEmpiricalWindow(index) {
     margin: { t: 16, r: 18, b: 88, l: 120 },
     plot_bgcolor: "#2b3339",
     xaxis: { ...chartLayout.xaxis, side: "top" },
-    yaxis: { ...chartLayout.yaxis, autorange: "reversed" },
+    yaxis: { ...chartLayout.yaxis, autorange: "reversed", title: "Module" },
   });
   const metricRows = Object.entries(selected.metrics || {}).map(([metric, value]) => ({ metric, value }));
   fillTable("empirical_detail_table", metricRows, [
@@ -949,7 +1007,7 @@ function renderSimulationPayload(payload) {
     margin: { t: 16, r: 18, b: 82, l: 120 },
     plot_bgcolor: "#2b3339",
     xaxis: { ...chartLayout.xaxis, side: "top" },
-    yaxis: { ...chartLayout.yaxis, autorange: "reversed" },
+    yaxis: { ...chartLayout.yaxis, autorange: "reversed", title: "Mechanism" },
   });
 }
 
@@ -1009,7 +1067,7 @@ function renderThesis(payload, priorPayloadForPage) {
   }], {
     invalidCount: scores.invalidCount,
     margin: { t: 10, r: 20, b: 44, l: 190 },
-    yaxis: { ...chartLayout.yaxis, autorange: "reversed" },
+    yaxis: { ...chartLayout.yaxis, autorange: "reversed", title: "Mechanism" },
   });
   const verdicts = asRecords(payload.dynamic_mechanism?.claim_verdicts);
   byId("thesis_claim_ladder")?.replaceChildren(...verdicts.slice(0, 6).map((row) => dataRecord(row.claim, row.verdict, row.evidence, row.verdict)));

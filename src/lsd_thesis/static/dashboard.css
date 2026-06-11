@@ -406,11 +406,20 @@ h3 {
 .card-grid {
   display: grid;
   gap: 12px;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
 }
 
 .card-grid--dense {
   grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+}
+
+.explainer-subtitle {
+  color: var(--faint);
+  display: block;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.4;
+  margin-top: 4px;
 }
 
 .data-record {
@@ -428,6 +437,8 @@ h3 {
   font-size: 22px;
   line-height: 1.2;
   overflow-wrap: anywhere;
+  word-break: break-word;
+  hyphens: auto;
 }
 
 .data-record span,
@@ -438,6 +449,8 @@ h3 {
   line-height: 1.45;
   margin: 8px 0 0;
   overflow-wrap: anywhere;
+  word-break: break-word;
+  hyphens: auto;
 }
 
 .chart-frame {
@@ -446,8 +459,7 @@ h3 {
   border-radius: var(--radius);
   max-width: 100%;
   min-width: 0;
-  overflow-x: auto;
-  overflow-y: hidden;
+  overflow: hidden;
   width: 100%;
 }
 
@@ -460,10 +472,15 @@ h3 {
   color: var(--muted);
   display: flex;
   justify-content: center;
-  min-height: 380px;
-  min-width: 560px;
+  min-height: clamp(300px, 45vw, 420px);
+  min-width: 0;
+  max-width: 100%;
   overflow: hidden;
   width: 100%;
+}
+
+.chart[data-plotly-rendered="true"] {
+  display: block;
 }
 
 .chart-sm {
@@ -471,8 +488,8 @@ h3 {
 }
 
 .matrix-chart {
-  min-height: 480px;
-  min-width: 660px;
+  min-height: clamp(360px, 52vw, 520px);
+  min-width: 0;
 }
 
 .chart-empty {
@@ -849,12 +866,8 @@ a:focus {
     grid-template-columns: 1fr;
   }
 
-  .chart {
-    min-width: 560px;
-  }
-
-  .matrix-chart {
-    min-width: 640px;
+  .chart .modebar {
+    display: none !important;
   }
 }
 

@@ -5,12 +5,22 @@ import json
 import math
 import os
 import shutil
+import warnings
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any, cast
 
 import nibabel as nib
 import numpy as np
+
+# neuromaps 0.0.x still touches pkg_resources through dependency runtime paths.
+# The project pins setuptools below the removal boundary; this filter keeps
+# Pages builds clean without muting unrelated deprecation warnings.
+warnings.filterwarnings(
+    "ignore",
+    message=r"pkg_resources is deprecated as an API.*",
+    category=UserWarning,
+)
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 SCHEMA_VERSION = "neuromaps_spatial_null_status.v1"

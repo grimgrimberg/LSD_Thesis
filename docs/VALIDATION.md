@@ -1,34 +1,34 @@
 # Validation Notes
 
-Current status date: 2026-06-02
+Current status date: 2026-06-11
 
 ## Current Quality Baseline
 
-Use this section, `results/thesis_upgrade/thesis_upgrade_status.json`, and the completed hosted CI baseline noted below as the current validation baseline. Older pass notes below are retained as historical implementation evidence and should not be read as live gate status.
+Use this section and `results/thesis_upgrade/thesis_upgrade_status.json` as the current local validation baseline. Older pass notes below are retained as historical implementation evidence and should not be read as live gate status.
 
 Latest local checks:
 
 ```powershell
 uv run ruff check .
 uv run mypy src
-uv run pytest
+uv run pytest -q
 uv run python scripts\preview_dashboard.py --check-only --strict
+node --check src\lsd_thesis\static\dashboard.js
 ```
 
 Observed current results:
 
 - Ruff: all checks passed.
-- mypy: no issues found in 82 source files.
-- pytest: 417 passed, 4 warnings, total coverage 80.97%.
-- dashboard preview preflight: required files present, optional generated artifacts present, CV5 internal validation reported as 5/5 folds.
+- mypy: no issues found in 107 source files.
+- pytest: 33 passed; selected production-surface coverage was 32.17%, satisfying the restored 30% coverage gate.
+- dashboard preview preflight: required files present, optional generated artifacts present, thesis gate contract passed, and CV5 subject-disjoint validation reported as completed internal validation with 5/5 folds.
+- JavaScript syntax check: `dashboard.js` parsed successfully.
 
-Last completed hosted CI baseline when this section was written:
+Current dashboard-focused smoke slice:
 
-- Branch: `codex/thesis-evidence-pages`.
-- Commit: `82afcc6` (`Block subject-level static artifacts`).
-- CI Quality runs: `26807387132`, `26807389126`.
-- GitGuardian Security Checks: success.
-- Result: success.
+```powershell
+uv run pytest tests\test_web_security.py tests\test_dashboard_redesign_contract.py tests\test_validation_status.py -q -o addopts=
+```
 
 Current thesis-upgrade status:
 
@@ -41,6 +41,8 @@ Current thesis-upgrade status:
 - Project phase: `research_demo_ready_not_completed_thesis`.
 
 Archive publication status: GitHub prerelease `thesis-evidence-2026-06-02` is recorded and verified in `results/reproducible_archive/ARCHIVE_MANIFEST.json`; Zenodo DOI publication is still missing, so `reproducible_archive_publication` remains incomplete.
+
+CV5 validation status: an approved subject-disjoint CV5 split package is available under the ignored local validation output tree, and the local aggregate completed 5/5 folds with 15 subjects, n=3 held out per fold, zero selection/validation subject overlap, and every subject held out exactly once. This is internal validation only, not external cohort, receptor-level, subjective, or clinical validation. It remains caveated by the missing subject-level motion/FD/DVARS/confound/censoring strata.
 
 The missing `project_phase` item is derived from the motion-proof blocker. Do not mark the strict motion gate complete from raw-BOLD image QC, published aggregate FD context, design controls, module-DVARS proxies, OpenNeuro filename hits, reachable derivative repositories, GitHub release publication, or archive manifests; those are useful context, not full fMRIPrep FD/DVARS/censoring proof.
 
@@ -135,7 +137,9 @@ http://127.0.0.1:8000/artifacts/output/doc/set_setting_seed_microsite.html
 
 Result: page loaded with title `Set / Setting / Seed`; screenshot saved to `results/setting_seed/dashboard/screenshots/pass2a_microsite.png`.
 
-## Web Test Slice
+## Historical Web Test Slice (superseded)
+
+The current dashboard-focused smoke slice is listed in the current baseline above. The older PASS 2A command below is retained only as historical context and references test names from that earlier implementation phase.
 
 Attempted:
 

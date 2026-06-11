@@ -1,6 +1,6 @@
 {
   "schema_version": "reproducible_archive_manifest.v1",
-  "generated_at_utc": "2026-06-08T15:20:55.218489+00:00",
+  "generated_at_utc": "2026-06-11T11:11:58.866919+00:00",
   "python_version": "3.13.13",
   "platform": "Windows-10-10.0.19045-SP0",
   "artifact_count": 23,
@@ -32,8 +32,8 @@
     },
     {
       "path": "docs/VALIDATION.md",
-      "bytes": 14127,
-      "sha256": "4062cb10a45c31f31e495132cf268767244f623c19ae967897f7d5bd4f4599de"
+      "bytes": 14989,
+      "sha256": "1634041800e40078b6c7688e0003611a32072b85402e7e4c54ec3951dbaf6d1e"
     },
     {
       "path": "docs/METHODS_RESEARCH.md",
@@ -87,8 +87,8 @@
     },
     {
       "path": "results/thesis_evidence_loop/thesis_evidence_loop_status.json",
-      "bytes": 764900,
-      "sha256": "cd7e931dd89da12ff1f5e143f8b33d8ba93bbe6e35b6e8239f23ff29dc92cdb4"
+      "bytes": 765309,
+      "sha256": "804518d838ea448eea6e71c0b0735809717baef9551861e9567c27931aa6ca52"
     },
     {
       "path": "results/thesis_evidence_loop/claim_evidence_matrix.md",
@@ -98,7 +98,7 @@
     {
       "path": "results/thesis_upgrade/thesis_upgrade_status.json",
       "bytes": 72257,
-      "sha256": "86141ce4af71a1631b6a92e3b68a2417152114623be94bf6df4dcb741a9eee47"
+      "sha256": "5b9625ed6558e68f57ddc50dab0b094295172c70966e314798081fb0d67727cf"
     },
     {
       "path": "results/thesis_upgrade/thesis_upgrade_status.md",
@@ -112,13 +112,13 @@
     },
     {
       "path": "output/doc/thesis_report_revised.md",
-      "bytes": 53454,
-      "sha256": "3efd3052166a4aaefb374a80c3e8b5069ec195b0c82d5b831bce219dc40234f5"
+      "bytes": 54979,
+      "sha256": "6afe4d240546e5be9531fbfb9337a8ea989b9897bc5220b9721471479bcffd95"
     },
     {
       "path": "output/doc/thesis_microsite.html",
-      "bytes": 81110,
-      "sha256": "07c6c21e8ee15d7995149c16018a7e514fa822ea71a79b4ebc02d11407e01be4"
+      "bytes": 82916,
+      "sha256": "f1dd6d0b1e63399ba920327265c12aea94093929ebebb8776eec22acecad2d58"
     }
   ],
   "release_url": "https://github.com/grimgrimberg/LSD_Thesis/releases/tag/thesis-evidence-2026-06-02",

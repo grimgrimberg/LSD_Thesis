@@ -8,6 +8,68 @@ from lsd_thesis.data.ds003059 import atlas_label_overlap_rows
 from lsd_thesis.subject_split import build_no_subject_validation_boundary
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
+CV5_AGGREGATE_RELATIVE_PATH = Path(
+    "output",
+    "validation",
+    "cv5_subject_disjoint",
+    "results",
+    "cv5_aggregate_validation.json",
+)
+CV5_APPROVED_MANIFEST_RELATIVE_PATH = Path(
+    "output",
+    "validation",
+    "cv5_subject_disjoint",
+    "approved",
+    "subject_split_cv5_manifest_approved.json",
+)
+
+
+def _as_int(value: Any) -> int:
+    try:
+        return int(value)
+    except (TypeError, ValueError):
+        return 0
+
+
+def cv5_validation_integrity_errors(payload: dict[str, Any]) -> tuple[str, ...]:
+    """Return errors that prevent a CV5 aggregate from counting as completed validation."""
+    if payload.get("held_out_validation_completed") is not True:
+        return ("held_out_validation_completed is not true",)
+
+    errors: list[str] = []
+    if payload.get("approval_status") != "approved":
+        errors.append("completed CV5 validation requires an approved split package")
+    if payload.get("all_folds_completed") is not True:
+        errors.append("completed CV5 validation requires all folds to complete")
+    if payload.get("all_subjects_held_out_once") is not True:
+        errors.append("completed CV5 validation requires exact-once held-out subject coverage")
+
+    completed_folds = _as_int(payload.get("completed_folds"))
+    total_folds = _as_int(payload.get("total_folds"))
+    if total_folds <= 1 or completed_folds != total_folds:
+        errors.append("completed CV5 validation requires completed_folds == total_folds > 1")
+
+    for row in payload.get("per_fold_subject_counts", []):
+        if isinstance(row, dict) and _as_int(row.get("overlap_count")) != 0:
+            errors.append("completed CV5 validation requires zero selection/validation subject overlap")
+            break
+
+    scope = str(payload.get("validation_claim_scope") or "").lower()
+    if "internal" not in scope or "external" in scope:
+        errors.append("CV5 validation scope must remain internal-only")
+
+    caveats = " ".join(
+        str(item)
+        for item in [
+            *list(payload.get("limitations", []) if isinstance(payload.get("limitations"), list) else []),
+            *list(payload.get("warnings", []) if isinstance(payload.get("warnings"), list) else []),
+        ]
+    ).lower()
+    for required in ("not external", "n=3", "motion", "fd/dvars"):
+        if required not in caveats:
+            errors.append(f"CV5 aggregate is missing required caveat: {required}")
+
+    return tuple(errors)
 
 
 def build_provenance_payload(stage_summaries: dict[str, Any]) -> dict[str, Any]:
@@ -78,9 +140,10 @@ def build_empirical_validation_payload(stage_summaries: dict[str, Any]) -> dict[
     stage_3 = cast(dict[str, Any], stage_summaries.get("stage_3", {}))
     stage_3_boundary = stage_3.get("empirical_validation_boundary")
     boundary: Any
-    if (
-        isinstance(stage_3_boundary, dict)
-        and stage_3_boundary.get("held_out_validation_completed") is True
+    if isinstance(stage_3_boundary, dict) and (
+        stage_3_boundary.get("held_out_validation_completed") is True
+        and stage_3_boundary.get("approval_status") == "approved"
+        and int(stage_3_boundary.get("overlap_count") or 0) == 0
     ):
         boundary = stage_3_boundary
         source_stage = "stage_3"
@@ -89,15 +152,20 @@ def build_empirical_validation_payload(stage_summaries: dict[str, Any]) -> dict[
         source_stage = "stage_2"
     if isinstance(boundary, dict):
         payload = dict(boundary)
-        configured = bool(payload.get("held_out_validation_configured", payload.get("held_out") is True))
-        completed = bool(payload.get("held_out_validation_completed", payload.get("held_out") is True))
+        legacy_held_out = payload.get("held_out") is True
+        configured = bool(payload.get("held_out_validation_configured") is True)
+        completed = bool(payload.get("held_out_validation_completed") is True)
         payload.setdefault("held_out_validation_configured", configured)
         payload.setdefault("held_out_validation_completed", completed)
-        payload.setdefault("held_out", completed)
+        payload["held_out"] = completed
         payload.setdefault(
             "approval_status",
-            "approved" if completed else "candidate" if configured else "none",
+            "none" if not configured else str(payload.get("approval_status") or "candidate"),
         )
+        if legacy_held_out and not completed:
+            warnings = list(payload.get("warnings", []))
+            warnings.append("Legacy held_out=true flag ignored without explicit held_out_validation_completed=true.")
+            payload["warnings"] = warnings
         payload.setdefault("overlap_count", 0)
         payload.setdefault("warnings", [])
         payload.setdefault("limitations", [])
@@ -110,22 +178,26 @@ def build_empirical_validation_payload(stage_summaries: dict[str, Any]) -> dict[
 
 
 def load_cv5_validation_payload(repo_root: Path) -> dict[str, Any] | None:
-    aggregate_path = (
-        repo_root
-        / "output"
-        / "validation"
-        / "cv5_subject_disjoint"
-        / "results"
-        / "cv5_aggregate_validation.json"
-    )
+    aggregate_path = repo_root / CV5_AGGREGATE_RELATIVE_PATH
     if not aggregate_path.exists():
         return None
-    payload = cast(dict[str, Any], json.loads(aggregate_path.read_text(encoding="utf-8")))
+    raw = json.loads(aggregate_path.read_text(encoding="utf-8"))
+    if not isinstance(raw, dict):
+        return None
+    payload = cast(dict[str, Any], raw)
     payload.setdefault("source_path", aggregate_path.relative_to(repo_root).as_posix())
     payload.setdefault(
         "claim_guardrail",
         "CV5 subject-disjoint validation is internal validation only, not external or clinical validation.",
     )
+    integrity_errors = cv5_validation_integrity_errors(payload)
+    if integrity_errors:
+        payload["validation_integrity_status"] = "invalid_or_incomplete"
+        payload["validation_integrity_errors"] = list(integrity_errors)
+        payload["held_out_validation_completed"] = False
+        payload["status"] = "partial" if payload.get("status") != "complete" else "invalid_complete_metadata"
+    else:
+        payload["validation_integrity_status"] = "verified_internal_cv5"
     return payload
 
 
@@ -215,8 +287,12 @@ def build_audit_status(
             {
                 "label": "fast smoke",
                 "status": "preferred iteration gate",
-                "command": "uv run pytest tests/test_simulator.py tests/test_ds003059.py tests/test_perturbation.py tests/test_web.py -q -o addopts=",
+                "command": (
+                    "uv run pytest tests/test_simulator.py tests/test_ds003059.py "
+                    "tests/test_perturbation.py tests/test_web_security.py "
+                    "tests/test_dashboard_redesign_contract.py -q -o addopts="
+                ),
             },
-            {"label": "full pytest", "status": "currently slow", "command": "uv run pytest"},
+            {"label": "coverage gate", "status": "package surface gate", "command": "uv run pytest -q"},
         ],
     }

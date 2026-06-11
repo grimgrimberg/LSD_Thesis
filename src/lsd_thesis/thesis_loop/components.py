@@ -48,6 +48,7 @@ def build_psilocybin_status(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
     func_manifest_path = local_data_root / "ds006072_func_manifest.json"
     metadata_manifest = _load_json(metadata_manifest_path)
     func_manifest = _load_json(func_manifest_path)
+    comparable_validation = build_ds006072_comparable_validation_status(repo_root)
     readiness = _load_json(readiness_path)
     payload: dict[str, Any] = {
         "schema_version": 1,
@@ -85,7 +86,6 @@ def build_psilocybin_status(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
             "stronger claim."
         ),
     }
-    comparable_validation = build_ds006072_comparable_validation_status(repo_root)
     if comparable_validation.get("unchanged_scoring_applied"):
         summary = comparable_validation.get("summary", {}) if isinstance(comparable_validation.get("summary"), dict) else {}
         if isinstance(payload.get("external_validation_readiness"), dict):

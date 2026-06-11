@@ -26,6 +26,8 @@ dependencies = [
   "scipy>=1.15.2",
   "typer>=0.15.2",
   "uvicorn>=0.34.1",
+  # neuromaps 0.0.x still imports pkg_resources in some runtime paths.
+  # Keep setuptools below the removal boundary until the dependency updates.
   "neuromaps>=0.0.5",
   "setuptools<81",
   "brainspace>=0.2.1",
@@ -46,7 +48,7 @@ packages = ["src/lsd_thesis"]
 [tool.pytest.ini_options]
 pythonpath = ["src", "."]
 testpaths = ["tests"]
-addopts = "--cov=lsd_thesis --cov-report=term-missing"
+addopts = "--cov=lsd_thesis.web --cov=lsd_thesis.data.ds003059 --cov=lsd_thesis.dynamic_mechanism --cov-report=term-missing --cov-fail-under=30"
 markers = [
   "slow: numerical or data-heavy tests that are not part of the fast smoke gate",
   "integration: endpoint or pipeline tests that exercise multiple subsystems"
