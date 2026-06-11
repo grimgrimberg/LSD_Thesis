@@ -6,6 +6,10 @@
     <h2 id="overview_title">Macro-dynamics evidence with explicit claim gates.</h2>
     <p>The dashboard reads repository artifacts and separates implemented evidence from proxy-supported, mixed, blocked, and future claims.</p>
     <div class="metric-strip" id="overview_metric_strip" aria-live="polite"></div>
+    <div id="evidence_flow" class="evidence-flow" aria-label="Thesis evidence pipeline"></div>
+    <div class="button-row">
+      <a class="secondary-link" href="{{ '/figures' if deployment_mode == 'local' else 'figures.html' }}">Open Figure Deck</a>
+    </div>
   </div>
   <div class="panel">
     <div class="panel-heading">
@@ -15,6 +19,7 @@
     <div class="chart-frame">
       <div id="strict_gate_chart" class="chart chart-sm" role="img" aria-label="Strict completion gate chart">Loading...</div>
     </div>
+    <div id="strict_gate_chart_explainer"></div>
   </div>
 </section>
 
@@ -63,6 +68,7 @@
     <div class="chart-frame">
       <div id="overview_literature_chart" class="chart chart-sm" role="img" aria-label="Literature alignment chart">Loading...</div>
     </div>
+    <div id="overview_literature_chart_explainer"></div>
   </article>
   <article class="panel panel--span-3">
     <div class="panel-heading">

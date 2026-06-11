@@ -44,6 +44,7 @@ from lsd_thesis.thesis_loop import build_thesis_evidence_loop
 from lsd_thesis.thesis_upgrade import write_thesis_upgrade_status
 from lsd_thesis.web.app import DASHBOARD_NAV, build_dashboard_payload
 from lsd_thesis.web.artifacts import SAFE_ARTIFACT_EXTENSIONS, is_allowed_artifact_relative_path
+from lsd_thesis.web.figure_payload import build_figure_payloads
 from lsd_thesis.web.prior_art_payload import build_prior_art_payload
 
 STATIC_FAVICON_TAG = '<link rel="icon" href="data:,">'
@@ -307,6 +308,7 @@ def _static_nav_items(depth: int) -> list[dict[str, str]]:
         "empirical": f"{prefix}empirical.html",
         "simulator": f"{prefix}simulator.html",
         "thesis": f"{prefix}thesis.html",
+        "figures": f"{prefix}figures.html",
     }
     return [{**item, "href": href_by_id.get(str(item["id"]), str(item["href"]))} for item in DASHBOARD_NAV]
 
@@ -362,6 +364,7 @@ def _write_static_public_site(
     empirical_html = site / "empirical.html"
     simulator_html = site / "simulator.html"
     thesis_html = site / "thesis.html"
+    figures_html = site / "figures.html"
     methods_html = site / "methods.html"
     appendix_html = site / "appendix.html"
     dashboard_html = dashboard_dir / "index.html"
@@ -456,6 +459,18 @@ def _write_static_public_site(
         ),
         encoding="utf-8",
     )
+    figures_html.write_text(
+        _render_static_template(
+            environment,
+            "pages/figures.html",
+            page_id="figures",
+            page_title="Figure Deck",
+            depth=0,
+            data_url="dashboard/dashboard-data.json",
+            prior_art_data_url="dashboard/prior-art-data.json",
+        ),
+        encoding="utf-8",
+    )
     methods_html.write_text(
         _render_static_template(
             environment,
@@ -503,6 +518,7 @@ def _write_static_public_site(
         "empirical": empirical_html,
         "simulator": simulator_html,
         "thesis": thesis_html,
+        "figures": figures_html,
         "methods": methods_html,
         "appendix": appendix_html,
         "dashboard": dashboard_html,
@@ -530,6 +546,7 @@ def _write_pages_manifest(site: Path, outputs: dict[str, Path], dashboard_artifa
             "empirical": "empirical.html",
             "simulator": "simulator.html",
             "thesis": "thesis.html",
+            "figures": "figures.html",
             "methods": "methods.html",
             "appendix": "appendix.html",
         },
@@ -546,6 +563,7 @@ def _write_pages_manifest(site: Path, outputs: dict[str, Path], dashboard_artifa
 def _dashboard_payload_with_refreshed_thesis_status(
     site: Path,
     refreshed_status: dict[str, Any],
+    repo_root: Path = REPO_ROOT,
 ) -> dict[str, Any] | None:
     dashboard_data_path = site / "dashboard" / "dashboard-data.json"
     if not dashboard_data_path.exists():
@@ -555,6 +573,7 @@ def _dashboard_payload_with_refreshed_thesis_status(
         return None
     dashboard_payload = dict(dashboard_payload)
     dashboard_payload["thesis_upgrade"] = refreshed_status
+    dashboard_payload.update(build_figure_payloads(repo_root, dashboard_payload))
     return dashboard_payload
 
 
@@ -726,7 +745,7 @@ def build_github_pages_site(
     )
     if thesis_upgrade is not None:
         outputs["thesis_upgrade"] = thesis_upgrade
-    refreshed_dashboard_payload = _dashboard_payload_with_refreshed_thesis_status(site, refreshed_status)
+    refreshed_dashboard_payload = _dashboard_payload_with_refreshed_thesis_status(site, refreshed_status, repo_root)
     public_site_outputs = _write_static_public_site(
         repo_root,
         site,
@@ -744,7 +763,7 @@ def build_github_pages_site(
     )
     if thesis_upgrade is not None:
         outputs["thesis_upgrade"] = thesis_upgrade
-    final_dashboard_payload = _dashboard_payload_with_refreshed_thesis_status(site, final_status)
+    final_dashboard_payload = _dashboard_payload_with_refreshed_thesis_status(site, final_status, repo_root)
     public_site_outputs = _write_static_public_site(
         repo_root,
         site,

@@ -19,15 +19,15 @@ node --check src\lsd_thesis\static\dashboard.js
 Observed current results:
 
 - Ruff: all checks passed.
-- mypy: no issues found in 107 source files.
-- pytest: 33 passed; selected production-surface coverage was 32.17%, satisfying the restored 30% coverage gate.
+- mypy: no issues found in 108 source files.
+- pytest: 48 passed; production-surface coverage was 63.20%, satisfying the restored 50% gate across `lsd_thesis.web`, `lsd_thesis.reproducible_archive`, `lsd_thesis.fmriprep_motion_proof`, and `lsd_thesis.setting_seed.motion`.
 - dashboard preview preflight: required files present, optional generated artifacts present, thesis gate contract passed, and CV5 subject-disjoint validation reported as completed internal validation with 5/5 folds.
 - JavaScript syntax check: `dashboard.js` parsed successfully.
 
 Current dashboard-focused smoke slice:
 
 ```powershell
-uv run pytest tests\test_web_security.py tests\test_dashboard_redesign_contract.py tests\test_validation_status.py -q -o addopts=
+uv run pytest tests\test_web_security.py tests\test_dashboard_redesign_contract.py tests\test_validation_status.py tests\test_figure_payload.py tests\test_production_gate_modules.py tests\test_static_pages_payload_refresh.py -q -o addopts=
 ```
 
 Current thesis-upgrade status:

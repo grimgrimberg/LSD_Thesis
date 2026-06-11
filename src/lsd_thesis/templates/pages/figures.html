@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="figure-deck-page" aria-labelledby="figure_deck_title">
+  <article class="panel figure-deck-hero panel--span-3">
+    <p class="chrome-label">Publication-grade figure deck</p>
+    <h2 id="figure_deck_title">Export-ready evidence figures with source paths, formulas, caveats, and claim gates.</h2>
+    <p id="figure_deck_subtitle">Loading figure registry...</p>
+    <div id="figure_deck_status_cards" class="metric-strip"></div>
+  </article>
+
+  <article class="panel panel--span-3">
+    <div class="panel-heading">
+      <h2>Main Figure Registry</h2>
+      <span id="figures_status" class="status-token">loading</span>
+    </div>
+    <div id="figure_deck_cards" class="figure-deck"></div>
+  </article>
+</section>
+{% endblock %}

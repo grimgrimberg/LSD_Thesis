@@ -256,6 +256,7 @@ function plot(targetId, traces, layout = {}, options = {}) {
   delete nextLayout.invalidCount;
   target.classList.remove("chart-empty");
   clearLoading(target);
+  target.textContent = "";
   target.dataset.plotlyRendered = "true";
   const nextConfig = { ...chartConfig, ...(options.config || {}) };
   if ((target.clientWidth || target.getBoundingClientRect().width || 0) < 480 && options.config?.displayModeBar === undefined) {
@@ -295,6 +296,149 @@ function statusClass(status) {
     return "status-token--rose";
   }
   return "status-token--moss";
+}
+
+function localPageHref(href) {
+  const value = text(href, "");
+  if (!value || !isStaticDeployment || !value.startsWith("/")) {
+    return value;
+  }
+  const staticMap = {
+    "/": "index.html",
+    "/overview": "index.html",
+    "/ranking": "ranking.html",
+    "/robustness": "robustness.html",
+    "/prior-art": "prior-art.html",
+    "/empirical": "empirical.html",
+    "/simulator": "simulator.html",
+    "/thesis": "thesis.html",
+    "/figures": "figures.html",
+  };
+  return staticMap[value] || value.replace(/^\//, "");
+}
+
+function figureExplainer(payload, plotId) {
+  return payload?.figure_explainers?.[plotId] || null;
+}
+
+function artifactNode(item) {
+  const label = text(item.label || item.path, "source artifact");
+  const path = text(item.path, "");
+  const href = text(item.href, "");
+  const children = [
+    href
+      ? el("a", { text: label, href: displayHref(href) })
+      : el("span", { text: label }),
+  ];
+  if (path) {
+    children.push(el("code", { text: path }));
+  }
+  if (item.public === false) {
+    children.push(el("small", { text: "not public-linked" }));
+  }
+  return el("li", {}, children);
+}
+
+function explainerField(label, value) {
+  return el("div", { className: "figure-explainer-field" }, [
+    el("span", { text: label }),
+    el("p", { text: value }),
+  ]);
+}
+
+function renderFigureExplainer(containerId, plotId, payload) {
+  const container = byId(containerId);
+  if (!container) return;
+  const explainer = figureExplainer(payload, plotId);
+  if (!explainer) {
+    container.replaceChildren();
+    return;
+  }
+  const artifacts = asRecords(explainer.input_artifacts);
+  const details = el("details", { className: "figure-explainer" }, [
+    el("summary", {}, [
+      el("span", { text: "How this plot was calculated" }),
+      el("strong", { className: `mini-status ${statusClass(explainer.claim_status)}`, text: explainer.claim_status }),
+    ]),
+    el("div", { className: "figure-explainer-grid" }, [
+      explainerField("Source", explainer.subtitle),
+      explainerField("Metric", explainer.metric_definition),
+      explainerField("Aggregation", explainer.aggregation_level),
+      explainerField("Formula / rule", explainer.calculation || explainer.formula_summary),
+      explainerField("Caveat", explainer.caveat),
+    ]),
+    el("ul", { className: "source-list" }, artifacts.map(artifactNode)),
+  ]);
+  container.replaceChildren(details);
+}
+
+function renderEvidenceFlow(payload) {
+  const container = byId("evidence_flow");
+  if (!container) return;
+  const flow = payload.evidence_flow || {};
+  const nodes = asRecords(flow.nodes);
+  if (!nodes.length) {
+    container.replaceChildren(el("p", { className: "microcopy", text: "Evidence flow metadata is not available." }));
+    return;
+  }
+  const cards = [];
+  nodes.forEach((node, index) => {
+    const source = asRecords(node.artifacts)[0];
+    cards.push(el("article", { className: "evidence-node" }, [
+      el("span", { className: "evidence-node__step", text: String(index + 1) }),
+      el("strong", { text: node.label || node.title }),
+      el("small", { className: `mini-status ${statusClass(node.claim_status)}`, text: node.claim_status }),
+      el("p", { text: node.detail || node.status }),
+      source?.href
+        ? el("a", { className: "evidence-node__source", text: source.label || "source", href: displayHref(source.href) })
+        : el("code", { text: source?.path || "source path pending" }),
+    ]));
+    if (index < nodes.length - 1) {
+      cards.push(el("span", { className: "evidence-edge", text: "->" }));
+    }
+  });
+  container.replaceChildren(
+    el("p", { className: "evidence-flow-title", text: flow.title || "Evidence pipeline" }),
+    el("div", { className: "evidence-flow-track" }, cards),
+    el("p", { className: "microcopy", text: flow.guardrail }),
+  );
+}
+
+function renderFigureDeck(payload) {
+  const deck = payload.figure_deck || {};
+  const figures = asRecords(deck.figures);
+  setText("figure_deck_subtitle", deck.subtitle || "Figure metadata is generated from dashboard-data.json.");
+  setText("figures_status", `${figures.length} figures`);
+  byId("figure_deck_status_cards")?.replaceChildren(
+    ...asRecords(deck.status_cards).map((item) => dataRecord(item.label, item.value, "production gate", item.claim_status)),
+  );
+  byId("figure_deck_cards")?.replaceChildren(...figures.map((figure, index) => {
+    const artifacts = asRecords(figure.input_artifacts);
+    const exportHref = text(figure.export_href || figure.export_target?.href, "");
+    const pageHref = localPageHref(figure.page_href || "/figures");
+    const actions = [
+      pageHref ? el("a", { text: "Open page", href: pageHref }) : null,
+      exportHref ? el("a", { text: "Open export", href: displayHref(exportHref) }) : null,
+    ].filter(Boolean);
+    return el("article", { className: "figure-card" }, [
+      el("div", { className: "figure-card__index", text: `F${index + 1}` }),
+      el("div", { className: "figure-card__body" }, [
+        el("div", { className: "panel-heading figure-card__heading" }, [
+          el("h3", { text: figure.title }),
+          el("span", { className: `status-token ${statusClass(figure.claim_status)}`, text: figure.claim_status }),
+        ]),
+        el("p", { text: figure.subtitle }),
+        el("div", { className: "figure-explainer-grid" }, [
+          explainerField("Metric", figure.metric_definition),
+          explainerField("Aggregation", figure.aggregation_level),
+          explainerField("Formula / rule", figure.calculation || figure.formula_summary),
+          explainerField("Caveat", figure.caveat),
+        ]),
+        el("ul", { className: "source-list" }, artifacts.map(artifactNode)),
+        el("div", { className: "button-row" }, actions),
+      ]),
+    ]);
+  }));
 }
 
 function getJargonSubtitle(textContent) {
@@ -466,6 +610,8 @@ function renderOverviewLiterature(payload) {
     x: series.values,
     y: rows.map((row) => text(row.benchmark)),
     marker: { color: rows.map((row) => row.status === "aligned" ? COLORS.teal : row.status === "missing_required_region" ? COLORS.gray : COLORS.rose) },
+    text: rows.map((row) => text(row.status)),
+    textposition: "auto",
     customdata: rows.map((row) => [text(row.status), text(row.source)]),
     hovertemplate: "%{y}<br>%{customdata[0]}<br>%{customdata[1]}<br>signed effect %{x:.3f}<extra></extra>",
   }], {
@@ -486,10 +632,13 @@ function renderOverviewClaimCards(payload) {
 function renderOverview(payload) {
   renderOverviewMetricStrip(payload);
   renderGateChart(payload);
+  renderEvidenceFlow(payload);
   renderReadPath();
   renderOverviewLiterature(payload);
   renderOverviewClaimCards(payload);
   renderArtifacts(payload);
+  renderFigureExplainer("strict_gate_chart_explainer", "strict_gate_chart", payload);
+  renderFigureExplainer("overview_literature_chart_explainer", "overview_literature_chart", payload);
 }
 
 function renderRanking(payload) {
@@ -546,6 +695,9 @@ function renderRanking(payload) {
   ]);
   const figures = asRecords(payload.artifact_links?.figures).filter((item) => text(item.href).includes("dynamic_mechanism"));
   byId("dynamic_figure_links")?.replaceChildren(...figures.slice(0, 12).map((item) => el("a", { text: item.label || item.href, href: displayHref(item.href) })));
+  renderFigureExplainer("ranking_chart_explainer", "ranking_chart", payload);
+  renderFigureExplainer("ranking_distribution_chart_explainer", "ranking_distribution_chart", payload);
+  renderFigureExplainer("benchmark_chart_explainer", "benchmark_chart", payload);
 }
 
 function renderBenchmarkChart(payload, targetId, statusId) {
@@ -564,6 +716,8 @@ function renderBenchmarkChart(payload, targetId, statusId) {
     x: values.values,
     y: rows.map((row) => text(row.benchmark)),
     marker: { color: rows.map((row) => row.status === "aligned" ? COLORS.teal : row.status === "missing_required_region" ? COLORS.gray : COLORS.rose) },
+    text: rows.map((row) => text(row.status)),
+    textposition: "auto",
     customdata: rows.map((row) => [text(row.layer), text(row.status), text(row.caveat)]),
     hovertemplate: "%{y}<br>layer %{customdata[0]}<br>%{customdata[1]}<br>%{customdata[2]}<extra></extra>",
   }], {
@@ -600,6 +754,8 @@ function renderRobustness(payload) {
         color: "rgba(255,255,255,0.55)",
       },
       marker: { color: layerSummary.map((row) => layerColor[text(row.layer, "")] || COLORS.teal) },
+      text: layerSummary.map((row) => `rank-1 ${formatNumber(row.rank_1_fraction)}`),
+      textposition: "auto",
       customdata: layerSummary.map((row) => [formatNumber(row.rank_1_fraction), formatNumber(row.median_rank)]),
       hovertemplate: "Layer %{x}<br>score mean %{y:.3f}<br>rank-1 %{customdata[0]}<br>median rank %{customdata[1]}<extra></extra>",
     }], {
@@ -616,6 +772,10 @@ function renderRobustness(payload) {
     (row) => tdText(row.status),
     (row) => tdText(row.complete ? "complete" : row.missing || row.next_action),
   ]);
+  renderFigureExplainer("robustness_chart_explainer", "robustness_chart", payload);
+  renderFigureExplainer("run_sensitivity_chart_explainer", "run_sensitivity_chart", payload);
+  renderFigureExplainer("e_horizon_chart_explainer", "e_horizon_chart", payload);
+  renderFigureExplainer("d_window_chart_explainer", "d_window_chart", payload);
 }
 
 function renderRunSensitivity(robustness) {
@@ -634,6 +794,8 @@ function renderRunSensitivity(robustness) {
       x: layers,
       y: values.values,
       marker: { color: run === "run-01" ? COLORS.teal : COLORS.amber },
+      text: values.values.map((value) => formatNumber(value)),
+      textposition: "auto",
       hovertemplate: `${run}<br>Layer %{x}<br>support %{y:.3f}<extra></extra>`,
     };
   });
@@ -724,6 +886,8 @@ function renderEmpirical(payload) {
       x: labels.map(titleText),
       y: values.values,
       marker: { color: values.values.map((value) => (Number(value) >= 0 ? COLORS.teal : COLORS.rose)) },
+      text: values.values.map((value) => formatNumber(value)),
+      textposition: "auto",
       hovertemplate: "%{x}<br>delta %{y:.3f}<extra></extra>",
     }], {
       invalidCount: values.invalidCount,
@@ -739,6 +903,8 @@ function renderEmpirical(payload) {
   } else if (isStaticDeployment) {
     setText("empirical_notice", "Static GitHub Pages shows group summaries only; subject-level cache records require the local FastAPI dashboard.");
   }
+  renderFigureExplainer("empirical_delta_chart_explainer", "empirical_delta_chart", payload);
+  renderFigureExplainer("empirical_fc_heatmap_explainer", "empirical_fc_heatmap", payload);
 }
 
 async function loadEmpiricalDetail() {
@@ -1096,6 +1262,7 @@ function renderThesis(payload, priorPayloadForPage) {
     ["Defense presentation artifact", "/artifacts/output/doc/defense_presentation.html"],
   ];
   byId("thesis_artifact_links")?.replaceChildren(...links.map(([label, href]) => el("a", { text: label, href: displayHref(href) })));
+  renderFigureExplainer("thesis_mechanism_chart_explainer", "thesis_mechanism_chart", payload);
 }
 
 async function main() {
@@ -1140,6 +1307,8 @@ async function main() {
     }
     await runSimulation(dashboard);
     byId("run_simulation")?.addEventListener("click", () => runSimulation(dashboard));
+  } else if (pageId === "figures") {
+    renderFigureDeck(dashboard);
   }
 }
 

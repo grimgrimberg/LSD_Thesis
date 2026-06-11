@@ -14,6 +14,7 @@ from lsd_thesis.graph import load_graph_config
 from lsd_thesis.simulator import load_regime_config
 from lsd_thesis.web import artifacts as web_artifacts
 from lsd_thesis.web import empirical_viewer, status_payload
+from lsd_thesis.web.figure_payload import build_figure_payloads
 from lsd_thesis.web.prior_art_payload import build_prior_art_payload
 from lsd_thesis.web.simulation_payload import (
     SimulationRequest,
@@ -85,6 +86,14 @@ DASHBOARD_NAV = [
         "icon": "M5 4h14v16H5zM8 8h8M8 12h8M8 16h5",
         "title": "Thesis Presentation",
         "template": "pages/thesis.html",
+    },
+    {
+        "id": "figures",
+        "label": "Figure Deck",
+        "href": "/figures",
+        "icon": "M4 5h16v4H4zM4 11h7v8H4zM13 11h7v8h-7z",
+        "title": "Figure Deck",
+        "template": "pages/figures.html",
     },
 ]
 
@@ -255,7 +264,7 @@ def build_dashboard_payload(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
                 gallery_items.append({**item, "href": href})
         empirical_viewer["gallery"] = gallery_items
 
-    return {
+    dashboard_payload: dict[str, Any] = {
         "graph": graph_payload(graph),
         "baseline": build_simulation_payload(graph, baseline),
         "perturbed": build_simulation_payload(graph, perturbed),
@@ -285,6 +294,8 @@ def build_dashboard_payload(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
             "tau": baseline.module_defaults.tau,
         },
     }
+    dashboard_payload.update(build_figure_payloads(repo_root, dashboard_payload))
+    return dashboard_payload
 
 
 def create_app() -> FastAPI:
@@ -336,6 +347,11 @@ def create_app() -> FastAPI:
     @app.get("/thesis.html", response_class=HTMLResponse)
     async def thesis() -> HTMLResponse:
         return _render_dashboard_page("thesis")
+
+    @app.get("/figures", response_class=HTMLResponse)
+    @app.get("/figures.html", response_class=HTMLResponse)
+    async def figures() -> HTMLResponse:
+        return _render_dashboard_page("figures")
 
     @app.get("/dashboard", response_class=HTMLResponse)
     @app.get("/dashboard/", response_class=HTMLResponse)

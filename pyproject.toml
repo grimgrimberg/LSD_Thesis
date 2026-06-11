@@ -48,7 +48,7 @@ packages = ["src/lsd_thesis"]
 [tool.pytest.ini_options]
 pythonpath = ["src", "."]
 testpaths = ["tests"]
-addopts = "--cov=lsd_thesis.web --cov=lsd_thesis.data.ds003059 --cov=lsd_thesis.dynamic_mechanism --cov-report=term-missing --cov-fail-under=30"
+addopts = "--cov=lsd_thesis.web --cov=lsd_thesis.reproducible_archive --cov=lsd_thesis.fmriprep_motion_proof --cov=lsd_thesis.setting_seed.motion --cov-report=term-missing --cov-fail-under=50"
 markers = [
   "slow: numerical or data-heavy tests that are not part of the fast smoke gate",
   "integration: endpoint or pipeline tests that exercise multiple subsystems"
