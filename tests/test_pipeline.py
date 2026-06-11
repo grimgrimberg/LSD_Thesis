@@ -1,6 +1,11 @@
+import subprocess
+import sys
+from pathlib import Path
 from unittest.mock import patch
 
 import pytest
+
+REPO_ROOT = Path(__file__).resolve().parents[1]
 
 
 def test_pipeline_instantiation():
@@ -54,3 +59,22 @@ def test_pipeline_rejects_unwired_model_family():
 
     with pytest.raises(ValueError, match="bistable baseline"):
         SurrogatePipeline(model_family="receptor_gradient_neural_mass")
+
+
+def test_documented_motion_gate_wrapper_scripts_expose_help():
+    for script in (
+        "scripts/build_fmriprep_motion_proof_plan.py",
+        "scripts/run_setting_seed_motion_summary.py",
+        "scripts/build_motion_confound_controls.py",
+        "scripts/build_thesis_upgrade_status.py",
+    ):
+        result = subprocess.run(
+            [sys.executable, str(REPO_ROOT / script), "--help"],
+            capture_output=True,
+            text=True,
+            timeout=60,
+            check=False,
+        )
+
+        assert result.returncode == 0, result.stderr
+        assert "usage:" in result.stdout
