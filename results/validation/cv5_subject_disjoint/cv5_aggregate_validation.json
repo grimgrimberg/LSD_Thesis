@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "status": "complete",
+  "split_set_id": "thesis_subject_disjoint_cv5_v1_approved",
+  "approval_status": "approved",
+  "approved_by": "Codex audit at user request",
+  "approved_at": "2026-06-11T00:00:00Z",
+  "validation_claim_scope": "preliminary_internal_subject_disjoint_cv5",
+  "held_out_validation_completed": true,
+  "completed_folds": 5,
+  "total_folds": 5,
+  "all_folds_completed": true,
+  "all_subjects_held_out_once": true,
+  "total_subjects": 15,
+  "per_fold_subject_counts": [
+    {
+      "fold_id": "fold_01",
+      "selection_subject_count": 12,
+      "validation_subject_count": 3,
+      "overlap_count": 0
+    },
+    {
+      "fold_id": "fold_02",
+      "selection_subject_count": 12,
+      "validation_subject_count": 3,
+      "overlap_count": 0
+    },
+    {
+      "fold_id": "fold_03",
+      "selection_subject_count": 12,
+      "validation_subject_count": 3,
+      "overlap_count": 0
+    },
+    {
+      "fold_id": "fold_04",
+      "selection_subject_count": 12,
+      "validation_subject_count": 3,
+      "overlap_count": 0
+    },
+    {
+      "fold_id": "fold_05",
+      "selection_subject_count": 12,
+      "validation_subject_count": 3,
+      "overlap_count": 0
+    }
+  ],
+  "warnings": [
+    "This is internal subject-disjoint validation, not external or clinical validation.",
+    "No subject-level motion/FD/DVARS/confound/censoring stratification is available."
+  ],
+  "limitations": [
+    "Small n=15 subject universe with n=3 held out per fold limits precision and interpretability.",
+    "Cached QC does not include subject-level motion, FD/DVARS, confound-regression, or censoring strata.",
+    "This is internal subject-disjoint validation, not external cohort validation.",
+    "Candidate generation used cached complete paired subjects from empirical_data_quality.json."
+  ],
+  "claim_guardrail": "CV5 subject-disjoint validation is internal validation only, not external or clinical validation.",
+  "run_parameters": {
+    "fit_iterations": 64,
+    "seed": 11
+  }
+}

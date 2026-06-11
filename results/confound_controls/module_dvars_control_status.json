@@ -1,6 +1,6 @@
 {
   "schema_version": "module_dvars_control.v1",
-  "generated_at_utc": "2026-06-11T11:11:24.493624+00:00",
+  "generated_at_utc": "2026-06-11T11:57:12.757309+00:00",
   "analysis_status": "implemented_module_dvars_censoring_sensitivity",
   "module_dvars_control_ready": true,
   "source_paths": {

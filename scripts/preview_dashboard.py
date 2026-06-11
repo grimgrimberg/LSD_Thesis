@@ -12,7 +12,7 @@ if str(SRC_ROOT) not in sys.path:
     sys.path.insert(0, str(SRC_ROOT))
 
 from lsd_thesis.web.status_payload import (  # noqa: E402
-    CV5_AGGREGATE_RELATIVE_PATH,
+    CV5_AGGREGATE_RELATIVE_PATHS,
     CV5_APPROVED_MANIFEST_RELATIVE_PATH,
     cv5_validation_integrity_errors,
 )
@@ -74,6 +74,7 @@ OPTIONAL_DATA_PATHS: tuple[str, ...] = (
     "results/stage_3/stage_3_summary.json",
     "results/stage_4/stage_4_summary.json",
     "results/stage_5/literature_weighted_fit_summary.json",
+    "results/validation/cv5_subject_disjoint/cv5_aggregate_validation.json",
     "output/validation/cv5_subject_disjoint/approved/subject_split_cv5_manifest_approved.json",
     "output/validation/cv5_subject_disjoint/results/cv5_aggregate_validation.json",
     "output/doc/defense_presentation.json",
@@ -93,8 +94,11 @@ def _missing_paths(repo_root: Path, relative_paths: tuple[str, ...]) -> tuple[st
 
 
 def _held_out_validation_status(repo_root: Path) -> str:
-    cv5_aggregate_path = repo_root / CV5_AGGREGATE_RELATIVE_PATH
-    if cv5_aggregate_path.exists():
+    cv5_aggregate_path = next(
+        (repo_root / path for path in CV5_AGGREGATE_RELATIVE_PATHS if (repo_root / path).exists()),
+        None,
+    )
+    if cv5_aggregate_path is not None:
         cv5 = _read_json_object(cv5_aggregate_path) or {}
         integrity_errors = cv5_validation_integrity_errors(cv5) if isinstance(cv5, dict) else ("invalid JSON",)
         if isinstance(cv5, dict) and cv5.get("held_out_validation_completed") is True and not integrity_errors:

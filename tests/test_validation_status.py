@@ -5,6 +5,7 @@ from typing import Any
 
 from lsd_thesis.web.status_payload import (
     CV5_AGGREGATE_RELATIVE_PATH,
+    CV5_CURATED_AGGREGATE_RELATIVE_PATH,
     build_empirical_validation_payload,
     cv5_validation_integrity_errors,
     load_cv5_validation_payload,
@@ -61,6 +62,18 @@ def test_load_cv5_payload_downgrades_invalid_complete_metadata(tmp_path) -> None
     assert payload["held_out_validation_completed"] is False
     assert payload["status"] == "invalid_complete_metadata"
     assert payload["validation_integrity_status"] == "invalid_or_incomplete"
+
+
+def test_load_cv5_payload_uses_curated_fallback_when_output_is_absent(tmp_path) -> None:
+    aggregate_path = tmp_path / CV5_CURATED_AGGREGATE_RELATIVE_PATH
+    aggregate_path.parent.mkdir(parents=True)
+    aggregate_path.write_text(json.dumps(_complete_cv5_payload()), encoding="utf-8")
+
+    payload = load_cv5_validation_payload(tmp_path)
+
+    assert payload is not None
+    assert payload["validation_integrity_status"] == "verified_internal_cv5"
+    assert payload["source_path"] == CV5_CURATED_AGGREGATE_RELATIVE_PATH.as_posix()
 
 
 def test_empirical_validation_boundary_ignores_legacy_held_out_without_completion() -> None:

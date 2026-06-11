@@ -15,6 +15,16 @@ CV5_AGGREGATE_RELATIVE_PATH = Path(
     "results",
     "cv5_aggregate_validation.json",
 )
+CV5_CURATED_AGGREGATE_RELATIVE_PATH = Path(
+    "results",
+    "validation",
+    "cv5_subject_disjoint",
+    "cv5_aggregate_validation.json",
+)
+CV5_AGGREGATE_RELATIVE_PATHS = (
+    CV5_AGGREGATE_RELATIVE_PATH,
+    CV5_CURATED_AGGREGATE_RELATIVE_PATH,
+)
 CV5_APPROVED_MANIFEST_RELATIVE_PATH = Path(
     "output",
     "validation",
@@ -178,7 +188,9 @@ def build_empirical_validation_payload(stage_summaries: dict[str, Any]) -> dict[
 
 
 def load_cv5_validation_payload(repo_root: Path) -> dict[str, Any] | None:
-    aggregate_path = repo_root / CV5_AGGREGATE_RELATIVE_PATH
+    aggregate_path = next((repo_root / path for path in CV5_AGGREGATE_RELATIVE_PATHS if (repo_root / path).exists()), None)
+    if aggregate_path is None:
+        return None
     if not aggregate_path.exists():
         return None
     raw = json.loads(aggregate_path.read_text(encoding="utf-8"))
