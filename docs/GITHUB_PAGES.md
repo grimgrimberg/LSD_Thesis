@@ -20,7 +20,7 @@ Audience: thesis reviewer, potential MSc supervisor, or technical reviewer who n
 ## Local Build
 
 ```powershell
-.\.venv\Scripts\python.exe scripts\build_github_pages.py
+uv run python scripts\build_github_pages.py
 ```
 
 The generated site is written to `_site/`. `_site/` is a build artifact and should not be committed.

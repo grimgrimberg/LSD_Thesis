@@ -69,7 +69,7 @@ Minimum validation for a thesis-demo run:
 ```bash
 uv run ruff check .
 uv run mypy src
-uv run pytest tests/test_simulator.py tests/test_ds003059.py tests/test_perturbation.py tests/test_web.py tests/test_web_integration.py -q -o addopts=
+uv run pytest tests/test_ds003059_wrappers.py tests/test_dynamic_mechanism.py tests/test_figure_payload.py tests/test_metrics.py tests/test_web_security.py -q -o addopts=
 ```
 
 Metric-heavy tests can be slow because of clustering. Pin BLAS/OpenMP threads on machines that oversubscribe CPU workers.

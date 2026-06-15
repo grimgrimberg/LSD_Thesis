@@ -19,9 +19,9 @@ The project is weakest if it claims to reproduce psychedelic brain mechanisms. T
 |---|---|---|
 | `src/lsd_thesis/simulator.py` | Stochastic 8-module simulator | Core surrogate dynamics; keep claims at model level. |
 | `src/lsd_thesis/metrics.py` | Observable summaries | Several dynamic proxies depend on KMeans state labels. Treat as metric definitions, not biology. |
-| `src/lsd_thesis/fit.py` | Sober-regime search | Candidate scoring uses stochastic simulations; top candidates need fixed multi-seed evaluation. |
+| `src/lsd_thesis/fit/` | Sober-regime search | Candidate scoring uses stochastic simulations; top candidates need fixed multi-seed evaluation. |
 | `src/lsd_thesis/perturbation.py` | Perturbation operators | Four scalar operators; use as hypothesis toggles only. |
-| `src/lsd_thesis/data/ds003059.py` | OpenNeuro ds003059 extraction | Real-data bridge; Harvard-Oxford macro mapping is transparent but coarse and overlapping. |
+| `src/lsd_thesis/data/ds003059/` | OpenNeuro ds003059 extraction | Real-data bridge; Harvard-Oxford macro mapping is transparent but coarse and overlapping. |
 | `src/lsd_thesis/web/app.py` | FastAPI dashboard API | Local demo surface and artifact serving. |
 | `src/lsd_thesis/templates/base.html` and `src/lsd_thesis/templates/pages/` | Dashboard UI | Multipage professor-facing visual surface. |
 | `scripts/run_pipeline.py` | Stage runner | Primary staged workflow. |
@@ -67,7 +67,7 @@ Fast checks known to be useful:
 ```bash
 uv run ruff check .
 uv run mypy src
-uv run pytest tests/test_simulator.py tests/test_ds003059.py tests/test_perturbation.py tests/test_web.py -q -o addopts=
+uv run pytest tests/test_ds003059_wrappers.py tests/test_dynamic_mechanism.py tests/test_figure_payload.py tests/test_metrics.py tests/test_web_security.py -q -o addopts=
 ```
 
 Full pytest collection and metric-heavy tests are currently too slow for fast iteration on this machine. Metric tests should eventually be split into fast synthetic checks and explicitly marked slow numerical checks.

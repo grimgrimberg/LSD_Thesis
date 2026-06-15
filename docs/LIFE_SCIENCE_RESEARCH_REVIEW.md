@@ -75,7 +75,7 @@ Current repo state:
 
 Important source areas:
 
-- `src/lsd_thesis/data/ds003059.py`: current empirical manifest/extraction path; explicitly filters out `run-02`.
+- `src/lsd_thesis/data/ds003059/`: current empirical manifest/extraction path; explicitly filters out `run-02`.
 - `src/lsd_thesis/target_validation.py`: Stage 2b target reliability machinery.
 - `src/lsd_thesis/setting_seed/data.py`: PASS 2A cached data audit.
 - `src/lsd_thesis/setting_seed/reliability.py`: PASS 2A reliability tiers and motion-gated eligibility.

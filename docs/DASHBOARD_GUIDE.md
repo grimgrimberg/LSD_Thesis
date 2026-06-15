@@ -15,15 +15,16 @@ The FastAPI dashboard now also exposes an optional `set_setting_seed` key in `/a
 
 ## Local Build
 
+The old standalone PASS 2A builder scripts are no longer current entry points. Use the existing dashboard payload when present, and refresh only the currently supported motion summary with:
+
 ```powershell
-.venv\Scripts\python.exe scripts\run_setting_seed_pass2a.py
-.venv\Scripts\python.exe scripts\build_setting_seed_dashboard.py
+uv run python scripts\run_setting_seed_motion_summary.py
 ```
 
 ## Local Server
 
 ```powershell
-.venv\Scripts\python.exe scripts\run_dashboard.py
+uv run python scripts\run_dashboard.py
 ```
 
 Open:
@@ -33,13 +34,11 @@ http://127.0.0.1:8000/
 http://127.0.0.1:8000/artifacts/output/doc/set_setting_seed_microsite.html
 ```
 
-For the unified live launcher, prefer:
+For a preflight before launch, run:
 
 ```powershell
-uv run python scripts/run_everything_live.py
+uv run python scripts\preview_dashboard.py --check-only --strict
 ```
-
-That launcher starts at port `8020` by default to avoid common local `8000` conflicts, and prints the actual selected URLs.
 
 ## What PASS 2A Shows
 

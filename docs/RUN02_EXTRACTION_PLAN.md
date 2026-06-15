@@ -28,7 +28,7 @@ These exclusions apply to music-specific analyses only. They should not remove v
 
 ## Existing Code Path
 
-Current run filtering is in `src/lsd_thesis/data/ds003059.py`.
+Current run filtering is in `src/lsd_thesis/data/ds003059/`.
 
 Relevant behavior:
 
@@ -40,9 +40,9 @@ Relevant behavior:
 
 Primary modification points for a future pass:
 
-- `src/lsd_thesis/data/ds003059.py`: add an explicit run-selection option.
+- `src/lsd_thesis/data/ds003059/`: add an explicit run-selection option.
 - `scripts/run_pipeline.py`: expose a guarded flag such as `--include-music` or `--runs run-01 run-02 run-03`.
-- Tests in `tests/test_ds003059.py`: assert default rest-only behavior remains unchanged.
+- Tests in `tests/test_ds003059_wrappers.py`: assert default rest-only behavior remains unchanged.
 
 ## Feasible Future Flag
 
@@ -94,7 +94,7 @@ PASS 2B-0 added disabled-by-default run-selection support. Legacy Stage 2 still 
 
 Implemented safeguards:
 
-- `src/lsd_thesis/data/ds003059.py` exposes explicit run normalization and rejects `run-02` unless `include_music=True`.
+- `src/lsd_thesis/data/ds003059/` exposes explicit run normalization and rejects `run-02` unless `include_music=True`.
 - `scripts/run_pipeline.py` exposes `--include-music`, `--runs`, and `--stage2-output-dir`.
 - `--include-music` is restricted to the `stage2` command.
 - `--include-music` refuses the legacy `results/stage_2` output directory, so the first music extraction cannot overwrite the current rest-only Stage 2 cache.
@@ -121,8 +121,8 @@ The first approved extraction attempt failed before download because the OpenNeu
 
 Patched files:
 
-- `src/lsd_thesis/data/ds003059.py`
-- `tests/test_ds003059.py`
+- `src/lsd_thesis/data/ds003059/`
+- `tests/test_ds003059_wrappers.py`
 
 Extraction command rerun:
 

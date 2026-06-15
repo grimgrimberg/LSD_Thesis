@@ -25,7 +25,7 @@ uv run python scripts/run_pipeline.py stage-2b-target-validation --parcellation 
 uv run python scripts/run_pipeline.py run-stage-5 --model receptor_gradient_neural_mass --quick
 uv run python scripts/benchmark_rocket_condition_models.py --cv5-manifest output/validation/cv5_subject_disjoint/approved/subject_split_cv5_manifest_approved.json --n-kernels 128
 uv run python scripts/build_thesis_upgrade_status.py
-uv run python scripts/build_external_ingestion_status.py
+uv run python scripts/run_thesis_evidence_loop.py
 uv run python scripts/build_reproducible_archive.py
 uv run python scripts/run_dashboard.py
 ```

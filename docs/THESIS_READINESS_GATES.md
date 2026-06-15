@@ -47,9 +47,7 @@ The second-pass ingestion contract writes validated local inputs into the file p
 Commands:
 
 ```powershell
-uv run python scripts/build_external_ingestion_status.py
-uv run python scripts/ingest_external_priors.py --structural-csv <path-to-structural-csv>
-uv run python scripts/ingest_external_priors.py --receptor-csv <path-to-receptor-csv>
+uv run python scripts/ingest_external_priors.py --structural-csv <path-to-structural-csv> --receptor-csv <path-to-receptor-csv>
 uv run python scripts/run_thesis_evidence_loop.py
 ```
 

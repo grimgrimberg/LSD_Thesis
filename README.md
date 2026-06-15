@@ -46,7 +46,8 @@ uv run mypy src
 │   ├── fit/                 #   Sober regime fitting
 │   ├── perturbation.py      #   Mechanism operators and ranking
 │   ├── ablation.py          #   Ablation studies
-│   ├── dynamic_mechanism*.py#   A+B+C+D+E mechanism ranking
+│   ├── dynamic_mechanism/   #   A+B+C+D+E mechanism ranking
+│   ├── dynamic_robustness.py#   Dynamic mechanism robustness helpers
 │   ├── data/                #   Dataset ingestion (ds003059, ds006072)
 │   ├── web/                 #   Dashboard FastAPI application
 │   ├── templates/           #   Dashboard HTML templates
@@ -66,7 +67,7 @@ uv run mypy src
 │   └── targets/             #   Empirical target signatures
 │
 ├── scripts/                 # Pipeline and utility scripts
-├── tests/                   # Test suite (75 test files)
+├── tests/                   # Test suite
 ├── results/                 # Generated outputs (gitignored binaries)
 ├── docs/                    # Documentation
 │   ├── reference/           #   Archived project history

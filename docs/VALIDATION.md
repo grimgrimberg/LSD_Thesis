@@ -1,6 +1,6 @@
 # Validation Notes
 
-Current status date: 2026-06-11
+Current status date: 2026-06-14
 
 ## Current Quality Baseline
 
@@ -9,10 +9,12 @@ Use this section and `results/thesis_upgrade/thesis_upgrade_status.json` as the 
 Latest local checks:
 
 ```powershell
-uv run ruff check .
-uv run mypy src
-uv run pytest -q
-uv run python scripts\preview_dashboard.py --check-only --strict
+uv run --frozen ruff check .
+uv run --frozen mypy src
+uv run --frozen pytest --collect-only -q -o addopts=
+uv pip check
+uv run --frozen python scripts\preview_dashboard.py --check-only --strict
+uv run --frozen pytest
 node --check src\lsd_thesis\static\dashboard.js
 ```
 
@@ -20,7 +22,9 @@ Observed current results:
 
 - Ruff: all checks passed.
 - mypy: no issues found in 108 source files.
-- pytest: 48 passed; production-surface coverage was 63.20%, satisfying the restored 50% gate across `lsd_thesis.web`, `lsd_thesis.reproducible_archive`, `lsd_thesis.fmriprep_motion_proof`, and `lsd_thesis.setting_seed.motion`.
+- pytest collection: 69 tests collected.
+- dependency check: all installed packages are compatible.
+- pytest: 69 passed; production-surface coverage was 81.87%, satisfying the restored 50% gate across `lsd_thesis.web`, `lsd_thesis.reproducible_archive`, `lsd_thesis.fmriprep_motion_proof`, and `lsd_thesis.setting_seed.motion`.
 - dashboard preview preflight: required files present, optional generated artifacts present, thesis gate contract passed, and CV5 subject-disjoint validation reported as completed internal validation with 5/5 folds.
 - JavaScript syntax check: `dashboard.js` parsed successfully.
 
@@ -49,6 +53,8 @@ The missing `project_phase` item is derived from the motion-proof blocker. Do no
 Motion-gate completion requires the whole strict predicate, not just an implemented-looking status string: parsed motion analysis, paired motion summary rows, implemented dedicated motion-control status, paired/merged control rows at the configured minimum, non-empty association rows, and FD, DVARS, plus censoring/outlier family coverage.
 
 ## Historical Validation Log
+
+Historical sections below preserve commands and test names from earlier implementation phases. Use the current quality baseline above for live validation commands.
 
 Date: 2026-05-12
 

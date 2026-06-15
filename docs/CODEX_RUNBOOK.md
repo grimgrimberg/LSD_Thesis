@@ -47,7 +47,7 @@ Recommended start:
 
 ```powershell
 git -c safe.directory=D:/LSD_Thesis status --short --branch
-uv run pytest tests/test_dashboard_preview.py -q
+uv run pytest tests/test_dashboard_redesign_contract.py tests/test_web_security.py -q -o addopts=
 ```
 
 Then implement the first slice:
@@ -69,20 +69,10 @@ Acceptance for first slice:
 
 ## How To Run PASS 2A
 
-PASS 2A is the safe empirical-foundation build. It does not download data or extract run-02.
+PASS 2A was the safe empirical-foundation build. The old standalone PASS 2A helper scripts are no longer current entry points; use the checked-in artifacts under `results/setting_seed/` and the current dashboard preflight for review.
 
 ```powershell
-.venv\Scripts\python.exe scripts\run_setting_seed_pass2a.py
-```
-
-Individual steps:
-
-```powershell
-.venv\Scripts\python.exe scripts\run_setting_seed_data_audit.py
-.venv\Scripts\python.exe scripts\run_setting_seed_reliability.py
-.venv\Scripts\python.exe scripts\run_setting_seed_latent.py
-.venv\Scripts\python.exe scripts\run_setting_seed_control_scaffold.py
-.venv\Scripts\python.exe scripts\build_setting_seed_dashboard.py
+uv run python scripts\preview_dashboard.py --check-only --strict
 ```
 
 Outputs:
@@ -99,16 +89,14 @@ Outputs:
 PASS 2B-0 is the readiness pass for future music-control work. It does not download data and does not extract run-02.
 
 ```powershell
-uv run python scripts/run_setting_seed_pass2b0.py
+uv run python scripts/run_setting_seed_motion_summary.py
+uv run python scripts/preview_dashboard.py --check-only --strict
 ```
 
-Individual safe steps:
+Current safe step:
 
 ```powershell
 uv run python scripts/run_setting_seed_motion_summary.py
-uv run python scripts/run_setting_seed_data_audit.py
-uv run python scripts/run_setting_seed_control_scaffold.py
-uv run python scripts/build_setting_seed_dashboard.py
 ```
 
 The explicit extraction command, after user approval only, is:
@@ -131,34 +119,16 @@ Use this sequence for the next implementation passes:
 
 Do not start PASS 2B-1 without explicit user approval for run-02 extraction/download. Do not start PASS 2B-2 until run-02 module time series are actually present and the music exclusions are enforced.
 
-## One-Command Live Dashboard
+## Local Dashboard Preflight And Launch
 
-Recommended safe live command:
-
-```powershell
-uv run python scripts/run_everything_live.py
-```
-
-This command:
-
-1. rebuilds PASS 2B-0 setting-seed readiness artifacts,
-2. runs dashboard preflight,
-3. serves the dashboard on the first available local port starting at `8020`,
-4. prints the main dashboard and Set / Setting / Seed microsite URLs.
-
-Optional full legacy pipeline first:
+Recommended safe local sequence:
 
 ```powershell
-uv run python scripts/run_everything_live.py --with-legacy-pipeline
+uv run python scripts/preview_dashboard.py --check-only --strict
+uv run python scripts/run_dashboard.py
 ```
 
-This can be slower because it runs the existing `run-everything` workflow before rebuilding the setting-seed artifacts.
-
-Current canonical meanings:
-
-- `uv run python scripts/run_everything_live.py`: fast safe live dashboard rebuild for PASS 2B-0 readiness.
-- `uv run python scripts/run_everything_live.py --with-legacy-pipeline`: implemented safe everything plus live dashboard; this reruns Stage 1-4 and the existing ML benchmark scripts first.
-- run-02 extraction and actual music-control analysis are not included in either command unless the user explicitly approves the gated extraction command in the PASS 2B-0 section above.
+Run-02 extraction and actual music-control analysis are not included in either command unless the user explicitly approves the gated extraction command in the PASS 2B-0 section above.
 
 ## Recommended Commands
 
@@ -177,7 +147,7 @@ uv run pytest
 Run focused tests:
 
 ```powershell
-uv run pytest tests/test_dashboard_preview.py -q
+uv run pytest tests/test_dashboard_redesign_contract.py tests/test_web_security.py -q -o addopts=
 ```
 
 Lint:
@@ -231,10 +201,10 @@ uv run python scripts/preview_dashboard.py --check-only --strict
 Useful focused gates:
 
 ```powershell
-uv run pytest tests/test_setting_seed_data.py -q
-uv run pytest tests/test_setting_seed_ml_splits.py -q
-uv run pytest tests/test_dashboard_preview.py -q
-uv run pytest tests/test_web.py tests/test_web_integration.py -q
+uv run pytest tests/test_empirical_viewer_payload.py -q -o addopts=
+uv run pytest tests/test_dashboard_redesign_contract.py -q -o addopts=
+uv run pytest tests/test_web_security.py -q -o addopts=
+uv run pytest tests/test_validation_status.py tests/test_figure_payload.py -q -o addopts=
 ```
 
 ## How To Resume From `AGENT_STATUS.md`
