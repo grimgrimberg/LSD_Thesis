@@ -23,6 +23,10 @@ from .status import (
 )
 
 
+def _json_payload(path: Path) -> dict[str, Any]:
+    return _read_json(path) or {}
+
+
 def _motion_gate(repo_root: Path) -> dict[str, Any]:
     path = repo_root / "results" / "setting_seed" / "motion" / "motion_summary.json"
     control_path = repo_root / "results" / "confound_controls" / "motion_confound_control_status.json"
@@ -32,14 +36,14 @@ def _motion_gate(repo_root: Path) -> dict[str, Any]:
     source_availability_path = repo_root / "results" / "confound_controls" / "ds003059_motion_source_availability.json"
     image_motion_path = repo_root / "results" / "confound_controls" / "image_motion_qc_status.json"
     fmriprep_plan_path = repo_root / "results" / "confound_controls" / "fmriprep_motion_proof_plan.json"
-    payload = _read_json(path) or {}
-    control_payload = _read_json(control_path) or {}
-    design_payload = _read_json(design_path) or {}
-    module_dvars_payload = _read_json(module_dvars_path) or {}
-    published_motion_payload = _read_json(published_motion_path) or {}
-    source_availability_payload = _read_json(source_availability_path) or {}
-    image_motion_payload = _read_json(image_motion_path) or {}
-    fmriprep_plan_payload = _read_json(fmriprep_plan_path) or {}
+    payload = _json_payload(path)
+    control_payload = _json_payload(control_path)
+    design_payload = _json_payload(design_path)
+    module_dvars_payload = _json_payload(module_dvars_path)
+    published_motion_payload = _json_payload(published_motion_path)
+    source_availability_payload = _json_payload(source_availability_path)
+    image_motion_payload = _json_payload(image_motion_path)
+    fmriprep_plan_payload = _json_payload(fmriprep_plan_path)
     motion_ready = bool(payload.get("motion_analysis_ready"))
     control_status = str(control_payload.get("analysis_status") or "")
     design_status = str(design_payload.get("analysis_status") or "")
@@ -329,7 +333,7 @@ def _motion_gate(repo_root: Path) -> dict[str, Any]:
 
 def _parcellation_gate(repo_root: Path) -> dict[str, Any]:
     path = repo_root / "results" / "parcellation_sensitivity" / "parcellation_sensitivity_status.json"
-    payload = _read_json(path) or {}
+    payload = _json_payload(path)
     rows = payload.get("rows", [])
     if not isinstance(rows, list):
         rows = []
@@ -351,9 +355,9 @@ def _parcellation_gate(repo_root: Path) -> dict[str, Any]:
         / "group_overview.json"
     )
     ranking_path = repo_root / "results" / "parcellation_sensitivity" / canonical / "summary.json"
-    extraction_payload = _read_json(extraction_path) or {}
-    viewer_payload = _read_json(viewer_path) or {}
-    ranking_payload = _read_json(ranking_path) or {}
+    extraction_payload = _json_payload(extraction_path)
+    viewer_payload = _json_payload(viewer_path)
+    ranking_payload = _json_payload(ranking_path)
     raw_viewer_subjects = viewer_payload.get("subjects")
     raw_viewer_runs = viewer_payload.get("runs")
     raw_viewer_modules = viewer_payload.get("module_names")
@@ -467,8 +471,8 @@ def _parcellation_gate(repo_root: Path) -> dict[str, Any]:
 def _neuromaps_spatial_null_gate(repo_root: Path) -> dict[str, Any]:
     path = repo_root / "results" / "cortical_maps" / "neuromaps_spatial_null_status.json"
     cortical_path = repo_root / "results" / "cortical_maps" / "cortical_map_alignment_status.json"
-    payload = _read_json(path) or {}
-    cortical_payload = _read_json(cortical_path) or {}
+    payload = _json_payload(path)
+    cortical_payload = _json_payload(cortical_path)
     dependency_available = importlib.util.find_spec("neuromaps") is not None
     runtime = payload.get("neuromaps_runtime", {}) if isinstance(payload.get("neuromaps_runtime"), dict) else {}
     null_api_importable = bool(payload.get("null_api_importable") or runtime.get("null_api_importable"))
@@ -598,7 +602,7 @@ def _neuromaps_spatial_null_gate(repo_root: Path) -> dict[str, Any]:
 
 def _rocket_gate(repo_root: Path) -> dict[str, Any]:
     path = repo_root / "results" / "training" / "rocket_condition_benchmark" / "comparison_summary.json"
-    payload = _read_json(path) or {}
+    payload = _json_payload(path)
     aggregate = payload.get("aggregate", {})
     dataset = payload.get("dataset", {})
     rocket = payload.get("rocket", {})
@@ -704,16 +708,16 @@ def _public_dashboard_gate(repo_root: Path) -> dict[str, Any]:
     dashboard_data_path = site_root / "dashboard" / "dashboard-data.json"
     thesis_status_path = site_root / "artifacts" / "results" / "thesis_upgrade" / "thesis_upgrade_status.json"
     archive_manifest_path = site_root / "artifacts" / "results" / "reproducible_archive" / "ARCHIVE_MANIFEST.json"
-    current_status = _read_json(current_status_path) or {}
-    site_status = _read_json(thesis_status_path) or {}
-    dashboard_payload = _read_json(dashboard_data_path) or {}
+    current_status = _json_payload(current_status_path)
+    site_status = _json_payload(thesis_status_path)
+    dashboard_payload = _json_payload(dashboard_data_path)
     raw_dashboard_status = dashboard_payload.get("thesis_upgrade") if isinstance(dashboard_payload, dict) else None
     if not isinstance(raw_dashboard_status, dict) and isinstance(dashboard_payload, dict):
         raw_source_dashboard = dashboard_payload.get("source_dashboard")
         if isinstance(raw_source_dashboard, dict):
             raw_dashboard_status = raw_source_dashboard.get("thesis_upgrade")
     dashboard_status = raw_dashboard_status if isinstance(raw_dashboard_status, dict) else {}
-    manifest = _read_json(manifest_path) or {}
+    manifest = _json_payload(manifest_path)
     raw_entrypoints = manifest.get("entrypoints")
     entrypoints: dict[str, Any] = raw_entrypoints if isinstance(raw_entrypoints, dict) else {}
     raw_artifacts = manifest.get("artifacts")
@@ -799,12 +803,12 @@ def _external_gate(repo_root: Path) -> dict[str, Any]:
     payload_plan_path = repo_root / "results" / "psilocybin_ds006072" / "minimum_payload_plan.json"
     cifti_extraction_path = repo_root / "results" / "psilocybin_ds006072" / "cifti_empirical_extraction_status.json"
     ingestion_path = repo_root / "results" / "external_ingestion" / "external_ingestion_status.json"
-    payload = _read_json(path) or {}
-    readiness_payload = _read_json(readiness_path) or {}
-    comparable_payload = _read_json(comparable_result_path) or {}
-    payload_plan = _read_json(payload_plan_path) or {}
-    cifti_extraction = _read_json(cifti_extraction_path) or {}
-    ingestion = _read_json(ingestion_path) or {}
+    payload = _json_payload(path)
+    readiness_payload = _json_payload(readiness_path)
+    comparable_payload = _json_payload(comparable_result_path)
+    payload_plan = _json_payload(payload_plan_path)
+    cifti_extraction = _json_payload(cifti_extraction_path)
+    ingestion = _json_payload(ingestion_path)
     ingestion_status = ingestion.get("analysis_status", {}) if isinstance(ingestion.get("analysis_status"), dict) else {}
     status = str(
         comparable_payload.get("analysis_status")
@@ -999,9 +1003,9 @@ def _receptor_structural_gate(repo_root: Path) -> dict[str, Any]:
     structural_path = repo_root / "results" / "structural_connectome" / "structural_connectome_status.json"
     receptor_path = repo_root / "results" / "receptor_priors" / "receptor_prior_status.json"
     ingestion_path = repo_root / "results" / "external_ingestion" / "external_ingestion_status.json"
-    structural = _read_json(structural_path) or {}
-    receptor = _read_json(receptor_path) or {}
-    ingestion = _read_json(ingestion_path) or {}
+    structural = _json_payload(structural_path)
+    receptor = _json_payload(receptor_path)
+    ingestion = _json_payload(ingestion_path)
     ingestion_status = ingestion.get("analysis_status", {}) if isinstance(ingestion.get("analysis_status"), dict) else {}
     structural_status = str(structural.get("analysis_status") or "blocked_missing_hcp_structural_graph")
     receptor_status = str(receptor.get("analysis_status") or "blocked_missing_pet_receptor_prior")
@@ -1056,8 +1060,8 @@ def _receptor_structural_gate(repo_root: Path) -> dict[str, Any]:
 def _receptor_myelin_gradient_claim_gate(repo_root: Path) -> dict[str, Any]:
     path = repo_root / "results" / "cortical_maps" / "cortical_map_alignment_status.json"
     falsification_path = repo_root / "results" / "cortical_maps" / "map_prior_falsification_status.json"
-    payload = _read_json(path) or {}
-    falsification = _read_json(falsification_path) or {}
+    payload = _json_payload(path)
+    falsification = _json_payload(falsification_path)
     raw_claim_readiness = payload.get("claim_readiness", {})
     claim_readiness = dict(raw_claim_readiness) if isinstance(raw_claim_readiness, dict) else {}
     raw_neuromaps_status = payload.get("neuromaps_status", {})
@@ -1206,7 +1210,7 @@ def _receptor_myelin_gradient_claim_gate(repo_root: Path) -> dict[str, Any]:
 
 def _archive_gate(repo_root: Path) -> dict[str, Any]:
     path = repo_root / "results" / "reproducible_archive" / "ARCHIVE_MANIFEST.json"
-    payload = _read_json(path) or {}
+    payload = _json_payload(path)
     manifest_ready = bool(payload.get("artifact_count"))
     release_url = str(payload.get("release_url") or "")
     doi = str(payload.get("doi") or "")
