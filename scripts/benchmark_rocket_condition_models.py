@@ -13,7 +13,9 @@ import sys
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(REPO_ROOT / "src"))
+SRC_ROOT = REPO_ROOT / "src"
+if str(SRC_ROOT) not in sys.path:
+    sys.path.insert(0, str(SRC_ROOT))
 
 from lsd_thesis.condition_models import load_window_dataset  # noqa: E402
 from lsd_thesis.rocket_benchmark import evaluate_rocket_condition_model, write_rocket_outputs  # noqa: E402
