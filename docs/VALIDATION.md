@@ -1,6 +1,6 @@
 # Validation Notes
 
-Current status date: 2026-06-14
+Current status date: 2026-06-17
 
 ## Current Quality Baseline
 
@@ -21,10 +21,11 @@ node --check src\lsd_thesis\static\dashboard.js
 Observed current results:
 
 - Ruff: all checks passed.
-- mypy: no issues found in 108 source files.
-- pytest collection: 69 tests collected.
+- Repo state: clean at `466382f experiment: guard selected script src bootstraps` before this docs-only validation-baseline sync.
+- mypy: no issues found in 109 source files.
+- pytest collection: 82 tests collected.
 - dependency check: all installed packages are compatible.
-- pytest: 69 passed; production-surface coverage was 81.87%, satisfying the restored 50% gate across `lsd_thesis.web`, `lsd_thesis.reproducible_archive`, `lsd_thesis.fmriprep_motion_proof`, and `lsd_thesis.setting_seed.motion`.
+- pytest: 82 passed; production-surface coverage was 82.69%, satisfying the restored 50% gate across `lsd_thesis.web`, `lsd_thesis.reproducible_archive`, `lsd_thesis.fmriprep_motion_proof`, and `lsd_thesis.setting_seed.motion`.
 - dashboard preview preflight: required files present, optional generated artifacts present, thesis gate contract passed, and CV5 subject-disjoint validation reported as completed internal validation with 5/5 folds.
 - JavaScript syntax check: `dashboard.js` parsed successfully.
 
