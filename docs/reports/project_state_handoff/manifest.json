@@ -1,0 +1,229 @@
+{
+  "snapshot_date": "2026-06-17",
+  "repo_path": "D:/LSD_Thesis",
+  "git_branch": "audit/full-cleanup-and-prior-art",
+  "git_commit": "69b0397a64fb7ec6f5b19cc07f00565cec97c53b",
+  "git_status_initial": [],
+  "git_status_final": [
+    "expected only untracked files under docs/reports/project_state_handoff/ after package creation"
+  ],
+  "validation_commands": [
+    {
+      "command": "uv run --frozen pytest --collect-only -q -o addopts=",
+      "result": "passed",
+      "details": "82 tests collected in 23.97s"
+    },
+    {
+      "command": "uv run --frozen ruff check .",
+      "result": "passed",
+      "details": "All checks passed"
+    },
+    {
+      "command": "uv run --frozen mypy src",
+      "result": "passed",
+      "details": "Success: no issues found in 109 source files"
+    },
+    {
+      "command": "uv pip check",
+      "result": "passed",
+      "details": "76 packages checked; all installed packages are compatible"
+    },
+    {
+      "command": "uv run --frozen python scripts/preview_dashboard.py --check-only --strict",
+      "result": "passed",
+      "details": "Required files present, optional artifacts present, CV5 internal validation 5/5, thesis gate contract passed"
+    },
+    {
+      "command": "node --check src/lsd_thesis/static/dashboard.js",
+      "result": "passed",
+      "details": "Exit code 0"
+    },
+    {
+      "command": "uv run --frozen pytest",
+      "result": "not_run",
+      "details": "Full pytest was not rerun for this handoff; latest documented baseline is 82 passed with 82.69% coverage in docs/VALIDATION.md"
+    }
+  ],
+  "created_files": [
+    "docs/reports/project_state_handoff/PROJECT_STATE_HANDOFF.md",
+    "docs/reports/project_state_handoff/CHATGPT_PASTEBACK.md",
+    "docs/reports/project_state_handoff/manifest.json",
+    "docs/reports/project_state_handoff/assets/screenshots/dashboard-overview.png",
+    "docs/reports/project_state_handoff/assets/screenshots/dashboard-ranking.png",
+    "docs/reports/project_state_handoff/assets/screenshots/dashboard-robustness.png",
+    "docs/reports/project_state_handoff/assets/screenshots/dashboard-prior-art.png",
+    "docs/reports/project_state_handoff/assets/screenshots/dashboard-empirical.png",
+    "docs/reports/project_state_handoff/assets/screenshots/dashboard-figures.png",
+    "docs/reports/project_state_handoff/assets/representative_figures/stage1_metric_shift.png",
+    "docs/reports/project_state_handoff/assets/representative_figures/stage2_fit_robustness.png",
+    "docs/reports/project_state_handoff/assets/representative_figures/pass2a_microsite.png",
+    "docs/reports/project_state_handoff/assets/representative_figures/set_setting_seed_live_8020.png"
+  ],
+  "screenshot_files": [
+    {
+      "path": "docs/reports/project_state_handoff/assets/screenshots/dashboard-overview.png",
+      "caption": "Local dashboard overview page",
+      "source": "http://127.0.0.1:8000/"
+    },
+    {
+      "path": "docs/reports/project_state_handoff/assets/screenshots/dashboard-ranking.png",
+      "caption": "Mechanism ranking page",
+      "source": "http://127.0.0.1:8000/ranking"
+    },
+    {
+      "path": "docs/reports/project_state_handoff/assets/screenshots/dashboard-robustness.png",
+      "caption": "Robustness and strict gates page",
+      "source": "http://127.0.0.1:8000/robustness"
+    },
+    {
+      "path": "docs/reports/project_state_handoff/assets/screenshots/dashboard-prior-art.png",
+      "caption": "Prior-art inventory page",
+      "source": "http://127.0.0.1:8000/prior-art"
+    },
+    {
+      "path": "docs/reports/project_state_handoff/assets/screenshots/dashboard-empirical.png",
+      "caption": "Empirical viewer page",
+      "source": "http://127.0.0.1:8000/empirical"
+    },
+    {
+      "path": "docs/reports/project_state_handoff/assets/screenshots/dashboard-figures.png",
+      "caption": "Figure deck page",
+      "source": "http://127.0.0.1:8000/figures"
+    }
+  ],
+  "representative_image_files": [
+    {
+      "path": "docs/reports/project_state_handoff/assets/representative_figures/stage1_metric_shift.png",
+      "source_path": "output/doc/figures/stage1_metric_shift.png",
+      "status": "ignored generated output",
+      "caption": "Stage 1 metric shift publication figure",
+      "selected_because": "Small existing figure used in report/publication output"
+    },
+    {
+      "path": "docs/reports/project_state_handoff/assets/representative_figures/stage2_fit_robustness.png",
+      "source_path": "output/doc/figures/stage2_fit_robustness.png",
+      "status": "ignored generated output",
+      "caption": "Stage 2 fit robustness publication figure",
+      "selected_because": "Small existing figure used in report/publication output"
+    },
+    {
+      "path": "docs/reports/project_state_handoff/assets/representative_figures/pass2a_microsite.png",
+      "source_path": "results/setting_seed/dashboard/screenshots/pass2a_microsite.png",
+      "status": "ignored generated PNG",
+      "caption": "Historical PASS 2A setting/seed microsite screenshot",
+      "selected_because": "Representative existing dashboard visual artifact"
+    },
+    {
+      "path": "docs/reports/project_state_handoff/assets/representative_figures/set_setting_seed_live_8020.png",
+      "source_path": "results/setting_seed/dashboard/screenshots/set_setting_seed_live_8020.png",
+      "status": "ignored generated PNG",
+      "caption": "Historical live setting/seed dashboard screenshot",
+      "selected_because": "Representative existing dashboard visual artifact"
+    }
+  ],
+  "diagrams": [
+    {
+      "name": "repo/module architecture",
+      "location": "PROJECT_STATE_HANDOFF.md Mermaid block",
+      "rendered_file": null
+    },
+    {
+      "name": "data/artifact flow",
+      "location": "PROJECT_STATE_HANDOFF.md Mermaid block",
+      "rendered_file": null
+    },
+    {
+      "name": "dashboard/public-site flow",
+      "location": "PROJECT_STATE_HANDOFF.md Mermaid block",
+      "rendered_file": null
+    },
+    {
+      "name": "testing/validation flow",
+      "location": "PROJECT_STATE_HANDOFF.md Mermaid block",
+      "rendered_file": null
+    },
+    {
+      "name": "safe cleanup roadmap",
+      "location": "PROJECT_STATE_HANDOFF.md Mermaid block",
+      "rendered_file": null
+    }
+  ],
+  "skipped_steps": [
+    {
+      "step": "full pytest rerun",
+      "why": "Not clearly needed for a report-only handoff; latest documented baseline is 82 passed with 82.69% coverage"
+    },
+    {
+      "step": "full-page dashboard screenshots",
+      "why": "Browser full-page screenshot capture timed out; viewport screenshots were captured instead"
+    },
+    {
+      "step": "static _site dashboard screenshot",
+      "why": "Browser blocked direct file:// navigation by URL policy; no workaround was attempted"
+    },
+    {
+      "step": "Mermaid diagram rendering",
+      "why": "No mmdc command was installed and dependency installation was forbidden"
+    },
+    {
+      "step": "scientific workflows and artifact generation",
+      "why": "Explicitly forbidden by the task"
+    },
+    {
+      "step": "Pages/publication build",
+      "why": "Explicitly forbidden by the task"
+    }
+  ],
+  "files_inspected": [
+    "git status --short --untracked-files=all",
+    "git log --oneline -12",
+    "docs/VALIDATION.md",
+    "README.md",
+    "ARCHITECTURE.md",
+    "SPEC.md",
+    "AGENTS.md",
+    "docs/reports/results_artifact_inventory.md",
+    "pyproject.toml",
+    "src/lsd_thesis/",
+    "src/lsd_thesis/web/",
+    "scripts/",
+    "tests/",
+    "results/ inventory and selected JSON status artifacts",
+    "output/ inventory and selected images",
+    "_site/ inventory only",
+    "autoresearch-results/ existence check"
+  ],
+  "no_touch_confirmations": [
+    "No source code files were intentionally modified",
+    "No tests were intentionally modified",
+    "No scripts were intentionally modified",
+    "No tracked result artifacts were intentionally modified",
+    "No ignored/generated outputs outside docs/reports/project_state_handoff/ were intentionally modified",
+    "No raw data, caches, private data, docs/reference, pyproject.toml, uv.lock, or dependencies were intentionally modified",
+    "Nothing was staged",
+    "Nothing was committed",
+    "No scientific workflows were run",
+    "No artifact generation was run",
+    "No Pages/publication build was run",
+    "No external data downloads were run",
+    "No public/external server was started",
+    "No scientific claim wording, claim labels, gate/status semantics, status vocabulary, dashboard/public JSON schemas, routes, aliases, or artifact policy were changed"
+  ],
+  "recommended_next_tracks": [
+    "Artifact-tier README or docs note",
+    "Dashboard visual review without schema or route changes",
+    "Motion-proof planning pack",
+    "Public-site snapshot drift audit without rebuilding",
+    "Entry point or pre-commit proposal",
+    "Result producer/consumer map",
+    "External/PET/SC/neuromaps evidence audit only with explicit approval",
+    "Mobile/static dashboard accessibility review"
+  ],
+  "notes": [
+    "This is a report-generation package only",
+    "Dashboard screenshots were captured from a localhost-only server and the server was stopped afterward",
+    "Representative images were copied from existing artifacts; originals were not modified",
+    "docs/reference was not modified",
+    "autoresearch-results exists but remained ignored/untracked and was not staged"
+  ]
+}
