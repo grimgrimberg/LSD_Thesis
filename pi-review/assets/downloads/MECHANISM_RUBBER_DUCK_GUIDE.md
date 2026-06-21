@@ -25,7 +25,7 @@ The project compares five families of model-level macro-dynamic proxies against 
 3. Aggregate feature support into a score for each family.
 4. Stress-test the ranking with bootstrap and run-sensitivity artifacts.
 5. Gate the claims using verdict and thesis-status tables.
-6. Ask the PI which blocker and claim-promotion threshold must be solved next.
+6. Present the proposed next track: solve the FD/DVARS/censoring motion-proof blocker before claim promotion or scope expansion.
 
 ## Metadata Trail
 

@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-06-21T08:46:54.592396+00:00",
+  "generated_at_utc": "2026-06-21T09:29:41.586277+00:00",
   "claim_guardrail": "GitHub Pages is a static presentation and dashboard snapshot. Treat blocked rows in the claim matrix as unresolved thesis work, not as completed scientific evidence. Interactive FastAPI-only controls are available only in the local dashboard.",
   "entrypoints": {
     "index": "index.html",
@@ -224,6 +224,7 @@
     "pi-review/assets/downloads/PUBLICATION_OPTIONS.md",
     "pi-review/assets/downloads/README_SEND_TO_PI.md",
     "pi-review/assets/downloads/SCHOLARLY_CONTEXT.md",
+    "pi-review/assets/downloads/SEND_THIS_EMAIL.md",
     "pi-review/assets/downloads/SUBAGENT_FINDINGS.md",
     "pi-review/assets/downloads/manifest.json",
     "pi-review/assets/figures/pass2a_microsite.png",

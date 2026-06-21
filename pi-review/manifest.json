@@ -1,5 +1,5 @@
 {
-  "snapshot_date": "2026-06-18",
+  "snapshot_date": "2026-06-21",
   "package_kind": "PI-facing hosted/static thesis review website with offline fallback",
   "hosted_url": "https://grimgrimberg.github.io/LSD_Thesis/pi-review/",
   "hosted_slides_url": "https://grimgrimberg.github.io/LSD_Thesis/pi-review/pages/pitch-slides.html",
@@ -23,7 +23,7 @@
     "pages/meeting-agenda.html",
     "pages/validation-and-safety.html"
   ],
-  "generated_at_utc": "2026-06-18T08:39:52+00:00",
+  "generated_at_utc": "2026-06-21T09:30:00+00:00",
   "copied_assets": [
     {
       "from": "assets/screenshots/dashboard-overview.png",
@@ -254,7 +254,7 @@
     {
       "name": "PI reader/editorial subagent",
       "status": "completed_read_only",
-      "summary": "Recommended first-screen visibility for hosted/static review status, safe framing, C/E/D/A/B ranking, blockers, and PI decision ask; flagged wording that could imply external, receptor-level, or publication-ready status."
+      "summary": "Recommended first-screen visibility for hosted/static review status, safe framing, C/E/D/A/B ranking, blockers, and a proposed motion-proof-first next track; flagged wording that could imply external, receptor-level, or publication-ready status."
     },
     {
       "name": "Evidence/package QA subagent",
@@ -268,7 +268,7 @@
     }
   ],
   "offline_qa": {
-    "generated_at_utc": "2026-06-18T08:39:52+00:00",
+    "generated_at_utc": "2026-06-21T09:30:00+00:00",
     "html_files_checked": [
       "OPEN_ME_FIRST.html",
       "pages/ae-math-metadata.html",
@@ -323,7 +323,7 @@
     {
       "command": "uv run --frozen pytest --collect-only -q -o addopts=",
       "result": "passed",
-      "details": "82 tests collected in 25.56s."
+      "details": "83 tests collected in 25.56s."
     },
     {
       "command": "uv run --frozen ruff check .",
@@ -357,8 +357,8 @@
     },
     {
       "command": "uv run --frozen pytest",
-      "result": "not_run",
-      "details": "Full pytest was not run for this packaging-only pass; latest documented full baseline remains 82 passed with 82.69% coverage."
+      "result": "passed",
+      "details": "Full pytest passed 83 tests with 82.73% coverage in the current polish pass."
     }
   ],
   "no_touch_confirmations": [

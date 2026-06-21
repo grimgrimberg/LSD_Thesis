@@ -1,6 +1,6 @@
 {
   "schema_version": "reproducible_archive_manifest.v1",
-  "generated_at_utc": "2026-06-21T08:46:54.056567+00:00",
+  "generated_at_utc": "2026-06-21T09:29:39.893395+00:00",
   "python_version": "3.13.13",
   "platform": "Windows-10-10.0.19045-SP0",
   "artifact_count": 23,
@@ -32,8 +32,8 @@
     },
     {
       "path": "docs/VALIDATION.md",
-      "bytes": 15800,
-      "sha256": "d141e45284c467b00df423c950fbac19a0061e6d5ac5b153558c9d8a4b43b421"
+      "bytes": 15784,
+      "sha256": "238f3a3e73c4a844e849e4516445dd6cead9ebf06c8939b70c1ddceaa3424229"
     },
     {
       "path": "docs/METHODS_RESEARCH.md",
@@ -88,7 +88,7 @@
     {
       "path": "results/thesis_evidence_loop/thesis_evidence_loop_status.json",
       "bytes": 765309,
-      "sha256": "8df8ddb0b9278a1b59b6e6d17a54a89fe839502fd20d6b2b71c7ceb452ca5034"
+      "sha256": "bad4c954f8278b2f715ddf4f33e1a895be81580d9d86909101888d601665c276"
     },
     {
       "path": "results/thesis_evidence_loop/claim_evidence_matrix.md",
@@ -98,7 +98,7 @@
     {
       "path": "results/thesis_upgrade/thesis_upgrade_status.json",
       "bytes": 72257,
-      "sha256": "6e2e80c02d1bb74ccbd936b0a19fa00f68d758f8aed6fb6c481408aeaec8208a"
+      "sha256": "bbe9f719a12c206e5274fd5dd95a62da2ddfc15e7aa9d49a263e0b8e1ef45fd9"
     },
     {
       "path": "results/thesis_upgrade/thesis_upgrade_status.md",

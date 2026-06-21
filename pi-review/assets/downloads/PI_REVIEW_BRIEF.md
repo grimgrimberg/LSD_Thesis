@@ -4,7 +4,7 @@
 
 Title: Claim-gated macro-dynamic mechanism ranking workbench for LSD fMRI thesis development
 
-Snapshot date: 2026-06-18
+Snapshot date: 2026-06-21
 
 Repository: `D:\LSD_Thesis`
 
@@ -97,8 +97,8 @@ From `docs/VALIDATION.md`, current status date 2026-06-17:
 
 - Ruff passed.
 - mypy passed on 109 source files.
-- pytest collect-only collected 82 tests.
-- Latest documented full pytest baseline: 82 passed, 82.69% coverage.
+- pytest collect-only collected 83 tests.
+- Current full pytest baseline: 83 passed, 82.73% coverage.
 - `uv pip check` passed.
 - Dashboard strict preflight passed.
 - `node --check src\lsd_thesis\static\dashboard.js` passed.

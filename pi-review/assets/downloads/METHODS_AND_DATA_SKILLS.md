@@ -8,8 +8,8 @@ The current documented engineering baseline is strong enough for PI review:
 
 - `ruff` passed.
 - `mypy src` passed on 109 source files.
-- `pytest --collect-only` collected 82 tests.
-- Latest documented full pytest baseline is 82 passed with 82.69% coverage.
+- `pytest --collect-only` collected 83 tests.
+- Current full pytest baseline is 83 passed with 82.73% coverage.
 - Dashboard strict preflight passed.
 - `node --check src\lsd_thesis\static\dashboard.js` passed.
 

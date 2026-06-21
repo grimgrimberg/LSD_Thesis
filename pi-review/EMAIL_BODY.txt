@@ -12,7 +12,7 @@ The framing is intentionally conservative: this is a model-level macro-dynamic m
 
 The current mechanism ranking is C, E, D, A, B. C is the strongest current proxy-supported layer; E should be read as a lower transition/control-energy proxy rather than receptor-specific proof; B remains visible as a negative DMDc baseline. The main blocker is still FD/DVARS/censoring motion proof. The archive DOI is also incomplete.
 
-What I need from you is a decision on the next blocker and the threshold for promoting a proxy-supported result into a thesis-level claim. My recommendation is to start with a motion-proof planning pack before expanding the science scope.
+My proposed next milestone is a motion-proof planning pack before expanding the science scope or promoting a proxy-supported result into thesis-level language. I would like to review whether that plan is bounded well enough for supervision.
 
 Best,
 Yuval
