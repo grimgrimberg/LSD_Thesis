@@ -101,7 +101,7 @@
       <main id="main_content" class="page-surface" tabindex="-1">
 
 <section class="thesis-story" aria-labelledby="submission_title">
-  <article class="panel thesis-lede panel--span-3">
+  <article class="panel thesis-lede submission-hero panel--span-3">
     <p class="chrome-label">Supervisor submission</p>
     <h2 id="submission_title">A dashboard-backed submission brief for the macro-dynamics thesis.</h2>
     <p>This page condenses the dashboard into a guided pitch: what is implemented, what the current proxy evidence suggests, which units to read, and which blockers remain unresolved.</p>
@@ -109,9 +109,17 @@
     <div id="submission_pitch_links" class="button-row"></div>
   </article>
 
+  <article class="panel submission-ask-panel">
+    <div class="panel-heading">
+      <h2>Decision Needed</h2>
+      <span class="status-token status-token--rose">supervisor ask</span>
+    </div>
+    <div id="submission_supervisor_questions" class="stacked-list"></div>
+  </article>
+
   <article class="panel panel--span-3">
     <div class="panel-heading">
-      <h2>Dashboard Insights</h2>
+      <h2>What The Dashboard Says Now</h2>
       <span class="status-token status-token--teal">from current payload</span>
     </div>
     <div id="submission_insight_cards" class="card-grid card-grid--dense"></div>
@@ -119,13 +127,94 @@
 
   <article class="panel panel--span-2">
     <div class="panel-heading">
-      <h2>Submission Mechanism Plot</h2>
+      <h2>Current A-E Ranking</h2>
       <span class="status-token status-token--amber">proxy units</span>
     </div>
     <div class="chart-frame">
       <div id="submission_mechanism_chart" class="chart chart-sm" role="img" aria-label="Submission mechanism ranking chart">Loading...</div>
     </div>
     <div id="submission_mechanism_chart_explainer"></div>
+  </article>
+
+  <article class="panel">
+    <div class="panel-heading">
+      <h2>Rank Stability</h2>
+      <span class="status-token status-token--teal">bootstrap</span>
+    </div>
+    <div class="chart-frame">
+      <div id="submission_bootstrap_chart" class="chart chart-sm" role="img" aria-label="Bootstrap rank stability by mechanism layer">Loading...</div>
+    </div>
+  </article>
+
+  <article class="panel panel--span-2">
+    <div class="panel-heading">
+      <h2>Score Uncertainty</h2>
+      <span class="status-token status-token--amber">intervals</span>
+    </div>
+    <div class="chart-frame">
+      <div id="submission_uncertainty_chart" class="chart chart-sm" role="img" aria-label="Mechanism support score with bootstrap interval">Loading...</div>
+    </div>
+  </article>
+
+  <article class="panel">
+    <div class="panel-heading">
+      <h2>E Proxy Boundary</h2>
+      <span class="status-token status-token--rose">do not overclaim</span>
+    </div>
+    <div class="chart-frame">
+      <div id="submission_e_horizon_chart" class="chart chart-sm" role="img" aria-label="E-layer horizon sensitivity and receptor-vs-random boundary">Loading...</div>
+    </div>
+  </article>
+
+  <article class="panel panel--span-2">
+    <div class="panel-heading">
+      <h2>Run Sensitivity</h2>
+      <span class="status-token status-token--amber">run split</span>
+    </div>
+    <div class="chart-frame">
+      <div id="submission_run_sensitivity_chart" class="chart chart-sm" role="img" aria-label="Run sensitivity by mechanism layer">Loading...</div>
+    </div>
+  </article>
+
+  <article class="panel">
+    <div class="panel-heading">
+      <h2>Plot Reading Notes</h2>
+      <span class="status-token status-token--teal">units + caveats</span>
+    </div>
+    <div id="submission_plot_notes" class="stacked-list"></div>
+  </article>
+
+  <article class="panel panel--span-2">
+    <div class="panel-heading">
+      <h2>Literature Alignment</h2>
+      <span class="status-token status-token--amber">directional</span>
+    </div>
+    <div class="chart-frame">
+      <div id="submission_benchmark_chart" class="chart chart-sm" role="img" aria-label="Literature benchmark alignment for submission">Loading...</div>
+    </div>
+    <div id="submission_benchmark_chart_explainer"></div>
+  </article>
+
+  <article class="panel">
+    <div class="panel-heading">
+      <h2>Internal CV5 Fold Spread</h2>
+      <span class="status-token status-token--teal">internal only</span>
+    </div>
+    <div class="chart-frame">
+      <div id="submission_cv5_fold_chart" class="chart chart-sm" role="img" aria-label="Internal CV5 fold spread">Loading...</div>
+    </div>
+    <div id="submission_cv5_fold_chart_explainer"></div>
+  </article>
+
+  <article class="panel panel--span-3">
+    <div class="panel-heading">
+      <h2>What Remains Blocked</h2>
+      <span class="status-token status-token--rose">strict gates</span>
+    </div>
+    <div class="chart-frame">
+      <div id="submission_strict_gate_chart" class="chart chart-sm" role="img" aria-label="Strict thesis gate completion for submission">Loading...</div>
+    </div>
+    <div id="submission_strict_gate_chart_explainer"></div>
   </article>
 
   <article class="panel">
@@ -172,10 +261,10 @@
 
   <article class="panel">
     <div class="panel-heading">
-      <h2>Question For Supervisor</h2>
-      <span class="status-token status-token--rose">next threshold</span>
+      <h2>Send This First</h2>
+      <span class="status-token status-token--moss">email-ready</span>
     </div>
-    <div id="submission_supervisor_questions" class="stacked-list"></div>
+    <div id="submission_email_brief" class="stacked-list"></div>
   </article>
 </section>
 
