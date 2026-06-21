@@ -1,0 +1,379 @@
+{
+  "snapshot_date": "2026-06-18",
+  "repo_path": "D:/LSD_Thesis",
+  "source_commit": "1a51eb54d909cbda6bf3584cd2ecf99f187c355d",
+  "validation_baseline_commit": "69b0397a64fb7ec6f5b19cc07f00565cec97c53b",
+  "source_branch": "audit/full-cleanup-and-prior-art",
+  "package_kind": "PI-facing hosted/static thesis share package with offline fallback",
+  "hosted_url": "https://grimgrimberg.github.io/LSD_Thesis/pi-review/",
+  "hosted_slides_url": "https://grimgrimberg.github.io/LSD_Thesis/pi-review/pages/pitch-slides.html",
+  "hosted_figure_atlas_url": "https://grimgrimberg.github.io/LSD_Thesis/pi-review/pages/figure-atlas.html",
+  "git_status_initial": [
+    "?? docs/reports/dashboard_visual_review.md"
+  ],
+  "git_status_final": [
+    "?? docs/reports/dashboard_visual_review.md",
+    "?? docs/reports/pi_thesis_share_package/EMAIL_TO_PI.md",
+    "?? docs/reports/pi_thesis_share_package/EVIDENCE_AND_CALCULATIONS.md",
+    "?? docs/reports/pi_thesis_share_package/METHODS_AND_DATA_SKILLS.md",
+    "?? docs/reports/pi_thesis_share_package/PI_MEETING_SCRIPT.md",
+    "?? docs/reports/pi_thesis_share_package/PI_REVIEW_BRIEF.md",
+    "?? docs/reports/pi_thesis_share_package/PROBLEMS_AND_NEXT_STEPS.md",
+    "?? docs/reports/pi_thesis_share_package/PUBLICATION_OPTIONS.md",
+    "?? docs/reports/pi_thesis_share_package/README_SEND_TO_PI.md",
+    "?? docs/reports/pi_thesis_share_package/SCHOLARLY_CONTEXT.md",
+    "?? docs/reports/pi_thesis_share_package/SUBAGENT_FINDINGS.md",
+    "?? docs/reports/pi_thesis_share_package/assets/css/pi_package.css",
+    "?? docs/reports/pi_thesis_share_package/assets/data/dynamic_claim_verdicts.csv",
+    "?? docs/reports/pi_thesis_share_package/assets/data/empirical_group_metric_deltas.csv",
+    "?? docs/reports/pi_thesis_share_package/assets/data/figure_deck_status_cards.csv",
+    "?? docs/reports/pi_thesis_share_package/assets/data/literature_benchmark_values.csv",
+    "?? docs/reports/pi_thesis_share_package/assets/data/mechanism_ranking_values.csv",
+    "?? docs/reports/pi_thesis_share_package/assets/data/publication_figure_values.csv",
+    "?? docs/reports/pi_thesis_share_package/assets/data/robustness_run_sensitivity_values.csv",
+    "?? docs/reports/pi_thesis_share_package/assets/data/robustness_summary_values.csv",
+    "?? docs/reports/pi_thesis_share_package/assets/data/thesis_gate_summary.csv",
+    "?? docs/reports/pi_thesis_share_package/assets/figures/pass2a_microsite.png",
+    "?? docs/reports/pi_thesis_share_package/assets/figures/set_setting_seed_live_8020.png",
+    "?? docs/reports/pi_thesis_share_package/assets/figures/stage1_metric_shift.png",
+    "?? docs/reports/pi_thesis_share_package/assets/figures/stage2_fit_robustness.png",
+    "?? docs/reports/pi_thesis_share_package/assets/screenshots/dashboard-empirical.png",
+    "?? docs/reports/pi_thesis_share_package/assets/screenshots/dashboard-figures.png",
+    "?? docs/reports/pi_thesis_share_package/assets/screenshots/dashboard-overview.png",
+    "?? docs/reports/pi_thesis_share_package/assets/screenshots/dashboard-prior-art.png",
+    "?? docs/reports/pi_thesis_share_package/assets/screenshots/dashboard-ranking.png",
+    "?? docs/reports/pi_thesis_share_package/assets/screenshots/dashboard-robustness.png",
+    "?? docs/reports/pi_thesis_share_package/manifest.json",
+    "?? docs/reports/pi_thesis_share_package/site/README.md",
+    "?? docs/reports/pi_thesis_share_package/site/index.html"
+  ],
+  "source_files_read": [
+    "AGENTS.md",
+    "README.md",
+    "ARCHITECTURE.md",
+    "SPEC.md",
+    "docs/VALIDATION.md",
+    "docs/reports/project_state_handoff/PROJECT_STATE_HANDOFF.md",
+    "docs/reports/project_state_handoff/CHATGPT_PASTEBACK.md",
+    "docs/reports/project_state_handoff/manifest.json",
+    "docs/reports/dashboard_visual_review.md",
+    "docs/reports/results_artifact_inventory.md",
+    "docs/research/ds003059_prior_art_to_thesis_map.md",
+    "docs/research/dynamic_mechanism_literature_support.md",
+    "docs/research/psychedelic_dynamics_targets.md",
+    "prior_art/README.md",
+    "prior_art/code_inventory.md",
+    "prior_art/reproducibility_matrix.md",
+    "prior_art/repository_manifest.md",
+    "prior_art/repository_metadata.md",
+    "prior_art/archive_manifest.md",
+    "prior_art/runbooks/*.md",
+    "src/lsd_thesis/web/dashboard_payload.py",
+    "src/lsd_thesis/web/figure_payload.py",
+    "src/lsd_thesis/web/site_payload.py",
+    "src/lsd_thesis/publication_figures.py",
+    "results/dynamic_mechanism_ranking/summary.json",
+    "results/dynamic_mechanism_ranking/robustness/robustness_summary.json",
+    "results/dynamic_mechanism_ranking/robustness/bootstrap_layer_summary.csv",
+    "results/dynamic_mechanism_ranking/robustness/run_sensitivity.csv",
+    "results/dynamic_mechanism_ranking/robustness/claim_verdicts.csv",
+    "results/stage_1/stage_1_summary.json",
+    "results/stage_2/stage_2_summary.json",
+    "results/stage_2/empirical_viewer/group_overview.json",
+    "results/thesis_upgrade/thesis_upgrade_status.json",
+    "results/validation/cv5_subject_disjoint/cv5_aggregate_validation.json",
+    "results/reproducible_archive/ARCHIVE_MANIFEST.json"
+  ],
+  "created_files": [
+    "docs/reports/pi_thesis_share_package/EMAIL_TO_PI.md",
+    "docs/reports/pi_thesis_share_package/EVIDENCE_AND_CALCULATIONS.md",
+    "docs/reports/pi_thesis_share_package/METHODS_AND_DATA_SKILLS.md",
+    "docs/reports/pi_thesis_share_package/PI_MEETING_SCRIPT.md",
+    "docs/reports/pi_thesis_share_package/PI_REVIEW_BRIEF.md",
+    "docs/reports/pi_thesis_share_package/PROBLEMS_AND_NEXT_STEPS.md",
+    "docs/reports/pi_thesis_share_package/PUBLICATION_OPTIONS.md",
+    "docs/reports/pi_thesis_share_package/README_SEND_TO_PI.md",
+    "docs/reports/pi_thesis_share_package/SCHOLARLY_CONTEXT.md",
+    "docs/reports/pi_thesis_share_package/SUBAGENT_FINDINGS.md",
+    "docs/reports/pi_thesis_share_package/assets/css/pi_package.css",
+    "docs/reports/pi_thesis_share_package/assets/data/dynamic_claim_verdicts.csv",
+    "docs/reports/pi_thesis_share_package/assets/data/empirical_group_metric_deltas.csv",
+    "docs/reports/pi_thesis_share_package/assets/data/figure_deck_status_cards.csv",
+    "docs/reports/pi_thesis_share_package/assets/data/literature_benchmark_values.csv",
+    "docs/reports/pi_thesis_share_package/assets/data/mechanism_ranking_values.csv",
+    "docs/reports/pi_thesis_share_package/assets/data/publication_figure_values.csv",
+    "docs/reports/pi_thesis_share_package/assets/data/robustness_run_sensitivity_values.csv",
+    "docs/reports/pi_thesis_share_package/assets/data/robustness_summary_values.csv",
+    "docs/reports/pi_thesis_share_package/assets/data/thesis_gate_summary.csv",
+    "docs/reports/pi_thesis_share_package/assets/figures/pass2a_microsite.png",
+    "docs/reports/pi_thesis_share_package/assets/figures/set_setting_seed_live_8020.png",
+    "docs/reports/pi_thesis_share_package/assets/figures/stage1_metric_shift.png",
+    "docs/reports/pi_thesis_share_package/assets/figures/stage2_fit_robustness.png",
+    "docs/reports/pi_thesis_share_package/assets/screenshots/dashboard-empirical.png",
+    "docs/reports/pi_thesis_share_package/assets/screenshots/dashboard-figures.png",
+    "docs/reports/pi_thesis_share_package/assets/screenshots/dashboard-overview.png",
+    "docs/reports/pi_thesis_share_package/assets/screenshots/dashboard-prior-art.png",
+    "docs/reports/pi_thesis_share_package/assets/screenshots/dashboard-ranking.png",
+    "docs/reports/pi_thesis_share_package/assets/screenshots/dashboard-robustness.png",
+    "docs/reports/pi_thesis_share_package/assets/screenshots/pi-review-figure-atlas.png",
+    "docs/reports/pi_thesis_share_package/assets/screenshots/pi-review-home.png",
+    "docs/reports/pi_thesis_share_package/assets/screenshots/pi-review-slides.png",
+    "docs/reports/pi_thesis_share_package/site/README.md",
+    "docs/reports/pi_thesis_share_package/site/index.html",
+    "docs/reports/pi_thesis_share_package/manifest.json"
+  ],
+  "copied_assets": [
+    {
+      "package_path": "docs/reports/pi_thesis_share_package/assets/screenshots/dashboard-empirical.png",
+      "source_path": "docs/reports/project_state_handoff/assets/screenshots/dashboard-empirical.png"
+    },
+    {
+      "package_path": "docs/reports/pi_thesis_share_package/assets/screenshots/dashboard-figures.png",
+      "source_path": "docs/reports/project_state_handoff/assets/screenshots/dashboard-figures.png"
+    },
+    {
+      "package_path": "docs/reports/pi_thesis_share_package/assets/screenshots/dashboard-overview.png",
+      "source_path": "docs/reports/project_state_handoff/assets/screenshots/dashboard-overview.png"
+    },
+    {
+      "package_path": "docs/reports/pi_thesis_share_package/assets/screenshots/dashboard-prior-art.png",
+      "source_path": "docs/reports/project_state_handoff/assets/screenshots/dashboard-prior-art.png"
+    },
+    {
+      "package_path": "docs/reports/pi_thesis_share_package/assets/screenshots/dashboard-ranking.png",
+      "source_path": "docs/reports/project_state_handoff/assets/screenshots/dashboard-ranking.png"
+    },
+    {
+      "package_path": "docs/reports/pi_thesis_share_package/assets/screenshots/dashboard-robustness.png",
+      "source_path": "docs/reports/project_state_handoff/assets/screenshots/dashboard-robustness.png"
+    },
+    {
+      "package_path": "docs/reports/pi_thesis_share_package/assets/screenshots/pi-review-figure-atlas.png",
+      "source_path": "Playwright localhost capture of _site/pi-review/pages/figure-atlas.html"
+    },
+    {
+      "package_path": "docs/reports/pi_thesis_share_package/assets/screenshots/pi-review-home.png",
+      "source_path": "Playwright localhost capture of _site/pi-review/"
+    },
+    {
+      "package_path": "docs/reports/pi_thesis_share_package/assets/screenshots/pi-review-slides.png",
+      "source_path": "Playwright localhost capture of _site/pi-review/pages/pitch-slides.html"
+    },
+    {
+      "package_path": "docs/reports/pi_thesis_share_package/assets/figures/pass2a_microsite.png",
+      "source_path": "docs/reports/project_state_handoff/assets/representative_figures/pass2a_microsite.png"
+    },
+    {
+      "package_path": "docs/reports/pi_thesis_share_package/assets/figures/set_setting_seed_live_8020.png",
+      "source_path": "docs/reports/project_state_handoff/assets/representative_figures/set_setting_seed_live_8020.png"
+    },
+    {
+      "package_path": "docs/reports/pi_thesis_share_package/assets/figures/stage1_metric_shift.png",
+      "source_path": "docs/reports/project_state_handoff/assets/representative_figures/stage1_metric_shift.png"
+    },
+    {
+      "package_path": "docs/reports/pi_thesis_share_package/assets/figures/stage2_fit_robustness.png",
+      "source_path": "docs/reports/project_state_handoff/assets/representative_figures/stage2_fit_robustness.png"
+    }
+  ],
+  "derived_data_tables": [
+    {
+      "path": "docs/reports/pi_thesis_share_package/assets/data/dynamic_claim_verdicts.csv",
+      "note": "derived for PI package from existing artifacts; not regenerated scientific output"
+    },
+    {
+      "path": "docs/reports/pi_thesis_share_package/assets/data/empirical_group_metric_deltas.csv",
+      "note": "derived for PI package from existing artifacts; not regenerated scientific output"
+    },
+    {
+      "path": "docs/reports/pi_thesis_share_package/assets/data/figure_deck_status_cards.csv",
+      "note": "derived for PI package from existing artifacts; not regenerated scientific output"
+    },
+    {
+      "path": "docs/reports/pi_thesis_share_package/assets/data/literature_benchmark_values.csv",
+      "note": "derived for PI package from existing artifacts; not regenerated scientific output"
+    },
+    {
+      "path": "docs/reports/pi_thesis_share_package/assets/data/mechanism_ranking_values.csv",
+      "note": "derived for PI package from existing artifacts; not regenerated scientific output"
+    },
+    {
+      "path": "docs/reports/pi_thesis_share_package/assets/data/publication_figure_values.csv",
+      "note": "derived for PI package from existing artifacts; not regenerated scientific output"
+    },
+    {
+      "path": "docs/reports/pi_thesis_share_package/assets/data/robustness_run_sensitivity_values.csv",
+      "note": "derived for PI package from existing artifacts; not regenerated scientific output"
+    },
+    {
+      "path": "docs/reports/pi_thesis_share_package/assets/data/robustness_summary_values.csv",
+      "note": "derived for PI package from existing artifacts; not regenerated scientific output"
+    },
+    {
+      "path": "docs/reports/pi_thesis_share_package/assets/data/thesis_gate_summary.csv",
+      "note": "derived for PI package from existing artifacts; not regenerated scientific output"
+    }
+  ],
+  "commands_run": [
+    "git status --short --untracked-files=all",
+    "git log --oneline -n 8",
+    "git rev-parse HEAD",
+    "git branch --show-current",
+    "Get-Content selected docs/source/status artifacts",
+    "Get-ChildItem selected package/source/result directories",
+    "read-only Python JSON/CSV extraction scripts for package assets/data only",
+    "Copy-Item existing handoff screenshots and representative figures into package only",
+    "subagent read-only project state audit",
+    "subagent read-only evidence/calculation and visual asset audit",
+    "subagent read-only scholarly/methods audit",
+    "git diff --check",
+    "uv run --frozen pytest --collect-only -q -o addopts=",
+    "uv run --frozen ruff check .",
+    "uv run --frozen mypy src",
+    "uv pip check",
+    "uv run --frozen python scripts\\preview_dashboard.py --check-only --strict",
+    "node --check src\\lsd_thesis\\static\\dashboard.js",
+    "uv run --frozen python -m json.tool docs/reports/pi_thesis_share_package/manifest.json"
+  ],
+  "validation_results": [
+    {
+      "command": "git status --short --untracked-files=all",
+      "result": "passed",
+      "details": "Only pre-existing docs/reports/dashboard_visual_review.md plus new docs/reports/pi_thesis_share_package/ files are untracked."
+    },
+    {
+      "command": "git diff --check",
+      "result": "passed",
+      "details": "No whitespace errors reported."
+    },
+    {
+      "command": "uv run --frozen pytest --collect-only -q -o addopts=",
+      "result": "passed",
+      "details": "82 tests collected in 74.28s."
+    },
+    {
+      "command": "uv run --frozen ruff check .",
+      "result": "passed",
+      "details": "All checks passed."
+    },
+    {
+      "command": "uv run --frozen mypy src",
+      "result": "passed",
+      "details": "Success: no issues found in 109 source files."
+    },
+    {
+      "command": "uv pip check",
+      "result": "passed",
+      "details": "76 packages checked; all installed packages are compatible."
+    },
+    {
+      "command": "uv run --frozen python scripts\\preview_dashboard.py --check-only --strict",
+      "result": "passed",
+      "details": "Required files present, optional artifacts present, CV5 internal validation 5/5, thesis gate contract passed."
+    },
+    {
+      "command": "node --check src\\lsd_thesis\\static\\dashboard.js",
+      "result": "passed",
+      "details": "Exit code 0."
+    },
+    {
+      "command": "uv run --frozen python -m json.tool docs/reports/pi_thesis_share_package/manifest.json",
+      "result": "passed",
+      "details": "Initial manifest parsed successfully; rerun after final manifest update."
+    },
+    {
+      "command": "uv run --frozen pytest",
+      "result": "not_run",
+      "details": "Full pytest was not run; latest documented full baseline remains 82 passed with 82.69% coverage."
+    }
+  ],
+  "skipped_steps": [
+    {
+      "step": "full pytest",
+      "why": "Not requested unless clearly necessary; latest documented full baseline remains 82 passed with 82.69% coverage."
+    },
+    {
+      "step": "optional ZIP creation",
+      "why": "Not needed; manual command documented in PUBLICATION_OPTIONS.md."
+    },
+    {
+      "step": "PI_REVIEW_BRIEF_PRINTABLE.html",
+      "why": "Optional and not needed for a complete Markdown/offline-site package."
+    },
+    {
+      "step": "scientific workflows or artifact generation",
+      "why": "Explicitly forbidden by task."
+    },
+    {
+      "step": "Pages/publication build",
+      "why": "Explicitly forbidden by task."
+    },
+    {
+      "step": "external upload/email/publish",
+      "why": "Explicitly forbidden by task."
+    }
+  ],
+  "no_touch_confirmations": [
+    "No source code files modified",
+    "No tests modified",
+    "No scripts modified",
+    "No templates modified",
+    "No existing dashboard CSS or JavaScript modified",
+    "No dashboard routes or aliases modified",
+    "No dashboard/public JSON schemas modified",
+    "No claim wording or claim labels in source artifacts modified",
+    "No gate/status semantics or status vocabulary modified",
+    "No tracked result artifacts modified",
+    "No ignored generated outputs outside the package modified",
+    "No raw data modified",
+    "No caches modified",
+    "No private data modified",
+    "docs/reference not modified",
+    "pyproject.toml not modified",
+    "uv.lock not modified",
+    "Dependencies not changed",
+    "Nothing staged",
+    "Nothing committed",
+    "No scientific workflows run",
+    "No artifact generation run",
+    "No Pages/publication build run",
+    "No external data downloads run",
+    "No public/external servers started"
+  ],
+  "share_options": [
+    "email attachment",
+    "zipped folder created manually by user",
+    "GitHub folder link after user commits and pushes",
+    "Google Drive/OneDrive/Dropbox link",
+    "future static hosting after PI approval"
+  ],
+  "recommended_email_file": "docs/reports/pi_thesis_share_package/EMAIL_TO_PI.md",
+  "recommended_start_file": "docs/reports/pi_thesis_share_package/README_SEND_TO_PI.md",
+  "recommended_pi_brief": "docs/reports/pi_thesis_share_package/PI_REVIEW_BRIEF.md",
+  "recommended_next_milestones": [
+    "Motion-proof planning pack",
+    "External/PET/SC/neuromaps evidence audit plan",
+    "Public-site/static drift audit",
+    "Artifact producer/consumer map",
+    "Dashboard visual polish only after claim boundaries remain fixed",
+    "Package/developer-experience proposal"
+  ],
+  "warnings": [
+    "Current package is PI-review material, not a completed thesis.",
+    "Current exact ranking values are read from results/dynamic_mechanism_ranking/summary.json because older export CSV copies can be stale.",
+    "Motion/confound proof remains blocked: FD/DVARS/censoring evidence is incomplete.",
+    "Zenodo DOI is missing; archive publication is incomplete.",
+    "Run-02/music remains audit-only unless explicitly approved.",
+    "Receptor-level, subjective, clinical, and biological-ground-truth claims remain unsupported by this package."
+  ],
+  "latest_deliverable_update": {
+    "date": "2026-06-18",
+    "change": "Added dataset-free offline dashboard page and full-package browser page so the PI website shows the whole story without code or dataset setup.",
+    "files": [
+      "docs/reports/pi_thesis_share_package/deliverable_website/pages/dashboard-offline.html",
+      "docs/reports/pi_thesis_share_package/deliverable_website/pages/full-package.html",
+      "docs/reports/pi_thesis_share_package/deliverable_website/pages/ae-math-metadata.html"
+    ],
+    "no_touch": "Packaging/documentation only; no scientific workflows, source code, tests, result artifacts, raw data, caches, dependencies, publishing, or email."
+  }
+}

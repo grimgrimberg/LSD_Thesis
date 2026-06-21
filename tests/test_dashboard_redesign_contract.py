@@ -19,10 +19,12 @@ def test_dashboard_templates_expose_redesign_surfaces() -> None:
     figures = _read("src/lsd_thesis/templates/pages/figures.html")
 
     assert "evidence_flow" in overview
+    assert "overview_pitch_cards" in overview
     assert "strict_gate_chart_explainer" in overview
     assert "overview_literature_chart_explainer" in overview
     assert "ranking_chart_explainer" in ranking
     assert "benchmark_chart_explainer" in ranking
+    assert "ranking_unit_cards" in ranking
     assert "robustness_chart_explainer" in robustness
     assert "run_sensitivity_chart_explainer" in robustness
     assert "empirical_window" in empirical
@@ -35,8 +37,12 @@ def test_dashboard_templates_expose_redesign_surfaces() -> None:
     assert "thesis_mechanism_chart" in thesis
     assert "thesis_mechanism_chart_explainer" in thesis
     assert "thesis_claim_ladder" in thesis
+    assert "thesis_pitch_cards" in thesis
+    assert "thesis_status_balance_chart" in thesis
     assert "figure_deck_cards" in figures
     assert "figure_deck_status_cards" in figures
+    assert "figure_unit_cards" in figures
+    assert "figure_atlas_links" in figures
 
 
 def test_dashboard_renderer_contracts_are_present() -> None:
@@ -55,6 +61,9 @@ def test_dashboard_renderer_contracts_are_present() -> None:
     assert "function renderFigureExplainer" in renderer
     assert "function renderEvidenceFlow" in renderer
     assert "function renderFigureDeck" in renderer
+    assert "function renderUnitGuide" in renderer
+    assert "function renderPitchCards" in renderer
+    assert "function renderStatusBalance" in renderer
     assert "How this plot was calculated" in renderer
     assert "textposition: \"auto\"" in renderer
 
@@ -91,6 +100,11 @@ def test_static_builder_knows_thesis_entrypoint_and_relative_paths() -> None:
     assert '"pages/figures.html"' in builder
     assert '"thesis": "thesis.html"' in builder
     assert '"figures": "figures.html"' in builder
+    assert '"pi_review": "pi-review/"' in builder
+    assert "def _copy_pi_review_site" in builder
+    assert "def _write_visual_atlas" in builder
+    assert "pitch-slides.html" in builder
+    assert "root_prefix=prefix" in builder
     assert 'static_prefix=f"{prefix}static/"' in builder
     assert 'plotly_src=f"{prefix}assets/plotly.min.js"' in builder
 

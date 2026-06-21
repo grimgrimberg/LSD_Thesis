@@ -8,6 +8,7 @@ import stat
 import sys
 from collections.abc import Sequence
 from datetime import UTC, datetime
+from html import escape
 from pathlib import Path
 from typing import Any
 from urllib.parse import unquote
@@ -50,6 +51,7 @@ from lsd_thesis.web.prior_art_payload import build_prior_art_payload
 STATIC_FAVICON_TAG = '<link rel="icon" href="data:,">'
 PAGES_ARTIFACT_MAX_BYTES = 20 * 1024 * 1024
 PUBLISH_TEMP_SUFFIXES = (".bak", ".log", ".old", ".part", ".tmp")
+VISUAL_ATLAS_EXTENSIONS = {".png", ".jpg", ".jpeg", ".svg", ".webp", ".html"}
 
 
 def _remove_tree(path: Path) -> None:
@@ -333,6 +335,7 @@ def _render_static_template(
         data_url=data_url,
         prior_art_data_url=prior_art_data_url,
         static_prefix=f"{prefix}static/",
+        root_prefix=prefix,
         plotly_src=f"{prefix}assets/plotly.min.js",
         deployment_mode="static",
     )
@@ -530,6 +533,196 @@ def _write_static_public_site(
     }
 
 
+def _visual_atlas_title(path: Path) -> str:
+    stem = path.stem.replace("_", " ").replace("-", " ")
+    return " ".join(part.capitalize() for part in stem.split()) or path.name
+
+
+def _visual_atlas_caption(path: Path) -> str:
+    value = path.as_posix().lower()
+    if "dashboard" in value and "screenshot" in value:
+        return "Dashboard screenshot, useful for the supervisor-facing walkthrough."
+    if "dynamic_mechanism" in value or "mechanism" in value:
+        return "Dynamic mechanism-ranking artifact. Scores are unitless proxy-support values unless the linked artifact states otherwise."
+    if "stage_1" in value or "stage1" in value:
+        return "Stage 1 surrogate-model figure. Values are model proxy metrics, not biological measurements."
+    if "stage_2" in value or "stage2" in value or "empirical" in value:
+        return "Stage 2 paired LSD-minus-placebo summary or empirical-view artifact. Deltas are metric-native proxy differences."
+    if "robust" in value:
+        return "Robustness or sensitivity figure. Rank-1 fractions are proportions from 0 to 1."
+    if "cortical" in value or "neuromaps" in value or "receptor" in value:
+        return "Map-prior or spatial-null artifact. Treat as claim-gated prior evidence, not receptor-level proof."
+    if "figure" in value:
+        return "Publication or figure-deck asset with source paths and caveats preserved elsewhere in the package."
+    return "Static visual artifact copied from the current repository build."
+
+
+def _visual_atlas_category(path: Path) -> str:
+    value = path.as_posix().lower()
+    if "screenshot" in value or "dashboard-" in value:
+        return "Dashboard screenshots"
+    if "dynamic_mechanism" in value or "mechanism" in value or "robust" in value:
+        return "Mechanism and robustness"
+    if "stage_1" in value or "stage1" in value or "stage_2" in value or "stage2" in value or "empirical" in value:
+        return "Surrogate and empirical figures"
+    if "cortical" in value or "neuromaps" in value or "receptor" in value or "structural" in value:
+        return "Map priors and structural sensitivity"
+    return "Other review assets"
+
+
+def _visual_atlas_files(site: Path) -> list[Path]:
+    visuals: list[Path] = []
+    for path in site.rglob("*"):
+        if not path.is_file() or path.suffix.lower() not in VISUAL_ATLAS_EXTENSIONS:
+            continue
+        relative = path.relative_to(site).as_posix()
+        if relative.startswith("static/") or relative.startswith("assets/plotly"):
+            continue
+        if relative.endswith("pi-review/pages/figure-atlas.html"):
+            continue
+        if path.suffix.lower() == ".html" and not (
+            relative.startswith("artifacts/")
+            or relative.startswith("figures/")
+            or relative.startswith("pi-review/pages/pitch-slides.html")
+        ):
+            continue
+        visuals.append(path)
+    return sorted(visuals, key=lambda item: (str(_visual_atlas_category(item.relative_to(site))), item.relative_to(site).as_posix()))
+
+
+def _relative_url(from_file: Path, target: Path) -> str:
+    return Path(os.path.relpath(target, start=from_file.parent)).as_posix()
+
+
+def _write_visual_atlas(site: Path, target: Path) -> Path:
+    visuals = _visual_atlas_files(site)
+    rows: list[str] = []
+    current_category = ""
+    for visual in visuals:
+        relative = visual.relative_to(site)
+        category = _visual_atlas_category(relative)
+        if category != current_category:
+            if current_category:
+                rows.append("</div>")
+            current_category = category
+            rows.append(f'<h2>{escape(category)}</h2><div class="figure-grid">')
+        href = _relative_url(target, visual)
+        title = _visual_atlas_title(relative)
+        caption = _visual_atlas_caption(relative)
+        path_label = relative.as_posix()
+        if visual.suffix.lower() == ".html":
+            preview = '<div class="html-preview">Interactive HTML / Plotly artifact</div>'
+        else:
+            preview = f'<a href="{escape(href)}"><img src="{escape(href)}" alt="{escape(title)}"></a>'
+        rows.append(
+            "\n".join(
+                [
+                    '<article class="image-card">',
+                    preview,
+                    "<div>",
+                    f"<h3>{escape(title)}</h3>",
+                    f"<p>{escape(caption)}</p>",
+                    f"<p><code>{escape(path_label)}</code></p>",
+                    f'<p><a href="{escape(href)}">Open full artifact</a></p>',
+                    "</div>",
+                    "</article>",
+                ]
+            )
+        )
+    if current_category:
+        rows.append("</div>")
+
+    html = f"""<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Figure Atlas | LSD Thesis PI Review</title>
+  <link rel="stylesheet" href="../assets/css/site.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="../index.html">LSD Thesis PI Review</a>
+    <nav aria-label="Package pages">
+      <a href="../index.html">Start</a>
+      <a href="pitch-slides.html">Slides</a>
+      <a class="active" href="figure-atlas.html">Figure Atlas</a>
+      <a href="../../dashboard/">Dashboard</a>
+      <a href="../../figures.html">Figure Deck</a>
+    </nav>
+  </header>
+  <main class="page">
+    <section class="page-hero">
+      <p class="eyebrow">Hosted visual atlas</p>
+      <h1>All safe static figures and visual artifacts in this Pages build</h1>
+      <p>
+        This page indexes current copied screenshots, exported figures, and static HTML figure artifacts.
+        It does not regenerate data and it does not expose raw/private datasets.
+      </p>
+    </section>
+    <section class="band">
+      <div class="section-head"><p class="eyebrow">Unit guide</p><h2>How to read the numbers</h2></div>
+      <div class="cards three">
+        <article><h3>Support score</h3><p>
+          Unitless proxy score. Higher means the current artifact aligns better with the empirical target
+          and sign checks for that mechanism layer.
+        </p></article>
+        <article><h3>Rank-1 fraction</h3><p>
+          Proportion from 0 to 1. It reports how often a layer ranked first across subject-bootstrap resamples.
+        </p></article>
+        <article><h3>LSD - placebo delta</h3><p>
+          Metric-native paired difference. Most dashboard deltas are unitless proxy summaries unless
+          a source artifact defines a physical unit.
+        </p></article>
+        <article><h3>FC delta</h3><p>
+          Functional-connectivity difference in correlation units. It is a signed unitless change,
+          not an activation magnitude.
+        </p></article>
+        <article><h3>Energy reduction</h3><p>
+          Percent relative difference for the network-control proxy. It must remain separate from
+          receptor-specific proof.
+        </p></article>
+        <article><h3>TR / horizon</h3><p>
+          Window size is in TR counts; finite horizon is in model steps. Both are analysis parameters,
+          not biological time constants.
+        </p></article>
+      </div>
+    </section>
+    <section class="band muted">
+      <div class="section-head"><p class="eyebrow">Visual inventory</p><h2>{len(visuals)} static visual artifacts</h2></div>
+      {''.join(rows) if rows else '<p>No visual artifacts were copied into this build.</p>'}
+    </section>
+  </main>
+  <footer>Static GitHub Pages figure atlas. Claim labels and source paths remain the authority.</footer>
+</body>
+</html>
+"""
+    target.parent.mkdir(parents=True, exist_ok=True)
+    target.write_text(html, encoding="utf-8")
+    return target
+
+
+def _copy_pi_review_site(repo_root: Path, site: Path) -> dict[str, Path]:
+    source = repo_root / "docs" / "reports" / "pi_thesis_share_package" / "deliverable_website"
+    if not source.exists():
+        return {}
+    target = site / "pi-review"
+    copied = _copy_tree(source, target)
+    if copied is None:
+        return {}
+    start = target / "OPEN_ME_FIRST.html"
+    index = target / "index.html"
+    if start.exists():
+        index.write_text(start.read_text(encoding="utf-8"), encoding="utf-8")
+    atlas = _write_visual_atlas(site, target / "pages" / "figure-atlas.html")
+    return {
+        "pi_review": target,
+        "pi_review_index": index,
+        "pi_review_slides": target / "pages" / "pitch-slides.html",
+        "pi_review_figure_atlas": atlas,
+    }
+
+
 def _write_pages_manifest(site: Path, outputs: dict[str, Path], dashboard_artifacts: list[Any]) -> Path:
     manifest = {
         "generated_at_utc": datetime.now(UTC).isoformat(),
@@ -549,6 +742,9 @@ def _write_pages_manifest(site: Path, outputs: dict[str, Path], dashboard_artifa
             "figures": "figures.html",
             "methods": "methods.html",
             "appendix": "appendix.html",
+            "pi_review": "pi-review/",
+            "pi_review_slides": "pi-review/pages/pitch-slides.html",
+            "pi_review_figure_atlas": "pi-review/pages/figure-atlas.html",
         },
         "artifacts": sorted(
             set(_published_artifact_paths(outputs, site))
@@ -779,6 +975,7 @@ def build_github_pages_site(
     )
     if reproducible_archive is not None:
         outputs["reproducible_archive"] = reproducible_archive
+    outputs.update(_copy_pi_review_site(repo_root, site))
     outputs["manifest"] = _write_pages_manifest(site, outputs, dashboard_artifacts if isinstance(dashboard_artifacts, list) else [])
     return outputs
 

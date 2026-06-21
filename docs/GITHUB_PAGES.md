@@ -7,6 +7,9 @@ Audience: thesis reviewer, potential MSc supervisor, or technical reviewer who n
 ## What Gets Published
 
 - `index.html`: static thesis microsite generated from the current publication pipeline.
+- `pi-review/`: supervisor-facing hosted pitch package with slides, figure atlas, screenshots, unit guide, evidence tables, and PI meeting materials.
+- `pi-review/pages/pitch-slides.html`: slide-style first-read narrative for a potential supervisor.
+- `pi-review/pages/figure-atlas.html`: generated index of safe visual artifacts copied into the current Pages build.
 - `defense.html`: static defense-presentation companion page when available.
 - `artifacts/claim_evidence_matrix.csv`: hiring-readiness claim matrix.
 - `artifacts/claim_evidence_matrix.md`: Markdown version of the claim matrix.
@@ -32,8 +35,8 @@ Before the public-dashboard package gate can pass, `_site` must be fresh against
 1. Push this repo to GitHub.
 2. In GitHub, open `Settings -> Pages`.
 3. Set `Source` to `GitHub Actions`.
-4. Run the `Deploy GitHub Pages` workflow manually, or push to `main`.
+4. Run the `Deploy GitHub Pages` workflow manually from the branch you want to publish.
 
 ## Evidence Guardrail
 
-The published site is a static presentation artifact. Blocked rows in the claim matrix remain blocked scientific work, not completed evidence. ROCKET benchmark rows are internal subject-disjoint proxy diagnostics only, not receptor-level, clinical, subjective-experience, or external-validation evidence. The reproducible archive target is a GitHub release plus Zenodo DOI backed by `results/reproducible_archive/ARCHIVE_MANIFEST.json`; GitHub Pages alone is not the citable archive. The local dashboard remains the stronger interactive review surface.
+The published site is a static presentation artifact. The `pi-review/` pitch package is designed for supervisor review, but it is still a claim-gated presentation layer. Blocked rows in the claim matrix remain blocked scientific work, not completed evidence. ROCKET benchmark rows are internal subject-disjoint proxy diagnostics only, not receptor-level, clinical, subjective-experience, or external-validation evidence. The reproducible archive target is a GitHub release plus Zenodo DOI backed by `results/reproducible_archive/ARCHIVE_MANIFEST.json`; GitHub Pages alone is not the citable archive. The local dashboard remains the stronger interactive review surface.

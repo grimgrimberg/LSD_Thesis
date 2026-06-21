@@ -8,7 +8,9 @@
     <div class="metric-strip" id="overview_metric_strip" aria-live="polite"></div>
     <div id="evidence_flow" class="evidence-flow" aria-label="Thesis evidence pipeline"></div>
     <div class="button-row">
-      <a class="secondary-link" href="{{ '/figures' if deployment_mode == 'local' else 'figures.html' }}">Open Figure Deck</a>
+      <a class="secondary-link" href="{{ '/figures' if deployment_mode == 'local' else (root_prefix | default('')) ~ 'figures.html' }}">Open Figure Deck</a>
+      <a class="secondary-link" href="{{ '/thesis' if deployment_mode == 'local' else (root_prefix | default('')) ~ 'pi-review/' }}">Open Supervisor Pitch</a>
+      <a class="secondary-link" href="{{ '/thesis' if deployment_mode == 'local' else (root_prefix | default('')) ~ 'pi-review/pages/pitch-slides.html' }}">Open Pitch Slides</a>
     </div>
   </div>
   <div class="panel">
@@ -24,6 +26,13 @@
 </section>
 
 <section class="content-grid content-grid--wide">
+  <article class="panel panel--span-3">
+    <div class="panel-heading">
+      <h2>Supervisor Pitch: What This Demonstrates</h2>
+      <span class="status-token status-token--teal">shareable</span>
+    </div>
+    <div id="overview_pitch_cards" class="card-grid card-grid--dense"></div>
+  </article>
   <article class="panel panel--span-3">
     <div class="panel-heading">
       <h2>Project Intro: How to Read This Dashboard</h2>

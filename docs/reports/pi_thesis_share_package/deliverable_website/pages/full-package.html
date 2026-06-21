@@ -1,0 +1,1166 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Full Package In One Website - LSD Thesis PI Review</title>
+  <link rel="stylesheet" href="../assets/css/site.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="../OPEN_ME_FIRST.html">LSD Thesis PI Review</a>
+    <nav aria-label="Package pages"><a class="" href="../OPEN_ME_FIRST.html">Start</a><a class="" href="dashboard-offline.html">Dashboard</a><a class="" href="ae-math-metadata.html">A-E Guide</a><a class="" href="evidence-and-calculations.html">Evidence</a><a class="active" href="full-package.html">Full Package</a><a class="" href="methods-and-skills.html">Methods</a><a class="" href="scholarly-context.html">Context</a><a class="" href="problems-and-next-steps.html">Next Steps</a><a class="" href="meeting-agenda.html">Agenda</a><a class="" href="validation-and-safety.html">Validation</a></nav>
+  </header>
+  <main class="page">
+    <section class="page-hero">
+      <p class="eyebrow">Offline review package</p>
+      <h1>Full Package In One Website</h1>
+      <p>The PI-facing brief, A-E explanation, evidence, methods, scholarly context, blockers, meeting script, and audit trail rendered as browser pages.</p>
+    </section>
+
+<section class="band">
+  <div class="callout"><strong>Everything is visible here.</strong> This page renders the core package documents directly inside the website. The original source files are still available under <a href="../assets/downloads/PI_REVIEW_BRIEF.md">assets/downloads/</a>.</div>
+</section>
+
+<section class="band"><details class="doc-detail" open><summary>A-E Rubber-Duck Guide</summary><div class="doc-body"><h2>Mechanism Rubber-Duck Guide</h2>
+<h3>One-Sentence Version</h3>
+<p>The project compares five families of model-level macro-dynamic proxies against paired LSD/placebo summary evidence, ranks them by existing support scores, stress-tests the ranking, and records what can and cannot be claimed.</p>
+<h3>Say This Out Loud</h3>
+<p>&quot;I am not saying the model experiences anything or proves receptor biology. I am asking which transparent proxy family best tracks the paired LSD/placebo macro-dynamic changes already summarized in the repo. A through E are five candidate explanations. Each one converts the same evidence into a different measurable signature, then the package ranks those signatures and keeps the caveats visible.&quot;</p>
+<h3>A-E In Plain English</h3>
+<div class="table-wrap"><table>
+<thead><tr><th>Layer</th><th>Plain meaning</th><th>Math idea</th><th>Current read</th></tr></thead>
+<tbody>
+<tr><td>A</td><td>Transition-state proxy: does the system move between macro-states more easily or less rigidly?</td><td>occupancy, transition rate, transition entropy, dwell/barrier proxies, step distance</td><td>rank 4, score 0.148906</td></tr>
+<tr><td>B</td><td>DMDc predictive baseline: does a simple controlled-dynamics predictor explain one-step changes?</td><td>`x_next ~= A x + B u`; leave-one-subject-out RMSE change</td><td>rank 5, score -0.074064; negative sanity baseline</td></tr>
+<tr><td>C</td><td>Hierarchy/routing: do changes look like altered routing across sensory, associative, transmodal, and thalamic-gateway structure?</td><td>aggregate signed support across hierarchy/routing metrics</td><td>rank 1, score 0.332606; strongest current proxy</td></tr>
+<tr><td>D</td><td>Dynamic repertoire: does the system explore a broader or different network repertoire?</td><td>graph/dynamic-FC features such as integration, segregation, modularity, participation, variance, step distance</td><td>rank 3, score 0.150619</td></tr>
+<tr><td>E</td><td>Control-energy proxy: how hard is it for a coarse macro graph to move from placebo-like to LSD-like state under candidate priors?</td><td>finite-horizon control energy, `energy = sum</td><td></td><td>u_t</td><td></td><td>^2`</td><td>rank 2, score 0.182875; useful lower transition/control-energy proxy, not receptor-specific proof</td></tr>
+</tbody></table></div>
+<h3>How Everything Comes Together</h3>
+<ol>
+<li>Start with cached paired run-01/run-03 LSD/placebo summaries.</li>
+<li>Convert the evidence into five interpretable proxy families: A, B, C, D, and E.</li>
+<li>Aggregate feature support into a score for each family.</li>
+<li>Stress-test the ranking with bootstrap and run-sensitivity artifacts.</li>
+<li>Gate the claims using verdict and thesis-status tables.</li>
+<li>Ask the PI which blocker and claim-promotion threshold must be solved next.</li>
+</ol>
+<h3>Metadata Trail</h3>
+<div class="table-wrap"><table>
+<thead><tr><th>Question</th><th>Local file</th></tr></thead>
+<tbody>
+<tr><td>What are A-E and their scores?</td><td>`deliverable_website/assets/data/mechanism_ranking_values.csv`</td></tr>
+<tr><td>Is C stable?</td><td>`deliverable_website/assets/data/robustness_summary_values.csv`</td></tr>
+<tr><td>Do run-01 and run-03 agree?</td><td>`deliverable_website/assets/data/robustness_run_sensitivity_values.csv`</td></tr>
+<tr><td>What empirical deltas feed the story?</td><td>`deliverable_website/assets/data/empirical_group_metric_deltas.csv`</td></tr>
+<tr><td>Which claims are allowed?</td><td>`deliverable_website/assets/data/dynamic_claim_verdicts.csv`</td></tr>
+<tr><td>Which blockers remain?</td><td>`deliverable_website/assets/data/thesis_gate_summary.csv`</td></tr>
+</tbody></table></div>
+<h3>What Not To Say</h3>
+<ul>
+<li>Do not say the model simulates subjective experience.</li>
+<li>Do not say the ranking proves receptor biology.</li>
+<li>Do not say internal robustness closes the motion/confound blocker.</li>
+<li>Do not say run-02/music is primary evidence.</li>
+<li>Do not say the thesis is finished.</li>
+</ul></div></details></section>
+<section class="band"><details class="doc-detail" open><summary>PI Review Brief</summary><div class="doc-body"><h2>PI Review Brief - LSD Thesis Workbench</h2>
+<h3>Title And Snapshot</h3>
+<p>Title: Claim-gated macro-dynamic mechanism ranking workbench for LSD fMRI thesis development</p>
+<p>Snapshot date: 2026-06-18</p>
+<p>Repository: `[local checkout path recorded in source download]`</p>
+<p>Current source commit: `1a51eb54d909cbda6bf3584cd2ecf99f187c355d`</p>
+<p>Validation baseline date in repo docs: 2026-06-17</p>
+<h3>One-Paragraph Summary</h3>
+<p>I built a claim-gated research workbench for turning an LSD fMRI computational project into a thesis. The project combines a transparent 8-module stochastic graph surrogate model, cached paired LSD/placebo ds003059 empirical summaries, dynamic mechanism ranking across A-E layers, robustness and validation status artifacts, a dashboard, and a structured prior-art reproducibility landscape. The infrastructure and evidence package are now ready for PI review. The current evidence supports model-level macro-dynamic mechanism ranking; it does not prove receptor-level realism, subjective-experience simulation, clinical validity, or biological ground truth.</p>
+<h3>What I Built</h3>
+<ul>
+<li>A Python/uv project with typed source modules, tests, status artifacts, and dashboard payload contracts.</li>
+<li>A transparent surrogate model with 8 coarse brain-inspired modules and stochastic graph-modulated dynamics.</li>
+<li>A paired LSD/placebo empirical summary layer using cached ds003059 run-01/run-03 records.</li>
+<li>A dynamic mechanism ranking across A-E layers.</li>
+<li>Robustness artifacts for bootstrap, run sensitivity, horizon sensitivity, and claim verdicts.</li>
+<li>Thesis readiness and package-readiness gates.</li>
+<li>A FastAPI/Jinja/Plotly dashboard plus static/public payload artifacts.</li>
+<li>A structured ds003059 prior-art landscape with 12 analysis families and claim boundaries.</li>
+<li>A PI-facing share package with screenshots, explanation files, and derived data tables.</li>
+</ul>
+<h3>Scientific Framing</h3>
+<p>Safe frame:</p>
+<p>&gt; This is a transparent, model-level macro-dynamic mechanism-ranking workbench.</p>
+<p>It can currently defend:</p>
+<ul>
+<li>macro-dynamic proxy comparison,</li>
+<li>paired LSD/placebo summary inspection,</li>
+<li>dynamic mechanism ranking over A-E layers,</li>
+<li>internal robustness and validation bookkeeping,</li>
+<li>conservative claim gates that keep blockers visible.</li>
+</ul>
+<p>It cannot currently defend:</p>
+<ul>
+<li>receptor-level LSD mechanism proof,</li>
+<li>subjective-experience simulation,</li>
+<li>clinical validity,</li>
+<li>biological ground truth,</li>
+<li>completion of all thesis blockers.</li>
+</ul>
+<h3>Current Evidence</h3>
+<p>Current dynamic mechanism ranking from `results/dynamic_mechanism_ranking/summary.json`:</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Rank</th><th>Layer</th><th>Mechanism</th><th>Score</th><th>Status</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>C</td><td>hierarchy_routing_layer</td><td>0.332606</td><td>implemented_first_pass</td></tr>
+<tr><td>2</td><td>E</td><td>receptor_informed_network_control_energy</td><td>0.182875</td><td>implemented_proxy_control_energy</td></tr>
+<tr><td>3</td><td>D</td><td>dynamic_repertoire_layer</td><td>0.150619</td><td>implemented_first_pass</td></tr>
+<tr><td>4</td><td>A</td><td>transition_state_proxy</td><td>0.148906</td><td>implemented_first_pass</td></tr>
+<tr><td>5</td><td>B</td><td>dmdc_condition_interaction</td><td>-0.074064</td><td>implemented_negative_control_baseline</td></tr>
+</tbody></table></div>
+<p>Key interpretation:</p>
+<ul>
+<li>C is the strongest current macro-dynamic proxy layer.</li>
+<li>E supports a lower transition/control-energy proxy, but not receptor-specific placement.</li>
+<li>B is intentionally retained as a negative/sanity baseline.</li>
+<li>Run-02/music is not primary evidence.</li>
+</ul>
+<h3>Key Dashboard Pages</h3>
+<ol>
+<li>Overview - thesis posture, claim gates, strict gates, current ranking summary.</li>
+<li>Mechanism Ranking - A-E layer ranking and inference gate.</li>
+<li>Robustness - bootstrap, run sensitivity, and internal uncertainty.</li>
+<li>Empirical Viewer - paired LSD/placebo aggregate and local subject/run inspection.</li>
+<li>Prior Art - ds003059 family inventory and claim-status separation.</li>
+<li>Figure Deck - export-ready figure registry with blocked and implemented gates.</li>
+</ol>
+<h3>Key Plots And What They Mean</h3>
+<ul>
+<li>Overview screenshot: the project is a claim-gated workbench, not a completed thesis.</li>
+<li>Mechanism Ranking screenshot: C leads the current model-level proxy ranking; E is split; B is negative.</li>
+<li>Robustness screenshot: C has strong internal bootstrap stability, but this does not remove motion/confound blockers.</li>
+<li>Empirical Viewer screenshot: paired LSD/placebo summaries can be inspected, while run-02/music remains gated.</li>
+<li>Prior-Art screenshot: prior work is context and design inspiration unless local artifacts promote a claim.</li>
+<li>Figure Deck screenshot: motion proof and archive DOI remain blocked while CV5 internal validation is implemented.</li>
+<li>`stage1_metric_shift.png`: Stage 1 surrogate baseline versus perturbed proxy values for entropy and switching rate.</li>
+<li>`stage2_fit_robustness.png`: Stage 2 objective-score improvement and repeatability summary.</li>
+</ul>
+<p>Full plot-level details are in `EVIDENCE_AND_CALCULATIONS.md`.</p>
+<h3>Current Validation Baseline</h3>
+<p>From `docs/VALIDATION.md`, current status date 2026-06-17:</p>
+<ul>
+<li>Ruff passed.</li>
+<li>mypy passed on 109 source files.</li>
+<li>pytest collect-only collected 82 tests.</li>
+<li>Latest documented full pytest baseline: 82 passed, 82.69% coverage.</li>
+<li>`uv pip check` passed.</li>
+<li>Dashboard strict preflight passed.</li>
+<li>`node --check src\lsd_thesis\static\dashboard.js` passed.</li>
+</ul>
+<p>Current gate summary from `results/thesis_upgrade/thesis_upgrade_status.json`:</p>
+<ul>
+<li>Thesis readiness: 6/9.</li>
+<li>Strict completion: 4/6.</li>
+<li>Package readiness: 1/2.</li>
+<li>Missing strict requirements: `motion_confound_control_result`, `project_phase`.</li>
+<li>Missing package requirement: `reproducible_archive_publication`.</li>
+</ul>
+<h3>What Is Defensible Now</h3>
+<ul>
+<li>The project is a coherent thesis workbench.</li>
+<li>The dashboard and artifacts are ready for PI review.</li>
+<li>The model ranks transparent macro-dynamic proxy mechanisms.</li>
+<li>The current ranking is C, E, D, A, B.</li>
+<li>C is proxy-supported as the strongest current layer.</li>
+<li>E is proxy-supported only for a lower transition/control-energy interpretation.</li>
+<li>Internal subject-disjoint CV5 status is complete as internal validation: 5/5 folds, 15 subjects.</li>
+<li>Prior-art mapping is useful for thesis positioning and preventing overclaims.</li>
+</ul>
+<h3>What Is Not Defensible Yet</h3>
+<ul>
+<li>Receptor-specific mechanism proof.</li>
+<li>Subjective-experience simulation.</li>
+<li>Clinical or biological-ground-truth validation.</li>
+<li>A completed thesis claim.</li>
+<li>Motion/confound closure from FD/DVARS/censoring.</li>
+<li>Citable archive publication with verified Zenodo DOI.</li>
+<li>Run-02/music as primary evidence.</li>
+<li>PET/receptor/neuromaps/SC claims as stronger than the current status artifacts allow.</li>
+</ul>
+<h3>Main Blockers</h3>
+<ol>
+<li>Motion/confound proof remains incomplete.</li>
+<li>FD/DVARS/censoring evidence is thesis-critical.</li>
+<li>Zenodo DOI/archive publication is incomplete.</li>
+<li>External/PET/SC/neuromaps evidence must remain carefully claim-gated.</li>
+<li>Run-02/music remains audit-only unless explicitly approved.</li>
+<li>Static/public payload drift needs caution.</li>
+<li>Dashboard visual polish is useful but not the main scientific blocker.</li>
+</ol>
+<h3>Proposed Next Thesis Milestones</h3>
+<ol>
+<li>Motion-proof planning pack.</li>
+<li>External/PET/SC/neuromaps evidence audit plan.</li>
+<li>Public-site/static drift audit.</li>
+<li>Artifact producer/consumer map.</li>
+<li>Dashboard visual polish only after claim boundaries remain fixed.</li>
+<li>Package/developer-experience proposal.</li>
+</ol>
+<h3>Questions For PI</h3>
+<ul>
+<li>Is the thesis framing acceptable as a model-level mechanism-ranking workbench?</li>
+<li>What evidence would you require before promoting C from proxy-supported to thesis-level claim?</li>
+<li>Should the next scientific priority be motion proof, external validation audit, or parcellation/null sensitivity?</li>
+<li>How should we treat the negative/split evidence for E and B in the thesis narrative?</li>
+<li>Should run-02/music remain out of scope unless motion/context controls are available?</li>
+<li>What is the minimum package needed before this can become a formal thesis proposal?</li>
+</ul>
+<h3>Appendix: Referenced Files And Artifacts</h3>
+<ul>
+<li>`README.md`</li>
+<li>`ARCHITECTURE.md`</li>
+<li>`SPEC.md`</li>
+<li>`AGENTS.md`</li>
+<li>`docs/VALIDATION.md`</li>
+<li>`docs/reports/project_state_handoff/PROJECT_STATE_HANDOFF.md`</li>
+<li>`docs/reports/dashboard_visual_review.md`</li>
+<li>`results/dynamic_mechanism_ranking/summary.json`</li>
+<li>`results/dynamic_mechanism_ranking/robustness/robustness_summary.json`</li>
+<li>`results/stage_2/empirical_viewer/group_overview.json`</li>
+<li>`results/thesis_upgrade/thesis_upgrade_status.json`</li>
+<li>`results/validation/cv5_subject_disjoint/cv5_aggregate_validation.json`</li>
+<li>`results/reproducible_archive/ARCHIVE_MANIFEST.json`</li>
+<li>`prior_art/README.md`</li>
+<li>`prior_art/code_inventory.md`</li>
+<li>`docs/research/ds003059_prior_art_to_thesis_map.md`</li>
+</ul></div></details></section>
+<section class="band"><details class="doc-detail" open><summary>Evidence And Calculations</summary><div class="doc-body"><h2>Evidence And Calculations</h2>
+<h3>Scope</h3>
+<p>This document explains the selected plots, screenshots, and copied figures in the PI package. Values were read from existing JSON/CSV artifacts only. No scientific workflow was rerun and no plot was regenerated.</p>
+<p>Derived tables in `assets/data/` are labeled as derived for the PI package from existing artifacts; they are not regenerated scientific outputs.</p>
+<h3>Derived Tables</h3>
+<div class="table-wrap"><table>
+<thead><tr><th>Table</th><th>Source</th></tr></thead>
+<tbody>
+<tr><td>`assets/data/mechanism_ranking_values.csv`</td><td>`results/dynamic_mechanism_ranking/summary.json`</td></tr>
+<tr><td>`assets/data/robustness_summary_values.csv`</td><td>`results/dynamic_mechanism_ranking/robustness/bootstrap_layer_summary.csv`</td></tr>
+<tr><td>`assets/data/robustness_run_sensitivity_values.csv`</td><td>`results/dynamic_mechanism_ranking/robustness/run_sensitivity.csv`</td></tr>
+<tr><td>`assets/data/dynamic_claim_verdicts.csv`</td><td>`results/dynamic_mechanism_ranking/robustness/claim_verdicts.csv`</td></tr>
+<tr><td>`assets/data/empirical_group_metric_deltas.csv`</td><td>`results/stage_2/empirical_viewer/group_overview.json`</td></tr>
+<tr><td>`assets/data/thesis_gate_summary.csv`</td><td>`results/thesis_upgrade/thesis_upgrade_status.json`</td></tr>
+<tr><td>`assets/data/figure_deck_status_cards.csv`</td><td>`results/thesis_upgrade/thesis_upgrade_status.json`; CV5 and archive artifacts</td></tr>
+<tr><td>`assets/data/literature_benchmark_values.csv`</td><td>`results/dynamic_mechanism_ranking/summary.json`</td></tr>
+<tr><td>`assets/data/publication_figure_values.csv`</td><td>`results/stage_1/stage_1_summary.json`; `results/stage_2/stage_2_summary.json`</td></tr>
+</tbody></table></div>
+<h3>Exhibit A: Dashboard Overview</h3>
+<p>Image path in package: `assets/screenshots/dashboard-overview.png`</p>
+<p>Original source path: `docs/reports/project_state_handoff/assets/screenshots/dashboard-overview.png`</p>
+<p>Original status: dashboard screenshot copied from the project-state handoff package.</p>
+<p>What it visually shows: The project posture, claim gates, strict gates, current ranking summary, and evidence-flow overview.</p>
+<p>Data artifact or payload behind it: `src/lsd_thesis/web/dashboard_payload.py`, `src/lsd_thesis/web/figure_payload.py`, `src/lsd_thesis/web/site_payload.py`, `results/thesis_upgrade/thesis_upgrade_status.json`, and `results/dynamic_mechanism_ranking/summary.json`.</p>
+<p>Calculation summary: The overview combines status cards and ranking/gate summaries read from existing artifacts. Strict completion is reported as complete count divided by total count.</p>
+<p>Exact values safely extracted:</p>
+<ul>
+<li>Thesis readiness: 6/9.</li>
+<li>Strict completion: 4/6.</li>
+<li>Package readiness: 1/2.</li>
+<li>Current ranking: C, E, D, A, B.</li>
+<li>paired subject count in empirical viewer: 15.</li>
+<li>paired cached records for dynamic ranking: 30.</li>
+</ul>
+<p>Likely responsible code: `build_dashboard_payload()` in `src/lsd_thesis/web/dashboard_payload.py`; figure/status helpers in `src/lsd_thesis/web/figure_payload.py`.</p>
+<p>Claim status: mixed. The workbench is implemented; strict thesis completion remains blocked.</p>
+<p>Caveat: Overview cards are presentation/status surfaces, not independent scientific validation.</p>
+<p>Needed to strengthen claim: Complete the motion/confound proof and archive DOI gate.</p>
+<p>Validation/test protection: Dashboard route/payload/public-site contract tests, figure payload tests, thesis upgrade status tests, and dashboard strict preflight.</p>
+<h3>Exhibit B: Mechanism Ranking</h3>
+<p>Image path in package: `assets/screenshots/dashboard-ranking.png`</p>
+<p>Original source path: `docs/reports/project_state_handoff/assets/screenshots/dashboard-ranking.png`</p>
+<p>Original status: dashboard screenshot.</p>
+<p>What it visually shows: A-E mechanism ranking with C leading and B retained as a negative baseline.</p>
+<p>Data artifact or payload behind it: `results/dynamic_mechanism_ranking/summary.json`; `results/dynamic_mechanism_ranking/exports/mechanism_ranking.csv`.</p>
+<p>Calculation summary: The chart uses exported mechanism ranking rows sorted by rank. Bar length is the exported unitless support score.</p>
+<p>Exact values safely extracted:</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Rank</th><th>Layer</th><th>Mechanism</th><th>Score</th><th>Status</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>C</td><td>hierarchy_routing_layer</td><td>0.332606</td><td>implemented_first_pass</td></tr>
+<tr><td>2</td><td>E</td><td>receptor_informed_network_control_energy</td><td>0.182875</td><td>implemented_proxy_control_energy</td></tr>
+<tr><td>3</td><td>D</td><td>dynamic_repertoire_layer</td><td>0.150619</td><td>implemented_first_pass</td></tr>
+<tr><td>4</td><td>A</td><td>transition_state_proxy</td><td>0.148906</td><td>implemented_first_pass</td></tr>
+<tr><td>5</td><td>B</td><td>dmdc_condition_interaction</td><td>-0.074064</td><td>implemented_negative_control_baseline</td></tr>
+</tbody></table></div>
+<p>Meaning of A-E:</p>
+<ul>
+<li>A: transition-state proxy.</li>
+<li>B: DMDc predictive baseline / negative control.</li>
+<li>C: hierarchy/routing.</li>
+<li>D: dynamic repertoire.</li>
+<li>E: finite-horizon network-control energy proxy.</li>
+</ul>
+<p>Likely responsible code: `src/lsd_thesis/dynamic_mechanism/`, `scripts/run_dynamic_mechanism_ranking.py`, dashboard payload builders, and chart rendering in dashboard JavaScript.</p>
+<p>Claim status: proxy-supported for C as current strongest layer; mixed for E; implemented negative baseline for B.</p>
+<p>Caveat: This is a model-level proxy ranking. It is not biological proof and not a receptor-level mechanism.</p>
+<p>Freshness note: exact ranking values in this package are read from `results/dynamic_mechanism_ranking/summary.json`, because an older export CSV copy can contain a stale E score.</p>
+<p>Needed to strengthen claim: Motion-sensitive exclusions, parcellation/null checks, and PI-approved claim-promotion threshold.</p>
+<p>Validation/test protection: `tests/test_result_artifact_schema_contract.py`, `tests/test_dashboard_payload_contract.py`, `tests/test_figure_payload.py`.</p>
+<h3>Exhibit C: Robustness</h3>
+<p>Image path in package: `assets/screenshots/dashboard-robustness.png`</p>
+<p>Original source path: `docs/reports/project_state_handoff/assets/screenshots/dashboard-robustness.png`</p>
+<p>Original status: dashboard screenshot.</p>
+<p>What it visually shows: Subject-bootstrap and sensitivity evidence for the ranking.</p>
+<p>Data artifact or payload behind it: `results/dynamic_mechanism_ranking/robustness/robustness_summary.json`; `results/dynamic_mechanism_ranking/robustness/bootstrap_layer_summary.csv`.</p>
+<p>Calculation summary: Bootstrap summary rows report current score, score mean/std, confidence interval bounds, median rank, and rank-1 fraction by layer.</p>
+<p>Exact values safely extracted:</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Layer</th><th>Current score</th><th>Score mean</th><th>CI low</th><th>CI high</th><th>Median rank</th><th>Rank-1 fraction</th></tr></thead>
+<tbody>
+<tr><td>A</td><td>0.148906</td><td>0.163748</td><td>-0.131526</td><td>0.493676</td><td>3.0</td><td>0.117188</td></tr>
+<tr><td>B</td><td>-0.074064</td><td>-0.074430</td><td>-0.165982</td><td>0.012141</td><td>5.0</td><td>0.000000</td></tr>
+<tr><td>C</td><td>0.332606</td><td>0.349477</td><td>0.222188</td><td>0.520315</td><td>1.0</td><td>0.843750</td></tr>
+<tr><td>D</td><td>0.150619</td><td>0.148384</td><td>-0.019302</td><td>0.329665</td><td>3.0</td><td>0.019531</td></tr>
+<tr><td>E</td><td>0.182875</td><td>0.195633</td><td>-0.016250</td><td>0.392784</td><td>3.0</td><td>0.019531</td></tr>
+</tbody></table></div>
+<p>Likely responsible code: `scripts/run_dynamic_mechanism_ranking.py`; robustness helpers under `src/lsd_thesis/dynamic_robustness.py` and `src/lsd_thesis/dynamic_mechanism/`.</p>
+<p>Claim status: proxy-supported internal robustness for C; not external validation.</p>
+<p>Caveat: Robustness is an in-sample/internal stress test and does not remove motion/confound blockers.</p>
+<p>Needed to strengthen claim: External stress tests, motion-sensitive exclusions, and approved fMRIPrep FD/DVARS/censoring proof.</p>
+<p>Validation/test protection: Result artifact schema tests, figure payload tests, dashboard payload tests.</p>
+<h3>Exhibit D: Empirical Viewer</h3>
+<p>Image path in package: `assets/screenshots/dashboard-empirical.png`</p>
+<p>Original source path: `docs/reports/project_state_handoff/assets/screenshots/dashboard-empirical.png`</p>
+<p>Original status: dashboard screenshot.</p>
+<p>What it visually shows: Paired LSD/placebo group metric deltas and subject/run/window inspection controls.</p>
+<p>Data artifact or payload behind it: `results/stage_2/empirical_viewer/group_overview.json`; subject-view cache under `results/stage_2/empirical_viewer/subject_views/` for local-only inspection.</p>
+<p>Calculation summary: Group-level bars show LSD-minus-placebo deltas for macro-dynamic metrics read from the group overview artifact.</p>
+<p>Exact values safely extracted:</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Metric</th><th>LSD minus placebo delta</th><th>Delta std</th></tr></thead>
+<tbody>
+<tr><td>within_network_stability</td><td>0.066093</td><td>0.108138</td></tr>
+<tr><td>cross_network_communication</td><td>0.074076</td><td>0.083530</td></tr>
+<tr><td>thalamic_coupling</td><td>0.119918</td><td>0.148357</td></tr>
+<tr><td>hierarchical_compression</td><td>0.054150</td><td>0.136924</td></tr>
+<tr><td>entropy_diversity</td><td>-0.002253</td><td>0.023046</td></tr>
+<tr><td>switching_rate</td><td>0.012346</td><td>0.032333</td></tr>
+<tr><td>metastability_proxy</td><td>-0.053960</td><td>0.079222</td></tr>
+<tr><td>effective_barrier_proxy</td><td>-0.149192</td><td>0.366374</td></tr>
+</tbody></table></div>
+<p>Paired subject count: 15. Primary runs: run-01 and run-03.</p>
+<p>Likely responsible code: `src/lsd_thesis/web/empirical_viewer.py`, `src/lsd_thesis/web/dashboard_payload.py`, and Stage 2 data helpers.</p>
+<p>Claim status: proxy-supported aggregate summary inspection.</p>
+<p>Caveat: Subject-level cache rows are local-only; run-02/music remains exploratory/audit-only unless explicitly approved.</p>
+<p>Needed to strengthen claim: Motion/confound proof, parcellation sensitivity review, and subject/run-level caveat handling.</p>
+<p>Validation/test protection: Empirical viewer payload contracts, artifact security tests, dashboard preflight.</p>
+<h3>Exhibit E: Prior-Art Inventory</h3>
+<p>Image path in package: `assets/screenshots/dashboard-prior-art.png`</p>
+<p>Original source path: `docs/reports/project_state_handoff/assets/screenshots/dashboard-prior-art.png`</p>
+<p>Original status: dashboard screenshot.</p>
+<p>What it visually shows: ds003059 prior-art families, labels such as proxy-supported/mixed/future/blocked, and claim boundaries.</p>
+<p>Data artifact or payload behind it: `prior_art/README.md`, `prior_art/code_inventory.md`, `prior_art/comparison_extraction_plan.json`, `docs/research/ds003059_prior_art_to_thesis_map.md`, and public prior-art payload builders.</p>
+<p>Calculation summary: This is primarily a structured inventory and status mapping, not a numeric scientific calculation.</p>
+<p>Exact values safely extracted: 12 major ds003059 analysis families are documented in `prior_art/README.md` and `prior_art/code_inventory.md`, with an additional translational neuromodeling teaching resource listed in the inventory.</p>
+<p>Likely responsible code: `src/lsd_thesis/web/site_payload.py`; prior-art API/payload routes.</p>
+<p>Claim status: mixed/context-only. Prior art is design inspiration and scholarly positioning unless local artifacts promote a claim.</p>
+<p>Caveat: Do not treat prior-art wrappers as original local evidence.</p>
+<p>Needed to strengthen claim: For each prior-art family, implement or audit local evidence independently with license checks and tests.</p>
+<p>Validation/test protection: public-site payload tests and prior-art payload contract surfaces.</p>
+<h3>Exhibit F: Figure Deck</h3>
+<p>Image path in package: `assets/screenshots/dashboard-figures.png`</p>
+<p>Original source path: `docs/reports/project_state_handoff/assets/screenshots/dashboard-figures.png`</p>
+<p>Original status: dashboard screenshot.</p>
+<p>What it visually shows: Export-ready figure registry and production gates.</p>
+<p>Data artifact or payload behind it: `src/lsd_thesis/web/figure_payload.py`, `results/thesis_upgrade/thesis_upgrade_status.json`, `results/validation/cv5_subject_disjoint/cv5_aggregate_validation.json`, and `results/reproducible_archive/ARCHIVE_MANIFEST.json`.</p>
+<p>Calculation summary: Figure deck status cards read strict thesis gates, motion proof status, archive DOI status, and internal CV5 status from existing artifacts.</p>
+<p>Exact values safely extracted:</p>
+<ul>
+<li>Strict thesis gates: 4/6.</li>
+<li>Motion proof: `blocked_missing_fmriprep_fd_dvars_censoring_motion_proof`.</li>
+<li>Archive DOI: release verified true, DOI verified false.</li>
+<li>CV5: complete, 5/5 folds, 15 subjects.</li>
+</ul>
+<p>Likely responsible code: `src/lsd_thesis/web/figure_payload.py`.</p>
+<p>Claim status: implemented figure registry; blocked motion and archive gates.</p>
+<p>Caveat: &quot;Export-ready&quot; means review/figure registry readiness, not completed thesis or completed archive publication.</p>
+<p>Needed to strengthen claim: Complete motion/confound and Zenodo DOI gates.</p>
+<p>Validation/test protection: `tests/test_figure_payload.py`, thesis status tests, dashboard payload tests.</p>
+<h3>Exhibit G: Representative Figure - stage1_metric_shift.png</h3>
+<p>Image path in package: `assets/figures/stage1_metric_shift.png`</p>
+<p>Original source path: `output/doc/figures/stage1_metric_shift.png`</p>
+<p>Original status: ignored generated output copied into the project-state handoff package, then copied into this PI package.</p>
+<p>What it visually shows: Stage 1 baseline versus perturbed surrogate values for state entropy and switching rate.</p>
+<p>Data artifact behind it: `results/stage_1/stage_1_summary.json`.</p>
+<p>Calculation summary: `src/lsd_thesis/publication_figures.py` reads baseline and perturbed values for `state_entropy` and `switching_rate` and plots side-by-side bars.</p>
+<p>Exact values safely extracted:</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Metric</th><th>Baseline</th><th>Perturbed</th><th>Delta</th></tr></thead>
+<tbody>
+<tr><td>state_entropy</td><td>0.989019</td><td>0.997577</td><td>0.008557</td></tr>
+<tr><td>switching_rate</td><td>0.147147</td><td>0.203203</td><td>0.056056</td></tr>
+</tbody></table></div>
+<p>Likely responsible code: `_build_stage1_metric_shift_figure()` in `src/lsd_thesis/publication_figures.py`.</p>
+<p>Claim status: implemented surrogate demonstration.</p>
+<p>Caveat: Stage 1 is surrogate macro-dynamics only; it does not prove receptor biology or subjective effects.</p>
+<p>Needed to strengthen claim: Tie surrogate shifts to empirical targets and blockers through later-stage evidence.</p>
+<p>Validation/test protection: publication figure/source artifact tests and broader package validation.</p>
+<h3>Exhibit H: Representative Figure - stage2_fit_robustness.png</h3>
+<p>Image path in package: `assets/figures/stage2_fit_robustness.png`</p>
+<p>Original source path: `output/doc/figures/stage2_fit_robustness.png`</p>
+<p>Original status: ignored generated output copied into the project-state handoff package, then copied into this PI package.</p>
+<p>What it visually shows: Stage 2 initial objective score versus selected score, plus repeatability summary text.</p>
+<p>Data artifact behind it: `results/stage_2/stage_2_summary.json`.</p>
+<p>Calculation summary: `src/lsd_thesis/publication_figures.py` plots initial score and selected score. Lower is better. It adds subject/run counts and multi-seed metric summary text.</p>
+<p>Exact values safely extracted:</p>
+<ul>
+<li>Initial score: 1628.945399.</li>
+<li>Selected score: 2.053957.</li>
+<li>Change: decreased by 1626.891441.</li>
+<li>Selected iteration: 42.</li>
+<li>Empirical subjects: 15.</li>
+<li>Empirical run count: 60.</li>
+<li>Validation seed panel score mean: 2.455030.</li>
+<li>Validation seed panel score std: 0.651138.</li>
+</ul>
+<p>Likely responsible code: `_build_stage2_fit_robustness_figure()` in `src/lsd_thesis/publication_figures.py`.</p>
+<p>Claim status: implemented fit-quality summary.</p>
+<p>Caveat: This is cached fit quality and limited repeatability evidence, not proof of generalization.</p>
+<p>Needed to strengthen claim: Subject-disjoint and external validation, plus motion/confound proof.</p>
+<p>Validation/test protection: publication figure/source artifact tests and validation baseline docs.</p>
+<h3>Exhibit I: Representative Historical Dashboard Figures</h3>
+<p>Image paths in package:</p>
+<ul>
+<li>`assets/figures/pass2a_microsite.png`</li>
+<li>`assets/figures/set_setting_seed_live_8020.png`</li>
+</ul>
+<p>Original source paths:</p>
+<ul>
+<li>`results/setting_seed/dashboard/screenshots/pass2a_microsite.png`</li>
+<li>`results/setting_seed/dashboard/screenshots/set_setting_seed_live_8020.png`</li>
+</ul>
+<p>Original status: ignored generated PNG screenshots copied into the project-state handoff package, then copied into this PI package.</p>
+<p>What they visually show: Historical local setting/seed dashboard surfaces.</p>
+<p>Data artifact or payload behind them: `results/setting_seed/dashboard/dashboard_payload.json` and related setting/seed artifacts, if present.</p>
+<p>Calculation summary: These are screenshots, not direct numeric calculations in this packaging pass.</p>
+<p>Exact values safely extracted: Not safely recovered in this packaging pass beyond source paths and captions in the prior handoff manifest.</p>
+<p>Likely responsible code: setting/seed dashboard scripts and web artifact routing.</p>
+<p>Claim status: historical/context-only.</p>
+<p>Caveat: These images are historical dashboard context. They are not live proof unless current artifacts confirm the same state.</p>
+<p>Needed to strengthen claim: A dedicated setting/seed audit that checks current payloads, generated status, and no-touch run-02/music boundaries.</p>
+<p>Validation/test protection: setting/seed tests are historical in `docs/VALIDATION.md`; current package did not rerun setting/seed workflows.</p></div></details></section>
+<section class="band"><details class="doc-detail" open><summary>Methods And Data Skills</summary><div class="doc-body"><h2>Methods And Data-Skills Summary</h2>
+<h3>Project Engineering</h3>
+<p>The repo is a Python project managed with `uv`. It uses a conventional package layout under `src/lsd_thesis/`, documented commands in `README.md`, and validation with `pytest`, `ruff`, `mypy`, `uv pip check`, dashboard preflight, and JavaScript syntax checks.</p>
+<p>The current documented engineering baseline is strong enough for PI review:</p>
+<ul>
+<li>`ruff` passed.</li>
+<li>`mypy src` passed on 109 source files.</li>
+<li>`pytest --collect-only` collected 82 tests.</li>
+<li>Latest documented full pytest baseline is 82 passed with 82.69% coverage.</li>
+<li>Dashboard strict preflight passed.</li>
+<li>`node --check src\lsd_thesis\static\dashboard.js` passed.</li>
+</ul>
+<h3>Python And Testing Practices</h3>
+<p>Applied skills visible in the repo:</p>
+<ul>
+<li>Python package organization.</li>
+<li>Pydantic-style structured config/result models.</li>
+<li>Deterministic tests for simulation and payload contracts.</li>
+<li>Characterization tests for dashboard routes, public payloads, artifact schemas, and status vocabulary.</li>
+<li>Focused validation notes that distinguish current baseline from historical notes.</li>
+<li>Safe CLI contract testing for scripts without running heavy scientific workflows.</li>
+</ul>
+<h3>Dashboarding And Reporting</h3>
+<p>The repo uses:</p>
+<ul>
+<li>FastAPI for local dashboard routes and API payloads.</li>
+<li>Jinja templates and static assets for dashboard rendering.</li>
+<li>Plotly/JavaScript for charts.</li>
+<li>Local artifact serving with allowlisted `/artifacts/...` hrefs.</li>
+<li>Static/public payload schema `public_site.v1`.</li>
+<li>Figure payloads that keep source artifacts, formulas, caveats, and claim status together.</li>
+</ul>
+<p>This package did not modify dashboard routes, templates, CSS, JavaScript, or public JSON schemas.</p>
+<h3>Artifact Contracts</h3>
+<p>The project uses JSON/YAML/CSV/XLSX artifacts as reviewable contracts. Examples include:</p>
+<ul>
+<li>`results/dynamic_mechanism_ranking/summary.json`</li>
+<li>`results/dynamic_mechanism_ranking/robustness/robustness_summary.json`</li>
+<li>`results/stage_2/empirical_viewer/group_overview.json`</li>
+<li>`results/thesis_upgrade/thesis_upgrade_status.json`</li>
+<li>`results/validation/cv5_subject_disjoint/cv5_aggregate_validation.json`</li>
+<li>`results/reproducible_archive/ARCHIVE_MANIFEST.json`</li>
+</ul>
+<p>The dashboard and tests consume these artifacts, so they should not be casually regenerated or cleaned.</p>
+<h3>Artifact Security And Href Allowlisting</h3>
+<p>The dashboard artifact layer uses allowlisted paths and extensions. Subject-level empirical cache files are local-only and are not exposed as public static artifacts. This matters because the project can share derived summaries without exposing raw/private/cache data.</p>
+<h3>fMRI Summary Data Handling</h3>
+<p>The empirical workflow handles paired `ses-LSD` and `ses-PLCB` ds003059 records. The primary resting-state runs are run-01 and run-03. Run-02/music is explicitly gated.</p>
+<p>Current empirical summary surfaces include:</p>
+<ul>
+<li>15 paired subjects in the group overview.</li>
+<li>run-01 and run-03 as primary runs.</li>
+<li>LSD-minus-placebo deltas for macro-dynamic metrics.</li>
+<li>subject/run/window local viewer cache for inspection.</li>
+<li>caveats about missing strict motion/confound proof.</li>
+</ul>
+<h3>Paired LSD/Placebo Evidence Handling</h3>
+<p>The empirical viewer and dynamic ranking use cached paired summaries rather than raw data regeneration in this package. The PI package derives compact tables from existing artifacts only.</p>
+<p>Examples:</p>
+<ul>
+<li>`assets/data/empirical_group_metric_deltas.csv`</li>
+<li>`assets/data/mechanism_ranking_values.csv`</li>
+<li>`assets/data/robustness_summary_values.csv`</li>
+</ul>
+<h3>Graph / Surrogate Model Design</h3>
+<p>The surrogate model is an 8-module stochastic graph model with:</p>
+<ul>
+<li>latent module states,</li>
+<li>adaptation,</li>
+<li>bistability/barrier-like terms,</li>
+<li>graph coupling,</li>
+<li>hierarchy constraints,</li>
+<li>stochastic perturbation,</li>
+<li>proxy metrics such as FC, switching rate, entropy-like diversity, metastability, and barrier proxies.</li>
+</ul>
+<p>All of these are model-level proxies, not direct biological parameters.</p>
+<h3>Mechanism Ranking A-E</h3>
+<p>The current mechanism ranking compares:</p>
+<ul>
+<li>A: transition-state proxies.</li>
+<li>B: DMDc predictive baseline / negative control.</li>
+<li>C: hierarchy/routing proxies.</li>
+<li>D: dynamic repertoire / graph metrics.</li>
+<li>E: finite-horizon network-control energy proxy.</li>
+</ul>
+<p>The current order is C, E, D, A, B. E must remain split between lower transition/control-energy proxy support and unsupported receptor-specific placement.</p>
+<h3>Robustness And Internal Validation</h3>
+<p>The project records:</p>
+<ul>
+<li>subject bootstrap summaries,</li>
+<li>run sensitivity,</li>
+<li>E horizon sensitivity,</li>
+<li>D window sensitivity,</li>
+<li>state-label sensitivity,</li>
+<li>claim verdicts,</li>
+<li>internal subject-disjoint CV5 status.</li>
+</ul>
+<p>Internal robustness does not replace external validation or motion/confound proof.</p>
+<h3>Prior-Art Mapping</h3>
+<p>The repo includes a ds003059 prior-art landscape with 12 analysis families. It records code status, dependencies, inputs, outputs, reproducibility status, runbooks, and claim boundaries.</p>
+<p>The purpose is scholarly positioning and reproducibility context. Prior-art wrappers are not treated as original local evidence.</p>
+<h3>Reproducibility Practices</h3>
+<p>Visible reproducibility practices include:</p>
+<ul>
+<li>source-path columns in derived tables,</li>
+<li>artifact manifests,</li>
+<li>archive checksums,</li>
+<li>validation baseline docs,</li>
+<li>explicit no-touch boundaries,</li>
+<li>prior-art repository commit hashes,</li>
+<li>status labels such as implemented, proxy-supported, mixed, unsupported, blocked, and future.</li>
+</ul>
+<h3>Codex / Autoresearch Framing</h3>
+<p>Codex helped with codebase cleanup, tests, reporting, documentation, dashboard guardrails, and this review package. It did not replace scientific approval. Scientific claim promotion still requires PI review and matching evidence artifacts.</p></div></details></section>
+<section class="band"><details class="doc-detail" open><summary>Scholarly And Prior-Art Context</summary><div class="doc-body"><h2>Scholarly And Prior-Art Context</h2>
+<h3>Scope</h3>
+<p>This document uses only repo-available information from `prior_art/`, `docs/research/`, `README.md`, `SPEC.md`, `ARCHITECTURE.md`, and the project handoff docs. Bibliographic metadata is included only when present in repo files.</p>
+<h3>How To Read This</h3>
+<p>Prior-art context supports thesis framing and method comparison. It does not automatically promote current repo evidence. A prior-art family becomes current evidence only when local artifacts, tests, and claim gates support it.</p>
+<h3>Prior-Art / Context Items</h3>
+<div class="table-wrap"><table>
+<thead><tr><th>Item</th><th>Status</th><th>What it contributes</th><th>What it does not prove</th><th>Relation to current repo evidence</th><th>Limitations</th><th>Source path</th></tr></thead>
+<tbody>
+<tr><td>Ising thermodynamics and LZW complexity / Ruffini stack</td><td>future</td><td>Motivation for entropy/complexity and thermodynamic-style comparisons</td><td>Does not prove neural entropy or thermodynamic truth in this repo</td><td>Related to A/D proxy metrics</td><td>Requires unavailable derivatives; license uncertainty noted</td><td>`prior_art/code_inventory.md`; `prior_art/runbooks/ising_temperature_and_algorithmic_complexity.md`</td></tr>
+<tr><td>CopBET entropy toolbox</td><td>future</td><td>Entropy metric comparison and reproducibility target</td><td>Does not become local evidence until independently run</td><td>Supports possible A/D metric-card expansion</td><td>MATLAB/toolbox dependency; local run not completed</td><td>`prior_art/reproducibility_matrix.md`; `prior_art/runbooks/entropy_copbet.md`</td></tr>
+<tr><td>Singleton-style energy landscape / network control</td><td>mixed</td><td>Motivates E finite-horizon control-energy proxy</td><td>Does not prove receptor-specific placement</td><td>E lower transition-energy proxy is useful; receptor-specific placement unsupported</td><td>Needs structural connectome, PET priors, graph rewires, spatial nulls</td><td>`docs/research/ds003059_prior_art_to_thesis_map.md`; `prior_art/runbooks/energy_landscape_network_control.md`</td></tr>
+<tr><td>REACT receptor connectivity</td><td>future</td><td>Receptor-enriched connectivity method context</td><td>Does not validate ds003059 mechanism here</td><td>Receptor-prior method dependency only</td><td>Not a completed local validation layer</td><td>`prior_art/runbooks/react_receptor_connectivity.md`</td></tr>
+<tr><td>Neuroreceptor eigenmodes / Hansen/corematrix</td><td>future</td><td>Receptor-map and spatial-prior context</td><td>Does not prove receptor causality</td><td>Supports future receptor-prior audit</td><td>License/null-control caveats</td><td>`prior_art/runbooks/neuroreceptor_eigenmodes.md`</td></tr>
+<tr><td>Dynamic integration / segregation</td><td>proxy-supported context</td><td>Supports D dynamic repertoire and integration/segregation framing</td><td>Does not prove subjective richness</td><td>Method context for dynamic FC and graph metrics</td><td>MATLAB-only and not ds003059-specific in README</td><td>`prior_art/runbooks/dynamic_integration_segregation.md`</td></tr>
+<tr><td>Cortical gradients / BrainSpace</td><td>proxy-supported context</td><td>Supports hierarchy/gradient framing</td><td>Does not prove hierarchy flattening in current 8-module proxy</td><td>Method context for C and future parcellation work</td><td>Toolbox context, not completed local ds003059 analysis</td><td>`prior_art/runbooks/cortical_gradients_brainspace.md`</td></tr>
+<tr><td>LSD music brain states / Adamska-Finc notebooks</td><td>blocked</td><td>Context for run-02/music state analysis</td><td>Does not support primary run-01/run-03 claims</td><td>Run-02/music remains gated</td><td>Needs exclusions, motion/context checks, explicit approval</td><td>`prior_art/runbooks/lsd_music_brainstates.md`</td></tr>
+<tr><td>GNW/IIT consciousness Zenodo archive</td><td>context-only / future</td><td>Broader altered-consciousness comparison context</td><td>Does not settle consciousness theories here</td><td>Context only</td><td>Code archive inspected; large data not downloaded</td><td>`prior_art/archive_manifest.md`; `prior_art/runbooks/gnw_iit_consciousness.md`</td></tr>
+<tr><td>Mesoscale ReHo</td><td>future</td><td>Possible local synchrony comparison</td><td>Does not provide current local evidence</td><td>Backlog/context only</td><td>No verified public code</td><td>`prior_art/runbooks/mesoscale_reho.md`</td></tr>
+<tr><td>Traveling waves</td><td>future</td><td>Possible wave-propagation metric context</td><td>Does not provide current local evidence</td><td>Backlog/context only</td><td>Supporting dependency only; no full analysis repo verified</td><td>`prior_art/runbooks/traveling_waves.md`</td></tr>
+<tr><td>DLPFC Granger causality</td><td>blocked / future</td><td>Possible directed-flow context</td><td>Does not provide current local evidence</td><td>Backlog/context only</td><td>Author-only; no automatic outreach</td><td>`prior_art/runbooks/dlpfc_granger_causality.md`</td></tr>
+</tbody></table></div>
+<p>For items where full article metadata is not present in the inspected repo docs, bibliographic metadata was not found in repo during this packaging pass.</p>
+<h3>Current Literature Support For A-E Layers</h3>
+<p>From `docs/research/dynamic_mechanism_literature_support.md`:</p>
+<ul>
+<li>A transition/barrier proxy uses macro-state switching, dwell time, transition diversity, and step-distance proxies.</li>
+<li>B DMDc is a simple predictive controlled-dynamics baseline, not network-control energy.</li>
+<li>C hierarchy/routing is motivated by sensory-associative, thalamic, hierarchy, and receptor-prior alignment signatures.</li>
+<li>D dynamic repertoire is motivated by integration/segregation, graph theory, and dynamic FC.</li>
+<li>E network-control energy is motivated by control-energy literature, but current repo evidence remains a macro-module proxy.</li>
+</ul>
+<h3>Relation To Current Evidence</h3>
+<p>Current evidence is strongest as a reproducible, claim-gated mechanism-ranking package. Prior art supports why the A-E comparison is scientifically plausible, but the current thesis claim should stay local:</p>
+<p>&gt; Transparent macro-dynamic proxy mechanisms can be ranked against paired LSD/placebo summary evidence, with blockers and negative evidence kept visible.</p>
+<h3>Articles/Prior-Art I Should Ask My PI About</h3>
+<ul>
+<li>Which prior-art family should define the thesis standard: hierarchy/routing, dynamic repertoire, or control energy?</li>
+<li>Is the current E split acceptable: lower transition-energy proxy supported, receptor-specific placement unsupported?</li>
+<li>Should music/run-02 remain outside the thesis core?</li>
+<li>What minimum motion/confound evidence would make the current C ranking thesis-defensible?</li>
+<li>Should external psilocybin/ds006072 stress-test evidence be part of the thesis or an appendix?</li>
+<li>Which scholarly frame is safer: computational neuroscience mechanism ranking, Neuro-AI workbench, or reproducibility/evidence dashboard?</li>
+</ul></div></details></section>
+<section class="band"><details class="doc-detail" open><summary>Problems And Next Steps</summary><div class="doc-body"><h2>Problems And Next Steps</h2>
+<h3>Summary</h3>
+<p>The project is ready for PI review as a claim-gated research workbench. It is not ready to be presented as a completed thesis. The next useful decision is which blocker must be closed first.</p>
+<h3>Problem 1: Motion/Confound Proof Remains Incomplete</h3>
+<p>Why it matters: Motion, session effects, and preprocessing artifacts can mimic or distort macro-dynamic changes.</p>
+<p>Current status: Blocked. `results/thesis_upgrade/thesis_upgrade_status.json` reports `motion_confound_control_result` as `blocked_missing_fmriprep_fd_dvars_censoring_motion_proof`.</p>
+<p>Evidence/source file: `results/thesis_upgrade/thesis_upgrade_status.json`; `docs/VALIDATION.md`.</p>
+<p>Needed to address it: Authorized subject/run motion confounds or original raw BIDS inputs, fMRIPrep/MRIQC execution in a suitable environment, and ingestion of FD, DVARS, censoring/outlier tables.</p>
+<p>Suggested next action: Create a motion-proof planning pack that lists exact required inputs, expected output tables, predicates, and approval gates before running anything.</p>
+<p>Risk if ignored: The thesis can overstate mechanism ranking from data that may still be confounded.</p>
+<h3>Problem 2: FD/DVARS/Censoring Is Thesis-Critical</h3>
+<p>Why it matters: The strict predicate requires FD, DVARS, and censoring/outlier family coverage, not only image-level or proxy QC.</p>
+<p>Current status: Incomplete. Current artifacts record image-derived QC and related context, but not the strict fMRIPrep FD/DVARS/censoring proof.</p>
+<p>Evidence/source file: `results/thesis_upgrade/thesis_upgrade_status.json`; `results/confound_controls/fmriprep_motion_proof_plan.json` as referenced by the status artifact.</p>
+<p>Needed to address it: Paired motion-control rows, merged subject/run rows, non-empty association rows, and feature-family coverage for FD, DVARS, and censoring.</p>
+<p>Suggested next action: Ask the PI whether author-provided confounds or original raw inputs are available and acceptable to pursue.</p>
+<p>Risk if ignored: C and other ranking claims remain vulnerable at the thesis-defense level.</p>
+<h3>Problem 3: Zenodo DOI / Archive Publication Is Incomplete</h3>
+<p>Why it matters: A GitHub release is not the same as a citable reproducibility archive.</p>
+<p>Current status: Blocked. The archive manifest records a verified GitHub release URL but no DOI.</p>
+<p>Evidence/source file: `results/reproducible_archive/ARCHIVE_MANIFEST.json`.</p>
+<p>Needed to address it: Mint and verify a Zenodo DOI, then update the reproducible archive manifest in an approved archive-specific pass.</p>
+<p>Suggested next action: Treat DOI work as a packaging milestone after PI approval of the scientific framing.</p>
+<p>Risk if ignored: The project can be review-ready but not citation/archive-ready.</p>
+<h3>Problem 4: External/PET/Receptor/Neuromaps/SC Evidence Must Stay Gated</h3>
+<p>Why it matters: These surfaces can make the project sound biologically stronger than the current artifact contract allows.</p>
+<p>Current status: Mixed. Some status artifacts report implemented sensitivity or stress-test layers, but receptor/myelin/gradient claims are explicitly not promoted.</p>
+<p>Evidence/source file: `results/thesis_upgrade/thesis_upgrade_status.json`; `docs/research/ds003059_prior_art_to_thesis_map.md`.</p>
+<p>Needed to address it: A separate audit plan that distinguishes implemented sensitivity checks from biological mechanism claims.</p>
+<p>Suggested next action: Create an external/PET/SC/neuromaps evidence audit plan only after the PI agrees on scope and claim thresholds.</p>
+<p>Risk if ignored: The thesis may overclaim receptor-specific or external-validation support.</p>
+<h3>Problem 5: Run-02/Music Remains Audit-Only</h3>
+<p>Why it matters: Run-02 has a music-listening context and cannot be treated as equivalent to primary resting-state evidence.</p>
+<p>Current status: Gated. Current primary ranking uses run-01 and run-03. Run-02/music remains audit-only unless explicitly approved.</p>
+<p>Evidence/source file: `docs/research/ds003059_prior_art_to_thesis_map.md`; `docs/VALIDATION.md`; project instructions in `AGENTS.md`.</p>
+<p>Needed to address it: Music-qualified subject rules, technical-problem exclusions, motion/context checks, and explicit PI approval.</p>
+<p>Suggested next action: Keep run-02/music out of the thesis core until the motion-proof decision is made.</p>
+<p>Risk if ignored: The project can mix incompatible task contexts and weaken the empirical claim.</p>
+<h3>Problem 6: Generated Artifacts And Ignored Outputs Are Risky To Clean Or Regenerate</h3>
+<p>Why it matters: Ignored generated outputs may still be consumed by the dashboard, figure deck, archive manifest, or public snapshot.</p>
+<p>Current status: High-risk. The artifact inventory says `results/`, `_site/`, and `output/` include tracked evidence plus ignored generated files.</p>
+<p>Evidence/source file: `docs/reports/results_artifact_inventory.md`; `docs/reports/project_state_handoff/PROJECT_STATE_HANDOFF.md`.</p>
+<p>Needed to address it: Producer/consumer mapping before any cleanup, deletion, regeneration, or tracking-policy change.</p>
+<p>Suggested next action: Create an artifact producer/consumer map as a docs-only planning pass.</p>
+<p>Risk if ignored: Review artifacts, public payloads, or test contracts can silently drift.</p>
+<h3>Problem 7: Public/Static Payload Drift Needs Caution</h3>
+<p>Why it matters: Static public output can diverge from local dashboard payloads if Pages builds are run casually.</p>
+<p>Current status: Presentation-ready snapshot exists, but no Pages/publication build was run for this package.</p>
+<p>Evidence/source file: `docs/reports/project_state_handoff/PROJECT_STATE_HANDOFF.md`; `docs/reports/dashboard_visual_review.md`.</p>
+<p>Needed to address it: A no-regeneration drift audit comparing static snapshot and local payload expectations.</p>
+<p>Suggested next action: Audit drift as a report-only pass before any new Pages/publication build.</p>
+<p>Risk if ignored: PI or public reviewers may see stale status labels or artifact links.</p>
+<h3>Problem 8: Dashboard Visual Polish Is Useful But Not The Main Blocker</h3>
+<p>Why it matters: Visual polish improves presentation, but it does not close scientific gates.</p>
+<p>Current status: Future. `docs/reports/dashboard_visual_review.md` recommends CSS-only status-token and first-viewport polish, but this PI package intentionally did not implement it.</p>
+<p>Evidence/source file: `docs/reports/dashboard_visual_review.md`.</p>
+<p>Needed to address it: A separate CSS-only pass after claim boundaries are fixed and scientific blockers are prioritized.</p>
+<p>Suggested next action: Defer visual polish until after PI review of the scientific next step.</p>
+<p>Risk if ignored: Low scientific risk, moderate presentation risk.</p>
+<h3>Ranked Next Thesis Milestones</h3>
+<ol>
+<li>Motion-proof planning pack.</li>
+<li>External/PET/SC/neuromaps evidence audit plan.</li>
+<li>Public-site/static drift audit.</li>
+<li>Artifact producer/consumer map.</li>
+<li>Dashboard visual polish only after claim boundaries remain fixed.</li>
+<li>Package/developer-experience proposal.</li>
+</ol></div></details></section>
+<section class="band"><details class="doc-detail" open><summary>PI Meeting Script</summary><div class="doc-body"><h2>PI Meeting Script</h2>
+<h3>Five-Minute Walkthrough</h3>
+<p>Use this when the PI has limited time.</p>
+<ol>
+<li>&quot;The project is now organized as a claim-gated research workbench, not a finished thesis.&quot;</li>
+<li>&quot;The core scientific object is a transparent 8-module macro-dynamic surrogate model tested against cached paired LSD/placebo summary evidence.&quot;</li>
+<li>&quot;The current mechanism ranking is C, E, D, A, B. C is strongest, E is a split lower-energy proxy, and B is a negative DMDc baseline.&quot;</li>
+<li>&quot;The dashboard keeps claims gated: motion/confound proof is still blocked, archive DOI is missing, and receptor/subjective/clinical claims are not promoted.&quot;</li>
+<li>&quot;What I need from you is a decision on the next scientific blocker. My recommendation is motion-proof planning first, because FD/DVARS/censoring is the central thesis-critical gap.&quot;</li>
+</ol>
+<h3>Twenty-Minute Walkthrough</h3>
+<p>Minute 0-2: Start with framing.</p>
+<p>&quot;This package presents model-level macro-dynamic proxy evidence and current blockers; it does not claim receptor-level, subjective, clinical, or biological-ground-truth validation.&quot;</p>
+<p>Minute 2-5: Show `PI_REVIEW_BRIEF.md`.</p>
+<p>&quot;The infrastructure and evidence package are now ready for PI review. The main question is not whether the thesis is solved, but which blocker must be closed next.&quot;</p>
+<p>Minute 5-8: Show Overview.</p>
+<p>&quot;This page is the posture check. It shows the project as a claim-gated workbench with strict gates and a current ranking summary.&quot;</p>
+<p>Minute 8-11: Show Mechanism Ranking.</p>
+<p>&quot;The ranking is C, E, D, A, B. C leads, E is useful but split, and B is retained as a negative sanity baseline.&quot;</p>
+<p>Minute 11-13: Show Robustness.</p>
+<p>&quot;The robustness artifacts are internal stress tests. C is stable in bootstrap ranking, but this does not remove the motion/confound blocker.&quot;</p>
+<p>Minute 13-15: Show Empirical Viewer.</p>
+<p>&quot;This inspects cached paired LSD/placebo summaries. Subject-level and run-02/music interpretations remain gated.&quot;</p>
+<p>Minute 15-17: Show Prior Art.</p>
+<p>&quot;The prior-art inventory is a guardrail. It helps position the thesis without treating prior wrappers as local proof.&quot;</p>
+<p>Minute 17-19: Show Figure Deck.</p>
+<p>&quot;The figure deck is useful for review, but it also foregrounds the blocked motion proof and missing archive DOI.&quot;</p>
+<p>Minute 19-20: Ask for decision.</p>
+<p>&quot;Which blocker should I address first to make this thesis-defensible?&quot;</p>
+<h3>Dashboard Demo Order</h3>
+<ol>
+<li>Overview - &quot;This is the project posture and gate summary.&quot;</li>
+<li>Mechanism Ranking - &quot;This is the current model-level ranking, not biological proof.&quot;</li>
+<li>Robustness - &quot;This is internal robustness, not a replacement for external validation or motion proof.&quot;</li>
+<li>Empirical Viewer - &quot;This is paired LSD/placebo summary inspection; run-02/music is not primary.&quot;</li>
+<li>Prior Art - &quot;This shows scholarly context and prevents claim promotion without local artifacts.&quot;</li>
+<li>Figure Deck - &quot;This is the review/export surface with blocked gates still visible.&quot;</li>
+</ol>
+<h3>Likely PI Questions And Conservative Answers</h3>
+<p>Question: &quot;What is the actual thesis claim?&quot;</p>
+<p>Answer: &quot;A transparent macro-dynamic surrogate workbench can rank candidate mechanism proxies against paired LSD/placebo summary evidence, with explicit gates showing what is supported, mixed, blocked, or future.&quot;</p>
+<p>Question: &quot;Does this prove an LSD mechanism?&quot;</p>
+<p>Answer: &quot;No. It supports model-level mechanism ranking. It does not prove receptor biology or clinical/subjective effects.&quot;</p>
+<p>Question: &quot;Why is C strongest?&quot;</p>
+<p>Answer: &quot;C has the highest exported support score in the current ranking and the strongest bootstrap rank-1 fraction. It is still a proxy layer and needs motion-sensitive and parcellation/null review before promotion.&quot;</p>
+<p>Question: &quot;What happened to network control?&quot;</p>
+<p>Answer: &quot;E is useful as a lower transition/control-energy proxy. Receptor-specific placement is not supported yet and should stay blocked.&quot;</p>
+<p>Question: &quot;Why keep B if it is negative?&quot;</p>
+<p>Answer: &quot;B is a sanity baseline. Keeping it visible prevents overclaiming and shows the ranking is not cherry-picked.&quot;</p>
+<h3>If He Challenges The Science</h3>
+<p>Say:</p>
+<p>&quot;I agree the current evidence is not enough for a biological mechanism claim. The package is designed to show that boundary clearly. The scientific question is whether the model-level ranking is worth developing into a thesis after closing the motion/confound and validation blockers.&quot;</p>
+<p>Say:</p>
+<p>&quot;The dashboard makes negative and blocked results visible. That is intentional because a thesis built on this needs to survive skeptical review.&quot;</p>
+<h3>If He Asks What Is Missing</h3>
+<p>Say:</p>
+<p>&quot;The main missing item is strict FD/DVARS/censoring motion proof. The archive DOI is also incomplete. Receptor/PET/SC/neuromaps and run-02/music need to remain gated unless we explicitly choose to audit them.&quot;</p>
+<h3>If He Asks Why This Is Thesis-Worthy</h3>
+<p>Say:</p>
+<p>&quot;The contribution is not a final LSD biological proof. It is a reproducible, claim-gated computational workbench that connects transparent surrogate modeling, paired empirical summaries, mechanism ranking, robustness checks, dashboarding, and prior-art mapping. That can become a thesis if we define the evidence threshold and close the main blocker.&quot;</p>
+<h3>If He Asks What I Need From Him</h3>
+<p>Say:</p>
+<p>&quot;I need your decision on the next scientific blocker and the standard for claim promotion. My recommendation is to start with a motion-proof planning pack, because that determines whether the current mechanism-ranking story can be thesis-level.&quot;</p></div></details></section>
+<section class="band"><details class="doc-detail"><summary>Publication Options</summary><div class="doc-body"><h2>Publication And Sharing Options</h2>
+<p>Codex did not upload, publish, email, stage, commit, push, create a release, create a PR, or deploy this package.</p>
+<h3>Option A: Send By Email</h3>
+<p>Use this for the first PI contact.</p>
+<ol>
+<li>Paste the short email from `EMAIL_TO_PI.md`.</li>
+<li>Attach `PI_REVIEW_BRIEF.md`.</li>
+<li>Attach `EVIDENCE_AND_CALCULATIONS.md` if you want plot-level detail included upfront.</li>
+<li>Attach `assets/screenshots/` or include the whole folder as a ZIP.</li>
+</ol>
+<p>You may manually convert `PI_REVIEW_BRIEF.md` to PDF if preferred.</p>
+<h3>Option B: Send As A ZIP</h3>
+<p>Manual PowerShell command from repo root:</p>
+<pre class="formula">
+New-Item -ItemType Directory -Force docs\reports\pi_thesis_share_package\dist
+Compress-Archive -Path docs\reports\pi_thesis_share_package\* -DestinationPath docs\reports\pi_thesis_share_package\dist\PI_THESIS_SHARE_PACKAGE.zip
+</pre>
+<p>This command was not run by Codex in this package pass.</p>
+<h3>Option C: GitHub Link</h3>
+<p>Manual commands after review:</p>
+<pre class="formula">
+git status --short --untracked-files=all
+git add docs/reports/pi_thesis_share_package/
+git commit -m &quot;docs: add PI thesis share package&quot;
+git push origin HEAD
+</pre>
+<p>Then send the GitHub tree link to:</p>
+<pre class="formula">
+docs/reports/pi_thesis_share_package/
+</pre>
+<p>Do not commit generated/raw/cache artifacts outside the package.</p>
+<h3>Option D: Static Local HTML / Site Link</h3>
+<p>Open locally:</p>
+<pre class="formula">
+docs/reports/pi_thesis_share_package/site/index.html
+</pre>
+<p>To share manually, upload these together:</p>
+<ul>
+<li>`site/`</li>
+<li>`assets/`</li>
+<li>the Markdown files in the package root</li>
+</ul>
+<p>Keep relative paths intact.</p>
+<h3>Option E: Future GitHub Pages</h3>
+<p>This is future-only.</p>
+<p>Possible future approach:</p>
+<ol>
+<li>Get PI approval for public framing.</li>
+<li>Decide whether this PI package should be public.</li>
+<li>Commit the package.</li>
+<li>Add it to a Pages build or static file host in a separate approved pass.</li>
+</ol>
+<p>Do not build Pages or modify `_site/` as part of this package.</p></div></details></section>
+<section class="band"><details class="doc-detail"><summary>Send/Email Drafts</summary><div class="doc-body"><h2>Email To PI</h2>
+<h3>A. Short Email</h3>
+<p>Subject: LSD thesis workbench ready for PI review</p>
+<p>Hi Professor,</p>
+<p>I prepared a PI-facing review package for my LSD thesis project. The safest framing is that this is a claim-gated computational workbench and evidence dashboard for model-level macro-dynamic mechanism ranking, not a finished thesis or biological proof.</p>
+<p>The package explains what I built, what the current plots show, which calculations and artifacts sit behind the plots, what methods/data-science work was used, what prior-art context supports the framing, and what blockers remain. The current ranking is C, E, D, A, B, with C as the strongest current macro-dynamic proxy layer. The package also keeps the main caveats visible: no receptor-level proof, no subjective-experience simulation, no clinical validation, incomplete FD/DVARS/censoring motion proof, and missing Zenodo DOI archive publication.</p>
+<p>Could we schedule a 30-minute meeting to review it? What I need most is your decision on the next scientific blocker to address so I can turn this from a research workbench into a defensible thesis plan.</p>
+<p>Best,</p>
+<p>Yuval</p>
+<h3>B. Detailed Email</h3>
+<p>Subject: PI review package for LSD thesis workbench and evidence dashboard</p>
+<p>Hi Professor,</p>
+<p>I prepared a structured review package for my LSD thesis project. The package is meant to make the current state easy to evaluate as a thesis direction. It includes a PI brief, plot-by-plot evidence notes, a methods/data-skills summary, scholarly/prior-art context, current blockers, and a hosted/static landing page with offline fallback.</p>
+<p>The safest scientific framing is conservative: this is a claim-gated research workbench and evidence dashboard for model-level macro-dynamic mechanism ranking. It is not a finished thesis, not a receptor-level LSD model, not a subjective-experience simulation, not clinical validation, and not biological ground truth. The current evidence supports transparent surrogate mechanism ranking against paired LSD/placebo macro-dynamic proxy summaries.</p>
+<p>The main implemented pieces are an 8-module stochastic graph surrogate model, cached ds003059 paired LSD/placebo empirical summaries, A-E dynamic mechanism ranking, robustness/status artifacts, a FastAPI/Jinja/Plotly dashboard, a figure deck, and a ds003059 prior-art reproducibility landscape. Current ranking from the tracked summary artifact is C, E, D, A, B. C is the strongest current macro-dynamic proxy layer. E is useful only as a lower transition/control-energy proxy and should not be promoted to receptor-specific proof. B remains a negative DMDc baseline.</p>
+<p>The validation baseline documented in the repo is green for the engineering gates: ruff passed, mypy passed on 109 source files, pytest collect-only found 82 tests, the latest documented full pytest baseline is 82 passed with 82.69% coverage, dependency check passed, dashboard strict preflight passed, and dashboard JavaScript syntax passed.</p>
+<p>The package also makes the blockers explicit. The most important scientific blocker is still motion/confound proof: the strict FD/DVARS/censoring gate is incomplete. Zenodo DOI/archive publication is also incomplete. External/PET/SC/neuromaps and run-02/music surfaces must remain claim-gated unless matching artifacts justify promotion.</p>
+<p>Could we schedule 30 minutes to review the package? The decision I need from you is which scientific blocker should become the next thesis milestone: motion-proof planning, external/PET/SC/neuromaps audit, public/static drift audit, or artifact producer/consumer mapping. My recommendation is to start with the motion-proof planning pack because it is the thesis-critical blocker.</p>
+<p>Best,</p>
+<p>Yuval</p></div></details></section>
+<section class="band"><details class="doc-detail"><summary>Original Send README</summary><div class="doc-body"><h2>PI Thesis Share Package - Sender Guide</h2>
+<p>Snapshot date: 2026-06-18</p>
+<p>This folder is a PI-facing review package for the LSD thesis workbench. Codex created it locally only. Codex did not publish, upload, email, stage, commit, push, open a PR, create a release, or deploy anything.</p>
+<h3>What To Send First</h3>
+<p>Send these files first:</p>
+<ol>
+<li>`EMAIL_TO_PI.md` - paste the short email into your message.</li>
+<li>`PI_REVIEW_BRIEF.md` - attach or link as the main brief.</li>
+<li>`EVIDENCE_AND_CALCULATIONS.md` - attach or link if the PI wants plot-level details.</li>
+<li>`site/index.html` - optional local fallback landing page for browsing the package.</li>
+</ol>
+<p>If you want the cleanest first message, paste the short email and attach `PI_REVIEW_BRIEF.md` plus the `assets/screenshots/` folder.</p>
+<h3>What To Attach</h3>
+<p>Recommended attachment set:</p>
+<ul>
+<li>`PI_REVIEW_BRIEF.md`</li>
+<li>`PROBLEMS_AND_NEXT_STEPS.md`</li>
+<li>`EVIDENCE_AND_CALCULATIONS.md`</li>
+<li>`METHODS_AND_DATA_SKILLS.md`</li>
+<li>`SCHOLARLY_CONTEXT.md`</li>
+<li>`assets/screenshots/dashboard-overview.png`</li>
+<li>`assets/screenshots/dashboard-ranking.png`</li>
+<li>`assets/screenshots/dashboard-robustness.png`</li>
+<li>`assets/screenshots/dashboard-empirical.png`</li>
+<li>`assets/screenshots/dashboard-prior-art.png`</li>
+<li>`assets/screenshots/dashboard-figures.png`</li>
+</ul>
+<p>The full folder can also be zipped and sent as one review bundle.</p>
+<h3>What To Paste In Email</h3>
+<p>Use the short version in `EMAIL_TO_PI.md` for the first contact. Use the detailed version only if your PI prefers more context upfront.</p>
+<h3>What To Show Live</h3>
+<p>Recommended live walkthrough order:</p>
+<ol>
+<li>`site/index.html`</li>
+<li>`PI_REVIEW_BRIEF.md`</li>
+<li>`assets/screenshots/dashboard-overview.png`</li>
+<li>`assets/screenshots/dashboard-ranking.png`</li>
+<li>`assets/screenshots/dashboard-robustness.png`</li>
+<li>`assets/screenshots/dashboard-empirical.png`</li>
+<li>`assets/screenshots/dashboard-prior-art.png`</li>
+<li>`assets/screenshots/dashboard-figures.png`</li>
+<li>`PROBLEMS_AND_NEXT_STEPS.md`</li>
+</ol>
+<p>If the local FastAPI dashboard is already running in your own review session, use it as a live supplement. This package itself does not start a server.</p>
+<h3>What Not To Claim</h3>
+<p>Do not say:</p>
+<ul>
+<li>The thesis is finished.</li>
+<li>The model simulates subjective experience.</li>
+<li>The model proves receptor-level LSD biology.</li>
+<li>The dashboard proves clinical validity.</li>
+<li>The current evidence is biological ground truth.</li>
+<li>Motion/confound proof is complete.</li>
+<li>Zenodo DOI/archive publication is complete.</li>
+<li>Run-02/music is primary evidence.</li>
+</ul>
+<p>Safe wording:</p>
+<p>&gt; The infrastructure and evidence package are ready for PI review. The current evidence supports model-level macro-dynamic mechanism ranking, with explicit claim gates and blockers.</p>
+<h3>Recommended Meeting Order</h3>
+<ol>
+<li>Start with the one-paragraph summary from `PI_REVIEW_BRIEF.md`.</li>
+<li>Show the dashboard overview screenshot and explain the claim-gated posture.</li>
+<li>Show mechanism ranking: C, E, D, A, B.</li>
+<li>Show robustness and explain internal robustness versus external validation.</li>
+<li>Show empirical viewer and explain paired LSD/placebo summary inspection.</li>
+<li>Show prior-art inventory and how it prevents overclaiming.</li>
+<li>Show Figure Deck and the blocked motion/archive gates.</li>
+<li>End with `PROBLEMS_AND_NEXT_STEPS.md` and ask the PI to choose the next scientific blocker.</li>
+</ol>
+<h3>Manual Link Options</h3>
+<p>GitHub folder link after committing and pushing:</p>
+<pre class="formula">
+git status --short --untracked-files=all
+git add docs/reports/pi_thesis_share_package/
+git commit -m &quot;docs: add PI thesis share package&quot;
+git push origin HEAD
+</pre>
+<p>Then send the GitHub tree link to `docs/reports/pi_thesis_share_package/`.</p>
+<p>Cloud drive link:</p>
+<ol>
+<li>Upload `docs/reports/pi_thesis_share_package/` to Google Drive, OneDrive, or Dropbox.</li>
+<li>Share view access with your PI.</li>
+<li>Point them first to `PI_REVIEW_BRIEF.md` or `site/index.html`.</li>
+</ol>
+<p>Static site upload:</p>
+<ol>
+<li>Upload `site/` plus `assets/` together.</li>
+<li>Keep relative paths intact.</li>
+<li>Do not treat this as a public release until the PI approves the scientific framing.</li>
+</ol>
+<p>Local HTML preview:</p>
+<p>Open this file in a browser:</p>
+<pre class="formula">
+docs/reports/pi_thesis_share_package/site/index.html
+</pre>
+<p>No network dependency is required.</p></div></details></section>
+<section class="band"><details class="doc-detail"><summary>Subagent Findings / Audit Trail</summary><div class="doc-body"><h2>Subagent / Workstream Findings</h2>
+<h3>Project State Auditor</h3>
+<p>Files inspected:</p>
+<ul>
+<li>`AGENTS.md`</li>
+<li>`README.md`</li>
+<li>`ARCHITECTURE.md`</li>
+<li>`SPEC.md`</li>
+<li>`docs/VALIDATION.md`</li>
+<li>`docs/reports/project_state_handoff/PROJECT_STATE_HANDOFF.md`</li>
+<li>`docs/reports/project_state_handoff/CHATGPT_PASTEBACK.md`</li>
+<li>`docs/reports/project_state_handoff/manifest.json`</li>
+<li>`docs/reports/dashboard_visual_review.md`</li>
+</ul>
+<p>Findings:</p>
+<ul>
+<li>Current branch: `audit/full-cleanup-and-prior-art`.</li>
+<li>Current HEAD: `1a51eb54d909cbda6bf3584cd2ecf99f187c355d`.</li>
+<li>Validation-baseline commit: `69b0397 docs: refresh validation baseline`.</li>
+<li>Current status before package creation had one allowed untracked file: `docs/reports/dashboard_visual_review.md`.</li>
+<li>Current documented validation baseline: ruff passed, mypy passed on 109 source files, collect-only found 82 tests, latest full pytest baseline was 82 passed with 82.69% coverage, `uv pip check` passed, dashboard strict preflight passed, and dashboard JS syntax passed.</li>
+<li>Thesis readiness: 6/9; strict completion: 4/6; package readiness: 1/2.</li>
+<li>Motion/confound proof and Zenodo DOI remain blocked.</li>
+</ul>
+<p>Uncertainty:</p>
+<ul>
+<li>The prior handoff manifest snapshots commit `69b0397`, while current HEAD is `1a51eb5` because the handoff package was later committed.</li>
+</ul>
+<p>Deliverables created:</p>
+<ul>
+<li>Current-state facts used in `PI_REVIEW_BRIEF.md`, `README_SEND_TO_PI.md`, `PROBLEMS_AND_NEXT_STEPS.md`, and `manifest.json`.</li>
+</ul>
+<p>No-touch confirmations:</p>
+<ul>
+<li>No source, tests, scripts, templates, CSS, JS, result artifacts, docs/reference, dependencies, staging, commits, servers, workflows, downloads, or publication actions.</li>
+</ul>
+<h3>Evidence And Calculation Analyst</h3>
+<p>Files inspected:</p>
+<ul>
+<li>`results/dynamic_mechanism_ranking/summary.json`</li>
+<li>`results/dynamic_mechanism_ranking/robustness/robustness_summary.json`</li>
+<li>`results/dynamic_mechanism_ranking/robustness/*.csv`</li>
+<li>`results/dynamic_mechanism_ranking/exports/*.csv`</li>
+<li>`results/stage_2/empirical_viewer/group_overview.json`</li>
+<li>`results/stage_1/stage_1_summary.json`</li>
+<li>`results/stage_2/stage_2_summary.json`</li>
+<li>`results/thesis_upgrade/thesis_upgrade_status.json`</li>
+<li>`results/validation/cv5_subject_disjoint/cv5_aggregate_validation.json`</li>
+<li>`results/reproducible_archive/ARCHIVE_MANIFEST.json`</li>
+<li>`src/lsd_thesis/web/dashboard_payload.py`</li>
+<li>`src/lsd_thesis/web/figure_payload.py`</li>
+<li>`src/lsd_thesis/publication_figures.py`</li>
+</ul>
+<p>Findings:</p>
+<ul>
+<li>Mechanism ranking values are safely extractable: C, E, D, A, B.</li>
+<li>C has bootstrap rank-1 fraction 0.843750.</li>
+<li>B has bootstrap rank-1 fraction 0.000000 and remains a negative baseline.</li>
+<li>Empirical viewer group deltas are safely extractable for 8 metrics.</li>
+<li>Figure Deck status cards are backed by thesis status, CV5, and archive artifacts.</li>
+<li>The two publication figures have recoverable calculations from `publication_figures.py`.</li>
+</ul>
+<p>Uncertainty:</p>
+<ul>
+<li>Historical setting/seed screenshot values were not safely recovered in this packaging pass and are treated as historical/context-only.</li>
+</ul>
+<p>Deliverables created:</p>
+<ul>
+<li>`EVIDENCE_AND_CALCULATIONS.md`</li>
+<li>nine derived CSV tables under `assets/data/`.</li>
+</ul>
+<p>No-touch confirmations:</p>
+<ul>
+<li>No workflows were rerun and no scientific output was regenerated.</li>
+</ul>
+<h3>Visual Publishing Curator</h3>
+<p>Files inspected:</p>
+<ul>
+<li>`docs/reports/project_state_handoff/assets/screenshots/`</li>
+<li>`docs/reports/project_state_handoff/assets/representative_figures/`</li>
+<li>`docs/reports/project_state_handoff/manifest.json`</li>
+</ul>
+<p>Findings:</p>
+<ul>
+<li>All six preferred dashboard screenshots exist.</li>
+<li>All four preferred representative figures exist.</li>
+<li>Visual review recommends future CSS-only polish, but this package did not implement it.</li>
+</ul>
+<p>Uncertainty:</p>
+<ul>
+<li>Full-page screenshots were not created here; existing viewport screenshots were reused.</li>
+</ul>
+<p>Deliverables created:</p>
+<ul>
+<li>Copied screenshots under `assets/screenshots/`.</li>
+<li>Copied figures under `assets/figures/`.</li>
+<li>Offline static landing page under `site/`.</li>
+<li>Package-only CSS under `assets/css/pi_package.css`.</li>
+</ul>
+<p>No-touch confirmations:</p>
+<ul>
+<li>Original images were not modified.</li>
+<li>Existing dashboard CSS/JS/templates were not touched.</li>
+</ul>
+<h3>Scholarly Context Analyst</h3>
+<p>Files inspected:</p>
+<ul>
+<li>`prior_art/README.md`</li>
+<li>`prior_art/code_inventory.md`</li>
+<li>`prior_art/reproducibility_matrix.md`</li>
+<li>`prior_art/repository_manifest.md`</li>
+<li>`prior_art/repository_metadata.md`</li>
+<li>`prior_art/archive_manifest.md`</li>
+<li>all 12 files under `prior_art/runbooks/`</li>
+<li>`docs/research/ds003059_prior_art_to_thesis_map.md`</li>
+<li>`docs/research/dynamic_mechanism_literature_support.md`</li>
+<li>`docs/research/network_control_graph_theory_upgrade.md`</li>
+<li>`docs/research/psychedelic_dynamics_targets.md`</li>
+</ul>
+<p>Findings:</p>
+<ul>
+<li>Prior art supports context and method design, not automatic local proof.</li>
+<li>Singleton-style control-energy work maps to E, but receptor-specific placement remains unsupported.</li>
+<li>Music brain-state work maps to A/C/D but run-02/music remains blocked for primary claims.</li>
+<li>Entropy, Ising, gradients, dynamic integration, REACT, receptor maps, and consciousness analyses are useful scholarly context with clear limitations.</li>
+</ul>
+<p>Uncertainty:</p>
+<ul>
+<li>Bibliographic metadata is incomplete for some entries; missing details were not invented.</li>
+</ul>
+<p>Deliverables created:</p>
+<ul>
+<li>`SCHOLARLY_CONTEXT.md`.</li>
+</ul>
+<p>No-touch confirmations:</p>
+<ul>
+<li>No external repositories, runbooks, or prior-art files were modified.</li>
+</ul>
+<h3>Methods And Data-Skills Analyst</h3>
+<p>Files inspected:</p>
+<ul>
+<li>`pyproject.toml`</li>
+<li>`src/lsd_thesis/core.py`</li>
+<li>`src/lsd_thesis/simulator.py`</li>
+<li>`src/lsd_thesis/metrics.py`</li>
+<li>`src/lsd_thesis/metrics_literature.py`</li>
+<li>`src/lsd_thesis/dynamic_mechanism/`</li>
+<li>`src/lsd_thesis/dynamic_robustness.py`</li>
+<li>`src/lsd_thesis/data/ds003059/`</li>
+<li>`src/lsd_thesis/web/`</li>
+<li>selected tests under `tests/`</li>
+</ul>
+<p>Findings:</p>
+<ul>
+<li>The repo shows applied Python, fMRI summary handling, surrogate modeling, dashboarding, artifact-contract, validation, and reproducibility skills.</li>
+<li>Codex/autoresearch should be framed as engineering assistance, not scientific approval.</li>
+</ul>
+<p>Uncertainty:</p>
+<ul>
+<li>No fresh tests or workflows were run by this workstream.</li>
+</ul>
+<p>Deliverables created:</p>
+<ul>
+<li>`METHODS_AND_DATA_SKILLS.md`.</li>
+</ul>
+<p>No-touch confirmations:</p>
+<ul>
+<li>No source or tests were edited.</li>
+</ul>
+<h3>PI Communication Writer</h3>
+<p>Files inspected:</p>
+<ul>
+<li>Project handoff docs.</li>
+<li>Validation docs.</li>
+<li>Evidence extraction outputs.</li>
+<li>Scholarly/methods findings.</li>
+</ul>
+<p>Findings:</p>
+<ul>
+<li>The PI message should be direct: the package is ready for review, not final defense.</li>
+<li>The decision request should focus on the next scientific blocker.</li>
+</ul>
+<p>Uncertainty:</p>
+<ul>
+<li>Final wording may need adjustment for the PI&#x27;s personal style.</li>
+</ul>
+<p>Deliverables created:</p>
+<ul>
+<li>`EMAIL_TO_PI.md`</li>
+<li>`PI_MEETING_SCRIPT.md`</li>
+<li>PI-facing sections in `PI_REVIEW_BRIEF.md`.</li>
+</ul>
+<p>No-touch confirmations:</p>
+<ul>
+<li>No email was sent.</li>
+</ul>
+<h3>Publication / Sharing Packager</h3>
+<p>Files inspected:</p>
+<ul>
+<li>Package requirements from the user request.</li>
+<li>Existing handoff package structure.</li>
+</ul>
+<p>Findings:</p>
+<ul>
+<li>The safest share paths are email attachment, ZIP, GitHub folder link after commit/push, cloud-drive link, and future static hosting after PI approval.</li>
+</ul>
+<p>Uncertainty:</p>
+<ul>
+<li>No external link exists because no upload/publish action was taken.</li>
+</ul>
+<p>Deliverables created:</p>
+<ul>
+<li>`PUBLICATION_OPTIONS.md`</li>
+<li>`README_SEND_TO_PI.md`</li>
+<li>`site/README.md`</li>
+<li>`site/index.html`</li>
+</ul>
+<p>No-touch confirmations:</p>
+<ul>
+<li>No upload, Pages build, release, PR, issue, email, staging, commit, or push.</li>
+</ul>
+<h3>QA And Guardrail Reviewer</h3>
+<p>Files inspected:</p>
+<ul>
+<li>Initial and final `git status --short --untracked-files=all`.</li>
+<li>Package file list.</li>
+<li>Manifest JSON.</li>
+<li>Derived table list.</li>
+<li>Validation command outputs.</li>
+</ul>
+<p>Findings:</p>
+<ul>
+<li>Package writes stayed under `docs/reports/pi_thesis_share_package/`.</li>
+<li>Pre-existing allowed untracked input remains `docs/reports/dashboard_visual_review.md`.</li>
+<li>Claims are framed as model-level macro-dynamic proxy evidence with blocked gates visible.</li>
+</ul>
+<p>Uncertainty:</p>
+<ul>
+<li>Full pytest was not rerun; current full-suite baseline remains the documented 82 passed with 82.69% coverage.</li>
+</ul>
+<p>Deliverables created:</p>
+<ul>
+<li>`manifest.json` QA fields and final no-touch confirmations.</li>
+</ul>
+<p>No-touch confirmations:</p>
+<ul>
+<li>No source, tests, scripts, templates, existing CSS/JS, routes, schemas, result artifacts, ignored outputs, raw data, caches, private data, docs/reference, pyproject, uv.lock, or dependencies were modified.</li>
+</ul></div></details></section>
+
+<section class="band muted">
+  <div class="section-head"><p class="eyebrow">Manifest and QA</p><h2>Audit files</h2></div>
+  <div class="cards two">
+    <article><h3>Website manifest</h3><p><a href="../manifest.json">manifest.json</a> records copied assets, generated pages, validation results, and no-touch boundaries.</p></article>
+    <article><h3>Offline QA</h3><p><a href="../qa_report.json">qa_report.json</a> records local-link, external dependency, and absolute-path checks for the generated website.</p></article>
+  </div>
+</section>
+
+  </main>
+  <footer>Packaging-only snapshot. All links are relative and all review assets are local.</footer>
+</body>
+</html>

@@ -27,6 +27,9 @@
           <h1>{{ page_title }}</h1>
         </div>
         <div class="topbar-actions">
+          <a class="icon-button" href="{{ '/thesis' if deployment_mode == 'local' else (root_prefix | default('')) ~ 'pi-review/' }}" title="Open supervisor pitch package" aria-label="Open supervisor pitch package">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19h16"/><path d="M6 17V5h12v12"/><path d="M9 9h6M9 13h4"/></svg>
+          </a>
           <a class="icon-button" href="{{ artifact_prefix | default('/artifacts/') }}results/thesis_upgrade/thesis_upgrade_status.json" title="Open strict audit JSON" aria-label="Open strict audit JSON">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v6h5"/><path d="M10 13h6M10 17h6"/></svg>
           </a>

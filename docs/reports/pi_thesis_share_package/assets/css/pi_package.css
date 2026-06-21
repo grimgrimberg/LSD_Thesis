@@ -1,0 +1,172 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #172033;
+  background: #f4f6f8;
+  line-height: 1.55;
+}
+
+a {
+  color: #005f73;
+}
+
+.shell {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 28px;
+}
+
+.hero {
+  padding: 32px 0 20px;
+  border-bottom: 1px solid #d8dee6;
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #6b4e00;
+}
+
+h1,
+h2,
+h3 {
+  color: #102033;
+  line-height: 1.2;
+}
+
+h1 {
+  max-width: 920px;
+  margin: 0;
+  font-size: 2.35rem;
+}
+
+.lead {
+  max-width: 900px;
+  font-size: 1.08rem;
+  color: #314158;
+}
+
+.notice {
+  margin-top: 18px;
+  padding: 14px 16px;
+  border-left: 4px solid #b45309;
+  background: #fff7ed;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin: 20px 0;
+}
+
+.card {
+  background: #ffffff;
+  border: 1px solid #d8dee6;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.card h3 {
+  margin-top: 0;
+  font-size: 1rem;
+}
+
+.status {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  background: #e6f4f1;
+  color: #005f56;
+}
+
+.status.blocked {
+  background: #fde8e8;
+  color: #9f1239;
+}
+
+.status.mixed {
+  background: #fff4cc;
+  color: #7c4a03;
+}
+
+.section {
+  padding: 26px 0;
+  border-bottom: 1px solid #d8dee6;
+}
+
+.shots {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+figure {
+  margin: 0;
+  background: #ffffff;
+  border: 1px solid #d8dee6;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+figcaption {
+  padding: 10px 12px;
+  font-size: 0.92rem;
+  color: #4b5563;
+}
+
+.links {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.links a {
+  display: block;
+  padding: 12px 14px;
+  background: #ffffff;
+  border: 1px solid #d8dee6;
+  border-radius: 8px;
+  text-decoration: none;
+}
+
+.agenda li,
+.plain li {
+  margin-bottom: 8px;
+}
+
+footer {
+  padding: 24px 0 12px;
+  color: #5b677a;
+  font-size: 0.92rem;
+}
+
+@media (max-width: 860px) {
+  .shell {
+    padding: 18px;
+  }
+
+  h1 {
+    font-size: 1.85rem;
+  }
+
+  .grid,
+  .shots,
+  .links {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>A-E Math And Metadata Guide - LSD Thesis PI Review</title>
+  <link rel="stylesheet" href="../assets/css/site.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="../OPEN_ME_FIRST.html">LSD Thesis PI Review</a>
+    <nav aria-label="Package pages"><a class="" href="../OPEN_ME_FIRST.html">Start</a><a class="" href="dashboard-offline.html">Dashboard</a><a class="active" href="ae-math-metadata.html">A-E Guide</a><a class="" href="evidence-and-calculations.html">Evidence</a><a class="" href="full-package.html">Full Package</a><a class="" href="methods-and-skills.html">Methods</a><a class="" href="scholarly-context.html">Context</a><a class="" href="problems-and-next-steps.html">Next Steps</a><a class="" href="meeting-agenda.html">Agenda</a><a class="" href="validation-and-safety.html">Validation</a></nav>
+  </header>
+  <main class="page">
+    <section class="page-hero">
+      <p class="eyebrow">Rubber-duck explanation</p>
+      <h1>A-E Math And Metadata Guide</h1>
+      <p>What A, B, C, D, and E mean, how the scoring story fits together, and which metadata files keep each claim grounded.</p>
+    </section>
+
+    <section class="band">
+      <div class="callout">
+        <strong>One-sentence version.</strong> The project compares five families of model-level macro-dynamic proxies against paired LSD/placebo summary evidence, ranks them by existing support scores, stress-tests the ranking, and then records what can and cannot be claimed.
+      </div>
+      <div class="cards three">
+        <article><h3>Data layer</h3><p>Cached paired LSD/placebo summaries for run-01 and run-03 provide group deltas and subject/run evidence. Run-02/music stays gated.</p></article>
+        <article><h3>Model layer</h3><p>The transparent 8-module surrogate creates interpretable macro-dynamic features rather than receptor-level biological parameters.</p></article>
+        <article><h3>Claim layer</h3><p>Scores, robustness, verdicts, and gate tables say which statements are supported, mixed, blocked, negative, or future.</p></article>
+      </div>
+    </section>
+
+    <section class="band muted">
+      <div class="section-head"><p class="eyebrow">Rubber duck</p><h2>Say this out loud</h2></div>
+      <div class="callout">
+        <p>"I am not saying the model experiences anything or proves receptor biology. I am asking which transparent proxy family best tracks the paired LSD/placebo macro-dynamic changes that are already summarized in the repo. A through E are five candidate explanations. Each one converts the same evidence into a different kind of measurable signature, then the package ranks those signatures and keeps the caveats visible."</p>
+      </div>
+    </section>
+
+    <section class="band">
+      <div class="section-head"><p class="eyebrow">The five letters</p><h2>What A-E are actually testing</h2></div>
+      <div class="cards two">
+        <article>
+          <h3>A - Transition-state proxy</h3>
+          <p><strong>Plain English:</strong> Does the system move between macro-states in a way that looks easier, more variable, or less stuck under LSD than placebo?</p>
+          <p><strong>Math idea:</strong> count state occupancy, transition rate, transition entropy, dwell/barrier proxies, and trajectory step distances.</p>
+          <pre class="formula">transition_rate = state_changes / possible_changes
+H_transition = -sum p(i,j) * log(p(i,j))</pre>
+          <p><strong>Current read:</strong> implemented first-pass proxy, rank 4, score 0.148906. Useful, but not the strongest current layer.</p>
+        </article>
+        <article>
+          <h3>B - DMDc predictive baseline</h3>
+          <p><strong>Plain English:</strong> Can a simple controlled-dynamics predictor explain one-step changes better when condition information is included?</p>
+          <p><strong>Math idea:</strong> fit a one-step linear dynamics model and evaluate leave-one-subject-out prediction error.</p>
+          <pre class="formula">x_next ~= A x + B u
+support ~= placebo_error - LSD_condition_error</pre>
+          <p><strong>Current read:</strong> negative/sanity baseline, rank 5, score -0.074064. It is kept because negative evidence prevents cherry-picking.</p>
+        </article>
+        <article>
+          <h3>C - Hierarchy/routing layer</h3>
+          <p><strong>Plain English:</strong> Do the LSD/placebo differences look most like changes in how information routes across sensory, associative, transmodal, and thalamic-gateway structure?</p>
+          <p><strong>Math idea:</strong> aggregate directional contrasts across hierarchy/routing features such as sensory-transmodal coupling, associative communication, thalamic coupling, and hierarchy-related compression.</p>
+          <pre class="formula">C_score = aggregate signed support across hierarchy/routing metrics
+stronger support = larger aligned LSD-minus-placebo deltas</pre>
+          <p><strong>Current read:</strong> strongest current proxy, rank 1, score 0.332606; bootstrap rank-1 fraction 0.843750. Still a macro-dynamic proxy, not biological proof.</p>
+        </article>
+        <article>
+          <h3>D - Dynamic repertoire layer</h3>
+          <p><strong>Plain English:</strong> Does the system explore a broader or different repertoire of network configurations?</p>
+          <p><strong>Math idea:</strong> use dynamic-FC and graph-style summaries such as integration, segregation, modularity, participation, variance, and trajectory movement.</p>
+          <pre class="formula">repertoire_support = aggregate graph/dynamic-FC feature shifts
+examples: variance, participation, modularity, step distance</pre>
+          <p><strong>Current read:</strong> implemented first-pass proxy, rank 3, score 0.150619. It supports the story, but less strongly than C.</p>
+        </article>
+        <article>
+          <h3>E - Control-energy proxy</h3>
+          <p><strong>Plain English:</strong> If the placebo-like macro-state is a starting point and the LSD-like macro-state is a target, which prior makes that transition cheaper in a simple control-energy sense?</p>
+          <p><strong>Math idea:</strong> finite-horizon linear control energy compares candidate control profiles on a coarse macro graph.</p>
+          <pre class="formula">x_next = A x + B u
+energy = sum of squared L2 control-input norms over a finite horizon
+lower energy = easier model-level transition under that control profile</pre>
+          <p><strong>Current read:</strong> rank 2, score 0.182875. It supports a lower transition/control-energy proxy, but receptor-specific placement is not supported; receptor-vs-random energy reduction is -15.434%.</p>
+        </article>
+        <article>
+          <h3>The ranking result</h3>
+          <p><strong>Current order:</strong> C, E, D, A, B.</p>
+          <p><strong>Interpretation:</strong> hierarchy/routing is the strongest current macro-dynamic proxy. Control-energy is useful but split. D and A add supporting context. B is a negative predictive baseline.</p>
+          <p><strong>What not to say:</strong> do not say this proves an LSD receptor mechanism, simulates subjective experience, or finishes the thesis.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="band muted">
+      <div class="section-head"><p class="eyebrow">How it comes together</p><h2>The evidence pipeline</h2></div>
+      <ol class="timeline">
+        <li><strong>Start with cached paired summaries.</strong> The package uses existing run-01/run-03 LSD-minus-placebo summaries. This is where subject count, run labels, and group deltas come from.</li>
+        <li><strong>Convert evidence into interpretable feature families.</strong> A-E are not arbitrary labels; each is a different family of measurable macro-dynamic features.</li>
+        <li><strong>Score each family.</strong> Existing artifacts aggregate signed feature support into a support score for each layer.</li>
+        <li><strong>Stress-test the ranking.</strong> Bootstrap and run-sensitivity artifacts ask whether the ordering survives subject resampling and run splits.</li>
+        <li><strong>Gate the claims.</strong> Claim verdicts and thesis gates keep supported, mixed, blocked, future, and negative claims separate.</li>
+        <li><strong>Ask the PI for a decision.</strong> The next scientific decision is not "is this finished?" It is which blocker and claim threshold must be solved first.</li>
+      </ol>
+    </section>
+
+    <section class="band">
+      <div class="section-head"><p class="eyebrow">Metadata trail</p><h2>Where every claim should point</h2></div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Question</th><th>Local metadata file</th><th>What it tells you</th></tr></thead>
+        <tbody>
+          <tr><td>What are A-E and their scores?</td><td><a href="../assets/data/mechanism_ranking_values.csv">assets/data/mechanism_ranking_values.csv</a></td><td>rank, layer, mechanism name, score, status, evidence text, and source path.</td></tr>
+          <tr><td>Is C stable?</td><td><a href="../assets/data/robustness_summary_values.csv">assets/data/robustness_summary_values.csv</a></td><td>current score, bootstrap mean/std, confidence interval, median rank, and rank-1 fraction.</td></tr>
+          <tr><td>Do run-01 and run-03 agree?</td><td><a href="../assets/data/robustness_run_sensitivity_values.csv">assets/data/robustness_run_sensitivity_values.csv</a></td><td>support score per layer and run, including E's run split.</td></tr>
+          <tr><td>What empirical deltas feed the story?</td><td><a href="../assets/data/empirical_group_metric_deltas.csv">assets/data/empirical_group_metric_deltas.csv</a></td><td>LSD-minus-placebo deltas, standard deviations, paired subject count, and run labels.</td></tr>
+          <tr><td>Which claims are allowed?</td><td><a href="../assets/data/dynamic_claim_verdicts.csv">assets/data/dynamic_claim_verdicts.csv</a></td><td>claim text, verdict, evidence, and next action for each claim.</td></tr>
+          <tr><td>Which blockers remain?</td><td><a href="../assets/data/thesis_gate_summary.csv">assets/data/thesis_gate_summary.csv</a></td><td>gate label, status, readiness flag, score, evidence files, and blocker notes.</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="band muted">
+      <div class="section-head"><p class="eyebrow">PI prep</p><h2>Rubber-duck checklist</h2></div>
+      <div class="cards two">
+        <article><h3>If asked "what is C?"</h3><p>"C is the hierarchy/routing proxy. It asks whether the paired LSD/placebo summary shifts look most like changes in sensory-associative-transmodal and thalamic-gateway routing. It is strongest now, but still needs motion and null checks before thesis-level promotion."</p></article>
+        <article><h3>If asked "what is E?"</h3><p>"E is a control-energy proxy on a coarse macro graph. It is useful for lower transition/control-energy interpretation, but the receptor-specific placement claim is not supported by the current evidence."</p></article>
+        <article><h3>If asked "what is the math?"</h3><p>"Each layer turns the same paired summaries into a family of numeric features, aggregates signed support into a score, then the robustness artifacts test whether the score is stable across resampling and run splits."</p></article>
+        <article><h3>If asked "what proves this?"</h3><p>"The metadata does not prove a biological mechanism. It proves that the package has a transparent evidence trail: source artifact, derived table, score, caveat, robustness check, and next action."</p></article>
+      </div>
+    </section>
+  </main>
+  <footer>Packaging-only snapshot. All links are relative and all review assets are local.</footer>
+</body>
+</html>

@@ -409,6 +409,8 @@ function renderFigureDeck(payload) {
   const figures = asRecords(deck.figures);
   setText("figure_deck_subtitle", deck.subtitle || "Figure metadata is generated from dashboard-data.json.");
   setText("figures_status", `${figures.length} figures`);
+  renderUnitGuide("figure_unit_cards");
+  renderPitchLinks("figure_atlas_links");
   byId("figure_deck_status_cards")?.replaceChildren(
     ...asRecords(deck.status_cards).map((item) => dataRecord(item.label, item.value, "production gate", item.claim_status)),
   );
@@ -557,6 +559,96 @@ function renderOverviewMetricStrip(payload) {
   byId("overview_metric_strip")?.replaceChildren(...renderMetricStrip(payload));
 }
 
+function staticRootPrefix() {
+  if (!isStaticDeployment) return "";
+  return dashboardDataUrl === "dashboard-data.json" ? "../" : "";
+}
+
+function piReviewHref(path = "") {
+  if (!isStaticDeployment) return "/thesis";
+  return `${staticRootPrefix()}pi-review/${path}`;
+}
+
+function unitGuideItems() {
+  return [
+    ["Support score", "unitless", "Weighted proxy-support score from current artifacts; higher means stronger current alignment for a layer, not biological proof."],
+    ["Rank-1 fraction", "0-1 proportion", "Subject-bootstrap fraction where the layer ranked first; 0.844 means 84.4% of resamples ranked it first."],
+    ["LSD - placebo delta", "metric-native difference", "Paired condition difference. Most macro-dynamic metrics are unitless proxy summaries unless the artifact defines a physical unit."],
+    ["FC delta", "correlation-unit difference", "Signed change in functional connectivity. It is unitless and should not be read as activation magnitude."],
+    ["Energy reduction", "percent", "Relative network-control proxy reduction. Keep this separate from receptor-specific placement claims."],
+    ["TR / horizon", "TR count / model steps", "Window size is counted in TRs; finite horizon is counted in model steps. Neither is a biological time constant."],
+  ];
+}
+
+function renderUnitGuide(containerId) {
+  byId(containerId)?.replaceChildren(
+    ...unitGuideItems().map(([label, value, detail]) => dataRecord(label, value, detail, "proxy-supported")),
+  );
+}
+
+function pitchCardItems(payload = {}) {
+  const dynamic = payload.dynamic_mechanism || {};
+  const topLayer = dynamic.mechanism_ranking?.[0]?.layer || "C";
+  const summary = payload.thesis_upgrade?.readiness_summary || {};
+  const strict = `${text(summary.strict_complete_gates, "4")}/${text(summary.strict_total_gates, "6")}`;
+  return [
+    ["Interdisciplinary fit", "AI + control theory + fMRI", "The project connects subject-disjoint ML, graph/control priors, and psychedelic macro-dynamics in one inspectable workbench."],
+    ["Research judgment", "claim-gated", "Implemented, proxy-supported, mixed, unsupported, blocked, and future claims stay visibly separated."],
+    ["Engineering proof", "tested dashboard + artifacts", "FastAPI/Jinja/Plotly surfaces consume typed Python payloads, allowlisted artifacts, and regression-tested public JSON contracts."],
+    ["Current result", `top layer ${topLayer}`, "The current A-E ranking is shown as model-level proxy evidence, with B retained as a negative baseline."],
+    ["Falsification posture", `${strict} strict gates`, "The pitch shows what would weaken the claim instead of hiding blockers such as motion/confound proof."],
+    ["Supervisor ask", "next threshold", "The package asks for the next blocker and the evidence threshold for promoting proxy support into a thesis-level claim."],
+  ];
+}
+
+function renderPitchCards(containerId, payload) {
+  byId(containerId)?.replaceChildren(
+    ...pitchCardItems(payload).map(([label, value, detail]) => dataRecord(label, value, detail, "implemented")),
+  );
+}
+
+function renderPitchLinks(containerId) {
+  const links = [
+    ["Open hosted PI package", piReviewHref()],
+    ["Pitch slides", piReviewHref("pages/pitch-slides.html")],
+    ["Figure atlas", piReviewHref("pages/figure-atlas.html")],
+    ["All figure metadata", isStaticDeployment ? `${staticRootPrefix()}figures.html` : "/figures"],
+  ];
+  byId(containerId)?.replaceChildren(...links.map(([label, href]) => el("a", { className: "secondary-link", text: label, href })));
+}
+
+function statusBalanceRows(payload) {
+  const counts = new Map();
+  const add = (value) => {
+    const key = text(value, "").toLowerCase().replace(/\s+/g, "_") || "unknown";
+    counts.set(key, (counts.get(key) || 0) + 1);
+  };
+  asRecords(payload.dynamic_mechanism?.claim_verdicts).forEach((row) => add(row.verdict));
+  asRecords(payload.thesis_upgrade?.strict_completion_requirements).forEach((row) => add(row.complete ? "complete" : row.status || "blocked"));
+  return [...counts.entries()].map(([status, count]) => ({ status, count }));
+}
+
+function renderStatusBalance(payload) {
+  const rows = statusBalanceRows(payload);
+  if (!rows.length) {
+    emptyPlot("thesis_status_balance_chart", "No claim or gate status rows are available.");
+    return;
+  }
+  plot("thesis_status_balance_chart", [{
+    type: "bar",
+    x: rows.map((row) => titleText(row.status)),
+    y: rows.map((row) => row.count),
+    marker: { color: rows.map((row) => row.status.includes("block") || row.status.includes("unsupported") ? COLORS.rose : row.status.includes("mixed") ? COLORS.amber : COLORS.teal) },
+    text: rows.map((row) => String(row.count)),
+    textposition: "auto",
+    hovertemplate: "%{x}<br>%{y} items<extra></extra>",
+  }], {
+    margin: { t: 12, r: 18, b: 72, l: 58 },
+    xaxis: { ...chartLayout.xaxis, title: "Status label" },
+    yaxis: { ...chartLayout.yaxis, title: "Count of claims/gates" },
+  });
+}
+
 function renderGateChart(payload) {
   const requirements = asRecords(payload.thesis_upgrade?.strict_completion_requirements);
   const complete = requirements.filter((item) => item.complete).length;
@@ -631,6 +723,7 @@ function renderOverviewClaimCards(payload) {
 
 function renderOverview(payload) {
   renderOverviewMetricStrip(payload);
+  renderPitchCards("overview_pitch_cards", payload);
   renderGateChart(payload);
   renderEvidenceFlow(payload);
   renderReadPath();
@@ -660,12 +753,12 @@ function renderRanking(payload) {
     text: scores.values.map((value) => formatNumber(value)),
     textposition: "auto",
     customdata: rows.map((row) => [text(row.status), text(row.evidence)]),
-    hovertemplate: "%{y}<br>score %{x:.3f}<br>%{customdata[0]}<br>%{customdata[1]}<extra></extra>",
+    hovertemplate: "%{y}<br>unitless support score %{x:.3f}<br>%{customdata[0]}<br>%{customdata[1]}<extra></extra>",
   }], {
     invalidCount: scores.invalidCount,
     margin: { t: 12, r: 24, b: 46, l: 190 },
     xaxis: { ...chartLayout.xaxis, title: "Proxy Support Score (unitless)" },
-    yaxis: { ...chartLayout.yaxis, autorange: "reversed", title: "Benchmark" },
+    yaxis: { ...chartLayout.yaxis, autorange: "reversed", title: "Mechanism layer" },
   });
   plot("ranking_distribution_chart", [{
     type: "scatter",
@@ -676,11 +769,12 @@ function renderRanking(payload) {
     textposition: "top center",
     marker: { color: rows.map((row) => layerColor[text(row.layer, "")] || COLORS.teal), size: 12 },
     line: { color: COLORS.grid },
-    hovertemplate: "Layer %{x}<br>score %{y:.3f}<extra></extra>",
+    hovertemplate: "Layer %{x}<br>unitless support score %{y:.3f}<extra></extra>",
   }], {
     invalidCount: scores.invalidCount,
-    yaxis: { ...chartLayout.yaxis, title: "support score" },
+    yaxis: { ...chartLayout.yaxis, title: "Support score (unitless)" },
   });
+  renderUnitGuide("ranking_unit_cards");
   renderBenchmarkChart(payload, "benchmark_chart", "benchmark_status");
   fillTable("claim_verdict_table", asRecords(dynamic.claim_verdicts), [
     (row) => tdText(row.claim),
@@ -757,10 +851,10 @@ function renderRobustness(payload) {
       text: layerSummary.map((row) => `rank-1 ${formatNumber(row.rank_1_fraction)}`),
       textposition: "auto",
       customdata: layerSummary.map((row) => [formatNumber(row.rank_1_fraction), formatNumber(row.median_rank)]),
-      hovertemplate: "Layer %{x}<br>score mean %{y:.3f}<br>rank-1 %{customdata[0]}<br>median rank %{customdata[1]}<extra></extra>",
+      hovertemplate: "Layer %{x}<br>mean support score %{y:.3f} unitless<br>rank-1 fraction %{customdata[0]}<br>median rank %{customdata[1]}<extra></extra>",
     }], {
       invalidCount: means.invalidCount,
-      yaxis: { ...chartLayout.yaxis, title: "bootstrap score mean" },
+      yaxis: { ...chartLayout.yaxis, title: "Bootstrap score mean (unitless)" },
     });
   }
   renderRunSensitivity(robustness);
@@ -796,12 +890,12 @@ function renderRunSensitivity(robustness) {
       marker: { color: run === "run-01" ? COLORS.teal : COLORS.amber },
       text: values.values.map((value) => formatNumber(value)),
       textposition: "auto",
-      hovertemplate: `${run}<br>Layer %{x}<br>support %{y:.3f}<extra></extra>`,
+      hovertemplate: `${run}<br>Layer %{x}<br>unitless support %{y:.3f}<extra></extra>`,
     };
   });
   plot("run_sensitivity_chart", traces, {
     barmode: "group",
-    yaxis: { ...chartLayout.yaxis, title: "support score" },
+    yaxis: { ...chartLayout.yaxis, title: "Support score (unitless)" },
   });
 }
 
@@ -818,9 +912,9 @@ function renderEHorizon(robustness) {
     { type: "scatter", mode: "lines+markers", name: "receptor vs random energy", x: rows.map((row) => row.horizon), y: energy.values, line: { color: COLORS.rose }, yaxis: "y2" },
   ], {
     invalidCount: support.invalidCount + energy.invalidCount,
-    xaxis: { ...chartLayout.xaxis, title: "Finite Horizon (steps)" },
-    yaxis: { ...chartLayout.yaxis, title: "support score" },
-    yaxis2: { overlaying: "y", side: "right", title: "energy reduction %", gridcolor: "rgba(0,0,0,0)" },
+    xaxis: { ...chartLayout.xaxis, title: "Finite horizon (model steps)" },
+    yaxis: { ...chartLayout.yaxis, title: "Support score (unitless)" },
+    yaxis2: { overlaying: "y", side: "right", title: "Energy reduction (%)", gridcolor: "rgba(0,0,0,0)" },
   });
 }
 
@@ -837,11 +931,11 @@ function renderDWindow(robustness) {
     x: rows.map((row) => row.window_size),
     y: support.values,
     line: { color: COLORS.moss },
-    hovertemplate: "Window %{x}<br>support %{y:.3f}<extra></extra>",
+    hovertemplate: "Window %{x} TRs<br>unitless support %{y:.3f}<extra></extra>",
   }], {
     invalidCount: support.invalidCount,
-    xaxis: { ...chartLayout.xaxis, title: "Window Size (TRs)" },
-    yaxis: { ...chartLayout.yaxis, title: "support score" },
+    xaxis: { ...chartLayout.xaxis, title: "Window size (TRs)" },
+    yaxis: { ...chartLayout.yaxis, title: "Support score (unitless)" },
   });
 }
 
@@ -888,11 +982,11 @@ function renderEmpirical(payload) {
       marker: { color: values.values.map((value) => (Number(value) >= 0 ? COLORS.teal : COLORS.rose)) },
       text: values.values.map((value) => formatNumber(value)),
       textposition: "auto",
-      hovertemplate: "%{x}<br>delta %{y:.3f}<extra></extra>",
+      hovertemplate: "%{x}<br>LSD - placebo delta %{y:.3f}<br>metric-native proxy units<extra></extra>",
     }], {
       invalidCount: values.invalidCount,
       margin: { t: 12, r: 18, b: 92, l: 64 },
-      yaxis: { ...chartLayout.yaxis, title: "LSD minus placebo delta" },
+      yaxis: { ...chartLayout.yaxis, title: "LSD - placebo delta (metric-native proxy units)" },
     });
   }
   byId("load_empirical")?.addEventListener("click", loadEmpiricalDetail);
@@ -965,8 +1059,8 @@ function renderEmpiricalWindow(index) {
     z: matrix.values,
     colorscale: [[0, COLORS.rose], [0.5, COLORS.gray], [1, COLORS.teal]],
     zmid: 0,
-    hovertemplate: "%{y} -> %{x}<br>delta %{z:.3f}<extra></extra>",
-    colorbar: { title: "FC delta" },
+    hovertemplate: "%{y} -> %{x}<br>FC delta %{z:.3f}<br>correlation-unit difference<extra></extra>",
+    colorbar: { title: "FC delta (r)" },
   }], {
     invalidCount: matrix.invalidCount,
     margin: { t: 16, r: 18, b: 88, l: 120 },
@@ -1221,6 +1315,9 @@ async function runSimulation(dashboard = {}) {
 
 function renderThesis(payload, priorPayloadForPage) {
   byId("thesis_status_cards")?.replaceChildren(...renderMetricStrip(payload));
+  renderPitchLinks("thesis_pitch_links");
+  renderPitchCards("thesis_pitch_cards", payload);
+  renderStatusBalance(payload);
   const rows = asRecords(payload.dynamic_mechanism?.mechanism_ranking);
   const scores = sanitizeSeries(rows.map((row) => row.score));
   plot("thesis_mechanism_chart", [{
@@ -1229,10 +1326,11 @@ function renderThesis(payload, priorPayloadForPage) {
     y: rows.map((row) => `${row.layer}: ${titleText(row.mechanism)}`),
     x: scores.values,
     marker: { color: rows.map((row) => layerColor[text(row.layer, "")] || COLORS.teal) },
-    hovertemplate: "%{y}<br>score %{x:.3f}<extra></extra>",
+    hovertemplate: "%{y}<br>unitless support score %{x:.3f}<extra></extra>",
   }], {
     invalidCount: scores.invalidCount,
     margin: { t: 10, r: 20, b: 44, l: 190 },
+    xaxis: { ...chartLayout.xaxis, title: "Proxy support score (unitless)" },
     yaxis: { ...chartLayout.yaxis, autorange: "reversed", title: "Mechanism" },
   });
   const verdicts = asRecords(payload.dynamic_mechanism?.claim_verdicts);
@@ -1257,6 +1355,9 @@ function renderThesis(payload, priorPayloadForPage) {
   byId("thesis_prior_art_summary")?.replaceChildren(...asRecords(priorPayloadForPage?.families).slice(0, 6).map((row) => dataRecord(row.family, row.claim_status, row.connection, row.claim_status)));
   const links = [
     ["Dashboard", isStaticDeployment ? "dashboard/" : "/"],
+    ["Supervisor pitch package", piReviewHref()],
+    ["Pitch slides", piReviewHref("pages/pitch-slides.html")],
+    ["Figure atlas", piReviewHref("pages/figure-atlas.html")],
     ["Claim matrix", "/artifacts/results/thesis_evidence_loop/claim_evidence_matrix.csv"],
     ["Thesis microsite artifact", "/artifacts/output/doc/thesis_microsite.html"],
     ["Defense presentation artifact", "/artifacts/output/doc/defense_presentation.html"],

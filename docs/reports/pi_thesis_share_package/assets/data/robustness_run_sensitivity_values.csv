@@ -1,0 +1,9 @@
+source_path,derivation_note,layer,run,support_score,metric_count
+results/dynamic_mechanism_ranking/robustness/run_sensitivity.csv,derived for PI package from existing artifacts; not regenerated scientific output,A,run-01,0.2271686003527546,6
+results/dynamic_mechanism_ranking/robustness/run_sensitivity.csv,derived for PI package from existing artifacts; not regenerated scientific output,A,run-03,0.07054756283392125,6
+results/dynamic_mechanism_ranking/robustness/run_sensitivity.csv,derived for PI package from existing artifacts; not regenerated scientific output,C,run-01,0.326055737941365,12
+results/dynamic_mechanism_ranking/robustness/run_sensitivity.csv,derived for PI package from existing artifacts; not regenerated scientific output,C,run-03,0.3298955732881808,12
+results/dynamic_mechanism_ranking/robustness/run_sensitivity.csv,derived for PI package from existing artifacts; not regenerated scientific output,D,run-01,0.17317641046456464,11
+results/dynamic_mechanism_ranking/robustness/run_sensitivity.csv,derived for PI package from existing artifacts; not regenerated scientific output,D,run-03,0.13201883644999216,11
+results/dynamic_mechanism_ranking/robustness/run_sensitivity.csv,derived for PI package from existing artifacts; not regenerated scientific output,E,run-01,0.3662348518000468,7
+results/dynamic_mechanism_ranking/robustness/run_sensitivity.csv,derived for PI package from existing artifacts; not regenerated scientific output,E,run-03,0.027963793889125253,7

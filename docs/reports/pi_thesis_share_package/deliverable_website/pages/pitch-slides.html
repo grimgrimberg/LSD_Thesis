@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pitch Slides | LSD Thesis PI Review</title>
+  <link rel="stylesheet" href="../assets/css/site.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="../OPEN_ME_FIRST.html">LSD Thesis PI Review</a>
+    <nav aria-label="Package pages"><a href="../OPEN_ME_FIRST.html">Start</a><a class="active" href="pitch-slides.html">Slides</a><a href="figure-atlas.html">Figure Atlas</a><a href="dashboard-offline.html">Dashboard</a><a href="evidence-and-calculations.html">Evidence</a><a href="ae-math-metadata.html">A-E Guide</a><a href="validation-and-safety.html">Validation</a></nav>
+  </header>
+  <main class="page slide-deck">
+    <section class="slide hero-slide">
+      <p class="eyebrow">Supervisor pitch</p>
+      <h1>LSD Thesis Evidence Workbench</h1>
+      <p>A claim-gated macro-dynamic mechanism-ranking project that combines AI, control-theoretic priors, fMRI summary data, and a static evidence dashboard.</p>
+      <div class="actions">
+        <a class="button primary" href="evidence-and-calculations.html">Open Evidence</a>
+        <a class="button" href="figure-atlas.html">Open Figure Atlas</a>
+      </div>
+    </section>
+
+    <section class="slide">
+      <p class="eyebrow">The problem</p>
+      <h2>The hard part is separating a real macro-dynamic signal from attractive overclaims.</h2>
+      <div class="cards three">
+        <article><h3>Data risk</h3><p>Motion, session structure, preprocessing, music/run context, and artifact boundaries can mimic or distort dynamic effects.</p></article>
+        <article><h3>Claim risk</h3><p>Receptor, subjective, clinical, and biological-ground-truth language is tempting but unsupported unless stricter gates pass.</p></article>
+        <article><h3>Review risk</h3><p>A supervisor needs a fast way to inspect evidence, assumptions, missing controls, and next decisions without running the repo.</p></article>
+      </div>
+    </section>
+
+    <section class="slide">
+      <p class="eyebrow">What I built</p>
+      <h2>A transparent workbench, not just a result screenshot.</h2>
+      <div class="cards three">
+        <article><h3>Surrogate model</h3><p>8 coarse macro modules, stochastic graph-modulated dynamics, transition/barrier proxies, and perturbation summaries.</p></article>
+        <article><h3>Empirical anchor</h3><p>Cached paired LSD/placebo ds003059 run-01/run-03 summaries with subject/run caveats and local-only detail inspection.</p></article>
+        <article><h3>Evidence dashboard</h3><p>FastAPI/Jinja/Plotly locally, static GitHub Pages publicly, with artifact allowlists and payload contract tests.</p></article>
+      </div>
+    </section>
+
+    <section class="slide">
+      <p class="eyebrow">Current result</p>
+      <h2>The current A-E ranking is C, E, D, A, B.</h2>
+      <div class="kpi-grid">
+        <div class="kpi"><strong>C</strong><span>Top layer: hierarchy/routing, score 0.332606</span></div>
+        <div class="kpi"><strong>0.844</strong><span>C rank-1 bootstrap fraction</span></div>
+        <div class="kpi"><strong>E</strong><span>Proxy control-energy support, not receptor proof</span></div>
+        <div class="kpi"><strong>B</strong><span>Negative DMDc baseline retained visibly</span></div>
+      </div>
+      <p class="callout">Interpretation: C is currently strongest as a model-level macro-dynamic proxy. This does not close motion/confound, external-validation, or biological-mechanism gates.</p>
+    </section>
+
+    <section class="slide">
+      <p class="eyebrow">Units and interpretation</p>
+      <h2>The site tells the reader what each plot unit means before they interpret it.</h2>
+      <div class="cards three">
+        <article><h3>Support score</h3><p>Unitless proxy score for A-E ranking.</p></article>
+        <article><h3>Rank-1 fraction</h3><p>0-1 bootstrap proportion.</p></article>
+        <article><h3>LSD - placebo delta</h3><p>Metric-native paired difference.</p></article>
+        <article><h3>FC delta</h3><p>Correlation-unit difference.</p></article>
+        <article><h3>Energy reduction</h3><p>Percent network-control proxy reduction.</p></article>
+        <article><h3>TR / horizon</h3><p>TR count or model-step parameter.</p></article>
+      </div>
+    </section>
+
+    <section class="slide">
+      <p class="eyebrow">Why this shows fit</p>
+      <h2>The project demonstrates the habits a supervisor should care about.</h2>
+      <div class="cards three">
+        <article><h3>Technical range</h3><p>Python package design, typed modules, tests, static publishing, dashboard UX, artifact contracts, and scientific data handling.</p></article>
+        <article><h3>Research discipline</h3><p>Negative baselines and mixed evidence are preserved. The dashboard fails closed instead of upgrading weak claims.</p></article>
+        <article><h3>Communication</h3><p>The same evidence is available as slides, figures, tables, dashboard pages, Markdown downloads, and source-linked artifacts.</p></article>
+      </div>
+    </section>
+
+    <section class="slide">
+      <p class="eyebrow">Validation posture</p>
+      <h2>The engineering baseline is reviewable.</h2>
+      <div class="kpi-grid">
+        <div class="kpi"><strong>82</strong><span>tests collected in the documented baseline</span></div>
+        <div class="kpi"><strong>82.69%</strong><span>latest documented coverage baseline</span></div>
+        <div class="kpi"><strong>109</strong><span>source files checked by mypy</span></div>
+        <div class="kpi"><strong>strict</strong><span>dashboard preflight passed in baseline</span></div>
+      </div>
+      <p class="callout">This is engineering validation and package readiness. It is not a substitute for PI-approved scientific claim promotion.</p>
+    </section>
+
+    <section class="slide">
+      <p class="eyebrow">What remains blocked</p>
+      <h2>The project is stronger because it says what is missing.</h2>
+      <div class="cards three">
+        <article><h3>Motion proof</h3><p>FD/DVARS/censoring proof remains the main thesis blocker.</p></article>
+        <article><h3>Archive DOI</h3><p>GitHub release metadata is not the same as a verified Zenodo DOI.</p></article>
+        <article><h3>Claim promotion</h3><p>Receptor, PET, SC, neuromaps, run-02/music, and subjective claims remain gated.</p></article>
+      </div>
+    </section>
+
+    <section class="slide">
+      <p class="eyebrow">Supervisor decision</p>
+      <h2>The next meeting should choose the threshold, not admire the dashboard.</h2>
+      <ol class="timeline">
+        <li>Is the macro-dynamic mechanism-ranking frame acceptable as a thesis direction?</li>
+        <li>What evidence would promote C from proxy-supported to thesis-level?</li>
+        <li>Should the next milestone be motion proof, parcellation/null sensitivity, or external validation audit?</li>
+        <li>What should remain explicitly out of scope for the thesis?</li>
+      </ol>
+    </section>
+
+    <section class="slide">
+      <p class="eyebrow">Open next</p>
+      <h2>Use the site as the live appendix.</h2>
+      <div class="cards three">
+        <article><h3>Figure Atlas</h3><p><a href="figure-atlas.html">Open every safe visual artifact copied into the Pages build.</a></p></article>
+        <article><h3>Evidence</h3><p><a href="evidence-and-calculations.html">Open exact values, source paths, and plot calculations.</a></p></article>
+        <article><h3>Dashboard</h3><p><a href="../../dashboard/">Open the static public dashboard snapshot.</a></p></article>
+      </div>
+    </section>
+  </main>
+  <footer>Static PI pitch. The source artifacts and claim labels remain the authority.</footer>
+</body>
+</html>

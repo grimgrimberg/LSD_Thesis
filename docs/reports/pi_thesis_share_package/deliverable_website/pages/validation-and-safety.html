@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Validation And Safety - LSD Thesis PI Review</title>
+  <link rel="stylesheet" href="../assets/css/site.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="../OPEN_ME_FIRST.html">LSD Thesis PI Review</a>
+    <nav aria-label="Package pages"><a class="" href="../OPEN_ME_FIRST.html">Start</a><a class="" href="dashboard-offline.html">Dashboard</a><a class="" href="ae-math-metadata.html">A-E Guide</a><a class="" href="evidence-and-calculations.html">Evidence</a><a class="" href="full-package.html">Full Package</a><a class="" href="methods-and-skills.html">Methods</a><a class="" href="scholarly-context.html">Context</a><a class="" href="problems-and-next-steps.html">Next Steps</a><a class="" href="meeting-agenda.html">Agenda</a><a class="active" href="validation-and-safety.html">Validation</a></nav>
+  </header>
+  <main class="page">
+    <section class="page-hero">
+      <p class="eyebrow">Offline review package</p>
+      <h1>Validation And Safety</h1>
+      <p>Offline-site QA, validation commands, and strict no-touch boundaries for this deliverable.</p>
+    </section>
+
+<section class="band">
+  <div class="kpi-grid">
+    <div class="kpi"><strong>82</strong><span>tests collected in collect-only baseline</span></div>
+    <div class="kpi"><strong>109</strong><span>source files passed mypy</span></div>
+    <div class="kpi"><strong>76</strong><span>packages checked</span></div>
+    <div class="kpi"><strong>0</strong><span>external runtime dependencies</span></div>
+  </div>
+</section>
+<section class="band muted">
+  <div class="section-head"><p class="eyebrow">No-touch boundary</p><h2>What this package did not modify</h2></div>
+  <div class="callout"><p>No source code, tests, scripts outside this package, dashboard templates, dashboard CSS/JS, routes, schemas, result artifacts, raw data, caches, dependencies, docs/reference, staging, commits, pushes, publication builds, external downloads, uploads, or email were changed or run.</p></div>
+</section>
+<section class="band">
+  <div class="section-head"><p class="eyebrow">Required checks</p><h2>Validation commands for this packaging pass</h2></div>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Check</th><th>Purpose</th></tr></thead>
+    <tbody>
+      <tr><td>Offline stdlib QA</td><td>Local href/src targets, HTML external URL absence, and no absolute Windows paths in HTML.</td></tr>
+      <tr><td>git status --short --untracked-files=all</td><td>Confirm only allowed package files plus pre-existing untracked review doc are present.</td></tr>
+      <tr><td>git diff --check</td><td>Whitespace check.</td></tr>
+      <tr><td>uv run --frozen pytest --collect-only -q -o addopts=</td><td>Fast import/test-discovery check.</td></tr>
+      <tr><td>uv run --frozen ruff check .</td><td>Lint baseline.</td></tr>
+      <tr><td>uv run --frozen mypy src</td><td>Type baseline.</td></tr>
+      <tr><td>uv pip check</td><td>Dependency compatibility.</td></tr>
+      <tr><td>uv run --frozen python scripts/preview_dashboard.py --check-only --strict</td><td>Dashboard artifact preflight.</td></tr>
+      <tr><td>node --check src/lsd_thesis/static/dashboard.js</td><td>Dashboard JavaScript syntax check.</td></tr>
+      <tr><td>python -m json.tool deliverable_website/manifest.json</td><td>Manifest parse check.</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout warning"><p>Full pytest was not run for this packaging pass unless a later validation requires it. The latest documented full baseline remains 82 passed with 82.69% coverage.</p></div>
+</section>
+
+  </main>
+  <footer>Packaging-only snapshot. All links are relative and all review assets are local.</footer>
+</body>
+</html>
