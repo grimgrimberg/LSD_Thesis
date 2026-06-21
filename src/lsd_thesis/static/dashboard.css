@@ -322,6 +322,16 @@ h3 {
   background: var(--surface-2);
 }
 
+.submission-hero {
+  border-color: rgba(73, 214, 200, 0.42);
+  box-shadow: inset 0 4px 0 var(--teal);
+}
+
+.submission-ask-panel {
+  border-color: rgba(228, 125, 147, 0.42);
+  box-shadow: inset 0 4px 0 var(--rose);
+}
+
 .hero-panel h2,
 .thesis-lede h2,
 .figure-deck-hero h2 {

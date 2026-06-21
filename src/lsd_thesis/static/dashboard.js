@@ -744,6 +744,242 @@ function renderSubmissionMechanismChart(payload) {
   });
 }
 
+function renderSubmissionBootstrapChart(payload) {
+  const rows = asRecords(payload.dynamic_mechanism?.robustness?.subject_bootstrap?.layer_summary);
+  if (!rows.length) {
+    emptyPlot("submission_bootstrap_chart", "No bootstrap layer summary rows are available.");
+    return;
+  }
+  const sorted = [...rows].sort((left, right) => finiteNumber(right.rank_1_fraction) - finiteNumber(left.rank_1_fraction));
+  const fractions = sanitizeSeries(sorted.map((row) => row.rank_1_fraction));
+  plot("submission_bootstrap_chart", [{
+    type: "bar",
+    x: sorted.map((row) => text(row.layer)),
+    y: fractions.values,
+    marker: { color: sorted.map((row) => layerColor[text(row.layer, "")] || COLORS.teal) },
+    text: fractions.values.map((value) => formatNumber(value)),
+    textposition: "auto",
+    customdata: sorted.map((row) => [formatNumber(row.current_score), formatNumber(row.median_rank)]),
+    hovertemplate: "Layer %{x}<br>rank-1 fraction %{y:.3f}<br>current score %{customdata[0]}<br>median rank %{customdata[1]}<extra></extra>",
+  }], {
+    invalidCount: fractions.invalidCount,
+    margin: { t: 10, r: 18, b: 46, l: 58 },
+    xaxis: { ...chartLayout.xaxis, title: "Mechanism Layer" },
+    yaxis: { ...chartLayout.yaxis, title: "Bootstrap Rank-1 Fraction (0-1)", range: [0, 1.05] },
+  });
+}
+
+function renderSubmissionUncertaintyChart(payload) {
+  const rows = asRecords(payload.dynamic_mechanism?.robustness?.subject_bootstrap?.layer_summary);
+  if (!rows.length) {
+    emptyPlot("submission_uncertainty_chart", "No bootstrap interval rows are available.");
+    return;
+  }
+  const sorted = [...rows].sort((left, right) => finiteNumber(right.current_score) - finiteNumber(left.current_score));
+  const current = sanitizeSeries(sorted.map((row) => row.current_score));
+  const lower = sorted.map((row, index) => {
+    const value = finiteNumber(row.score_ci_low);
+    const center = finiteNumber(current.values[index]);
+    return value === null || center === null ? 0 : Math.max(center - value, 0);
+  });
+  const upper = sorted.map((row, index) => {
+    const value = finiteNumber(row.score_ci_high);
+    const center = finiteNumber(current.values[index]);
+    return value === null || center === null ? 0 : Math.max(value - center, 0);
+  });
+  plot("submission_uncertainty_chart", [{
+    type: "scatter",
+    mode: "markers",
+    x: current.values,
+    y: sorted.map((row) => `Layer ${text(row.layer)}`),
+    marker: { color: sorted.map((row) => layerColor[text(row.layer, "")] || COLORS.teal), size: 13 },
+    error_x: {
+      type: "data",
+      symmetric: false,
+      array: upper,
+      arrayminus: lower,
+      color: COLORS.muted,
+      thickness: 1.4,
+    },
+    customdata: sorted.map((row) => [formatNumber(row.score_ci_low), formatNumber(row.score_ci_high), formatNumber(row.rank_1_fraction)]),
+    hovertemplate: "%{y}<br>current unitless score %{x:.3f}<br>bootstrap interval [%{customdata[0]}, %{customdata[1]}]<br>rank-1 fraction %{customdata[2]}<extra></extra>",
+  }], {
+    invalidCount: current.invalidCount,
+    margin: { t: 12, r: 24, b: 48, l: 92 },
+    xaxis: { ...chartLayout.xaxis, title: "Proxy Support Score (unitless)" },
+    yaxis: { ...chartLayout.yaxis, autorange: "reversed", title: "Layer" },
+  });
+}
+
+function renderSubmissionEHorizonChart(payload) {
+  const rows = asRecords(payload.dynamic_mechanism?.robustness?.e_horizon_sensitivity?.rows);
+  if (!rows.length) {
+    emptyPlot("submission_e_horizon_chart", "No E-horizon sensitivity rows are available.");
+    return;
+  }
+  const horizons = rows.map((row) => row.horizon);
+  const receptor = sanitizeSeries(rows.map((row) => row.lsd_receptor_energy_reduction_pct));
+  const random = sanitizeSeries(rows.map((row) => row.receptor_vs_random_energy_reduction_pct));
+  plot("submission_e_horizon_chart", [
+    {
+      type: "scatter",
+      mode: "lines+markers",
+      name: "LSD receptor-profile energy reduction",
+      x: horizons,
+      y: receptor.values,
+      line: { color: COLORS.teal, width: 3 },
+      marker: { color: COLORS.teal, size: 8 },
+      hovertemplate: "horizon %{x} model steps<br>%{y:.2f}% energy reduction<extra></extra>",
+    },
+    {
+      type: "scatter",
+      mode: "lines+markers",
+      name: "Receptor vs random",
+      x: horizons,
+      y: random.values,
+      line: { color: COLORS.rose, width: 3 },
+      marker: { color: COLORS.rose, size: 8 },
+      hovertemplate: "horizon %{x} model steps<br>%{y:.2f}% versus random<extra></extra>",
+    },
+  ], {
+    invalidCount: receptor.invalidCount + random.invalidCount,
+    margin: { t: 12, r: 24, b: 50, l: 72 },
+    xaxis: { ...chartLayout.xaxis, title: "Finite Horizon (model steps)" },
+    yaxis: { ...chartLayout.yaxis, title: "Energy Reduction (%)" },
+  });
+}
+
+function renderSubmissionRunSensitivityChart(payload) {
+  const rows = asRecords(payload.dynamic_mechanism?.robustness?.run_sensitivity?.run_rows);
+  if (!rows.length) {
+    emptyPlot("submission_run_sensitivity_chart", "No run-sensitivity rows are available.");
+    return;
+  }
+  const runs = [...new Set(rows.map((row) => text(row.run)))].sort();
+  const layers = [...new Set(rows.map((row) => text(row.layer)))].sort();
+  const traces = runs.map((run) => {
+    const runRows = layers.map((layer) => rows.find((row) => text(row.run) === run && text(row.layer) === layer) || {});
+    const scores = sanitizeSeries(runRows.map((row) => row.support_score));
+    return {
+      type: "bar",
+      name: run,
+      x: layers,
+      y: scores.values,
+      text: scores.values.map((value) => formatNumber(value)),
+      textposition: "auto",
+      hovertemplate: `${run}<br>Layer %{x}<br>unitless support score %{y:.3f}<extra></extra>`,
+    };
+  });
+  plot("submission_run_sensitivity_chart", traces, {
+    barmode: "group",
+    margin: { t: 12, r: 18, b: 46, l: 62 },
+    xaxis: { ...chartLayout.xaxis, title: "Mechanism Layer" },
+    yaxis: { ...chartLayout.yaxis, title: "Proxy Support Score (unitless)" },
+  });
+}
+
+function renderSubmissionCV5FoldChart(payload) {
+  const rows = asRecords(payload.cv5_validation?.per_fold_metrics);
+  if (!rows.length) {
+    emptyPlot("submission_cv5_fold_chart", "No internal CV5 fold rows are available.");
+    return;
+  }
+  const scoreMeans = sanitizeSeries(rows.map((row) => row.score_mean));
+  const signAgreement = sanitizeSeries(rows.map((row) => row.sign_agreement_fraction));
+  plot("submission_cv5_fold_chart", [
+    {
+      type: "bar",
+      name: "Score mean",
+      x: rows.map((row) => text(row.fold_id)),
+      y: scoreMeans.values,
+      marker: { color: COLORS.teal },
+      text: scoreMeans.values.map((value) => formatNumber(value, 2)),
+      textposition: "auto",
+      customdata: rows.map((row) => [formatNumber(row.score_std), text(row.selected_mechanism), text(row.selected_strength)]),
+      hovertemplate: "%{x}<br>score mean %{y:.2f}<br>std %{customdata[0]}<br>%{customdata[1]} strength %{customdata[2]}<extra></extra>",
+    },
+    {
+      type: "scatter",
+      name: "Sign agreement",
+      mode: "lines+markers",
+      x: rows.map((row) => text(row.fold_id)),
+      y: signAgreement.values,
+      yaxis: "y2",
+      line: { color: COLORS.amber, width: 3 },
+      marker: { color: COLORS.amber, size: 8 },
+      hovertemplate: "%{x}<br>sign agreement %{y:.3f}<extra></extra>",
+    },
+  ], {
+    invalidCount: scoreMeans.invalidCount + signAgreement.invalidCount,
+    margin: { t: 12, r: 70, b: 48, l: 68 },
+    xaxis: { ...chartLayout.xaxis, title: "Held-Out Fold" },
+    yaxis: { ...chartLayout.yaxis, title: "Internal Score Mean" },
+    yaxis2: {
+      ...chartLayout.yaxis,
+      overlaying: "y",
+      side: "right",
+      title: "Sign Agreement (0-1)",
+      range: [0, 1.05],
+    },
+  });
+}
+
+function renderSubmissionStrictGateChart(payload) {
+  const requirements = asRecords(payload.thesis_upgrade?.strict_completion_requirements);
+  if (!requirements.length) {
+    emptyPlot("submission_strict_gate_chart", "No strict thesis gate rows are available.");
+    return;
+  }
+  plot("submission_strict_gate_chart", [{
+    type: "bar",
+    orientation: "h",
+    x: requirements.map((item) => (item.complete ? 1 : 0)),
+    y: requirements.map((item) => text(item.label || item.requirement_id)),
+    marker: { color: requirements.map((item) => (item.complete ? COLORS.moss : COLORS.rose)) },
+    text: requirements.map((item) => (item.complete ? "complete" : text(item.status, "blocked"))),
+    textposition: "auto",
+    customdata: requirements.map((item) => [text(item.next_action || item.missing), text(item.claim_effect || item.evidence)]),
+    hovertemplate: "%{y}<br>%{text}<br>%{customdata[0]}<br>%{customdata[1]}<extra></extra>",
+  }], {
+    margin: { t: 12, r: 18, b: 34, l: 260 },
+    xaxis: { ...chartLayout.xaxis, range: [0, 1.05], tickvals: [0, 1], ticktext: ["blocked", "complete"], title: "Gate State" },
+    yaxis: { ...chartLayout.yaxis, autorange: "reversed", title: "Strict Requirement" },
+  });
+}
+
+function renderSubmissionPlotNotes(payload) {
+  const top = mechanismRankingRows(payload)[0] || {};
+  const rows = [
+    [
+      "Ranking score",
+      "unitless proxy score",
+      `Current top row is layer ${text(top.layer, "C")}; read as macro-dynamic alignment, not biological proof.`,
+      "proxy-supported",
+    ],
+    [
+      "Bootstrap rank-1 fraction",
+      "0-1 proportion",
+      "A value near 1 means that layer often ranked first under subject bootstrap resampling.",
+      "implemented",
+    ],
+    [
+      "E horizon",
+      "model steps and percent",
+      "The percent plot supports a transition/control-energy proxy while receptor-vs-random remains a caution line.",
+      "mixed",
+    ],
+    [
+      "Run sensitivity",
+      "unitless score by run",
+      "Run-01/run-03 differences are uncertainty evidence; they do not promote music/run-02 or subjective-state claims.",
+      "blocked",
+    ],
+  ];
+  byId("submission_plot_notes")?.replaceChildren(
+    ...rows.map(([label, value, detail, status]) => dataRecord(label, value, detail, status)),
+  );
+}
+
 function renderSubmissionDecisionMatrix(payload) {
   const top = mechanismRankingRows(payload)[0] || {};
   const rows = [
@@ -824,18 +1060,56 @@ function renderSubmissionQuestions() {
   );
 }
 
+function renderSubmissionEmailBrief() {
+  const rows = [
+    [
+      "Primary link",
+      "submission.html",
+      "Send the submission brief first; use the PI review package, slides, and figure atlas as supporting links.",
+      "implemented",
+    ],
+    [
+      "One-line framing",
+      "claim-gated macro-dynamics workbench",
+      "The safe pitch is an inspectable mechanism-ranking workflow, not receptor proof or a subjective-experience model.",
+      "proxy-supported",
+    ],
+    [
+      "Meeting ask",
+      "30 minutes",
+      "Ask which blocker should become the next thesis milestone: motion proof, external validation, map-prior audit, or archive publication.",
+      "future",
+    ],
+  ];
+  byId("submission_email_brief")?.replaceChildren(
+    ...rows.map(([label, value, detail, status]) => dataRecord(label, value, detail, status)),
+  );
+}
+
 function renderSubmission(payload) {
   byId("submission_status_cards")?.replaceChildren(...renderMetricStrip(payload));
   renderPitchLinks("submission_pitch_links");
   renderSubmissionInsights(payload);
   renderSubmissionMechanismChart(payload);
+  renderSubmissionBootstrapChart(payload);
+  renderSubmissionUncertaintyChart(payload);
+  renderSubmissionEHorizonChart(payload);
+  renderSubmissionRunSensitivityChart(payload);
+  renderBenchmarkChart(payload, "submission_benchmark_chart");
+  renderSubmissionCV5FoldChart(payload);
+  renderSubmissionStrictGateChart(payload);
+  renderSubmissionPlotNotes(payload);
   renderSubmissionDecisionMatrix(payload);
   renderUnitGuide("submission_unit_cards");
   renderStatusBalance(payload, "submission_status_balance_chart");
   renderSubmissionTour();
   renderSubmissionArtifactLinks(payload);
   renderSubmissionQuestions();
+  renderSubmissionEmailBrief();
   renderFigureExplainer("submission_mechanism_chart_explainer", "ranking_chart", payload);
+  renderFigureExplainer("submission_benchmark_chart_explainer", "benchmark_chart", payload);
+  renderFigureExplainer("submission_cv5_fold_chart_explainer", "cv5_validation_summary", payload);
+  renderFigureExplainer("submission_strict_gate_chart_explainer", "strict_gate_chart", payload);
 }
 
 function renderGateChart(payload) {

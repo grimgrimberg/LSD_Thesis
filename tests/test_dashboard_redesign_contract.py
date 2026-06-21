@@ -38,12 +38,24 @@ def test_dashboard_templates_expose_redesign_surfaces() -> None:
     assert "submission_insight_cards" in submission
     assert "submission_mechanism_chart" in submission
     assert "submission_mechanism_chart_explainer" in submission
+    assert "submission_bootstrap_chart" in submission
+    assert "submission_uncertainty_chart" in submission
+    assert "submission_e_horizon_chart" in submission
+    assert "submission_run_sensitivity_chart" in submission
+    assert "submission_plot_notes" in submission
+    assert "submission_benchmark_chart" in submission
+    assert "submission_benchmark_chart_explainer" in submission
+    assert "submission_cv5_fold_chart" in submission
+    assert "submission_cv5_fold_chart_explainer" in submission
+    assert "submission_strict_gate_chart" in submission
+    assert "submission_strict_gate_chart_explainer" in submission
     assert "submission_decision_matrix" in submission
     assert "submission_unit_cards" in submission
     assert "submission_status_balance_chart" in submission
     assert "submission_dashboard_tour" in submission
     assert "submission_artifact_links" in submission
     assert "submission_supervisor_questions" in submission
+    assert "submission_email_brief" in submission
     assert "thesis_mechanism_chart" in thesis
     assert "thesis_mechanism_chart_explainer" in thesis
     assert "thesis_claim_ladder" in thesis
@@ -75,6 +87,12 @@ def test_dashboard_renderer_contracts_are_present() -> None:
     assert "function renderPitchCards" in renderer
     assert "function renderStatusBalance" in renderer
     assert "function renderSubmission" in renderer
+    assert "function renderSubmissionBootstrapChart" in renderer
+    assert "function renderSubmissionUncertaintyChart" in renderer
+    assert "function renderSubmissionEHorizonChart" in renderer
+    assert "function renderSubmissionRunSensitivityChart" in renderer
+    assert "function renderSubmissionCV5FoldChart" in renderer
+    assert "function renderSubmissionStrictGateChart" in renderer
     assert 'pageId === "submission"' in renderer
     assert "How this plot was calculated" in renderer
     assert "textposition: \"auto\"" in renderer

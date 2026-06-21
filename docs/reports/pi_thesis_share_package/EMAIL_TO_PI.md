@@ -2,17 +2,19 @@
 
 ## A. Short Email
 
-Subject: LSD thesis workbench ready for PI review
+Subject: Claim-gated LSD fMRI thesis workbench for PI review
 
 Hi Professor,
 
-I prepared a PI-facing review package for my LSD thesis project:
+I prepared a PI-facing submission brief for my LSD thesis project:
+
+https://grimgrimberg.github.io/LSD_Thesis/submission.html
+
+The safest framing is that this is a claim-gated computational workbench and evidence dashboard for model-level macro-dynamic mechanism ranking, not a finished thesis or biological proof. The supporting pitch package is here:
 
 https://grimgrimberg.github.io/LSD_Thesis/pi-review/
 
-The safest framing is that this is a claim-gated computational workbench and evidence dashboard for model-level macro-dynamic mechanism ranking, not a finished thesis or biological proof.
-
-The package explains what I built, shows pitch slides and a figure atlas, states the units behind the plots, links calculations and artifacts, summarizes methods/data-science work, gives prior-art context, and keeps blockers visible. The current ranking is C, E, D, A, B, with C as the strongest current macro-dynamic proxy layer. The package also keeps the main caveats visible: no receptor-level proof, no subjective-experience simulation, no clinical validation, incomplete FD/DVARS/censoring motion proof, and missing Zenodo DOI archive publication.
+The submission page explains what I built, shows the current dashboard-derived plots and units, links pitch slides and a figure atlas, summarizes methods/data-science work, gives prior-art context, and keeps blockers visible. The current ranking is C, E, D, A, B, with C as the strongest current macro-dynamic proxy layer. E remains only a lower transition/control-energy proxy, not receptor-specific proof. The package also keeps the main caveats visible: no subjective-experience simulation, no clinical validation, incomplete FD/DVARS/censoring motion proof, and missing Zenodo DOI archive publication.
 
 Could we schedule a 30-minute meeting to review it? What I need most is your decision on the next scientific blocker to address so I can turn this from a research workbench into a defensible thesis plan.
 
@@ -27,6 +29,10 @@ Hi Professor,
 
 I prepared a structured hosted review package for my LSD thesis project:
 
+https://grimgrimberg.github.io/LSD_Thesis/submission.html
+
+The supporting package is here:
+
 https://grimgrimberg.github.io/LSD_Thesis/pi-review/
 
 The package is meant to make the current state easy to evaluate as a thesis direction. It includes pitch slides, a generated figure atlas, a PI brief, plot-by-plot evidence notes, a methods/data-skills summary, scholarly/prior-art context, current blockers, and a static landing page.
@@ -35,7 +41,7 @@ The safest scientific framing is conservative: this is a claim-gated research wo
 
 The main implemented pieces are an 8-module stochastic graph surrogate model, cached ds003059 paired LSD/placebo empirical summaries, A-E dynamic mechanism ranking, robustness/status artifacts, a FastAPI/Jinja/Plotly dashboard, a figure deck, and a ds003059 prior-art reproducibility landscape. Current ranking from the tracked summary artifact is C, E, D, A, B. C is the strongest current macro-dynamic proxy layer. E is useful only as a lower transition/control-energy proxy and should not be promoted to receptor-specific proof. B remains a negative DMDc baseline.
 
-The validation baseline documented in the repo is green for the engineering gates: ruff passed, mypy passed on 109 source files, pytest collect-only found 82 tests, the latest documented full pytest baseline is 82 passed with 82.69% coverage, dependency check passed, dashboard strict preflight passed, and dashboard JavaScript syntax passed.
+The documented engineering baseline was green at the package snapshot: ruff passed, mypy passed on 109 source files, pytest collect-only found 82 tests, the latest documented full pytest baseline was 82 passed with 82.69% coverage, dependency check passed, dashboard strict preflight passed, and dashboard JavaScript syntax passed.
 
 The package also makes the blockers explicit. The most important scientific blocker is still motion/confound proof: the strict FD/DVARS/censoring gate is incomplete. Zenodo DOI/archive publication is also incomplete. External/PET/SC/neuromaps and run-02/music surfaces must remain claim-gated unless matching artifacts justify promotion.
 
