@@ -184,17 +184,22 @@ def test_pi_review_start_page_is_executive_summary_not_full_appendix() -> None:
     start = _read("docs/reports/pi_thesis_share_package/deliverable_website/OPEN_ME_FIRST.html")
 
     assert "Executive Summary" in start
-    assert "One-page supervisor brief" in start
-    assert "Full package appendix" in start
+    assert "Thirty-second read" in start
+    assert "The whole project in four points" in start
+    assert "Optional depth" in start
     assert "Motion-Proof First Plan" in start
     assert "FD/DVARS/censoring motion-proof pack" in start
-    assert "Open Full Appendix" in start
+    assert "Key Figures" in start
+    assert "Evidence Notes" in start
+    assert start.count("<section") <= 6
 
     cluttered_first_read_markers = [
         "Dashboard tour",
         "Six local screenshots",
         "Recommended order",
         "rubber-duck explanation",
+        "Open Full Appendix",
+        "Full package appendix",
     ]
     for marker in cluttered_first_read_markers:
         assert marker not in start
