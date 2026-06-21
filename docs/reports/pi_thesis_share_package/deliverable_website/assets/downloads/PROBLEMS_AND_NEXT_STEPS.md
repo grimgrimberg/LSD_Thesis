@@ -2,7 +2,27 @@
 
 ## Summary
 
-The project is ready for PI review as a claim-gated research workbench. It is not ready to be presented as a completed thesis. The next useful decision is which blocker must be closed first.
+The project is ready for PI review as a claim-gated research workbench. It is not ready to be presented as a completed thesis. The proposed next track is a motion-proof-first plan: close FD/DVARS/censoring before treating the C-layer result as thesis-central.
+
+## Motion-Proof First Plan
+
+Primary milestone: blocked. Create the FD/DVARS/censoring motion-proof pack before claim promotion or broader science-scope expansion.
+
+Claim boundary: mixed. Keep E caveated as a lower transition/control-energy proxy until stronger PET, map-prior, or spatial-null evidence changes the gate.
+
+After motion proof: future. Use parcellation/null audit and external-validation audit as the next scope only after the motion gate is documented.
+
+Inputs to secure:
+
+- Subject/run-level fMRIPrep confounds for paired LSD/placebo runs.
+- Framewise displacement, DVARS, and censoring/outlier columns with missingness checks.
+- Run inclusion rules that keep run-02/music outside the thesis core unless separately approved.
+
+Outputs to produce:
+
+- Paired motion summary table with subject/run coverage and exclusion flags.
+- Association rows linking FD/DVARS/censoring features to each ranked proxy metric.
+- Exclusion/censoring summary and a gate report that can keep, caveat, or downgrade C.
 
 ## Problem 1: Motion/Confound Proof Remains Incomplete
 
@@ -70,7 +90,7 @@ Evidence/source file: `docs/research/ds003059_prior_art_to_thesis_map.md`; `docs
 
 Needed to address it: Music-qualified subject rules, technical-problem exclusions, motion/context checks, and explicit PI approval.
 
-Suggested next action: Keep run-02/music out of the thesis core until the motion-proof decision is made.
+Suggested next action: Keep run-02/music out of the thesis core until the motion-proof pack is reviewed and the motion gate is documented.
 
 Risk if ignored: The project can mix incompatible task contexts and weaken the empirical claim.
 
@@ -119,8 +139,10 @@ Risk if ignored: Low scientific risk, moderate presentation risk.
 ## Ranked Next Thesis Milestones
 
 1. Motion-proof planning pack.
-2. External/PET/SC/neuromaps evidence audit plan.
-3. Public-site/static drift audit.
-4. Artifact producer/consumer map.
-5. Dashboard visual polish only after claim boundaries remain fixed.
-6. Package/developer-experience proposal.
+2. Keep E caveated while PET/map-prior/spatial-null evidence remains mixed.
+3. Parcellation/null audit after the motion gate is documented.
+4. External/PET/SC/neuromaps evidence audit plan.
+5. Public-site/static drift audit.
+6. Artifact producer/consumer map.
+7. Dashboard visual polish only after claim boundaries remain fixed.
+8. Package/developer-experience proposal.

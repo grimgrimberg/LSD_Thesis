@@ -154,3 +154,41 @@ def test_preview_preflight_knows_figure_deck_contract() -> None:
     assert '"src/lsd_thesis/templates/pages/submission.html"' in preview
     assert '("/figures", "publication figure-deck page' in preview
     assert '"src/lsd_thesis/templates/pages/figures.html"' in preview
+
+
+def test_pi_review_package_presents_motion_proof_first_plan() -> None:
+    start = _read("docs/reports/pi_thesis_share_package/deliverable_website/OPEN_ME_FIRST.html")
+    slides = _read("docs/reports/pi_thesis_share_package/deliverable_website/pages/pitch-slides.html")
+    next_steps = _read("docs/reports/pi_thesis_share_package/PROBLEMS_AND_NEXT_STEPS.md")
+    email = _read("docs/reports/pi_thesis_share_package/EMAIL_TO_PI.md")
+
+    public_package = "\n".join([start, slides, next_steps, email])
+
+    assert "Motion-Proof First Plan" in public_package
+    assert "FD/DVARS/censoring motion-proof pack" in public_package
+    assert "Inputs to secure" in public_package
+    assert "Outputs to produce" in public_package
+    assert "Keep E caveated" in public_package
+    assert "parcellation/null audit" in public_package
+
+    forbidden_prompts = [
+        "The decision I need from you",
+        "which scientific blocker should become the next thesis milestone",
+        "Ask which blocker should become",
+    ]
+    for prompt in forbidden_prompts:
+        assert prompt not in public_package
+
+
+def test_static_figure_atlas_surfaces_curated_review_route() -> None:
+    builder = _read("scripts/build_github_pages.py")
+
+    assert "Start With These Figures" in builder
+    assert "Current A-E ranking" in builder
+    assert "Rank stability" in builder
+    assert "Run sensitivity" in builder
+    assert "E proxy boundary" in builder
+    assert "Motion/confound blocker" in builder
+    assert "No new plots were generated for this atlas" in builder
+    assert "Motion-proof-first plot route" in builder
+    assert "metric_unit" in builder

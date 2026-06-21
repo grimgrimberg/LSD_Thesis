@@ -45,7 +45,7 @@ The documented engineering baseline is green at the current package snapshot: ru
 
 The package also makes the blockers explicit. The most important scientific blocker is still motion/confound proof: the strict FD/DVARS/censoring gate is incomplete. Zenodo DOI/archive publication is also incomplete. External/PET/SC/neuromaps and run-02/music surfaces must remain claim-gated unless matching artifacts justify promotion.
 
-Could we schedule 30 minutes to review the package? The decision I need from you is which scientific blocker should become the next thesis milestone: motion-proof planning, external/PET/SC/neuromaps audit, public/static drift audit, or artifact producer/consumer mapping. My recommendation is to start with the motion-proof planning pack because it is the thesis-critical blocker.
+Could we schedule 30 minutes to review the package? My proposed next milestone is an FD/DVARS/censoring motion-proof pack before external/PET/SC/neuromaps audit, public/static drift audit, or artifact producer/consumer mapping, because motion proof is the thesis-critical blocker. I would like your review of whether the inputs, outputs, and claim boundaries are bounded well enough for thesis development.
 
 Best,
 Yuval

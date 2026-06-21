@@ -586,6 +586,112 @@ def _visual_atlas_category(path: Path) -> str:
     return "Other review assets"
 
 
+VISUAL_ATLAS_HIGHLIGHTS = [
+    {
+        "title": "Current A-E ranking",
+        "path": "pi-review/assets/screenshots/dashboard-ranking.png",
+        "status": "proxy-supported",
+        "metric_unit": "Unitless support score; rank is ordinal.",
+        "why": "Start here to show the current C, E, D, A, B ordering and the visible negative DMDc baseline.",
+        "boundary": "This ranks macro-dynamic proxy layers. It is not receptor-level or subjective-experience proof.",
+    },
+    {
+        "title": "Rank stability",
+        "path": "artifacts/results/dynamic_mechanism_ranking/figures/robustness_bootstrap_layer_scores.html",
+        "status": "proxy-supported",
+        "metric_unit": "Rank-1 fraction from 0 to 1 across bootstrap resamples.",
+        "why": "Use this next to show that the leading layer is not a one-off visual artifact.",
+        "boundary": "Internal bootstrap stability does not replace motion/confound proof or external validation.",
+    },
+    {
+        "title": "Run sensitivity",
+        "path": "artifacts/results/dynamic_mechanism_ranking/figures/robustness_run_sensitivity.html",
+        "status": "mixed",
+        "metric_unit": "Unitless support scores split by run/sensitivity setting.",
+        "why": "This is the first pressure test for whether the ranking depends on run choice.",
+        "boundary": "Run-02/music stays outside the thesis core unless separately approved and controlled.",
+    },
+    {
+        "title": "E proxy boundary",
+        "path": "artifacts/results/dynamic_mechanism_ranking/figures/robustness_e_horizon_sensitivity.html",
+        "status": "mixed",
+        "metric_unit": "Finite horizon in model steps; control-energy summaries are proxy/percent differences where stated.",
+        "why": "This is the safest plot to explain why E stays useful but caveated.",
+        "boundary": "E remains a lower transition/control-energy proxy, not receptor-specific evidence.",
+    },
+    {
+        "title": "Empirical LSD - placebo deltas",
+        "path": "artifacts/results/stage_2/figures/empirical_metric_deltas.html",
+        "status": "proxy-supported",
+        "metric_unit": "Metric-native paired LSD-minus-placebo differences.",
+        "why": "This links the model-ranking story back to the paired empirical summary target.",
+        "boundary": "The deltas are cached summary evidence, not a completed motion/confound proof.",
+    },
+    {
+        "title": "Motion/confound blocker",
+        "path": "artifacts/results/confound_controls/fmriprep_motion_proof_plan.md",
+        "status": "blocked",
+        "metric_unit": "Required families: FD, DVARS, censoring/outlier coverage.",
+        "why": "This is the thesis-critical missing evidence surface behind the motion-proof-first plan.",
+        "boundary": "Do not treat C as thesis-central until this gate is documented.",
+    },
+    {
+        "title": "Literature benchmark alignment",
+        "path": "artifacts/results/dynamic_mechanism_ranking/figures/literature_benchmark_alignment.html",
+        "status": "proxy-supported",
+        "metric_unit": "Unitless alignment/support summaries from the current benchmark artifact.",
+        "why": "Use this to connect the ranking to prior-art context while keeping local evidence separate.",
+        "boundary": "Prior-art alignment motivates interpretation; it does not promote unsupported biological claims.",
+    },
+    {
+        "title": "Source ranking table",
+        "path": "artifacts/results/dynamic_mechanism_ranking/exports/mechanism_ranking.csv",
+        "status": "implemented",
+        "metric_unit": "CSV table of the current mechanism-ranking values.",
+        "why": "This is the download path for checking the numbers behind the dashboard plot.",
+        "boundary": "The table preserves the current artifact state; it should not be edited by hand.",
+    },
+]
+
+
+def _visual_atlas_preview(target: Path, artifact: Path, title: str) -> str:
+    href = _relative_url(target, artifact)
+    if artifact.suffix.lower() in {".png", ".jpg", ".jpeg", ".svg", ".webp"}:
+        return f'<a href="{escape(href)}"><img src="{escape(href)}" alt="{escape(title)}"></a>'
+    return f'<a class="html-preview" href="{escape(href)}">Open source artifact</a>'
+
+
+def _visual_atlas_highlight_cards(site: Path, target: Path) -> str:
+    cards: list[str] = []
+    for item in VISUAL_ATLAS_HIGHLIGHTS:
+        artifact = site / str(item["path"])
+        if not artifact.exists():
+            continue
+        title = str(item["title"])
+        href = _relative_url(target, artifact)
+        cards.append(
+            "\n".join(
+                [
+                    '<article class="image-card atlas-highlight">',
+                    _visual_atlas_preview(target, artifact, title),
+                    "<div>",
+                    f"<span class=\"status-chip {escape(str(item['status']))}\">{escape(str(item['status']))}</span>",
+                    f"<h3>{escape(title)}</h3>",
+                    f"<p><strong>Metric/unit:</strong> {escape(str(item['metric_unit']))}</p>",
+                    f"<p><strong>Why it is selected:</strong> {escape(str(item['why']))}</p>",
+                    f"<p><strong>Claim boundary:</strong> {escape(str(item['boundary']))}</p>",
+                    f"<p><code>{escape(str(item['path']))}</code></p>",
+                    f'<p><a href="{escape(href)}">Open full artifact</a></p>',
+                    "</div>",
+                    "</article>",
+                ]
+            )
+        )
+    if not cards:
+        return "<p>No curated review-route artifacts were copied into this build.</p>"
+    return "".join(cards)
+
+
 def _visual_atlas_files(site: Path) -> list[Path]:
     visuals: list[Path] = []
     for path in site.rglob("*"):
@@ -680,6 +786,26 @@ def _write_visual_atlas(site: Path, target: Path) -> Path:
         Image cards preview directly. HTML/Plotly cards are deliberately shown as launch cards; open the
         full artifact link to inspect the interactive figure in its own page.
       </p>
+    </section>
+    <section class="band">
+      <div class="section-head"><p class="eyebrow">Start With These Figures</p><h2>Curated PI review route</h2></div>
+      <p class="callout">
+        No new plots were generated for this atlas. These cards route the PI through existing artifacts that
+        explain the ranking, uncertainty, units, and claim boundaries.
+      </p>
+      <div class="figure-grid atlas-highlight-grid">
+        {_visual_atlas_highlight_cards(site, target)}
+      </div>
+    </section>
+    <section class="band muted">
+      <div class="section-head"><p class="eyebrow">Motion-proof-first plot route</p><h2>What to show before the broader atlas</h2></div>
+      <ol class="timeline">
+        <li><strong>Current A-E ranking:</strong> establish the C, E, D, A, B order as a unitless proxy ranking.</li>
+        <li><strong>Rank stability:</strong> show bootstrap rank-1 fractions before discussing interpretation.</li>
+        <li><strong>Run sensitivity:</strong> inspect run dependence while keeping run-02/music gated.</li>
+        <li><strong>E proxy boundary:</strong> keep E caveated as lower transition/control-energy evidence.</li>
+        <li><strong>Motion/confound blocker:</strong> close FD/DVARS/censoring before stronger thesis language.</li>
+      </ol>
     </section>
     <section class="band">
       <div class="section-head"><p class="eyebrow">Unit guide</p><h2>How to read the numbers</h2></div>
