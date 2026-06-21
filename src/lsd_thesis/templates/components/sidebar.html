@@ -7,12 +7,12 @@
     </span>
   </a>
   <nav class="nav-list">
-    {% for item in nav_items %}
+{% for item in nav_items %}
       <a class="nav-link{% if item.id == active_page %} is-active{% endif %}" href="{{ item.href }}"{% if item.id == active_page %} aria-current="page"{% endif %}>
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="{{ item.icon }}"></path></svg>
         <span>{{ item.label }}</span>
       </a>
-    {% endfor %}
+{% endfor %}
   </nav>
   <div class="claim-note">
     <strong>Claim guardrail</strong>
