@@ -15,6 +15,7 @@ def test_dashboard_templates_expose_redesign_surfaces() -> None:
     robustness = _read("src/lsd_thesis/templates/pages/robustness.html")
     empirical = _read("src/lsd_thesis/templates/pages/empirical.html")
     prior_art = _read("src/lsd_thesis/templates/pages/prior_art.html")
+    submission = _read("src/lsd_thesis/templates/pages/submission.html")
     thesis = _read("src/lsd_thesis/templates/pages/thesis.html")
     figures = _read("src/lsd_thesis/templates/pages/figures.html")
 
@@ -34,6 +35,15 @@ def test_dashboard_templates_expose_redesign_surfaces() -> None:
     assert "empirical_fc_heatmap_explainer" in empirical
     assert "prior_art_paper_tabs" in prior_art
     assert "prior_art_paper_board" in prior_art
+    assert "submission_insight_cards" in submission
+    assert "submission_mechanism_chart" in submission
+    assert "submission_mechanism_chart_explainer" in submission
+    assert "submission_decision_matrix" in submission
+    assert "submission_unit_cards" in submission
+    assert "submission_status_balance_chart" in submission
+    assert "submission_dashboard_tour" in submission
+    assert "submission_artifact_links" in submission
+    assert "submission_supervisor_questions" in submission
     assert "thesis_mechanism_chart" in thesis
     assert "thesis_mechanism_chart_explainer" in thesis
     assert "thesis_claim_ladder" in thesis
@@ -64,6 +74,8 @@ def test_dashboard_renderer_contracts_are_present() -> None:
     assert "function renderUnitGuide" in renderer
     assert "function renderPitchCards" in renderer
     assert "function renderStatusBalance" in renderer
+    assert "function renderSubmission" in renderer
+    assert 'pageId === "submission"' in renderer
     assert "How this plot was calculated" in renderer
     assert "textposition: \"auto\"" in renderer
 
@@ -92,12 +104,16 @@ def test_dashboard_css_removes_external_fonts_and_supports_print() -> None:
 def test_static_builder_knows_thesis_entrypoint_and_relative_paths() -> None:
     builder = _read("scripts/build_github_pages.py")
 
+    assert '"submission": f"{prefix}submission.html"' in builder
     assert '"thesis": f"{prefix}thesis.html"' in builder
     assert '"figures": f"{prefix}figures.html"' in builder
+    assert 'submission_html = site / "submission.html"' in builder
     assert 'thesis_html = site / "thesis.html"' in builder
     assert 'figures_html = site / "figures.html"' in builder
+    assert '"pages/submission.html"' in builder
     assert '"pages/thesis.html"' in builder
     assert '"pages/figures.html"' in builder
+    assert '"submission": "submission.html"' in builder
     assert '"thesis": "thesis.html"' in builder
     assert '"figures": "figures.html"' in builder
     assert '"pi_review": "pi-review/"' in builder
@@ -112,5 +128,7 @@ def test_static_builder_knows_thesis_entrypoint_and_relative_paths() -> None:
 def test_preview_preflight_knows_figure_deck_contract() -> None:
     preview = _read("scripts/preview_dashboard.py")
 
+    assert '("/submission", "supervisor submission page' in preview
+    assert '"src/lsd_thesis/templates/pages/submission.html"' in preview
     assert '("/figures", "publication figure-deck page' in preview
     assert '"src/lsd_thesis/templates/pages/figures.html"' in preview

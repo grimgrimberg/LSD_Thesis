@@ -275,6 +275,7 @@ def _published_artifact_paths(outputs: dict[str, Path], site: Path) -> list[str]
         "prior_art",
         "empirical",
         "simulator",
+        "submission",
         "thesis",
         "methods",
         "appendix",
@@ -305,6 +306,7 @@ def _static_nav_items(depth: int) -> list[dict[str, str]]:
     href_by_id = {
         "overview": f"{prefix}index.html",
         "mechanism_ranking": f"{prefix}ranking.html",
+        "submission": f"{prefix}submission.html",
         "robustness": f"{prefix}robustness.html",
         "prior_art": f"{prefix}prior-art.html",
         "empirical": f"{prefix}empirical.html",
@@ -366,6 +368,7 @@ def _write_static_public_site(
     prior_art_html = site / "prior-art.html"
     empirical_html = site / "empirical.html"
     simulator_html = site / "simulator.html"
+    submission_html = site / "submission.html"
     thesis_html = site / "thesis.html"
     figures_html = site / "figures.html"
     methods_html = site / "methods.html"
@@ -450,6 +453,18 @@ def _write_static_public_site(
         ),
         encoding="utf-8",
     )
+    submission_html.write_text(
+        _render_static_template(
+            environment,
+            "pages/submission.html",
+            page_id="submission",
+            page_title="Submission Brief",
+            depth=0,
+            data_url="dashboard/dashboard-data.json",
+            prior_art_data_url="dashboard/prior-art-data.json",
+        ),
+        encoding="utf-8",
+    )
     thesis_html.write_text(
         _render_static_template(
             environment,
@@ -520,6 +535,7 @@ def _write_static_public_site(
         "prior_art": prior_art_html,
         "empirical": empirical_html,
         "simulator": simulator_html,
+        "submission": submission_html,
         "thesis": thesis_html,
         "figures": figures_html,
         "methods": methods_html,
@@ -738,6 +754,7 @@ def _write_pages_manifest(site: Path, outputs: dict[str, Path], dashboard_artifa
             "prior_art": "prior-art.html",
             "empirical": "empirical.html",
             "simulator": "simulator.html",
+            "submission": "submission.html",
             "thesis": "thesis.html",
             "figures": "figures.html",
             "methods": "methods.html",

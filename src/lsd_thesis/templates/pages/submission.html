@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="thesis-story" aria-labelledby="submission_title">
+  <article class="panel thesis-lede panel--span-3">
+    <p class="chrome-label">Supervisor submission</p>
+    <h2 id="submission_title">A dashboard-backed submission brief for the macro-dynamics thesis.</h2>
+    <p>This page condenses the dashboard into a guided pitch: what is implemented, what the current proxy evidence suggests, which units to read, and which blockers remain unresolved.</p>
+    <div id="submission_status_cards" class="metric-strip" aria-live="polite"></div>
+    <div id="submission_pitch_links" class="button-row"></div>
+  </article>
+
+  <article class="panel panel--span-3">
+    <div class="panel-heading">
+      <h2>Dashboard Insights</h2>
+      <span class="status-token status-token--teal">from current payload</span>
+    </div>
+    <div id="submission_insight_cards" class="card-grid card-grid--dense"></div>
+  </article>
+
+  <article class="panel panel--span-2">
+    <div class="panel-heading">
+      <h2>Submission Mechanism Plot</h2>
+      <span class="status-token status-token--amber">proxy units</span>
+    </div>
+    <div class="chart-frame">
+      <div id="submission_mechanism_chart" class="chart chart-sm" role="img" aria-label="Submission mechanism ranking chart">Loading...</div>
+    </div>
+    <div id="submission_mechanism_chart_explainer"></div>
+  </article>
+
+  <article class="panel">
+    <div class="panel-heading">
+      <h2>Decision Matrix</h2>
+      <span class="status-token status-token--moss">review prompt</span>
+    </div>
+    <div id="submission_decision_matrix" class="stacked-list"></div>
+  </article>
+
+  <article class="panel panel--span-3">
+    <div class="panel-heading">
+      <h2>Evidence With Units</h2>
+      <span class="status-token status-token--teal">read before claims</span>
+    </div>
+    <div id="submission_unit_cards" class="card-grid card-grid--dense"></div>
+  </article>
+
+  <article class="panel panel--span-3">
+    <div class="panel-heading">
+      <h2>Claim And Gate Balance</h2>
+      <span class="status-token status-token--amber">fail closed</span>
+    </div>
+    <div class="chart-frame">
+      <div id="submission_status_balance_chart" class="chart chart-sm" role="img" aria-label="Claim and gate balance for submission">Loading...</div>
+    </div>
+  </article>
+
+  <article class="panel panel--span-3">
+    <div class="panel-heading">
+      <h2>Guided Dashboard Tour</h2>
+      <span class="status-token status-token--moss">open in order</span>
+    </div>
+    <div id="submission_dashboard_tour" class="story-steps"></div>
+  </article>
+
+  <article class="panel panel--span-2">
+    <div class="panel-heading">
+      <h2>Evidence Sources</h2>
+      <span class="status-token status-token--teal">static-safe</span>
+    </div>
+    <div id="submission_artifact_links" class="link-stack"></div>
+  </article>
+
+  <article class="panel">
+    <div class="panel-heading">
+      <h2>Question For Supervisor</h2>
+      <span class="status-token status-token--rose">next threshold</span>
+    </div>
+    <div id="submission_supervisor_questions" class="stacked-list"></div>
+  </article>
+</section>
+{% endblock %}

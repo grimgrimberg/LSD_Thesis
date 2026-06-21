@@ -8,6 +8,7 @@
     <div class="metric-strip" id="overview_metric_strip" aria-live="polite"></div>
     <div id="evidence_flow" class="evidence-flow" aria-label="Thesis evidence pipeline"></div>
     <div class="button-row">
+      <a class="secondary-link" href="{{ '/submission' if deployment_mode == 'local' else (root_prefix | default('')) ~ 'submission.html' }}">Open Submission Brief</a>
       <a class="secondary-link" href="{{ '/figures' if deployment_mode == 'local' else (root_prefix | default('')) ~ 'figures.html' }}">Open Figure Deck</a>
       <a class="secondary-link" href="{{ '/thesis' if deployment_mode == 'local' else (root_prefix | default('')) ~ 'pi-review/' }}">Open Supervisor Pitch</a>
       <a class="secondary-link" href="{{ '/thesis' if deployment_mode == 'local' else (root_prefix | default('')) ~ 'pi-review/pages/pitch-slides.html' }}">Open Pitch Slides</a>

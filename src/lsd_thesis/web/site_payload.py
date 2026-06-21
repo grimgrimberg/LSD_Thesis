@@ -261,6 +261,7 @@ def build_route_links(*, static: bool, depth: int = 0) -> dict[str, str]:
     if not static:
         return {
             "home": "/",
+            "submission": "/submission",
             "thesis": "/thesis",
             "dashboard": "/dashboard",
             "local_dashboard": "/local-dashboard",
@@ -270,6 +271,7 @@ def build_route_links(*, static: bool, depth: int = 0) -> dict[str, str]:
     prefix = "../" * max(depth, 0)
     return {
         "home": f"{prefix}index.html",
+        "submission": f"{prefix}submission.html",
         "thesis": f"{prefix}thesis.html",
         "dashboard": f"{prefix}dashboard/",
         "local_dashboard": f"{prefix}methods.html#local-dashboard",

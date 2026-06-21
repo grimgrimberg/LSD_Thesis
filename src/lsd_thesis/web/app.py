@@ -43,6 +43,14 @@ DASHBOARD_NAV = [
         "template": "pages/mechanism_ranking.html",
     },
     {
+        "id": "submission",
+        "label": "Submission",
+        "href": "/submission",
+        "icon": "M5 5h14v14H5zM8 9h8M8 13h8M8 17h5",
+        "title": "Submission Brief",
+        "template": "pages/submission.html",
+    },
+    {
         "id": "robustness",
         "label": "Robustness",
         "href": "/robustness",
@@ -155,6 +163,11 @@ def create_app() -> FastAPI:
     @app.get("/ranking", response_class=HTMLResponse)
     async def ranking() -> HTMLResponse:
         return _render_dashboard_page("mechanism_ranking")
+
+    @app.get("/submission", response_class=HTMLResponse)
+    @app.get("/submission.html", response_class=HTMLResponse)
+    async def submission() -> HTMLResponse:
+        return _render_dashboard_page("submission")
 
     @app.get("/robustness", response_class=HTMLResponse)
     async def robustness() -> HTMLResponse:

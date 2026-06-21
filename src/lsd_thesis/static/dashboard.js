@@ -311,6 +311,7 @@ function localPageHref(href) {
     "/prior-art": "prior-art.html",
     "/empirical": "empirical.html",
     "/simulator": "simulator.html",
+    "/submission": "submission.html",
     "/thesis": "thesis.html",
     "/figures": "figures.html",
   };
@@ -609,6 +610,7 @@ function renderPitchCards(containerId, payload) {
 
 function renderPitchLinks(containerId) {
   const links = [
+    ["Submission brief", isStaticDeployment ? `${staticRootPrefix()}submission.html` : "/submission"],
     ["Open hosted PI package", piReviewHref()],
     ["Pitch slides", piReviewHref("pages/pitch-slides.html")],
     ["Figure atlas", piReviewHref("pages/figure-atlas.html")],
@@ -628,13 +630,13 @@ function statusBalanceRows(payload) {
   return [...counts.entries()].map(([status, count]) => ({ status, count }));
 }
 
-function renderStatusBalance(payload) {
+function renderStatusBalance(payload, targetId = "thesis_status_balance_chart") {
   const rows = statusBalanceRows(payload);
   if (!rows.length) {
-    emptyPlot("thesis_status_balance_chart", "No claim or gate status rows are available.");
+    emptyPlot(targetId, "No claim or gate status rows are available.");
     return;
   }
-  plot("thesis_status_balance_chart", [{
+  plot(targetId, [{
     type: "bar",
     x: rows.map((row) => titleText(row.status)),
     y: rows.map((row) => row.count),
@@ -647,6 +649,193 @@ function renderStatusBalance(payload) {
     xaxis: { ...chartLayout.xaxis, title: "Status label" },
     yaxis: { ...chartLayout.yaxis, title: "Count of claims/gates" },
   });
+}
+
+function mechanismRankingRows(payload) {
+  return asRecords(payload.dynamic_mechanism?.mechanism_ranking)
+    .sort((left, right) => Number(left.rank ?? 999) - Number(right.rank ?? 999));
+}
+
+function bootstrapLayerSummary(payload, layer) {
+  return asRecords(payload.dynamic_mechanism?.robustness?.subject_bootstrap?.layer_summary)
+    .find((row) => text(row.layer, "") === layer) || {};
+}
+
+function layerRankingRecord(payload, layer) {
+  return mechanismRankingRows(payload).find((row) => text(row.layer, "") === layer) || {};
+}
+
+function scoreWithUnit(row) {
+  return `unitless support score ${formatNumber(row.score)}`;
+}
+
+function rankOneFraction(payload, layer) {
+  const summary = bootstrapLayerSummary(payload, layer);
+  const fraction = finiteNumber(summary.rank_1_fraction);
+  return fraction === null ? "rank-1 fraction not reported" : `bootstrap rank-1 fraction ${formatNumber(fraction)}`;
+}
+
+function renderSubmissionInsights(payload) {
+  const top = mechanismRankingRows(payload)[0] || {};
+  const layerB = layerRankingRecord(payload, "B");
+  const layerE = layerRankingRecord(payload, "E");
+  const cv5 = payload.cv5_validation || {};
+  const readiness = payload.thesis_upgrade?.readiness_summary || {};
+  const strictLabel = `${text(readiness.strict_complete_gates, "0")}/${text(readiness.strict_total_gates, "0")} strict gates`;
+  const cards = [
+    [
+      "Top current proxy",
+      `${text(top.layer, "C")} ${titleText(top.mechanism)}`,
+      `${scoreWithUnit(top)}; ${rankOneFraction(payload, text(top.layer, "C"))}. This is macro-dynamics proxy evidence, not biological mechanism proof.`,
+      text(top.status, "implemented"),
+    ],
+    [
+      "E layer interpretation",
+      scoreWithUnit(layerE),
+      "Current E evidence supports a lower transition/control-energy proxy. Receptor-specific placement remains separated from that proxy claim.",
+      text(layerE.status, "proxy-supported"),
+    ],
+    [
+      "Negative baseline",
+      scoreWithUnit(layerB),
+      `${rankOneFraction(payload, "B")}. B is retained as a predictive/control baseline instead of a control-energy mechanism claim.`,
+      text(layerB.status, "implemented"),
+    ],
+    [
+      "Internal validation",
+      `${text(cv5.completed_folds, "0")}/${text(cv5.total_folds, "0")} CV5 folds`,
+      text(cv5.claim_guardrail, "Subject-disjoint CV5 is internal validation only, not external or clinical validation."),
+      text(cv5.status, "complete"),
+    ],
+    [
+      "Remaining blockers",
+      strictLabel,
+      text(readiness.remaining_hard_requirements?.join?.(", "), "Motion/confound proof and final thesis/package thresholds remain explicit blockers."),
+      "blocked",
+    ],
+  ];
+  byId("submission_insight_cards")?.replaceChildren(
+    ...cards.map(([label, value, detail, status]) => dataRecord(label, value, detail, status)),
+  );
+}
+
+function renderSubmissionMechanismChart(payload) {
+  const rows = mechanismRankingRows(payload);
+  if (!rows.length) {
+    emptyPlot("submission_mechanism_chart", "No mechanism ranking rows are available.");
+    return;
+  }
+  const scores = sanitizeSeries(rows.map((row) => row.score));
+  plot("submission_mechanism_chart", [{
+    type: "bar",
+    orientation: "h",
+    x: scores.values,
+    y: rows.map((row) => `${text(row.layer)}: ${titleText(row.mechanism)}`),
+    marker: { color: rows.map((row) => layerColor[text(row.layer, "")] || COLORS.teal) },
+    text: scores.values.map((value) => formatNumber(value)),
+    textposition: "auto",
+    customdata: rows.map((row) => [text(row.status), text(row.evidence)]),
+    hovertemplate: "%{y}<br>unitless support score %{x:.3f}<br>%{customdata[0]}<br>%{customdata[1]}<extra></extra>",
+  }], {
+    invalidCount: scores.invalidCount,
+    margin: { t: 10, r: 20, b: 46, l: 190 },
+    xaxis: { ...chartLayout.xaxis, title: "Proxy Support Score (unitless)" },
+    yaxis: { ...chartLayout.yaxis, autorange: "reversed", title: "Mechanism Layer" },
+  });
+}
+
+function renderSubmissionDecisionMatrix(payload) {
+  const top = mechanismRankingRows(payload)[0] || {};
+  const rows = [
+    [
+      "Ready to show",
+      "Working evidence dashboard",
+      "Static Pages, local FastAPI dashboard, artifact links, figure deck, and claim gates are inspectable.",
+      "implemented",
+    ],
+    [
+      "Ready as proxy evidence",
+      `${text(top.layer, "C")} mechanism ranking`,
+      "Use as model-level macro-dynamic ranking evidence with explicit units and status labels.",
+      "proxy-supported",
+    ],
+    [
+      "Needs supervisor threshold",
+      "Motion/confound and thesis gate priorities",
+      "The next research decision is which blocker must be closed first before stronger thesis language is acceptable.",
+      "blocked",
+    ],
+    [
+      "Do not claim",
+      "Subjective, receptor-level, or clinical validity",
+      "The dashboard deliberately keeps these as unsupported, blocked, or future work unless new approved evidence changes the gate.",
+      "unsupported",
+    ],
+  ];
+  byId("submission_decision_matrix")?.replaceChildren(
+    ...rows.map(([label, value, detail, status]) => dataRecord(label, value, detail, status)),
+  );
+}
+
+function renderSubmissionTour() {
+  const steps = [
+    ["Overview", "/", "Start with strict gates, claim cards, and the dashboard evidence path."],
+    ["Mechanism Ranking", "/ranking", "Read unitless proxy support scores and the A-E layer order."],
+    ["Robustness", "/robustness", "Check bootstrap, run, horizon, and window sensitivity before interpreting C or E."],
+    ["Empirical Viewer", "/empirical", "Inspect paired LSD/placebo module summaries and metric-native deltas."],
+    ["Prior Art", "/prior-art", "Keep literature wrappers separate from original local analysis."],
+    ["Figure Deck", "/figures", "Use figure-level metadata, calculation notes, caveats, and source artifacts."],
+  ];
+  byId("submission_dashboard_tour")?.replaceChildren(...steps.map(([title, href, detail], index) => el("section", { className: "story-step" }, [
+    el("span", { text: String(index + 1) }),
+    el("div", {}, [
+      el("strong", { text: title }),
+      el("p", { text: detail }),
+      el("a", { text: "Open", href: localPageHref(href) }),
+    ]),
+  ])));
+}
+
+function renderSubmissionArtifactLinks(payload) {
+  const reportRows = artifactRows(payload).filter((row) => row[1] === "reports");
+  const links = [
+    ["Hosted dashboard overview", isStaticDeployment ? `${staticRootPrefix()}dashboard/` : "/"],
+    ["Submission brief", isStaticDeployment ? `${staticRootPrefix()}submission.html` : "/submission"],
+    ["PI review package", piReviewHref()],
+    ["Pitch slides", piReviewHref("pages/pitch-slides.html")],
+    ["Figure atlas", piReviewHref("pages/figure-atlas.html")],
+    ["Evidence and calculations", piReviewHref("pages/evidence-and-calculations.html")],
+    ["A-E math metadata", piReviewHref("pages/ae-math-metadata.html")],
+    ...reportRows.slice(0, 5).map((row) => [row[0], row[2]]),
+  ];
+  byId("submission_artifact_links")?.replaceChildren(
+    ...links.map(([label, href]) => el("a", { text: label, href: displayHref(href) })),
+  );
+}
+
+function renderSubmissionQuestions() {
+  const rows = [
+    ["Primary threshold", "Which evidence gate must close before the C-layer result can be thesis-central?", "blocked"],
+    ["Mechanism boundary", "Should E remain only a transition/control-energy proxy until PET or spatial-null evidence improves?", "mixed"],
+    ["Next work package", "Should the next iteration prioritize motion proof, external validation, or manuscript-grade archive publication?", "future"],
+  ];
+  byId("submission_supervisor_questions")?.replaceChildren(
+    ...rows.map(([label, detail, status]) => dataRecord(label, "decision needed", detail, status)),
+  );
+}
+
+function renderSubmission(payload) {
+  byId("submission_status_cards")?.replaceChildren(...renderMetricStrip(payload));
+  renderPitchLinks("submission_pitch_links");
+  renderSubmissionInsights(payload);
+  renderSubmissionMechanismChart(payload);
+  renderSubmissionDecisionMatrix(payload);
+  renderUnitGuide("submission_unit_cards");
+  renderStatusBalance(payload, "submission_status_balance_chart");
+  renderSubmissionTour();
+  renderSubmissionArtifactLinks(payload);
+  renderSubmissionQuestions();
+  renderFigureExplainer("submission_mechanism_chart_explainer", "ranking_chart", payload);
 }
 
 function renderGateChart(payload) {
@@ -1390,6 +1579,8 @@ async function main() {
     renderOverview(dashboard);
   } else if (pageId === "mechanism_ranking") {
     renderRanking(dashboard);
+  } else if (pageId === "submission") {
+    renderSubmission(dashboard);
   } else if (pageId === "robustness") {
     renderRobustness(dashboard);
   } else if (pageId === "empirical") {

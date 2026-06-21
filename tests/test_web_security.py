@@ -36,6 +36,18 @@ def test_figure_deck_page_uses_dashboard_safety_headers() -> None:
     assert "frame-ancestors 'none'" in response.headers["content-security-policy"]
 
 
+def test_submission_page_uses_dashboard_safety_headers() -> None:
+    client = TestClient(create_app())
+
+    response = client.get("/submission")
+
+    assert response.status_code == 200
+    assert "Submission Brief" in response.text
+    assert response.headers["cache-control"] == "no-store"
+    assert response.headers["x-content-type-options"] == "nosniff"
+    assert "frame-ancestors 'none'" in response.headers["content-security-policy"]
+
+
 def test_artifact_route_rejects_project_files_and_subject_level_cache() -> None:
     client = TestClient(create_app())
 
