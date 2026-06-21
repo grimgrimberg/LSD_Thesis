@@ -606,7 +606,23 @@
 </ul></div></details></section>
 <section class="band"><details class="doc-detail" open><summary>Problems And Next Steps</summary><div class="doc-body"><h2>Problems And Next Steps</h2>
 <h3>Summary</h3>
-<p>The project is ready for PI review as a claim-gated research workbench. It is not ready to be presented as a completed thesis. The next useful decision is which blocker must be closed first.</p>
+<p>The project is ready for PI review as a claim-gated research workbench. It is not ready to be presented as a completed thesis. The proposed next track is a motion-proof-first plan: close FD/DVARS/censoring before treating the C-layer result as thesis-central.</p>
+<h3>Motion-Proof First Plan</h3>
+<p>Primary milestone: blocked. Create the FD/DVARS/censoring motion-proof pack before claim promotion or broader science-scope expansion.</p>
+<p>Claim boundary: mixed. Keep E caveated as a lower transition/control-energy proxy until stronger PET, map-prior, or spatial-null evidence changes the gate.</p>
+<p>After motion proof: future. Use parcellation/null audit and external-validation audit as the next scope only after the motion gate is documented.</p>
+<p>Inputs to secure:</p>
+<ul>
+<li>Subject/run-level fMRIPrep confounds for paired LSD/placebo runs.</li>
+<li>Framewise displacement, DVARS, and censoring/outlier columns with missingness checks.</li>
+<li>Run inclusion rules that keep run-02/music outside the thesis core unless separately approved.</li>
+</ul>
+<p>Outputs to produce:</p>
+<ul>
+<li>Paired motion summary table with subject/run coverage and exclusion flags.</li>
+<li>Association rows linking FD/DVARS/censoring features to each ranked proxy metric.</li>
+<li>Exclusion/censoring summary and a gate report that can keep, caveat, or downgrade C.</li>
+</ul>
 <h3>Problem 1: Motion/Confound Proof Remains Incomplete</h3>
 <p>Why it matters: Motion, session effects, and preprocessing artifacts can mimic or distort macro-dynamic changes.</p>
 <p>Current status: Blocked. `results/thesis_upgrade/thesis_upgrade_status.json` reports `motion_confound_control_result` as `blocked_missing_fmriprep_fd_dvars_censoring_motion_proof`.</p>
@@ -640,7 +656,7 @@
 <p>Current status: Gated. Current primary ranking uses run-01 and run-03. Run-02/music remains audit-only unless explicitly approved.</p>
 <p>Evidence/source file: `docs/research/ds003059_prior_art_to_thesis_map.md`; `docs/VALIDATION.md`; project instructions in `AGENTS.md`.</p>
 <p>Needed to address it: Music-qualified subject rules, technical-problem exclusions, motion/context checks, and explicit PI approval.</p>
-<p>Suggested next action: Keep run-02/music out of the thesis core until the motion-proof decision is made.</p>
+<p>Suggested next action: Keep run-02/music out of the thesis core until the motion-proof pack is reviewed and the motion gate is documented.</p>
 <p>Risk if ignored: The project can mix incompatible task contexts and weaken the empirical claim.</p>
 <h3>Problem 6: Generated Artifacts And Ignored Outputs Are Risky To Clean Or Regenerate</h3>
 <p>Why it matters: Ignored generated outputs may still be consumed by the dashboard, figure deck, archive manifest, or public snapshot.</p>
@@ -666,6 +682,8 @@
 <h3>Ranked Next Thesis Milestones</h3>
 <ol>
 <li>Motion-proof planning pack.</li>
+<li>Keep E caveated while PET/map-prior/spatial-null evidence remains mixed.</li>
+<li>Parcellation/null audit after the motion gate is documented.</li>
 <li>External/PET/SC/neuromaps evidence audit plan.</li>
 <li>Public-site/static drift audit.</li>
 <li>Artifact producer/consumer map.</li>

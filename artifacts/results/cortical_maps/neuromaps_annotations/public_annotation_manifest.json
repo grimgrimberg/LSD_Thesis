@@ -1,6 +1,6 @@
 {
   "schema_version": "neuromaps_public_annotations.v1",
-  "generated_at_utc": "2026-06-21T09:29:14.016920+00:00",
+  "generated_at_utc": "2026-06-21T10:06:25.322793+00:00",
   "parcellation_id": "schaefer_100_yeo_7",
   "map_space": "Surface annotations parcellated through Schaefer100 labels projected from MNI152 to each annotation surface space.",
   "maps": [
