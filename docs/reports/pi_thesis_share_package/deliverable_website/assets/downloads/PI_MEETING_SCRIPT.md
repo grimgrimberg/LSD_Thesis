@@ -8,7 +8,7 @@ Use this when the PI has limited time.
 2. "The core scientific object is a transparent 8-module macro-dynamic surrogate model tested against cached paired LSD/placebo summary evidence."
 3. "The current mechanism ranking is C, E, D, A, B. C is strongest, E is a split lower-energy proxy, and B is a negative DMDc baseline."
 4. "The dashboard keeps claims gated: motion/confound proof is still blocked, archive DOI is missing, and receptor/subjective/clinical claims are not promoted."
-5. "What I need from you is a decision on the next scientific blocker. My recommendation is motion-proof planning first, because FD/DVARS/censoring is the central thesis-critical gap."
+5. "My proposed next milestone is motion-proof planning first, because FD/DVARS/censoring is the central thesis-critical gap."
 
 ## Twenty-Minute Walkthrough
 
@@ -18,7 +18,7 @@ Minute 0-2: Start with framing.
 
 Minute 2-5: Show `PI_REVIEW_BRIEF.md`.
 
-"The infrastructure and evidence package are now ready for PI review. The main question is not whether the thesis is solved, but which blocker must be closed next."
+"The infrastructure and evidence package are now ready for PI review. The main question is not whether the thesis is solved, but whether the proposed motion-proof-first plan is the right next step."
 
 Minute 5-8: Show Overview.
 
@@ -46,7 +46,7 @@ Minute 17-19: Show Figure Deck.
 
 Minute 19-20: Ask for decision.
 
-"Which blocker should I address first to make this thesis-defensible?"
+"The first blocker I propose addressing is FD/DVARS/censoring motion proof; the question is whether this plan is bounded well enough for thesis development."
 
 ## Dashboard Demo Order
 
@@ -105,4 +105,4 @@ Say:
 
 Say:
 
-"I need your decision on the next scientific blocker and the standard for claim promotion. My recommendation is to start with a motion-proof planning pack, because that determines whether the current mechanism-ranking story can be thesis-level."
+"I propose starting with a motion-proof planning pack, because that determines whether the current mechanism-ranking story can become thesis-level. I would like feedback on the plan's scope and evidence standard."

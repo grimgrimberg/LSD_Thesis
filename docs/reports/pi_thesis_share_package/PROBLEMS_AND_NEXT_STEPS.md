@@ -28,7 +28,7 @@ Evidence/source file: `results/thesis_upgrade/thesis_upgrade_status.json`; `resu
 
 Needed to address it: Paired motion-control rows, merged subject/run rows, non-empty association rows, and feature-family coverage for FD, DVARS, and censoring.
 
-Suggested next action: Ask the PI whether author-provided confounds or original raw inputs are available and acceptable to pursue.
+Suggested next action: Build the motion-proof planning pack first, then use that pack to determine whether author-provided confounds or original raw inputs are worth pursuing.
 
 Risk if ignored: C and other ranking claims remain vulnerable at the thesis-defense level.
 

@@ -1,17 +1,27 @@
 # PI Thesis Share Package - Sender Guide
 
-Snapshot date: 2026-06-18
+Snapshot date: 2026-06-21
 
-This folder is a PI-facing review package for the LSD thesis workbench. Codex created it locally only. Codex did not publish, upload, email, stage, commit, push, open a PR, create a release, or deploy anything.
+This folder is a PI-facing review package for the LSD thesis workbench. It is now wired into the GitHub Pages build as a static hosted pitch package.
+
+Primary URL after deployment:
+
+https://grimgrimberg.github.io/LSD_Thesis/pi-review/
 
 ## What To Send First
 
-Send these files first:
+Send the hosted URL first:
+
+1. `https://grimgrimberg.github.io/LSD_Thesis/pi-review/` - start here.
+2. `https://grimgrimberg.github.io/LSD_Thesis/pi-review/pages/pitch-slides.html` - slide-style overview.
+3. `https://grimgrimberg.github.io/LSD_Thesis/pi-review/pages/figure-atlas.html` - all safe hosted visual artifacts.
+
+If you also want attachments, send these files:
 
 1. `EMAIL_TO_PI.md` - paste the short email into your message.
 2. `PI_REVIEW_BRIEF.md` - attach or link as the main brief.
 3. `EVIDENCE_AND_CALCULATIONS.md` - attach or link if the PI wants plot-level details.
-4. `site/index.html` - optional offline landing page for browsing the package.
+4. `deliverable_website/OPEN_ME_FIRST.html` - optional offline fallback.
 
 If you want the cleanest first message, paste the short email and attach `PI_REVIEW_BRIEF.md` plus the `assets/screenshots/` folder.
 
@@ -41,15 +51,12 @@ Use the short version in `EMAIL_TO_PI.md` for the first contact. Use the detaile
 
 Recommended live walkthrough order:
 
-1. `site/index.html`
-2. `PI_REVIEW_BRIEF.md`
-3. `assets/screenshots/dashboard-overview.png`
-4. `assets/screenshots/dashboard-ranking.png`
-5. `assets/screenshots/dashboard-robustness.png`
-6. `assets/screenshots/dashboard-empirical.png`
-7. `assets/screenshots/dashboard-prior-art.png`
-8. `assets/screenshots/dashboard-figures.png`
-9. `PROBLEMS_AND_NEXT_STEPS.md`
+1. Hosted `pi-review/` start page.
+2. `pi-review/pages/pitch-slides.html`.
+3. `pi-review/pages/figure-atlas.html`.
+4. Static dashboard overview at `/dashboard/`.
+5. `PI_REVIEW_BRIEF.md`.
+6. `PROBLEMS_AND_NEXT_STEPS.md`.
 
 If the local FastAPI dashboard is already running in your own review session, use it as a live supplement. This package itself does not start a server.
 
@@ -83,16 +90,16 @@ Safe wording:
 
 ## Manual Link Options
 
-GitHub folder link after committing and pushing:
+GitHub Pages link after committing and pushing:
 
 ```powershell
 git status --short --untracked-files=all
-git add docs/reports/pi_thesis_share_package/
-git commit -m "docs: add PI thesis share package"
+git add docs/reports/pi_thesis_share_package/ scripts/build_github_pages.py src/lsd_thesis/templates src/lsd_thesis/static docs/GITHUB_PAGES.md tests/test_dashboard_redesign_contract.py
+git commit -m "docs: publish supervisor pitch package"
 git push origin HEAD
 ```
 
-Then send the GitHub tree link to `docs/reports/pi_thesis_share_package/`.
+Then send `https://grimgrimberg.github.io/LSD_Thesis/pi-review/` once the Pages workflow finishes.
 
 Cloud drive link:
 

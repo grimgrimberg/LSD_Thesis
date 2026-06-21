@@ -1,6 +1,6 @@
 # PI Thesis Share Package - Sender Guide
 
-Snapshot date: 2026-06-18
+Snapshot date: 2026-06-21
 
 This folder is a PI-facing review package for the LSD thesis workbench. It is now wired into the GitHub Pages build as a static hosted pitch package.
 

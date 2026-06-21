@@ -29,4 +29,4 @@ Safe framing:
 This is a model-level macro-dynamic mechanism-ranking workbench for PI review. It does not claim receptor-level mechanism proof, subjective-experience simulation, clinical validity, or biological ground truth.
 
 Main decision requested:
-Which blocker should be addressed first, and what evidence threshold should promote a proxy-supported result into a thesis-level claim? The recommended first blocker is FD/DVARS/censoring motion-proof planning.
+The proposed first blocker is FD/DVARS/censoring motion-proof planning. Review whether that plan is bounded well enough before any proxy-supported result is promoted into thesis-level language.

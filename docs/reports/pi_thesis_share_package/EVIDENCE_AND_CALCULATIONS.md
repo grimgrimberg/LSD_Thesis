@@ -93,7 +93,7 @@ Caveat: This is a model-level proxy ranking. It is not biological proof and not 
 
 Freshness note: exact ranking values in this package are read from `results/dynamic_mechanism_ranking/summary.json`, because an older export CSV copy can contain a stale E score.
 
-Needed to strengthen claim: Motion-sensitive exclusions, parcellation/null checks, and PI-approved claim-promotion threshold.
+Needed to strengthen claim: Motion-sensitive exclusions first, followed by parcellation/null checks and any claim-promotion threshold agreed after the motion-proof plan is reviewed.
 
 Validation/test protection: `tests/test_result_artifact_schema_contract.py`, `tests/test_dashboard_payload_contract.py`, `tests/test_figure_payload.py`.
 

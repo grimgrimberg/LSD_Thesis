@@ -1,5 +1,5 @@
 {
-  "snapshot_date": "2026-06-18",
+  "snapshot_date": "2026-06-21",
   "repo_path": "D:/LSD_Thesis",
   "source_commit": "1a51eb54d909cbda6bf3584cd2ecf99f187c355d",
   "validation_baseline_commit": "69b0397a64fb7ec6f5b19cc07f00565cec97c53b",
@@ -249,7 +249,7 @@
     {
       "command": "uv run --frozen pytest --collect-only -q -o addopts=",
       "result": "passed",
-      "details": "82 tests collected in 74.28s."
+      "details": "83 tests collected in 25.56s."
     },
     {
       "command": "uv run --frozen ruff check .",
@@ -283,14 +283,14 @@
     },
     {
       "command": "uv run --frozen pytest",
-      "result": "not_run",
-      "details": "Full pytest was not run; latest documented full baseline remains 82 passed with 82.69% coverage."
+      "result": "passed",
+      "details": "Full pytest passed 83 tests with 82.73% coverage in the current polish pass."
     }
   ],
   "skipped_steps": [
     {
-      "step": "full pytest",
-      "why": "Not requested unless clearly necessary; latest documented full baseline remains 82 passed with 82.69% coverage."
+      "step": "scientific workflows",
+      "why": "Not needed for this website polish pass; existing result artifacts were reused."
     },
     {
       "step": "optional ZIP creation",
@@ -365,5 +365,15 @@
     "Zenodo DOI is missing; archive publication is incomplete.",
     "Run-02/music remains audit-only unless explicitly approved.",
     "Receptor-level, subjective, clinical, and biological-ground-truth claims remain unsupported by this package."
-  ]
+  ],
+  "latest_deliverable_update": {
+    "date": "2026-06-21",
+    "change": "Polished the hosted supervisor pitch, fixed figure-atlas browser polish, refreshed validation wording to 83 passed / 82.73% coverage, and replaced PI-decision prompts with a proposed motion-proof-first next track.",
+    "files": [
+      "docs/reports/pi_thesis_share_package/deliverable_website/pages/dashboard-offline.html",
+      "docs/reports/pi_thesis_share_package/deliverable_website/pages/full-package.html",
+      "docs/reports/pi_thesis_share_package/deliverable_website/pages/ae-math-metadata.html"
+    ],
+    "no_touch": "Packaging/documentation only; no scientific workflows, source code, tests, result artifacts, raw data, caches, dependencies, publishing, or email."
+  }
 }

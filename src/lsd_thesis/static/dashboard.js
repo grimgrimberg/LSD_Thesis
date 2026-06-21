@@ -598,7 +598,7 @@ function pitchCardItems(payload = {}) {
     ["Engineering proof", "tested dashboard + artifacts", "FastAPI/Jinja/Plotly surfaces consume typed Python payloads, allowlisted artifacts, and regression-tested public JSON contracts."],
     ["Current result", `top layer ${topLayer}`, "The current A-E ranking is shown as model-level proxy evidence, with B retained as a negative baseline."],
     ["Falsification posture", `${strict} strict gates`, "The pitch shows what would weaken the claim instead of hiding blockers such as motion/confound proof."],
-    ["Supervisor ask", "next threshold", "The package asks for the next blocker and the evidence threshold for promoting proxy support into a thesis-level claim."],
+    ["Proposed next track", "motion proof first", "The package presents a concrete next step: close the FD/DVARS/censoring motion-proof gap before stronger thesis language or scope expansion."],
   ];
 }
 
@@ -996,9 +996,9 @@ function renderSubmissionDecisionMatrix(payload) {
       "proxy-supported",
     ],
     [
-      "Needs supervisor threshold",
-      "Motion/confound and thesis gate priorities",
-      "The next research decision is which blocker must be closed first before stronger thesis language is acceptable.",
+      "Next track proposed",
+      "Motion/confound proof first",
+      "Treat FD/DVARS/censoring motion proof as the next milestone before stronger thesis language or broader science scope.",
       "blocked",
     ],
     [
@@ -1049,14 +1049,14 @@ function renderSubmissionArtifactLinks(payload) {
   );
 }
 
-function renderSubmissionQuestions() {
+function renderSubmissionNextTrack() {
   const rows = [
-    ["Primary threshold", "Which evidence gate must close before the C-layer result can be thesis-central?", "blocked"],
-    ["Mechanism boundary", "Should E remain only a transition/control-energy proxy until PET or spatial-null evidence improves?", "mixed"],
-    ["Next work package", "Should the next iteration prioritize motion proof, external validation, or manuscript-grade archive publication?", "future"],
+    ["Primary milestone", "motion-proof pack", "Close the FD/DVARS/censoring evidence gap before treating the C-layer result as thesis-central.", "blocked"],
+    ["Claim boundary", "keep E caveated", "Keep E as a lower transition/control-energy proxy until stronger PET, map-prior, or spatial-null evidence changes the gate.", "mixed"],
+    ["After motion proof", "parcellation/null audit", "Use parcellation sensitivity and external-validation audit as the next scope only after the motion gate is documented.", "future"],
   ];
-  byId("submission_supervisor_questions")?.replaceChildren(
-    ...rows.map(([label, detail, status]) => dataRecord(label, "decision needed", detail, status)),
+  byId("submission_next_track")?.replaceChildren(
+    ...rows.map(([label, value, detail, status]) => dataRecord(label, value, detail, status)),
   );
 }
 
@@ -1077,7 +1077,7 @@ function renderSubmissionEmailBrief() {
     [
       "Meeting ask",
       "30 minutes",
-      "Ask which blocker should become the next thesis milestone: motion proof, external validation, map-prior audit, or archive publication.",
+      "Ask for review of the proposed motion-proof-first plan, not for the supervisor to choose the project direction from scratch.",
       "future",
     ],
   ];
@@ -1104,7 +1104,7 @@ function renderSubmission(payload) {
   renderStatusBalance(payload, "submission_status_balance_chart");
   renderSubmissionTour();
   renderSubmissionArtifactLinks(payload);
-  renderSubmissionQuestions();
+  renderSubmissionNextTrack();
   renderSubmissionEmailBrief();
   renderFigureExplainer("submission_mechanism_chart_explainer", "ranking_chart", payload);
   renderFigureExplainer("submission_benchmark_chart_explainer", "benchmark_chart", payload);

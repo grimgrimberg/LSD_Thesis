@@ -54,7 +54,7 @@ def test_dashboard_templates_expose_redesign_surfaces() -> None:
     assert "submission_status_balance_chart" in submission
     assert "submission_dashboard_tour" in submission
     assert "submission_artifact_links" in submission
-    assert "submission_supervisor_questions" in submission
+    assert "submission_next_track" in submission
     assert "submission_email_brief" in submission
     assert "thesis_mechanism_chart" in thesis
     assert "thesis_mechanism_chart_explainer" in thesis
@@ -93,6 +93,9 @@ def test_dashboard_renderer_contracts_are_present() -> None:
     assert "function renderSubmissionRunSensitivityChart" in renderer
     assert "function renderSubmissionCV5FoldChart" in renderer
     assert "function renderSubmissionStrictGateChart" in renderer
+    assert "function renderSubmissionNextTrack" in renderer
+    assert "motion-proof-first plan" in renderer
+    assert "submission_next_track" in renderer
     assert 'pageId === "submission"' in renderer
     assert "How this plot was calculated" in renderer
     assert "textposition: \"auto\"" in renderer
@@ -137,6 +140,7 @@ def test_static_builder_knows_thesis_entrypoint_and_relative_paths() -> None:
     assert '"pi_review": "pi-review/"' in builder
     assert "def _copy_pi_review_site" in builder
     assert "def _write_visual_atlas" in builder
+    assert '<link rel="icon" href="data:,">' in builder
     assert "pitch-slides.html" in builder
     assert "root_prefix=prefix" in builder
     assert 'static_prefix=f"{prefix}static/"' in builder

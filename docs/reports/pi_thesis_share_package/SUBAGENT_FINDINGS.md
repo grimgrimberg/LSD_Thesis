@@ -20,7 +20,7 @@ Findings:
 - Current HEAD: `1a51eb54d909cbda6bf3584cd2ecf99f187c355d`.
 - Validation-baseline commit: `69b0397 docs: refresh validation baseline`.
 - Current status before package creation had one allowed untracked file: `docs/reports/dashboard_visual_review.md`.
-- Current documented validation baseline: ruff passed, mypy passed on 109 source files, collect-only found 82 tests, latest full pytest baseline was 82 passed with 82.69% coverage, `uv pip check` passed, dashboard strict preflight passed, and dashboard JS syntax passed.
+- Current documented validation baseline: ruff passed, mypy passed on 109 source files, collect-only found 83 tests, full pytest passed 83 tests with 82.73% coverage, `uv pip check` passed, dashboard strict preflight passed, and dashboard JS syntax passed.
 - Thesis readiness: 6/9; strict completion: 4/6; package readiness: 1/2.
 - Motion/confound proof and Zenodo DOI remain blocked.
 
@@ -245,7 +245,7 @@ Findings:
 
 Uncertainty:
 
-- Full pytest was not rerun; current full-suite baseline remains the documented 82 passed with 82.69% coverage.
+- Full pytest was rerun in the current polish pass; the current full-suite baseline is 83 passed with 82.73% coverage.
 
 Deliverables created:
 

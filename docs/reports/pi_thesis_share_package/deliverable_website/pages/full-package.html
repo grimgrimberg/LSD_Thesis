@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Full Package In One Website - LSD Thesis PI Review</title>
+  <link rel="icon" href="data:,">
   <link rel="stylesheet" href="../assets/css/site.css">
 </head>
 <body>
@@ -44,7 +45,7 @@
 <li>Aggregate feature support into a score for each family.</li>
 <li>Stress-test the ranking with bootstrap and run-sensitivity artifacts.</li>
 <li>Gate the claims using verdict and thesis-status tables.</li>
-<li>Ask the PI which blocker and claim-promotion threshold must be solved next.</li>
+<li>Present the proposed next track: solve the FD/DVARS/censoring motion-proof blocker before claim promotion or scope expansion.</li>
 </ol>
 <h3>Metadata Trail</h3>
 <div class="table-wrap"><table>
@@ -68,10 +69,10 @@
 <section class="band"><details class="doc-detail" open><summary>PI Review Brief</summary><div class="doc-body"><h2>PI Review Brief - LSD Thesis Workbench</h2>
 <h3>Title And Snapshot</h3>
 <p>Title: Claim-gated macro-dynamic mechanism ranking workbench for LSD fMRI thesis development</p>
-<p>Snapshot date: 2026-06-18</p>
+<p>Snapshot date: 2026-06-21</p>
 <p>Repository: `[local checkout path recorded in source download]`</p>
 <p>Current source commit: `1a51eb54d909cbda6bf3584cd2ecf99f187c355d`</p>
-<p>Validation baseline date in repo docs: 2026-06-17</p>
+<p>Validation baseline date in repo docs: 2026-06-21</p>
 <h3>One-Paragraph Summary</h3>
 <p>I built a claim-gated research workbench for turning an LSD fMRI computational project into a thesis. The project combines a transparent 8-module stochastic graph surrogate model, cached paired LSD/placebo ds003059 empirical summaries, dynamic mechanism ranking across A-E layers, robustness and validation status artifacts, a dashboard, and a structured prior-art reproducibility landscape. The infrastructure and evidence package are now ready for PI review. The current evidence supports model-level macro-dynamic mechanism ranking; it does not prove receptor-level realism, subjective-experience simulation, clinical validity, or biological ground truth.</p>
 <h3>What I Built</h3>
@@ -145,12 +146,12 @@
 </ul>
 <p>Full plot-level details are in `EVIDENCE_AND_CALCULATIONS.md`.</p>
 <h3>Current Validation Baseline</h3>
-<p>From `docs/VALIDATION.md`, current status date 2026-06-17:</p>
+<p>From `docs/VALIDATION.md`, current status date 2026-06-21:</p>
 <ul>
 <li>Ruff passed.</li>
 <li>mypy passed on 109 source files.</li>
-<li>pytest collect-only collected 82 tests.</li>
-<li>Latest documented full pytest baseline: 82 passed, 82.69% coverage.</li>
+<li>pytest collect-only collected 83 tests.</li>
+<li>Current full pytest baseline: 83 passed, 82.73% coverage.</li>
 <li>`uv pip check` passed.</li>
 <li>Dashboard strict preflight passed.</li>
 <li>`node --check src\lsd_thesis\static\dashboard.js` passed.</li>
@@ -300,7 +301,7 @@
 <p>Claim status: proxy-supported for C as current strongest layer; mixed for E; implemented negative baseline for B.</p>
 <p>Caveat: This is a model-level proxy ranking. It is not biological proof and not a receptor-level mechanism.</p>
 <p>Freshness note: exact ranking values in this package are read from `results/dynamic_mechanism_ranking/summary.json`, because an older export CSV copy can contain a stale E score.</p>
-<p>Needed to strengthen claim: Motion-sensitive exclusions, parcellation/null checks, and PI-approved claim-promotion threshold.</p>
+<p>Needed to strengthen claim: Motion-sensitive exclusions first, followed by parcellation/null checks and any claim-promotion threshold agreed after the motion-proof plan is reviewed.</p>
 <p>Validation/test protection: `tests/test_result_artifact_schema_contract.py`, `tests/test_dashboard_payload_contract.py`, `tests/test_figure_payload.py`.</p>
 <h3>Exhibit C: Robustness</h3>
 <p>Image path in package: `assets/screenshots/dashboard-robustness.png`</p>
@@ -452,8 +453,8 @@
 <ul>
 <li>`ruff` passed.</li>
 <li>`mypy src` passed on 109 source files.</li>
-<li>`pytest --collect-only` collected 82 tests.</li>
-<li>Latest documented full pytest baseline is 82 passed with 82.69% coverage.</li>
+<li>`pytest --collect-only` collected 83 tests.</li>
+<li>Current full pytest baseline is 83 passed with 82.73% coverage.</li>
 <li>Dashboard strict preflight passed.</li>
 <li>`node --check src\lsd_thesis\static\dashboard.js` passed.</li>
 </ul>
@@ -618,7 +619,7 @@
 <p>Current status: Incomplete. Current artifacts record image-derived QC and related context, but not the strict fMRIPrep FD/DVARS/censoring proof.</p>
 <p>Evidence/source file: `results/thesis_upgrade/thesis_upgrade_status.json`; `results/confound_controls/fmriprep_motion_proof_plan.json` as referenced by the status artifact.</p>
 <p>Needed to address it: Paired motion-control rows, merged subject/run rows, non-empty association rows, and feature-family coverage for FD, DVARS, and censoring.</p>
-<p>Suggested next action: Ask the PI whether author-provided confounds or original raw inputs are available and acceptable to pursue.</p>
+<p>Suggested next action: Build the motion-proof planning pack first, then use that pack to determine whether author-provided confounds or original raw inputs are worth pursuing.</p>
 <p>Risk if ignored: C and other ranking claims remain vulnerable at the thesis-defense level.</p>
 <h3>Problem 3: Zenodo DOI / Archive Publication Is Incomplete</h3>
 <p>Why it matters: A GitHub release is not the same as a citable reproducibility archive.</p>
@@ -679,13 +680,13 @@
 <li>&quot;The core scientific object is a transparent 8-module macro-dynamic surrogate model tested against cached paired LSD/placebo summary evidence.&quot;</li>
 <li>&quot;The current mechanism ranking is C, E, D, A, B. C is strongest, E is a split lower-energy proxy, and B is a negative DMDc baseline.&quot;</li>
 <li>&quot;The dashboard keeps claims gated: motion/confound proof is still blocked, archive DOI is missing, and receptor/subjective/clinical claims are not promoted.&quot;</li>
-<li>&quot;What I need from you is a decision on the next scientific blocker. My recommendation is motion-proof planning first, because FD/DVARS/censoring is the central thesis-critical gap.&quot;</li>
+<li>&quot;My proposed next milestone is motion-proof planning first, because FD/DVARS/censoring is the central thesis-critical gap.&quot;</li>
 </ol>
 <h3>Twenty-Minute Walkthrough</h3>
 <p>Minute 0-2: Start with framing.</p>
 <p>&quot;This package presents model-level macro-dynamic proxy evidence and current blockers; it does not claim receptor-level, subjective, clinical, or biological-ground-truth validation.&quot;</p>
 <p>Minute 2-5: Show `PI_REVIEW_BRIEF.md`.</p>
-<p>&quot;The infrastructure and evidence package are now ready for PI review. The main question is not whether the thesis is solved, but which blocker must be closed next.&quot;</p>
+<p>&quot;The infrastructure and evidence package are now ready for PI review. The main question is not whether the thesis is solved, but whether the proposed motion-proof-first plan is the right next step.&quot;</p>
 <p>Minute 5-8: Show Overview.</p>
 <p>&quot;This page is the posture check. It shows the project as a claim-gated workbench with strict gates and a current ranking summary.&quot;</p>
 <p>Minute 8-11: Show Mechanism Ranking.</p>
@@ -698,8 +699,8 @@
 <p>&quot;The prior-art inventory is a guardrail. It helps position the thesis without treating prior wrappers as local proof.&quot;</p>
 <p>Minute 17-19: Show Figure Deck.</p>
 <p>&quot;The figure deck is useful for review, but it also foregrounds the blocked motion proof and missing archive DOI.&quot;</p>
-<p>Minute 19-20: Ask for decision.</p>
-<p>&quot;Which blocker should I address first to make this thesis-defensible?&quot;</p>
+<p>Minute 19-20: Present the next milestone.</p>
+<p>&quot;The first blocker I propose addressing is FD/DVARS/censoring motion proof; the question is whether this plan is bounded well enough for thesis development.&quot;</p>
 <h3>Dashboard Demo Order</h3>
 <ol>
 <li>Overview - &quot;This is the project posture and gate summary.&quot;</li>
@@ -733,7 +734,7 @@
 <p>&quot;The contribution is not a final LSD biological proof. It is a reproducible, claim-gated computational workbench that connects transparent surrogate modeling, paired empirical summaries, mechanism ranking, robustness checks, dashboarding, and prior-art mapping. That can become a thesis if we define the evidence threshold and close the main blocker.&quot;</p>
 <h3>If He Asks What I Need From Him</h3>
 <p>Say:</p>
-<p>&quot;I need your decision on the next scientific blocker and the standard for claim promotion. My recommendation is to start with a motion-proof planning pack, because that determines whether the current mechanism-ranking story can be thesis-level.&quot;</p></div></details></section>
+<p>&quot;I propose starting with a motion-proof planning pack, because that determines whether the current mechanism-ranking story can become thesis-level. I would like feedback on the plan's scope and evidence standard.&quot;</p></div></details></section>
 <section class="band"><details class="doc-detail"><summary>Publication Options</summary><div class="doc-body"><h2>Publication And Sharing Options</h2>
 <p>Codex did not upload, publish, email, stage, commit, push, create a release, create a PR, or deploy this package.</p>
 <h3>Option A: Send By Email</h3>
@@ -793,7 +794,7 @@ docs/reports/pi_thesis_share_package/site/index.html
 <p>Hi Professor,</p>
 <p>I prepared a PI-facing review package for my LSD thesis project. The safest framing is that this is a claim-gated computational workbench and evidence dashboard for model-level macro-dynamic mechanism ranking, not a finished thesis or biological proof.</p>
 <p>The package explains what I built, what the current plots show, which calculations and artifacts sit behind the plots, what methods/data-science work was used, what prior-art context supports the framing, and what blockers remain. The current ranking is C, E, D, A, B, with C as the strongest current macro-dynamic proxy layer. The package also keeps the main caveats visible: no receptor-level proof, no subjective-experience simulation, no clinical validation, incomplete FD/DVARS/censoring motion proof, and missing Zenodo DOI archive publication.</p>
-<p>Could we schedule a 30-minute meeting to review it? What I need most is your decision on the next scientific blocker to address so I can turn this from a research workbench into a defensible thesis plan.</p>
+<p>Could we schedule a 30-minute meeting to review it? I propose using the next milestone for an FD/DVARS/censoring motion-proof planning pack before expanding the science scope, so the discussion can focus on whether that plan is thesis-ready and appropriately bounded.</p>
 <p>Best,</p>
 <p>Yuval</p>
 <h3>B. Detailed Email</h3>
@@ -802,13 +803,13 @@ docs/reports/pi_thesis_share_package/site/index.html
 <p>I prepared a structured review package for my LSD thesis project. The package is meant to make the current state easy to evaluate as a thesis direction. It includes a PI brief, plot-by-plot evidence notes, a methods/data-skills summary, scholarly/prior-art context, current blockers, and a hosted/static landing page with offline fallback.</p>
 <p>The safest scientific framing is conservative: this is a claim-gated research workbench and evidence dashboard for model-level macro-dynamic mechanism ranking. It is not a finished thesis, not a receptor-level LSD model, not a subjective-experience simulation, not clinical validation, and not biological ground truth. The current evidence supports transparent surrogate mechanism ranking against paired LSD/placebo macro-dynamic proxy summaries.</p>
 <p>The main implemented pieces are an 8-module stochastic graph surrogate model, cached ds003059 paired LSD/placebo empirical summaries, A-E dynamic mechanism ranking, robustness/status artifacts, a FastAPI/Jinja/Plotly dashboard, a figure deck, and a ds003059 prior-art reproducibility landscape. Current ranking from the tracked summary artifact is C, E, D, A, B. C is the strongest current macro-dynamic proxy layer. E is useful only as a lower transition/control-energy proxy and should not be promoted to receptor-specific proof. B remains a negative DMDc baseline.</p>
-<p>The validation baseline documented in the repo is green for the engineering gates: ruff passed, mypy passed on 109 source files, pytest collect-only found 82 tests, the latest documented full pytest baseline is 82 passed with 82.69% coverage, dependency check passed, dashboard strict preflight passed, and dashboard JavaScript syntax passed.</p>
+<p>The documented engineering baseline is green at the current package snapshot: ruff passed, mypy passed on 109 source files, pytest collect-only found 83 tests, full pytest passed 83 tests with 82.73% coverage, dependency check passed, dashboard strict preflight passed, and dashboard JavaScript syntax passed.</p>
 <p>The package also makes the blockers explicit. The most important scientific blocker is still motion/confound proof: the strict FD/DVARS/censoring gate is incomplete. Zenodo DOI/archive publication is also incomplete. External/PET/SC/neuromaps and run-02/music surfaces must remain claim-gated unless matching artifacts justify promotion.</p>
-<p>Could we schedule 30 minutes to review the package? The decision I need from you is which scientific blocker should become the next thesis milestone: motion-proof planning, external/PET/SC/neuromaps audit, public/static drift audit, or artifact producer/consumer mapping. My recommendation is to start with the motion-proof planning pack because it is the thesis-critical blocker.</p>
+<p>Could we schedule 30 minutes to review the package? My proposed next milestone is motion-proof planning before external/PET/SC/neuromaps audit, public/static drift audit, or artifact producer/consumer mapping, because motion proof is the thesis-critical blocker.</p>
 <p>Best,</p>
 <p>Yuval</p></div></details></section>
 <section class="band"><details class="doc-detail"><summary>Original Send README</summary><div class="doc-body"><h2>PI Thesis Share Package - Sender Guide</h2>
-<p>Snapshot date: 2026-06-18</p>
+<p>Snapshot date: 2026-06-21</p>
 <p>This folder is a PI-facing review package for the LSD thesis workbench. Codex created it locally only. Codex did not publish, upload, email, stage, commit, push, open a PR, create a release, or deploy anything.</p>
 <h3>What To Send First</h3>
 <p>Send these files first:</p>
@@ -923,7 +924,7 @@ docs/reports/pi_thesis_share_package/site/index.html
 <li>Current HEAD: `1a51eb54d909cbda6bf3584cd2ecf99f187c355d`.</li>
 <li>Validation-baseline commit: `69b0397 docs: refresh validation baseline`.</li>
 <li>Current status before package creation had one allowed untracked file: `docs/reports/dashboard_visual_review.md`.</li>
-<li>Current documented validation baseline: ruff passed, mypy passed on 109 source files, collect-only found 82 tests, latest full pytest baseline was 82 passed with 82.69% coverage, `uv pip check` passed, dashboard strict preflight passed, and dashboard JS syntax passed.</li>
+<li>Current documented validation baseline: ruff passed, mypy passed on 109 source files, collect-only found 83 tests, full pytest passed 83 tests with 82.73% coverage, `uv pip check` passed, dashboard strict preflight passed, and dashboard JS syntax passed.</li>
 <li>Thesis readiness: 6/9; strict completion: 4/6; package readiness: 1/2.</li>
 <li>Motion/confound proof and Zenodo DOI remain blocked.</li>
 </ul>
@@ -1141,7 +1142,7 @@ docs/reports/pi_thesis_share_package/site/index.html
 </ul>
 <p>Uncertainty:</p>
 <ul>
-<li>Full pytest was not rerun; current full-suite baseline remains the documented 82 passed with 82.69% coverage.</li>
+<li>Full pytest was rerun in the current polish pass; the current full-suite baseline is 83 passed with 82.73% coverage.</li>
 </ul>
 <p>Deliverables created:</p>
 <ul>

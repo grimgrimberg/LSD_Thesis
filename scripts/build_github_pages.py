@@ -654,6 +654,7 @@ def _write_visual_atlas(site: Path, target: Path) -> Path:
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Figure Atlas | LSD Thesis PI Review</title>
+  <link rel="icon" href="data:,">
   <link rel="stylesheet" href="../assets/css/site.css">
 </head>
 <body>
@@ -674,6 +675,10 @@ def _write_visual_atlas(site: Path, target: Path) -> Path:
       <p>
         This page indexes current copied screenshots, exported figures, and static HTML figure artifacts.
         It does not regenerate data and it does not expose raw/private datasets.
+      </p>
+      <p>
+        Image cards preview directly. HTML/Plotly cards are deliberately shown as launch cards; open the
+        full artifact link to inspect the interactive figure in its own page.
       </p>
     </section>
     <section class="band">
