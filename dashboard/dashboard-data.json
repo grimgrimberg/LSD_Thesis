@@ -87899,7 +87899,7 @@
   },
   "external_cortical_maps": {
     "schema_version": "external_cortical_maps.v1",
-    "generated_at_utc": "2026-06-21T10:06:06.549748+00:00",
+    "generated_at_utc": "2026-06-21T10:41:25.999102+00:00",
     "analysis_status": "implemented_module_level_external_map_alignment",
     "module_contract": [
       "visual",
@@ -88830,7 +88830,7 @@
     ],
     "loop_status": {
       "schema_version": 1,
-      "generated_at_utc": "2026-06-21T10:05:38.963286+00:00",
+      "generated_at_utc": "2026-06-21T10:40:35.621618+00:00",
       "analysis_status": "implemented_loop_status_artifacts",
       "status_rows": [
         {
@@ -88898,7 +88898,7 @@
         },
         "psilocybin_ds006072": {
           "schema_version": 1,
-          "generated_at_utc": "2026-06-21T10:05:05.468987+00:00",
+          "generated_at_utc": "2026-06-21T10:39:49.060027+00:00",
           "dataset_id": "ds006072",
           "source": "Dosenbach/Siegel group Scientific Data 2025; OpenNeuro ds006072 psilocybin precision functional mapping dataset with raw, minimally processed, and fully processed imaging",
           "source_reference": {
@@ -88929,7 +88929,7 @@
           "functional_manifest_processed_cifti_total_size_bytes": 113592893360,
           "external_validation_readiness": {
             "schema_version": "ds006072_external_validation.v1",
-            "generated_at_utc": "2026-06-21T10:04:56.297008+00:00",
+            "generated_at_utc": "2026-06-21T10:39:34.435742+00:00",
             "dataset_id": "ds006072",
             "analysis_status": "local_cifti_payloads_ready_for_comparable_extraction",
             "primary_contrast": "psilocybin_vs_active_control_mtp",
@@ -89001,7 +89001,7 @@
           "summary": {
             "schema_version": 3,
             "analysis_status": "implemented_first_pass",
-            "generated_at_utc": "2026-06-21T10:05:05.429965+00:00",
+            "generated_at_utc": "2026-06-21T10:39:48.795295+00:00",
             "inference_metadata": {
               "metric_ci_alpha": 0.05,
               "metric_bootstrap_iterations": 1024,
@@ -93135,7 +93135,7 @@
           },
           "comparable_empirical_validation": {
             "schema_version": "ds006072_external_validation.v1",
-            "generated_at_utc": "2026-06-21T10:04:56.343132+00:00",
+            "generated_at_utc": "2026-06-21T10:39:34.478775+00:00",
             "dataset_id": "ds006072",
             "primary_contrast": "psilocybin_vs_active_control_mtp",
             "viewer_root": "results/psilocybin_ds006072/parcellations/schaefer_100_yeo_7/empirical_viewer",
@@ -93305,7 +93305,7 @@
             "summary": {
               "schema_version": 3,
               "analysis_status": "implemented_first_pass",
-              "generated_at_utc": "2026-06-21T10:05:05.429965+00:00",
+              "generated_at_utc": "2026-06-21T10:39:48.795295+00:00",
               "inference_metadata": {
                 "metric_ci_alpha": 0.05,
                 "metric_bootstrap_iterations": 1024,
@@ -97454,7 +97454,7 @@
         },
         "structural_connectome": {
           "schema_version": 1,
-          "generated_at_utc": "2026-06-21T10:05:07.326727+00:00",
+          "generated_at_utc": "2026-06-21T10:39:51.295586+00:00",
           "artifact_target": "results/structural_connectome",
           "source_reference": {
             "source_id": "hcp_young_adult",
@@ -101099,7 +101099,7 @@
         },
         "receptor_priors": {
           "schema_version": 1,
-          "generated_at_utc": "2026-06-21T10:05:19.644621+00:00",
+          "generated_at_utc": "2026-06-21T10:40:06.855994+00:00",
           "artifact_target": "results/receptor_priors",
           "source_reference": {
             "source_id": "markello_neuromaps_2022",
@@ -104863,7 +104863,7 @@
         },
         "motion_sensitive_c_gate": {
           "schema_version": 1,
-          "generated_at_utc": "2026-06-21T10:05:20.906305+00:00",
+          "generated_at_utc": "2026-06-21T10:40:08.299448+00:00",
           "analysis_status": "blocked_motion_sensitive_c_claim_requires_authorized_confound_exclusions",
           "artifact_target": "results/confound_controls",
           "evidence": "Schaefer/Yeo C sensitivity exists, but final C claims remain gated because strict subject/run FD/DVARS/censoring confounds are not proof-ready or high-burden exclusions are unstable.",
@@ -104890,7 +104890,7 @@
         },
         "parcellation_sensitivity": {
           "schema_version": 1,
-          "generated_at_utc": "2026-06-21T10:05:21.055378+00:00",
+          "generated_at_utc": "2026-06-21T10:40:08.856996+00:00",
           "analysis_status": "implemented_status_matrix",
           "source_reference": {
             "source_id": "schaefer_2018_local_global",
@@ -105133,7 +105133,7 @@
         },
         "literature_benchmark": {
           "schema_version": 1,
-          "generated_at_utc": "2026-06-21T10:05:38.956726+00:00",
+          "generated_at_utc": "2026-06-21T10:40:35.578560+00:00",
           "analysis_status": "implemented_directional_proxy_benchmark",
           "source_reference": {
             "source_id": "girn_2026_mega_analysis",
@@ -105503,7 +105503,7 @@
   },
   "thesis_upgrade": {
     "schema_version": "thesis_upgrade_status.v1",
-    "generated_at_utc": "2026-06-21T10:06:41.281825+00:00",
+    "generated_at_utc": "2026-06-21T10:42:31.629740+00:00",
     "readiness_summary": {
       "ready_gates": 6,
       "total_gates": 9,
