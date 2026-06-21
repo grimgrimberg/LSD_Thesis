@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>Thesis Presentation | LSD Thesis Dashboard</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="static/dashboard.css?v=dashboard-redesign-20260611b">
+  <script src="assets/plotly.min.js" defer></script>
+  <script src="static/dashboard.js?v=dashboard-redesign-20260611b" defer></script>
+</head>
+<body
+  data-page="thesis"
+  data-dashboard-data-url="dashboard/dashboard-data.json"
+  data-prior-art-data-url="dashboard/prior-art-data.json"
+  data-artifact-prefix="artifacts/"
+  data-deployment-mode="static"
+>
+  <a class="skip-link" href="#main_content">Skip to dashboard content</a>
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Primary dashboard navigation">
+  <a class="brand" href="index.html" aria-label="Overview">
+    <span class="brand-mark" aria-hidden="true"></span>
+    <span>
+      <strong>LSD Thesis</strong>
+      <small>surrogate evidence</small>
+    </span>
+  </a>
+  <nav class="nav-list">
+
+      <a class="nav-link" href="index.html">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 13h7V4H4zM13 20h7V4h-7zM4 20h7v-5H4z"></path></svg>
+        <span>Overview</span>
+      </a>
+
+      <a class="nav-link" href="ranking.html">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 18l5-6 4 3 7-9M4 20h16"></path></svg>
+        <span>Mechanism Ranking</span>
+      </a>
+
+      <a class="nav-link" href="robustness.html">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 4v5c0 5-3 8-7 10-4-2-7-5-7-10V7zM9 12l2 2 4-5"></path></svg>
+        <span>Robustness</span>
+      </a>
+
+      <a class="nav-link" href="prior-art.html">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h11a3 3 0 0 1 3 3v13H7a2 2 0 0 1-2-2zM8 8h8M8 12h8M8 16h5"></path></svg>
+        <span>Prior Art</span>
+      </a>
+
+      <a class="nav-link" href="empirical.html">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19c4 0 4-14 8-14s4 14 8 14M4 12h16"></path></svg>
+        <span>Empirical</span>
+      </a>
+
+      <a class="nav-link" href="simulator.html">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10M4 17h10M18 5v4M18 15v4M14 7a2 2 0 1 0 4 0 2 2 0 0 0-4 0M14 17a2 2 0 1 0 4 0 2 2 0 0 0-4 0"></path></svg>
+        <span>Simulator</span>
+      </a>
+
+      <a class="nav-link is-active" href="thesis.html" aria-current="page">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h14v16H5zM8 8h8M8 12h8M8 16h5"></path></svg>
+        <span>Thesis</span>
+      </a>
+
+      <a class="nav-link" href="figures.html">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v4H4zM4 11h7v8H4zM13 11h7v8h-7z"></path></svg>
+        <span>Figure Deck</span>
+      </a>
+
+  </nav>
+  <div class="claim-note">
+    <strong>Claim guardrail</strong>
+    <p>Every page keeps receptor, subjective-experience, and external-validity claims gated unless the local evidence artifact says otherwise.</p>
+  </div>
+</aside>
+    <div class="workspace">
+      <header class="topbar" aria-label="Dashboard status">
+        <div>
+          <p class="chrome-label">Macro-dynamics evidence console</p>
+          <h1>Thesis Presentation</h1>
+        </div>
+        <div class="topbar-actions">
+          <a class="icon-button" href="pi-review/" title="Open supervisor pitch package" aria-label="Open supervisor pitch package">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19h16"/><path d="M6 17V5h12v12"/><path d="M9 9h6M9 13h4"/></svg>
+          </a>
+          <a class="icon-button" href="artifacts/results/thesis_upgrade/thesis_upgrade_status.json" title="Open strict audit JSON" aria-label="Open strict audit JSON">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v6h5"/><path d="M10 13h6M10 17h6"/></svg>
+          </a>
+          <a class="icon-button" href="artifacts/results/thesis_evidence_loop/claim_evidence_matrix.csv" title="Open claim evidence matrix" aria-label="Open claim evidence matrix">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v16H4z"/><path d="M4 10h16M4 15h16M10 5v16M16 5v16"/></svg>
+          </a>
+        </div>
+      </header>
+      <main id="main_content" class="page-surface" tabindex="-1">
+
+<section class="thesis-story" aria-labelledby="thesis_title">
+  <article class="panel thesis-lede panel--span-3">
+    <p class="chrome-label">Thesis presentation</p>
+    <h2 id="thesis_title">A claim-gated macro-dynamics thesis for LSD-related fMRI evidence.</h2>
+    <p>The presentation condenses the dashboard into the claim, dataset, surrogate model, empirical anchor, mechanism ranking, robustness checks, prior-art landscape, and limitations.</p>
+    <div id="thesis_status_cards" class="metric-strip" aria-live="polite"></div>
+    <div id="thesis_pitch_links" class="button-row"></div>
+  </article>
+
+  <article class="panel panel--span-2">
+    <div class="panel-heading">
+      <h2>Mechanism Thesis</h2>
+      <span class="status-token status-token--teal">macro proxy</span>
+    </div>
+    <div class="chart-frame">
+      <div id="thesis_mechanism_chart" class="chart chart-sm" role="img" aria-label="Thesis mechanism ranking summary">Loading...</div>
+    </div>
+    <div id="thesis_mechanism_chart_explainer"></div>
+  </article>
+
+  <article class="panel">
+    <div class="panel-heading">
+      <h2>Claim Ladder</h2>
+      <span class="status-token status-token--amber">bounded</span>
+    </div>
+    <div id="thesis_claim_ladder" class="stacked-list"></div>
+  </article>
+
+  <article class="panel panel--span-3">
+    <div class="panel-heading">
+      <h2>Supervisor Fit: Why This Is A Strong Pitch</h2>
+      <span class="status-token status-token--teal">evidence-backed</span>
+    </div>
+    <div id="thesis_pitch_cards" class="card-grid card-grid--dense"></div>
+  </article>
+
+  <article class="panel panel--span-3">
+    <div class="panel-heading">
+      <h2>Claim Status Balance</h2>
+      <span class="status-token status-token--amber">fail closed</span>
+    </div>
+    <div class="chart-frame">
+      <div id="thesis_status_balance_chart" class="chart chart-sm" role="img" aria-label="Claim and gate status balance chart">Loading...</div>
+    </div>
+  </article>
+
+  <article class="panel panel--span-3">
+    <div class="panel-heading">
+      <h2>Evidence Sequence</h2>
+      <span class="status-token status-token--moss">review path</span>
+    </div>
+    <div id="thesis_evidence_sequence" class="story-steps"></div>
+  </article>
+
+  <article class="panel panel--span-2">
+    <div class="panel-heading">
+      <h2>Prior-Art Landscape</h2>
+      <span class="status-token status-token--rose">not copied</span>
+    </div>
+    <div id="thesis_prior_art_summary" class="card-grid card-grid--dense"></div>
+  </article>
+
+  <article class="panel">
+    <div class="panel-heading">
+      <h2>Presentation Links</h2>
+      <span class="status-token status-token--teal">static-safe</span>
+    </div>
+    <div id="thesis_artifact_links" class="link-stack"></div>
+  </article>
+</section>
+
+      </main>
+    </div>
+  </div>
+</body>
+</html>

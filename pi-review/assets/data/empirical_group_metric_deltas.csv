@@ -1,0 +1,9 @@
+source_path,derivation_note,metric,lsd_minus_placebo_delta,delta_std,paired_subject_count,runs
+results/stage_2/empirical_viewer/group_overview.json,derived for PI package from existing artifacts; not regenerated scientific output,within_network_stability,0.06609328671299261,0.10813802071707895,15,run-01;run-03
+results/stage_2/empirical_viewer/group_overview.json,derived for PI package from existing artifacts; not regenerated scientific output,cross_network_communication,0.07407619939923198,0.08352960021297152,15,run-01;run-03
+results/stage_2/empirical_viewer/group_overview.json,derived for PI package from existing artifacts; not regenerated scientific output,thalamic_coupling,0.11991820431751381,0.14835689674507946,15,run-01;run-03
+results/stage_2/empirical_viewer/group_overview.json,derived for PI package from existing artifacts; not regenerated scientific output,hierarchical_compression,0.054149688768586765,0.13692444159838932,15,run-01;run-03
+results/stage_2/empirical_viewer/group_overview.json,derived for PI package from existing artifacts; not regenerated scientific output,entropy_diversity,-0.0022526077494528915,0.02304580249333637,15,run-01;run-03
+results/stage_2/empirical_viewer/group_overview.json,derived for PI package from existing artifacts; not regenerated scientific output,switching_rate,0.012345679012345678,0.03233252244983632,15,run-01;run-03
+results/stage_2/empirical_viewer/group_overview.json,derived for PI package from existing artifacts; not regenerated scientific output,metastability_proxy,-0.053960353741377386,0.0792218569817414,15,run-01;run-03
+results/stage_2/empirical_viewer/group_overview.json,derived for PI package from existing artifacts; not regenerated scientific output,effective_barrier_proxy,-0.1491923940892797,0.36637402473227426,15,run-01;run-03

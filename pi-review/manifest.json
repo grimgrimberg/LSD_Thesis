@@ -1,0 +1,394 @@
+{
+  "snapshot_date": "2026-06-18",
+  "package_kind": "PI-facing hosted/static thesis review website with offline fallback",
+  "hosted_url": "https://grimgrimberg.github.io/LSD_Thesis/pi-review/",
+  "hosted_slides_url": "https://grimgrimberg.github.io/LSD_Thesis/pi-review/pages/pitch-slides.html",
+  "hosted_figure_atlas_url": "https://grimgrimberg.github.io/LSD_Thesis/pi-review/pages/figure-atlas.html",
+  "scope": "Packaging-only transformation of existing PI thesis share package; no scientific workflow reruns and no science-claim promotion.",
+  "source_commit": "1a51eb54d909cbda6bf3584cd2ecf99f187c355d",
+  "source_branch": "audit/full-cleanup-and-prior-art",
+  "safe_framing": "Model-level macro-dynamic mechanism-ranking workbench; not receptor-level proof, subjective-experience simulation, clinical validity, or biological ground truth.",
+  "start_file": "OPEN_ME_FIRST.html",
+  "pages": [
+    "OPEN_ME_FIRST.html",
+    "pages/pitch-slides.html",
+    "pages/figure-atlas.html",
+    "pages/dashboard-offline.html",
+    "pages/ae-math-metadata.html",
+    "pages/evidence-and-calculations.html",
+    "pages/full-package.html",
+    "pages/methods-and-skills.html",
+    "pages/scholarly-context.html",
+    "pages/problems-and-next-steps.html",
+    "pages/meeting-agenda.html",
+    "pages/validation-and-safety.html"
+  ],
+  "generated_at_utc": "2026-06-18T08:39:52+00:00",
+  "copied_assets": [
+    {
+      "from": "assets/screenshots/dashboard-overview.png",
+      "to": "deliverable_website/assets/screenshots/dashboard-overview.png",
+      "bytes": 82464
+    },
+    {
+      "from": "assets/screenshots/dashboard-ranking.png",
+      "to": "deliverable_website/assets/screenshots/dashboard-ranking.png",
+      "bytes": 74613
+    },
+    {
+      "from": "assets/screenshots/dashboard-robustness.png",
+      "to": "deliverable_website/assets/screenshots/dashboard-robustness.png",
+      "bytes": 75897
+    },
+    {
+      "from": "assets/screenshots/dashboard-empirical.png",
+      "to": "deliverable_website/assets/screenshots/dashboard-empirical.png",
+      "bytes": 81235
+    },
+    {
+      "from": "assets/screenshots/dashboard-prior-art.png",
+      "to": "deliverable_website/assets/screenshots/dashboard-prior-art.png",
+      "bytes": 107174
+    },
+    {
+      "from": "assets/screenshots/dashboard-figures.png",
+      "to": "deliverable_website/assets/screenshots/dashboard-figures.png",
+      "bytes": 93174
+    },
+    {
+      "from": "assets/screenshots/pi-review-home.png",
+      "to": "deliverable_website/assets/screenshots/pi-review-home.png",
+      "bytes": 782441
+    },
+    {
+      "from": "assets/screenshots/pi-review-slides.png",
+      "to": "deliverable_website/assets/screenshots/pi-review-slides.png",
+      "bytes": 512504
+    },
+    {
+      "from": "assets/screenshots/pi-review-figure-atlas.png",
+      "to": "deliverable_website/assets/screenshots/pi-review-figure-atlas.png",
+      "bytes": 1415802
+    },
+    {
+      "from": "assets/figures/stage1_metric_shift.png",
+      "to": "deliverable_website/assets/figures/stage1_metric_shift.png",
+      "bytes": 51368
+    },
+    {
+      "from": "assets/figures/stage2_fit_robustness.png",
+      "to": "deliverable_website/assets/figures/stage2_fit_robustness.png",
+      "bytes": 147182
+    },
+    {
+      "from": "assets/figures/pass2a_microsite.png",
+      "to": "deliverable_website/assets/figures/pass2a_microsite.png",
+      "bytes": 100298
+    },
+    {
+      "from": "assets/figures/set_setting_seed_live_8020.png",
+      "to": "deliverable_website/assets/figures/set_setting_seed_live_8020.png",
+      "bytes": 89046
+    },
+    {
+      "from": "assets/data/mechanism_ranking_values.csv",
+      "to": "deliverable_website/assets/data/mechanism_ranking_values.csv",
+      "bytes": 1631
+    },
+    {
+      "from": "assets/data/robustness_summary_values.csv",
+      "to": "deliverable_website/assets/data/robustness_summary_values.csv",
+      "bytes": 1479
+    },
+    {
+      "from": "assets/data/robustness_run_sensitivity_values.csv",
+      "to": "deliverable_website/assets/data/robustness_run_sensitivity_values.csv",
+      "bytes": 1498
+    },
+    {
+      "from": "assets/data/dynamic_claim_verdicts.csv",
+      "to": "deliverable_website/assets/data/dynamic_claim_verdicts.csv",
+      "bytes": 2146
+    },
+    {
+      "from": "assets/data/empirical_group_metric_deltas.csv",
+      "to": "deliverable_website/assets/data/empirical_group_metric_deltas.csv",
+      "bytes": 1819
+    },
+    {
+      "from": "assets/data/thesis_gate_summary.csv",
+      "to": "deliverable_website/assets/data/thesis_gate_summary.csv",
+      "bytes": 4862
+    },
+    {
+      "from": "assets/data/figure_deck_status_cards.csv",
+      "to": "deliverable_website/assets/data/figure_deck_status_cards.csv",
+      "bytes": 1420
+    },
+    {
+      "from": "assets/data/literature_benchmark_values.csv",
+      "to": "deliverable_website/assets/data/literature_benchmark_values.csv",
+      "bytes": 3784
+    },
+    {
+      "from": "assets/data/publication_figure_values.csv",
+      "to": "deliverable_website/assets/data/publication_figure_values.csv",
+      "bytes": 4344
+    },
+    {
+      "from": "PI_REVIEW_BRIEF.md",
+      "to": "deliverable_website/assets/downloads/PI_REVIEW_BRIEF.md",
+      "bytes": 8296
+    },
+    {
+      "from": "EVIDENCE_AND_CALCULATIONS.md",
+      "to": "deliverable_website/assets/downloads/EVIDENCE_AND_CALCULATIONS.md",
+      "bytes": 16099
+    },
+    {
+      "from": "METHODS_AND_DATA_SKILLS.md",
+      "to": "deliverable_website/assets/downloads/METHODS_AND_DATA_SKILLS.md",
+      "bytes": 5579
+    },
+    {
+      "from": "SCHOLARLY_CONTEXT.md",
+      "to": "deliverable_website/assets/downloads/SCHOLARLY_CONTEXT.md",
+      "bytes": 6201
+    },
+    {
+      "from": "PROBLEMS_AND_NEXT_STEPS.md",
+      "to": "deliverable_website/assets/downloads/PROBLEMS_AND_NEXT_STEPS.md",
+      "bytes": 6834
+    },
+    {
+      "from": "PI_MEETING_SCRIPT.md",
+      "to": "deliverable_website/assets/downloads/PI_MEETING_SCRIPT.md",
+      "bytes": 5381
+    },
+    {
+      "from": "EMAIL_TO_PI.md",
+      "to": "deliverable_website/assets/downloads/EMAIL_TO_PI.md",
+      "bytes": 3651
+    },
+    {
+      "from": "README_SEND_TO_PI.md",
+      "to": "deliverable_website/assets/downloads/README_SEND_TO_PI.md",
+      "bytes": 4054
+    },
+    {
+      "from": "PUBLICATION_OPTIONS.md",
+      "to": "deliverable_website/assets/downloads/PUBLICATION_OPTIONS.md",
+      "bytes": 1881
+    },
+    {
+      "from": "SUBAGENT_FINDINGS.md",
+      "to": "deliverable_website/assets/downloads/SUBAGENT_FINDINGS.md",
+      "bytes": 8101
+    },
+    {
+      "from": "manifest.json",
+      "to": "deliverable_website/assets/downloads/manifest.json",
+      "bytes": 17935
+    }
+  ],
+  "generated_files": [
+    "deliverable_website/EMAIL_BODY.txt",
+    "deliverable_website/OPEN_ME_FIRST.html",
+    "deliverable_website/README_FOR_PI.txt",
+    "deliverable_website/assets/css/site.css",
+    "deliverable_website/assets/data/dynamic_claim_verdicts.csv",
+    "deliverable_website/assets/data/empirical_group_metric_deltas.csv",
+    "deliverable_website/assets/data/figure_deck_status_cards.csv",
+    "deliverable_website/assets/data/literature_benchmark_values.csv",
+    "deliverable_website/assets/data/mechanism_ranking_values.csv",
+    "deliverable_website/assets/data/publication_figure_values.csv",
+    "deliverable_website/assets/data/robustness_run_sensitivity_values.csv",
+    "deliverable_website/assets/data/robustness_summary_values.csv",
+    "deliverable_website/assets/data/thesis_gate_summary.csv",
+    "deliverable_website/assets/downloads/EMAIL_TO_PI.md",
+    "deliverable_website/assets/downloads/EVIDENCE_AND_CALCULATIONS.md",
+    "deliverable_website/assets/downloads/MECHANISM_RUBBER_DUCK_GUIDE.md",
+    "deliverable_website/assets/downloads/METHODS_AND_DATA_SKILLS.md",
+    "deliverable_website/assets/downloads/PI_MEETING_SCRIPT.md",
+    "deliverable_website/assets/downloads/PI_REVIEW_BRIEF.md",
+    "deliverable_website/assets/downloads/PROBLEMS_AND_NEXT_STEPS.md",
+    "deliverable_website/assets/downloads/PUBLICATION_OPTIONS.md",
+    "deliverable_website/assets/downloads/README_SEND_TO_PI.md",
+    "deliverable_website/assets/downloads/SCHOLARLY_CONTEXT.md",
+    "deliverable_website/assets/downloads/SUBAGENT_FINDINGS.md",
+    "deliverable_website/assets/downloads/manifest.json",
+    "deliverable_website/assets/figures/pass2a_microsite.png",
+    "deliverable_website/assets/figures/set_setting_seed_live_8020.png",
+    "deliverable_website/assets/figures/stage1_metric_shift.png",
+    "deliverable_website/assets/figures/stage2_fit_robustness.png",
+    "deliverable_website/assets/screenshots/dashboard-empirical.png",
+    "deliverable_website/assets/screenshots/dashboard-figures.png",
+    "deliverable_website/assets/screenshots/dashboard-overview.png",
+    "deliverable_website/assets/screenshots/dashboard-prior-art.png",
+    "deliverable_website/assets/screenshots/dashboard-ranking.png",
+    "deliverable_website/assets/screenshots/dashboard-robustness.png",
+    "deliverable_website/manifest.json",
+    "deliverable_website/pages/ae-math-metadata.html",
+    "deliverable_website/pages/dashboard-offline.html",
+    "deliverable_website/pages/evidence-and-calculations.html",
+    "deliverable_website/pages/full-package.html",
+    "deliverable_website/pages/meeting-agenda.html",
+    "deliverable_website/pages/methods-and-skills.html",
+    "deliverable_website/pages/problems-and-next-steps.html",
+    "deliverable_website/pages/scholarly-context.html",
+    "deliverable_website/pages/validation-and-safety.html",
+    "deliverable_website/qa_report.json",
+    "DELIVERABLE_README.md",
+    "SEND_THIS_EMAIL.md",
+    "MECHANISM_RUBBER_DUCK_GUIDE.md",
+    "dist/LSD_THESIS_PI_REVIEW_WEBSITE.zip"
+  ],
+  "zip": {
+    "path": "dist/LSD_THESIS_PI_REVIEW_WEBSITE.zip",
+    "status": "created",
+    "entry_count": 46,
+    "bytes": "see filesystem; omitted from embedded manifest to avoid recursive self-size drift",
+    "note": "ZIP places OPEN_ME_FIRST.html at archive root and includes the dataset-free dashboard plus full-package pages."
+  },
+  "subagent_and_workstream_findings": [
+    {
+      "name": "PI reader/editorial subagent",
+      "status": "completed_read_only",
+      "summary": "Recommended first-screen visibility for hosted/static review status, safe framing, C/E/D/A/B ranking, blockers, and PI decision ask; flagged wording that could imply external, receptor-level, or publication-ready status."
+    },
+    {
+      "name": "Evidence/package QA subagent",
+      "status": "completed_read_only",
+      "summary": "Confirmed required screenshots, figures, CSVs, root docs, exact key values, offline-link checks, and no-touch risks."
+    },
+    {
+      "name": "Packaging implementation",
+      "status": "completed",
+      "summary": "Generated relative-link-only website, copied assets, wrote PI readmes/email, ran local HTML QA, and created ZIP."
+    }
+  ],
+  "offline_qa": {
+    "generated_at_utc": "2026-06-18T08:39:52+00:00",
+    "html_files_checked": [
+      "OPEN_ME_FIRST.html",
+      "pages/ae-math-metadata.html",
+      "pages/dashboard-offline.html",
+      "pages/evidence-and-calculations.html",
+      "pages/full-package.html",
+      "pages/meeting-agenda.html",
+      "pages/methods-and-skills.html",
+      "pages/problems-and-next-steps.html",
+      "pages/scholarly-context.html",
+      "pages/validation-and-safety.html"
+    ],
+    "local_reference_check": "passed",
+    "missing_refs": [],
+    "external_http_https_check": "passed",
+    "external_refs": [],
+    "absolute_windows_path_check": "passed",
+    "absolute_path_hits": [],
+    "overall": "passed"
+  },
+  "validation_results": [
+    {
+      "command": "offline stdlib QA after full-website update",
+      "result": "passed",
+      "details": "Checked local href/src targets, external http/https absence, and no absolute Windows paths across all generated HTML."
+    },
+    {
+      "command": "ZIP integrity/content check after full-website update",
+      "result": "passed",
+      "details": "Archive has 46 entries; dashboard/full-package guide files are present."
+    },
+    {
+      "command": "offline stdlib QA",
+      "result": "passed",
+      "details": "Checked local href/src targets, HTML external http/https absence, and no absolute Windows paths in HTML."
+    },
+    {
+      "command": "ZIP integrity/content check",
+      "result": "passed",
+      "details": "Archive opens successfully and includes OPEN_ME_FIRST.html, all six pages, CSS, screenshots, figures, CSVs, downloads, manifest, and QA report."
+    },
+    {
+      "command": "git status --short --untracked-files=all",
+      "result": "passed",
+      "details": "Shows pre-existing docs/reports/dashboard_visual_review.md plus docs/reports/pi_thesis_share_package/ files only. The ZIP exists under dist/ but is ignored by git status rules."
+    },
+    {
+      "command": "git diff --check",
+      "result": "passed",
+      "details": "No whitespace errors reported."
+    },
+    {
+      "command": "uv run --frozen pytest --collect-only -q -o addopts=",
+      "result": "passed",
+      "details": "82 tests collected in 25.56s."
+    },
+    {
+      "command": "uv run --frozen ruff check .",
+      "result": "passed",
+      "details": "All checks passed."
+    },
+    {
+      "command": "uv run --frozen mypy src",
+      "result": "passed",
+      "details": "Success: no issues found in 109 source files."
+    },
+    {
+      "command": "uv pip check",
+      "result": "passed",
+      "details": "76 packages checked; all installed packages are compatible."
+    },
+    {
+      "command": "uv run --frozen python scripts\\preview_dashboard.py --check-only --strict",
+      "result": "passed",
+      "details": "Required app/config files present, optional artifacts present, CV5 internal validation complete 5/5, thesis gate contract passed."
+    },
+    {
+      "command": "node --check src\\lsd_thesis\\static\\dashboard.js",
+      "result": "passed",
+      "details": "JavaScript syntax check exited with code 0."
+    },
+    {
+      "command": "python -m json.tool docs\\reports\\pi_thesis_share_package\\deliverable_website\\manifest.json",
+      "result": "passed",
+      "details": "Manifest parsed successfully before final ZIP refresh."
+    },
+    {
+      "command": "uv run --frozen pytest",
+      "result": "not_run",
+      "details": "Full pytest was not run for this packaging-only pass; latest documented full baseline remains 82 passed with 82.69% coverage."
+    }
+  ],
+  "no_touch_confirmations": [
+    "Only docs/reports/pi_thesis_share_package/ was written by this pass.",
+    "No source code, tests, scripts outside this package, templates, dashboard routes, dashboard CSS/JS, schemas, tracked result artifacts, raw data, caches, dependencies, docs/reference, staging, commits, pushes, uploads, email, Pages builds, external downloads, or scientific workflows were changed or run."
+  ],
+  "warnings": [
+    "This is PI-review material, not a completed thesis.",
+    "FD/DVARS/censoring motion proof remains incomplete.",
+    "Zenodo DOI/archive publication remains incomplete.",
+    "Run-02/music remains audit-only unless explicitly approved.",
+    "Receptor-level, subjective, clinical, and biological-ground-truth claims remain unsupported by this package."
+  ],
+  "rubber_duck_update": {
+    "status": "added",
+    "files": [
+      "deliverable_website/pages/ae-math-metadata.html",
+      "MECHANISM_RUBBER_DUCK_GUIDE.md",
+      "deliverable_website/assets/downloads/MECHANISM_RUBBER_DUCK_GUIDE.md"
+    ],
+    "purpose": "Plain-English A-E mechanism, math, pipeline, and metadata explanation for PI review."
+  },
+  "full_website_update": {
+    "status": "added",
+    "files": [
+      "deliverable_website/pages/dashboard-offline.html",
+      "deliverable_website/pages/full-package.html",
+      "deliverable_website/pages/ae-math-metadata.html",
+      "MECHANISM_RUBBER_DUCK_GUIDE.md"
+    ],
+    "purpose": "Make the website itself show the dashboard story, A-E mechanism/math explanation, core documents, figures, data, metadata, and validation without requiring dataset or code setup."
+  }
+}

@@ -1,39 +1,39 @@
 {
   "schema_version": "reproducible_archive_manifest.v1",
-  "generated_at_utc": "2026-06-07T09:26:48.798318+00:00",
+  "generated_at_utc": "2026-06-21T07:35:02.719663+00:00",
   "python_version": "3.13.13",
   "platform": "Windows-10-10.0.19045-SP0",
   "artifact_count": 23,
   "artifacts": [
     {
       "path": "CITATION.cff",
-      "bytes": 614,
-      "sha256": "6bd3aa6bad6b4eabc6a822162ba440e2f14078cd2af29968105bae0e68441cf6"
+      "bytes": 627,
+      "sha256": "8bebeb547ac1a7c808b19b0354544d36ad6aaa01f349ae2cd7f34b27a31c1e96"
     },
     {
       "path": ".zenodo.json",
-      "bytes": 1506,
-      "sha256": "4efcbe8a3a1b63c36fc5c27b399de74bbacbfd0b8ddb223dfe2fe21dc04a9288"
+      "bytes": 1526,
+      "sha256": "b361218ee197539888296ecc22e3089ba1b4c57b78b8c4dab00405449ae0797e"
     },
     {
       "path": "README.md",
-      "bytes": 6237,
-      "sha256": "2ca140be6a984bfe84aa2515589e4437cf4af63cc951f98e5ae176ea53cc2d1b"
+      "bytes": 6299,
+      "sha256": "380ba9356b3d4619a9b18d3b187351235adbb36967d45d28cc2d37f2d7cf5046"
     },
     {
       "path": "docs/GITHUB_PAGES.md",
-      "bytes": 2826,
-      "sha256": "4a8712d07a1fa33d668b9aa4a691e6b5edfbc72a8b872610ad163f77b4c47cf7"
+      "bytes": 3313,
+      "sha256": "d1348c4452b65bfa9a9d2359a5c007e1e676285e4c33aeeee96ea8d89b0ebc6a"
     },
     {
       "path": "docs/THESIS_READINESS_GATES.md",
-      "bytes": 12107,
-      "sha256": "9495c3d2de3650f56640a8f0e84e833887b141624dd392fa5b8038cb01a906e3"
+      "bytes": 12002,
+      "sha256": "a58af2d98cfec58ff98cf0822b913df092e7fff4fedac5a290d46ab2587bf81e"
     },
     {
       "path": "docs/VALIDATION.md",
-      "bytes": 14127,
-      "sha256": "4062cb10a45c31f31e495132cf268767244f623c19ae967897f7d5bd4f4599de"
+      "bytes": 15800,
+      "sha256": "d141e45284c467b00df423c950fbac19a0061e6d5ac5b153558c9d8a4b43b421"
     },
     {
       "path": "docs/METHODS_RESEARCH.md",
@@ -87,23 +87,23 @@
     },
     {
       "path": "results/thesis_evidence_loop/thesis_evidence_loop_status.json",
-      "bytes": 319308,
-      "sha256": "8b58fcbe2052873cf18d53258ba4213c19cb807b1121177a05d3f8c7d99cfbc7"
+      "bytes": 765309,
+      "sha256": "7890c3bffc813a8e8b009917875d577ab221cf2c3099b4d91c3a2620659673c7"
     },
     {
       "path": "results/thesis_evidence_loop/claim_evidence_matrix.md",
-      "bytes": 5062,
-      "sha256": "2593047727c3104c07c668bf37caeb4c827191502d9e7510b304c5dfc92d2e1a"
+      "bytes": 6780,
+      "sha256": "998dad2ac5394d38426373d4e44ec827cfc80f1449c57c4713545a464831efa3"
     },
     {
       "path": "results/thesis_upgrade/thesis_upgrade_status.json",
-      "bytes": 73065,
-      "sha256": "581c8f4a70ac00d272b25065f25735e3bdd4d1db5d88f462f2780bec72b317ae"
+      "bytes": 72257,
+      "sha256": "3e0b9b4196a307771853da53ef8c52171713bb5204df84a44c975c844e120f34"
     },
     {
       "path": "results/thesis_upgrade/thesis_upgrade_status.md",
-      "bytes": 6220,
-      "sha256": "8c1a1310a8f8997da593315f9aadcdac72f9f38033ee107507c021bed1fcaea2"
+      "bytes": 6069,
+      "sha256": "a68140515dfb82c5c45c2c1fded6a668ba6f3c83812273438c9df808e8d1c5e1"
     },
     {
       "path": "results/external_ingestion/external_ingestion_status.json",
@@ -112,13 +112,13 @@
     },
     {
       "path": "output/doc/thesis_report_revised.md",
-      "bytes": 53454,
-      "sha256": "3efd3052166a4aaefb374a80c3e8b5069ec195b0c82d5b831bce219dc40234f5"
+      "bytes": 54979,
+      "sha256": "6afe4d240546e5be9531fbfb9337a8ea989b9897bc5220b9721471479bcffd95"
     },
     {
       "path": "output/doc/thesis_microsite.html",
-      "bytes": 81110,
-      "sha256": "07c6c21e8ee15d7995149c16018a7e514fa822ea71a79b4ebc02d11407e01be4"
+      "bytes": 82916,
+      "sha256": "f1dd6d0b1e63399ba920327265c12aea94093929ebebb8776eec22acecad2d58"
     }
   ],
   "release_url": "https://github.com/grimgrimberg/LSD_Thesis/releases/tag/thesis-evidence-2026-06-02",

@@ -4,6 +4,11 @@ D,schaefer_100_yeo_7,2,0.32176838257152984,implemented_first_pass
 E,schaefer_100_yeo_7,3,0.17599514555700851,implemented_proxy_control_energy
 A,schaefer_100_yeo_7,4,0.14070315698857125,implemented_first_pass
 B,schaefer_100_yeo_7,5,-1.5587841629062325,implemented_negative_control_baseline
+C,schaefer_100_yeo_7_striatal,1,0.47213485004447986,implemented_first_pass
+D,schaefer_100_yeo_7_striatal,2,0.42763493354223536,implemented_first_pass
+A,schaefer_100_yeo_7_striatal,3,0.1883308443884962,implemented_first_pass
+E,schaefer_100_yeo_7_striatal,4,0.1769569077988587,implemented_proxy_control_energy
+B,schaefer_100_yeo_7_striatal,5,-1.5955788116726106,implemented_negative_control_baseline
 C,schaefer_200_yeo_7,1,0.3812357350841233,implemented_first_pass
 D,schaefer_200_yeo_7,2,0.27924167039914227,implemented_first_pass
 A,schaefer_200_yeo_7,3,0.16163290115024492,implemented_first_pass

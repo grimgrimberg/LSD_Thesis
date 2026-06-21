@@ -1,0 +1,24 @@
+{
+  "generated_at_utc": "2026-06-18T08:39:52+00:00",
+  "html_files_checked": [
+    "OPEN_ME_FIRST.html",
+    "pages/pitch-slides.html",
+    "pages/figure-atlas.html",
+    "pages/ae-math-metadata.html",
+    "pages/dashboard-offline.html",
+    "pages/evidence-and-calculations.html",
+    "pages/full-package.html",
+    "pages/meeting-agenda.html",
+    "pages/methods-and-skills.html",
+    "pages/problems-and-next-steps.html",
+    "pages/scholarly-context.html",
+    "pages/validation-and-safety.html"
+  ],
+  "local_reference_check": "passed",
+  "missing_refs": [],
+  "external_http_https_check": "passed",
+  "external_refs": [],
+  "absolute_windows_path_check": "passed",
+  "absolute_path_hits": [],
+  "overall": "passed"
+}

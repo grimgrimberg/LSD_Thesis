@@ -6,9 +6,9 @@
   <meta name="color-scheme" content="dark">
   <title>Robustness | LSD Thesis Dashboard</title>
   <link rel="icon" href="data:,">
-  <link rel="stylesheet" href="static/dashboard.css">
+  <link rel="stylesheet" href="static/dashboard.css?v=dashboard-redesign-20260611b">
   <script src="assets/plotly.min.js" defer></script>
-  <script src="static/dashboard.js?v=plot-audit-20260607" defer></script>
+  <script src="static/dashboard.js?v=dashboard-redesign-20260611b" defer></script>
 </head>
 <body
   data-page="robustness"
@@ -28,37 +28,47 @@
     </span>
   </a>
   <nav class="nav-list">
-    
-      <a class="nav-link" href="index.html" >
+
+      <a class="nav-link" href="index.html">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 13h7V4H4zM13 20h7V4h-7zM4 20h7v-5H4z"></path></svg>
         <span>Overview</span>
       </a>
-    
-      <a class="nav-link" href="ranking.html" >
+
+      <a class="nav-link" href="ranking.html">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 18l5-6 4 3 7-9M4 20h16"></path></svg>
         <span>Mechanism Ranking</span>
       </a>
-    
+
       <a class="nav-link is-active" href="robustness.html" aria-current="page">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 4v5c0 5-3 8-7 10-4-2-7-5-7-10V7zM9 12l2 2 4-5"></path></svg>
         <span>Robustness</span>
       </a>
-    
-      <a class="nav-link" href="prior-art.html" >
+
+      <a class="nav-link" href="prior-art.html">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h11a3 3 0 0 1 3 3v13H7a2 2 0 0 1-2-2zM8 8h8M8 12h8M8 16h5"></path></svg>
         <span>Prior Art</span>
       </a>
-    
-      <a class="nav-link" href="empirical.html" >
+
+      <a class="nav-link" href="empirical.html">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19c4 0 4-14 8-14s4 14 8 14M4 12h16"></path></svg>
         <span>Empirical</span>
       </a>
-    
-      <a class="nav-link" href="simulator.html" >
+
+      <a class="nav-link" href="simulator.html">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10M4 17h10M18 5v4M18 15v4M14 7a2 2 0 1 0 4 0 2 2 0 0 0-4 0M14 17a2 2 0 1 0 4 0 2 2 0 0 0-4 0"></path></svg>
         <span>Simulator</span>
       </a>
-    
+
+      <a class="nav-link" href="thesis.html">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h14v16H5zM8 8h8M8 12h8M8 16h5"></path></svg>
+        <span>Thesis</span>
+      </a>
+
+      <a class="nav-link" href="figures.html">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v4H4zM4 11h7v8H4zM13 11h7v8h-7z"></path></svg>
+        <span>Figure Deck</span>
+      </a>
+
   </nav>
   <div class="claim-note">
     <strong>Claim guardrail</strong>
@@ -72,6 +82,9 @@
           <h1>Robustness</h1>
         </div>
         <div class="topbar-actions">
+          <a class="icon-button" href="pi-review/" title="Open supervisor pitch package" aria-label="Open supervisor pitch package">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19h16"/><path d="M6 17V5h12v12"/><path d="M9 9h6M9 13h4"/></svg>
+          </a>
           <a class="icon-button" href="artifacts/results/thesis_upgrade/thesis_upgrade_status.json" title="Open strict audit JSON" aria-label="Open strict audit JSON">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v6h5"/><path d="M10 13h6M10 17h6"/></svg>
           </a>
@@ -81,7 +94,7 @@
         </div>
       </header>
       <main id="main_content" class="page-surface" tabindex="-1">
-        
+
 <section class="content-grid content-grid--wide">
   <article class="panel">
     <div class="panel-heading">
@@ -95,7 +108,47 @@
       <h2>Seed and Fold Stability</h2>
       <span class="status-token status-token--moss">descriptive</span>
     </div>
-    <div id="robustness_chart" class="chart" role="img" aria-label="Robustness chart"></div>
+    <div class="chart-frame">
+      <div id="robustness_chart" class="chart" role="img" aria-label="Robustness chart">Loading...</div>
+    </div>
+    <div id="robustness_chart_explainer"></div>
+  </article>
+  <article class="panel panel--span-3">
+    <div class="panel-heading">
+      <h2>Run Sensitivity</h2>
+      <span class="status-token status-token--amber">run-01 / run-03</span>
+    </div>
+    <div class="chart-frame">
+      <div id="run_sensitivity_chart" class="chart" role="img" aria-label="Run sensitivity grouped bar chart">Loading...</div>
+    </div>
+    <div id="run_sensitivity_chart_explainer"></div>
+  </article>
+  <article class="panel panel--span-2">
+    <div class="panel-heading">
+      <h2>E Horizon Sensitivity</h2>
+      <span class="status-token status-token--amber">control proxy</span>
+    </div>
+    <div class="chart-frame">
+      <div id="e_horizon_chart" class="chart chart-sm" role="img" aria-label="E horizon sensitivity chart">Loading...</div>
+    </div>
+    <div id="e_horizon_chart_explainer"></div>
+  </article>
+  <article class="panel">
+    <div class="panel-heading">
+      <h2>D Window Sensitivity</h2>
+      <span class="status-token status-token--teal">dynamic FC</span>
+    </div>
+    <div class="chart-frame">
+      <div id="d_window_chart" class="chart chart-sm" role="img" aria-label="D window sensitivity chart">Loading...</div>
+    </div>
+    <div id="d_window_chart_explainer"></div>
+  </article>
+  <article class="panel panel--span-3">
+    <div class="panel-heading">
+      <h2>Robustness Exports</h2>
+      <span class="status-token status-token--teal">CSV / HTML</span>
+    </div>
+    <div id="robustness_export_links" class="link-stack link-stack--grid"></div>
   </article>
   <article class="panel panel--span-3">
     <div class="panel-heading">

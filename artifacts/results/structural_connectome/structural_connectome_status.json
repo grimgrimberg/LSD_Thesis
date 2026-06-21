@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at_utc": "2026-06-07T09:24:14.915736+00:00",
+  "generated_at_utc": "2026-06-21T07:32:46.801198+00:00",
   "artifact_target": "results/structural_connectome",
   "source_reference": {
     "source_id": "hcp_young_adult",
@@ -3446,5 +3446,199 @@
     ],
     "support_score": 0.31423229826666826,
     "claim_guardrail": "E is a receptor/hierarchy-informed proxy-control test. It is not full receptor-informed network control theory until a structural connectome and PET-derived receptor map are added."
-  }
+  },
+  "graph_rewire_null_status": "implemented_hcp_structural_graph_rewire_nulls",
+  "graph_rewire_null_path": "results/structural_connectome/structural_graph_rewire_nulls.csv",
+  "graph_rewire_null_rows": [
+    {
+      "graph_control": "hcp_structural_graph",
+      "rewire_index": null,
+      "support_score": 0.3026996241710782,
+      "graph_source": "hcp_structural_graph; HCP/normative structural graph sensitivity from results/structural_connectome/hcp_macro_modules.csv",
+      "receptor_vs_random_energy_reduction_pct": -3.5743230331016322,
+      "receptor_vs_uniform_energy_reduction_pct": -19.949841685068346,
+      "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 3.953129650458284,
+      "state_target_alignment_receptor": 0.13300315069221882
+    },
+    {
+      "graph_control": "uniform_weight_graph",
+      "rewire_index": null,
+      "support_score": 0.3155233041221932,
+      "graph_source": "uniform_weight_graph; HCP/normative structural graph sensitivity from results/structural_connectome/hcp_macro_modules.csv",
+      "receptor_vs_random_energy_reduction_pct": -3.8037579518995353,
+      "receptor_vs_uniform_energy_reduction_pct": -22.248470095783038,
+      "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 3.8943761126498955,
+      "state_target_alignment_receptor": 0.13300315069221882
+    },
+    {
+      "graph_control": "degree_expected_graph",
+      "rewire_index": null,
+      "support_score": 0.3237675525627332,
+      "graph_source": "degree_expected_graph; HCP/normative structural graph sensitivity from results/structural_connectome/hcp_macro_modules.csv",
+      "receptor_vs_random_energy_reduction_pct": -2.7792908902520943,
+      "receptor_vs_uniform_energy_reduction_pct": -19.086988843168555,
+      "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 4.030372220370331,
+      "state_target_alignment_receptor": 0.13300315069221882
+    },
+    {
+      "graph_control": "edge_weight_rewire_null",
+      "rewire_index": 0,
+      "support_score": 0.3446370666240429,
+      "graph_source": "rewired HCP/normative structural edge-weight null; preserves the edge-weight distribution but not the original graph topology",
+      "receptor_vs_random_energy_reduction_pct": -0.010843741420000797,
+      "receptor_vs_uniform_energy_reduction_pct": -15.97033355473897,
+      "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 3.479134710532137,
+      "state_target_alignment_receptor": 0.13300315069221882
+    },
+    {
+      "graph_control": "edge_weight_rewire_null",
+      "rewire_index": 1,
+      "support_score": 0.3612504423622245,
+      "graph_source": "rewired HCP/normative structural edge-weight null; preserves the edge-weight distribution but not the original graph topology",
+      "receptor_vs_random_energy_reduction_pct": -1.5261371281927159,
+      "receptor_vs_uniform_energy_reduction_pct": -21.99767504957623,
+      "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 3.747364650761937,
+      "state_target_alignment_receptor": 0.13300315069221882
+    },
+    {
+      "graph_control": "edge_weight_rewire_null",
+      "rewire_index": 2,
+      "support_score": 0.3814008294003157,
+      "graph_source": "rewired HCP/normative structural edge-weight null; preserves the edge-weight distribution but not the original graph topology",
+      "receptor_vs_random_energy_reduction_pct": 1.8430331716917412,
+      "receptor_vs_uniform_energy_reduction_pct": -15.040983558937882,
+      "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 3.1032159047691192,
+      "state_target_alignment_receptor": 0.13300315069221882
+    },
+    {
+      "graph_control": "edge_weight_rewire_null",
+      "rewire_index": 3,
+      "support_score": 0.25846981954099274,
+      "graph_source": "rewired HCP/normative structural edge-weight null; preserves the edge-weight distribution but not the original graph topology",
+      "receptor_vs_random_energy_reduction_pct": -5.663394551471453,
+      "receptor_vs_uniform_energy_reduction_pct": -22.203868893873416,
+      "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 3.78722362725014,
+      "state_target_alignment_receptor": 0.13300315069221882
+    },
+    {
+      "graph_control": "edge_weight_rewire_null",
+      "rewire_index": 4,
+      "support_score": 0.2358889656350489,
+      "graph_source": "rewired HCP/normative structural edge-weight null; preserves the edge-weight distribution but not the original graph topology",
+      "receptor_vs_random_energy_reduction_pct": -10.669471269715142,
+      "receptor_vs_uniform_energy_reduction_pct": -27.908293915951887,
+      "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 4.17825737241584,
+      "state_target_alignment_receptor": 0.13300315069221882
+    },
+    {
+      "graph_control": "edge_weight_rewire_null",
+      "rewire_index": 5,
+      "support_score": 0.337649179488078,
+      "graph_source": "rewired HCP/normative structural edge-weight null; preserves the edge-weight distribution but not the original graph topology",
+      "receptor_vs_random_energy_reduction_pct": -1.6048861049423166,
+      "receptor_vs_uniform_energy_reduction_pct": -19.164472516596653,
+      "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 3.482647487614309,
+      "state_target_alignment_receptor": 0.13300315069221882
+    },
+    {
+      "graph_control": "edge_weight_rewire_null",
+      "rewire_index": 6,
+      "support_score": 0.31735052185904045,
+      "graph_source": "rewired HCP/normative structural edge-weight null; preserves the edge-weight distribution but not the original graph topology",
+      "receptor_vs_random_energy_reduction_pct": -4.43080732865977,
+      "receptor_vs_uniform_energy_reduction_pct": -23.787172103495905,
+      "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 3.8866576760102265,
+      "state_target_alignment_receptor": 0.13300315069221882
+    },
+    {
+      "graph_control": "edge_weight_rewire_null",
+      "rewire_index": 7,
+      "support_score": 0.2573443492372523,
+      "graph_source": "rewired HCP/normative structural edge-weight null; preserves the edge-weight distribution but not the original graph topology",
+      "receptor_vs_random_energy_reduction_pct": -8.839973614411338,
+      "receptor_vs_uniform_energy_reduction_pct": -27.451959276478515,
+      "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 4.042117299723257,
+      "state_target_alignment_receptor": 0.13300315069221882
+    },
+    {
+      "graph_control": "edge_weight_rewire_null",
+      "rewire_index": 8,
+      "support_score": 0.2441884756534795,
+      "graph_source": "rewired HCP/normative structural edge-weight null; preserves the edge-weight distribution but not the original graph topology",
+      "receptor_vs_random_energy_reduction_pct": -9.577912986291985,
+      "receptor_vs_uniform_energy_reduction_pct": -28.542285813142776,
+      "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 3.976878444912015,
+      "state_target_alignment_receptor": 0.13300315069221882
+    },
+    {
+      "graph_control": "edge_weight_rewire_null",
+      "rewire_index": 9,
+      "support_score": 0.2285001493030366,
+      "graph_source": "rewired HCP/normative structural edge-weight null; preserves the edge-weight distribution but not the original graph topology",
+      "receptor_vs_random_energy_reduction_pct": -11.294793063968978,
+      "receptor_vs_uniform_energy_reduction_pct": -30.79986655100395,
+      "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 3.837591619786666,
+      "state_target_alignment_receptor": 0.13300315069221882
+    },
+    {
+      "graph_control": "edge_weight_rewire_null",
+      "rewire_index": 10,
+      "support_score": 0.32964999111743853,
+      "graph_source": "rewired HCP/normative structural edge-weight null; preserves the edge-weight distribution but not the original graph topology",
+      "receptor_vs_random_energy_reduction_pct": -1.2779808559592698,
+      "receptor_vs_uniform_energy_reduction_pct": -19.893744721083333,
+      "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 3.3443878931016497,
+      "state_target_alignment_receptor": 0.13300315069221882
+    },
+    {
+      "graph_control": "edge_weight_rewire_null",
+      "rewire_index": 11,
+      "support_score": 0.3288447852497367,
+      "graph_source": "rewired HCP/normative structural edge-weight null; preserves the edge-weight distribution but not the original graph topology",
+      "receptor_vs_random_energy_reduction_pct": -4.9246448334058925,
+      "receptor_vs_uniform_energy_reduction_pct": -24.441761157694522,
+      "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 4.420475094133767,
+      "state_target_alignment_receptor": 0.13300315069221882
+    },
+    {
+      "graph_control": "edge_weight_rewire_null",
+      "rewire_index": 12,
+      "support_score": 0.2756231160490986,
+      "graph_source": "rewired HCP/normative structural edge-weight null; preserves the edge-weight distribution but not the original graph topology",
+      "receptor_vs_random_energy_reduction_pct": -5.673717407571118,
+      "receptor_vs_uniform_energy_reduction_pct": -22.611530752958917,
+      "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 3.9716043515295163,
+      "state_target_alignment_receptor": 0.13300315069221882
+    },
+    {
+      "graph_control": "edge_weight_rewire_null",
+      "rewire_index": 13,
+      "support_score": 0.26144315553018493,
+      "graph_source": "rewired HCP/normative structural edge-weight null; preserves the edge-weight distribution but not the original graph topology",
+      "receptor_vs_random_energy_reduction_pct": -6.7106922839852015,
+      "receptor_vs_uniform_energy_reduction_pct": -27.027654128057534,
+      "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 3.585360979656594,
+      "state_target_alignment_receptor": 0.13300315069221882
+    },
+    {
+      "graph_control": "edge_weight_rewire_null",
+      "rewire_index": 14,
+      "support_score": 0.29664403914660303,
+      "graph_source": "rewired HCP/normative structural edge-weight null; preserves the edge-weight distribution but not the original graph topology",
+      "receptor_vs_random_energy_reduction_pct": -5.219415926269282,
+      "receptor_vs_uniform_energy_reduction_pct": -23.098800703076165,
+      "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 4.03794082218957,
+      "state_target_alignment_receptor": 0.13300315069221882
+    },
+    {
+      "graph_control": "edge_weight_rewire_null",
+      "rewire_index": 15,
+      "support_score": 0.3119128500974433,
+      "graph_source": "rewired HCP/normative structural edge-weight null; preserves the edge-weight distribution but not the original graph topology",
+      "receptor_vs_random_energy_reduction_pct": -5.078833311844973,
+      "receptor_vs_uniform_energy_reduction_pct": -21.366511649819163,
+      "lsd_vs_placebo_receptor_transition_energy_reduction_pct": 4.511396845944014,
+      "state_target_alignment_receptor": 0.13300315069221882
+    }
+  ]
 }
