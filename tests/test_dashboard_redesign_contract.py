@@ -180,6 +180,26 @@ def test_pi_review_package_presents_motion_proof_first_plan() -> None:
         assert prompt not in public_package
 
 
+def test_pi_review_start_page_is_executive_summary_not_full_appendix() -> None:
+    start = _read("docs/reports/pi_thesis_share_package/deliverable_website/OPEN_ME_FIRST.html")
+
+    assert "Executive Summary" in start
+    assert "One-page supervisor brief" in start
+    assert "Full package appendix" in start
+    assert "Motion-Proof First Plan" in start
+    assert "FD/DVARS/censoring motion-proof pack" in start
+    assert "Open Full Appendix" in start
+
+    cluttered_first_read_markers = [
+        "Dashboard tour",
+        "Six local screenshots",
+        "Recommended order",
+        "rubber-duck explanation",
+    ]
+    for marker in cluttered_first_read_markers:
+        assert marker not in start
+
+
 def test_static_figure_atlas_surfaces_curated_review_route() -> None:
     builder = _read("scripts/build_github_pages.py")
 

@@ -6,13 +6,13 @@ Subject: Claim-gated LSD fMRI thesis workbench for PI review
 
 Hi Professor,
 
-I prepared a PI-facing submission brief for my LSD thesis project:
-
-https://grimgrimberg.github.io/LSD_Thesis/submission.html
-
-The safest framing is that this is a claim-gated computational workbench and evidence dashboard for model-level macro-dynamic mechanism ranking, not a finished thesis or biological proof. The supporting pitch package is here:
+I prepared a one-page executive summary for my LSD thesis project:
 
 https://grimgrimberg.github.io/LSD_Thesis/pi-review/
+
+The safest framing is that this is a claim-gated computational workbench and evidence dashboard for model-level macro-dynamic mechanism ranking, not a finished thesis or biological proof. The dashboard-backed submission brief is here if you want the fuller plot view:
+
+https://grimgrimberg.github.io/LSD_Thesis/submission.html
 
 The submission page explains what I built, shows the current dashboard-derived plots and units, links pitch slides and a figure atlas, summarizes methods/data-science work, gives prior-art context, and keeps blockers visible. The current ranking is C, E, D, A, B, with C as the strongest current macro-dynamic proxy layer. E remains only a lower transition/control-energy proxy, not receptor-specific proof. The package also keeps the main caveats visible: no subjective-experience simulation, no clinical validation, incomplete FD/DVARS/censoring motion proof, and missing Zenodo DOI archive publication.
 
@@ -27,13 +27,13 @@ Subject: PI review package for LSD thesis workbench and evidence dashboard
 
 Hi Professor,
 
-I prepared a structured hosted review package for my LSD thesis project:
-
-https://grimgrimberg.github.io/LSD_Thesis/submission.html
-
-The supporting package is here:
+I prepared a one-page hosted executive summary for my LSD thesis project:
 
 https://grimgrimberg.github.io/LSD_Thesis/pi-review/
+
+The dashboard-backed submission brief is here:
+
+https://grimgrimberg.github.io/LSD_Thesis/submission.html
 
 The package is meant to make the current state easy to evaluate as a thesis direction. It includes pitch slides, a generated figure atlas, a PI brief, plot-by-plot evidence notes, a methods/data-skills summary, scholarly/prior-art context, current blockers, and a static landing page.
 
