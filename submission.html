@@ -4,14 +4,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="dark">
-  <title>Mechanism Ranking | LSD Thesis Dashboard</title>
+  <title>Submission Brief | LSD Thesis Dashboard</title>
   <link rel="icon" href="data:,">
   <link rel="stylesheet" href="static/dashboard.css?v=dashboard-redesign-20260611b">
   <script src="assets/plotly.min.js" defer></script>
   <script src="static/dashboard.js?v=dashboard-redesign-20260611b" defer></script>
 </head>
 <body
-  data-page="mechanism_ranking"
+  data-page="submission"
   data-dashboard-data-url="dashboard/dashboard-data.json"
   data-prior-art-data-url="dashboard/prior-art-data.json"
   data-artifact-prefix="artifacts/"
@@ -34,12 +34,12 @@
         <span>Overview</span>
       </a>
 
-      <a class="nav-link is-active" href="ranking.html" aria-current="page">
+      <a class="nav-link" href="ranking.html">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 18l5-6 4 3 7-9M4 20h16"></path></svg>
         <span>Mechanism Ranking</span>
       </a>
 
-      <a class="nav-link" href="submission.html">
+      <a class="nav-link is-active" href="submission.html" aria-current="page">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5h14v14H5zM8 9h8M8 13h8M8 17h5"></path></svg>
         <span>Submission</span>
       </a>
@@ -84,7 +84,7 @@
       <header class="topbar" aria-label="Dashboard status">
         <div>
           <p class="chrome-label">Macro-dynamics evidence console</p>
-          <h1>Mechanism Ranking</h1>
+          <h1>Submission Brief</h1>
         </div>
         <div class="topbar-actions">
           <a class="icon-button" href="pi-review/" title="Open supervisor pitch package" aria-label="Open supervisor pitch package">
@@ -100,74 +100,82 @@
       </header>
       <main id="main_content" class="page-surface" tabindex="-1">
 
-<section class="content-grid content-grid--wide">
+<section class="thesis-story" aria-labelledby="submission_title">
+  <article class="panel thesis-lede panel--span-3">
+    <p class="chrome-label">Supervisor submission</p>
+    <h2 id="submission_title">A dashboard-backed submission brief for the macro-dynamics thesis.</h2>
+    <p>This page condenses the dashboard into a guided pitch: what is implemented, what the current proxy evidence suggests, which units to read, and which blockers remain unresolved.</p>
+    <div id="submission_status_cards" class="metric-strip" aria-live="polite"></div>
+    <div id="submission_pitch_links" class="button-row"></div>
+  </article>
+
+  <article class="panel panel--span-3">
+    <div class="panel-heading">
+      <h2>Dashboard Insights</h2>
+      <span class="status-token status-token--teal">from current payload</span>
+    </div>
+    <div id="submission_insight_cards" class="card-grid card-grid--dense"></div>
+  </article>
+
   <article class="panel panel--span-2">
     <div class="panel-heading">
-      <h2>Mechanism Ranking</h2>
-      <span id="ranking_status" class="status-token">loading</span>
+      <h2>Submission Mechanism Plot</h2>
+      <span class="status-token status-token--amber">proxy units</span>
     </div>
     <div class="chart-frame">
-      <div id="ranking_chart" class="chart" role="img" aria-label="Mechanism ranking chart">Loading...</div>
+      <div id="submission_mechanism_chart" class="chart chart-sm" role="img" aria-label="Submission mechanism ranking chart">Loading...</div>
     </div>
-    <div id="ranking_chart_explainer"></div>
+    <div id="submission_mechanism_chart_explainer"></div>
   </article>
+
   <article class="panel">
     <div class="panel-heading">
-      <h2>Inference Gate</h2>
-      <span class="status-token status-token--amber">proxy layer</span>
+      <h2>Decision Matrix</h2>
+      <span class="status-token status-token--moss">review prompt</span>
     </div>
-    <div class="table-frame">
-      <table>
-        <thead><tr><th>Layer</th><th>Status</th><th>Interpretation</th></tr></thead>
-        <tbody id="ranking_gate_table"></tbody>
-      </table>
+    <div id="submission_decision_matrix" class="stacked-list"></div>
+  </article>
+
+  <article class="panel panel--span-3">
+    <div class="panel-heading">
+      <h2>Evidence With Units</h2>
+      <span class="status-token status-token--teal">read before claims</span>
+    </div>
+    <div id="submission_unit_cards" class="card-grid card-grid--dense"></div>
+  </article>
+
+  <article class="panel panel--span-3">
+    <div class="panel-heading">
+      <h2>Claim And Gate Balance</h2>
+      <span class="status-token status-token--amber">fail closed</span>
+    </div>
+    <div class="chart-frame">
+      <div id="submission_status_balance_chart" class="chart chart-sm" role="img" aria-label="Claim and gate balance for submission">Loading...</div>
     </div>
   </article>
+
+  <article class="panel panel--span-3">
+    <div class="panel-heading">
+      <h2>Guided Dashboard Tour</h2>
+      <span class="status-token status-token--moss">open in order</span>
+    </div>
+    <div id="submission_dashboard_tour" class="story-steps"></div>
+  </article>
+
   <article class="panel panel--span-2">
     <div class="panel-heading">
-      <h2>Benchmark Alignment</h2>
-      <span id="benchmark_status" class="status-token status-token--amber">loading</span>
+      <h2>Evidence Sources</h2>
+      <span class="status-token status-token--teal">static-safe</span>
     </div>
-    <div class="chart-frame">
-      <div id="benchmark_chart" class="chart" role="img" aria-label="Literature benchmark alignment chart">Loading...</div>
-    </div>
-    <div id="benchmark_chart_explainer"></div>
+    <div id="submission_artifact_links" class="link-stack"></div>
   </article>
+
   <article class="panel">
     <div class="panel-heading">
-      <h2>Score Spread</h2>
-      <span class="status-token status-token--moss">ranked proxy</span>
+      <h2>Question For Supervisor</h2>
+      <span class="status-token status-token--rose">next threshold</span>
     </div>
-    <div class="chart-frame">
-      <div id="ranking_distribution_chart" class="chart chart-sm" role="img" aria-label="Mechanism score distribution">Loading...</div>
-    </div>
-    <div id="ranking_distribution_chart_explainer"></div>
-  </article>
-  <article class="panel panel--span-3">
-    <div class="panel-heading">
-      <h2>Units And Interpretation</h2>
-      <span class="status-token status-token--amber">proxy metrics</span>
-    </div>
-    <div id="ranking_unit_cards" class="card-grid card-grid--dense"></div>
-  </article>
-  <article class="panel panel--span-3">
-    <div class="panel-heading">
-      <h2>Claim Verdicts</h2>
-      <span class="status-token status-token--rose">fail closed</span>
-    </div>
-    <div class="table-frame">
-      <table>
-        <thead><tr><th>Claim</th><th>Verdict</th><th>Evidence</th><th>Next action</th></tr></thead>
-        <tbody id="claim_verdict_table"></tbody>
-      </table>
-    </div>
-  </article>
-  <article class="panel panel--span-3">
-    <div class="panel-heading">
-      <h2>Dynamic Figures</h2>
-      <span class="status-token status-token--teal">derived only</span>
-    </div>
-    <div id="dynamic_figure_links" class="link-stack"></div>
+    <div id="submission_supervisor_questions" class="stacked-list"></div>
   </article>
 </section>
 
