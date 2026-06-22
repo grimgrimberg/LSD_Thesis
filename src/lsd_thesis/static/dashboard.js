@@ -284,15 +284,72 @@ function purgeCharts(container) {
   });
 }
 
+function claimStatusLabel(status) {
+  const value = text(status, "").toLowerCase().replace(/[\s-]+/g, "_");
+  if (!value) return "future";
+  if (
+    value.includes("block")
+    || value.includes("absent")
+    || value.includes("missing")
+    || value.includes("incomplete")
+    || value.includes("not_completed")
+    || value.includes("invalid")
+  ) {
+    return "blocked";
+  }
+  if (
+    value.includes("unsupported")
+    || value.includes("not_supported")
+    || value.includes("reject")
+    || value.includes("not_aligned")
+    || value.includes("negative")
+  ) {
+    return "unsupported";
+  }
+  if (
+    value.includes("mixed")
+    || value.includes("partial")
+    || value.includes("direction_review")
+    || value.includes("mismatch")
+    || value.includes("stress_test")
+  ) {
+    return "mixed";
+  }
+  if (
+    value.includes("future")
+    || value.includes("planned")
+    || value.includes("not_testable")
+    || value.includes("next_required")
+  ) {
+    return "future";
+  }
+  if (
+    value.includes("proxy")
+    || value.includes("support")
+    || value.includes("aligned")
+  ) {
+    return "proxy-supported";
+  }
+  if (
+    value.includes("implement")
+    || value.includes("complete")
+    || value.includes("ready")
+    || value === "ok"
+  ) {
+    return "implemented";
+  }
+  return text(status, "future");
+}
+
 function statusClass(status) {
-  const value = text(status, "").toLowerCase();
-  if (value.includes("implement") || value.includes("support") || value.includes("aligned") || value.includes("complete")) {
+  const value = claimStatusLabel(status);
+  if (value === "implemented" || value === "proxy-supported") {
     return "status-token--teal";
   }
-  if (value.includes("mixed") || value.includes("proxy") || value.includes("future") || value.includes("missing")) {
+  if (value === "mixed" || value === "future") {
     return "status-token--amber";
   }
-  if (value.includes("block") || value.includes("reject") || value.includes("unsupported") || value.includes("not_")) {
+  if (value === "blocked" || value === "unsupported") {
     return "status-token--rose";
   }
   return "status-token--moss";
@@ -359,7 +416,7 @@ function renderFigureExplainer(containerId, plotId, payload) {
   const details = el("details", { className: "figure-explainer" }, [
     el("summary", {}, [
       el("span", { text: "How this plot was calculated" }),
-      el("strong", { className: `mini-status ${statusClass(explainer.claim_status)}`, text: explainer.claim_status }),
+      el("strong", { className: `mini-status ${statusClass(explainer.claim_status)}`, text: claimStatusLabel(explainer.claim_status) }),
     ]),
     el("div", { className: "figure-explainer-grid" }, [
       explainerField("Source", explainer.subtitle),
@@ -388,7 +445,7 @@ function renderEvidenceFlow(payload) {
     cards.push(el("article", { className: "evidence-node" }, [
       el("span", { className: "evidence-node__step", text: String(index + 1) }),
       el("strong", { text: node.label || node.title }),
-      el("small", { className: `mini-status ${statusClass(node.claim_status)}`, text: node.claim_status }),
+      el("small", { className: `mini-status ${statusClass(node.claim_status)}`, text: claimStatusLabel(node.claim_status) }),
       el("p", { text: node.detail || node.status }),
       source?.href
         ? el("a", { className: "evidence-node__source", text: source.label || "source", href: displayHref(source.href) })
@@ -428,7 +485,7 @@ function renderFigureDeck(payload) {
       el("div", { className: "figure-card__body" }, [
         el("div", { className: "panel-heading figure-card__heading" }, [
           el("h3", { text: figure.title }),
-          el("span", { className: `status-token ${statusClass(figure.claim_status)}`, text: figure.claim_status }),
+          el("span", { className: `status-token ${statusClass(figure.claim_status)}`, text: claimStatusLabel(figure.claim_status) }),
         ]),
         el("p", { text: figure.subtitle }),
         el("div", { className: "figure-explainer-grid" }, [
@@ -464,7 +521,7 @@ function dataRecord(label, value, detail, status) {
   }
 
   if (detail) children.push(el("p", { text: detail }));
-  if (status) children.push(el("span", { className: `mini-status ${statusClass(status)}`, text: status }));
+  if (status) children.push(el("span", { className: `mini-status ${statusClass(status)}`, text: claimStatusLabel(status) }));
 
   return el("div", { className: "data-record" }, children);
 }
@@ -596,7 +653,7 @@ function pitchCardItems(payload = {}) {
     ["Interdisciplinary fit", "AI + control theory + fMRI", "The project connects subject-disjoint ML, graph/control priors, and psychedelic macro-dynamics in one inspectable workbench."],
     ["Research judgment", "claim-gated", "Implemented, proxy-supported, mixed, unsupported, blocked, and future claims stay visibly separated."],
     ["Engineering proof", "tested dashboard + artifacts", "FastAPI/Jinja/Plotly surfaces consume typed Python payloads, allowlisted artifacts, and regression-tested public JSON contracts."],
-    ["Current result", `top layer ${topLayer}`, "The current A-E ranking is shown as model-level proxy evidence, with B retained as a negative baseline."],
+    ["Current result", `top layer ${topLayer}`, "The current A-E proxy ranking is shown before motion-proof completion, with B retained as a negative baseline."],
     ["Falsification posture", `${strict} strict gates`, "The pitch shows what would weaken the claim instead of hiding blockers such as motion/confound proof."],
     ["Proposed next track", "motion proof first", "The package presents a concrete next step: close the FD/DVARS/censoring motion-proof gap before stronger thesis language or scope expansion."],
   ];
@@ -625,8 +682,8 @@ function statusBalanceRows(payload) {
     const key = text(value, "").toLowerCase().replace(/\s+/g, "_") || "unknown";
     counts.set(key, (counts.get(key) || 0) + 1);
   };
-  asRecords(payload.dynamic_mechanism?.claim_verdicts).forEach((row) => add(row.verdict));
-  asRecords(payload.thesis_upgrade?.strict_completion_requirements).forEach((row) => add(row.complete ? "complete" : row.status || "blocked"));
+  asRecords(payload.dynamic_mechanism?.claim_verdicts).forEach((row) => add(claimStatusLabel(row.verdict)));
+  asRecords(payload.thesis_upgrade?.strict_completion_requirements).forEach((row) => add(claimStatusLabel(row.complete ? "complete" : row.status || "blocked")));
   return [...counts.entries()].map(([status, count]) => ({ status, count }));
 }
 
@@ -722,7 +779,7 @@ function renderSubmissionInsights(payload) {
 function renderSubmissionMechanismChart(payload) {
   const rows = mechanismRankingRows(payload);
   if (!rows.length) {
-    emptyPlot("submission_mechanism_chart", "No mechanism ranking rows are available.");
+    emptyPlot("submission_mechanism_chart", "No mechanism-proxy ranking rows are available.");
     return;
   }
   const scores = sanitizeSeries(rows.map((row) => row.score));
@@ -740,7 +797,7 @@ function renderSubmissionMechanismChart(payload) {
     invalidCount: scores.invalidCount,
     margin: { t: 10, r: 20, b: 46, l: 190 },
     xaxis: { ...chartLayout.xaxis, title: "Proxy Support Score (unitless)" },
-    yaxis: { ...chartLayout.yaxis, autorange: "reversed", title: "Mechanism Layer" },
+    yaxis: { ...chartLayout.yaxis, autorange: "reversed", title: "Proxy Layer" },
   });
 }
 
@@ -764,7 +821,7 @@ function renderSubmissionBootstrapChart(payload) {
   }], {
     invalidCount: fractions.invalidCount,
     margin: { t: 10, r: 18, b: 46, l: 58 },
-    xaxis: { ...chartLayout.xaxis, title: "Mechanism Layer" },
+    xaxis: { ...chartLayout.xaxis, title: "Proxy Layer" },
     yaxis: { ...chartLayout.yaxis, title: "Bootstrap Rank-1 Fraction (0-1)", range: [0, 1.05] },
   });
 }
@@ -873,7 +930,7 @@ function renderSubmissionRunSensitivityChart(payload) {
   plot("submission_run_sensitivity_chart", traces, {
     barmode: "group",
     margin: { t: 12, r: 18, b: 46, l: 62 },
-    xaxis: { ...chartLayout.xaxis, title: "Mechanism Layer" },
+    xaxis: { ...chartLayout.xaxis, title: "Proxy Layer" },
     yaxis: { ...chartLayout.yaxis, title: "Proxy Support Score (unitless)" },
   });
 }
@@ -991,7 +1048,7 @@ function renderSubmissionDecisionMatrix(payload) {
     ],
     [
       "Ready as proxy evidence",
-      `${text(top.layer, "C")} mechanism ranking`,
+      `${text(top.layer, "C")} mechanism-proxy ranking`,
       "Use as model-level macro-dynamic ranking evidence with explicit units and status labels.",
       "proxy-supported",
     ],
@@ -1016,7 +1073,7 @@ function renderSubmissionDecisionMatrix(payload) {
 function renderSubmissionTour() {
   const steps = [
     ["Overview", "/", "Start with strict gates, claim cards, and the dashboard evidence path."],
-    ["Mechanism Ranking", "/ranking", "Read unitless proxy support scores and the A-E layer order."],
+    ["Mechanism-Proxy Ranking", "/ranking", "Read unitless proxy support scores and the A-E layer order."],
     ["Robustness", "/robustness", "Check bootstrap, run, horizon, and window sensitivity before interpreting C or E."],
     ["Empirical Viewer", "/empirical", "Inspect paired LSD/placebo module summaries and metric-native deltas."],
     ["Prior Art", "/prior-art", "Keep literature wrappers separate from original local analysis."],
@@ -1180,7 +1237,7 @@ function renderOverviewLiterature(payload) {
 
 function renderOverviewClaimCards(payload) {
   const verdicts = asRecords(payload.dynamic_mechanism?.claim_verdicts);
-  const cards = verdicts.slice(0, 6).map((row) => dataRecord(row.claim, row.verdict, row.evidence, row.verdict));
+  const cards = verdicts.slice(0, 6).map((row) => dataRecord(row.claim, claimStatusLabel(row.verdict), row.evidence, row.verdict));
   byId("overview_claim_cards")?.replaceChildren(...cards);
 }
 
@@ -1202,7 +1259,7 @@ function renderRanking(payload) {
   const rows = asRecords(dynamic.mechanism_ranking).sort((left, right) => Number(left.rank ?? 999) - Number(right.rank ?? 999));
   setText("ranking_status", dynamic.analysis_status || dynamic.status || "loaded");
   if (!rows.length) {
-    emptyPlot("ranking_chart", "No mechanism ranking rows are available in dashboard-data.json.");
+    emptyPlot("ranking_chart", "No mechanism-proxy ranking rows are available in dashboard-data.json.");
     return;
   }
   const labels = rows.map((row) => `${text(row.layer)}: ${titleText(row.mechanism)}`);
@@ -1221,7 +1278,7 @@ function renderRanking(payload) {
     invalidCount: scores.invalidCount,
     margin: { t: 12, r: 24, b: 46, l: 190 },
     xaxis: { ...chartLayout.xaxis, title: "Proxy Support Score (unitless)" },
-    yaxis: { ...chartLayout.yaxis, autorange: "reversed", title: "Mechanism layer" },
+    yaxis: { ...chartLayout.yaxis, autorange: "reversed", title: "Proxy layer" },
   });
   plot("ranking_distribution_chart", [{
     type: "scatter",
@@ -1241,7 +1298,7 @@ function renderRanking(payload) {
   renderBenchmarkChart(payload, "benchmark_chart", "benchmark_status");
   fillTable("claim_verdict_table", asRecords(dynamic.claim_verdicts), [
     (row) => tdText(row.claim),
-    (row) => tdText(row.verdict),
+    (row) => tdText(claimStatusLabel(row.verdict)),
     (row) => tdText(row.evidence),
     (row) => tdText(row.next_action),
   ]);
@@ -1404,7 +1461,7 @@ function renderDWindow(robustness) {
 
 function renderRobustnessExports() {
   const links = [
-    ["Mechanism ranking CSV", "/artifacts/results/dynamic_mechanism_ranking/exports/mechanism_ranking.csv"],
+    ["Mechanism-proxy ranking CSV", "/artifacts/results/dynamic_mechanism_ranking/exports/mechanism_ranking.csv"],
     ["Claim verdicts CSV", "/artifacts/results/dynamic_mechanism_ranking/exports/claim_verdicts.csv"],
     ["Literature benchmark CSV", "/artifacts/results/dynamic_mechanism_ranking/exports/literature_benchmark.csv"],
     ["Robust bootstrap CSV", "/artifacts/results/dynamic_mechanism_ranking/exports/robust_bootstrap_summary.csv"],
@@ -1794,15 +1851,15 @@ function renderThesis(payload, priorPayloadForPage) {
     invalidCount: scores.invalidCount,
     margin: { t: 10, r: 20, b: 44, l: 190 },
     xaxis: { ...chartLayout.xaxis, title: "Proxy support score (unitless)" },
-    yaxis: { ...chartLayout.yaxis, autorange: "reversed", title: "Mechanism" },
+    yaxis: { ...chartLayout.yaxis, autorange: "reversed", title: "Proxy layer" },
   });
   const verdicts = asRecords(payload.dynamic_mechanism?.claim_verdicts);
-  byId("thesis_claim_ladder")?.replaceChildren(...verdicts.slice(0, 6).map((row) => dataRecord(row.claim, row.verdict, row.evidence, row.verdict)));
+  byId("thesis_claim_ladder")?.replaceChildren(...verdicts.slice(0, 6).map((row) => dataRecord(row.claim, claimStatusLabel(row.verdict), row.evidence, row.verdict)));
   const loopSteps = asRecords(payload.thesis_expansion?.loop_steps);
   const fallbackSteps = [
     { label: "Dataset anchor", status: "implemented", implementation_evidence: "Use ds003059-derived paired LSD/placebo summaries as the empirical anchor." },
     { label: "Transparent surrogate", status: "proxy-supported", implementation_evidence: "Rank macro-dynamic layers A-E rather than claiming receptor-level realism." },
-    { label: "Mechanism ranking", status: "implemented", implementation_evidence: "C is strongest in the current proxy score; E is split into landscape proxy and receptor-placement gates." },
+    { label: "Mechanism-proxy ranking", status: "implemented", implementation_evidence: "C is the leading current proxy score; E is split into landscape proxy and receptor-placement gates." },
     { label: "Limitations", status: "blocked", implementation_evidence: "Motion and music/run-02 remain explicit gates; striatal evidence is limited to a bilateral proxy row, PET receptor promotion is blocked by spatial nulls, and external validation is negative/partial." },
   ];
   const steps = loopSteps.length ? loopSteps : fallbackSteps;
@@ -1810,7 +1867,7 @@ function renderThesis(payload, priorPayloadForPage) {
     el("span", { text: text(row.step, String(index + 1)) }),
     el("div", {}, [
       el("strong", { text: text(row.label, "Evidence step") }),
-      el("small", { className: statusClass(row.status), text: text(row.status, "status") }),
+      el("small", { className: statusClass(row.status), text: claimStatusLabel(row.status) }),
       el("p", { text: text(row.implementation_evidence || row.scientific_question || row.dashboard_output, "Evidence pending.") }),
       row.implementation_blocker ? el("p", { className: "muted", text: text(row.implementation_blocker) }) : "",
     ]),

@@ -303,8 +303,9 @@ def _template_environment(repo_root: Path) -> Environment:
 
 def _static_nav_items(depth: int) -> list[dict[str, str]]:
     prefix = "../" * max(depth, 0)
+    overview_href = "index.html" if depth else "dashboard/"
     href_by_id = {
-        "overview": f"{prefix}index.html",
+        "overview": f"{prefix}{overview_href}",
         "mechanism_ranking": f"{prefix}ranking.html",
         "submission": f"{prefix}submission.html",
         "robustness": f"{prefix}robustness.html",
@@ -344,6 +345,74 @@ def _render_static_template(
     return _with_static_favicon(html)
 
 
+def _write_public_root_router(target: Path) -> Path:
+    html = """<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LSD Thesis Public Review</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="pi-review/assets/css/site.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="index.html">LSD Thesis Public Review</a>
+    <nav aria-label="Public entrypoints">
+      <a class="active" href="index.html">Start</a>
+      <a href="pi-review/">PI Review</a>
+      <a href="dashboard/">Dashboard</a>
+      <a href="pi-review/pages/decision-gates.html">Decision Gates</a>
+      <a href="pi-review/pages/claim-ledger.html">Claim Ledger</a>
+    </nav>
+  </header>
+  <main>
+    <section class="hero executive-hero">
+      <div>
+        <p class="eyebrow">Public review router</p>
+        <h1>Start with the PI review summary</h1>
+        <p class="hero-lede">
+          Research-demo evidence package; not completed neuroscience thesis. The safest first read is the
+          short PI review path, followed by the technical evidence console only when detail is needed.
+        </p>
+        <div class="actions">
+          <a class="button primary" href="pi-review/">Open PI Review</a>
+          <a class="button" href="pi-review/pages/decision-gates.html">Decision Gates</a>
+          <a class="button" href="pi-review/pages/claim-ledger.html">Claim Ledger</a>
+        </div>
+      </div>
+      <aside class="status-panel">
+        <h2>Technical evidence console</h2>
+        <p>
+          The dashboard remains available for audit, but it is not the first-read narrative.
+        </p>
+        <dl>
+          <div><dt>Current claim status</dt><dd>C: hierarchy/routing layer is proxy-supported</dd></div>
+          <div><dt>Main blocker</dt><dd>Subject-level FD/DVARS/censoring motion-confound proof absent</dd></div>
+          <div><dt>Archive gate</dt><dd>GitHub release exists; Zenodo DOI/public reproducible archive gate pending</dd></div>
+        </dl>
+      </aside>
+    </section>
+    <section class="band muted">
+      <div class="section-head">
+        <p class="eyebrow">Motion-proof-first validation plan</p>
+        <h2>What to review before stronger thesis language</h2>
+      </div>
+      <div class="cards three">
+        <article><h3>1. Read summary</h3><p><a href="pi-review/">Open the short PI review page.</a></p></article>
+        <article><h3>2. Check gates</h3><p><a href="pi-review/pages/decision-gates.html">Inspect blockers and next validation decisions.</a></p></article>
+        <article><h3>3. Audit dashboard</h3><p><a href="dashboard/">Open the technical evidence console.</a></p></article>
+      </div>
+    </section>
+  </main>
+  <footer>Static GitHub Pages router. Public pages expose only derived artifacts and claim-gated summaries.</footer>
+</body>
+</html>
+"""
+    target.write_text(html, encoding="utf-8")
+    return target
+
+
 def _write_static_public_site(
     repo_root: Path,
     site: Path,
@@ -381,24 +450,13 @@ def _write_static_public_site(
     plotly_asset = assets_dir / "plotly.min.js"
     plotly_asset.write_text(get_plotlyjs(), encoding="utf-8")
 
-    root_html.write_text(
-        _render_static_template(
-            environment,
-            "pages/overview.html",
-            page_id="overview",
-            page_title="Overview",
-            depth=0,
-            data_url="dashboard/dashboard-data.json",
-            prior_art_data_url="dashboard/prior-art-data.json",
-        ),
-        encoding="utf-8",
-    )
+    _write_public_root_router(root_html)
     ranking_html.write_text(
         _render_static_template(
             environment,
             "pages/mechanism_ranking.html",
             page_id="mechanism_ranking",
-            page_title="Mechanism Ranking",
+            page_title="Mechanism-Proxy Ranking",
             depth=0,
             data_url="dashboard/dashboard-data.json",
             prior_art_data_url="dashboard/prior-art-data.json",
@@ -410,7 +468,7 @@ def _write_static_public_site(
             environment,
             "pages/robustness.html",
             page_id="robustness",
-            page_title="Robustness",
+            page_title="Cached Proxy Robustness",
             depth=0,
             data_url="dashboard/dashboard-data.json",
             prior_art_data_url="dashboard/prior-art-data.json",
@@ -422,7 +480,7 @@ def _write_static_public_site(
             environment,
             "pages/prior_art.html",
             page_id="prior_art",
-            page_title="Prior-Art Inventory",
+            page_title="Prior-Art Context",
             depth=0,
             data_url="dashboard/dashboard-data.json",
             prior_art_data_url="dashboard/prior-art-data.json",
@@ -434,7 +492,7 @@ def _write_static_public_site(
             environment,
             "pages/empirical.html",
             page_id="empirical",
-            page_title="Empirical Viewer",
+            page_title="Empirical Derived Summary",
             depth=0,
             data_url="dashboard/dashboard-data.json",
             prior_art_data_url="dashboard/prior-art-data.json",
@@ -446,7 +504,7 @@ def _write_static_public_site(
             environment,
             "pages/simulator.html",
             page_id="simulator",
-            page_title="Simulator",
+            page_title="Illustrative Simulator",
             depth=0,
             data_url="dashboard/dashboard-data.json",
             prior_art_data_url="dashboard/prior-art-data.json",
@@ -470,7 +528,7 @@ def _write_static_public_site(
             environment,
             "pages/thesis.html",
             page_id="thesis",
-            page_title="Thesis Presentation",
+            page_title="Research-Demo Thesis Presentation",
             depth=0,
             data_url="dashboard/dashboard-data.json",
             prior_art_data_url="dashboard/prior-art-data.json",
@@ -494,7 +552,7 @@ def _write_static_public_site(
             environment,
             "pages/thesis.html",
             page_id="thesis",
-            page_title="Thesis Presentation",
+            page_title="Research-Demo Thesis Presentation",
             depth=0,
             data_url="dashboard/dashboard-data.json",
             prior_art_data_url="dashboard/prior-art-data.json",
@@ -506,7 +564,7 @@ def _write_static_public_site(
             environment,
             "pages/thesis.html",
             page_id="thesis",
-            page_title="Thesis Presentation",
+            page_title="Research-Demo Thesis Presentation",
             depth=0,
             data_url="dashboard/dashboard-data.json",
             prior_art_data_url="dashboard/prior-art-data.json",
@@ -591,6 +649,11 @@ VISUAL_ATLAS_HIGHLIGHTS = [
         "title": "Current A-E ranking",
         "path": "pi-review/assets/screenshots/dashboard-ranking.png",
         "status": "proxy-supported",
+        "claim_supported": "C is the provisional leading macro-dynamic proxy in the current cached ranking.",
+        "figure_role": "First-read ranking plot.",
+        "source_data": "artifacts/results/dynamic_mechanism_ranking/exports/mechanism_ranking.csv",
+        "calculation_note": "pi-review/pages/evidence-and-calculations.html#mechanism-ranking",
+        "required_next_check": "Complete subject-level FD/DVARS/censoring motion-confound proof before thesis-level promotion.",
         "metric_unit": "Unitless support score; rank is ordinal.",
         "why": "Start here to show the current C, E, D, A, B ordering and the visible negative DMDc baseline.",
         "boundary": "This ranks macro-dynamic proxy layers. It is not receptor-level or subjective-experience proof.",
@@ -599,6 +662,11 @@ VISUAL_ATLAS_HIGHLIGHTS = [
         "title": "Rank stability",
         "path": "artifacts/results/dynamic_mechanism_ranking/figures/robustness_bootstrap_layer_scores.html",
         "status": "proxy-supported",
+        "claim_supported": "C remains internally stable under the current bootstrap stress test.",
+        "figure_role": "Robustness check for the proxy ranking.",
+        "source_data": "artifacts/results/dynamic_mechanism_ranking/robustness/bootstrap_layer_summary.csv",
+        "calculation_note": "pi-review/pages/evidence-and-calculations.html#robustness",
+        "required_next_check": "Add motion-sensitive exclusion/censoring checks before stronger interpretation.",
         "metric_unit": "Rank-1 fraction from 0 to 1 across bootstrap resamples.",
         "why": "Use this next to show that the leading layer is not a one-off visual artifact.",
         "boundary": "Internal bootstrap stability does not replace motion/confound proof or external validation.",
@@ -607,6 +675,11 @@ VISUAL_ATLAS_HIGHLIGHTS = [
         "title": "Run sensitivity",
         "path": "artifacts/results/dynamic_mechanism_ranking/figures/robustness_run_sensitivity.html",
         "status": "mixed",
+        "claim_supported": "The ranking has a visible run/sensitivity audit surface, but run context remains claim-gated.",
+        "figure_role": "Run-dependence and sensitivity pressure test.",
+        "source_data": "artifacts/results/dynamic_mechanism_ranking/robustness/run_sensitivity.csv",
+        "calculation_note": "pi-review/pages/evidence-and-calculations.html#run-sensitivity",
+        "required_next_check": "Keep run-02/music outside the thesis core unless controls are explicitly approved.",
         "metric_unit": "Unitless support scores split by run/sensitivity setting.",
         "why": "This is the first pressure test for whether the ranking depends on run choice.",
         "boundary": "Run-02/music stays outside the thesis core unless separately approved and controlled.",
@@ -615,6 +688,11 @@ VISUAL_ATLAS_HIGHLIGHTS = [
         "title": "E proxy boundary",
         "path": "artifacts/results/dynamic_mechanism_ranking/figures/robustness_e_horizon_sensitivity.html",
         "status": "mixed",
+        "claim_supported": "E is readable as a lower transition/control-energy proxy only.",
+        "figure_role": "Boundary figure for split E interpretation.",
+        "source_data": "artifacts/results/dynamic_mechanism_ranking/robustness/e_horizon_sensitivity.csv",
+        "calculation_note": "pi-review/pages/evidence-and-calculations.html#e-proxy-boundary",
+        "required_next_check": "Require PET/map-prior/spatial-null evidence before any receptor-placement language.",
         "metric_unit": "Finite horizon in model steps; control-energy summaries are proxy/percent differences where stated.",
         "why": "This is the safest plot to explain why E stays useful but caveated.",
         "boundary": "E remains a lower transition/control-energy proxy, not receptor-specific evidence.",
@@ -623,6 +701,11 @@ VISUAL_ATLAS_HIGHLIGHTS = [
         "title": "Empirical LSD - placebo deltas",
         "path": "artifacts/results/stage_2/figures/empirical_metric_deltas.html",
         "status": "proxy-supported",
+        "claim_supported": "Cached paired ds003059 summaries provide a derived target for proxy ranking.",
+        "figure_role": "Empirical target summary.",
+        "source_data": "artifacts/results/stage_2/empirical_viewer/group_overview.json",
+        "calculation_note": "pi-review/pages/evidence-and-calculations.html#empirical-deltas",
+        "required_next_check": "Pair these summaries with motion/confound evidence before claim promotion.",
         "metric_unit": "Metric-native paired LSD-minus-placebo differences.",
         "why": "This links the model-ranking story back to the paired empirical summary target.",
         "boundary": "The deltas are cached summary evidence, not a completed motion/confound proof.",
@@ -631,6 +714,11 @@ VISUAL_ATLAS_HIGHLIGHTS = [
         "title": "Motion/confound blocker",
         "path": "artifacts/results/confound_controls/fmriprep_motion_proof_plan.md",
         "status": "blocked",
+        "claim_supported": "Strict subject-level FD/DVARS/censoring motion-confound proof is absent.",
+        "figure_role": "Primary blocker and next-validation gate.",
+        "source_data": "artifacts/results/confound_controls/fmriprep_motion_proof_plan.json",
+        "calculation_note": "pi-review/pages/decision-gates.html#motion-confound",
+        "required_next_check": "Produce the motion-proof pack and decide whether C is kept, caveated, or downgraded.",
         "metric_unit": "Required families: FD, DVARS, censoring/outlier coverage.",
         "why": "This is the thesis-critical missing evidence surface behind the motion-proof-first plan.",
         "boundary": "Do not treat C as thesis-central until this gate is documented.",
@@ -639,6 +727,11 @@ VISUAL_ATLAS_HIGHLIGHTS = [
         "title": "Literature benchmark alignment",
         "path": "artifacts/results/dynamic_mechanism_ranking/figures/literature_benchmark_alignment.html",
         "status": "proxy-supported",
+        "claim_supported": "The ranking can be situated against prior-art expectations without becoming external validation.",
+        "figure_role": "Prior-art alignment context.",
+        "source_data": "artifacts/results/dynamic_mechanism_ranking/summary.json",
+        "calculation_note": "pi-review/pages/evidence-and-calculations.html#literature-benchmark",
+        "required_next_check": "Separate literature motivation from local evidence and external validation.",
         "metric_unit": "Unitless alignment/support summaries from the current benchmark artifact.",
         "why": "Use this to connect the ranking to prior-art context while keeping local evidence separate.",
         "boundary": "Prior-art alignment motivates interpretation; it does not promote unsupported biological claims.",
@@ -647,6 +740,11 @@ VISUAL_ATLAS_HIGHLIGHTS = [
         "title": "Source ranking table",
         "path": "artifacts/results/dynamic_mechanism_ranking/exports/mechanism_ranking.csv",
         "status": "implemented",
+        "claim_supported": "The current ranking values are traceable to a static CSV artifact.",
+        "figure_role": "Source-data table for audit.",
+        "source_data": "artifacts/results/dynamic_mechanism_ranking/exports/mechanism_ranking.csv",
+        "calculation_note": "pi-review/pages/evidence-and-calculations.html#source-ranking-table",
+        "required_next_check": "Regenerate from the pipeline rather than editing exported values by hand.",
         "metric_unit": "CSV table of the current mechanism-ranking values.",
         "why": "This is the download path for checking the numbers behind the dashboard plot.",
         "boundary": "The table preserves the current artifact state; it should not be edited by hand.",
@@ -669,6 +767,13 @@ def _visual_atlas_highlight_cards(site: Path, target: Path) -> str:
             continue
         title = str(item["title"])
         href = _relative_url(target, artifact)
+        source_path = str(item["source_data"])
+        source_artifact = site / source_path
+        source_label = escape(source_path)
+        if source_artifact.exists():
+            source_html = f'<a href="{escape(_relative_url(target, source_artifact))}"><code>{source_label}</code></a>'
+        else:
+            source_html = f"<code>{source_label}</code>"
         cards.append(
             "\n".join(
                 [
@@ -677,11 +782,16 @@ def _visual_atlas_highlight_cards(site: Path, target: Path) -> str:
                     "<div>",
                     f"<span class=\"status-chip {escape(str(item['status']))}\">{escape(str(item['status']))}</span>",
                     f"<h3>{escape(title)}</h3>",
+                    f"<p><strong>Claim supported:</strong> {escape(str(item['claim_supported']))}</p>",
+                    f"<p><strong>Figure role:</strong> {escape(str(item['figure_role']))}</p>",
                     f"<p><strong>Metric/unit:</strong> {escape(str(item['metric_unit']))}</p>",
+                    f"<p><strong>Source data:</strong> {source_html}</p>",
+                    f"<p><strong>Calculation note:</strong> {escape(str(item['calculation_note']))}</p>",
+                    f"<p><strong>Required next check:</strong> {escape(str(item['required_next_check']))}</p>",
                     f"<p><strong>Why it is selected:</strong> {escape(str(item['why']))}</p>",
                     f"<p><strong>Claim boundary:</strong> {escape(str(item['boundary']))}</p>",
                     f"<p><code>{escape(str(item['path']))}</code></p>",
-                    f'<p><a href="{escape(href)}">Open full artifact</a></p>',
+                    f'<p><a href="{escape(href)}">View figure</a></p>',
                     "</div>",
                     "</article>",
                 ]
@@ -867,6 +977,9 @@ def _copy_pi_review_site(repo_root: Path, site: Path) -> dict[str, Path]:
         "pi_review_index": index,
         "pi_review_slides": target / "pages" / "pitch-slides.html",
         "pi_review_figure_atlas": atlas,
+        "pi_review_decision_gates": target / "pages" / "decision-gates.html",
+        "pi_review_claim_ledger": target / "pages" / "claim-ledger.html",
+        "pi_review_methods": target / "pages" / "methods.html",
     }
 
 
@@ -893,6 +1006,9 @@ def _write_pages_manifest(site: Path, outputs: dict[str, Path], dashboard_artifa
             "pi_review": "pi-review/",
             "pi_review_slides": "pi-review/pages/pitch-slides.html",
             "pi_review_figure_atlas": "pi-review/pages/figure-atlas.html",
+            "pi_review_decision_gates": "pi-review/pages/decision-gates.html",
+            "pi_review_claim_ledger": "pi-review/pages/claim-ledger.html",
+            "pi_review_methods": "pi-review/pages/methods.html",
         },
         "artifacts": sorted(
             set(_published_artifact_paths(outputs, site))

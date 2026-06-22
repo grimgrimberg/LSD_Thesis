@@ -125,6 +125,9 @@ def test_dashboard_css_removes_external_fonts_and_supports_print() -> None:
 def test_static_builder_knows_thesis_entrypoint_and_relative_paths() -> None:
     builder = _read("scripts/build_github_pages.py")
 
+    assert "def _write_public_root_router" in builder
+    assert "Start with the PI review summary" in builder
+    assert "Technical evidence console" in builder
     assert '"submission": f"{prefix}submission.html"' in builder
     assert '"thesis": f"{prefix}thesis.html"' in builder
     assert '"figures": f"{prefix}figures.html"' in builder
@@ -138,6 +141,8 @@ def test_static_builder_knows_thesis_entrypoint_and_relative_paths() -> None:
     assert '"thesis": "thesis.html"' in builder
     assert '"figures": "figures.html"' in builder
     assert '"pi_review": "pi-review/"' in builder
+    assert '"pi_review_decision_gates": "pi-review/pages/decision-gates.html"' in builder
+    assert '"pi_review_claim_ledger": "pi-review/pages/claim-ledger.html"' in builder
     assert "def _copy_pi_review_site" in builder
     assert "def _write_visual_atlas" in builder
     assert '<link rel="icon" href="data:,">' in builder
@@ -184,6 +189,16 @@ def test_pi_review_start_page_is_executive_summary_not_full_appendix() -> None:
     start = _read("docs/reports/pi_thesis_share_package/deliverable_website/OPEN_ME_FIRST.html")
 
     assert "Executive Summary" in start
+    assert "not thesis-complete" in start
+    assert "Research-demo evidence package; not completed neuroscience thesis" in start
+    assert "C: hierarchy/routing layer" in start
+    assert "Subject-level FD/DVARS/censoring motion-confound proof absent" in start
+    assert "GitHub release exists; Zenodo DOI/public reproducible archive gate pending" in start
+    assert "Please evaluate whether the motion-proof-first validation plan is sufficient" in start
+    assert "OpenNeuro ds003059" in start
+    assert "15 subject/session averages" in start
+    assert "cached public derived artifacts" in start
+    assert "Claim-status legend" in start
     assert "Thirty-second read" in start
     assert "The whole project in four points" in start
     assert "Optional depth" in start
@@ -205,6 +220,32 @@ def test_pi_review_start_page_is_executive_summary_not_full_appendix() -> None:
         assert marker not in start
 
 
+def test_pi_review_public_routes_surface_claim_gates() -> None:
+    decision_gates = _read("docs/reports/pi_thesis_share_package/deliverable_website/pages/decision-gates.html")
+    claim_ledger = _read("docs/reports/pi_thesis_share_package/deliverable_website/pages/claim-ledger.html")
+    methods = _read("docs/reports/pi_thesis_share_package/deliverable_website/pages/methods.html")
+
+    assert "Decision Gates And Next Validation" in decision_gates
+    assert "motion/confound" in decision_gates
+    assert "DOI/archive" in decision_gates
+    assert "atlas replication" in decision_gates
+    assert "external validation" in decision_gates
+
+    assert "Claim Ledger" in claim_ledger
+    assert "C is the provisional leading macro-dynamic proxy" in claim_ledger
+    assert "E1 lower transition/control-energy proxy" in claim_ledger
+    assert "E2 receptor-specific placement" in claim_ledger
+    assert "B DMDc negative-control baseline" in claim_ledger
+    assert "blocked" in claim_ledger
+
+    assert "Methods And Limitations" in methods
+    assert "What decisions the methods can support" in methods
+    assert "Implemented pipeline" in methods
+    assert "Current proxy limitations" in methods
+    assert "Missing thesis-grade analyses" in methods
+    assert "Future methods" in methods
+
+
 def test_static_figure_atlas_surfaces_curated_review_route() -> None:
     builder = _read("scripts/build_github_pages.py")
 
@@ -217,3 +258,11 @@ def test_static_figure_atlas_surfaces_curated_review_route() -> None:
     assert "No new plots were generated for this atlas" in builder
     assert "Motion-proof-first plot route" in builder
     assert "metric_unit" in builder
+    assert "claim_supported" in builder
+    assert "figure_role" in builder
+    assert "source_data" in builder
+    assert "calculation_note" in builder
+    assert "required_next_check" in builder
+    assert "View figure" in builder
+    assert "Source data" in builder
+    assert "Calculation note" in builder

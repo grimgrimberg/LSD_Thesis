@@ -36,10 +36,10 @@ DASHBOARD_NAV = [
     },
     {
         "id": "mechanism_ranking",
-        "label": "Mechanism Ranking",
+        "label": "Mechanism-Proxy Ranking",
         "href": "/ranking",
         "icon": "M4 18l5-6 4 3 7-9M4 20h16",
-        "title": "Mechanism Ranking",
+        "title": "Mechanism-Proxy Ranking",
         "template": "pages/mechanism_ranking.html",
     },
     {
@@ -63,7 +63,7 @@ DASHBOARD_NAV = [
         "label": "Prior Art",
         "href": "/prior-art",
         "icon": "M5 4h11a3 3 0 0 1 3 3v13H7a2 2 0 0 1-2-2zM8 8h8M8 12h8M8 16h5",
-        "title": "Prior-Art Inventory",
+        "title": "Prior-Art Context",
         "template": "pages/prior_art.html",
     },
     {
@@ -76,10 +76,10 @@ DASHBOARD_NAV = [
     },
     {
         "id": "simulator",
-        "label": "Simulator",
+        "label": "Illustrative Simulator",
         "href": "/simulator",
         "icon": "M4 7h10M4 17h10M18 5v4M18 15v4M14 7a2 2 0 1 0 4 0 2 2 0 0 0-4 0M14 17a2 2 0 1 0 4 0 2 2 0 0 0-4 0",
-        "title": "Simulator",
+        "title": "Illustrative Simulator",
         "template": "pages/simulator.html",
     },
     {
@@ -87,7 +87,7 @@ DASHBOARD_NAV = [
         "label": "Thesis",
         "href": "/thesis",
         "icon": "M5 4h14v16H5zM8 8h8M8 12h8M8 16h5",
-        "title": "Thesis Presentation",
+        "title": "Research-Demo Thesis Presentation",
         "template": "pages/thesis.html",
     },
     {
