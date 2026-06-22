@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at_utc": "2026-06-21T11:55:19.373339+00:00",
+  "generated_at_utc": "2026-06-22T09:35:43.873903+00:00",
   "analysis_status": "implemented_loop_status_artifacts",
   "status_rows": [
     {
@@ -68,7 +68,7 @@
     },
     "psilocybin_ds006072": {
       "schema_version": 1,
-      "generated_at_utc": "2026-06-21T11:53:49.211591+00:00",
+      "generated_at_utc": "2026-06-22T09:33:58.912943+00:00",
       "dataset_id": "ds006072",
       "source": "Dosenbach/Siegel group Scientific Data 2025; OpenNeuro ds006072 psilocybin precision functional mapping dataset with raw, minimally processed, and fully processed imaging",
       "source_reference": {
@@ -99,7 +99,7 @@
       "functional_manifest_processed_cifti_total_size_bytes": 113592893360,
       "external_validation_readiness": {
         "schema_version": "ds006072_external_validation.v1",
-        "generated_at_utc": "2026-06-21T11:53:26.486775+00:00",
+        "generated_at_utc": "2026-06-22T09:31:07.549345+00:00",
         "dataset_id": "ds006072",
         "analysis_status": "local_cifti_payloads_ready_for_comparable_extraction",
         "primary_contrast": "psilocybin_vs_active_control_mtp",
@@ -171,7 +171,7 @@
       "summary": {
         "schema_version": 3,
         "analysis_status": "implemented_first_pass",
-        "generated_at_utc": "2026-06-21T11:53:49.115540+00:00",
+        "generated_at_utc": "2026-06-22T09:33:58.765690+00:00",
         "inference_metadata": {
           "metric_ci_alpha": 0.05,
           "metric_bootstrap_iterations": 1024,
@@ -4305,7 +4305,7 @@
       },
       "comparable_empirical_validation": {
         "schema_version": "ds006072_external_validation.v1",
-        "generated_at_utc": "2026-06-21T11:53:26.786495+00:00",
+        "generated_at_utc": "2026-06-22T09:31:07.759437+00:00",
         "dataset_id": "ds006072",
         "primary_contrast": "psilocybin_vs_active_control_mtp",
         "viewer_root": "results/psilocybin_ds006072/parcellations/schaefer_100_yeo_7/empirical_viewer",
@@ -4475,7 +4475,7 @@
         "summary": {
           "schema_version": 3,
           "analysis_status": "implemented_first_pass",
-          "generated_at_utc": "2026-06-21T11:53:49.115540+00:00",
+          "generated_at_utc": "2026-06-22T09:33:58.765690+00:00",
           "inference_metadata": {
             "metric_ci_alpha": 0.05,
             "metric_bootstrap_iterations": 1024,
@@ -8624,7 +8624,7 @@
     },
     "structural_connectome": {
       "schema_version": 1,
-      "generated_at_utc": "2026-06-21T11:53:52.678790+00:00",
+      "generated_at_utc": "2026-06-22T09:34:05.024036+00:00",
       "artifact_target": "results/structural_connectome",
       "source_reference": {
         "source_id": "hcp_young_adult",
@@ -12269,7 +12269,7 @@
     },
     "receptor_priors": {
       "schema_version": 1,
-      "generated_at_utc": "2026-06-21T11:54:26.322032+00:00",
+      "generated_at_utc": "2026-06-22T09:34:40.223470+00:00",
       "artifact_target": "results/receptor_priors",
       "source_reference": {
         "source_id": "markello_neuromaps_2022",
@@ -16033,7 +16033,7 @@
     },
     "motion_sensitive_c_gate": {
       "schema_version": 1,
-      "generated_at_utc": "2026-06-21T11:54:30.159901+00:00",
+      "generated_at_utc": "2026-06-22T09:34:45.249194+00:00",
       "analysis_status": "blocked_motion_sensitive_c_claim_requires_authorized_confound_exclusions",
       "artifact_target": "results/confound_controls",
       "evidence": "Schaefer/Yeo C sensitivity exists, but final C claims remain gated because strict subject/run FD/DVARS/censoring confounds are not proof-ready or high-burden exclusions are unstable.",
@@ -16060,7 +16060,7 @@
     },
     "parcellation_sensitivity": {
       "schema_version": 1,
-      "generated_at_utc": "2026-06-21T11:54:30.819471+00:00",
+      "generated_at_utc": "2026-06-22T09:34:46.215132+00:00",
       "analysis_status": "implemented_status_matrix",
       "source_reference": {
         "source_id": "schaefer_2018_local_global",
@@ -16303,7 +16303,7 @@
     },
     "literature_benchmark": {
       "schema_version": 1,
-      "generated_at_utc": "2026-06-21T11:55:19.364116+00:00",
+      "generated_at_utc": "2026-06-22T09:35:43.779061+00:00",
       "analysis_status": "implemented_directional_proxy_benchmark",
       "source_reference": {
         "source_id": "girn_2026_mega_analysis",

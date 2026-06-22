@@ -596,7 +596,7 @@ function pitchCardItems(payload = {}) {
     ["Interdisciplinary fit", "AI + control theory + fMRI", "The project connects subject-disjoint ML, graph/control priors, and psychedelic macro-dynamics in one inspectable workbench."],
     ["Research judgment", "claim-gated", "Implemented, proxy-supported, mixed, unsupported, blocked, and future claims stay visibly separated."],
     ["Engineering proof", "tested dashboard + artifacts", "FastAPI/Jinja/Plotly surfaces consume typed Python payloads, allowlisted artifacts, and regression-tested public JSON contracts."],
-    ["Current result", `top layer ${topLayer}`, "The current A-E ranking is shown as model-level proxy evidence, with B retained as a negative baseline."],
+    ["Current result", `top layer ${topLayer}`, "The current A-E proxy ranking is shown before motion-proof completion, with B retained as a negative baseline."],
     ["Falsification posture", `${strict} strict gates`, "The pitch shows what would weaken the claim instead of hiding blockers such as motion/confound proof."],
     ["Proposed next track", "motion proof first", "The package presents a concrete next step: close the FD/DVARS/censoring motion-proof gap before stronger thesis language or scope expansion."],
   ];
@@ -1016,7 +1016,7 @@ function renderSubmissionDecisionMatrix(payload) {
 function renderSubmissionTour() {
   const steps = [
     ["Overview", "/", "Start with strict gates, claim cards, and the dashboard evidence path."],
-    ["Mechanism Ranking", "/ranking", "Read unitless proxy support scores and the A-E layer order."],
+    ["Mechanism-Proxy Ranking", "/ranking", "Read unitless proxy support scores and the A-E layer order."],
     ["Robustness", "/robustness", "Check bootstrap, run, horizon, and window sensitivity before interpreting C or E."],
     ["Empirical Viewer", "/empirical", "Inspect paired LSD/placebo module summaries and metric-native deltas."],
     ["Prior Art", "/prior-art", "Keep literature wrappers separate from original local analysis."],

@@ -3,206 +3,60 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="color-scheme" content="dark">
-  <title>Overview | LSD Thesis Dashboard</title>
+  <title>LSD Thesis Public Review</title>
   <link rel="icon" href="data:,">
-  <link rel="stylesheet" href="static/dashboard.css?v=dashboard-redesign-20260611b">
-  <script src="assets/plotly.min.js" defer></script>
-  <script src="static/dashboard.js?v=dashboard-redesign-20260611b" defer></script>
+  <link rel="stylesheet" href="pi-review/assets/css/site.css">
 </head>
-<body
-  data-page="overview"
-  data-dashboard-data-url="dashboard/dashboard-data.json"
-  data-prior-art-data-url="dashboard/prior-art-data.json"
-  data-artifact-prefix="artifacts/"
-  data-deployment-mode="static"
->
-  <a class="skip-link" href="#main_content">Skip to dashboard content</a>
-  <div class="app-shell">
-    <aside class="sidebar" aria-label="Primary dashboard navigation">
-  <a class="brand" href="index.html" aria-label="Overview">
-    <span class="brand-mark" aria-hidden="true"></span>
-    <span>
-      <strong>LSD Thesis</strong>
-      <small>surrogate evidence</small>
-    </span>
-  </a>
-  <nav class="nav-list">
-
-      <a class="nav-link is-active" href="index.html" aria-current="page">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 13h7V4H4zM13 20h7V4h-7zM4 20h7v-5H4z"></path></svg>
-        <span>Overview</span>
-      </a>
-
-      <a class="nav-link" href="ranking.html">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 18l5-6 4 3 7-9M4 20h16"></path></svg>
-        <span>Mechanism Ranking</span>
-      </a>
-
-      <a class="nav-link" href="submission.html">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5h14v14H5zM8 9h8M8 13h8M8 17h5"></path></svg>
-        <span>Submission</span>
-      </a>
-
-      <a class="nav-link" href="robustness.html">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 4v5c0 5-3 8-7 10-4-2-7-5-7-10V7zM9 12l2 2 4-5"></path></svg>
-        <span>Robustness</span>
-      </a>
-
-      <a class="nav-link" href="prior-art.html">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h11a3 3 0 0 1 3 3v13H7a2 2 0 0 1-2-2zM8 8h8M8 12h8M8 16h5"></path></svg>
-        <span>Prior Art</span>
-      </a>
-
-      <a class="nav-link" href="empirical.html">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19c4 0 4-14 8-14s4 14 8 14M4 12h16"></path></svg>
-        <span>Empirical</span>
-      </a>
-
-      <a class="nav-link" href="simulator.html">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10M4 17h10M18 5v4M18 15v4M14 7a2 2 0 1 0 4 0 2 2 0 0 0-4 0M14 17a2 2 0 1 0 4 0 2 2 0 0 0-4 0"></path></svg>
-        <span>Simulator</span>
-      </a>
-
-      <a class="nav-link" href="thesis.html">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h14v16H5zM8 8h8M8 12h8M8 16h5"></path></svg>
-        <span>Thesis</span>
-      </a>
-
-      <a class="nav-link" href="figures.html">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v4H4zM4 11h7v8H4zM13 11h7v8h-7z"></path></svg>
-        <span>Figure Deck</span>
-      </a>
-
-  </nav>
-  <div class="claim-note">
-    <strong>Claim guardrail</strong>
-    <p>Every page keeps receptor, subjective-experience, and external-validity claims gated unless the local evidence artifact says otherwise.</p>
-  </div>
-</aside>
-    <div class="workspace">
-      <header class="topbar" aria-label="Dashboard status">
-        <div>
-          <p class="chrome-label">Macro-dynamics evidence console</p>
-          <h1>Overview</h1>
-        </div>
-        <div class="topbar-actions">
-          <a class="icon-button" href="pi-review/" title="Open supervisor pitch package" aria-label="Open supervisor pitch package">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19h16"/><path d="M6 17V5h12v12"/><path d="M9 9h6M9 13h4"/></svg>
-          </a>
-          <a class="icon-button" href="artifacts/results/thesis_upgrade/thesis_upgrade_status.json" title="Open strict audit JSON" aria-label="Open strict audit JSON">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v6h5"/><path d="M10 13h6M10 17h6"/></svg>
-          </a>
-          <a class="icon-button" href="artifacts/results/thesis_evidence_loop/claim_evidence_matrix.csv" title="Open claim evidence matrix" aria-label="Open claim evidence matrix">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v16H4z"/><path d="M4 10h16M4 15h16M10 5v16M16 5v16"/></svg>
-          </a>
-        </div>
-      </header>
-      <main id="main_content" class="page-surface" tabindex="-1">
-
-<section class="hero-grid" aria-labelledby="overview_title">
-  <div class="panel hero-panel panel--span-2">
-    <p class="chrome-label">Current thesis posture</p>
-    <h2 id="overview_title">Macro-dynamics evidence with explicit claim gates.</h2>
-    <p>The dashboard reads repository artifacts and separates implemented evidence from proxy-supported, mixed, blocked, and future claims.</p>
-    <div class="metric-strip" id="overview_metric_strip" aria-live="polite"></div>
-    <div id="evidence_flow" class="evidence-flow" aria-label="Thesis evidence pipeline"></div>
-    <div class="button-row">
-      <a class="secondary-link" href="submission.html">Open Submission Brief</a>
-      <a class="secondary-link" href="figures.html">Open Figure Deck</a>
-      <a class="secondary-link" href="pi-review/">Open Supervisor Pitch</a>
-      <a class="secondary-link" href="pi-review/pages/pitch-slides.html">Open Pitch Slides</a>
-    </div>
-  </div>
-  <div class="panel">
-    <div class="panel-heading">
-      <h2>Strict Gates</h2>
-      <span id="strict_gate_status" class="status-token">loading</span>
-    </div>
-    <div class="chart-frame">
-      <div id="strict_gate_chart" class="chart chart-sm" role="img" aria-label="Strict completion gate chart">Loading...</div>
-    </div>
-    <div id="strict_gate_chart_explainer"></div>
-  </div>
-</section>
-
-<section class="content-grid content-grid--wide">
-  <article class="panel panel--span-3">
-    <div class="panel-heading">
-      <h2>Supervisor Pitch: What This Demonstrates</h2>
-      <span class="status-token status-token--teal">shareable</span>
-    </div>
-    <div id="overview_pitch_cards" class="card-grid card-grid--dense"></div>
-  </article>
-  <article class="panel panel--span-3">
-    <div class="panel-heading">
-      <h2>Project Intro: How to Read This Dashboard</h2>
-      <span class="status-token status-token--moss">start here</span>
-    </div>
-    <div class="story-steps">
-      <div class="story-step">
-        <span>1</span>
-        <div>
-          <strong>The Data</strong>
-          <p>We summarize paired LSD/placebo fMRI into macro-dynamic module-level proxy signatures.</p>
+<body>
+  <header class="topbar">
+    <a class="brand" href="index.html">LSD Thesis Public Review</a>
+    <nav aria-label="Public entrypoints">
+      <a class="active" href="index.html">Start</a>
+      <a href="pi-review/">PI Review</a>
+      <a href="dashboard/">Dashboard</a>
+      <a href="pi-review/pages/decision-gates.html">Decision Gates</a>
+      <a href="pi-review/pages/claim-ledger.html">Claim Ledger</a>
+    </nav>
+  </header>
+  <main>
+    <section class="hero executive-hero">
+      <div>
+        <p class="eyebrow">Public review router</p>
+        <h1>Start with the PI review summary</h1>
+        <p class="hero-lede">
+          Research-demo evidence package; not completed neuroscience thesis. The safest first read is the
+          short PI review path, followed by the technical evidence console only when detail is needed.
+        </p>
+        <div class="actions">
+          <a class="button primary" href="pi-review/">Open PI Review</a>
+          <a class="button" href="pi-review/pages/decision-gates.html">Decision Gates</a>
+          <a class="button" href="pi-review/pages/claim-ledger.html">Claim Ledger</a>
         </div>
       </div>
-      <div class="story-step">
-        <span>2</span>
-        <div>
-          <strong>The Networks</strong>
-          <p>We use 8 transparent macro-scale proxy modules, such as visual, auditory, and default-mode summaries, rather than voxel-level claims.</p>
-        </div>
+      <aside class="status-panel">
+        <h2>Technical evidence console</h2>
+        <p>
+          The dashboard remains available for audit, but it is not the first-read narrative.
+        </p>
+        <dl>
+          <div><dt>Current claim status</dt><dd>C: hierarchy/routing layer is proxy-supported</dd></div>
+          <div><dt>Main blocker</dt><dd>Subject-level FD/DVARS/censoring motion-confound proof absent</dd></div>
+          <div><dt>Archive gate</dt><dd>GitHub release exists; Zenodo DOI/public reproducible archive gate pending</dd></div>
+        </dl>
+      </aside>
+    </section>
+    <section class="band muted">
+      <div class="section-head">
+        <p class="eyebrow">Motion-proof-first validation plan</p>
+        <h2>What to review before stronger thesis language</h2>
       </div>
-      <div class="story-step">
-        <span>3</span>
-        <div>
-          <strong>The Mechanisms</strong>
-          <p>We rank 5 mathematical mechanism proxies by how well they align with the current LSD-placebo macro-dynamic signatures.</p>
-        </div>
+      <div class="cards three">
+        <article><h3>1. Read summary</h3><p><a href="pi-review/">Open the short PI review page.</a></p></article>
+        <article><h3>2. Check gates</h3><p><a href="pi-review/pages/decision-gates.html">Inspect blockers and next validation decisions.</a></p></article>
+        <article><h3>3. Audit dashboard</h3><p><a href="dashboard/">Open the technical evidence console.</a></p></article>
       </div>
-    </div>
-  </article>
-  <article class="panel">
-    <div class="panel-heading">
-      <h2>Evidence Read Path</h2>
-      <span class="status-token status-token--teal">claim-safe</span>
-    </div>
-    <ol class="timeline-list" id="read_path_list"></ol>
-  </article>
-  <article class="panel panel--span-2">
-    <div class="panel-heading">
-      <h2>Literature Alignment Snapshot</h2>
-      <span id="overview_literature_status" class="status-token status-token--amber">loading</span>
-    </div>
-    <div class="chart-frame">
-      <div id="overview_literature_chart" class="chart chart-sm" role="img" aria-label="Literature alignment chart">Loading...</div>
-    </div>
-    <div id="overview_literature_chart_explainer"></div>
-  </article>
-  <article class="panel panel--span-3">
-    <div class="panel-heading">
-      <h2>Claim Status Cards</h2>
-      <span class="status-token status-token--teal">from artifacts</span>
-    </div>
-    <div id="overview_claim_cards" class="card-grid card-grid--dense"></div>
-  </article>
-  <article class="panel panel--span-3">
-    <div class="panel-heading">
-      <h2>Artifact Browser</h2>
-      <input id="artifact_filter" class="compact-input" type="search" placeholder="Filter artifacts" aria-label="Filter artifacts">
-    </div>
-    <div class="table-frame">
-      <table>
-        <thead><tr><th>Artifact</th><th>Kind</th><th>Open</th></tr></thead>
-        <tbody id="artifact_table"></tbody>
-      </table>
-    </div>
-  </article>
-</section>
-
-      </main>
-    </div>
-  </div>
+    </section>
+  </main>
+  <footer>Static GitHub Pages router. Public pages expose only derived artifacts and claim-gated summaries.</footer>
 </body>
 </html>

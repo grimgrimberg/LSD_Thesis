@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="dark">
-  <title>Thesis Presentation | LSD Thesis Dashboard</title>
+  <title>Research-Demo Thesis Presentation | LSD Thesis Dashboard</title>
   <link rel="icon" href="data:,">
   <link rel="stylesheet" href="static/dashboard.css?v=dashboard-redesign-20260611b">
   <script src="assets/plotly.min.js" defer></script>
@@ -29,14 +29,14 @@
   </a>
   <nav class="nav-list">
 
-      <a class="nav-link" href="index.html">
+      <a class="nav-link" href="dashboard/">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 13h7V4H4zM13 20h7V4h-7zM4 20h7v-5H4z"></path></svg>
         <span>Overview</span>
       </a>
 
       <a class="nav-link" href="ranking.html">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 18l5-6 4 3 7-9M4 20h16"></path></svg>
-        <span>Mechanism Ranking</span>
+        <span>Mechanism-Proxy Ranking</span>
       </a>
 
       <a class="nav-link" href="submission.html">
@@ -61,7 +61,7 @@
 
       <a class="nav-link" href="simulator.html">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10M4 17h10M18 5v4M18 15v4M14 7a2 2 0 1 0 4 0 2 2 0 0 0-4 0M14 17a2 2 0 1 0 4 0 2 2 0 0 0-4 0"></path></svg>
-        <span>Simulator</span>
+        <span>Illustrative Simulator</span>
       </a>
 
       <a class="nav-link is-active" href="thesis.html" aria-current="page">
@@ -84,7 +84,7 @@
       <header class="topbar" aria-label="Dashboard status">
         <div>
           <p class="chrome-label">Macro-dynamics evidence console</p>
-          <h1>Thesis Presentation</h1>
+          <h1>Research-Demo Thesis Presentation</h1>
         </div>
         <div class="topbar-actions">
           <a class="icon-button" href="pi-review/" title="Open supervisor pitch package" aria-label="Open supervisor pitch package">
@@ -102,20 +102,20 @@
 
 <section class="thesis-story" aria-labelledby="thesis_title">
   <article class="panel thesis-lede panel--span-3">
-    <p class="chrome-label">Thesis presentation</p>
+    <p class="chrome-label">Research-demo thesis presentation</p>
     <h2 id="thesis_title">A claim-gated macro-dynamics thesis for LSD-related fMRI evidence.</h2>
-    <p>The presentation condenses the dashboard into the claim, dataset, surrogate model, empirical anchor, mechanism ranking, robustness checks, prior-art landscape, and limitations.</p>
+    <p>The presentation condenses the dashboard into the claim, dataset, surrogate model, empirical anchor, mechanism-proxy ranking, robustness checks, prior-art landscape, and limitations.</p>
     <div id="thesis_status_cards" class="metric-strip" aria-live="polite"></div>
     <div id="thesis_pitch_links" class="button-row"></div>
   </article>
 
   <article class="panel panel--span-2">
     <div class="panel-heading">
-      <h2>Mechanism Thesis</h2>
+      <h2>Mechanism-Proxy Thesis</h2>
       <span class="status-token status-token--teal">macro proxy</span>
     </div>
     <div class="chart-frame">
-      <div id="thesis_mechanism_chart" class="chart chart-sm" role="img" aria-label="Thesis mechanism ranking summary">Loading...</div>
+      <div id="thesis_mechanism_chart" class="chart chart-sm" role="img" aria-label="Thesis mechanism-proxy ranking summary">Loading...</div>
     </div>
     <div id="thesis_mechanism_chart_explainer"></div>
   </article>
