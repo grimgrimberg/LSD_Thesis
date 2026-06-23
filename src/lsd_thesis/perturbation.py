@@ -276,7 +276,7 @@ def _ranking_figure(ranking: list[PerturbationEvaluation]) -> go.Figure:
         ]
     )
     figure.update_layout(
-        title="Mechanism Ranking Against Empirical Delta Targets",
+        title="Mechanism-Proxy Ranking Against Empirical Delta Targets",
         template="plotly_white",
         xaxis_title="Mechanism @ strength",
         yaxis_title="Delta mismatch score",
@@ -320,7 +320,7 @@ def _robust_ranking_figure(ranking: list[RobustPerturbationEvaluation]) -> go.Fi
         ]
     )
     figure.update_layout(
-        title="Seed-Panel Mechanism Ranking Against Empirical Delta Targets",
+        title="Seed-Panel Mechanism-Proxy Ranking Against Empirical Delta Targets",
         template="plotly_white",
         xaxis_title="Mechanism @ strength",
         yaxis_title="Mean delta mismatch score",

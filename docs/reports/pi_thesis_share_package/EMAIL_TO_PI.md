@@ -10,11 +10,11 @@ I prepared a one-page executive summary for my LSD thesis project:
 
 https://grimgrimberg.github.io/LSD_Thesis/pi-review/
 
-The safest framing is that this is a claim-gated computational workbench and evidence dashboard for model-level macro-dynamic mechanism ranking, not a finished thesis or biological proof. The dashboard-backed submission brief is here if you want the fuller plot view:
+The safest framing is that this is a claim-gated computational workbench and evidence dashboard for model-level macro-dynamic mechanism-proxy ranking, not a finished thesis or biological proof. The dashboard-backed submission brief is here if you want the fuller plot view:
 
 https://grimgrimberg.github.io/LSD_Thesis/submission.html
 
-The submission page explains what I built, shows the current dashboard-derived plots and units, links pitch slides and a figure atlas, summarizes methods/data-science work, gives prior-art context, and keeps blockers visible. The current ranking is C, E, D, A, B, with C as the strongest current macro-dynamic proxy layer. E remains only a lower transition/control-energy proxy, not receptor-specific proof. The package also keeps the main caveats visible: no subjective-experience simulation, no clinical validation, incomplete FD/DVARS/censoring motion proof, and missing Zenodo DOI archive publication.
+The submission page explains what I built, shows the current dashboard-derived plots and units, links pitch slides and a figure atlas, summarizes methods/data-science work, gives prior-art context, and keeps blockers visible. The current ranking is C, E, D, A, B, with C as the provisional leading macro-dynamic proxy under cached evidence, pending motion/confound proof layer. E remains only a lower transition/control-energy proxy, not receptor-specific proof. The package also keeps the main caveats visible: no subjective-experience simulation, no clinical validation, incomplete FD/DVARS/censoring motion proof, and missing Zenodo DOI archive publication.
 
 Could we schedule a 30-minute meeting to review it? I propose using the next milestone for an FD/DVARS/censoring motion-proof planning pack before expanding the science scope, so the discussion can focus on whether that plan is thesis-ready and appropriately bounded.
 
@@ -37,11 +37,11 @@ https://grimgrimberg.github.io/LSD_Thesis/submission.html
 
 The package is meant to make the current state easy to evaluate as a thesis direction. It includes pitch slides, a generated figure atlas, a PI brief, plot-by-plot evidence notes, a methods/data-skills summary, scholarly/prior-art context, current blockers, and a static landing page.
 
-The safest scientific framing is conservative: this is a claim-gated research workbench and evidence dashboard for model-level macro-dynamic mechanism ranking. It is not a finished thesis, not a receptor-level LSD model, not a subjective-experience simulation, not clinical validation, and not biological ground truth. The current evidence supports transparent surrogate mechanism ranking against paired LSD/placebo macro-dynamic proxy summaries.
+The safest scientific framing is conservative: this is a claim-gated research workbench and evidence dashboard for model-level macro-dynamic mechanism-proxy ranking. It is not a finished thesis, not a receptor-level LSD model, not a subjective-experience simulation, not clinical validation, and not biological ground truth. The current evidence supports transparent surrogate mechanism-proxy ranking against paired LSD/placebo macro-dynamic proxy summaries.
 
-The main implemented pieces are an 8-module stochastic graph surrogate model, cached ds003059 paired LSD/placebo empirical summaries, A-E dynamic mechanism ranking, robustness/status artifacts, a FastAPI/Jinja/Plotly dashboard, a figure deck, and a ds003059 prior-art reproducibility landscape. Current ranking from the tracked summary artifact is C, E, D, A, B. C is the strongest current macro-dynamic proxy layer. E is useful only as a lower transition/control-energy proxy and should not be promoted to receptor-specific proof. B remains a negative DMDc baseline.
+The main implemented pieces are an 8-module stochastic graph surrogate model, cached ds003059 paired LSD/placebo empirical summaries, A-E dynamic mechanism-proxy ranking, robustness/status artifacts, a FastAPI/Jinja/Plotly dashboard, a figure deck, and a ds003059 prior-art reproducibility landscape. Current ranking from the tracked summary artifact is C, E, D, A, B. C is the provisional leading macro-dynamic proxy under cached ds003059 evidence, pending FD/DVARS/censoring motion proof and atlas-level replication. E is useful only as a lower transition/control-energy proxy and should not be promoted to receptor-specific proof. B remains a negative DMDc baseline.
 
-The documented engineering baseline is green at the current package snapshot: ruff passed, mypy passed on 109 source files, pytest collect-only found 83 tests, full pytest passed 83 tests with 82.73% coverage, dependency check passed, dashboard strict preflight passed, and dashboard JavaScript syntax passed.
+The documented engineering baseline is historical for the 2026-06-21 package snapshot. The 2026-06-23 audit rechecked dashboard preflight, dashboard JavaScript syntax, and focused contract tests, while full pytest collection still needs rerun before claiming a current green full-suite baseline.
 
 The package also makes the blockers explicit. The most important scientific blocker is still motion/confound proof: the strict FD/DVARS/censoring gate is incomplete. Zenodo DOI/archive publication is also incomplete. External/PET/SC/neuromaps and run-02/music surfaces must remain claim-gated unless matching artifacts justify promotion.
 

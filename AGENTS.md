@@ -5,7 +5,7 @@
 This repository hosts two complementary components:
 
 1. **Surrogate model** — A transparent 8-module stochastic graph model that
-   produces psychedelic-like macro-dynamic signatures for mechanism ranking.
+   produces psychedelic-like macro-dynamic signatures for mechanism-proxy ranking.
 2. **Prior-art landscape** — A structured reproducibility inventory of all known
    ds003059-based analyses from the literature (12 analysis families).
 
@@ -14,6 +14,7 @@ This repository hosts two complementary components:
 - surrogate model, macro-scale analogue
 - altered-state-inspired perturbation
 - graph-modulated dynamics
+- mechanism-proxy ranking
 - prior-art reproducibility landscape
 
 ### Avoid
@@ -22,6 +23,7 @@ This repository hosts two complementary components:
 - claims about receptor-level realism
 - anthropomorphic language ("the model is tripping")
 - presenting prior-art wrappers as original analysis
+- unqualified mechanism-ranking language in public-facing claim text
 
 ---
 
@@ -117,6 +119,16 @@ uv run python scripts/export_dynamic_mechanism_tables.py
 - Keep all claims at macro-dynamics / proxy level
 - Treat switching barriers, metastability, and integration metrics as model-level
   proxies, not biological ground truth
+- Use only these public scientific claim-status labels unless a raw artifact
+  status is explicitly being quoted: `implemented`, `proxy-supported`, `mixed`,
+  `unsupported`, `blocked`, `future`
+- Phrase the current A-E result as a mechanism-proxy ranking; C is the
+  provisional leading macro-dynamic proxy pending motion/confound proof and
+  atlas-level replication
+- Split E into lower transition/control-energy proxy support versus
+  receptor-specific placement, which remains unsupported or future unless
+  PET/structural/spatial-null gates promote it
+- Keep B/DMDc as a negative-control baseline, not the main control-theory claim
 - Be explicit about what is fitted quantitatively vs matched qualitatively
 - Prefer cached `ds003059` empirical targets in `results/stage_2/` once generated
 - Treat the 8-module anatomical extraction as a transparent proxy, not a canonical

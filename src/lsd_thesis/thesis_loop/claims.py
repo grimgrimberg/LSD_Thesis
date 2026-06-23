@@ -122,7 +122,7 @@ def _build_claim_evidence_matrix(components: dict[str, Any]) -> list[dict[str, A
         _claim_row(
             claim="ds006072 psilocybin tests the LSD A+B+C+D+E ranking",
             dataset="OpenNeuro ds006072 psilocybin precision functional mapping",
-            model_layer="A+B+C+D+E mechanism ranking",
+            model_layer="A+B+C+D+E mechanism-proxy ranking",
             null_control="same scoring rules as LSD; paired psilocybin/control empirical viewer",
             figure="thesis_loop_steps; LSD-vs-psilocybin ranking comparison",
             export=(

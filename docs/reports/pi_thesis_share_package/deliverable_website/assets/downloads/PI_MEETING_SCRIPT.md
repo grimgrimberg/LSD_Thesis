@@ -6,7 +6,7 @@ Use this when the PI has limited time.
 
 1. "The project is now organized as a claim-gated research workbench, not a finished thesis."
 2. "The core scientific object is a transparent 8-module macro-dynamic surrogate model tested against cached paired LSD/placebo summary evidence."
-3. "The current mechanism ranking is C, E, D, A, B. C is strongest, E is a split lower-energy proxy, and B is a negative DMDc baseline."
+3. "The current mechanism-proxy ranking is C, E, D, A, B. C is provisionally leading under cached evidence, E is a split lower-energy proxy, and B is a negative DMDc baseline."
 4. "The dashboard keeps claims gated: motion/confound proof is still blocked, archive DOI is missing, and receptor/subjective/clinical claims are not promoted."
 5. "My proposed next milestone is motion-proof planning first, because FD/DVARS/censoring is the central thesis-critical gap."
 
@@ -24,7 +24,7 @@ Minute 5-8: Show Overview.
 
 "This page is the posture check. It shows the project as a claim-gated workbench with strict gates and a current ranking summary."
 
-Minute 8-11: Show Mechanism Ranking.
+Minute 8-11: Show Mechanism-Proxy Ranking.
 
 "The ranking is C, E, D, A, B. C leads, E is useful but split, and B is retained as a negative sanity baseline."
 
@@ -51,8 +51,8 @@ Minute 19-20: Ask for decision.
 ## Dashboard Demo Order
 
 1. Overview - "This is the project posture and gate summary."
-2. Mechanism Ranking - "This is the current model-level ranking, not biological proof."
-3. Robustness - "This is internal robustness, not a replacement for external validation or motion proof."
+2. Mechanism-Proxy Ranking - "This is the current model-level ranking, not biological proof."
+3. Robustness - "This is internal robustness, not a replacement for cross-dataset stress testing or motion proof."
 4. Empirical Viewer - "This is paired LSD/placebo summary inspection; run-02/music is not primary."
 5. Prior Art - "This shows scholarly context and prevents claim promotion without local artifacts."
 6. Figure Deck - "This is the review/export surface with blocked gates still visible."
@@ -65,11 +65,11 @@ Answer: "A transparent macro-dynamic surrogate workbench can rank candidate mech
 
 Question: "Does this prove an LSD mechanism?"
 
-Answer: "No. It supports model-level mechanism ranking. It does not prove receptor biology or clinical/subjective effects."
+Answer: "No. It supports model-level mechanism-proxy ranking. It does not prove receptor biology or clinical/subjective effects."
 
-Question: "Why is C strongest?"
+Question: "Why is C top-ranked?"
 
-Answer: "C has the highest exported support score in the current ranking and the strongest bootstrap rank-1 fraction. It is still a proxy layer and needs motion-sensitive and parcellation/null review before promotion."
+Answer: "C has the highest exported support score in the current ranking and the highest bootstrap rank-1 fraction. It is still a proxy layer and needs motion-sensitive and parcellation/null review before promotion."
 
 Question: "What happened to network control?"
 
@@ -99,10 +99,10 @@ Say:
 
 Say:
 
-"The contribution is not a final LSD biological proof. It is a reproducible, claim-gated computational workbench that connects transparent surrogate modeling, paired empirical summaries, mechanism ranking, robustness checks, dashboarding, and prior-art mapping. That can become a thesis if we define the evidence threshold and close the main blocker."
+"The contribution is not a final LSD biological proof. It is a reproducible, claim-gated computational workbench that connects transparent surrogate modeling, paired empirical summaries, mechanism-proxy ranking, robustness checks, dashboarding, and prior-art mapping. That can become a thesis if we define the evidence threshold and close the main blocker."
 
 ## If He Asks What I Need From Him
 
 Say:
 
-"I propose starting with a motion-proof planning pack, because that determines whether the current mechanism-ranking story can become thesis-level. I would like feedback on the plan's scope and evidence standard."
+"I propose starting with a motion-proof planning pack, because that determines whether the current mechanism-proxy-ranking story can become thesis-level. I would like feedback on the plan's scope and evidence standard."

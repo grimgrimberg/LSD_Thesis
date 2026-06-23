@@ -14,9 +14,9 @@ The project compares five families of model-level macro-dynamic proxies against 
 |---|---|---|---|
 | A | Transition-state proxy: does the system move between macro-states more easily or less rigidly? | occupancy, transition rate, transition entropy, dwell/barrier proxies, step distance | rank 4, score 0.148906 |
 | B | DMDc predictive baseline: does a simple controlled-dynamics predictor explain one-step changes? | `x_next ~= A x + B u`; leave-one-subject-out RMSE change | rank 5, score -0.074064; negative sanity baseline |
-| C | Hierarchy/routing: do changes look like altered routing across sensory, associative, transmodal, and thalamic-gateway structure? | aggregate signed support across hierarchy/routing metrics | rank 1, score 0.332606; strongest current proxy |
+| C | Hierarchy/routing: do changes look like altered routing across sensory, associative, transmodal, and thalamic-gateway structure? | aggregate signed support across hierarchy/routing metrics | rank 1, score 0.332606; provisional leading current proxy pending motion/confound proof |
 | D | Dynamic repertoire: does the system explore a broader or different network repertoire? | graph/dynamic-FC features such as integration, segregation, modularity, participation, variance, step distance | rank 3, score 0.150619 |
-| E | Control-energy proxy: how hard is it for a coarse macro graph to move from placebo-like to LSD-like state under candidate priors? | finite-horizon control energy, squared L2 norm of control input | rank 2, score 0.182875; useful lower transition/control-energy proxy, not receptor-specific proof |
+| E | Control-energy proxy: how hard is it for a coarse macro graph to move from placebo-like to LSD-like state under candidate priors? | finite-horizon control energy, squared L2 norm of control input | rank 2, score 0.271724; useful lower transition/control-energy proxy, not receptor-specific proof |
 
 ## How Everything Comes Together
 

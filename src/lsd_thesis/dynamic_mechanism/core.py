@@ -716,6 +716,21 @@ def _literature_support_rows() -> list[dict[str, str]]:
     ]
 
 
+def _public_mechanism_status(row: dict[str, Any]) -> str:
+    layer = str(row.get("layer", ""))
+    if layer == "A":
+        return "mixed"
+    if layer == "B":
+        return "implemented"
+    if layer == "C":
+        return "proxy-supported"
+    if layer == "D":
+        return "mixed"
+    if layer == "E":
+        return "mixed"
+    return "future"
+
+
 def build_dynamic_mechanism_summary(
     viewer_root: Path,
     *,
@@ -774,12 +789,16 @@ def build_dynamic_mechanism_summary(
             "mechanism": "receptor_informed_network_control_energy",
             "status": network_control_energy["status"],
             "score": network_control_energy["support_score"],
-            "evidence": "finite-horizon control energy with receptor, hierarchy, transmodal, random, and degree-control profiles",
+            "evidence": (
+                "finite-horizon lower transition/control-energy proxy; receptor-specific placement remains unsupported "
+                "without structural/PET/spatial-null gates"
+            ),
         },
     ]
     implemented_rankings = sorted(implemented_rankings, key=lambda row: float(row["score"]), reverse=True)
     for index, row in enumerate(implemented_rankings, start=1):
         row["rank"] = index
+        row["public_status"] = _public_mechanism_status(row)
 
     return {
         "schema_version": SCHEMA_VERSION,
@@ -822,7 +841,7 @@ def build_dynamic_mechanism_summary(
                 "structural graph rewires or spatial-autocorrelation-preserving receptor-map nulls."
             ),
             (
-                "Metric summaries now include bootstrap confidence intervals and BH-FDR correction for "
+                "Metric summaries now include cached bootstrap sensitivity intervals and BH-FDR correction for "
                 "sign-consistency p-values; with small n these are uncertainty descriptors, not population claims."
             ),
             "Run-02 music data are available in the fMRI explorer but are not part of this primary A+B+C+D+E ranking summary.",

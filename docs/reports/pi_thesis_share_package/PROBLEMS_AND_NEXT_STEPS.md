@@ -10,7 +10,7 @@ Primary milestone: blocked. Create the FD/DVARS/censoring motion-proof pack befo
 
 Claim boundary: mixed. Keep E caveated as a lower transition/control-energy proxy until stronger PET, map-prior, or spatial-null evidence changes the gate.
 
-After motion proof: future. Use parcellation/null audit and external-validation audit as the next scope only after the motion gate is documented.
+After motion proof: future. Use parcellation/null audit and cross-dataset stress-test audit as the next scope only after the motion gate is documented.
 
 Inputs to secure:
 
@@ -36,7 +36,7 @@ Needed to address it: Authorized subject/run motion confounds or original raw BI
 
 Suggested next action: Create a motion-proof planning pack that lists exact required inputs, expected output tables, predicates, and approval gates before running anything.
 
-Risk if ignored: The thesis can overstate mechanism ranking from data that may still be confounded.
+Risk if ignored: The thesis can overstate mechanism-proxy ranking from data that may still be confounded.
 
 ## Problem 2: FD/DVARS/Censoring Is Thesis-Critical
 
@@ -78,7 +78,7 @@ Needed to address it: A separate audit plan that distinguishes implemented sensi
 
 Suggested next action: Create an external/PET/SC/neuromaps evidence audit plan only after the PI agrees on scope and claim thresholds.
 
-Risk if ignored: The thesis may overclaim receptor-specific or external-validation support.
+Risk if ignored: The thesis may overclaim receptor-specific or cross-dataset stress-test support.
 
 ## Problem 5: Run-02/Music Remains Audit-Only
 

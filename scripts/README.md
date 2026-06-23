@@ -7,7 +7,7 @@ The core scripts have been refactored for clarity and scalability.
 
 * **`run_pipeline.py`** — The primary surrogate-model pipeline. Runs stages 1-4 (simulation, empirical extraction, perturbation fitting, ablation). 
   * Usage: `uv run python scripts/run_pipeline.py run-all`
-* **`run_dynamic_mechanism_ranking.py`** — Runs the final A+B+C+D+E mechanism ranking evaluation.
+* **`run_dynamic_mechanism_ranking.py`** — Runs the final A+B+C+D+E mechanism-proxy ranking evaluation.
 * **`run_dashboard.py`** — Serves the interactive evidence dashboard locally via FastAPI.
   * Usage: `uv run python scripts/run_dashboard.py`
 * **`run_cv5_validation.py`** — Runs cross-validation for the models.

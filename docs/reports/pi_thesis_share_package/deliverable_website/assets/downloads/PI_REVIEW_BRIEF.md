@@ -2,7 +2,7 @@
 
 ## Title And Snapshot
 
-Title: Claim-gated macro-dynamic mechanism ranking workbench for LSD fMRI thesis development
+Title: Claim-gated macro-dynamic mechanism-proxy ranking workbench for LSD fMRI thesis development
 
 Snapshot date: 2026-06-21
 
@@ -14,14 +14,14 @@ Validation baseline date in repo docs: 2026-06-17
 
 ## One-Paragraph Summary
 
-I built a claim-gated research workbench for turning an LSD fMRI computational project into a thesis. The project combines a transparent 8-module stochastic graph surrogate model, cached paired LSD/placebo ds003059 empirical summaries, dynamic mechanism ranking across A-E layers, robustness and validation status artifacts, a dashboard, and a structured prior-art reproducibility landscape. The infrastructure and evidence package are now ready for PI review. The current evidence supports model-level macro-dynamic mechanism ranking; it does not prove receptor-level realism, subjective-experience simulation, clinical validity, or biological ground truth.
+I built a claim-gated research workbench for turning an LSD fMRI computational project into a thesis. The project combines a transparent 8-module stochastic graph surrogate model, cached paired LSD/placebo ds003059 empirical summaries, dynamic mechanism-proxy ranking across A-E layers, robustness and validation status artifacts, a dashboard, and a structured prior-art reproducibility landscape. The infrastructure and evidence package are now ready for PI review. The current evidence supports model-level macro-dynamic mechanism-proxy ranking; it does not prove receptor-level realism, subjective-experience simulation, clinical validity, or biological ground truth.
 
 ## What I Built
 
 - A Python/uv project with typed source modules, tests, status artifacts, and dashboard payload contracts.
 - A transparent surrogate model with 8 coarse brain-inspired modules and stochastic graph-modulated dynamics.
 - A paired LSD/placebo empirical summary layer using cached ds003059 run-01/run-03 records.
-- A dynamic mechanism ranking across A-E layers.
+- A dynamic mechanism-proxy ranking across A-E layers.
 - Robustness artifacts for bootstrap, run sensitivity, horizon sensitivity, and claim verdicts.
 - Thesis readiness and package-readiness gates.
 - A FastAPI/Jinja/Plotly dashboard plus static/public payload artifacts.
@@ -32,13 +32,13 @@ I built a claim-gated research workbench for turning an LSD fMRI computational p
 
 Safe frame:
 
-> This is a transparent, model-level macro-dynamic mechanism-ranking workbench.
+> This is a transparent, model-level macro-dynamic mechanism-proxy-ranking workbench.
 
 It can currently defend:
 
 - macro-dynamic proxy comparison,
 - paired LSD/placebo summary inspection,
-- dynamic mechanism ranking over A-E layers,
+- dynamic mechanism-proxy ranking over A-E layers,
 - internal robustness and validation bookkeeping,
 - conservative claim gates that keep blockers visible.
 
@@ -52,19 +52,19 @@ It cannot currently defend:
 
 ## Current Evidence
 
-Current dynamic mechanism ranking from `results/dynamic_mechanism_ranking/summary.json`:
+Current dynamic mechanism-proxy ranking from `results/dynamic_mechanism_ranking/summary.json`:
 
 | Rank | Layer | Mechanism | Score | Status |
 |---:|---|---|---:|---|
-| 1 | C | hierarchy_routing_layer | 0.332606 | implemented_first_pass |
-| 2 | E | receptor_informed_network_control_energy | 0.182875 | implemented_proxy_control_energy |
-| 3 | D | dynamic_repertoire_layer | 0.150619 | implemented_first_pass |
-| 4 | A | transition_state_proxy | 0.148906 | implemented_first_pass |
-| 5 | B | dmdc_condition_interaction | -0.074064 | implemented_negative_control_baseline |
+| 1 | C | hierarchy_routing_layer | 0.332606 | implemented |
+| 2 | E | receptor_informed_network_control_energy | 0.271724 | proxy-supported |
+| 3 | D | dynamic_repertoire_layer | 0.150619 | implemented |
+| 4 | A | transition_state_proxy | 0.148906 | implemented |
+| 5 | B | dmdc_condition_interaction | -0.074064 | implemented |
 
 Key interpretation:
 
-- C is the strongest current macro-dynamic proxy layer.
+- C is the provisional leading macro-dynamic proxy under cached ds003059 evidence, pending FD/DVARS/censoring motion proof and atlas-level replication.
 - E supports a lower transition/control-energy proxy, but not receptor-specific placement.
 - B is intentionally retained as a negative/sanity baseline.
 - Run-02/music is not primary evidence.
@@ -72,7 +72,7 @@ Key interpretation:
 ## Key Dashboard Pages
 
 1. Overview - thesis posture, claim gates, strict gates, current ranking summary.
-2. Mechanism Ranking - A-E layer ranking and inference gate.
+2. Mechanism-Proxy Ranking - A-E layer ranking and inference gate.
 3. Robustness - bootstrap, run sensitivity, and internal uncertainty.
 4. Empirical Viewer - paired LSD/placebo aggregate and local subject/run inspection.
 5. Prior Art - ds003059 family inventory and claim-status separation.
@@ -81,7 +81,7 @@ Key interpretation:
 ## Key Plots And What They Mean
 
 - Overview screenshot: the project is a claim-gated workbench, not a completed thesis.
-- Mechanism Ranking screenshot: C leads the current model-level proxy ranking; E is split; B is negative.
+- Mechanism-Proxy Ranking screenshot: C leads the current model-level proxy ranking; E is split; B is negative.
 - Robustness screenshot: C has strong internal bootstrap stability, but this does not remove motion/confound blockers.
 - Empirical Viewer screenshot: paired LSD/placebo summaries can be inspected, while run-02/music remains gated.
 - Prior-Art screenshot: prior work is context and design inspiration unless local artifacts promote a claim.
@@ -97,8 +97,8 @@ From `docs/VALIDATION.md`, current status date 2026-06-17:
 
 - Ruff passed.
 - mypy passed on 109 source files.
-- pytest collect-only collected 83 tests.
-- Current full pytest baseline: 83 passed, 82.73% coverage.
+- The 2026-06-21 package snapshot reported pytest collect-only collected 83 tests; the 2026-06-23 audit did not reconfirm full collection.
+- Last package snapshot full pytest baseline passed; current audit must rerun full pytest before using this as a live gate.
 - `uv pip check` passed.
 - Dashboard strict preflight passed.
 - `node --check src\lsd_thesis\static\dashboard.js` passed.
@@ -117,7 +117,7 @@ Current gate summary from `results/thesis_upgrade/thesis_upgrade_status.json`:
 - The dashboard and artifacts are ready for PI review.
 - The model ranks transparent macro-dynamic proxy mechanisms.
 - The current ranking is C, E, D, A, B.
-- C is proxy-supported as the strongest current layer.
+- C is proxy-supported as the provisional leading current layer, pending FD/DVARS/censoring motion proof.
 - E is proxy-supported only for a lower transition/control-energy interpretation.
 - Internal subject-disjoint CV5 status is complete as internal validation: 5/5 folds, 15 subjects.
 - Prior-art mapping is useful for thesis positioning and preventing overclaims.
@@ -154,9 +154,9 @@ Current gate summary from `results/thesis_upgrade/thesis_upgrade_status.json`:
 
 ## Questions For PI
 
-- Is the thesis framing acceptable as a model-level mechanism-ranking workbench?
+- Is the thesis framing acceptable as a model-level mechanism-proxy-ranking workbench?
 - What evidence would you require before promoting C from proxy-supported to thesis-level claim?
-- Should the next scientific priority be motion proof, external validation audit, or parcellation/null sensitivity?
+- Should the next scientific priority be motion proof, cross-dataset stress-test audit, or parcellation/null sensitivity?
 - How should we treat the negative/split evidence for E and B in the thesis narrative?
 - Should run-02/music remain out of scope unless motion/context controls are available?
 - What is the minimum package needed before this can become a formal thesis proposal?

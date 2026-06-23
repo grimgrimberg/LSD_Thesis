@@ -75,14 +75,14 @@ Do not say:
 
 Safe wording:
 
-> The infrastructure and evidence package are ready for PI review. The current evidence supports model-level macro-dynamic mechanism ranking, with explicit claim gates and blockers.
+> The infrastructure and evidence package are ready for PI review. The current evidence supports model-level macro-dynamic mechanism-proxy ranking, with explicit claim gates and blockers.
 
 ## Recommended Meeting Order
 
 1. Start with the one-paragraph summary from `PI_REVIEW_BRIEF.md`.
 2. Show the dashboard overview screenshot and explain the claim-gated posture.
-3. Show mechanism ranking: C, E, D, A, B.
-4. Show robustness and explain internal robustness versus external validation.
+3. Show mechanism-proxy ranking: C, E, D, A, B.
+4. Show robustness and explain internal robustness versus cross-dataset stress-test evidence.
 5. Show empirical viewer and explain paired LSD/placebo summary inspection.
 6. Show prior-art inventory and how it prevents overclaiming.
 7. Show Figure Deck and the blocked motion/archive gates.

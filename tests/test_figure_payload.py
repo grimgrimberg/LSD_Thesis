@@ -50,7 +50,7 @@ def test_figure_payload_exposes_pipeline_explainers_and_deck() -> None:
     payload = build_figure_payloads(REPO_ROOT, _minimal_dashboard_payload())
 
     assert payload["evidence_flow"]["title"] == (
-        "Data -> 8 modules -> A-E mechanisms -> robustness -> claim gates"
+        "Data -> 8 modules -> A-E proxy layers -> robustness -> claim gates"
     )
     assert [node["id"] for node in payload["evidence_flow"]["nodes"]] == [
         "data",

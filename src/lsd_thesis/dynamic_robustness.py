@@ -649,13 +649,13 @@ def _claim_verdicts(summary: dict[str, Any], robustness: dict[str, Any], literat
             "next_action": "Re-run C under Schaefer/Yeo and motion-sensitive exclusions before final thesis claims.",
         },
         {
-            "claim": "E supports a landscape-flattening proxy.",
+            "claim": "E1 lower transition/control-energy proxy is provisionally supported.",
             "verdict": "proxy-supported" if _finite_float(control_metric.get("mean_delta") if control_metric else 0.0) > 0 else "unsupported",
             "evidence": f"Default-horizon receptor transition-energy reduction={_finite_float(default_e.get('lsd_receptor_energy_reduction_pct')):.3f}%.",
             "next_action": "Replace macro graph with structural connectome and add graph-rewire nulls.",
         },
         {
-            "claim": "E supports receptor-specific control placement.",
+            "claim": "E2 receptor-specific control placement remains unsupported.",
             "verdict": "unsupported" if _finite_float(receptor_metric.get("mean_delta") if receptor_metric else 0.0) <= 0 else "mixed",
             "evidence": f"Receptor-vs-random energy reduction={_finite_float(receptor_metric.get('mean_delta') if receptor_metric else 0.0):.3f}%.",
             "next_action": "Replace coarse priors with PET 5-HT2A maps and spatial nulls before making receptor claims.",

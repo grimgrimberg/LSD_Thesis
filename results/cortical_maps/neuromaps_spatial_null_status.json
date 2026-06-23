@@ -1,6 +1,6 @@
 {
   "schema_version": "neuromaps_spatial_null_status.v1",
-  "generated_at_utc": "2026-06-11T15:48:11.725114+00:00",
+  "generated_at_utc": "2026-06-23T12:11:58.523234+00:00",
   "analysis_status": "implemented_schaefer100_full_map_family_moran_spatial_nulls",
   "spatial_autocorrelation_nulls_complete": true,
   "partial_spatial_autocorrelation_nulls_complete": true,

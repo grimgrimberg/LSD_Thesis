@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at_utc": "2026-06-11T15:47:16.487273+00:00",
+  "generated_at_utc": "2026-06-23T12:09:20.914738+00:00",
   "analysis_status": "implemented_loop_status_artifacts",
   "status_rows": [
     {
@@ -8,7 +8,7 @@
       "label": "LSD robustness",
       "status": "implemented_lsd_robustness",
       "artifact_target": "results/dynamic_mechanism_ranking/robustness/",
-      "evidence": "C rank-1 fraction=0.84375",
+      "evidence": "C rank-1 fraction=0.6015625",
       "blocker": ""
     },
     {
@@ -64,11 +64,11 @@
     "lsd_robustness": {
       "analysis_status": "implemented_lsd_robustness",
       "source_path": "results/dynamic_mechanism_ranking/summary.json",
-      "evidence": "C rank-1 fraction=0.84375"
+      "evidence": "C rank-1 fraction=0.6015625"
     },
     "psilocybin_ds006072": {
       "schema_version": 1,
-      "generated_at_utc": "2026-06-11T15:46:42.798923+00:00",
+      "generated_at_utc": "2026-06-23T12:08:14.176057+00:00",
       "dataset_id": "ds006072",
       "source": "Dosenbach/Siegel group Scientific Data 2025; OpenNeuro ds006072 psilocybin precision functional mapping dataset with raw, minimally processed, and fully processed imaging",
       "source_reference": {
@@ -99,7 +99,7 @@
       "functional_manifest_processed_cifti_total_size_bytes": 113592893360,
       "external_validation_readiness": {
         "schema_version": "ds006072_external_validation.v1",
-        "generated_at_utc": "2026-06-11T15:46:32.703751+00:00",
+        "generated_at_utc": "2026-06-23T12:07:49.706553+00:00",
         "dataset_id": "ds006072",
         "analysis_status": "local_cifti_payloads_ready_for_comparable_extraction",
         "primary_contrast": "psilocybin_vs_active_control_mtp",
@@ -133,7 +133,8 @@
           "mechanism": "receptor_informed_network_control_energy",
           "status": "implemented_proxy_control_energy",
           "score": 3.067255437842912,
-          "evidence": "finite-horizon control energy with receptor, hierarchy, transmodal, random, and degree-control profiles"
+          "evidence": "finite-horizon lower transition/control-energy proxy; receptor-specific placement remains unsupported without structural/PET/spatial-null gates",
+          "public_status": "mixed"
         },
         {
           "rank": 2,
@@ -141,7 +142,8 @@
           "mechanism": "hierarchy_routing_layer",
           "status": "implemented_first_pass",
           "score": 0.47363558481119755,
-          "evidence": "sensory-transmodal, associative, thalamic-gateway, and hierarchy-flattening FC proxies"
+          "evidence": "sensory-transmodal, associative, thalamic-gateway, and hierarchy-flattening FC proxies",
+          "public_status": "proxy-supported"
         },
         {
           "rank": 3,
@@ -149,7 +151,8 @@
           "mechanism": "dynamic_repertoire_layer",
           "status": "implemented_first_pass",
           "score": 0.11152668537702862,
-          "evidence": "integration, segregation, graph modularity, participation, dynamic-FC variance, and trajectory-step proxies"
+          "evidence": "integration, segregation, graph modularity, participation, dynamic-FC variance, and trajectory-step proxies",
+          "public_status": "mixed"
         },
         {
           "rank": 4,
@@ -157,7 +160,8 @@
           "mechanism": "transition_state_proxy",
           "status": "implemented_first_pass",
           "score": -0.5263165112491509,
-          "evidence": "state occupancy, transition entropy, transition rate, dwell/barrier, and step-distance proxies"
+          "evidence": "state occupancy, transition entropy, transition rate, dwell/barrier, and step-distance proxies",
+          "public_status": "mixed"
         },
         {
           "rank": 5,
@@ -165,13 +169,14 @@
           "mechanism": "dmdc_condition_interaction",
           "status": "implemented_negative_control_baseline",
           "score": -5.122405042603652,
-          "evidence": "leave-one-subject-out one-step RMSE change; retained as a predictive baseline, not control-energy evidence"
+          "evidence": "leave-one-subject-out one-step RMSE change; retained as a predictive baseline, not control-energy evidence",
+          "public_status": "implemented"
         }
       ],
       "summary": {
         "schema_version": 3,
         "analysis_status": "implemented_first_pass",
-        "generated_at_utc": "2026-06-11T15:46:42.767291+00:00",
+        "generated_at_utc": "2026-06-23T12:08:14.058444+00:00",
         "inference_metadata": {
           "metric_ci_alpha": 0.05,
           "metric_bootstrap_iterations": 1024,
@@ -4225,7 +4230,8 @@
             "mechanism": "receptor_informed_network_control_energy",
             "status": "implemented_proxy_control_energy",
             "score": 3.067255437842912,
-            "evidence": "finite-horizon control energy with receptor, hierarchy, transmodal, random, and degree-control profiles"
+            "evidence": "finite-horizon lower transition/control-energy proxy; receptor-specific placement remains unsupported without structural/PET/spatial-null gates",
+            "public_status": "mixed"
           },
           {
             "rank": 2,
@@ -4233,7 +4239,8 @@
             "mechanism": "hierarchy_routing_layer",
             "status": "implemented_first_pass",
             "score": 0.47363558481119755,
-            "evidence": "sensory-transmodal, associative, thalamic-gateway, and hierarchy-flattening FC proxies"
+            "evidence": "sensory-transmodal, associative, thalamic-gateway, and hierarchy-flattening FC proxies",
+            "public_status": "proxy-supported"
           },
           {
             "rank": 3,
@@ -4241,7 +4248,8 @@
             "mechanism": "dynamic_repertoire_layer",
             "status": "implemented_first_pass",
             "score": 0.11152668537702862,
-            "evidence": "integration, segregation, graph modularity, participation, dynamic-FC variance, and trajectory-step proxies"
+            "evidence": "integration, segregation, graph modularity, participation, dynamic-FC variance, and trajectory-step proxies",
+            "public_status": "mixed"
           },
           {
             "rank": 4,
@@ -4249,7 +4257,8 @@
             "mechanism": "transition_state_proxy",
             "status": "implemented_first_pass",
             "score": -0.5263165112491509,
-            "evidence": "state occupancy, transition entropy, transition rate, dwell/barrier, and step-distance proxies"
+            "evidence": "state occupancy, transition entropy, transition rate, dwell/barrier, and step-distance proxies",
+            "public_status": "mixed"
           },
           {
             "rank": 5,
@@ -4257,7 +4266,8 @@
             "mechanism": "dmdc_condition_interaction",
             "status": "implemented_negative_control_baseline",
             "score": -5.122405042603652,
-            "evidence": "leave-one-subject-out one-step RMSE change; retained as a predictive baseline, not control-energy evidence"
+            "evidence": "leave-one-subject-out one-step RMSE change; retained as a predictive baseline, not control-energy evidence",
+            "public_status": "implemented"
           }
         ],
         "literature_support": [
@@ -4299,13 +4309,13 @@
           "C and D use coarse 8-module FC and graph proxies, not canonical network or thalamic-nucleus definitions.",
           "E currently uses a macro-module proxy graph and coarse receptor priors; it is not full structural-connectome/PET receptor-informed network control theory.",
           "Nulls include receptor-weight permutations and degree controls, but not yet degree-preserving structural graph rewires or spatial-autocorrelation-preserving receptor-map nulls.",
-          "Metric summaries now include bootstrap confidence intervals and BH-FDR correction for sign-consistency p-values; with small n these are uncertainty descriptors, not population claims.",
+          "Metric summaries now include cached bootstrap sensitivity intervals and BH-FDR correction for sign-consistency p-values; with small n these are uncertainty descriptors, not population claims.",
           "Run-02 music data are available in the fMRI explorer but are not part of this primary A+B+C+D+E ranking summary."
         ]
       },
       "comparable_empirical_validation": {
         "schema_version": "ds006072_external_validation.v1",
-        "generated_at_utc": "2026-06-11T15:46:32.749606+00:00",
+        "generated_at_utc": "2026-06-23T12:07:50.007640+00:00",
         "dataset_id": "ds006072",
         "primary_contrast": "psilocybin_vs_active_control_mtp",
         "viewer_root": "results/psilocybin_ds006072/parcellations/schaefer_100_yeo_7/empirical_viewer",
@@ -4351,8 +4361,8 @@
             "scoring_code_files.dynamic_mechanism_core": {
               "path": "src/lsd_thesis/dynamic_mechanism/core.py",
               "exists": true,
-              "expected_sha256": "fd4f728e146291ffa40dd72ebe0ff1a9489497f15572fea7550587bb7d7a77c5",
-              "current_sha256": "fd4f728e146291ffa40dd72ebe0ff1a9489497f15572fea7550587bb7d7a77c5",
+              "expected_sha256": "3bbf22a6b213fa86a9d964f7890477e2e0bca8be78051c66bcaf362f0de4b6c1",
+              "current_sha256": "3bbf22a6b213fa86a9d964f7890477e2e0bca8be78051c66bcaf362f0de4b6c1",
               "verified": true
             },
             "scoring_code_files.dynamic_mechanism_connectivity": {
@@ -4424,7 +4434,8 @@
             "mechanism": "receptor_informed_network_control_energy",
             "status": "implemented_proxy_control_energy",
             "score": 3.067255437842912,
-            "evidence": "finite-horizon control energy with receptor, hierarchy, transmodal, random, and degree-control profiles"
+            "evidence": "finite-horizon lower transition/control-energy proxy; receptor-specific placement remains unsupported without structural/PET/spatial-null gates",
+            "public_status": "mixed"
           },
           {
             "rank": 2,
@@ -4432,7 +4443,8 @@
             "mechanism": "hierarchy_routing_layer",
             "status": "implemented_first_pass",
             "score": 0.47363558481119755,
-            "evidence": "sensory-transmodal, associative, thalamic-gateway, and hierarchy-flattening FC proxies"
+            "evidence": "sensory-transmodal, associative, thalamic-gateway, and hierarchy-flattening FC proxies",
+            "public_status": "proxy-supported"
           },
           {
             "rank": 3,
@@ -4440,7 +4452,8 @@
             "mechanism": "dynamic_repertoire_layer",
             "status": "implemented_first_pass",
             "score": 0.11152668537702862,
-            "evidence": "integration, segregation, graph modularity, participation, dynamic-FC variance, and trajectory-step proxies"
+            "evidence": "integration, segregation, graph modularity, participation, dynamic-FC variance, and trajectory-step proxies",
+            "public_status": "mixed"
           },
           {
             "rank": 4,
@@ -4448,7 +4461,8 @@
             "mechanism": "transition_state_proxy",
             "status": "implemented_first_pass",
             "score": -0.5263165112491509,
-            "evidence": "state occupancy, transition entropy, transition rate, dwell/barrier, and step-distance proxies"
+            "evidence": "state occupancy, transition entropy, transition rate, dwell/barrier, and step-distance proxies",
+            "public_status": "mixed"
           },
           {
             "rank": 5,
@@ -4456,7 +4470,8 @@
             "mechanism": "dmdc_condition_interaction",
             "status": "implemented_negative_control_baseline",
             "score": -5.122405042603652,
-            "evidence": "leave-one-subject-out one-step RMSE change; retained as a predictive baseline, not control-energy evidence"
+            "evidence": "leave-one-subject-out one-step RMSE change; retained as a predictive baseline, not control-energy evidence",
+            "public_status": "implemented"
           }
         ],
         "lsd_reference_top_layer": "C",
@@ -4475,7 +4490,7 @@
         "summary": {
           "schema_version": 3,
           "analysis_status": "implemented_first_pass",
-          "generated_at_utc": "2026-06-11T15:46:42.767291+00:00",
+          "generated_at_utc": "2026-06-23T12:08:14.058444+00:00",
           "inference_metadata": {
             "metric_ci_alpha": 0.05,
             "metric_bootstrap_iterations": 1024,
@@ -8529,7 +8544,8 @@
               "mechanism": "receptor_informed_network_control_energy",
               "status": "implemented_proxy_control_energy",
               "score": 3.067255437842912,
-              "evidence": "finite-horizon control energy with receptor, hierarchy, transmodal, random, and degree-control profiles"
+              "evidence": "finite-horizon lower transition/control-energy proxy; receptor-specific placement remains unsupported without structural/PET/spatial-null gates",
+              "public_status": "mixed"
             },
             {
               "rank": 2,
@@ -8537,7 +8553,8 @@
               "mechanism": "hierarchy_routing_layer",
               "status": "implemented_first_pass",
               "score": 0.47363558481119755,
-              "evidence": "sensory-transmodal, associative, thalamic-gateway, and hierarchy-flattening FC proxies"
+              "evidence": "sensory-transmodal, associative, thalamic-gateway, and hierarchy-flattening FC proxies",
+              "public_status": "proxy-supported"
             },
             {
               "rank": 3,
@@ -8545,7 +8562,8 @@
               "mechanism": "dynamic_repertoire_layer",
               "status": "implemented_first_pass",
               "score": 0.11152668537702862,
-              "evidence": "integration, segregation, graph modularity, participation, dynamic-FC variance, and trajectory-step proxies"
+              "evidence": "integration, segregation, graph modularity, participation, dynamic-FC variance, and trajectory-step proxies",
+              "public_status": "mixed"
             },
             {
               "rank": 4,
@@ -8553,7 +8571,8 @@
               "mechanism": "transition_state_proxy",
               "status": "implemented_first_pass",
               "score": -0.5263165112491509,
-              "evidence": "state occupancy, transition entropy, transition rate, dwell/barrier, and step-distance proxies"
+              "evidence": "state occupancy, transition entropy, transition rate, dwell/barrier, and step-distance proxies",
+              "public_status": "mixed"
             },
             {
               "rank": 5,
@@ -8561,7 +8580,8 @@
               "mechanism": "dmdc_condition_interaction",
               "status": "implemented_negative_control_baseline",
               "score": -5.122405042603652,
-              "evidence": "leave-one-subject-out one-step RMSE change; retained as a predictive baseline, not control-energy evidence"
+              "evidence": "leave-one-subject-out one-step RMSE change; retained as a predictive baseline, not control-energy evidence",
+              "public_status": "implemented"
             }
           ],
           "literature_support": [
@@ -8603,7 +8623,7 @@
             "C and D use coarse 8-module FC and graph proxies, not canonical network or thalamic-nucleus definitions.",
             "E currently uses a macro-module proxy graph and coarse receptor priors; it is not full structural-connectome/PET receptor-informed network control theory.",
             "Nulls include receptor-weight permutations and degree controls, but not yet degree-preserving structural graph rewires or spatial-autocorrelation-preserving receptor-map nulls.",
-            "Metric summaries now include bootstrap confidence intervals and BH-FDR correction for sign-consistency p-values; with small n these are uncertainty descriptors, not population claims.",
+            "Metric summaries now include cached bootstrap sensitivity intervals and BH-FDR correction for sign-consistency p-values; with small n these are uncertainty descriptors, not population claims.",
             "Run-02 music data are available in the fMRI explorer but are not part of this primary A+B+C+D+E ranking summary."
           ]
         },
@@ -8624,7 +8644,7 @@
     },
     "structural_connectome": {
       "schema_version": 1,
-      "generated_at_utc": "2026-06-11T15:46:44.523520+00:00",
+      "generated_at_utc": "2026-06-23T12:08:17.636048+00:00",
       "artifact_target": "results/structural_connectome",
       "source_reference": {
         "source_id": "hcp_young_adult",
@@ -12269,7 +12289,7 @@
     },
     "receptor_priors": {
       "schema_version": 1,
-      "generated_at_utc": "2026-06-11T15:46:56.989794+00:00",
+      "generated_at_utc": "2026-06-23T12:08:38.630689+00:00",
       "artifact_target": "results/receptor_priors",
       "source_reference": {
         "source_id": "markello_neuromaps_2022",
@@ -16033,7 +16053,7 @@
     },
     "motion_sensitive_c_gate": {
       "schema_version": 1,
-      "generated_at_utc": "2026-06-11T15:46:58.182648+00:00",
+      "generated_at_utc": "2026-06-23T12:08:40.080567+00:00",
       "analysis_status": "blocked_motion_sensitive_c_claim_requires_authorized_confound_exclusions",
       "artifact_target": "results/confound_controls",
       "evidence": "Schaefer/Yeo C sensitivity exists, but final C claims remain gated because strict subject/run FD/DVARS/censoring confounds are not proof-ready or high-burden exclusions are unstable.",
@@ -16060,7 +16080,7 @@
     },
     "parcellation_sensitivity": {
       "schema_version": 1,
-      "generated_at_utc": "2026-06-11T15:46:58.310593+00:00",
+      "generated_at_utc": "2026-06-23T12:08:40.442117+00:00",
       "analysis_status": "implemented_status_matrix",
       "source_reference": {
         "source_id": "schaefer_2018_local_global",
@@ -16303,7 +16323,7 @@
     },
     "literature_benchmark": {
       "schema_version": 1,
-      "generated_at_utc": "2026-06-11T15:47:16.481363+00:00",
+      "generated_at_utc": "2026-06-23T12:09:20.889973+00:00",
       "analysis_status": "implemented_directional_proxy_benchmark",
       "source_reference": {
         "source_id": "girn_2026_mega_analysis",
@@ -16387,8 +16407,8 @@
           "layer": "E",
           "project_metric": "lsd_vs_placebo_receptor_transition_energy_reduction_pct",
           "expected_sign": 1,
-          "observed_mean_delta": 4.702198506533535,
-          "observed_signed_effect_size": 0.37576604844255507,
+          "observed_mean_delta": 2.4664931921378366,
+          "observed_signed_effect_size": 0.19076095351008285,
           "sign_match": true,
           "status": "aligned",
           "source": "Singleton et al., Nature Communications 2022",
@@ -16401,8 +16421,8 @@
           "layer": "E",
           "project_metric": "receptor_vs_random_energy_reduction_pct",
           "expected_sign": 1,
-          "observed_mean_delta": -15.4342613806409,
-          "observed_signed_effect_size": -0.8321254106889895,
+          "observed_mean_delta": -1.8442464254640627,
+          "observed_signed_effect_size": -0.12892014353250017,
           "sign_match": false,
           "status": "opposes_or_weak",
           "source": "Singleton et al., Nature Communications 2022",
@@ -16611,7 +16631,7 @@
     {
       "claim": "ds006072 psilocybin tests the LSD A+B+C+D+E ranking",
       "dataset": "OpenNeuro ds006072 psilocybin precision functional mapping",
-      "model layer": "A+B+C+D+E mechanism ranking",
+      "model layer": "A+B+C+D+E mechanism-proxy ranking",
       "null/control": "same scoring rules as LSD; paired psilocybin/control empirical viewer",
       "figure": "thesis_loop_steps; LSD-vs-psilocybin ranking comparison",
       "csv/xlsx export": "results/psilocybin_ds006072/psilocybin_ds006072_status.json; results/thesis_evidence_loop/exports/ds006072_summary.csv",

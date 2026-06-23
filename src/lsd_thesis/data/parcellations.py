@@ -680,7 +680,7 @@ def _write_minimal_viewer(
         "paired_record_count": paired_count,
         "conditions": {},
         "gallery": [],
-        "viewer_note": "Minimal parcellation viewer for mechanism ranking; it intentionally omits raw-image previews.",
+        "viewer_note": "Minimal parcellation viewer for mechanism-proxy ranking; it intentionally omits raw-image previews.",
     }
     (viewer_root / "group_overview.json").write_text(json.dumps(group_overview, indent=2), encoding="utf-8")
     (viewer_root / "subject_index.json").write_text(json.dumps(subject_index, indent=2), encoding="utf-8")

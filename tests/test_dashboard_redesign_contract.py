@@ -238,7 +238,7 @@ def test_pi_review_public_routes_surface_claim_gates() -> None:
     assert "motion/confound" in decision_gates
     assert "DOI/archive" in decision_gates
     assert "atlas replication" in decision_gates
-    assert "external validation" in decision_gates
+    assert "cross-dataset stress-test" in decision_gates
 
     assert "Claim Ledger" in claim_ledger
     assert "C is the provisional leading macro-dynamic proxy" in claim_ledger

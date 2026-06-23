@@ -1,6 +1,6 @@
 {
   "schema_version": "thesis_upgrade_status.v1",
-  "generated_at_utc": "2026-06-11T15:48:20.961615+00:00",
+  "generated_at_utc": "2026-06-23T12:12:23.654537+00:00",
   "readiness_summary": {
     "ready_gates": 6,
     "total_gates": 9,
@@ -35,7 +35,7 @@
       "status": "implemented_image_derived_motion_qc_control",
       "ready": false,
       "evidence": "results/setting_seed/motion/motion_summary.json; results/confound_controls/motion_confound_control_status.json; results/confound_controls/design_confound_control_status.json; results/confound_controls/module_dvars_control_status.json; results/confound_controls/published_motion_qc_status.json; results/confound_controls/ds003059_motion_source_availability.json; results/confound_controls/image_motion_qc_status.json; results/confound_controls/fmriprep_motion_proof_plan.json",
-      "blocker": "Raw-BOLD image-derived motion/QC sensitivity is implemented; fMRIPrep FD/DVARS/censoring remains the preferred future gold-standard control.",
+      "blocker": "Raw-BOLD image-derived motion/QC sensitivity is implemented, but strict completion still requires fMRIPrep FD/DVARS/censoring motion proof.",
       "score": 0.82
     },
     {
@@ -43,7 +43,7 @@
       "status": "implemented_mechanism_ranking",
       "ready": true,
       "evidence": "results/parcellation_sensitivity/parcellation_sensitivity_status.json",
-      "blocker": "Canonical Schaefer/Yeo extraction, empirical viewer, and mechanism ranking are available.",
+      "blocker": "Canonical Schaefer/Yeo extraction, empirical viewer, and mechanism-proxy ranking are available.",
       "score": 1.0
     },
     {
@@ -194,7 +194,7 @@
         "status": "implemented_image_derived_motion_qc_control",
         "ready": false,
         "evidence": "results/setting_seed/motion/motion_summary.json; results/confound_controls/motion_confound_control_status.json; results/confound_controls/design_confound_control_status.json; results/confound_controls/module_dvars_control_status.json; results/confound_controls/published_motion_qc_status.json; results/confound_controls/ds003059_motion_source_availability.json; results/confound_controls/image_motion_qc_status.json; results/confound_controls/fmriprep_motion_proof_plan.json",
-        "blocker": "Raw-BOLD image-derived motion/QC sensitivity is implemented; fMRIPrep FD/DVARS/censoring remains the preferred future gold-standard control.",
+        "blocker": "Raw-BOLD image-derived motion/QC sensitivity is implemented, but strict completion still requires fMRIPrep FD/DVARS/censoring motion proof.",
         "score": 0.82
       },
       "strict_requirement": {
@@ -289,7 +289,7 @@
         "status": "implemented_mechanism_ranking",
         "ready": true,
         "evidence": "results/parcellation_sensitivity/parcellation_sensitivity_status.json",
-        "blocker": "Canonical Schaefer/Yeo extraction, empirical viewer, and mechanism ranking are available.",
+        "blocker": "Canonical Schaefer/Yeo extraction, empirical viewer, and mechanism-proxy ranking are available.",
         "score": 1.0
       },
       "strict_requirement": {
@@ -327,7 +327,7 @@
         "minimum_pair_count": 1,
         "minimum_module_count": 100
       },
-      "engineering_logic": "Use Schaefer parcels as state nodes and Yeo networks as interpretable macro-supernodes; then test whether mechanism rankings survive the refined state-space.",
+      "engineering_logic": "Use Schaefer parcels as state nodes and Yeo networks as interpretable macro-supernodes; then test whether mechanism-proxy rankings survive the refined state-space.",
       "claim_guardrail": "Schaefer/Yeo is implemented for ds003059 high-resolution sensitivity. This resolves the coarse-parcellation gate, but does not by itself establish receptor, myelin, gradient, psilocybin, or spatial-null claims."
     },
     "neuromaps_spatial_nulls": {

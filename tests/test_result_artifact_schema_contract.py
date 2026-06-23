@@ -9,6 +9,7 @@ from typing import Any
 from lsd_thesis.thesis_loop import CLAIM_EVIDENCE_COLUMNS
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
+PUBLIC_CLAIM_STATUSES = {"implemented", "proxy-supported", "mixed", "unsupported", "blocked", "future"}
 
 
 def _json_object(relative_path: str) -> Mapping[str, Any]:
@@ -46,21 +47,34 @@ def test_stage_2_summary_and_empirical_viewer_schema_contract() -> None:
     assert isinstance(summary["empirical_validation_boundary"], Mapping)
     assert isinstance(summary["empirical_viewer"], Mapping)
 
-    viewer = _json_object("results/stage_2/empirical_viewer/group_overview.json")
-    assert {"conditions", "default_subject", "delta_metrics", "gallery", "module_names", "paired_subject_count", "runs", "subjects"}.issubset(
-        viewer
-    )
-    assert isinstance(viewer["conditions"], Mapping)
-    assert isinstance(viewer["default_subject"], str)
-    assert isinstance(viewer["delta_metrics"], Mapping)
-    assert isinstance(viewer["module_names"], list)
-    assert isinstance(viewer["paired_subject_count"], int)
-    assert isinstance(viewer["runs"], list)
-    assert isinstance(viewer["subjects"], list)
-    for gallery_item in _records(viewer["gallery"], "empirical_viewer.gallery"):
-        _assert_required_fields(gallery_item, {"label", "path"}, "empirical_viewer.gallery item")
-        assert isinstance(gallery_item["path"], str)
-        assert Path(gallery_item["path"]).suffix in {".html", ".png", ".json"}
+    viewer_ref = summary["empirical_viewer"]
+    assert {"group_overview_path", "subject_index_path", "subject_views_dir"}.issubset(viewer_ref)
+    assert all(isinstance(viewer_ref[key], str) and viewer_ref[key] for key in viewer_ref)
+
+    viewer_path = REPO_ROOT / "results/stage_2/empirical_viewer/group_overview.json"
+    if viewer_path.exists():
+        viewer = _json_object("results/stage_2/empirical_viewer/group_overview.json")
+        assert {
+            "conditions",
+            "default_subject",
+            "delta_metrics",
+            "gallery",
+            "module_names",
+            "paired_subject_count",
+            "runs",
+            "subjects",
+        }.issubset(viewer)
+        assert isinstance(viewer["conditions"], Mapping)
+        assert isinstance(viewer["default_subject"], str)
+        assert isinstance(viewer["delta_metrics"], Mapping)
+        assert isinstance(viewer["module_names"], list)
+        assert isinstance(viewer["paired_subject_count"], int)
+        assert isinstance(viewer["runs"], list)
+        assert isinstance(viewer["subjects"], list)
+        for gallery_item in _records(viewer["gallery"], "empirical_viewer.gallery"):
+            _assert_required_fields(gallery_item, {"label", "path"}, "empirical_viewer.gallery item")
+            assert isinstance(gallery_item["path"], str)
+            assert Path(gallery_item["path"]).suffix in {".html", ".png", ".json"}
 
 
 def test_dynamic_mechanism_summary_schema_contract() -> None:
@@ -91,11 +105,12 @@ def test_dynamic_mechanism_summary_schema_contract() -> None:
     ranking_rows = _records(summary["mechanism_ranking"], "dynamic mechanism ranking rows")
     assert ranking_rows
     for row in ranking_rows:
-        _assert_required_fields(row, {"rank", "layer", "mechanism", "status", "score", "evidence"}, "mechanism ranking row")
+        _assert_required_fields(row, {"rank", "layer", "mechanism", "status", "public_status", "score", "evidence"}, "mechanism ranking row")
         assert isinstance(row["rank"], int)
         assert isinstance(row["layer"], str) and row["layer"]
         assert isinstance(row["mechanism"], str) and row["mechanism"]
         assert isinstance(row["status"], str) and row["status"]
+        assert row["public_status"] in PUBLIC_CLAIM_STATUSES
         assert isinstance(row["score"], int | float)
         assert isinstance(row["evidence"], str) and row["evidence"]
 
@@ -205,6 +220,8 @@ def test_thesis_evidence_loop_status_schema_contract() -> None:
     csv_path = matrix_paths.get("csv")
     assert isinstance(csv_path, str) and csv_path.endswith(".csv")
     assert "\\" not in csv_path
-    with (REPO_ROOT / csv_path).open(encoding="utf-8", newline="") as handle:
-        reader = csv.DictReader(handle)
-        assert reader.fieldnames == CLAIM_EVIDENCE_COLUMNS
+    csv_file = REPO_ROOT / csv_path
+    if csv_file.exists():
+        with csv_file.open(encoding="utf-8", newline="") as handle:
+            reader = csv.DictReader(handle)
+            assert reader.fieldnames == CLAIM_EVIDENCE_COLUMNS

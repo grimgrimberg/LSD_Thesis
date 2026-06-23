@@ -53,7 +53,7 @@ Needed to strengthen claim: Complete the motion/confound proof and archive DOI g
 
 Validation/test protection: Dashboard route/payload/public-site contract tests, figure payload tests, thesis upgrade status tests, and dashboard strict preflight.
 
-## Exhibit B: Mechanism Ranking
+## Exhibit B: Mechanism-Proxy Ranking
 
 Image path in package: `assets/screenshots/dashboard-ranking.png`
 
@@ -61,21 +61,21 @@ Original source path: `docs/reports/project_state_handoff/assets/screenshots/das
 
 Original status: dashboard screenshot.
 
-What it visually shows: A-E mechanism ranking with C leading and B retained as a negative baseline.
+What it visually shows: A-E mechanism-proxy ranking with C leading and B retained as a negative baseline.
 
 Data artifact or payload behind it: `results/dynamic_mechanism_ranking/summary.json`; `results/dynamic_mechanism_ranking/exports/mechanism_ranking.csv`.
 
-Calculation summary: The chart uses exported mechanism ranking rows sorted by rank. Bar length is the exported unitless support score.
+Calculation summary: The chart uses exported mechanism-proxy ranking rows sorted by rank. Bar length is the exported unitless support score.
 
 Exact values safely extracted:
 
 | Rank | Layer | Mechanism | Score | Status |
 |---:|---|---|---:|---|
-| 1 | C | hierarchy_routing_layer | 0.332606 | implemented_first_pass |
-| 2 | E | receptor_informed_network_control_energy | 0.182875 | implemented_proxy_control_energy |
-| 3 | D | dynamic_repertoire_layer | 0.150619 | implemented_first_pass |
-| 4 | A | transition_state_proxy | 0.148906 | implemented_first_pass |
-| 5 | B | dmdc_condition_interaction | -0.074064 | implemented_negative_control_baseline |
+| 1 | C | hierarchy_routing_layer | 0.332606 | implemented |
+| 2 | E | receptor_informed_network_control_energy | 0.271724 | proxy-supported |
+| 3 | D | dynamic_repertoire_layer | 0.150619 | implemented |
+| 4 | A | transition_state_proxy | 0.148906 | implemented |
+| 5 | B | dmdc_condition_interaction | -0.074064 | implemented |
 
 Meaning of A-E:
 
@@ -87,7 +87,7 @@ Meaning of A-E:
 
 Likely responsible code: `src/lsd_thesis/dynamic_mechanism/`, `scripts/run_dynamic_mechanism_ranking.py`, dashboard payload builders, and chart rendering in dashboard JavaScript.
 
-Claim status: proxy-supported for C as current strongest layer; mixed for E; implemented negative baseline for B.
+Claim status: proxy-supported for C as the provisional leading current layer; mixed for E; implemented negative baseline for B.
 
 Caveat: This is a model-level proxy ranking. It is not biological proof and not a receptor-level mechanism.
 
@@ -115,15 +115,15 @@ Exact values safely extracted:
 
 | Layer | Current score | Score mean | CI low | CI high | Median rank | Rank-1 fraction |
 |---|---:|---:|---:|---:|---:|---:|
-| A | 0.148906 | 0.163748 | -0.131526 | 0.493676 | 3.0 | 0.117188 |
+| A | 0.148906 | 0.163748 | -0.131526 | 0.493676 | 3.0 | 0.078125 |
 | B | -0.074064 | -0.074430 | -0.165982 | 0.012141 | 5.0 | 0.000000 |
-| C | 0.332606 | 0.349477 | 0.222188 | 0.520315 | 1.0 | 0.843750 |
+| C | 0.332606 | 0.349477 | 0.222188 | 0.520315 | 1.0 | 0.601562 |
 | D | 0.150619 | 0.148384 | -0.019302 | 0.329665 | 3.0 | 0.019531 |
-| E | 0.182875 | 0.195633 | -0.016250 | 0.392784 | 3.0 | 0.019531 |
+| E | 0.271724 | 0.299498 | 0.052482 | 0.535271 | 2.0 | 0.300781 |
 
 Likely responsible code: `scripts/run_dynamic_mechanism_ranking.py`; robustness helpers under `src/lsd_thesis/dynamic_robustness.py` and `src/lsd_thesis/dynamic_mechanism/`.
 
-Claim status: proxy-supported internal robustness for C; not external validation.
+Claim status: proxy-supported internal robustness for C; not claim validation.
 
 Caveat: Robustness is an in-sample/internal stress test and does not remove motion/confound blockers.
 
@@ -289,7 +289,7 @@ Claim status: implemented fit-quality summary.
 
 Caveat: This is cached fit quality and limited repeatability evidence, not proof of generalization.
 
-Needed to strengthen claim: Subject-disjoint and external validation, plus motion/confound proof.
+Needed to strengthen claim: Subject-disjoint and cross-dataset stress testing, plus motion/confound proof.
 
 Validation/test protection: publication figure/source artifact tests and validation baseline docs.
 

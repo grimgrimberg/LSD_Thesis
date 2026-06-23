@@ -1,6 +1,6 @@
-# Dynamic Mechanism Ranking: A+B+C+D+E Proxy-Control Pass
+# Dynamic Mechanism-Proxy Ranking: A+B+C+D+E Proxy-Control Pass
 
-Generated: `2026-06-02T09:44:22.883624+00:00`
+Generated: `2026-06-23T11:57:40.704010+00:00`
 
 ## Scope
 
@@ -11,15 +11,15 @@ These are AI/ML surrogate results for ranking macro-dynamic mechanisms; they do 
 - Subjects: 15
 - Runs: run-01, run-03
 
-## Mechanism Ranking
+## Mechanism-Proxy Ranking
 
 | Rank | Layer | Mechanism | Status | Score | Evidence |
 | --- | --- | --- | --- | ---: | --- |
-| 1 | C | `hierarchy_routing_layer` | implemented_first_pass | 0.332606 | sensory-transmodal, associative, thalamic-gateway, and hierarchy-flattening FC proxies |
-| 2 | E | `receptor_informed_network_control_energy` | implemented_proxy_control_energy | 0.182875 | finite-horizon control energy with receptor, hierarchy, transmodal, random, and degree-control profiles |
-| 3 | D | `dynamic_repertoire_layer` | implemented_first_pass | 0.150619 | integration, segregation, graph modularity, participation, dynamic-FC variance, and trajectory-step proxies |
-| 4 | A | `transition_state_proxy` | implemented_first_pass | 0.148906 | state occupancy, transition entropy, transition rate, dwell/barrier, and step-distance proxies |
-| 5 | B | `dmdc_condition_interaction` | implemented_negative_control_baseline | -0.0740637 | leave-one-subject-out one-step RMSE change; retained as a predictive baseline, not control-energy evidence |
+| 1 | C | `hierarchy_routing_layer` | proxy-supported | 0.332606 | sensory-transmodal, associative, thalamic-gateway, and hierarchy-flattening FC proxies |
+| 2 | E | `receptor_informed_network_control_energy` | mixed | 0.271724 | finite-horizon lower transition/control-energy proxy; receptor-specific placement remains unsupported without structural/PET/spatial-null gates |
+| 3 | D | `dynamic_repertoire_layer` | mixed | 0.150619 | integration, segregation, graph modularity, participation, dynamic-FC variance, and trajectory-step proxies |
+| 4 | A | `transition_state_proxy` | mixed | 0.148906 | state occupancy, transition entropy, transition rate, dwell/barrier, and step-distance proxies |
+| 5 | B | `dmdc_condition_interaction` | implemented | -0.0740637 | leave-one-subject-out one-step RMSE change; retained as a predictive baseline, not control-energy evidence |
 
 ## Literature Grounding
 
@@ -104,19 +104,19 @@ E is a receptor/hierarchy-informed proxy-control test. It is not full receptor-i
 - Method: finite-horizon discrete network-control energy over matched PCA-state centroids; control profiles share the same mean control budget
 - Equation: `x[t+1] = A_graph x[t] + B_profile u[t]; energy = min sum_t ||u[t]||^2 over a finite horizon`
 - Horizon: 8
-- Graph source: configs/graphs/macro_modules.yaml macro-module proxy graph; not a subject structural connectome
+- Graph source: mean positive placebo FC proxy graph; not a structural connectome
 - Structural connectome: False
 - Receptor prior source: coarse module-level proxy prior from receptor-gradient model config; not a PET-derived receptor map
 - Random receptor-prior permutation nulls per pair: 128
 
 | Metric | Mean Value | SD | Signed Effect | Direction |
 | --- | ---: | ---: | ---: | --- |
-| `lsd_vs_placebo_receptor_transition_energy_reduction_pct` | 4.7022 | 12.5136 | 0.375766 | positive means LSD within-condition transitions need less receptor-profile control energy than placebo (sign consistency 0.633, sign-test p=0.1) |
-| `lsd_vs_placebo_uniform_transition_energy_reduction_pct` | 6.93589 | 9.57709 | 0.724217 | positive means LSD within-condition transitions need less uniform-control energy than placebo (sign consistency 0.767, sign-test p=0.00261) |
-| `receptor_vs_uniform_energy_reduction_pct` | -34.387 | 23.5869 | -1.45789 | positive means receptor-prior control needs less energy than uniform control (sign consistency 0, sign-test p=1) |
-| `receptor_vs_random_energy_reduction_pct` | -15.4343 | 18.548 | -0.832125 | positive means receptor-prior control needs less energy than random receptor-prior permutations (sign consistency 0.267, sign-test p=0.997) |
-| `hierarchy_vs_uniform_energy_reduction_pct` | -300.47 | 130.811 | -2.29698 | positive means hierarchy-prior control needs less energy than uniform control (sign consistency 0, sign-test p=1) |
-| `transmodal_vs_uniform_energy_reduction_pct` | -674.316 | 331.413 | -2.03467 | positive means transmodal-prior control needs less energy than uniform control (sign consistency 0, sign-test p=1) |
+| `lsd_vs_placebo_receptor_transition_energy_reduction_pct` | 2.46649 | 12.9298 | 0.190761 | positive means LSD within-condition transitions need less receptor-profile control energy than placebo (sign consistency 0.5, sign-test p=0.572) |
+| `lsd_vs_placebo_uniform_transition_energy_reduction_pct` | 5.07112 | 9.03279 | 0.561412 | positive means LSD within-condition transitions need less uniform-control energy than placebo (sign consistency 0.7, sign-test p=0.0214) |
+| `receptor_vs_uniform_energy_reduction_pct` | -18.8549 | 17.3029 | -1.08969 | positive means receptor-prior control needs less energy than uniform control (sign consistency 0.133, sign-test p=1) |
+| `receptor_vs_random_energy_reduction_pct` | -1.84425 | 14.3053 | -0.12892 | positive means receptor-prior control needs less energy than random receptor-prior permutations (sign consistency 0.6, sign-test p=0.181) |
+| `hierarchy_vs_uniform_energy_reduction_pct` | -136.409 | 94.6131 | -1.44176 | positive means hierarchy-prior control needs less energy than uniform control (sign consistency 0, sign-test p=1) |
+| `transmodal_vs_uniform_energy_reduction_pct` | -288.488 | 191.247 | -1.50846 | positive means transmodal-prior control needs less energy than uniform control (sign consistency 0, sign-test p=1) |
 | `state_target_alignment_receptor` | 0.133003 | 0.286867 | 0.463641 | positive means modules with higher receptor prior align with larger LSD-minus-placebo state displacement (sign consistency 0.7, sign-test p=0.0214) |
 
 ## Robustness And Literature Benchmark
@@ -127,31 +127,31 @@ These robustness checks are in-sample stress tests on the cached LSD data. They 
 
 | Layer | Score Mean | 95% Bootstrap Interval | Rank-1 Fraction | Median Rank |
 | --- | ---: | ---: | ---: | ---: |
-| A | 0.163748 | -0.131526 to 0.493676 | 0.117 | 3 |
+| A | 0.163748 | -0.131526 to 0.493676 | 0.0781 | 3 |
 | B | -0.0744303 | -0.165982 to 0.0121405 | 0 | 5 |
-| C | 0.349477 | 0.222188 to 0.520315 | 0.844 | 1 |
+| C | 0.349477 | 0.222188 to 0.520315 | 0.602 | 1 |
 | D | 0.148384 | -0.0193018 to 0.329665 | 0.0195 | 3 |
-| E | 0.195633 | -0.0162498 to 0.392784 | 0.0195 | 3 |
+| E | 0.299498 | 0.0524823 to 0.535271 | 0.301 | 2 |
 
 ### E Horizon Sensitivity
 
 | Horizon | E Support Score | LSD Receptor Energy Reduction % | Receptor vs Random Energy Reduction % |
 | ---: | ---: | ---: | ---: |
-| 4 | 0.20594 | 4.76742 | -12.7529 |
-| 8 | 0.189545 | 4.7022 | -12.6957 |
-| 12 | 0.160931 | 4.47763 | -14.1435 |
-| 16 | 0.179289 | 4.31555 | -13.6198 |
+| 4 | 0.347717 | 2.30711 | 3.23218 |
+| 8 | 0.281138 | 2.46649 | -1.19713 |
+| 12 | 0.224853 | 2.3576 | -4.02766 |
+| 16 | 0.24292 | 2.26866 | -3.22323 |
 
 ### Claim Verdicts
 
 | Claim | Verdict | Evidence | Next Action |
 | --- | --- | --- | --- |
-| C hierarchy/routing is currently the strongest implemented LSD mechanism layer. | supported_first_pass | Bootstrap rank-1 fraction=0.844. | Re-run C under Schaefer/Yeo and motion-sensitive exclusions before final thesis claims. |
-| E supports a landscape-flattening proxy. | supported_proxy | Default-horizon receptor transition-energy reduction=4.702%. | Replace macro graph with structural connectome and add graph-rewire nulls. |
-| E supports receptor-specific control placement. | not_supported_yet | Receptor-vs-random energy reduction=-15.434%. | Replace coarse priors with PET 5-HT2A maps and spatial nulls before making receptor claims. |
-| Current LSD patterns align with the 2026 transmodal-unimodal benchmark. | directionally_aligned | C sensory-transmodal mean delta=0.0473. | Test the same benchmark in ds006072 and Schaefer/Yeo parcellations. |
-| Current LSD patterns address striatal/unimodal effects. | not_testable_current_proxy | not_available_current_8_module_proxy | Add striatal parcels before comparing this part of the Nature Medicine result. |
-| B DMDc is the main control-theory result. | reject_as_main_claim | B bootstrap rank-1 fraction=0.000. | Keep B as a negative/sanity baseline unless held-out prediction improves clearly. |
+| C is the provisional leading macro-dynamic proxy under the current cached ds003059 analysis, pending motion/confound control and atlas-level replication. | proxy-supported | Bootstrap rank-1 fraction=0.602. | Re-run C under Schaefer/Yeo and motion-sensitive exclusions before final thesis claims. |
+| E1 lower transition/control-energy proxy is provisionally supported. | proxy-supported | Default-horizon receptor transition-energy reduction=2.466%. | Replace macro graph with structural connectome and add graph-rewire nulls. |
+| E2 receptor-specific control placement remains unsupported. | unsupported | Receptor-vs-random energy reduction=-1.844%. | Replace coarse priors with PET 5-HT2A maps and spatial nulls before making receptor claims. |
+| Current LSD patterns align with the 2026 transmodal-unimodal benchmark. | proxy-supported | C sensory-transmodal mean delta=0.0473. | Test the same benchmark in ds006072 and Schaefer/Yeo parcellations. |
+| Current LSD patterns address striatal/unimodal effects. | future | not_available_current_proxy_without_striatal_parcel | Add striatal parcels before comparing this part of the Nature Medicine result. |
+| Rejected candidate: B DMDc as the main control-theory result. | unsupported | B bootstrap rank-1 fraction=0.000. | Keep B as a negative/sanity baseline unless held-out prediction improves clearly. |
 
 ### Literature Benchmark
 
@@ -161,9 +161,9 @@ These robustness checks are in-sample stress tests on the cached LSD data. They 
 | 2026 Nature Medicine increased between-network integration | D | `between_network_integration` | aligned | 0.0938997 | Integration metric is descriptive FC, not the exact mega-analysis posterior. |
 | 2026 Nature Medicine within-network coupling reduction | D | `within_network_segregation` | opposes_or_weak | 0.0471985 | The paper notes not all visually apparent patterns yielded high-confidence posteriors. |
 | 2026 Nature Medicine thalamic-unimodal coupling | C | `thalamic_sensory_coupling` | aligned | 0.0980293 | The current thalamic module is coarse and does not resolve thalamic nuclei. |
-| Singleton 2022 lower psychedelic control energy | E | `lsd_vs_placebo_receptor_transition_energy_reduction_pct` | aligned | 4.7022 | This is not full receptor-informed NCT until structural connectome and PET receptor maps are added. |
-| Singleton 2022 receptor-informed control placement | E | `receptor_vs_random_energy_reduction_pct` | opposes_or_weak | -15.4343 | A negative or weak result should block receptor-specific claims. |
-| 2026 Nature Medicine striatal-unimodal coupling | C/D | `not_available_current_8_module_proxy` | missing_required_region | n/a | Do not claim striatal support from the current Harvard-Oxford 8-module proxy. |
+| Singleton 2022 lower psychedelic control energy | E | `lsd_vs_placebo_receptor_transition_energy_reduction_pct` | aligned | 2.46649 | This is not full receptor-informed NCT until structural connectome and PET receptor maps are added. |
+| Singleton 2022 receptor-informed control placement | E | `receptor_vs_random_energy_reduction_pct` | opposes_or_weak | -1.84425 | A negative or weak result should block receptor-specific claims. |
+| 2026 Nature Medicine striatal-unimodal coupling | C/D | `not_available_current_proxy_without_striatal_parcel` | missing_required_region | n/a | Do not claim striatal support from cortical-only or current 8-module proxy rows. |
 
 ## Generated Artifacts
 
@@ -189,5 +189,5 @@ These robustness checks are in-sample stress tests on the cached LSD data. They 
 - C and D use coarse 8-module FC and graph proxies, not canonical network or thalamic-nucleus definitions.
 - E currently uses a macro-module proxy graph and coarse receptor priors; it is not full structural-connectome/PET receptor-informed network control theory.
 - Nulls include receptor-weight permutations and degree controls, but not yet degree-preserving structural graph rewires or spatial-autocorrelation-preserving receptor-map nulls.
-- Metric summaries now include bootstrap confidence intervals and BH-FDR correction for sign-consistency p-values; with small n these are uncertainty descriptors, not population claims.
+- Metric summaries now include cached bootstrap sensitivity intervals and BH-FDR correction for sign-consistency p-values; with small n these are uncertainty descriptors, not population claims.
 - Run-02 music data are available in the fMRI explorer but are not part of this primary A+B+C+D+E ranking summary.

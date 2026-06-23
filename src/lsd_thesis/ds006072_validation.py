@@ -424,7 +424,7 @@ def _build_comparable_markdown(payload: dict[str, Any]) -> str:
     if payload.get("blocker"):
         lines.extend(["## Blocker", "", str(payload["blocker"]), ""])
     if payload.get("mechanism_ranking"):
-        lines.extend(["## Mechanism ranking", "", "| Rank | Layer | Score | Status |", "| ---: | --- | ---: | --- |"])
+        lines.extend(["## Mechanism-Proxy Ranking", "", "| Rank | Layer | Score | Status |", "| ---: | --- | ---: | --- |"])
         for row in payload["mechanism_ranking"]:
             lines.append(
                 "| {rank} | {layer} | {score:.3f} | {status} |".format(

@@ -8,8 +8,8 @@ The current documented engineering baseline is strong enough for PI review:
 
 - `ruff` passed.
 - `mypy src` passed on 109 source files.
-- `pytest --collect-only` collected 83 tests.
-- Current full pytest baseline is 83 passed with 82.73% coverage.
+- `pytest --collect-only` collected 83 tests in the 2026-06-21 package snapshot; the 2026-06-23 audit timed out before reconfirming full collection.
+- Last package snapshot full pytest baseline passed; current audit must rerun full pytest before using this as a live gate.
 - Dashboard strict preflight passed.
 - `node --check src\lsd_thesis\static\dashboard.js` passed.
 
@@ -21,7 +21,7 @@ Applied skills visible in the repo:
 - Pydantic-style structured config/result models.
 - Deterministic tests for simulation and payload contracts.
 - Characterization tests for dashboard routes, public payloads, artifact schemas, and status vocabulary.
-- Focused validation notes that distinguish current baseline from historical notes.
+- Focused validation notes that distinguish previous package baseline from historical notes.
 - Safe CLI contract testing for scripts without running heavy scientific workflows.
 
 ## Dashboarding And Reporting
@@ -90,9 +90,9 @@ The surrogate model is an 8-module stochastic graph model with:
 
 All of these are model-level proxies, not direct biological parameters.
 
-## Mechanism Ranking A-E
+## Mechanism-Proxy Ranking A-E
 
-The current mechanism ranking compares:
+The current mechanism-proxy ranking compares:
 
 - A: transition-state proxies.
 - B: DMDc predictive baseline / negative control.
@@ -114,7 +114,7 @@ The project records:
 - claim verdicts,
 - internal subject-disjoint CV5 status.
 
-Internal robustness does not replace external validation or motion/confound proof.
+Internal robustness does not replace cross-dataset stress-test evidence or motion/confound proof.
 
 ## Prior-Art Mapping
 
