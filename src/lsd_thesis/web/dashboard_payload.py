@@ -46,7 +46,7 @@ def _load_dynamic_mechanism_payload(repo_root: Path = REPO_ROOT) -> dict[str, An
         return {
             "analysis_status": "missing",
             "source_path": payload_path.relative_to(repo_root).as_posix(),
-            "claim_guardrail": "A+B+C+D+E dynamic mechanism ranking artifacts have not been generated yet.",
+            "claim_guardrail": "A+B+C+D+E dynamic mechanism-proxy ranking artifacts have not been generated yet.",
         }
     payload = cast(dict[str, Any], json.loads(payload_path.read_text(encoding="utf-8")))
     payload.setdefault(

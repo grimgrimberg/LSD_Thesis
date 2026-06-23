@@ -129,7 +129,10 @@ def _motion_gate(repo_root: Path) -> dict[str, Any]:
     blocker = (
         "Subject/session/run motion summaries and a confound-control sensitivity result are available."
         if fmriprep_control_ready
-        else "Raw-BOLD image-derived motion/QC sensitivity is implemented; fMRIPrep FD/DVARS/censoring remains the preferred future gold-standard control."
+        else (
+            "Raw-BOLD image-derived motion/QC sensitivity is implemented, but strict completion still requires "
+            "fMRIPrep FD/DVARS/censoring motion proof."
+        )
         if image_motion_ready
         else (
             "Published ds003059 FD/scrubbing QC context plus local run/design and "
@@ -401,7 +404,7 @@ def _parcellation_gate(repo_root: Path) -> dict[str, Any]:
     has_ranking = ranking_path.exists()
     ready = _status_is_implemented(canonical_status) and extraction_ready and viewer_ready and ranking_ready
     blocker = (
-        "Canonical Schaefer/Yeo extraction, empirical viewer, and mechanism ranking are available."
+        "Canonical Schaefer/Yeo extraction, empirical viewer, and mechanism-proxy ranking are available."
         if ready
         else "Canonical Schaefer/Yeo extraction is not yet a completed empirical result with dashboard-visible outputs."
     )
@@ -458,7 +461,7 @@ def _parcellation_gate(repo_root: Path) -> dict[str, Any]:
         },
         "engineering_logic": (
             "Use Schaefer parcels as state nodes and Yeo networks as interpretable macro-supernodes; "
-            "then test whether mechanism rankings survive the refined state-space."
+            "then test whether mechanism-proxy rankings survive the refined state-space."
         ),
         "claim_guardrail": (
             "Schaefer/Yeo is implemented for ds003059 high-resolution sensitivity. This resolves the coarse-parcellation gate, "

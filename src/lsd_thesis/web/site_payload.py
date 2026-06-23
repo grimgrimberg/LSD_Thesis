@@ -83,8 +83,8 @@ def _requirement_cards(thesis_upgrade: dict[str, Any]) -> list[dict[str, Any]]:
             {
                 "id": _compact_text(requirement.get("requirement_id"), "requirement"),
                 "title": _compact_text(requirement.get("label"), "Requirement"),
-                "tier": "supported_now" if is_complete else "blocked_future",
-                "status": "supported_now" if is_complete else "not_supported_yet",
+                "tier": "implemented" if is_complete else "blocked",
+                "status": "implemented" if is_complete else "blocked",
                 "evidence": _compact_text(
                     requirement.get("claim_effect")
                     or requirement.get("evidence")
@@ -137,9 +137,9 @@ def _status_cards(dashboard_payload: dict[str, Any]) -> list[dict[str, str]]:
             "detail": "Window-random reporting is excluded; subject-level aggregation is the defensible ML layer.",
         },
         {
-            "label": "Mechanism ranking",
+            "label": "Mechanism-proxy ranking",
             "value": _compact_text(dynamic.get("analysis_status") or dynamic.get("best_family") or dynamic.get("status")),
-            "detail": "A+B evidence is treated as the current center; receptor/myelin/gradient layers remain priors unless gated.",
+            "detail": "A-E proxy layers are ranked from cached macro-dynamic evidence; receptor/myelin/gradient layers remain priors unless gated.",
         },
         {
             "label": "Map priors",

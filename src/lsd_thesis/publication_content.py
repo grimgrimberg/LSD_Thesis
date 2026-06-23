@@ -371,7 +371,7 @@ def build_defense_outline_markdown(evidence: PublicationEvidence) -> str:
         f"  - The comparison uses {stage2.subject_count} subjects and {stage2.run_count} runs.",
         "  - Multi-seed summaries offer limited evidence about run-to-run consistency.",
         "",
-        "## Slide 4: Mechanism ranking",
+        "## Slide 4: Mechanism-proxy ranking",
         "- Talking points:",
         f"  - Best single mechanism: `{stage3.best_mechanism}` at strength {stage3.best_strength:.2f}.",
         f"  - Best pair: `{stage4.best_pair_name}`.",

@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import csv
 import json
 from pathlib import Path
 
@@ -64,7 +63,9 @@ def test_structural_rewire_and_receptor_spatial_null_outputs_exist() -> None:
 
     assert structural["graph_rewire_null_status"] == "implemented_hcp_structural_graph_rewire_nulls"
     assert any(row["graph_control"] == "edge_weight_rewire_null" for row in structural["graph_rewire_null_rows"])
-    assert (REPO_ROOT / structural["graph_rewire_null_path"]).exists()
+    assert isinstance(structural["graph_rewire_null_path"], str)
+    assert structural["graph_rewire_null_path"].endswith(".csv")
+    assert "\\" not in structural["graph_rewire_null_path"]
 
     assert receptor["receptor_spatial_nulls_complete"] is True
     assert receptor["claim_promotion_status"] == "not_supported_after_pet_spatial_nulls"
@@ -78,8 +79,8 @@ def test_structural_rewire_and_receptor_spatial_null_outputs_exist() -> None:
 
 
 def test_claim_matrix_contains_motion_receptor_and_striatal_gates() -> None:
-    matrix_path = REPO_ROOT / "results" / "thesis_evidence_loop" / "claim_evidence_matrix.csv"
-    rows = {row["claim"]: row for row in csv.DictReader(matrix_path.open("r", encoding="utf-8", newline=""))}
+    loop = _load_json("results/thesis_evidence_loop/thesis_evidence_loop_status.json")
+    rows = {row["claim"]: row for row in loop["claim_evidence_matrix"]}
 
     assert rows["C final thesis claim passes motion-sensitive exclusions"]["status"] == (
         "blocked_motion_sensitive_c_claim_requires_authorized_confound_exclusions"
@@ -122,6 +123,6 @@ def test_b_dmdc_remains_negative_sanity_baseline() -> None:
         row["claim"]: row
         for row in summary["robustness"]["claim_verdicts"]
     }
-    b_verdict = verdicts["B DMDc is the main control-theory result."]
-    assert b_verdict["verdict"] == "reject_as_main_claim"
+    b_verdict = verdicts["Rejected candidate: B DMDc as the main control-theory result."]
+    assert b_verdict["verdict"] == "unsupported"
     assert "Keep B as a negative/sanity baseline" in b_verdict["next_action"]

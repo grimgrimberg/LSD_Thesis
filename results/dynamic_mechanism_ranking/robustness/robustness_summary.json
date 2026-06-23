@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "analysis_status": "implemented_first_pass_robustness",
-  "generated_at_utc": "2026-06-02T09:44:53.806969+00:00",
+  "generated_at_utc": "2026-06-23T11:58:00.739420+00:00",
   "source_viewer_root": "results/stage_2/empirical_viewer",
   "pair_count": 30,
   "subject_count": 15,
@@ -38,7 +38,7 @@
       {
         "iteration": 0,
         "layer": "E",
-        "score": 0.10592498760737051,
+        "score": 0.137907080236602,
         "rank": 3
       },
       {
@@ -57,7 +57,7 @@
         "iteration": 1,
         "layer": "C",
         "score": 0.4172482687051333,
-        "rank": 1
+        "rank": 2
       },
       {
         "iteration": 1,
@@ -68,8 +68,8 @@
       {
         "iteration": 1,
         "layer": "E",
-        "score": 0.32798134055740413,
-        "rank": 2
+        "score": 0.4923309230653541,
+        "rank": 1
       },
       {
         "iteration": 2,
@@ -87,7 +87,7 @@
         "iteration": 2,
         "layer": "C",
         "score": 0.3313300067792654,
-        "rank": 1
+        "rank": 2
       },
       {
         "iteration": 2,
@@ -98,8 +98,8 @@
       {
         "iteration": 2,
         "layer": "E",
-        "score": 0.22414256273683936,
-        "rank": 2
+        "score": 0.33637637765421974,
+        "rank": 1
       },
       {
         "iteration": 3,
@@ -128,7 +128,7 @@
       {
         "iteration": 3,
         "layer": "E",
-        "score": 0.27582958435504223,
+        "score": 0.3190676639625085,
         "rank": 2
       },
       {
@@ -147,7 +147,7 @@
         "iteration": 4,
         "layer": "C",
         "score": 0.37014308195141765,
-        "rank": 1
+        "rank": 2
       },
       {
         "iteration": 4,
@@ -158,8 +158,8 @@
       {
         "iteration": 4,
         "layer": "E",
-        "score": 0.3669866076431728,
-        "rank": 2
+        "score": 0.4873737582572194,
+        "rank": 1
       },
       {
         "iteration": 5,
@@ -177,7 +177,7 @@
         "iteration": 5,
         "layer": "C",
         "score": 0.3518483880012307,
-        "rank": 1
+        "rank": 2
       },
       {
         "iteration": 5,
@@ -188,14 +188,14 @@
       {
         "iteration": 5,
         "layer": "E",
-        "score": 0.32807292218194134,
-        "rank": 2
+        "score": 0.5362704172463156,
+        "rank": 1
       },
       {
         "iteration": 6,
         "layer": "A",
         "score": 0.17164629525396105,
-        "rank": 2
+        "rank": 3
       },
       {
         "iteration": 6,
@@ -207,25 +207,25 @@
         "iteration": 6,
         "layer": "C",
         "score": 0.23905200606062432,
-        "rank": 1
+        "rank": 2
       },
       {
         "iteration": 6,
         "layer": "D",
         "score": 0.06676862894981309,
-        "rank": 3
+        "rank": 4
       },
       {
         "iteration": 6,
         "layer": "E",
-        "score": 0.062145583861578826,
-        "rank": 4
+        "score": 0.2494616825349636,
+        "rank": 1
       },
       {
         "iteration": 7,
         "layer": "A",
         "score": 0.19625812045978785,
-        "rank": 2
+        "rank": 3
       },
       {
         "iteration": 7,
@@ -248,8 +248,8 @@
       {
         "iteration": 7,
         "layer": "E",
-        "score": 0.18305386603518053,
-        "rank": 3
+        "score": 0.2553633491337706,
+        "rank": 2
       },
       {
         "iteration": 8,
@@ -278,7 +278,7 @@
       {
         "iteration": 8,
         "layer": "E",
-        "score": 0.3427543647581518,
+        "score": 0.4224692048128389,
         "rank": 1
       },
       {
@@ -308,7 +308,7 @@
       {
         "iteration": 9,
         "layer": "E",
-        "score": 0.20520297394551484,
+        "score": 0.31471981356895884,
         "rank": 2
       },
       {
@@ -338,7 +338,7 @@
       {
         "iteration": 10,
         "layer": "E",
-        "score": 0.14375486515804695,
+        "score": 0.22536601071128454,
         "rank": 3
       },
       {
@@ -357,7 +357,7 @@
         "iteration": 11,
         "layer": "C",
         "score": 0.3753490049906478,
-        "rank": 2
+        "rank": 3
       },
       {
         "iteration": 11,
@@ -368,8 +368,8 @@
       {
         "iteration": 11,
         "layer": "E",
-        "score": 0.27882955522279407,
-        "rank": 3
+        "score": 0.4508609352289116,
+        "rank": 2
       },
       {
         "iteration": 12,
@@ -398,7 +398,7 @@
       {
         "iteration": 12,
         "layer": "E",
-        "score": 0.3257482053974018,
+        "score": 0.3659166877093157,
         "rank": 2
       },
       {
@@ -417,7 +417,7 @@
         "iteration": 13,
         "layer": "C",
         "score": 0.2598217355777004,
-        "rank": 1
+        "rank": 2
       },
       {
         "iteration": 13,
@@ -428,8 +428,8 @@
       {
         "iteration": 13,
         "layer": "E",
-        "score": 0.14702917394736675,
-        "rank": 2
+        "score": 0.3363954402031726,
+        "rank": 1
       },
       {
         "iteration": 14,
@@ -458,14 +458,14 @@
       {
         "iteration": 14,
         "layer": "E",
-        "score": 0.050836809664360424,
+        "score": 0.1061464185583952,
         "rank": 4
       },
       {
         "iteration": 15,
         "layer": "A",
         "score": 0.21625345650717373,
-        "rank": 2
+        "rank": 3
       },
       {
         "iteration": 15,
@@ -477,7 +477,7 @@
         "iteration": 15,
         "layer": "C",
         "score": 0.22341926330137823,
-        "rank": 1
+        "rank": 2
       },
       {
         "iteration": 15,
@@ -488,14 +488,14 @@
       {
         "iteration": 15,
         "layer": "E",
-        "score": 0.10413209112684516,
-        "rank": 3
+        "score": 0.26342778476220935,
+        "rank": 1
       },
       {
         "iteration": 16,
         "layer": "A",
         "score": 0.3100619731418026,
-        "rank": 2
+        "rank": 3
       },
       {
         "iteration": 16,
@@ -507,7 +507,7 @@
         "iteration": 16,
         "layer": "C",
         "score": 0.3107609165557889,
-        "rank": 1
+        "rank": 2
       },
       {
         "iteration": 16,
@@ -518,8 +518,8 @@
       {
         "iteration": 16,
         "layer": "E",
-        "score": 0.22581790557578132,
-        "rank": 3
+        "score": 0.353007633070745,
+        "rank": 1
       },
       {
         "iteration": 17,
@@ -548,7 +548,7 @@
       {
         "iteration": 17,
         "layer": "E",
-        "score": 0.3237647963812039,
+        "score": 0.3507991288172785,
         "rank": 2
       },
       {
@@ -573,19 +573,19 @@
         "iteration": 18,
         "layer": "D",
         "score": 0.13940202024927698,
-        "rank": 3
+        "rank": 4
       },
       {
         "iteration": 18,
         "layer": "E",
-        "score": 0.023213128482654347,
-        "rank": 4
+        "score": 0.14435152393727682,
+        "rank": 3
       },
       {
         "iteration": 19,
         "layer": "A",
         "score": 0.3102672552070956,
-        "rank": 2
+        "rank": 3
       },
       {
         "iteration": 19,
@@ -608,8 +608,8 @@
       {
         "iteration": 19,
         "layer": "E",
-        "score": 0.2187461214575494,
-        "rank": 3
+        "score": 0.33461596860330356,
+        "rank": 2
       },
       {
         "iteration": 20,
@@ -627,7 +627,7 @@
         "iteration": 20,
         "layer": "C",
         "score": 0.37765847322397833,
-        "rank": 1
+        "rank": 2
       },
       {
         "iteration": 20,
@@ -638,14 +638,14 @@
       {
         "iteration": 20,
         "layer": "E",
-        "score": 0.2820611336830221,
-        "rank": 2
+        "score": 0.43887552109381023,
+        "rank": 1
       },
       {
         "iteration": 21,
         "layer": "A",
         "score": 0.4416786175587688,
-        "rank": 1
+        "rank": 2
       },
       {
         "iteration": 21,
@@ -668,8 +668,8 @@
       {
         "iteration": 21,
         "layer": "E",
-        "score": 0.3815179409581778,
-        "rank": 2
+        "score": 0.5099681953414408,
+        "rank": 1
       },
       {
         "iteration": 22,
@@ -698,14 +698,14 @@
       {
         "iteration": 22,
         "layer": "E",
-        "score": 0.1691737017637748,
+        "score": 0.20236976200164603,
         "rank": 3
       },
       {
         "iteration": 23,
         "layer": "A",
         "score": 0.3702596039068654,
-        "rank": 2
+        "rank": 3
       },
       {
         "iteration": 23,
@@ -717,7 +717,7 @@
         "iteration": 23,
         "layer": "C",
         "score": 0.4119367984946545,
-        "rank": 1
+        "rank": 2
       },
       {
         "iteration": 23,
@@ -728,14 +728,14 @@
       {
         "iteration": 23,
         "layer": "E",
-        "score": 0.3399750118594655,
-        "rank": 3
+        "score": 0.42931572809812146,
+        "rank": 1
       },
       {
         "iteration": 24,
         "layer": "A",
         "score": 0.1729900326292865,
-        "rank": 3
+        "rank": 4
       },
       {
         "iteration": 24,
@@ -753,13 +753,13 @@
         "iteration": 24,
         "layer": "D",
         "score": 0.18849503319508726,
-        "rank": 2
+        "rank": 3
       },
       {
         "iteration": 24,
         "layer": "E",
-        "score": 0.12696596309697472,
-        "rank": 4
+        "score": 0.20200405509243785,
+        "rank": 2
       },
       {
         "iteration": 25,
@@ -788,7 +788,7 @@
       {
         "iteration": 25,
         "layer": "E",
-        "score": 0.051903176674770096,
+        "score": 0.1226286101355514,
         "rank": 4
       },
       {
@@ -807,7 +807,7 @@
         "iteration": 26,
         "layer": "C",
         "score": 0.4669794262761816,
-        "rank": 1
+        "rank": 2
       },
       {
         "iteration": 26,
@@ -818,8 +818,8 @@
       {
         "iteration": 26,
         "layer": "E",
-        "score": 0.2978444539182191,
-        "rank": 2
+        "score": 0.49428331578530016,
+        "rank": 1
       },
       {
         "iteration": 27,
@@ -848,7 +848,7 @@
       {
         "iteration": 27,
         "layer": "E",
-        "score": 0.3277627944189144,
+        "score": 0.45597084928511344,
         "rank": 1
       },
       {
@@ -878,14 +878,14 @@
       {
         "iteration": 28,
         "layer": "E",
-        "score": 0.1850358866474819,
+        "score": 0.2850170065197539,
         "rank": 3
       },
       {
         "iteration": 29,
         "layer": "A",
         "score": 0.2738114717628503,
-        "rank": 2
+        "rank": 3
       },
       {
         "iteration": 29,
@@ -897,7 +897,7 @@
         "iteration": 29,
         "layer": "C",
         "score": 0.30239398587777727,
-        "rank": 1
+        "rank": 2
       },
       {
         "iteration": 29,
@@ -908,8 +908,8 @@
       {
         "iteration": 29,
         "layer": "E",
-        "score": 0.23834099375958642,
-        "rank": 3
+        "score": 0.31962443560783693,
+        "rank": 1
       },
       {
         "iteration": 30,
@@ -938,7 +938,7 @@
       {
         "iteration": 30,
         "layer": "E",
-        "score": 0.17618761066356625,
+        "score": 0.31094303408589463,
         "rank": 2
       },
       {
@@ -968,7 +968,7 @@
       {
         "iteration": 31,
         "layer": "E",
-        "score": 0.11355255375537396,
+        "score": 0.2364600838952701,
         "rank": 2
       },
       {
@@ -998,7 +998,7 @@
       {
         "iteration": 32,
         "layer": "E",
-        "score": 0.050863200234114475,
+        "score": 0.23087782587492595,
         "rank": 3
       },
       {
@@ -1017,7 +1017,7 @@
         "iteration": 33,
         "layer": "C",
         "score": 0.37261580130687333,
-        "rank": 1
+        "rank": 2
       },
       {
         "iteration": 33,
@@ -1028,8 +1028,8 @@
       {
         "iteration": 33,
         "layer": "E",
-        "score": 0.3483078412112861,
-        "rank": 2
+        "score": 0.4161547258330175,
+        "rank": 1
       },
       {
         "iteration": 34,
@@ -1058,7 +1058,7 @@
       {
         "iteration": 34,
         "layer": "E",
-        "score": 0.5425438335581517,
+        "score": 0.6905147967056184,
         "rank": 1
       },
       {
@@ -1088,7 +1088,7 @@
       {
         "iteration": 35,
         "layer": "E",
-        "score": 0.42530367577328304,
+        "score": 0.5700329438928622,
         "rank": 1
       },
       {
@@ -1113,13 +1113,13 @@
         "iteration": 36,
         "layer": "D",
         "score": 0.033950031300077566,
-        "rank": 3
+        "rank": 4
       },
       {
         "iteration": 36,
         "layer": "E",
-        "score": 0.006214144955988876,
-        "rank": 4
+        "score": 0.08892713681057565,
+        "rank": 3
       },
       {
         "iteration": 37,
@@ -1148,7 +1148,7 @@
       {
         "iteration": 37,
         "layer": "E",
-        "score": 0.07359083466822747,
+        "score": 0.17106085969899743,
         "rank": 3
       },
       {
@@ -1178,7 +1178,7 @@
       {
         "iteration": 38,
         "layer": "E",
-        "score": 0.1201322263397468,
+        "score": 0.22182204624663412,
         "rank": 2
       },
       {
@@ -1208,7 +1208,7 @@
       {
         "iteration": 39,
         "layer": "E",
-        "score": 0.10649045166253113,
+        "score": 0.14615729163292493,
         "rank": 3
       },
       {
@@ -1238,7 +1238,7 @@
       {
         "iteration": 40,
         "layer": "E",
-        "score": 0.3141296546003722,
+        "score": 0.4091102105860185,
         "rank": 2
       },
       {
@@ -1268,7 +1268,7 @@
       {
         "iteration": 41,
         "layer": "E",
-        "score": 0.12387201403148042,
+        "score": 0.1884163285370934,
         "rank": 3
       },
       {
@@ -1287,7 +1287,7 @@
         "iteration": 42,
         "layer": "C",
         "score": 0.33117842269429515,
-        "rank": 2
+        "rank": 3
       },
       {
         "iteration": 42,
@@ -1298,8 +1298,8 @@
       {
         "iteration": 42,
         "layer": "E",
-        "score": 0.25267932976427543,
-        "rank": 3
+        "score": 0.4982761853477893,
+        "rank": 2
       },
       {
         "iteration": 43,
@@ -1328,7 +1328,7 @@
       {
         "iteration": 43,
         "layer": "E",
-        "score": 0.1511462186610985,
+        "score": 0.20812678151065578,
         "rank": 3
       },
       {
@@ -1347,7 +1347,7 @@
         "iteration": 44,
         "layer": "C",
         "score": 0.3148562917704283,
-        "rank": 1
+        "rank": 2
       },
       {
         "iteration": 44,
@@ -1358,8 +1358,8 @@
       {
         "iteration": 44,
         "layer": "E",
-        "score": 0.2566902698400071,
-        "rank": 2
+        "score": 0.35875594072632283,
+        "rank": 1
       },
       {
         "iteration": 45,
@@ -1388,14 +1388,14 @@
       {
         "iteration": 45,
         "layer": "E",
-        "score": 0.2600432191185752,
+        "score": 0.30589444788863607,
         "rank": 2
       },
       {
         "iteration": 46,
         "layer": "A",
         "score": 0.3387664451104125,
-        "rank": 1
+        "rank": 2
       },
       {
         "iteration": 46,
@@ -1407,7 +1407,7 @@
         "iteration": 46,
         "layer": "C",
         "score": 0.2528773695729505,
-        "rank": 2
+        "rank": 3
       },
       {
         "iteration": 46,
@@ -1418,8 +1418,8 @@
       {
         "iteration": 46,
         "layer": "E",
-        "score": 0.18125790999427122,
-        "rank": 3
+        "score": 0.3875194669040015,
+        "rank": 1
       },
       {
         "iteration": 47,
@@ -1448,7 +1448,7 @@
       {
         "iteration": 47,
         "layer": "E",
-        "score": 0.2750818842706477,
+        "score": 0.4678208893116662,
         "rank": 2
       },
       {
@@ -1467,7 +1467,7 @@
         "iteration": 48,
         "layer": "C",
         "score": 0.23215021823261947,
-        "rank": 1
+        "rank": 2
       },
       {
         "iteration": 48,
@@ -1478,8 +1478,8 @@
       {
         "iteration": 48,
         "layer": "E",
-        "score": 0.1310741787694287,
-        "rank": 2
+        "score": 0.274713099787803,
+        "rank": 1
       },
       {
         "iteration": 49,
@@ -1508,7 +1508,7 @@
       {
         "iteration": 49,
         "layer": "E",
-        "score": 0.4287666554766289,
+        "score": 0.4320686136114207,
         "rank": 2
       },
       {
@@ -1538,7 +1538,7 @@
       {
         "iteration": 50,
         "layer": "E",
-        "score": 0.17477698096627195,
+        "score": 0.35460818211840245,
         "rank": 2
       },
       {
@@ -1557,7 +1557,7 @@
         "iteration": 51,
         "layer": "C",
         "score": 0.4212946259501272,
-        "rank": 1
+        "rank": 2
       },
       {
         "iteration": 51,
@@ -1568,14 +1568,14 @@
       {
         "iteration": 51,
         "layer": "E",
-        "score": 0.2927431504446889,
-        "rank": 2
+        "score": 0.4218063529885874,
+        "rank": 1
       },
       {
         "iteration": 52,
         "layer": "A",
         "score": 0.19412264263155454,
-        "rank": 2
+        "rank": 3
       },
       {
         "iteration": 52,
@@ -1598,8 +1598,8 @@
       {
         "iteration": 52,
         "layer": "E",
-        "score": 0.18962970510856264,
-        "rank": 3
+        "score": 0.3078689050215305,
+        "rank": 2
       },
       {
         "iteration": 53,
@@ -1628,7 +1628,7 @@
       {
         "iteration": 53,
         "layer": "E",
-        "score": 0.33298607047286927,
+        "score": 0.3867425795180521,
         "rank": 1
       },
       {
@@ -1647,7 +1647,7 @@
         "iteration": 54,
         "layer": "C",
         "score": 0.23318391864528515,
-        "rank": 2
+        "rank": 3
       },
       {
         "iteration": 54,
@@ -1658,8 +1658,8 @@
       {
         "iteration": 54,
         "layer": "E",
-        "score": 0.10207184768980301,
-        "rank": 3
+        "score": 0.33839818745357164,
+        "rank": 2
       },
       {
         "iteration": 55,
@@ -1683,19 +1683,19 @@
         "iteration": 55,
         "layer": "D",
         "score": 0.13798154261579992,
-        "rank": 2
+        "rank": 3
       },
       {
         "iteration": 55,
         "layer": "E",
-        "score": 0.13467185842824553,
-        "rank": 3
+        "score": 0.2336453722952959,
+        "rank": 2
       },
       {
         "iteration": 56,
         "layer": "A",
         "score": 0.356133245631528,
-        "rank": 2
+        "rank": 3
       },
       {
         "iteration": 56,
@@ -1718,8 +1718,8 @@
       {
         "iteration": 56,
         "layer": "E",
-        "score": 0.3309773540749524,
-        "rank": 3
+        "score": 0.46826008308447836,
+        "rank": 2
       },
       {
         "iteration": 57,
@@ -1748,7 +1748,7 @@
       {
         "iteration": 57,
         "layer": "E",
-        "score": 0.21482859727131823,
+        "score": 0.29624930982025643,
         "rank": 2
       },
       {
@@ -1773,13 +1773,13 @@
         "iteration": 58,
         "layer": "D",
         "score": 0.1725572983504269,
-        "rank": 2
+        "rank": 3
       },
       {
         "iteration": 58,
         "layer": "E",
-        "score": 0.11812676091657119,
-        "rank": 3
+        "score": 0.22049399996318897,
+        "rank": 2
       },
       {
         "iteration": 59,
@@ -1797,7 +1797,7 @@
         "iteration": 59,
         "layer": "C",
         "score": 0.22414482414209483,
-        "rank": 2
+        "rank": 3
       },
       {
         "iteration": 59,
@@ -1808,14 +1808,14 @@
       {
         "iteration": 59,
         "layer": "E",
-        "score": 0.12133335786923374,
-        "rank": 3
+        "score": 0.22631927278098526,
+        "rank": 2
       },
       {
         "iteration": 60,
         "layer": "A",
         "score": 0.09157087674260617,
-        "rank": 2
+        "rank": 3
       },
       {
         "iteration": 60,
@@ -1833,19 +1833,19 @@
         "iteration": 60,
         "layer": "D",
         "score": 0.08896208639152879,
-        "rank": 3
+        "rank": 4
       },
       {
         "iteration": 60,
         "layer": "E",
-        "score": -0.016899154622607715,
-        "rank": 4
+        "score": 0.12184205890693367,
+        "rank": 2
       },
       {
         "iteration": 61,
         "layer": "A",
         "score": 0.0993916128559421,
-        "rank": 3
+        "rank": 4
       },
       {
         "iteration": 61,
@@ -1868,8 +1868,8 @@
       {
         "iteration": 61,
         "layer": "E",
-        "score": 0.06396947102504669,
-        "rank": 4
+        "score": 0.10378338456139961,
+        "rank": 3
       },
       {
         "iteration": 62,
@@ -1893,13 +1893,13 @@
         "iteration": 62,
         "layer": "D",
         "score": 0.2374759834290176,
-        "rank": 3
+        "rank": 4
       },
       {
         "iteration": 62,
         "layer": "E",
-        "score": 0.20691353437071847,
-        "rank": 4
+        "score": 0.279924703829703,
+        "rank": 3
       },
       {
         "iteration": 63,
@@ -1917,7 +1917,7 @@
         "iteration": 63,
         "layer": "C",
         "score": 0.2850698553338361,
-        "rank": 2
+        "rank": 3
       },
       {
         "iteration": 63,
@@ -1928,8 +1928,8 @@
       {
         "iteration": 63,
         "layer": "E",
-        "score": 0.23448388226143216,
-        "rank": 3
+        "score": 0.36524100824248673,
+        "rank": 2
       },
       {
         "iteration": 64,
@@ -1958,14 +1958,14 @@
       {
         "iteration": 64,
         "layer": "E",
-        "score": 0.12623994367673083,
+        "score": 0.14041429289212445,
         "rank": 3
       },
       {
         "iteration": 65,
         "layer": "A",
         "score": 0.19670461622546376,
-        "rank": 3
+        "rank": 4
       },
       {
         "iteration": 65,
@@ -1988,14 +1988,14 @@
       {
         "iteration": 65,
         "layer": "E",
-        "score": 0.147186150476813,
-        "rank": 4
+        "score": 0.20305256335366276,
+        "rank": 3
       },
       {
         "iteration": 66,
         "layer": "A",
         "score": 0.25971928693452184,
-        "rank": 2
+        "rank": 3
       },
       {
         "iteration": 66,
@@ -2018,8 +2018,8 @@
       {
         "iteration": 66,
         "layer": "E",
-        "score": 0.21931319961325,
-        "rank": 3
+        "score": 0.30934542239357676,
+        "rank": 2
       },
       {
         "iteration": 67,
@@ -2043,13 +2043,13 @@
         "iteration": 67,
         "layer": "D",
         "score": 0.23880032593013048,
-        "rank": 2
+        "rank": 3
       },
       {
         "iteration": 67,
         "layer": "E",
-        "score": 0.17483772170945386,
-        "rank": 3
+        "score": 0.25690203714138266,
+        "rank": 2
       },
       {
         "iteration": 68,
@@ -2073,13 +2073,13 @@
         "iteration": 68,
         "layer": "D",
         "score": 0.24441817338027388,
-        "rank": 3
+        "rank": 4
       },
       {
         "iteration": 68,
         "layer": "E",
-        "score": 0.217116159416149,
-        "rank": 4
+        "score": 0.25649494748663315,
+        "rank": 3
       },
       {
         "iteration": 69,
@@ -2108,14 +2108,14 @@
       {
         "iteration": 69,
         "layer": "E",
-        "score": 0.31755370823526896,
+        "score": 0.34863627981474,
         "rank": 2
       },
       {
         "iteration": 70,
         "layer": "A",
         "score": 0.21697208858848818,
-        "rank": 2
+        "rank": 3
       },
       {
         "iteration": 70,
@@ -2138,8 +2138,8 @@
       {
         "iteration": 70,
         "layer": "E",
-        "score": 0.15224150911887038,
-        "rank": 3
+        "score": 0.2963670121340154,
+        "rank": 2
       },
       {
         "iteration": 71,
@@ -2163,19 +2163,19 @@
         "iteration": 71,
         "layer": "D",
         "score": 0.11527445274090116,
-        "rank": 3
+        "rank": 4
       },
       {
         "iteration": 71,
         "layer": "E",
-        "score": 0.006797278485998315,
-        "rank": 4
+        "score": 0.1305109841357056,
+        "rank": 3
       },
       {
         "iteration": 72,
         "layer": "A",
         "score": 0.18853924133694577,
-        "rank": 2
+        "rank": 3
       },
       {
         "iteration": 72,
@@ -2198,8 +2198,8 @@
       {
         "iteration": 72,
         "layer": "E",
-        "score": 0.18738202395561745,
-        "rank": 3
+        "score": 0.2862155504268826,
+        "rank": 2
       },
       {
         "iteration": 73,
@@ -2217,7 +2217,7 @@
         "iteration": 73,
         "layer": "C",
         "score": 0.3208948050920285,
-        "rank": 1
+        "rank": 2
       },
       {
         "iteration": 73,
@@ -2228,8 +2228,8 @@
       {
         "iteration": 73,
         "layer": "E",
-        "score": 0.20444464592319517,
-        "rank": 2
+        "score": 0.3460368444172674,
+        "rank": 1
       },
       {
         "iteration": 74,
@@ -2247,7 +2247,7 @@
         "iteration": 74,
         "layer": "C",
         "score": 0.3193475131780018,
-        "rank": 1
+        "rank": 2
       },
       {
         "iteration": 74,
@@ -2258,8 +2258,8 @@
       {
         "iteration": 74,
         "layer": "E",
-        "score": 0.26741802973214734,
-        "rank": 2
+        "score": 0.34896935034779214,
+        "rank": 1
       },
       {
         "iteration": 75,
@@ -2277,7 +2277,7 @@
         "iteration": 75,
         "layer": "C",
         "score": 0.20164479460306972,
-        "rank": 2
+        "rank": 3
       },
       {
         "iteration": 75,
@@ -2288,14 +2288,14 @@
       {
         "iteration": 75,
         "layer": "E",
-        "score": 0.09641392369130888,
-        "rank": 3
+        "score": 0.29147840097388966,
+        "rank": 2
       },
       {
         "iteration": 76,
         "layer": "A",
         "score": 0.2810464490269472,
-        "rank": 2
+        "rank": 3
       },
       {
         "iteration": 76,
@@ -2307,7 +2307,7 @@
         "iteration": 76,
         "layer": "C",
         "score": 0.3369317471946941,
-        "rank": 1
+        "rank": 2
       },
       {
         "iteration": 76,
@@ -2318,8 +2318,8 @@
       {
         "iteration": 76,
         "layer": "E",
-        "score": 0.22363089882375445,
-        "rank": 3
+        "score": 0.34500224190123785,
+        "rank": 1
       },
       {
         "iteration": 77,
@@ -2348,7 +2348,7 @@
       {
         "iteration": 77,
         "layer": "E",
-        "score": 0.25421218482799507,
+        "score": 0.26413727677248927,
         "rank": 3
       },
       {
@@ -2378,7 +2378,7 @@
       {
         "iteration": 78,
         "layer": "E",
-        "score": 0.2975876980085315,
+        "score": 0.4199596915363075,
         "rank": 2
       },
       {
@@ -2408,7 +2408,7 @@
       {
         "iteration": 79,
         "layer": "E",
-        "score": 0.0957230156542738,
+        "score": 0.13731365424860642,
         "rank": 3
       },
       {
@@ -2427,7 +2427,7 @@
         "iteration": 80,
         "layer": "C",
         "score": 0.4015374375326081,
-        "rank": 1
+        "rank": 2
       },
       {
         "iteration": 80,
@@ -2438,14 +2438,14 @@
       {
         "iteration": 80,
         "layer": "E",
-        "score": 0.3372082186485421,
-        "rank": 2
+        "score": 0.4405148736471462,
+        "rank": 1
       },
       {
         "iteration": 81,
         "layer": "A",
         "score": 0.2742483052071589,
-        "rank": 2
+        "rank": 3
       },
       {
         "iteration": 81,
@@ -2457,7 +2457,7 @@
         "iteration": 81,
         "layer": "C",
         "score": 0.28205722953600243,
-        "rank": 1
+        "rank": 2
       },
       {
         "iteration": 81,
@@ -2468,8 +2468,8 @@
       {
         "iteration": 81,
         "layer": "E",
-        "score": 0.15801471571051134,
-        "rank": 3
+        "score": 0.32269726160350853,
+        "rank": 1
       },
       {
         "iteration": 82,
@@ -2498,7 +2498,7 @@
       {
         "iteration": 82,
         "layer": "E",
-        "score": 0.07797148455678396,
+        "score": 0.09704034228663136,
         "rank": 3
       },
       {
@@ -2528,7 +2528,7 @@
       {
         "iteration": 83,
         "layer": "E",
-        "score": 0.22943287974078613,
+        "score": 0.34186735726923806,
         "rank": 2
       },
       {
@@ -2547,7 +2547,7 @@
         "iteration": 84,
         "layer": "C",
         "score": 0.4132786580778963,
-        "rank": 1
+        "rank": 2
       },
       {
         "iteration": 84,
@@ -2558,8 +2558,8 @@
       {
         "iteration": 84,
         "layer": "E",
-        "score": 0.31045059088848304,
-        "rank": 2
+        "score": 0.48547330605512307,
+        "rank": 1
       },
       {
         "iteration": 85,
@@ -2577,7 +2577,7 @@
         "iteration": 85,
         "layer": "C",
         "score": 0.38474312137242633,
-        "rank": 1
+        "rank": 2
       },
       {
         "iteration": 85,
@@ -2588,14 +2588,14 @@
       {
         "iteration": 85,
         "layer": "E",
-        "score": 0.26367605395012833,
-        "rank": 2
+        "score": 0.3969697501002225,
+        "rank": 1
       },
       {
         "iteration": 86,
         "layer": "A",
         "score": 0.12124667359903489,
-        "rank": 2
+        "rank": 3
       },
       {
         "iteration": 86,
@@ -2618,8 +2618,8 @@
       {
         "iteration": 86,
         "layer": "E",
-        "score": 0.07289970994213565,
-        "rank": 3
+        "score": 0.2612899039906276,
+        "rank": 2
       },
       {
         "iteration": 87,
@@ -2637,7 +2637,7 @@
         "iteration": 87,
         "layer": "C",
         "score": 0.2790312352552125,
-        "rank": 1
+        "rank": 2
       },
       {
         "iteration": 87,
@@ -2648,8 +2648,8 @@
       {
         "iteration": 87,
         "layer": "E",
-        "score": 0.18971689667109956,
-        "rank": 2
+        "score": 0.2974006952165563,
+        "rank": 1
       },
       {
         "iteration": 88,
@@ -2667,7 +2667,7 @@
         "iteration": 88,
         "layer": "C",
         "score": 0.3048122084666869,
-        "rank": 1
+        "rank": 2
       },
       {
         "iteration": 88,
@@ -2678,8 +2678,8 @@
       {
         "iteration": 88,
         "layer": "E",
-        "score": 0.24449099866222748,
-        "rank": 2
+        "score": 0.3208625462040737,
+        "rank": 1
       },
       {
         "iteration": 89,
@@ -2708,7 +2708,7 @@
       {
         "iteration": 89,
         "layer": "E",
-        "score": 0.21801383052503753,
+        "score": 0.2738281063385395,
         "rank": 2
       },
       {
@@ -2727,7 +2727,7 @@
         "iteration": 90,
         "layer": "C",
         "score": 0.4381149746920945,
-        "rank": 1
+        "rank": 2
       },
       {
         "iteration": 90,
@@ -2738,8 +2738,8 @@
       {
         "iteration": 90,
         "layer": "E",
-        "score": 0.2833896647434137,
-        "rank": 2
+        "score": 0.44687829299925347,
+        "rank": 1
       },
       {
         "iteration": 91,
@@ -2768,7 +2768,7 @@
       {
         "iteration": 91,
         "layer": "E",
-        "score": 0.16538292772771854,
+        "score": 0.24400800474697906,
         "rank": 3
       },
       {
@@ -2793,19 +2793,19 @@
         "iteration": 92,
         "layer": "D",
         "score": 0.1532872758504094,
-        "rank": 3
+        "rank": 4
       },
       {
         "iteration": 92,
         "layer": "E",
-        "score": 0.07770562569346567,
-        "rank": 4
+        "score": 0.17358198128713928,
+        "rank": 3
       },
       {
         "iteration": 93,
         "layer": "A",
         "score": 0.026231990354957685,
-        "rank": 2
+        "rank": 3
       },
       {
         "iteration": 93,
@@ -2823,19 +2823,19 @@
         "iteration": 93,
         "layer": "D",
         "score": 0.023790514211818412,
-        "rank": 3
+        "rank": 4
       },
       {
         "iteration": 93,
         "layer": "E",
-        "score": 0.013387690734775193,
-        "rank": 4
+        "score": 0.12607994378046142,
+        "rank": 2
       },
       {
         "iteration": 94,
         "layer": "A",
         "score": 0.19334154968556785,
-        "rank": 2
+        "rank": 3
       },
       {
         "iteration": 94,
@@ -2858,8 +2858,8 @@
       {
         "iteration": 94,
         "layer": "E",
-        "score": 0.1453586417131816,
-        "rank": 3
+        "score": 0.2472224629740526,
+        "rank": 2
       },
       {
         "iteration": 95,
@@ -2888,7 +2888,7 @@
       {
         "iteration": 95,
         "layer": "E",
-        "score": 0.21626720998108778,
+        "score": 0.3026597646540228,
         "rank": 2
       },
       {
@@ -2907,7 +2907,7 @@
         "iteration": 96,
         "layer": "C",
         "score": 0.42395213589112246,
-        "rank": 1
+        "rank": 2
       },
       {
         "iteration": 96,
@@ -2918,8 +2918,8 @@
       {
         "iteration": 96,
         "layer": "E",
-        "score": 0.3945253735511178,
-        "rank": 2
+        "score": 0.5413009714416519,
+        "rank": 1
       },
       {
         "iteration": 97,
@@ -2943,19 +2943,19 @@
         "iteration": 97,
         "layer": "D",
         "score": 0.23368671274127883,
-        "rank": 2
+        "rank": 3
       },
       {
         "iteration": 97,
         "layer": "E",
-        "score": 0.20015243821008033,
-        "rank": 3
+        "score": 0.252399473663378,
+        "rank": 2
       },
       {
         "iteration": 98,
         "layer": "A",
         "score": 0.34844292478117045,
-        "rank": 2
+        "rank": 3
       },
       {
         "iteration": 98,
@@ -2978,8 +2978,8 @@
       {
         "iteration": 98,
         "layer": "E",
-        "score": 0.19373807993995343,
-        "rank": 3
+        "score": 0.35104532926800264,
+        "rank": 2
       },
       {
         "iteration": 99,
@@ -3008,7 +3008,7 @@
       {
         "iteration": 99,
         "layer": "E",
-        "score": 0.08957996738527113,
+        "score": 0.12116990155115612,
         "rank": 3
       },
       {
@@ -3027,7 +3027,7 @@
         "iteration": 100,
         "layer": "C",
         "score": 0.36512436463339637,
-        "rank": 1
+        "rank": 2
       },
       {
         "iteration": 100,
@@ -3038,14 +3038,14 @@
       {
         "iteration": 100,
         "layer": "E",
-        "score": 0.32567096841699056,
-        "rank": 2
+        "score": 0.46972298240001914,
+        "rank": 1
       },
       {
         "iteration": 101,
         "layer": "A",
         "score": 0.3170467404990406,
-        "rank": 2
+        "rank": 3
       },
       {
         "iteration": 101,
@@ -3057,7 +3057,7 @@
         "iteration": 101,
         "layer": "C",
         "score": 0.37401092174885175,
-        "rank": 1
+        "rank": 2
       },
       {
         "iteration": 101,
@@ -3068,8 +3068,8 @@
       {
         "iteration": 101,
         "layer": "E",
-        "score": 0.28200672190803666,
-        "rank": 3
+        "score": 0.4232358387270932,
+        "rank": 1
       },
       {
         "iteration": 102,
@@ -3098,7 +3098,7 @@
       {
         "iteration": 102,
         "layer": "E",
-        "score": 0.24201357550173797,
+        "score": 0.3399586938234312,
         "rank": 3
       },
       {
@@ -3117,7 +3117,7 @@
         "iteration": 103,
         "layer": "C",
         "score": 0.32309449924182454,
-        "rank": 1
+        "rank": 2
       },
       {
         "iteration": 103,
@@ -3128,8 +3128,8 @@
       {
         "iteration": 103,
         "layer": "E",
-        "score": 0.26293707171534475,
-        "rank": 2
+        "score": 0.3637211221279095,
+        "rank": 1
       },
       {
         "iteration": 104,
@@ -3153,13 +3153,13 @@
         "iteration": 104,
         "layer": "D",
         "score": 0.2081137627571074,
-        "rank": 2
+        "rank": 3
       },
       {
         "iteration": 104,
         "layer": "E",
-        "score": 0.19098307557067956,
-        "rank": 3
+        "score": 0.26976779554138186,
+        "rank": 2
       },
       {
         "iteration": 105,
@@ -3177,7 +3177,7 @@
         "iteration": 105,
         "layer": "C",
         "score": 0.30441105985994565,
-        "rank": 1
+        "rank": 2
       },
       {
         "iteration": 105,
@@ -3188,8 +3188,8 @@
       {
         "iteration": 105,
         "layer": "E",
-        "score": 0.24368101328306158,
-        "rank": 2
+        "score": 0.43772987600060526,
+        "rank": 1
       },
       {
         "iteration": 106,
@@ -3218,7 +3218,7 @@
       {
         "iteration": 106,
         "layer": "E",
-        "score": 0.13197842758709738,
+        "score": 0.2605690163736821,
         "rank": 2
       },
       {
@@ -3248,7 +3248,7 @@
       {
         "iteration": 107,
         "layer": "E",
-        "score": 0.02736713179137741,
+        "score": 0.07672043474900547,
         "rank": 4
       },
       {
@@ -3267,7 +3267,7 @@
         "iteration": 108,
         "layer": "C",
         "score": 0.5112186015752753,
-        "rank": 1
+        "rank": 2
       },
       {
         "iteration": 108,
@@ -3278,8 +3278,8 @@
       {
         "iteration": 108,
         "layer": "E",
-        "score": 0.45546741460153894,
-        "rank": 2
+        "score": 0.5843704487082457,
+        "rank": 1
       },
       {
         "iteration": 109,
@@ -3303,13 +3303,13 @@
         "iteration": 109,
         "layer": "D",
         "score": 0.206491110578157,
-        "rank": 3
+        "rank": 4
       },
       {
         "iteration": 109,
         "layer": "E",
-        "score": 0.20495707134375934,
-        "rank": 4
+        "score": 0.2782196332747113,
+        "rank": 3
       },
       {
         "iteration": 110,
@@ -3333,13 +3333,13 @@
         "iteration": 110,
         "layer": "D",
         "score": 0.1874937862860464,
-        "rank": 2
+        "rank": 3
       },
       {
         "iteration": 110,
         "layer": "E",
-        "score": 0.17062641320016275,
-        "rank": 3
+        "score": 0.2083745651772555,
+        "rank": 2
       },
       {
         "iteration": 111,
@@ -3368,7 +3368,7 @@
       {
         "iteration": 111,
         "layer": "E",
-        "score": 0.12780855569177713,
+        "score": 0.15140152583910158,
         "rank": 4
       },
       {
@@ -3387,7 +3387,7 @@
         "iteration": 112,
         "layer": "C",
         "score": 0.4462620748078022,
-        "rank": 1
+        "rank": 2
       },
       {
         "iteration": 112,
@@ -3398,8 +3398,8 @@
       {
         "iteration": 112,
         "layer": "E",
-        "score": 0.44294068603414044,
-        "rank": 2
+        "score": 0.5102290685095334,
+        "rank": 1
       },
       {
         "iteration": 113,
@@ -3423,13 +3423,13 @@
         "iteration": 113,
         "layer": "D",
         "score": 0.08726285725343805,
-        "rank": 3
+        "rank": 4
       },
       {
         "iteration": 113,
         "layer": "E",
-        "score": 0.018345826075327615,
-        "rank": 4
+        "score": 0.1170502003808376,
+        "rank": 3
       },
       {
         "iteration": 114,
@@ -3458,7 +3458,7 @@
       {
         "iteration": 114,
         "layer": "E",
-        "score": 0.27760185353647493,
+        "score": 0.39150486429790987,
         "rank": 2
       },
       {
@@ -3488,7 +3488,7 @@
       {
         "iteration": 115,
         "layer": "E",
-        "score": 0.04624076278151412,
+        "score": 0.17042837781114523,
         "rank": 2
       },
       {
@@ -3518,7 +3518,7 @@
       {
         "iteration": 116,
         "layer": "E",
-        "score": 0.21151897633972777,
+        "score": 0.276034308943432,
         "rank": 3
       },
       {
@@ -3543,13 +3543,13 @@
         "iteration": 117,
         "layer": "D",
         "score": 0.19770704282363588,
-        "rank": 2
+        "rank": 3
       },
       {
         "iteration": 117,
         "layer": "E",
-        "score": 0.18079363381156305,
-        "rank": 3
+        "score": 0.2502576433438976,
+        "rank": 2
       },
       {
         "iteration": 118,
@@ -3578,7 +3578,7 @@
       {
         "iteration": 118,
         "layer": "E",
-        "score": 0.2427091283305542,
+        "score": 0.33958722098417155,
         "rank": 2
       },
       {
@@ -3608,7 +3608,7 @@
       {
         "iteration": 119,
         "layer": "E",
-        "score": -0.0014103151280668719,
+        "score": 0.014545635707007926,
         "rank": 3
       },
       {
@@ -3638,7 +3638,7 @@
       {
         "iteration": 120,
         "layer": "E",
-        "score": 0.2530802848493323,
+        "score": 0.31413978457590985,
         "rank": 2
       },
       {
@@ -3668,14 +3668,14 @@
       {
         "iteration": 121,
         "layer": "E",
-        "score": 0.28367038157497815,
+        "score": 0.3560876778969114,
         "rank": 2
       },
       {
         "iteration": 122,
         "layer": "A",
         "score": 0.3534512484449772,
-        "rank": 1
+        "rank": 2
       },
       {
         "iteration": 122,
@@ -3687,7 +3687,7 @@
         "iteration": 122,
         "layer": "C",
         "score": 0.3509026893751949,
-        "rank": 2
+        "rank": 3
       },
       {
         "iteration": 122,
@@ -3698,8 +3698,8 @@
       {
         "iteration": 122,
         "layer": "E",
-        "score": 0.21562113936163707,
-        "rank": 3
+        "score": 0.37957148410590247,
+        "rank": 1
       },
       {
         "iteration": 123,
@@ -3717,7 +3717,7 @@
         "iteration": 123,
         "layer": "C",
         "score": 0.4369920824722397,
-        "rank": 1
+        "rank": 2
       },
       {
         "iteration": 123,
@@ -3728,8 +3728,8 @@
       {
         "iteration": 123,
         "layer": "E",
-        "score": 0.34937331475494426,
-        "rank": 2
+        "score": 0.5013473376728006,
+        "rank": 1
       },
       {
         "iteration": 124,
@@ -3758,7 +3758,7 @@
       {
         "iteration": 124,
         "layer": "E",
-        "score": 0.27616736628583954,
+        "score": 0.46579257532970375,
         "rank": 2
       },
       {
@@ -3777,7 +3777,7 @@
         "iteration": 125,
         "layer": "C",
         "score": 0.4359658874071338,
-        "rank": 1
+        "rank": 2
       },
       {
         "iteration": 125,
@@ -3788,8 +3788,8 @@
       {
         "iteration": 125,
         "layer": "E",
-        "score": 0.3685430137912052,
-        "rank": 2
+        "score": 0.5408849306797128,
+        "rank": 1
       },
       {
         "iteration": 126,
@@ -3818,7 +3818,7 @@
       {
         "iteration": 126,
         "layer": "E",
-        "score": 0.015333053086807283,
+        "score": 0.16220410256785048,
         "rank": 2
       },
       {
@@ -3843,13 +3843,13 @@
         "iteration": 127,
         "layer": "D",
         "score": 0.10048079424418893,
-        "rank": 2
+        "rank": 3
       },
       {
         "iteration": 127,
         "layer": "E",
-        "score": 0.07680670760276953,
-        "rank": 3
+        "score": 0.17484031545254583,
+        "rank": 2
       },
       {
         "iteration": 128,
@@ -3878,7 +3878,7 @@
       {
         "iteration": 128,
         "layer": "E",
-        "score": 0.06675251987351655,
+        "score": 0.12609974067335725,
         "rank": 4
       },
       {
@@ -3908,7 +3908,7 @@
       {
         "iteration": 129,
         "layer": "E",
-        "score": 0.20245387932462544,
+        "score": 0.24060524351252605,
         "rank": 3
       },
       {
@@ -3938,7 +3938,7 @@
       {
         "iteration": 130,
         "layer": "E",
-        "score": 0.28825053932018346,
+        "score": 0.3595367832798678,
         "rank": 2
       },
       {
@@ -3968,7 +3968,7 @@
       {
         "iteration": 131,
         "layer": "E",
-        "score": 0.21736151193046477,
+        "score": 0.3235437315304181,
         "rank": 2
       },
       {
@@ -3998,7 +3998,7 @@
       {
         "iteration": 132,
         "layer": "E",
-        "score": 0.19796998591972892,
+        "score": 0.2171160872476136,
         "rank": 4
       },
       {
@@ -4028,7 +4028,7 @@
       {
         "iteration": 133,
         "layer": "E",
-        "score": 0.38988091459940744,
+        "score": 0.4515055776032455,
         "rank": 2
       },
       {
@@ -4047,7 +4047,7 @@
         "iteration": 134,
         "layer": "C",
         "score": 0.26480974677305974,
-        "rank": 1
+        "rank": 2
       },
       {
         "iteration": 134,
@@ -4058,8 +4058,8 @@
       {
         "iteration": 134,
         "layer": "E",
-        "score": 0.18654696827945783,
-        "rank": 2
+        "score": 0.34296915969656483,
+        "rank": 1
       },
       {
         "iteration": 135,
@@ -4077,7 +4077,7 @@
         "iteration": 135,
         "layer": "C",
         "score": 0.31292368980506396,
-        "rank": 2
+        "rank": 3
       },
       {
         "iteration": 135,
@@ -4088,8 +4088,8 @@
       {
         "iteration": 135,
         "layer": "E",
-        "score": 0.19756046930139667,
-        "rank": 3
+        "score": 0.3526544992380927,
+        "rank": 2
       },
       {
         "iteration": 136,
@@ -4113,13 +4113,13 @@
         "iteration": 136,
         "layer": "D",
         "score": 0.08694147664895321,
-        "rank": 3
+        "rank": 4
       },
       {
         "iteration": 136,
         "layer": "E",
-        "score": -0.015167525861504758,
-        "rank": 4
+        "score": 0.13876067168750839,
+        "rank": 3
       },
       {
         "iteration": 137,
@@ -4137,7 +4137,7 @@
         "iteration": 137,
         "layer": "C",
         "score": 0.3714608779311366,
-        "rank": 1
+        "rank": 2
       },
       {
         "iteration": 137,
@@ -4148,14 +4148,14 @@
       {
         "iteration": 137,
         "layer": "E",
-        "score": 0.23391360417410711,
-        "rank": 2
+        "score": 0.4027400370155634,
+        "rank": 1
       },
       {
         "iteration": 138,
         "layer": "A",
         "score": 0.3222281586456929,
-        "rank": 2
+        "rank": 3
       },
       {
         "iteration": 138,
@@ -4178,14 +4178,14 @@
       {
         "iteration": 138,
         "layer": "E",
-        "score": 0.2653970584877542,
-        "rank": 3
+        "score": 0.4194157637918292,
+        "rank": 2
       },
       {
         "iteration": 139,
         "layer": "A",
         "score": 0.15341264843564506,
-        "rank": 2
+        "rank": 3
       },
       {
         "iteration": 139,
@@ -4208,8 +4208,8 @@
       {
         "iteration": 139,
         "layer": "E",
-        "score": 0.1298839561817739,
-        "rank": 3
+        "score": 0.23892024678698687,
+        "rank": 2
       },
       {
         "iteration": 140,
@@ -4233,19 +4233,19 @@
         "iteration": 140,
         "layer": "D",
         "score": 0.1604605943473346,
-        "rank": 3
+        "rank": 4
       },
       {
         "iteration": 140,
         "layer": "E",
-        "score": 0.12291081558601705,
-        "rank": 4
+        "score": 0.1889349031076623,
+        "rank": 3
       },
       {
         "iteration": 141,
         "layer": "A",
         "score": 0.23976588424757767,
-        "rank": 1
+        "rank": 2
       },
       {
         "iteration": 141,
@@ -4257,7 +4257,7 @@
         "iteration": 141,
         "layer": "C",
         "score": 0.2306078233325237,
-        "rank": 2
+        "rank": 3
       },
       {
         "iteration": 141,
@@ -4268,14 +4268,14 @@
       {
         "iteration": 141,
         "layer": "E",
-        "score": 0.14990879784285202,
-        "rank": 3
+        "score": 0.31455582397443727,
+        "rank": 1
       },
       {
         "iteration": 142,
         "layer": "A",
         "score": 0.22293345510219184,
-        "rank": 2
+        "rank": 3
       },
       {
         "iteration": 142,
@@ -4298,14 +4298,14 @@
       {
         "iteration": 142,
         "layer": "E",
-        "score": 0.11515176661219523,
-        "rank": 3
+        "score": 0.24335468033208424,
+        "rank": 2
       },
       {
         "iteration": 143,
         "layer": "A",
         "score": 0.32125521380651584,
-        "rank": 2
+        "rank": 3
       },
       {
         "iteration": 143,
@@ -4328,8 +4328,8 @@
       {
         "iteration": 143,
         "layer": "E",
-        "score": 0.21177994355521326,
-        "rank": 3
+        "score": 0.37291621614225834,
+        "rank": 2
       },
       {
         "iteration": 144,
@@ -4353,13 +4353,13 @@
         "iteration": 144,
         "layer": "D",
         "score": 0.08830583986124937,
-        "rank": 2
+        "rank": 3
       },
       {
         "iteration": 144,
         "layer": "E",
-        "score": 0.07574291946313175,
-        "rank": 3
+        "score": 0.22027315769465844,
+        "rank": 2
       },
       {
         "iteration": 145,
@@ -4383,19 +4383,19 @@
         "iteration": 145,
         "layer": "D",
         "score": 0.18327678623233598,
-        "rank": 2
+        "rank": 3
       },
       {
         "iteration": 145,
         "layer": "E",
-        "score": 0.14290829295544227,
-        "rank": 3
+        "score": 0.2225275222215068,
+        "rank": 2
       },
       {
         "iteration": 146,
         "layer": "A",
         "score": 0.4453348058038298,
-        "rank": 1
+        "rank": 2
       },
       {
         "iteration": 146,
@@ -4407,7 +4407,7 @@
         "iteration": 146,
         "layer": "C",
         "score": 0.39761526107051337,
-        "rank": 2
+        "rank": 3
       },
       {
         "iteration": 146,
@@ -4418,8 +4418,8 @@
       {
         "iteration": 146,
         "layer": "E",
-        "score": 0.2954082257429681,
-        "rank": 3
+        "score": 0.4660699082155857,
+        "rank": 1
       },
       {
         "iteration": 147,
@@ -4448,7 +4448,7 @@
       {
         "iteration": 147,
         "layer": "E",
-        "score": 0.24064411797560153,
+        "score": 0.2944697582688442,
         "rank": 2
       },
       {
@@ -4473,13 +4473,13 @@
         "iteration": 148,
         "layer": "D",
         "score": 0.10116846136747162,
-        "rank": 3
+        "rank": 4
       },
       {
         "iteration": 148,
         "layer": "E",
-        "score": 0.08241829922697454,
-        "rank": 4
+        "score": 0.15687102497332225,
+        "rank": 3
       },
       {
         "iteration": 149,
@@ -4497,7 +4497,7 @@
         "iteration": 149,
         "layer": "C",
         "score": 0.3894731864839962,
-        "rank": 1
+        "rank": 2
       },
       {
         "iteration": 149,
@@ -4508,8 +4508,8 @@
       {
         "iteration": 149,
         "layer": "E",
-        "score": 0.2782327499369105,
-        "rank": 2
+        "score": 0.4412792218082887,
+        "rank": 1
       },
       {
         "iteration": 150,
@@ -4527,7 +4527,7 @@
         "iteration": 150,
         "layer": "C",
         "score": 0.3344604619497257,
-        "rank": 1
+        "rank": 2
       },
       {
         "iteration": 150,
@@ -4538,8 +4538,8 @@
       {
         "iteration": 150,
         "layer": "E",
-        "score": 0.265446884549528,
-        "rank": 2
+        "score": 0.3802051249749762,
+        "rank": 1
       },
       {
         "iteration": 151,
@@ -4568,7 +4568,7 @@
       {
         "iteration": 151,
         "layer": "E",
-        "score": 0.0890413561053543,
+        "score": 0.12909882159420383,
         "rank": 4
       },
       {
@@ -4598,7 +4598,7 @@
       {
         "iteration": 152,
         "layer": "E",
-        "score": 0.09459114473222063,
+        "score": 0.2446364780835878,
         "rank": 3
       },
       {
@@ -4617,7 +4617,7 @@
         "iteration": 153,
         "layer": "C",
         "score": 0.3316848661201247,
-        "rank": 1
+        "rank": 2
       },
       {
         "iteration": 153,
@@ -4628,14 +4628,14 @@
       {
         "iteration": 153,
         "layer": "E",
-        "score": 0.2040746488508623,
-        "rank": 2
+        "score": 0.33852144773101867,
+        "rank": 1
       },
       {
         "iteration": 154,
         "layer": "A",
         "score": -0.10146744164308784,
-        "rank": 4
+        "rank": 5
       },
       {
         "iteration": 154,
@@ -4658,8 +4658,8 @@
       {
         "iteration": 154,
         "layer": "E",
-        "score": -0.21900321857476174,
-        "rank": 5
+        "score": -0.08998141752196666,
+        "rank": 4
       },
       {
         "iteration": 155,
@@ -4683,13 +4683,13 @@
         "iteration": 155,
         "layer": "D",
         "score": 0.24823425603275828,
-        "rank": 2
+        "rank": 3
       },
       {
         "iteration": 155,
         "layer": "E",
-        "score": 0.21124574644929542,
-        "rank": 3
+        "score": 0.29515576905279867,
+        "rank": 2
       },
       {
         "iteration": 156,
@@ -4707,7 +4707,7 @@
         "iteration": 156,
         "layer": "C",
         "score": 0.2535329633658744,
-        "rank": 1
+        "rank": 2
       },
       {
         "iteration": 156,
@@ -4718,14 +4718,14 @@
       {
         "iteration": 156,
         "layer": "E",
-        "score": 0.16859101773922164,
-        "rank": 2
+        "score": 0.3282174630071897,
+        "rank": 1
       },
       {
         "iteration": 157,
         "layer": "A",
         "score": 0.14437200079860946,
-        "rank": 2
+        "rank": 3
       },
       {
         "iteration": 157,
@@ -4748,8 +4748,8 @@
       {
         "iteration": 157,
         "layer": "E",
-        "score": 0.12989198011857456,
-        "rank": 3
+        "score": 0.22708561174023856,
+        "rank": 2
       },
       {
         "iteration": 158,
@@ -4778,14 +4778,14 @@
       {
         "iteration": 158,
         "layer": "E",
-        "score": 0.32481511980212474,
+        "score": 0.401971718555393,
         "rank": 2
       },
       {
         "iteration": 159,
         "layer": "A",
         "score": 0.25534938728201356,
-        "rank": 2
+        "rank": 3
       },
       {
         "iteration": 159,
@@ -4808,14 +4808,14 @@
       {
         "iteration": 159,
         "layer": "E",
-        "score": 0.1610378786938766,
-        "rank": 3
+        "score": 0.2890920930372126,
+        "rank": 2
       },
       {
         "iteration": 160,
         "layer": "A",
         "score": 0.2561032685993976,
-        "rank": 2
+        "rank": 3
       },
       {
         "iteration": 160,
@@ -4833,13 +4833,13 @@
         "iteration": 160,
         "layer": "D",
         "score": 0.2467304847340513,
-        "rank": 3
+        "rank": 4
       },
       {
         "iteration": 160,
         "layer": "E",
-        "score": 0.23129442048578058,
-        "rank": 4
+        "score": 0.29877737707306684,
+        "rank": 2
       },
       {
         "iteration": 161,
@@ -4868,7 +4868,7 @@
       {
         "iteration": 161,
         "layer": "E",
-        "score": 0.018552263422948648,
+        "score": 0.04405531112643969,
         "rank": 3
       },
       {
@@ -4898,7 +4898,7 @@
       {
         "iteration": 162,
         "layer": "E",
-        "score": 0.2814694577906588,
+        "score": 0.3182100426307972,
         "rank": 2
       },
       {
@@ -4928,7 +4928,7 @@
       {
         "iteration": 163,
         "layer": "E",
-        "score": 0.26267470417659716,
+        "score": 0.3202330747235307,
         "rank": 2
       },
       {
@@ -4947,7 +4947,7 @@
         "iteration": 164,
         "layer": "C",
         "score": 0.35241918956645046,
-        "rank": 1
+        "rank": 2
       },
       {
         "iteration": 164,
@@ -4958,14 +4958,14 @@
       {
         "iteration": 164,
         "layer": "E",
-        "score": 0.24104189465031012,
-        "rank": 2
+        "score": 0.3850587177194843,
+        "rank": 1
       },
       {
         "iteration": 165,
         "layer": "A",
         "score": 0.446233726272854,
-        "rank": 1
+        "rank": 2
       },
       {
         "iteration": 165,
@@ -4977,7 +4977,7 @@
         "iteration": 165,
         "layer": "C",
         "score": 0.42550900036466327,
-        "rank": 2
+        "rank": 3
       },
       {
         "iteration": 165,
@@ -4988,8 +4988,8 @@
       {
         "iteration": 165,
         "layer": "E",
-        "score": 0.3323693382121975,
-        "rank": 3
+        "score": 0.4650035614348649,
+        "rank": 1
       },
       {
         "iteration": 166,
@@ -5007,7 +5007,7 @@
         "iteration": 166,
         "layer": "C",
         "score": 0.3682824319702359,
-        "rank": 1
+        "rank": 2
       },
       {
         "iteration": 166,
@@ -5018,14 +5018,14 @@
       {
         "iteration": 166,
         "layer": "E",
-        "score": 0.3044665660409025,
-        "rank": 2
+        "score": 0.3860094819552319,
+        "rank": 1
       },
       {
         "iteration": 167,
         "layer": "A",
         "score": 0.26435445620793224,
-        "rank": 2
+        "rank": 3
       },
       {
         "iteration": 167,
@@ -5048,14 +5048,14 @@
       {
         "iteration": 167,
         "layer": "E",
-        "score": 0.257806305062847,
-        "rank": 3
+        "score": 0.34341959091640395,
+        "rank": 2
       },
       {
         "iteration": 168,
         "layer": "A",
         "score": 0.03829593501653991,
-        "rank": 3
+        "rank": 4
       },
       {
         "iteration": 168,
@@ -5073,13 +5073,13 @@
         "iteration": 168,
         "layer": "D",
         "score": 0.05232383245676117,
-        "rank": 2
+        "rank": 3
       },
       {
         "iteration": 168,
         "layer": "E",
-        "score": -0.04437467494560632,
-        "rank": 4
+        "score": 0.054857741971364754,
+        "rank": 2
       },
       {
         "iteration": 169,
@@ -5103,13 +5103,13 @@
         "iteration": 169,
         "layer": "D",
         "score": 0.17294204594972373,
-        "rank": 2
+        "rank": 3
       },
       {
         "iteration": 169,
         "layer": "E",
-        "score": 0.1321237078696664,
-        "rank": 3
+        "score": 0.1981960234693189,
+        "rank": 2
       },
       {
         "iteration": 170,
@@ -5133,19 +5133,19 @@
         "iteration": 170,
         "layer": "D",
         "score": 0.21772990929532848,
-        "rank": 2
+        "rank": 3
       },
       {
         "iteration": 170,
         "layer": "E",
-        "score": 0.13551879572098624,
-        "rank": 3
+        "score": 0.22118846021393673,
+        "rank": 2
       },
       {
         "iteration": 171,
         "layer": "A",
         "score": 0.19317824743059459,
-        "rank": 2
+        "rank": 3
       },
       {
         "iteration": 171,
@@ -5163,19 +5163,19 @@
         "iteration": 171,
         "layer": "D",
         "score": 0.1426209685165099,
-        "rank": 3
+        "rank": 4
       },
       {
         "iteration": 171,
         "layer": "E",
-        "score": 0.11601832622114716,
-        "rank": 4
+        "score": 0.23138939021257482,
+        "rank": 2
       },
       {
         "iteration": 172,
         "layer": "A",
         "score": 0.24746507953486785,
-        "rank": 2
+        "rank": 3
       },
       {
         "iteration": 172,
@@ -5193,13 +5193,13 @@
         "iteration": 172,
         "layer": "D",
         "score": 0.2208095002207872,
-        "rank": 3
+        "rank": 4
       },
       {
         "iteration": 172,
         "layer": "E",
-        "score": 0.20990981718435356,
-        "rank": 4
+        "score": 0.3087015531069284,
+        "rank": 2
       },
       {
         "iteration": 173,
@@ -5217,7 +5217,7 @@
         "iteration": 173,
         "layer": "C",
         "score": 0.37853777880214895,
-        "rank": 1
+        "rank": 2
       },
       {
         "iteration": 173,
@@ -5228,14 +5228,14 @@
       {
         "iteration": 173,
         "layer": "E",
-        "score": 0.2969804779103888,
-        "rank": 2
+        "score": 0.40610324532796693,
+        "rank": 1
       },
       {
         "iteration": 174,
         "layer": "A",
         "score": 0.16769165377625767,
-        "rank": 3
+        "rank": 4
       },
       {
         "iteration": 174,
@@ -5253,19 +5253,19 @@
         "iteration": 174,
         "layer": "D",
         "score": 0.19697977643528186,
-        "rank": 2
+        "rank": 3
       },
       {
         "iteration": 174,
         "layer": "E",
-        "score": 0.0987926162950132,
-        "rank": 4
+        "score": 0.20170192095994108,
+        "rank": 2
       },
       {
         "iteration": 175,
         "layer": "A",
         "score": 0.1810424363799608,
-        "rank": 2
+        "rank": 3
       },
       {
         "iteration": 175,
@@ -5277,7 +5277,7 @@
         "iteration": 175,
         "layer": "C",
         "score": 0.28739436503457694,
-        "rank": 1
+        "rank": 2
       },
       {
         "iteration": 175,
@@ -5288,8 +5288,8 @@
       {
         "iteration": 175,
         "layer": "E",
-        "score": 0.1373233848155314,
-        "rank": 3
+        "score": 0.3238302986406277,
+        "rank": 1
       },
       {
         "iteration": 176,
@@ -5313,13 +5313,13 @@
         "iteration": 176,
         "layer": "D",
         "score": 0.11076689901019746,
-        "rank": 2
+        "rank": 3
       },
       {
         "iteration": 176,
         "layer": "E",
-        "score": 0.051807688689138265,
-        "rank": 3
+        "score": 0.16112506681315597,
+        "rank": 2
       },
       {
         "iteration": 177,
@@ -5348,7 +5348,7 @@
       {
         "iteration": 177,
         "layer": "E",
-        "score": 0.21783638953090867,
+        "score": 0.3403383167008396,
         "rank": 2
       },
       {
@@ -5378,7 +5378,7 @@
       {
         "iteration": 178,
         "layer": "E",
-        "score": 0.13401991877189331,
+        "score": 0.28655060932973286,
         "rank": 2
       },
       {
@@ -5408,7 +5408,7 @@
       {
         "iteration": 179,
         "layer": "E",
-        "score": 0.38703186927666317,
+        "score": 0.5336057340994688,
         "rank": 3
       },
       {
@@ -5438,14 +5438,14 @@
       {
         "iteration": 180,
         "layer": "E",
-        "score": 0.20968809710427036,
+        "score": 0.2362190450806585,
         "rank": 3
       },
       {
         "iteration": 181,
         "layer": "A",
         "score": 0.31005604638486467,
-        "rank": 1
+        "rank": 2
       },
       {
         "iteration": 181,
@@ -5457,7 +5457,7 @@
         "iteration": 181,
         "layer": "C",
         "score": 0.29714090547091215,
-        "rank": 2
+        "rank": 3
       },
       {
         "iteration": 181,
@@ -5468,8 +5468,8 @@
       {
         "iteration": 181,
         "layer": "E",
-        "score": 0.19116456559816375,
-        "rank": 3
+        "score": 0.4011420449427003,
+        "rank": 1
       },
       {
         "iteration": 182,
@@ -5487,7 +5487,7 @@
         "iteration": 182,
         "layer": "C",
         "score": 0.22799023702065288,
-        "rank": 1
+        "rank": 2
       },
       {
         "iteration": 182,
@@ -5498,8 +5498,8 @@
       {
         "iteration": 182,
         "layer": "E",
-        "score": 0.1556807460973777,
-        "rank": 2
+        "score": 0.25434745065041525,
+        "rank": 1
       },
       {
         "iteration": 183,
@@ -5517,7 +5517,7 @@
         "iteration": 183,
         "layer": "C",
         "score": 0.33217332234010466,
-        "rank": 1
+        "rank": 2
       },
       {
         "iteration": 183,
@@ -5528,8 +5528,8 @@
       {
         "iteration": 183,
         "layer": "E",
-        "score": 0.3233820211999274,
-        "rank": 2
+        "score": 0.39216402146533147,
+        "rank": 1
       },
       {
         "iteration": 184,
@@ -5558,7 +5558,7 @@
       {
         "iteration": 184,
         "layer": "E",
-        "score": 0.07775653874345301,
+        "score": 0.08908020961600849,
         "rank": 4
       },
       {
@@ -5588,14 +5588,14 @@
       {
         "iteration": 185,
         "layer": "E",
-        "score": 0.26791770806683807,
+        "score": 0.3009487424117012,
         "rank": 3
       },
       {
         "iteration": 186,
         "layer": "A",
         "score": 0.10337968283998865,
-        "rank": 2
+        "rank": 3
       },
       {
         "iteration": 186,
@@ -5618,8 +5618,8 @@
       {
         "iteration": 186,
         "layer": "E",
-        "score": 0.06227721580095655,
-        "rank": 3
+        "score": 0.19624432607932463,
+        "rank": 2
       },
       {
         "iteration": 187,
@@ -5643,13 +5643,13 @@
         "iteration": 187,
         "layer": "D",
         "score": 0.21696320656372725,
-        "rank": 3
+        "rank": 4
       },
       {
         "iteration": 187,
         "layer": "E",
-        "score": 0.16838175450872495,
-        "rank": 4
+        "score": 0.25609884087494583,
+        "rank": 3
       },
       {
         "iteration": 188,
@@ -5678,7 +5678,7 @@
       {
         "iteration": 188,
         "layer": "E",
-        "score": 0.3124272520938164,
+        "score": 0.3919855682430683,
         "rank": 2
       },
       {
@@ -5708,14 +5708,14 @@
       {
         "iteration": 189,
         "layer": "E",
-        "score": 0.3891252788174234,
+        "score": 0.42988773720959056,
         "rank": 2
       },
       {
         "iteration": 190,
         "layer": "A",
         "score": 0.08010836097431902,
-        "rank": 3
+        "rank": 4
       },
       {
         "iteration": 190,
@@ -5733,13 +5733,13 @@
         "iteration": 190,
         "layer": "D",
         "score": 0.1192067307041879,
-        "rank": 2
+        "rank": 3
       },
       {
         "iteration": 190,
         "layer": "E",
-        "score": 0.05380373447558079,
-        "rank": 4
+        "score": 0.1401714799540948,
+        "rank": 2
       },
       {
         "iteration": 191,
@@ -5768,7 +5768,7 @@
       {
         "iteration": 191,
         "layer": "E",
-        "score": 0.09906837901594838,
+        "score": 0.17147824556436822,
         "rank": 3
       },
       {
@@ -5787,7 +5787,7 @@
         "iteration": 192,
         "layer": "C",
         "score": 0.35505310763138426,
-        "rank": 2
+        "rank": 3
       },
       {
         "iteration": 192,
@@ -5798,8 +5798,8 @@
       {
         "iteration": 192,
         "layer": "E",
-        "score": 0.3165536076741975,
-        "rank": 3
+        "score": 0.4664924506584011,
+        "rank": 2
       },
       {
         "iteration": 193,
@@ -5828,7 +5828,7 @@
       {
         "iteration": 193,
         "layer": "E",
-        "score": 0.19045130776665398,
+        "score": 0.20630725988225632,
         "rank": 3
       },
       {
@@ -5847,7 +5847,7 @@
         "iteration": 194,
         "layer": "C",
         "score": 0.3148198485147199,
-        "rank": 1
+        "rank": 2
       },
       {
         "iteration": 194,
@@ -5858,8 +5858,8 @@
       {
         "iteration": 194,
         "layer": "E",
-        "score": 0.18864481123596372,
-        "rank": 2
+        "score": 0.3218642572689902,
+        "rank": 1
       },
       {
         "iteration": 195,
@@ -5888,7 +5888,7 @@
       {
         "iteration": 195,
         "layer": "E",
-        "score": 0.021233678585012628,
+        "score": 0.11846230114528568,
         "rank": 3
       },
       {
@@ -5907,7 +5907,7 @@
         "iteration": 196,
         "layer": "C",
         "score": 0.2892183068005121,
-        "rank": 1
+        "rank": 2
       },
       {
         "iteration": 196,
@@ -5918,8 +5918,8 @@
       {
         "iteration": 196,
         "layer": "E",
-        "score": 0.1425002446621588,
-        "rank": 2
+        "score": 0.2971648665982499,
+        "rank": 1
       },
       {
         "iteration": 197,
@@ -5948,7 +5948,7 @@
       {
         "iteration": 197,
         "layer": "E",
-        "score": 0.29868450378445444,
+        "score": 0.3387618932400782,
         "rank": 3
       },
       {
@@ -5967,7 +5967,7 @@
         "iteration": 198,
         "layer": "C",
         "score": 0.351225623107137,
-        "rank": 1
+        "rank": 2
       },
       {
         "iteration": 198,
@@ -5978,14 +5978,14 @@
       {
         "iteration": 198,
         "layer": "E",
-        "score": 0.24807523150184022,
-        "rank": 2
+        "score": 0.3841515513518806,
+        "rank": 1
       },
       {
         "iteration": 199,
         "layer": "A",
         "score": 0.3405208885631197,
-        "rank": 1
+        "rank": 2
       },
       {
         "iteration": 199,
@@ -5997,7 +5997,7 @@
         "iteration": 199,
         "layer": "C",
         "score": 0.2277342827580573,
-        "rank": 2
+        "rank": 3
       },
       {
         "iteration": 199,
@@ -6008,14 +6008,14 @@
       {
         "iteration": 199,
         "layer": "E",
-        "score": 0.16181799516499862,
-        "rank": 3
+        "score": 0.35279419540730395,
+        "rank": 1
       },
       {
         "iteration": 200,
         "layer": "A",
         "score": 0.19614328075472767,
-        "rank": 2
+        "rank": 3
       },
       {
         "iteration": 200,
@@ -6027,7 +6027,7 @@
         "iteration": 200,
         "layer": "C",
         "score": 0.21697953549094984,
-        "rank": 1
+        "rank": 2
       },
       {
         "iteration": 200,
@@ -6038,14 +6038,14 @@
       {
         "iteration": 200,
         "layer": "E",
-        "score": 0.08601321101118398,
-        "rank": 3
+        "score": 0.22897869890828437,
+        "rank": 1
       },
       {
         "iteration": 201,
         "layer": "A",
         "score": 0.34661209642183366,
-        "rank": 1
+        "rank": 2
       },
       {
         "iteration": 201,
@@ -6068,8 +6068,8 @@
       {
         "iteration": 201,
         "layer": "E",
-        "score": 0.3427477097607572,
-        "rank": 2
+        "score": 0.4133618686001532,
+        "rank": 1
       },
       {
         "iteration": 202,
@@ -6093,13 +6093,13 @@
         "iteration": 202,
         "layer": "D",
         "score": 0.17416785686251585,
-        "rank": 2
+        "rank": 3
       },
       {
         "iteration": 202,
         "layer": "E",
-        "score": 0.10412579870657486,
-        "rank": 3
+        "score": 0.17919959485118606,
+        "rank": 2
       },
       {
         "iteration": 203,
@@ -6128,14 +6128,14 @@
       {
         "iteration": 203,
         "layer": "E",
-        "score": 0.08503982400468604,
+        "score": 0.13595535175040707,
         "rank": 3
       },
       {
         "iteration": 204,
         "layer": "A",
         "score": 0.3206345929917356,
-        "rank": 3
+        "rank": 4
       },
       {
         "iteration": 204,
@@ -6153,13 +6153,13 @@
         "iteration": 204,
         "layer": "D",
         "score": 0.34530383298570844,
-        "rank": 2
+        "rank": 3
       },
       {
         "iteration": 204,
         "layer": "E",
-        "score": 0.27125123487257113,
-        "rank": 4
+        "score": 0.34660568471039976,
+        "rank": 2
       },
       {
         "iteration": 205,
@@ -6177,7 +6177,7 @@
         "iteration": 205,
         "layer": "C",
         "score": 0.42501658795267,
-        "rank": 1
+        "rank": 2
       },
       {
         "iteration": 205,
@@ -6188,8 +6188,8 @@
       {
         "iteration": 205,
         "layer": "E",
-        "score": 0.29109917555310016,
-        "rank": 2
+        "score": 0.4512016797506576,
+        "rank": 1
       },
       {
         "iteration": 206,
@@ -6218,7 +6218,7 @@
       {
         "iteration": 206,
         "layer": "E",
-        "score": 0.31317180455297233,
+        "score": 0.3682069255470349,
         "rank": 3
       },
       {
@@ -6248,7 +6248,7 @@
       {
         "iteration": 207,
         "layer": "E",
-        "score": 0.13884468027368338,
+        "score": 0.20061028575407502,
         "rank": 2
       },
       {
@@ -6278,7 +6278,7 @@
       {
         "iteration": 208,
         "layer": "E",
-        "score": 0.18418043266968692,
+        "score": 0.3263684469210226,
         "rank": 2
       },
       {
@@ -6303,13 +6303,13 @@
         "iteration": 209,
         "layer": "D",
         "score": 0.0026661077742264998,
-        "rank": 2
+        "rank": 3
       },
       {
         "iteration": 209,
         "layer": "E",
-        "score": -0.024247141950758,
-        "rank": 3
+        "score": 0.12362311267464779,
+        "rank": 2
       },
       {
         "iteration": 210,
@@ -6338,7 +6338,7 @@
       {
         "iteration": 210,
         "layer": "E",
-        "score": 0.22231557313572306,
+        "score": 0.2689540213155386,
         "rank": 3
       },
       {
@@ -6368,7 +6368,7 @@
       {
         "iteration": 211,
         "layer": "E",
-        "score": 0.3241133253483068,
+        "score": 0.4120798782375503,
         "rank": 2
       },
       {
@@ -6387,7 +6387,7 @@
         "iteration": 212,
         "layer": "C",
         "score": 0.38834638953518685,
-        "rank": 1
+        "rank": 2
       },
       {
         "iteration": 212,
@@ -6398,8 +6398,8 @@
       {
         "iteration": 212,
         "layer": "E",
-        "score": 0.2802523474571715,
-        "rank": 2
+        "score": 0.3895489928697933,
+        "rank": 1
       },
       {
         "iteration": 213,
@@ -6417,7 +6417,7 @@
         "iteration": 213,
         "layer": "C",
         "score": 0.37765111370089405,
-        "rank": 2
+        "rank": 3
       },
       {
         "iteration": 213,
@@ -6428,14 +6428,14 @@
       {
         "iteration": 213,
         "layer": "E",
-        "score": 0.2682034896876559,
-        "rank": 3
+        "score": 0.45895376347356254,
+        "rank": 2
       },
       {
         "iteration": 214,
         "layer": "A",
         "score": 0.3737887041399681,
-        "rank": 2
+        "rank": 3
       },
       {
         "iteration": 214,
@@ -6447,7 +6447,7 @@
         "iteration": 214,
         "layer": "C",
         "score": 0.42907126488449915,
-        "rank": 1
+        "rank": 2
       },
       {
         "iteration": 214,
@@ -6458,8 +6458,8 @@
       {
         "iteration": 214,
         "layer": "E",
-        "score": 0.28402630073898716,
-        "rank": 3
+        "score": 0.4445949839283263,
+        "rank": 1
       },
       {
         "iteration": 215,
@@ -6477,7 +6477,7 @@
         "iteration": 215,
         "layer": "C",
         "score": 0.35259822856704154,
-        "rank": 1
+        "rank": 2
       },
       {
         "iteration": 215,
@@ -6488,8 +6488,8 @@
       {
         "iteration": 215,
         "layer": "E",
-        "score": 0.26639247428683654,
-        "rank": 2
+        "score": 0.38576524646796995,
+        "rank": 1
       },
       {
         "iteration": 216,
@@ -6518,7 +6518,7 @@
       {
         "iteration": 216,
         "layer": "E",
-        "score": 0.24293829947396536,
+        "score": 0.34965645897076825,
         "rank": 2
       },
       {
@@ -6548,7 +6548,7 @@
       {
         "iteration": 217,
         "layer": "E",
-        "score": 0.04301513063904397,
+        "score": 0.05105703469126795,
         "rank": 4
       },
       {
@@ -6578,7 +6578,7 @@
       {
         "iteration": 218,
         "layer": "E",
-        "score": 0.05049268661993575,
+        "score": 0.11830263026344115,
         "rank": 4
       },
       {
@@ -6597,7 +6597,7 @@
         "iteration": 219,
         "layer": "C",
         "score": 0.31467193497753276,
-        "rank": 1
+        "rank": 2
       },
       {
         "iteration": 219,
@@ -6608,8 +6608,8 @@
       {
         "iteration": 219,
         "layer": "E",
-        "score": 0.2867824266957876,
-        "rank": 2
+        "score": 0.44512301495029816,
+        "rank": 1
       },
       {
         "iteration": 220,
@@ -6638,14 +6638,14 @@
       {
         "iteration": 220,
         "layer": "E",
-        "score": 0.08146657664433092,
+        "score": 0.14066548416648184,
         "rank": 4
       },
       {
         "iteration": 221,
         "layer": "A",
         "score": 0.41242735285745585,
-        "rank": 2
+        "rank": 3
       },
       {
         "iteration": 221,
@@ -6668,8 +6668,8 @@
       {
         "iteration": 221,
         "layer": "E",
-        "score": 0.3800373978819753,
-        "rank": 3
+        "score": 0.49720153444626297,
+        "rank": 2
       },
       {
         "iteration": 222,
@@ -6687,7 +6687,7 @@
         "iteration": 222,
         "layer": "C",
         "score": 0.3294437144692524,
-        "rank": 2
+        "rank": 3
       },
       {
         "iteration": 222,
@@ -6698,8 +6698,8 @@
       {
         "iteration": 222,
         "layer": "E",
-        "score": 0.2572067333818907,
-        "rank": 3
+        "score": 0.3689778726348085,
+        "rank": 2
       },
       {
         "iteration": 223,
@@ -6728,7 +6728,7 @@
       {
         "iteration": 223,
         "layer": "E",
-        "score": 0.17938280656793734,
+        "score": 0.2660588593726907,
         "rank": 3
       },
       {
@@ -6747,7 +6747,7 @@
         "iteration": 224,
         "layer": "C",
         "score": 0.3741520656145123,
-        "rank": 1
+        "rank": 2
       },
       {
         "iteration": 224,
@@ -6758,14 +6758,14 @@
       {
         "iteration": 224,
         "layer": "E",
-        "score": 0.20515345689996195,
-        "rank": 2
+        "score": 0.376412603384311,
+        "rank": 1
       },
       {
         "iteration": 225,
         "layer": "A",
         "score": 0.3279742382806438,
-        "rank": 2
+        "rank": 3
       },
       {
         "iteration": 225,
@@ -6788,8 +6788,8 @@
       {
         "iteration": 225,
         "layer": "E",
-        "score": 0.2616586070287721,
-        "rank": 3
+        "score": 0.3895321350796821,
+        "rank": 2
       },
       {
         "iteration": 226,
@@ -6813,13 +6813,13 @@
         "iteration": 226,
         "layer": "D",
         "score": 0.23455017162236538,
-        "rank": 3
+        "rank": 4
       },
       {
         "iteration": 226,
         "layer": "E",
-        "score": 0.20234472957973793,
-        "rank": 4
+        "score": 0.29615658598680594,
+        "rank": 3
       },
       {
         "iteration": 227,
@@ -6837,7 +6837,7 @@
         "iteration": 227,
         "layer": "C",
         "score": 0.5844853434910366,
-        "rank": 1
+        "rank": 2
       },
       {
         "iteration": 227,
@@ -6848,8 +6848,8 @@
       {
         "iteration": 227,
         "layer": "E",
-        "score": 0.5345251695211086,
-        "rank": 2
+        "score": 0.6282778481717188,
+        "rank": 1
       },
       {
         "iteration": 228,
@@ -6878,7 +6878,7 @@
       {
         "iteration": 228,
         "layer": "E",
-        "score": 0.09627410695077834,
+        "score": 0.16023812893588085,
         "rank": 4
       },
       {
@@ -6908,14 +6908,14 @@
       {
         "iteration": 229,
         "layer": "E",
-        "score": 0.22003895671320078,
+        "score": 0.32239425532544097,
         "rank": 2
       },
       {
         "iteration": 230,
         "layer": "A",
         "score": 0.2319885510793493,
-        "rank": 2
+        "rank": 3
       },
       {
         "iteration": 230,
@@ -6938,8 +6938,8 @@
       {
         "iteration": 230,
         "layer": "E",
-        "score": 0.19799343496921096,
-        "rank": 3
+        "score": 0.24728722472045886,
+        "rank": 2
       },
       {
         "iteration": 231,
@@ -6957,7 +6957,7 @@
         "iteration": 231,
         "layer": "C",
         "score": 0.36694750082180416,
-        "rank": 1
+        "rank": 2
       },
       {
         "iteration": 231,
@@ -6968,8 +6968,8 @@
       {
         "iteration": 231,
         "layer": "E",
-        "score": 0.341257223127883,
-        "rank": 2
+        "score": 0.49226068248534577,
+        "rank": 1
       },
       {
         "iteration": 232,
@@ -6998,7 +6998,7 @@
       {
         "iteration": 232,
         "layer": "E",
-        "score": -0.03191462316386551,
+        "score": 0.014851469087137466,
         "rank": 4
       },
       {
@@ -7017,7 +7017,7 @@
         "iteration": 233,
         "layer": "C",
         "score": 0.4219509824967787,
-        "rank": 1
+        "rank": 2
       },
       {
         "iteration": 233,
@@ -7028,8 +7028,8 @@
       {
         "iteration": 233,
         "layer": "E",
-        "score": 0.37300827940892883,
-        "rank": 2
+        "score": 0.5002122632453191,
+        "rank": 1
       },
       {
         "iteration": 234,
@@ -7058,14 +7058,14 @@
       {
         "iteration": 234,
         "layer": "E",
-        "score": 0.1675079255200262,
+        "score": 0.23386903426499545,
         "rank": 2
       },
       {
         "iteration": 235,
         "layer": "A",
         "score": 0.3112303448726227,
-        "rank": 2
+        "rank": 3
       },
       {
         "iteration": 235,
@@ -7088,8 +7088,8 @@
       {
         "iteration": 235,
         "layer": "E",
-        "score": 0.3008131891472873,
-        "rank": 3
+        "score": 0.3754986747708441,
+        "rank": 2
       },
       {
         "iteration": 236,
@@ -7118,7 +7118,7 @@
       {
         "iteration": 236,
         "layer": "E",
-        "score": 0.12205410625903906,
+        "score": 0.13893831477263355,
         "rank": 3
       },
       {
@@ -7148,7 +7148,7 @@
       {
         "iteration": 237,
         "layer": "E",
-        "score": 0.26337695221599267,
+        "score": 0.3642784549888518,
         "rank": 2
       },
       {
@@ -7167,7 +7167,7 @@
         "iteration": 238,
         "layer": "C",
         "score": 0.25330610230279993,
-        "rank": 1
+        "rank": 2
       },
       {
         "iteration": 238,
@@ -7178,8 +7178,8 @@
       {
         "iteration": 238,
         "layer": "E",
-        "score": 0.1688872469907513,
-        "rank": 2
+        "score": 0.3356412780522623,
+        "rank": 1
       },
       {
         "iteration": 239,
@@ -7203,13 +7203,13 @@
         "iteration": 239,
         "layer": "D",
         "score": 0.16049126724263046,
-        "rank": 2
+        "rank": 3
       },
       {
         "iteration": 239,
         "layer": "E",
-        "score": 0.11730810967028056,
-        "rank": 3
+        "score": 0.19810235528001563,
+        "rank": 2
       },
       {
         "iteration": 240,
@@ -7238,7 +7238,7 @@
       {
         "iteration": 240,
         "layer": "E",
-        "score": -0.05243184906693596,
+        "score": -0.016965991948115808,
         "rank": 4
       },
       {
@@ -7257,7 +7257,7 @@
         "iteration": 241,
         "layer": "C",
         "score": 0.23208088852283226,
-        "rank": 2
+        "rank": 3
       },
       {
         "iteration": 241,
@@ -7268,8 +7268,8 @@
       {
         "iteration": 241,
         "layer": "E",
-        "score": 0.17868023227365623,
-        "rank": 3
+        "score": 0.3630188670608551,
+        "rank": 2
       },
       {
         "iteration": 242,
@@ -7298,7 +7298,7 @@
       {
         "iteration": 242,
         "layer": "E",
-        "score": 0.06997276156847,
+        "score": 0.16058105470314749,
         "rank": 2
       },
       {
@@ -7328,7 +7328,7 @@
       {
         "iteration": 243,
         "layer": "E",
-        "score": -0.0381104822131617,
+        "score": 0.03339873901367056,
         "rank": 4
       },
       {
@@ -7353,13 +7353,13 @@
         "iteration": 244,
         "layer": "D",
         "score": 0.1172737695933409,
-        "rank": 2
+        "rank": 3
       },
       {
         "iteration": 244,
         "layer": "E",
-        "score": 0.1162158803560766,
-        "rank": 3
+        "score": 0.2530064397582522,
+        "rank": 2
       },
       {
         "iteration": 245,
@@ -7383,13 +7383,13 @@
         "iteration": 245,
         "layer": "D",
         "score": 0.1685579781099017,
-        "rank": 3
+        "rank": 4
       },
       {
         "iteration": 245,
         "layer": "E",
-        "score": 0.09583888555639121,
-        "rank": 4
+        "score": 0.1775582818497947,
+        "rank": 3
       },
       {
         "iteration": 246,
@@ -7413,13 +7413,13 @@
         "iteration": 246,
         "layer": "D",
         "score": 0.17859271520267392,
-        "rank": 3
+        "rank": 4
       },
       {
         "iteration": 246,
         "layer": "E",
-        "score": 0.12196405798730202,
-        "rank": 4
+        "score": 0.20688339442004944,
+        "rank": 3
       },
       {
         "iteration": 247,
@@ -7448,7 +7448,7 @@
       {
         "iteration": 247,
         "layer": "E",
-        "score": 0.15766665840083344,
+        "score": 0.2909623712553313,
         "rank": 3
       },
       {
@@ -7473,13 +7473,13 @@
         "iteration": 248,
         "layer": "D",
         "score": 0.23687054681716102,
-        "rank": 3
+        "rank": 4
       },
       {
         "iteration": 248,
         "layer": "E",
-        "score": 0.22467702517471322,
-        "rank": 4
+        "score": 0.26206539348803465,
+        "rank": 3
       },
       {
         "iteration": 249,
@@ -7508,14 +7508,14 @@
       {
         "iteration": 249,
         "layer": "E",
-        "score": 0.20816245030729474,
+        "score": 0.26160783749238264,
         "rank": 3
       },
       {
         "iteration": 250,
         "layer": "A",
         "score": 0.4461607730877878,
-        "rank": 1
+        "rank": 2
       },
       {
         "iteration": 250,
@@ -7527,7 +7527,7 @@
         "iteration": 250,
         "layer": "C",
         "score": 0.4336741716432855,
-        "rank": 2
+        "rank": 3
       },
       {
         "iteration": 250,
@@ -7538,8 +7538,8 @@
       {
         "iteration": 250,
         "layer": "E",
-        "score": 0.2863689099157969,
-        "rank": 3
+        "score": 0.4707643688702572,
+        "rank": 1
       },
       {
         "iteration": 251,
@@ -7557,7 +7557,7 @@
         "iteration": 251,
         "layer": "C",
         "score": 0.32535069128833005,
-        "rank": 1
+        "rank": 2
       },
       {
         "iteration": 251,
@@ -7568,8 +7568,8 @@
       {
         "iteration": 251,
         "layer": "E",
-        "score": 0.17973137952917972,
-        "rank": 2
+        "score": 0.3526732031584945,
+        "rank": 1
       },
       {
         "iteration": 252,
@@ -7598,7 +7598,7 @@
       {
         "iteration": 252,
         "layer": "E",
-        "score": 0.03922275627005285,
+        "score": 0.17731813610814467,
         "rank": 2
       },
       {
@@ -7623,13 +7623,13 @@
         "iteration": 253,
         "layer": "D",
         "score": 0.20465487924583778,
-        "rank": 2
+        "rank": 3
       },
       {
         "iteration": 253,
         "layer": "E",
-        "score": 0.15050003597476555,
-        "rank": 3
+        "score": 0.21977835137683416,
+        "rank": 2
       },
       {
         "iteration": 254,
@@ -7658,7 +7658,7 @@
       {
         "iteration": 254,
         "layer": "E",
-        "score": 0.26463280663988,
+        "score": 0.3111322857752865,
         "rank": 2
       },
       {
@@ -7688,7 +7688,7 @@
       {
         "iteration": 255,
         "layer": "E",
-        "score": 0.09758245413027618,
+        "score": 0.11481334955092999,
         "rank": 3
       }
     ],
@@ -7701,7 +7701,7 @@
         "score_ci_low": -0.13152588454462086,
         "score_ci_high": 0.49367581112711,
         "median_rank": 3.0,
-        "rank_1_fraction": 0.1171875
+        "rank_1_fraction": 0.078125
       },
       {
         "layer": "B",
@@ -7721,7 +7721,7 @@
         "score_ci_low": 0.22218804445372778,
         "score_ci_high": 0.5203150526256408,
         "median_rank": 1.0,
-        "rank_1_fraction": 0.84375
+        "rank_1_fraction": 0.6015625
       },
       {
         "layer": "D",
@@ -7735,13 +7735,13 @@
       },
       {
         "layer": "E",
-        "current_score": 0.18287468591669281,
-        "score_mean": 0.1956333492584395,
-        "score_std": 0.11130764090972128,
-        "score_ci_low": -0.016249793837194104,
-        "score_ci_high": 0.3927837014442264,
-        "median_rank": 3.0,
-        "rank_1_fraction": 0.01953125
+        "current_score": 0.2717235065558572,
+        "score_mean": 0.29949761469309893,
+        "score_std": 0.12670735669346578,
+        "score_ci_low": 0.05248229992130425,
+        "score_ci_high": 0.5352711610662481,
+        "median_rank": 2.0,
+        "rank_1_fraction": 0.30078125
       }
     ],
     "top_layer_by_rank_1_fraction": "C",
@@ -7789,13 +7789,13 @@
       {
         "layer": "E",
         "run": "run-01",
-        "support_score": 0.3662348518000468,
+        "support_score": 0.42695141132997094,
         "metric_count": 7
       },
       {
         "layer": "E",
         "run": "run-03",
-        "support_score": 0.027963793889125253,
+        "support_score": 0.14271352892573433,
         "metric_count": 7
       }
     ],
@@ -7807,37 +7807,37 @@
       {
         "layer": "E",
         "horizon": 4,
-        "support_score": 0.2059398992399152,
-        "lsd_receptor_energy_reduction_pct": 4.767420115268034,
-        "lsd_uniform_energy_reduction_pct": 7.2957975858891055,
-        "receptor_vs_random_energy_reduction_pct": -12.752886257598256,
+        "support_score": 0.3477167439639897,
+        "lsd_receptor_energy_reduction_pct": 2.3071138880090984,
+        "lsd_uniform_energy_reduction_pct": 5.248622648443913,
+        "receptor_vs_random_energy_reduction_pct": 3.232179905642497,
         "state_target_alignment_receptor": 0.13300315069221882
       },
       {
         "layer": "E",
         "horizon": 8,
-        "support_score": 0.18954546653652815,
-        "lsd_receptor_energy_reduction_pct": 4.702198506533535,
-        "lsd_uniform_energy_reduction_pct": 6.935892752544529,
-        "receptor_vs_random_energy_reduction_pct": -12.69573343315892,
+        "support_score": 0.28113844635660423,
+        "lsd_receptor_energy_reduction_pct": 2.4664931921378366,
+        "lsd_uniform_energy_reduction_pct": 5.071116917956426,
+        "receptor_vs_random_energy_reduction_pct": -1.1971256273627346,
         "state_target_alignment_receptor": 0.13300315069221882
       },
       {
         "layer": "E",
         "horizon": 12,
-        "support_score": 0.1609310950782599,
-        "lsd_receptor_energy_reduction_pct": 4.4776322019377215,
-        "lsd_uniform_energy_reduction_pct": 6.506677096773492,
-        "receptor_vs_random_energy_reduction_pct": -14.143499288545454,
+        "support_score": 0.22485333933629376,
+        "lsd_receptor_energy_reduction_pct": 2.3576020992645925,
+        "lsd_uniform_energy_reduction_pct": 4.752369772477566,
+        "receptor_vs_random_energy_reduction_pct": -4.02765516467641,
         "state_target_alignment_receptor": 0.13300315069221882
       },
       {
         "layer": "E",
         "horizon": 16,
-        "support_score": 0.17928887307658045,
-        "lsd_receptor_energy_reduction_pct": 4.315551487937951,
-        "lsd_uniform_energy_reduction_pct": 6.222234516133075,
-        "receptor_vs_random_energy_reduction_pct": -13.61983727575103,
+        "support_score": 0.24291955691290332,
+        "lsd_receptor_energy_reduction_pct": 2.268655692157018,
+        "lsd_uniform_energy_reduction_pct": 4.537680275071908,
+        "receptor_vs_random_energy_reduction_pct": -3.2232267414657056,
         "state_target_alignment_receptor": 0.13300315069221882
       }
     ],
@@ -7862,9 +7862,9 @@
         "state_method": "pca_quantile_4",
         "state_bins": 4,
         "score_mode": "pca",
-        "support_score": 0.19539870174539584,
-        "lsd_receptor_energy_reduction_pct": 4.702198506533535,
-        "receptor_vs_random_energy_reduction_pct": -14.927786503754115,
+        "support_score": 0.28274582792278113,
+        "lsd_receptor_energy_reduction_pct": 2.4664931921378366,
+        "receptor_vs_random_energy_reduction_pct": -1.2530172637338501,
         "state_target_alignment_receptor": 0.13300315069221882
       },
       {
@@ -7882,9 +7882,9 @@
         "state_method": "pca_quantile_3",
         "state_bins": 3,
         "score_mode": "pca",
-        "support_score": 0.10883873743482025,
-        "lsd_receptor_energy_reduction_pct": 4.702198506533535,
-        "receptor_vs_random_energy_reduction_pct": -18.267958299778417,
+        "support_score": 0.1959432285989309,
+        "lsd_receptor_energy_reduction_pct": 2.4664931921378366,
+        "receptor_vs_random_energy_reduction_pct": -2.970666538578158,
         "state_target_alignment_receptor": 0.06841122473073238
       },
       {
@@ -7902,9 +7902,9 @@
         "state_method": "global_mean_quantile_4",
         "state_bins": 4,
         "score_mode": "global_mean",
-        "support_score": 0.20354335185117045,
-        "lsd_receptor_energy_reduction_pct": 4.702198506533535,
-        "receptor_vs_random_energy_reduction_pct": -9.723599707156446,
+        "support_score": 0.32588656016321976,
+        "lsd_receptor_energy_reduction_pct": 2.4664931921378366,
+        "receptor_vs_random_energy_reduction_pct": 4.305692667447039,
         "state_target_alignment_receptor": 0.08144225678901669
       },
       {
@@ -7922,9 +7922,9 @@
         "state_method": "trajectory_norm_quantile_4",
         "state_bins": 4,
         "score_mode": "trajectory_norm",
-        "support_score": 0.19250788579457162,
-        "lsd_receptor_energy_reduction_pct": 4.702198506533535,
-        "receptor_vs_random_energy_reduction_pct": -5.217021533156331,
+        "support_score": 0.1540826229268728,
+        "lsd_receptor_energy_reduction_pct": 2.4664931921378366,
+        "receptor_vs_random_energy_reduction_pct": -0.9813967794392825,
         "state_target_alignment_receptor": -0.030419685269661916
       }
     ],
@@ -8037,8 +8037,8 @@
         "layer": "E",
         "project_metric": "lsd_vs_placebo_receptor_transition_energy_reduction_pct",
         "expected_sign": 1,
-        "observed_mean_delta": 4.702198506533535,
-        "observed_signed_effect_size": 0.37576604844255507,
+        "observed_mean_delta": 2.4664931921378366,
+        "observed_signed_effect_size": 0.19076095351008285,
         "sign_match": true,
         "status": "aligned",
         "source": "Singleton et al., Nature Communications 2022",
@@ -8051,8 +8051,8 @@
         "layer": "E",
         "project_metric": "receptor_vs_random_energy_reduction_pct",
         "expected_sign": 1,
-        "observed_mean_delta": -15.4342613806409,
-        "observed_signed_effect_size": -0.8321254106889895,
+        "observed_mean_delta": -1.8442464254640627,
+        "observed_signed_effect_size": -0.12892014353250017,
         "sign_match": false,
         "status": "opposes_or_weak",
         "source": "Singleton et al., Nature Communications 2022",
@@ -8063,7 +8063,7 @@
       {
         "benchmark": "2026 Nature Medicine striatal-unimodal coupling",
         "layer": "C/D",
-        "project_metric": "not_available_current_8_module_proxy",
+        "project_metric": "not_available_current_proxy_without_striatal_parcel",
         "expected_sign": 1,
         "observed_mean_delta": null,
         "observed_signed_effect_size": null,
@@ -8072,7 +8072,7 @@
         "source": "Girn et al., Nature Medicine 2026",
         "url": "https://www.nature.com/articles/s41591-026-04287-9",
         "interpretation": "Needs striatum/caudate/putamen parcels before this can be tested.",
-        "caveat": "Do not claim striatal support from the current Harvard-Oxford 8-module proxy."
+        "caveat": "Do not claim striatal support from cortical-only or current 8-module proxy rows."
       }
     ],
     "aligned_count": 4,
@@ -8082,38 +8082,38 @@
   },
   "claim_verdicts": [
     {
-      "claim": "C hierarchy/routing is currently the strongest implemented LSD mechanism layer.",
-      "verdict": "supported_first_pass",
-      "evidence": "Bootstrap rank-1 fraction=0.844.",
+      "claim": "C is the provisional leading macro-dynamic proxy under the current cached ds003059 analysis, pending motion/confound control and atlas-level replication.",
+      "verdict": "proxy-supported",
+      "evidence": "Bootstrap rank-1 fraction=0.602.",
       "next_action": "Re-run C under Schaefer/Yeo and motion-sensitive exclusions before final thesis claims."
     },
     {
-      "claim": "E supports a landscape-flattening proxy.",
-      "verdict": "supported_proxy",
-      "evidence": "Default-horizon receptor transition-energy reduction=4.702%.",
+      "claim": "E1 lower transition/control-energy proxy is provisionally supported.",
+      "verdict": "proxy-supported",
+      "evidence": "Default-horizon receptor transition-energy reduction=2.466%.",
       "next_action": "Replace macro graph with structural connectome and add graph-rewire nulls."
     },
     {
-      "claim": "E supports receptor-specific control placement.",
-      "verdict": "not_supported_yet",
-      "evidence": "Receptor-vs-random energy reduction=-15.434%.",
+      "claim": "E2 receptor-specific control placement remains unsupported.",
+      "verdict": "unsupported",
+      "evidence": "Receptor-vs-random energy reduction=-1.844%.",
       "next_action": "Replace coarse priors with PET 5-HT2A maps and spatial nulls before making receptor claims."
     },
     {
       "claim": "Current LSD patterns align with the 2026 transmodal-unimodal benchmark.",
-      "verdict": "directionally_aligned",
+      "verdict": "proxy-supported",
       "evidence": "C sensory-transmodal mean delta=0.0473.",
       "next_action": "Test the same benchmark in ds006072 and Schaefer/Yeo parcellations."
     },
     {
       "claim": "Current LSD patterns address striatal/unimodal effects.",
-      "verdict": "not_testable_current_proxy",
-      "evidence": "not_available_current_8_module_proxy",
+      "verdict": "future",
+      "evidence": "not_available_current_proxy_without_striatal_parcel",
       "next_action": "Add striatal parcels before comparing this part of the Nature Medicine result."
     },
     {
-      "claim": "B DMDc is the main control-theory result.",
-      "verdict": "reject_as_main_claim",
+      "claim": "Rejected candidate: B DMDc as the main control-theory result.",
+      "verdict": "unsupported",
       "evidence": "B bootstrap rank-1 fraction=0.000.",
       "next_action": "Keep B as a negative/sanity baseline unless held-out prediction improves clearly."
     }

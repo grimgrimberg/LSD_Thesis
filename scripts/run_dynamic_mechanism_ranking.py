@@ -249,7 +249,7 @@ def _write_markdown_report(summary: dict[str, Any], report_path: Path) -> None:
     dmdc = summary["dmdc"]
     network_control = summary["network_control_energy"]
     lines = [
-        "# Dynamic Mechanism Ranking: A+B+C+D+E Proxy-Control Pass",
+        "# Dynamic Mechanism-Proxy Ranking: A+B+C+D+E Proxy-Control Pass",
         "",
         f"Generated: `{summary['generated_at_utc']}`",
         "",
@@ -262,7 +262,7 @@ def _write_markdown_report(summary: dict[str, Any], report_path: Path) -> None:
         f"- Subjects: {summary['subject_count']}",
         f"- Runs: {', '.join(summary['runs'])}",
         "",
-        "## Mechanism Ranking",
+        "## Mechanism-Proxy Ranking",
         "",
         "| Rank | Layer | Mechanism | Status | Score | Evidence |",
         "| --- | --- | --- | --- | ---: | --- |",
@@ -270,7 +270,8 @@ def _write_markdown_report(summary: dict[str, Any], report_path: Path) -> None:
     for row in ranking_rows:
         rank = row["rank"] if row["rank"] is not None else "not ranked"
         score = f"{row['score']:.6g}" if isinstance(row.get("score"), (int, float)) else "n/a"
-        lines.append(f"| {rank} | {row['layer']} | `{row['mechanism']}` | {row['status']} | {score} | {row['evidence']} |")
+        status = row.get("public_status", row.get("status"))
+        lines.append(f"| {rank} | {row['layer']} | `{row['mechanism']}` | {status} | {score} | {row['evidence']} |")
     lines.extend(
         [
             "",
@@ -704,7 +705,7 @@ def write_dynamic_figures(summary: dict[str, Any], output_dir: Path) -> dict[str
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Build A+B+C+D+E dynamic mechanism ranking artifacts from cached empirical viewer data.")
+    parser = argparse.ArgumentParser(description="Build A+B+C+D+E dynamic mechanism-proxy ranking artifacts from cached empirical viewer data.")
     parser.add_argument("--viewer-root", default="results/stage_2/empirical_viewer", help="Stage 2 empirical viewer cache root.")
     parser.add_argument("--output-dir", default="results/dynamic_mechanism_ranking", help="Output directory for ranking artifacts.")
     parser.add_argument("--report-path", default="docs/stage_reports/dynamic_mechanism_ranking.md", help="Markdown report path.")

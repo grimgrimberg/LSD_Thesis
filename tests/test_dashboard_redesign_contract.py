@@ -201,6 +201,15 @@ def test_pi_review_start_page_is_executive_summary_not_full_appendix() -> None:
     assert "Claim-status legend" in start
     assert "Thirty-second read" in start
     assert "The whole project in four points" in start
+    assert "A-E quick map" in start
+    assert "A: transition-state proxy" in start
+    assert "B: DMDc negative-control baseline" in start
+    assert "C: hierarchy/routing proxy" in start
+    assert "D: dynamic-repertoire proxy" in start
+    assert "E: lower transition/control-energy proxy" in start
+    assert "How LSD was translated into graph theory and control theory" in start
+    assert "LSD-minus-placebo proxy targets" in start
+    assert "not a claim that" in start
     assert "Optional depth" in start
     assert "Motion-Proof First Plan" in start
     assert "FD/DVARS/censoring motion-proof pack" in start
@@ -229,7 +238,7 @@ def test_pi_review_public_routes_surface_claim_gates() -> None:
     assert "motion/confound" in decision_gates
     assert "DOI/archive" in decision_gates
     assert "atlas replication" in decision_gates
-    assert "external validation" in decision_gates
+    assert "cross-dataset stress-test" in decision_gates
 
     assert "Claim Ledger" in claim_ledger
     assert "C is the provisional leading macro-dynamic proxy" in claim_ledger
@@ -239,6 +248,11 @@ def test_pi_review_public_routes_surface_claim_gates() -> None:
     assert "blocked" in claim_ledger
 
     assert "Methods And Limitations" in methods
+    assert "A-E proxy families" in methods
+    assert "How graph theory enters" in methods
+    assert "How control theory enters" in methods
+    assert "What was fitted" in methods
+    assert "cached ds003059 LSD-minus-placebo" in methods
     assert "What decisions the methods can support" in methods
     assert "Implemented pipeline" in methods
     assert "Current proxy limitations" in methods

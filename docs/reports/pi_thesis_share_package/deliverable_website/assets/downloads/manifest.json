@@ -284,7 +284,7 @@
     {
       "command": "uv run --frozen pytest",
       "result": "passed",
-      "details": "Full pytest passed 83 tests with 82.73% coverage in the current polish pass."
+      "details": "Full pytest passed in the previous package snapshot in the 2026-06-21 package snapshot; the 2026-06-23 audit has not reconfirmed the full-suite gate."
     }
   ],
   "skipped_steps": [
@@ -368,7 +368,7 @@
   ],
   "latest_deliverable_update": {
     "date": "2026-06-21",
-    "change": "Polished the hosted supervisor pitch, fixed figure-atlas browser polish, refreshed validation wording to 83 passed / 82.73% coverage, and replaced PI-decision prompts with a proposed motion-proof-first next track.",
+    "change": "Polished the hosted supervisor pitch, fixed figure-atlas browser polish, refreshed validation wording to mark the full-suite result as a historical package snapshot, and replaced PI-decision prompts with a proposed motion-proof-first next track.",
     "files": [
       "docs/reports/pi_thesis_share_package/deliverable_website/pages/dashboard-offline.html",
       "docs/reports/pi_thesis_share_package/deliverable_website/pages/full-package.html",

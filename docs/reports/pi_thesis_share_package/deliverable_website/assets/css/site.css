@@ -20,6 +20,10 @@ img { max-width: 100%; height: auto; display: block; }
 nav { display: flex; flex-wrap: wrap; gap: 8px 14px; justify-content: flex-end; }
 nav a { color: var(--muted); font-size: 14px; text-decoration: none; }
 nav a.active, nav a:hover { color: var(--accent); }
+nav a:focus-visible, .button:focus-visible {
+  outline: 3px solid var(--accent-2);
+  outline-offset: 2px;
+}
 .hero, .page-hero, .band, footer { padding-left: clamp(18px, 5vw, 68px); padding-right: clamp(18px, 5vw, 68px); }
 .hero { min-height: 72vh; display: grid; grid-template-columns: minmax(0,1.25fr) minmax(290px,.75fr); align-items: center; gap: clamp(24px,5vw,72px); padding-top: clamp(44px,7vw,92px); padding-bottom: clamp(44px,7vw,92px); }
 .hero.executive-hero { min-height: 54vh; }
@@ -48,6 +52,8 @@ dd { margin: 2px 0 0; font-weight: 700; }
 .cards.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .cards.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .cards.four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.cards.five { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+.compact-section-head { margin-top: 28px; }
 .executive-brief .cards article { padding: 16px; }
 .roadmap-strip { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin: 18px 0; }
 .roadmap-strip article, .plan-grid article { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 18px; }
@@ -109,7 +115,7 @@ footer { padding-top: 26px; padding-bottom: 32px; color: var(--muted); border-to
 @media (max-width: 900px) {
   .topbar { align-items: flex-start; flex-direction: column; }
   nav { justify-content: flex-start; }
-  .hero, .cards.two, .cards.three, .cards.four, .screenshot-grid, .figure-grid, .atlas-highlight-grid, .kpi-grid, .roadmap-strip, .plan-grid, .provenance-grid { grid-template-columns: 1fr; }
+  .hero, .cards.two, .cards.three, .cards.four, .cards.five, .screenshot-grid, .figure-grid, .atlas-highlight-grid, .kpi-grid, .roadmap-strip, .plan-grid, .provenance-grid { grid-template-columns: 1fr; }
   .hero { min-height: auto; }
 }
 @media print {

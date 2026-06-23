@@ -155,13 +155,14 @@ def _metric_support(row: dict[str, Any]) -> str:
 
 
 def _build_tables(summary: dict[str, Any]) -> dict[str, tuple[list[str], list[dict[str, Any]]]]:
-    ranking_headers = ["rank", "layer", "mechanism", "status", "score", "evidence"]
+    ranking_headers = ["rank", "layer", "mechanism", "status", "raw_status", "score", "evidence"]
     ranking_rows = [
         {
             "rank": row.get("rank") if row.get("rank") is not None else "not_ranked",
             "layer": row.get("layer"),
             "mechanism": row.get("mechanism"),
-            "status": row.get("status"),
+            "status": row.get("public_status", row.get("status")),
+            "raw_status": row.get("status"),
             "score": row.get("score"),
             "evidence": row.get("evidence"),
         }

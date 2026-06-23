@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import pytest
 from fastapi.testclient import TestClient
 
 from lsd_thesis.web.app import REPO_ROOT, create_app
@@ -53,11 +54,17 @@ def test_artifact_route_rejects_project_files_and_subject_level_cache() -> None:
 
     project_file = client.get("/artifacts/configs/regimes/baseline.yaml")
     traversal = client.get("/artifacts/%2e%2e/%2e%2e/AGENTS.md")
+    prior_art_repo = client.get("/artifacts/prior_art/repositories/example/README.md")
 
     assert project_file.status_code == 403
     assert traversal.status_code in (403, 404)
+    assert prior_art_repo.status_code == 403
     assert resolve_artifact_path(
         "results/stage_2/empirical_viewer/subject_views/sub-001_run-01.json",
+        REPO_ROOT,
+    ) is None
+    assert resolve_artifact_path(
+        "prior_art/repositories/example/README.md",
         REPO_ROOT,
     ) is None
 
@@ -76,6 +83,10 @@ def test_artifact_route_serves_allowed_reports_with_no_store_headers() -> None:
 
 def test_html_figure_artifacts_are_script_sandboxed() -> None:
     client = TestClient(create_app())
+
+    artifact_path = REPO_ROOT / "results" / "stage_2" / "figures" / "sober_fit_history.html"
+    if not artifact_path.exists():
+        pytest.skip("generated HTML figure artifact is absent in a clean checkout")
 
     response = client.get("/artifacts/results/stage_2/figures/sober_fit_history.html")
 

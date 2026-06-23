@@ -39,7 +39,7 @@ From `docs/research/dynamic_mechanism_literature_support.md`:
 
 ## Relation To Current Evidence
 
-Current evidence is strongest as a reproducible, claim-gated mechanism-ranking package. Prior art supports why the A-E comparison is scientifically plausible, but the current thesis claim should stay local:
+Current evidence is most defensible as a reproducible, claim-gated mechanism-proxy-ranking package. Prior art supports why the A-E comparison is scientifically plausible, but the current thesis claim should stay local:
 
 > Transparent macro-dynamic proxy mechanisms can be ranked against paired LSD/placebo summary evidence, with blockers and negative evidence kept visible.
 
@@ -50,4 +50,4 @@ Current evidence is strongest as a reproducible, claim-gated mechanism-ranking p
 - Should music/run-02 remain outside the thesis core?
 - What minimum motion/confound evidence would make the current C ranking thesis-defensible?
 - Should external psilocybin/ds006072 stress-test evidence be part of the thesis or an appendix?
-- Which scholarly frame is safer: computational neuroscience mechanism ranking, Neuro-AI workbench, or reproducibility/evidence dashboard?
+- Which scholarly frame is safer: computational neuroscience mechanism-proxy ranking, Neuro-AI workbench, or reproducibility/evidence dashboard?

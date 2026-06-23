@@ -1,6 +1,6 @@
 {
   "schema_version": "reproducible_archive_manifest.v1",
-  "generated_at_utc": "2026-06-11T15:48:22.110837+00:00",
+  "generated_at_utc": "2026-06-23T12:12:26.307090+00:00",
   "python_version": "3.13.13",
   "platform": "Windows-10-10.0.19045-SP0",
   "artifact_count": 23,
@@ -17,23 +17,23 @@
     },
     {
       "path": "README.md",
-      "bytes": 6237,
-      "sha256": "2ca140be6a984bfe84aa2515589e4437cf4af63cc951f98e5ae176ea53cc2d1b"
+      "bytes": 6427,
+      "sha256": "e5f7e00650c7a3a3e01c644c72db575f20b58e4e4c3502652d69e333fc6f9edb"
     },
     {
       "path": "docs/GITHUB_PAGES.md",
-      "bytes": 2826,
-      "sha256": "4a8712d07a1fa33d668b9aa4a691e6b5edfbc72a8b872610ad163f77b4c47cf7"
+      "bytes": 3313,
+      "sha256": "d1348c4452b65bfa9a9d2359a5c007e1e676285e4c33aeeee96ea8d89b0ebc6a"
     },
     {
       "path": "docs/THESIS_READINESS_GATES.md",
-      "bytes": 12107,
-      "sha256": "9495c3d2de3650f56640a8f0e84e833887b141624dd392fa5b8038cb01a906e3"
+      "bytes": 12002,
+      "sha256": "a58af2d98cfec58ff98cf0822b913df092e7fff4fedac5a290d46ab2587bf81e"
     },
     {
       "path": "docs/VALIDATION.md",
-      "bytes": 15306,
-      "sha256": "7d11afdfe36a34bf65b56df6c1dcb9332bab08caf62a41bb54d5ebb4a7cee002"
+      "bytes": 15784,
+      "sha256": "238f3a3e73c4a844e849e4516445dd6cead9ebf06c8939b70c1ddceaa3424229"
     },
     {
       "path": "docs/METHODS_RESEARCH.md",
@@ -52,8 +52,8 @@
     },
     {
       "path": "docs/stage_reports/dynamic_mechanism_robustness.md",
-      "bytes": 4801,
-      "sha256": "f71e3a39f2aaa5bc2f0750822e463a9b6af99db8f11cfd778ef360d675585d1c"
+      "bytes": 5019,
+      "sha256": "b69f0c26e187e00be12fbdc104a03dd22476cdb355044d8ab8f6d2f6d5d7a758"
     },
     {
       "path": "results/stage_2/stage_2_summary.json",
@@ -67,13 +67,13 @@
     },
     {
       "path": "results/dynamic_mechanism_ranking/summary.json",
-      "bytes": 589206,
-      "sha256": "299d42e8dc860fa02cc8ce4888bcc1301f8cfda74b4468713ff2f25344edda43"
+      "bytes": 592375,
+      "sha256": "6888ba680fd9a1cf3bc00b8637a06bc72b21188f91d95b514c57463f009eeadb"
     },
     {
       "path": "results/dynamic_mechanism_ranking/robustness/robustness_summary.json",
-      "bytes": 180267,
-      "sha256": "7b12cdb2936806a773d3855cc99878697e4a2c5ac7d0a9ea817933b239dc4e2f"
+      "bytes": 180326,
+      "sha256": "9282647779ff6a12b49cf1f803b3a256d6823902f2b7a3369480dfc4b6c46529"
     },
     {
       "path": "results/training/rocket_condition_benchmark/comparison_summary.json",
@@ -87,23 +87,23 @@
     },
     {
       "path": "results/thesis_evidence_loop/thesis_evidence_loop_status.json",
-      "bytes": 765309,
-      "sha256": "a4202552b7be57f147ff34ad6f383363483faf3b829c7457745c177e47dd68aa"
+      "bytes": 766343,
+      "sha256": "2dda5c4d64ee908539e2b3b92a3cd24b09de07ca79e7f7d9499ed3c8668dd6f6"
     },
     {
       "path": "results/thesis_evidence_loop/claim_evidence_matrix.md",
-      "bytes": 6780,
-      "sha256": "998dad2ac5394d38426373d4e44ec827cfc80f1449c57c4713545a464831efa3"
+      "bytes": 6786,
+      "sha256": "8c0ec41113527f96f537431cc963178e9143a43c3de665ee1c86af877b0e80d2"
     },
     {
       "path": "results/thesis_upgrade/thesis_upgrade_status.json",
-      "bytes": 72257,
-      "sha256": "ef67d4a25db650a3bb12cb5400446b09768e900de93524948b443e7fa5c76304"
+      "bytes": 72273,
+      "sha256": "472ea91ce5a547b6f74d667ee4c95a925a85477652a73c76702a471369d93e1f"
     },
     {
       "path": "results/thesis_upgrade/thesis_upgrade_status.md",
-      "bytes": 6069,
-      "sha256": "a68140515dfb82c5c45c2c1fded6a668ba6f3c83812273438c9df808e8d1c5e1"
+      "bytes": 6074,
+      "sha256": "dd9faad77fca08cd8af961076cc3abed768d49f365a30ab8d4e852102193ea8d"
     },
     {
       "path": "results/external_ingestion/external_ingestion_status.json",

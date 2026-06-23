@@ -26,7 +26,7 @@ Use pages/ae-math-metadata.html when you want the rubber-duck explanation of A, 
 Use pages/full-package.html when you want everything rendered in the browser.
 
 Safe framing:
-This is a model-level macro-dynamic mechanism-ranking workbench for PI review. It does not claim receptor-level mechanism proof, subjective-experience simulation, clinical validity, or biological ground truth.
+This is a model-level macro-dynamic mechanism-proxy-ranking workbench for PI review. It does not claim receptor-level mechanism proof, subjective-experience simulation, clinical validity, or biological ground truth.
 
 Main decision requested:
 The proposed first blocker is FD/DVARS/censoring motion-proof planning. Review whether that plan is bounded well enough before any proxy-supported result is promoted into thesis-level language.

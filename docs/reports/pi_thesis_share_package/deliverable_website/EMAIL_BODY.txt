@@ -8,9 +8,9 @@ https://grimgrimberg.github.io/LSD_Thesis/pi-review/
 
 It includes pitch slides, a figure atlas, a dataset-free dashboard tour, a rubber-duck A-E mechanism/math guide, evidence and calculations, methods, scholarly context, blockers, meeting agenda, validation notes, and a full-package page with the core documents rendered in the browser.
 
-The framing is intentionally conservative: this is a model-level macro-dynamic mechanism-ranking workbench. It does not claim receptor-level mechanism proof, subjective-experience simulation, clinical validity, or biological ground truth.
+The framing is intentionally conservative: this is a model-level macro-dynamic mechanism-proxy-ranking workbench. It does not claim receptor-level mechanism proof, subjective-experience simulation, clinical validity, or biological ground truth.
 
-The current mechanism ranking is C, E, D, A, B. C is the strongest current proxy-supported layer; E should be read as a lower transition/control-energy proxy rather than receptor-specific proof; B remains visible as a negative DMDc baseline. The main blocker is still FD/DVARS/censoring motion proof. The archive DOI is also incomplete.
+The current mechanism-proxy ranking is C, E, D, A, B. C is the provisional leading proxy-supported layer under cached evidence, pending FD/DVARS/censoring motion proof; E should be read as a lower transition/control-energy proxy rather than receptor-specific proof; B remains visible as a negative DMDc baseline. The main blocker is still FD/DVARS/censoring motion proof. The archive DOI is also incomplete.
 
 My proposed next milestone is a motion-proof planning pack before expanding the science scope or promoting a proxy-supported result into thesis-level language. I would like to review whether that plan is bounded well enough for supervision.
 

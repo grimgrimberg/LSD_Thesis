@@ -34,6 +34,7 @@ ALLOWED_ARTIFACT_ROOTS: tuple[tuple[str, ...], ...] = (
 TEMP_ARTIFACT_SUFFIXES = (".bak", ".log", ".old", ".part", ".tmp")
 DENIED_ARTIFACT_SEGMENT_SEQUENCES: tuple[tuple[str, ...], ...] = (
     ("empirical_viewer", "subject_views"),
+    ("prior_art", "repositories"),
 )
 SAFE_ARTIFACT_EXTENSIONS = frozenset(
     {
@@ -130,7 +131,7 @@ def artifact_links(repo_root: Path) -> dict[str, list[dict[str, str]]]:
         ("PI Pitch", repo_root / "PI_PITCH.md"),
         ("PI Claim Ladder", repo_root / "CLAIM_LADDER.md"),
         ("Stage 2", repo_root / "docs" / "stage_reports" / "stage_2.md"),
-        ("Dynamic Mechanism Ranking", repo_root / "docs" / "stage_reports" / "dynamic_mechanism_ranking.md"),
+        ("Dynamic Mechanism-Proxy Ranking", repo_root / "docs" / "stage_reports" / "dynamic_mechanism_ranking.md"),
         ("Dynamic Mechanism Robustness", repo_root / "docs" / "stage_reports" / "dynamic_mechanism_robustness.md"),
         ("ds003059 Prior-Art Thesis Map", repo_root / "docs" / "research" / "ds003059_prior_art_to_thesis_map.md"),
         ("Stage 3", repo_root / "docs" / "stage_reports" / "stage_3.md"),

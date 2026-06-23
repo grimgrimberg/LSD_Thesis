@@ -2,7 +2,7 @@
 
 ## Goal
 
-Build an MSc-grade computational neuroscience / Neuro-AI MVP that reproduces psychedelic-like macro signatures with a transparent surrogate model of graph-modulated dynamics.
+Build an MSc-grade computational neuroscience / Neuro-AI MVP that tests whether transparent graph-modulated surrogate mechanisms can partially match, rank, or fail against psychedelic-like macro-dynamic proxy signatures.
 
 ## Chosen Approach
 
@@ -59,7 +59,7 @@ Summary-statistics ingestion path, sober feature extraction, sober fitting routi
 
 ### Stage 3
 
-Perturbation operator, mechanism ranking, empirical comparison path, perturbed-vs-sober report.
+Perturbation operator, mechanism-proxy ranking, empirical comparison path, perturbed-vs-sober report.
 
 ### Stage 4
 
@@ -87,4 +87,3 @@ Required files:
 - `docs/stage_reports/stage_4.md`
 - `docs/limitations.md`
 - `docs/next_steps.md`
-

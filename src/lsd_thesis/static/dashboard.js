@@ -791,7 +791,7 @@ function renderSubmissionMechanismChart(payload) {
     marker: { color: rows.map((row) => layerColor[text(row.layer, "")] || COLORS.teal) },
     text: scores.values.map((value) => formatNumber(value)),
     textposition: "auto",
-    customdata: rows.map((row) => [text(row.status), text(row.evidence)]),
+    customdata: rows.map((row) => [text(row.public_status || row.status), text(row.evidence)]),
     hovertemplate: "%{y}<br>unitless support score %{x:.3f}<br>%{customdata[0]}<br>%{customdata[1]}<extra></extra>",
   }], {
     invalidCount: scores.invalidCount,
@@ -1304,7 +1304,7 @@ function renderRanking(payload) {
   ]);
   fillTable("ranking_gate_table", rows, [
     (row) => tdText(row.layer),
-    (row) => tdText(row.status),
+    (row) => tdText(row.public_status || row.status),
     (row) => tdText(row.evidence),
   ]);
   const figures = asRecords(payload.artifact_links?.figures).filter((item) => text(item.href).includes("dynamic_mechanism"));

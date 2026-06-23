@@ -617,7 +617,7 @@ def _visual_atlas_caption(path: Path) -> str:
     if "dashboard" in value and "screenshot" in value:
         return "Dashboard screenshot, useful for the supervisor-facing walkthrough."
     if "dynamic_mechanism" in value or "mechanism" in value:
-        return "Dynamic mechanism-ranking artifact. Scores are unitless proxy-support values unless the linked artifact states otherwise."
+        return "Dynamic mechanism-proxy ranking artifact. Scores are unitless proxy-support values unless the linked artifact states otherwise."
     if "stage_1" in value or "stage1" in value:
         return "Stage 1 surrogate-model figure. Values are model proxy metrics, not biological measurements."
     if "stage_2" in value or "stage2" in value or "empirical" in value:
@@ -636,7 +636,7 @@ def _visual_atlas_category(path: Path) -> str:
     if "screenshot" in value or "dashboard-" in value:
         return "Dashboard screenshots"
     if "dynamic_mechanism" in value or "mechanism" in value or "robust" in value:
-        return "Mechanism and robustness"
+        return "Mechanism proxies and robustness"
     if "stage_1" in value or "stage1" in value or "stage_2" in value or "stage2" in value or "empirical" in value:
         return "Surrogate and empirical figures"
     if "cortical" in value or "neuromaps" in value or "receptor" in value or "structural" in value:
@@ -652,7 +652,7 @@ VISUAL_ATLAS_HIGHLIGHTS = [
         "claim_supported": "C is the provisional leading macro-dynamic proxy in the current cached ranking.",
         "figure_role": "First-read ranking plot.",
         "source_data": "artifacts/results/dynamic_mechanism_ranking/exports/mechanism_ranking.csv",
-        "calculation_note": "pi-review/pages/evidence-and-calculations.html#mechanism-ranking",
+        "calculation_note": "pi-review/pages/evidence-and-calculations.html#mechanism-proxy-ranking",
         "required_next_check": "Complete subject-level FD/DVARS/censoring motion-confound proof before thesis-level promotion.",
         "metric_unit": "Unitless support score; rank is ordinal.",
         "why": "Start here to show the current C, E, D, A, B ordering and the visible negative DMDc baseline.",
@@ -669,7 +669,7 @@ VISUAL_ATLAS_HIGHLIGHTS = [
         "required_next_check": "Add motion-sensitive exclusion/censoring checks before stronger interpretation.",
         "metric_unit": "Rank-1 fraction from 0 to 1 across bootstrap resamples.",
         "why": "Use this next to show that the leading layer is not a one-off visual artifact.",
-        "boundary": "Internal bootstrap stability does not replace motion/confound proof or external validation.",
+        "boundary": "Internal bootstrap stability does not replace motion/confound proof or cross-dataset stress-test evidence.",
     },
     {
         "title": "Run sensitivity",
@@ -727,11 +727,11 @@ VISUAL_ATLAS_HIGHLIGHTS = [
         "title": "Literature benchmark alignment",
         "path": "artifacts/results/dynamic_mechanism_ranking/figures/literature_benchmark_alignment.html",
         "status": "proxy-supported",
-        "claim_supported": "The ranking can be situated against prior-art expectations without becoming external validation.",
+        "claim_supported": "The ranking can be situated against prior-art expectations without becoming validation.",
         "figure_role": "Prior-art alignment context.",
         "source_data": "artifacts/results/dynamic_mechanism_ranking/summary.json",
         "calculation_note": "pi-review/pages/evidence-and-calculations.html#literature-benchmark",
-        "required_next_check": "Separate literature motivation from local evidence and external validation.",
+        "required_next_check": "Separate literature motivation from local evidence and cross-dataset stress-test evidence.",
         "metric_unit": "Unitless alignment/support summaries from the current benchmark artifact.",
         "why": "Use this to connect the ranking to prior-art context while keeping local evidence separate.",
         "boundary": "Prior-art alignment motivates interpretation; it does not promote unsupported biological claims.",
@@ -745,7 +745,7 @@ VISUAL_ATLAS_HIGHLIGHTS = [
         "source_data": "artifacts/results/dynamic_mechanism_ranking/exports/mechanism_ranking.csv",
         "calculation_note": "pi-review/pages/evidence-and-calculations.html#source-ranking-table",
         "required_next_check": "Regenerate from the pipeline rather than editing exported values by hand.",
-        "metric_unit": "CSV table of the current mechanism-ranking values.",
+        "metric_unit": "CSV table of the current mechanism-proxy ranking values.",
         "why": "This is the download path for checking the numbers behind the dashboard plot.",
         "boundary": "The table preserves the current artifact state; it should not be edited by hand.",
     },
@@ -880,7 +880,7 @@ def _write_visual_atlas(site: Path, target: Path) -> Path:
       <a href="../index.html">Start</a>
       <a href="pitch-slides.html">Slides</a>
       <a class="active" href="figure-atlas.html">Figure Atlas</a>
-      <a href="../../dashboard/">Dashboard</a>
+      <a href="dashboard-offline.html">Dashboard</a>
       <a href="../../figures.html">Figure Deck</a>
     </nav>
   </header>
@@ -922,7 +922,7 @@ def _write_visual_atlas(site: Path, target: Path) -> Path:
       <div class="cards three">
         <article><h3>Support score</h3><p>
           Unitless proxy score. Higher means the current artifact aligns better with the empirical target
-          and sign checks for that mechanism layer.
+          and sign checks for that proxy layer.
         </p></article>
         <article><h3>Rank-1 fraction</h3><p>
           Proportion from 0 to 1. It reports how often a layer ranked first across subject-bootstrap resamples.

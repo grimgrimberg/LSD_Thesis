@@ -7,7 +7,7 @@
   "scope": "Packaging-only transformation of existing PI thesis share package; no scientific workflow reruns and no science-claim promotion.",
   "source_commit": "1a51eb54d909cbda6bf3584cd2ecf99f187c355d",
   "source_branch": "audit/full-cleanup-and-prior-art",
-  "safe_framing": "Model-level macro-dynamic mechanism-ranking workbench; not receptor-level proof, subjective-experience simulation, clinical validity, or biological ground truth.",
+  "safe_framing": "Model-level macro-dynamic mechanism-proxy ranking workbench; not receptor-level proof, subjective-experience simulation, clinical validity, or biological ground truth.",
   "start_file": "OPEN_ME_FIRST.html",
   "pages": [
     "OPEN_ME_FIRST.html",
@@ -358,7 +358,7 @@
     {
       "command": "uv run --frozen pytest",
       "result": "passed",
-      "details": "Full pytest passed 83 tests with 82.73% coverage in the current polish pass."
+      "details": "Full pytest passed in the previous package snapshot in the 2026-06-21 package snapshot; the 2026-06-23 audit has not reconfirmed the full-suite gate."
     }
   ],
   "no_touch_confirmations": [

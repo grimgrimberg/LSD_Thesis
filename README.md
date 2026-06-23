@@ -1,7 +1,7 @@
 # LSD Thesis — Macro-Dynamic Surrogate Model & Prior-Art Landscape
 
 A transparent, explainable framework for ranking control-theoretic and graph-dynamic
-surrogate mechanisms against paired psychedelic fMRI macro-dynamic evidence.
+surrogate mechanism proxies against paired psychedelic fMRI macro-dynamic evidence.
 This repository contains two complementary components: a stochastic surrogate model
 of altered-state-inspired brain dynamics, and a comprehensive reproducibility landscape
 of all known ds003059-based analyses from the literature.
@@ -26,7 +26,7 @@ uv run python scripts/run_pipeline.py run-all
 # Launch the interactive dashboard
 uv run python scripts/run_dashboard.py
 
-# Run dynamic mechanism ranking (A+B+C+D+E)
+# Run dynamic mechanism-proxy ranking (A+B+C+D+E)
 uv run python scripts/run_dynamic_mechanism_ranking.py
 
 # Lint and type-check
@@ -46,7 +46,7 @@ uv run mypy src
 │   ├── fit/                 #   Sober regime fitting
 │   ├── perturbation.py      #   Mechanism operators and ranking
 │   ├── ablation.py          #   Ablation studies
-│   ├── dynamic_mechanism/   #   A+B+C+D+E mechanism ranking
+│   ├── dynamic_mechanism/   #   A+B+C+D+E mechanism-proxy ranking
 │   ├── dynamic_robustness.py#   Dynamic mechanism robustness helpers
 │   ├── data/                #   Dataset ingestion (ds003059, ds006072)
 │   ├── web/                 #   Dashboard FastAPI application
@@ -95,12 +95,12 @@ The model runs two regimes (sober baseline, altered-state perturbation) and
 compares proxy metrics: functional connectivity, entropy-like diversity,
 switching rate, metastability, and hierarchical compression.
 
-**Current mechanism ranking (A+B+C+D+E):**
+**Current mechanism-proxy ranking (A+B+C+D+E):**
 
 | Rank | Layer | Role |
 |------|-------|------|
-| 1 | C — Hierarchy/routing | Strongest implemented evidence layer |
-| 2 | E — Network-control energy | Supports landscape-flattening proxy only |
+| 1 | C — Hierarchy/routing | Provisional leading macro-dynamic proxy; motion/confound and atlas gates remain |
+| 2 | E — Network-control energy | Supports lower transition/control-energy proxy only; receptor-specific placement remains unsupported |
 | 3 | D — Dynamic repertoire | Supportive but window-sensitive |
 | 4 | A — Transition-state proxy | Supportive but state-label dependent |
 | 5 | B — DMDc baseline | Negative control (retained intentionally) |

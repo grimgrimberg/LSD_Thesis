@@ -46,7 +46,7 @@
           <p><strong>Math idea:</strong> count state occupancy, transition rate, transition entropy, dwell/barrier proxies, and trajectory step distances.</p>
           <pre class="formula">transition_rate = state_changes / possible_changes
 H_transition = -sum p(i,j) * log(p(i,j))</pre>
-          <p><strong>Current read:</strong> implemented first-pass proxy, rank 4, score 0.148906. Useful, but not the strongest current layer.</p>
+          <p><strong>Current read:</strong> implemented first-pass proxy, rank 4, score 0.148906. Useful, but not the provisional leading current layer pending motion/confound proof.</p>
         </article>
         <article>
           <h3>B - DMDc predictive baseline</h3>
@@ -62,7 +62,7 @@ support ~= placebo_error - LSD_condition_error</pre>
           <p><strong>Math idea:</strong> aggregate directional contrasts across hierarchy/routing features such as sensory-transmodal coupling, associative communication, thalamic coupling, and hierarchy-related compression.</p>
           <pre class="formula">C_score = aggregate signed support across hierarchy/routing metrics
 stronger support = larger aligned LSD-minus-placebo deltas</pre>
-          <p><strong>Current read:</strong> strongest current proxy, rank 1, score 0.332606; bootstrap rank-1 fraction 0.843750. Still a macro-dynamic proxy, not biological proof.</p>
+          <p><strong>Current read:</strong> provisional leading current proxy pending motion/confound proof, rank 1, score 0.332606; bootstrap rank-1 fraction 0.601562. Still a macro-dynamic proxy, not biological proof.</p>
         </article>
         <article>
           <h3>D - Dynamic repertoire layer</h3>
@@ -79,12 +79,12 @@ examples: variance, participation, modularity, step distance</pre>
           <pre class="formula">x_next = A x + B u
 energy = sum of squared L2 control-input norms over a finite horizon
 lower energy = easier model-level transition under that control profile</pre>
-          <p><strong>Current read:</strong> rank 2, score 0.182875. It supports a lower transition/control-energy proxy, but receptor-specific placement is not supported; receptor-vs-random energy reduction is -15.434%.</p>
+          <p><strong>Current read:</strong> rank 2, score 0.271724. It supports a lower transition/control-energy proxy, but receptor-specific placement is not supported; receptor-vs-random energy reduction is -1.844%.</p>
         </article>
         <article>
           <h3>The ranking result</h3>
           <p><strong>Current order:</strong> C, E, D, A, B.</p>
-          <p><strong>Interpretation:</strong> hierarchy/routing is the strongest current macro-dynamic proxy. Control-energy is useful but split. D and A add supporting context. B is a negative predictive baseline.</p>
+          <p><strong>Interpretation:</strong> hierarchy/routing is the provisional leading macro-dynamic proxy under cached evidence, pending motion/confound proof. Control-energy is useful but split. D and A add supporting context. B is a negative predictive baseline.</p>
           <p><strong>What not to say:</strong> do not say this proves an LSD receptor mechanism, simulates subjective experience, or finishes the thesis.</p>
         </article>
       </div>
@@ -120,7 +120,7 @@ lower energy = easier model-level transition under that control profile</pre>
     <section class="band muted">
       <div class="section-head"><p class="eyebrow">PI prep</p><h2>Rubber-duck checklist</h2></div>
       <div class="cards two">
-        <article><h3>If asked "what is C?"</h3><p>"C is the hierarchy/routing proxy. It asks whether the paired LSD/placebo summary shifts look most like changes in sensory-associative-transmodal and thalamic-gateway routing. It is strongest now, but still needs motion and null checks before thesis-level promotion."</p></article>
+        <article><h3>If asked "what is C?"</h3><p>"C is the hierarchy/routing proxy. It asks whether the paired LSD/placebo summary shifts look most like changes in sensory-associative-transmodal and thalamic-gateway routing. It is top-ranked now, but still needs motion and null checks before thesis-level promotion."</p></article>
         <article><h3>If asked "what is E?"</h3><p>"E is a control-energy proxy on a coarse macro graph. It is useful for lower transition/control-energy interpretation, but the receptor-specific placement claim is not supported by the current evidence."</p></article>
         <article><h3>If asked "what is the math?"</h3><p>"Each layer turns the same paired summaries into a family of numeric features, aggregates signed support into a score, then the robustness artifacts test whether the score is stable across resampling and run splits."</p></article>
         <article><h3>If asked "what proves this?"</h3><p>"The metadata does not prove a biological mechanism. It proves that the package has a transparent evidence trail: source artifact, derived table, score, caveat, robustness check, and next action."</p></article>

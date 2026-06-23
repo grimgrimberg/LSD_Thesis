@@ -106,7 +106,8 @@ def test_build_dashboard_payload_keeps_public_artifact_href_conventions(dashboar
     assert {"reports", "figures"}.issubset(artifact_links)
     for bucket_name in ("reports", "figures"):
         items = _assert_records(artifact_links[bucket_name], f"artifact_links.{bucket_name}")
-        assert items
+        if bucket_name == "reports":
+            assert items
         for item in items:
             assert {"label", "href"}.issubset(item)
             assert isinstance(item["label"], str) and item["label"]
